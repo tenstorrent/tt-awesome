@@ -23,3 +23,8 @@ Coordonnateur du programme Technologie du génie électrique : réseaux et tél�
 
 Département des Technologies du génie électrique
 
+### SwiftNPU: Scalable Shape-Flexible Allocation forInter-Core Connected NPUs
+SwiftNPU tackles a very practical problem: how to carve up a large grid-style NPU (like Blackhole) so multiple jobs can share it efficiently at the same time. Earlier “topology-aware” schemes already showed that giving each job a smartly shaped region of tiles boosts performance, but they depended on an NP-hard algorithm that simply doesn’t scale to real, large NPUs.
+
+SwiftNPU’s key novelty is making this practical and fast: it lets jobs run on arbitrarily shaped submeshes, but uses four polynomial-time allocation algorithms instead of the slow NP-hard method. On Tenstorrent’s Blackhole, this delivers higher utilization (up to 1.37×), shorter overall runtime for workloads (up to 1.14× faster), and millisecond-level allocation overhead; one allocator is up to 890,000× faster than the old approach. In short, it turns shape-aware NPU sharing from a nice research idea into something that actually scales for real multi-tenant deployments.
+[_Link_](https://dl.acm.org/doi/10.1145/3805621.3807614)
