@@ -1,5 +1,20 @@
 ---
-title: Awesome Tenstorrent
+layout: base.njk
 ---
-<h1>{{ title }}</h1>
-<p>{{ entries | length }} entries loaded.</p>
+<div class="app">
+  <header class="topbar">
+    <span class="logo">⚡ Awesome Tenstorrent</span>
+    <input class="search" id="search" type="text" placeholder="search entries…" autocomplete="off">
+    <div class="chips">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip active" data-filter="community">community</button>
+      <button class="chip active" data-filter="affiliated">affiliated</button>
+      <button class="chip" data-filter="official">official</button>
+    </div>
+  </header>
+  <div class="panes">
+    {%- include "sidebar.njk" -%}
+    {%- include "entry-list.njk" -%}
+    {%- include "entry-detail.njk" -%}
+  </div>
+</div>

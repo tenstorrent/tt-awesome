@@ -1,0 +1,57 @@
+<div class="detail-pane" id="detail-pane">
+  <div class="detail-empty" id="detail-empty">
+    <p>Select an entry to see details</p>
+  </div>
+  {%- for entry in entries %}
+  <div class="detail-card" id="detail-{{ entry.id }}">
+    <div class="detail-head">
+      <div class="detail-title-row">
+        <h1 class="detail-name">{{ entry.name }}</h1>
+        <span class="badge badge--{{ entry.affiliation }}">{{ entry.affiliation }}</span>
+        {%- if entry.featured %}<span class="featured-star">★ featured</span>{%- endif %}
+      </div>
+      <div class="detail-meta">
+        {%- if entry.author %}by {{ entry.author }} · {% endif -%}
+        {%- if entry.language %}{{ entry.language }} · {% endif -%}
+        {%- if entry.license %}{{ entry.license }} · {% endif -%}
+        {%- if entry.stars %}{{ entry.stars }}⭐{%- endif %}
+      </div>
+    </div>
+    <p class="detail-desc">{{ entry.description }}</p>
+    {%- if entry.links %}
+    <div class="detail-section">
+      <div class="section-label">Links</div>
+      {%- for link in entry.links %}
+      <a class="detail-link link--{{ link.type }}" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+        {%- if link.type == "repo" %}📦
+        {%- elif link.type == "article" %}📝
+        {%- elif link.type == "talk" %}🎤
+        {%- elif link.type == "video" %}🎥
+        {%- elif link.type == "paper" %}📄
+        {%- elif link.type == "lesson" %}📖
+        {%- elif link.type == "demo" %}🚀
+        {%- else %}🌐
+        {%- endif %}
+        {{ link.label if link.label else link.type | title }}
+      </a>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+    {%- if entry.tags %}
+    <div class="detail-section detail-tags">
+      {%- for tag in entry.tags %}
+      <span class="tag">{{ tag }}</span>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+    {%- if entry.hardware %}
+    <div class="detail-section">
+      <div class="section-label">Works on</div>
+      {%- for hw in entry.hardware %}
+      <span class="hw-badge">{{ hw }}</span>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+  </div>
+  {%- endfor %}
+</div>

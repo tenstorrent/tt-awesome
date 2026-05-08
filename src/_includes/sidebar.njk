@@ -1,0 +1,13 @@
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-label">Use Cases</div>
+  {%- for cat in categories %}
+  <a class="sidebar-item{% if loop.first %} active{% endif %}"
+     href="#"
+     data-category="{{ cat.slug }}"
+     onclick="selectCategory('{{ cat.slug }}', this); return false;">
+    {{ cat.label }}
+  </a>
+  {%- endfor %}
+  <hr class="sidebar-hr">
+  <a class="sidebar-item sidebar-muted" href="CONTRIBUTING.md">+ Submit entry</a>
+</nav>

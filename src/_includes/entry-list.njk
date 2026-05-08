@@ -1,0 +1,23 @@
+<div class="list-pane">
+  <div class="list-head">
+    <div class="list-title" id="list-title">{{ categories[0].label }}</div>
+    <div class="list-count" id="list-count"></div>
+  </div>
+  <div class="list-rows" id="list-rows">
+    {%- for entry in entries %}
+    <div class="entry-row"
+         data-id="{{ entry.id }}"
+         data-categories="{{ entry.categories | join(',') }}"
+         data-affiliation="{{ entry.affiliation }}"
+         data-search="{{ entry.name | lower }} {{ entry.description | lower }} {{ entry.tags | join(' ') if entry.tags else '' }} {{ entry.author | lower if entry.author else '' }}"
+         onclick="selectEntry('{{ entry.id }}', this)">
+      <div class="row-top">
+        <span class="row-name">{{ entry.name }}</span>
+        <span class="badge badge--{{ entry.affiliation }}">{{ entry.affiliation }}</span>
+        {%- if entry.stars %}<span class="row-stars">{{ entry.stars }}⭐</span>{%- endif %}
+      </div>
+      <div class="row-desc">{{ entry.description | truncate(90) }}</div>
+    </div>
+    {%- endfor %}
+  </div>
+</div>
