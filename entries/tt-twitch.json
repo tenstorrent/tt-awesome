@@ -1,0 +1,15 @@
+{
+  "id": "tt-twitch",
+  "name": "tt-twitch",
+  "description": "A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.",
+  "affiliation": "community",
+  "categories": ["kernels", "games-demos"],
+  "tags": ["grayskull", "kernel", "live-coding", "demo"],
+  "links": [
+    { "type": "repo", "url": "https://github.com/geohot/tt-twitch" }
+  ],
+  "hardware": ["grayskull"],
+  "featured": true,
+  "author": "geohot",
+  "language": "C++"
+}

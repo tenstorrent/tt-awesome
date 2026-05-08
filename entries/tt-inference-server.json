@@ -1,0 +1,15 @@
+{
+  "id": "tt-inference-server",
+  "name": "tt-inference-server",
+  "description": "Production-ready model serving for Tenstorrent hardware with OpenAI-compatible REST API. Supports continuous batching, multiple models, and all TT hardware configurations.",
+  "affiliation": "official",
+  "categories": ["ai-models", "cloud-infra"],
+  "tags": ["serving", "openai-compatible", "production", "rest-api"],
+  "links": [
+    { "type": "repo", "url": "https://github.com/tenstorrent/tt-inference-server" },
+    { "type": "lesson", "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons", "label": "Production Inference lesson (VSCode Toolkit)" }
+  ],
+  "hardware": ["wormhole", "blackhole", "quietbox", "galaxy"],
+  "language": "Python",
+  "license": "Apache-2.0"
+}

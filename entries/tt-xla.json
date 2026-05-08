@@ -1,0 +1,12 @@
+{
+  "id": "tt-xla",
+  "name": "tt-xla",
+  "description": "PJRT device plugin for Tenstorrent hardware. Enables JAX, PyTorch/XLA, and other XLA-based frameworks to target TT accelerators.",
+  "affiliation": "official",
+  "categories": ["compilers"],
+  "tags": ["xla", "pjrt", "jax", "pytorch"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-xla" }],
+  "hardware": ["wormhole", "blackhole"],
+  "language": "Python",
+  "license": "Apache-2.0"
+}

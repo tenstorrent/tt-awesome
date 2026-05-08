@@ -1,0 +1,12 @@
+{
+  "id": "tt-toplike",
+  "name": "tt-toplike",
+  "description": "A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.",
+  "affiliation": "official",
+  "categories": ["hw-system", "dev-tools"],
+  "tags": ["monitoring", "htop", "rust", "real-time"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-toplike" }],
+  "hardware": ["wormhole", "blackhole"],
+  "language": "Rust",
+  "license": "Apache-2.0"
+}

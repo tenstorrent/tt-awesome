@@ -1,0 +1,15 @@
+{
+  "id": "tt-blacksmith",
+  "name": "tt-blacksmith",
+  "description": "Optimized training recipes for a variety of ML models on Tenstorrent hardware, powered by the TT-Forge compiler stack. Reference implementations for fine-tuning and training from scratch.",
+  "affiliation": "official",
+  "categories": ["ai-models"],
+  "tags": ["training", "fine-tuning", "recipes", "pytorch"],
+  "links": [
+    { "type": "repo", "url": "https://github.com/tenstorrent/tt-blacksmith" },
+    { "type": "lesson", "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons", "label": "Custom Training lessons (VSCode Toolkit)" }
+  ],
+  "hardware": ["wormhole", "blackhole"],
+  "language": "Python",
+  "license": "Apache-2.0"
+}
