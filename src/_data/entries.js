@@ -25,6 +25,7 @@ module.exports = function () {
   });
 
   return entries.sort((a, b) => {
+    // Unknown affiliation falls back to rank 2 (official tier); validate.py enforces valid values.
     const tierDiff =
       (AFFILIATION_ORDER[a.affiliation] ?? 2) -
       (AFFILIATION_ORDER[b.affiliation] ?? 2);
