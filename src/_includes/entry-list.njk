@@ -9,7 +9,7 @@
          data-id="{{ entry.id }}"
          data-categories="{{ entry.categories | join(',') }}"
          data-affiliation="{{ entry.affiliation }}"
-         data-search="{{ entry.name | lower }} {{ entry.description | lower }} {{ entry.tags | join(' ') if entry.tags else '' }} {{ entry.author | lower if entry.author else '' }}"
+         data-search="{{ entry.name | lower }} {{ entry.description | lower }} {{ entry.tags | join(' ') | lower if entry.tags else '' }} {{ entry.author | lower if entry.author else '' }}"
          onclick="selectEntry('{{ entry.id }}', this)">
       <div class="row-top">
         <span class="row-name">{{ entry.name }}</span>
