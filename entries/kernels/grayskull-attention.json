@@ -3,13 +3,26 @@
   "name": "grayskull-attention",
   "description": "FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.",
   "affiliation": "community",
-  "categories": ["kernels", "ai-models"],
-  "tags": ["attention", "grayskull", "metalium", "sram", "kernel"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/moritztng/grayskull-attention" }
+  "categories": [
+    "kernels",
+    "ai-models"
   ],
-  "hardware": ["grayskull"],
-  "featured": true,
+  "tags": [
+    "attention",
+    "grayskull",
+    "metalium",
+    "sram",
+    "kernel"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/moritztng/grayskull-attention"
+    }
+  ],
+  "hardware": [
+    "grayskull"
+  ],
   "author": "moritztng",
   "language": "TeX",
   "license": "MIT"
