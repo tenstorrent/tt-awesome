@@ -108,6 +108,10 @@
   Deep-dive into the Tenstorrent architecture and Metalium programming model — circular buffers, kernel synchronization, NoC routing, and where the footguns are. The honest guide to thinking in Tensix.
   [📝 clehaxze.tw — April 2025](https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi)
 
+- **Tenstorrent SFPU Kernel Series — Jason Davies** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Sponsored series of deep technical articles on implementing optimal SFPU kernels for the Tenstorrent Wormhole and Blackhole vector units. Covers where, typecasting, 16/32-bit integer multiplication, cube root, and accurate sin/cos/tan — with cycle counts, assembly walkthroughs, and Blackhole vs Wormhole comparisons throughout.
+  [📝 Optimal "where" on Tenstorrent](https://www.jasondavies.com/2025/tenstorrent-where/) · [📝 32-bit Integer Multiplication on Tenstorrent](https://www.jasondavies.com/2025/tenstorrent-multiply-int32/) · [📝 Typecast on Tenstorrent](https://www.jasondavies.com/2025/tenstorrent-typecast/) · [📝 16-bit Integer Multiplication on Tenstorrent](https://www.jasondavies.com/2026/tenstorrent-multiply-int16/) · [📝 Cube Root on Tenstorrent](https://www.jasondavies.com/2026/tenstorrent-cbrt/) · [📝 Accurate sin/cos/tan on Tenstorrent](https://www.jasondavies.com/2026/tenstorrent-sin-cos-tan/)
+
 - **[tt-tiny](https://github.com/geohot/tt-tiny)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Minimal Python code to access and program the Tenstorrent Blackhole chip directly — George Hotz's exploration of TT hardware programmability with pointed commentary on the architecture.
   [📦 repo](https://github.com/geohot/tt-tiny)
@@ -119,10 +123,6 @@
 - **[TT-Metal Mini Template](https://github.com/JushBJJ/TT-Metal-Mini-Template)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Minimal working CMake project template for starting a new TT-Metal project from scratch. Good starting point for community kernel development.
   [📦 repo](https://github.com/JushBJJ/TT-Metal-Mini-Template)
-
-- **Optimal "where" on Tenstorrent** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  Deep-dive into implementing the where(condition, t, f, out) kernel on the Tenstorrent Wormhole vector unit. Achieves optimal throughput of 3 cycles/row (in-place) and 4 cycles/row (out-of-place) by cycle-counting assembly on the 32-lane SFPU.
-  [📝 article](https://www.jasondavies.com/2025/tenstorrent-where/)
 
 - **[current](https://github.com/seansiddens/current)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   High-level parallel programming framework for Tenstorrent accelerators, abstracting TT-Metal into a research-oriented programming model for parallel computation.

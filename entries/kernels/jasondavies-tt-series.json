@@ -1,0 +1,19 @@
+{
+  "id": "jasondavies-tt-series",
+  "name": "Tenstorrent SFPU Kernel Series — Jason Davies",
+  "description": "Sponsored series of deep technical articles on implementing optimal SFPU kernels for the Tenstorrent Wormhole and Blackhole vector units. Covers where, typecasting, 16/32-bit integer multiplication, cube root, and accurate sin/cos/tan — with cycle counts, assembly walkthroughs, and Blackhole vs Wormhole comparisons throughout.",
+  "affiliation": "community",
+  "categories": ["kernels"],
+  "tags": ["sfpu", "assembly", "vector-unit", "cycle-counting", "wormhole", "blackhole", "optimization", "sponsored"],
+  "links": [
+    { "type": "article", "url": "https://www.jasondavies.com/2025/tenstorrent-where/", "label": "Optimal \"where\" on Tenstorrent" },
+    { "type": "article", "url": "https://www.jasondavies.com/2025/tenstorrent-multiply-int32/", "label": "32-bit Integer Multiplication on Tenstorrent" },
+    { "type": "article", "url": "https://www.jasondavies.com/2025/tenstorrent-typecast/", "label": "Typecast on Tenstorrent" },
+    { "type": "article", "url": "https://www.jasondavies.com/2026/tenstorrent-multiply-int16/", "label": "16-bit Integer Multiplication on Tenstorrent" },
+    { "type": "article", "url": "https://www.jasondavies.com/2026/tenstorrent-cbrt/", "label": "Cube Root on Tenstorrent" },
+    { "type": "article", "url": "https://www.jasondavies.com/2026/tenstorrent-sin-cos-tan/", "label": "Accurate sin/cos/tan on Tenstorrent" }
+  ],
+  "hardware": ["wormhole", "blackhole"],
+  "featured": true,
+  "author": "jasondavies"
+}
