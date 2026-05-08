@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate README.md from entries/*.json."""
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -80,7 +81,10 @@ def render_entry(e):
         f"[{LINK_ICONS.get(l['type'], '🔗')} {l.get('label') or l['type']}]({l['url']})"
         for l in links
     ]
-    return f"- **{name_md}** {badge}\n  {desc}\n  {' · '.join(link_parts)}"
+    result = f"- **{name_md}** {badge}\n  {desc}"
+    if link_parts:
+        result += f"\n  {' · '.join(link_parts)}"
+    return result
 
 
 def generate():
@@ -100,7 +104,8 @@ def generate():
     for slug, label in CATEGORIES:
         if any(slug in e.get("categories", []) for e in entries):
             # Derive a GitHub-compatible anchor from the label
-            anchor = label.lower().replace(" ", "-").replace("&", "").replace("️", "").strip("-")
+            anchor = re.sub(r'[^\w\s-]', '', label.lower()).strip().replace(' ', '-')
+            anchor = re.sub(r'-+', '-', anchor)
             lines.append(f"- [{label}](#{anchor})")
     lines.append("")
 
