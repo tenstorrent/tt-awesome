@@ -176,6 +176,10 @@
 
 ## 🛠 Dev Tools & Debugging
 
+- **[nvtop](https://github.com/Syllo/nvtop)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  htop-style process monitor for GPUs and AI accelerators. Supports AMD, Apple, Huawei, Intel, NVIDIA, Qualcomm — and Tenstorrent. Real-time utilization, memory, and process info in a terminal UI.
+  [📦 repo](https://github.com/Syllo/nvtop)
+
 - **[tensix-viz](https://github.com/tsingletaryTT/tensix-viz)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   Hardware topology visualizer for Tenstorrent chips — from individual chip to full cluster. Interactive JavaScript visualization of Tensix core layout and NoC connections.
   [📦 repo](https://github.com/tsingletaryTT/tensix-viz)
@@ -225,6 +229,10 @@
   [📦 repo](https://github.com/tenstorrent/ttsim)
 
 ## 🖥 Hardware & System
+
+- **[nvtop](https://github.com/Syllo/nvtop)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  htop-style process monitor for GPUs and AI accelerators. Supports AMD, Apple, Huawei, Intel, NVIDIA, Qualcomm — and Tenstorrent. Real-time utilization, memory, and process info in a terminal UI.
+  [📦 repo](https://github.com/Syllo/nvtop)
 
 - **SwiftNPU: Scalable Shape-Flexible Allocation for Inter-Core Connected NPUs** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Makes multi-tenant NPU sharing practical for Blackhole-class hardware using polynomial-time allocation algorithms. Delivers up to 1.37× higher utilization and 1.14× faster workload completion. Up to 890,000× faster than NP-hard baselines.
