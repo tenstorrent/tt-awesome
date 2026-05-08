@@ -54,6 +54,9 @@ def validate_entry(path: Path, data: dict) -> list:
         errors.append("tags must be a list")
     if "featured" in data and not isinstance(data["featured"], bool):
         errors.append("featured must be a boolean")
+    # hidden: optional boolean — when true the entry is excluded from the README and website
+    if "hidden" in data and not isinstance(data["hidden"], bool):
+        errors.append("hidden must be a boolean")
     return errors
 
 

@@ -41,8 +41,13 @@ SHIELDS = {
 
 
 def load_entries():
-    """Load all entry JSON files from ENTRIES_DIR, sorted by filename."""
-    return [json.loads(f.read_text()) for f in sorted(ENTRIES_DIR.glob("*.json"))]
+    """Load all entry JSON files from ENTRIES_DIR, sorted by filename.
+
+    Entries with ``"hidden": true`` are excluded so they remain in the JSON
+    database for historical reference but do not appear in the generated README.
+    """
+    entries = [json.loads(f.read_text()) for f in sorted(ENTRIES_DIR.glob("*.json"))]
+    return [e for e in entries if not e.get("hidden") is True]
 
 
 def sort_entries(entries):

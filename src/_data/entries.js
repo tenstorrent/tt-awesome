@@ -24,7 +24,11 @@ module.exports = function () {
     return entry;
   });
 
-  return entries.sort((a, b) => {
+  // Exclude entries marked hidden — they stay in the JSON database for
+  // historical reference but must not appear on the public website.
+  const visibleEntries = entries.filter((e) => e.hidden !== true);
+
+  return visibleEntries.sort((a, b) => {
     // Unknown affiliation falls back to rank 2 (official tier); validate.py enforces valid values.
     const tierDiff =
       (AFFILIATION_ORDER[a.affiliation] ?? 2) -

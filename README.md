@@ -52,10 +52,6 @@
   tt-lang inference script for Oasis 500M — an interactive video world model running on Tenstorrent hardware via the tt-lang DSL.
   [📦 repo](https://github.com/zoecarver/open-oasis)
 
-- **[tt-jukebox](https://github.com/tsingletaryTT/tt-jukebox)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  Play models on Tenstorrent hardware as easily as choosing songs on a jukebox. Simple model selection and playback interface.
-  [📦 repo](https://github.com/tsingletaryTT/tt-jukebox)
-
 - **[tt-lang-models](https://github.com/zoecarver/tt-lang-models)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   A growing collection of models that use tt-lang for some or all of their implementation. Reference implementations for bringing modern models to the tt-lang DSL.
   [📦 repo](https://github.com/zoecarver/tt-lang-models)
@@ -183,10 +179,6 @@
 - **[tensix-viz](https://github.com/tsingletaryTT/tensix-viz)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   Hardware topology visualizer for Tenstorrent chips — from individual chip to full cluster. Interactive JavaScript visualization of Tensix core layout and NoC connections.
   [📦 repo](https://github.com/tsingletaryTT/tensix-viz)
-
-- **[tt-jukebox](https://github.com/tsingletaryTT/tt-jukebox)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  Play models on Tenstorrent hardware as easily as choosing songs on a jukebox. Simple model selection and playback interface.
-  [📦 repo](https://github.com/tsingletaryTT/tt-jukebox)
 
 - **[tt-model-runner](https://github.com/tsingletaryTT/tt-model-runner)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   Discover, load, and benchmark models with a GUI and TUI for tt-inference-server. Makes exploring available models on Tenstorrent hardware as easy as browsing a catalog.
