@@ -24,10 +24,6 @@
   Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.
   [📦 repo](https://github.com/moritztng/tt-boltz) · [🎤 FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware](https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/)
 
-- **[grayskull-attention](https://github.com/moritztng/grayskull-attention)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
-  [📦 repo](https://github.com/moritztng/grayskull-attention)
-
 - **[gsplat_tt](https://github.com/Kovelja009/gsplat_tt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Port of Gaussian Splatting (3D scene reconstruction from 2D images) to Tenstorrent hardware.
   [📦 repo](https://github.com/Kovelja009/gsplat_tt)
@@ -35,6 +31,10 @@
 - **[koyeb/tenstorrent-examples](https://github.com/koyeb/tenstorrent-examples)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Example applications and deployment configurations for running AI workloads on Tenstorrent hardware via Koyeb's cloud platform.
   [📦 repo](https://github.com/koyeb/tenstorrent-examples) · [🌐 Koyeb blog post](https://www.koyeb.com/blog/tenstorrent-cloud-instances-unveiling-next-gen-ai-accelerators)
+
+- **[grayskull-attention](https://github.com/moritztng/grayskull-attention)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
+  [📦 repo](https://github.com/moritztng/grayskull-attention)
 
 - **[dflash](https://github.com/zoecarver/dflash)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   DFlash: Block Diffusion for Flash Speculative Decoding on Tenstorrent hardware using tt-lang. Combines block diffusion with speculative decoding for faster inference.
@@ -108,17 +108,9 @@
   Deep-dive into the Tenstorrent architecture and Metalium programming model — circular buffers, kernel synchronization, NoC routing, and where the footguns are. The honest guide to thinking in Tensix.
   [📝 clehaxze.tw — April 2025](https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi)
 
-- **[grayskull-attention](https://github.com/moritztng/grayskull-attention)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
-  [📦 repo](https://github.com/moritztng/grayskull-attention)
-
 - **[tt-tiny](https://github.com/geohot/tt-tiny)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Minimal Python code to access and program the Tenstorrent Blackhole chip directly — George Hotz's exploration of TT hardware programmability with pointed commentary on the architecture.
   [📦 repo](https://github.com/geohot/tt-tiny)
-
-- **[tt-twitch](https://github.com/geohot/tt-twitch)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.
-  [📦 repo](https://github.com/geohot/tt-twitch)
 
 - **[ttMandelbrot](https://github.com/marty1885/ttMandelbrot)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Mandelbrot Set fractal renderer running on Tenstorrent hardware. A classic demo showcasing parallel compute on Tensix cores.
@@ -128,13 +120,25 @@
   Minimal working CMake project template for starting a new TT-Metal project from scratch. Good starting point for community kernel development.
   [📦 repo](https://github.com/JushBJJ/TT-Metal-Mini-Template)
 
+- **Optimal "where" on Tenstorrent** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Deep-dive into implementing the where(condition, t, f, out) kernel on the Tenstorrent Wormhole vector unit. Achieves optimal throughput of 3 cycles/row (in-place) and 4 cycles/row (out-of-place) by cycle-counting assembly on the 32-lane SFPU.
+  [📝 article](https://www.jasondavies.com/2025/tenstorrent-where/)
+
 - **[current](https://github.com/seansiddens/current)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   High-level parallel programming framework for Tenstorrent accelerators, abstracting TT-Metal into a research-oriented programming model for parallel computation.
   [📦 repo](https://github.com/seansiddens/current)
 
+- **[grayskull-attention](https://github.com/moritztng/grayskull-attention)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
+  [📦 repo](https://github.com/moritztng/grayskull-attention)
+
 - **[tenstorrent-tiny-examples](https://github.com/jaebaek/tenstorrent-tiny-examples)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.
   [📦 repo](https://github.com/jaebaek/tenstorrent-tiny-examples)
+
+- **[tt-twitch](https://github.com/geohot/tt-twitch)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.
+  [📦 repo](https://github.com/geohot/tt-twitch)
 
 - **[ttnn-helloworld-cpp](https://github.com/marty1885/ttnn-helloworld-cpp)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Minimal working example of using Tenstorrent TTNN in C++. The simplest possible starting point for C++ developers targeting TT hardware with TTNN.
@@ -426,10 +430,6 @@
 
 ## 🎮 Games & Demos
 
-- **[tt-twitch](https://github.com/geohot/tt-twitch)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.
-  [📦 repo](https://github.com/geohot/tt-twitch)
-
 - **[TT-GoL](https://github.com/JushBJJ/TT-GoL)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Conway's Game of Life implemented on Tenstorrent hardware using TT-Metal kernels.
   [📦 repo](https://github.com/JushBJJ/TT-GoL)
@@ -437,6 +437,10 @@
 - **[ttMandelbrot](https://github.com/marty1885/ttMandelbrot)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Mandelbrot Set fractal renderer running on Tenstorrent hardware. A classic demo showcasing parallel compute on Tensix cores.
   [📦 repo](https://github.com/marty1885/ttMandelbrot)
+
+- **[tt-twitch](https://github.com/geohot/tt-twitch)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.
+  [📦 repo](https://github.com/geohot/tt-twitch)
 
 - **[tt-zork-and-more](https://github.com/tsingletaryTT/tt-zork-and-more)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   A Tenstorrent fork of Infocom's Zork I (and more!), running a Z-machine interpreter at least four different ways on TT hardware. The most fun you can have with an AI accelerator.

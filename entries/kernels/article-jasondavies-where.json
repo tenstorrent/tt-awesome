@@ -1,0 +1,13 @@
+{
+  "id": "article-jasondavies-where",
+  "name": "Optimal \"where\" on Tenstorrent",
+  "description": "Deep-dive into implementing the where(condition, t, f, out) kernel on the Tenstorrent Wormhole vector unit. Achieves optimal throughput of 3 cycles/row (in-place) and 4 cycles/row (out-of-place) by cycle-counting assembly on the 32-lane SFPU.",
+  "affiliation": "community",
+  "categories": ["kernels"],
+  "tags": ["assembly", "sfpu", "vector-unit", "cycle-counting", "wormhole", "optimization"],
+  "links": [
+    { "type": "article", "url": "https://www.jasondavies.com/2025/tenstorrent-where/" }
+  ],
+  "hardware": ["wormhole"],
+  "author": "jasondavies"
+}
