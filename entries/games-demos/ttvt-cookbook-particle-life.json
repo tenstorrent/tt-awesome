@@ -1,0 +1,31 @@
+{
+  "id": "ttvt-cookbook-particle-life",
+  "name": "Tenstorrent Cookbook: Particle Life Simulator",
+  "description": "Particle Life simulation on Tenstorrent hardware \u2014 an emergent-behavior N-body system where simple attraction/repulsion rules between species produce complex lifelike patterns. Cookbook recipe demonstrating parallel N-body compute on Tensix.",
+  "affiliation": "affiliated",
+  "categories": [
+    "games-demos",
+    "kernels"
+  ],
+  "tags": [
+    "particle-life",
+    "n-body",
+    "simulation",
+    "emergent",
+    "cookbook",
+    "demo"
+  ],
+  "links": [
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-particle-life/",
+      "label": "Cookbook Recipe 5: Particle Life Simulator"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "featured": true,
+  "author": "tsingletaryTT"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "ttvt-stable-diffusion",
+  "name": "Stable Diffusion XL on Tenstorrent",
+  "description": "On-device image generation with Stable Diffusion XL running entirely on Tenstorrent hardware. Full inference pipeline with no cloud dependency.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "stable-diffusion",
+    "sdxl",
+    "image-generation",
+    "diffusion",
+    "on-device"
+  ],
+  "links": [
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/image-generation/",
+      "label": "Image Generation with Stable Diffusion XL"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "author": "tsingletaryTT"
+}

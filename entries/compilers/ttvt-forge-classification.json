@@ -1,0 +1,29 @@
+{
+  "id": "ttvt-forge-classification",
+  "name": "Image Classification with TT-Forge",
+  "description": "End-to-end image classification project using TT-Forge \u2014 compile and run a PyTorch classification model on Tenstorrent hardware with no kernel authoring required.",
+  "affiliation": "affiliated",
+  "categories": [
+    "compilers",
+    "ai-models"
+  ],
+  "tags": [
+    "forge",
+    "image-classification",
+    "pytorch",
+    "compiler",
+    "inference"
+  ],
+  "links": [
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/forge-image-classification/",
+      "label": "Image Classification with TT-Forge"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "author": "tsingletaryTT"
+}
