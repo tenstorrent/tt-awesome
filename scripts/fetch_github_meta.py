@@ -47,6 +47,7 @@ def main():
         result = fetch_repo(repo)
         if result:
             meta[repo_link["url"]] = result
+    META_OUT.parent.mkdir(parents=True, exist_ok=True)
     META_OUT.write_text(json.dumps(meta, indent=2) + "\n")
     print(f"Wrote {len(meta)} entries to {META_OUT}")
 
