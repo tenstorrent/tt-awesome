@@ -17,6 +17,7 @@
         {%- if entry.stars %}<span class="row-stars">{{ entry.stars }}⭐</span>{%- endif %}
       </div>
       <div class="row-desc">{{ entry.description | truncate(90) }}</div>
+      {%- if entry.author %}<div class="row-author">{{ entry.author }}</div>{%- endif %}
     </div>
     {%- endfor %}
   </div>
