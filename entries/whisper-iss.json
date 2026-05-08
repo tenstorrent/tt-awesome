@@ -1,0 +1,11 @@
+{
+  "id": "whisper-iss",
+  "name": "whisper",
+  "description": "RISC-V Instruction Set Simulator (ISS) used by Tenstorrent for processor verification. Powers the co-simulation architecture checker.",
+  "affiliation": "official",
+  "categories": ["riscv-arch"],
+  "tags": ["risc-v", "iss", "simulator", "verification"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/whisper" }],
+  "language": "C++",
+  "license": "Apache-2.0"
+}

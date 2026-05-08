@@ -1,0 +1,11 @@
+{
+  "id": "tt-firmware",
+  "name": "tt-firmware",
+  "description": "Tenstorrent firmware repository. Board management and control firmware for Tenstorrent accelerator cards.",
+  "affiliation": "official",
+  "categories": ["hw-system"],
+  "tags": ["firmware", "bmc", "board-management"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-firmware" }],
+  "hardware": ["wormhole", "blackhole"],
+  "license": "Apache-2.0"
+}

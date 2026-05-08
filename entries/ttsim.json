@@ -1,0 +1,12 @@
+{
+  "id": "ttsim",
+  "name": "ttsim",
+  "description": "Fast full-system simulator of Tenstorrent Wormhole and Blackhole hardware. Runs TT-Metalium workloads on any Linux/x86_64 system without physical silicon. Bit-exact results relative to hardware.",
+  "affiliation": "official",
+  "categories": ["riscv-arch", "dev-tools"],
+  "tags": ["simulator", "no-hardware", "bit-exact", "wormhole", "blackhole"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/ttsim" }],
+  "hardware": ["ttsim"],
+  "language": "C++",
+  "license": "Apache-2.0"
+}

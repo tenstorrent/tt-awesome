@@ -1,0 +1,12 @@
+{
+  "id": "tt-topology",
+  "name": "tt-topology",
+  "description": "Configure Ethernet routing on multi-card Tenstorrent systems. Flash NB cards to use specific ETH routing configurations for scale-out deployments.",
+  "affiliation": "official",
+  "categories": ["hw-system", "cloud-infra"],
+  "tags": ["topology", "ethernet", "multi-card", "routing"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-topology" }],
+  "hardware": ["wormhole", "blackhole"],
+  "language": "Python",
+  "license": "Apache-2.0"
+}

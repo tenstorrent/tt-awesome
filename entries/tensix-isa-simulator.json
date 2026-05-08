@@ -1,0 +1,12 @@
+{
+  "id": "tensix-isa-simulator",
+  "name": "tensix-isa-simulator",
+  "description": "ISA-level simulator for the Tensix compute engine. Simulates the matrix, vector, and scalar units inside each Tensix core.",
+  "affiliation": "official",
+  "categories": ["riscv-arch", "dev-tools"],
+  "tags": ["tensix", "isa", "simulator", "compute-engine"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tensix-isa-simulator" }],
+  "hardware": ["ttsim"],
+  "language": "C++",
+  "license": "Apache-2.0"
+}
