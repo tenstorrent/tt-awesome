@@ -23,7 +23,7 @@ def validate_entry(path: Path, data: dict) -> list:
     for field in ("id", "name", "description", "affiliation"):
         if not data.get(field) or not isinstance(data[field], str):
             errors.append(f"missing or invalid required field: {field}")
-    if data.get("affiliation") not in VALID_AFFILIATIONS:
+    if data.get("affiliation") and data.get("affiliation") not in VALID_AFFILIATIONS:
         errors.append(f"affiliation must be one of {sorted(VALID_AFFILIATIONS)}, got '{data.get('affiliation')}'")
     cats = data.get("categories")
     if not cats or not isinstance(cats, list) or len(cats) == 0:
@@ -85,6 +85,8 @@ def main():
             print(f"  OK {fpath.name}")
     seen = set()
     for eid in all_ids:
+        if eid is None:
+            continue
         if eid in seen:
             print(f"FAIL: duplicate id '{eid}'")
             total_errors += 1
