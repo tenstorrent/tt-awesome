@@ -1,0 +1,12 @@
+{
+  "id": "paper-swiftnpu",
+  "name": "SwiftNPU: Scalable Shape-Flexible Allocation for Inter-Core Connected NPUs",
+  "description": "Makes multi-tenant NPU sharing practical for Blackhole-class hardware using polynomial-time allocation algorithms. Delivers up to 1.37× higher utilization and 1.14× faster workload completion. Up to 890,000× faster than NP-hard baselines.",
+  "affiliation": "community",
+  "categories": ["research", "hw-system"],
+  "tags": ["multi-tenant", "allocation", "blackhole", "npu", "scheduling"],
+  "links": [
+    { "type": "paper", "url": "https://dl.acm.org/doi/10.1145/3805621.3807614", "label": "ACM DL" }
+  ],
+  "hardware": ["blackhole"]
+}
