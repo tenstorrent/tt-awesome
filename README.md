@@ -28,6 +28,10 @@
   FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
   [📦 repo](https://github.com/moritztng/grayskull-attention)
 
+- **[gsplat_tt](https://github.com/Kovelja009/gsplat_tt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Port of Gaussian Splatting (3D scene reconstruction from 2D images) to Tenstorrent hardware.
+  [📦 repo](https://github.com/Kovelja009/gsplat_tt)
+
 - **[koyeb/tenstorrent-examples](https://github.com/koyeb/tenstorrent-examples)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Example applications and deployment configurations for running AI workloads on Tenstorrent hardware via Koyeb's cloud platform.
   [📦 repo](https://github.com/koyeb/tenstorrent-examples) · [🌐 Koyeb blog post](https://www.koyeb.com/blog/tenstorrent-cloud-instances-unveiling-next-gen-ai-accelerators)
@@ -96,6 +100,10 @@
 
 ## ⚙️ Custom Kernels & Low-Level
 
+- **[triton-tenstorrent](https://github.com/kernelize-ai/triton-tenstorrent)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  OpenAI Triton compiler plugin for Tenstorrent hardware. Write Triton kernels and target Tensix cores — brings the Triton ML kernel ecosystem to TT devices.
+  [📦 repo](https://github.com/kernelize-ai/triton-tenstorrent)
+
 - **Programming Tenstorrent Processors** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Deep-dive into the Tenstorrent architecture and Metalium programming model — circular buffers, kernel synchronization, NoC routing, and where the footguns are. The honest guide to thinking in Tensix.
   [📝 clehaxze.tw — April 2025](https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi)
@@ -112,9 +120,29 @@
   A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.
   [📦 repo](https://github.com/geohot/tt-twitch)
 
+- **[ttMandelbrot](https://github.com/marty1885/ttMandelbrot)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Mandelbrot Set fractal renderer running on Tenstorrent hardware. A classic demo showcasing parallel compute on Tensix cores.
+  [📦 repo](https://github.com/marty1885/ttMandelbrot)
+
+- **[TT-Metal Mini Template](https://github.com/JushBJJ/TT-Metal-Mini-Template)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Minimal working CMake project template for starting a new TT-Metal project from scratch. Good starting point for community kernel development.
+  [📦 repo](https://github.com/JushBJJ/TT-Metal-Mini-Template)
+
+- **[current](https://github.com/seansiddens/current)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  High-level parallel programming framework for Tenstorrent accelerators, abstracting TT-Metal into a research-oriented programming model for parallel computation.
+  [📦 repo](https://github.com/seansiddens/current)
+
+- **[tenstorrent-tiny-examples](https://github.com/jaebaek/tenstorrent-tiny-examples)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.
+  [📦 repo](https://github.com/jaebaek/tenstorrent-tiny-examples)
+
 - **[ttnn-helloworld-cpp](https://github.com/marty1885/ttnn-helloworld-cpp)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Minimal working example of using Tenstorrent TTNN in C++. The simplest possible starting point for C++ developers targeting TT hardware with TTNN.
   [📦 repo](https://github.com/marty1885/ttnn-helloworld-cpp)
+
+- **[ttVecAdd](https://github.com/marty1885/ttVecAdd)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Minimal vector-addition example on Tenstorrent devices using TT-Metalium. A clean hello-world for the TT-Metal kernel programming model in C++.
+  [📦 repo](https://github.com/marty1885/ttVecAdd)
 
 - **Exploring Fast Fourier Transforms on the Tenstorrent Wormhole** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Ports the Cooley-Tukey FFT algorithm to the Wormhole n300 RISC-V accelerator. The Wormhole draws 8× less power and consumes 2.8× less energy than a 24-core Xeon Platinum for a 2D FFT. ISC 2025.
@@ -141,6 +169,14 @@
 - **[BarraCUDA](https://github.com/Zaneham/BarraCUDA)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Open-source CUDA compiler targeting multiple GPU architectures including Tenstorrent. Compiles .cu files to run on AMD and Tenstorrent hardware without modification.
   [📦 repo](https://github.com/Zaneham/BarraCUDA)
+
+- **[triton-tenstorrent](https://github.com/kernelize-ai/triton-tenstorrent)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  OpenAI Triton compiler plugin for Tenstorrent hardware. Write Triton kernels and target Tensix cores — brings the Triton ML kernel ecosystem to TT devices.
+  [📦 repo](https://github.com/kernelize-ai/triton-tenstorrent)
+
+- **[tt-iree](https://github.com/swote-git/tt-iree)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  IREE (Intermediate Representation Execution Environment) ML compiler ported to Tenstorrent AI accelerators. Brings the IREE compiler ecosystem to TT hardware.
+  [📦 repo](https://github.com/swote-git/tt-iree)
 
 - **[tt-forge-compiletron](https://github.com/tsingletaryTT/tt-forge-compiletron)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   Compile more than 100 models on tt-forge in a display format suitable for demos. Comprehensive showcase of tt-forge model compatibility.
@@ -179,6 +215,14 @@
 - **[nvtop](https://github.com/Syllo/nvtop)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   htop-style process monitor for GPUs and AI accelerators. Supports AMD, Apple, Huawei, Intel, NVIDIA, Qualcomm — and Tenstorrent. Real-time utilization, memory, and process info in a terminal UI.
   [📦 repo](https://github.com/Syllo/nvtop)
+
+- **[tt-sim](https://github.com/mesham/tt-sim)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Community-built Tenstorrent architecture simulator written in Python. Runs without hardware — useful for researchers and developers exploring the Tensix architecture offline.
+  [📦 repo](https://github.com/mesham/tt-sim)
+
+- **[ttPEAK](https://github.com/TT-Bounty-Hunters/ttPEAK)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  clpeak-style peak-performance benchmark for Tenstorrent devices using TT-Metalium. Measures theoretical peak throughput across operations — useful for hardware characterization.
+  [📦 repo](https://github.com/TT-Bounty-Hunters/ttPEAK)
 
 - **[tensix-viz](https://github.com/tsingletaryTT/tensix-viz)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   Hardware topology visualizer for Tenstorrent chips — from individual chip to full cluster. Interactive JavaScript visualization of Tensix core layout and NoC connections.
@@ -233,6 +277,14 @@
 - **[nvtop](https://github.com/Syllo/nvtop)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   htop-style process monitor for GPUs and AI accelerators. Supports AMD, Apple, Huawei, Intel, NVIDIA, Qualcomm — and Tenstorrent. Real-time utilization, memory, and process info in a terminal UI.
   [📦 repo](https://github.com/Syllo/nvtop)
+
+- **[blackhole-py](https://github.com/boopdotpng/blackhole-py)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Pure Python driver for Tenstorrent Blackhole cards providing direct low-level hardware access without going through the full TT-Metal stack.
+  [📦 repo](https://github.com/boopdotpng/blackhole-py)
+
+- **[tenstorrent.nix](https://github.com/RossComputerGuy/tenstorrent.nix)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Nix flake packaging the Tenstorrent software stack for NixOS and Nix users. Reproducible, declarative installation of TT drivers and tools.
+  [📦 repo](https://github.com/RossComputerGuy/tenstorrent.nix)
 
 - **SwiftNPU: Scalable Shape-Flexible Allocation for Inter-Core Connected NPUs** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Makes multi-tenant NPU sharing practical for Blackhole-class hardware using polynomial-time allocation algorithms. Delivers up to 1.37× higher utilization and 1.14× faster workload completion. Up to 890,000× faster than NP-hard baselines.
@@ -310,6 +362,10 @@
   Boot stock Linux cloud images on the SiFive X280 RISC-V cores inside Tenstorrent Blackhole AI accelerators. Per-card Rust daemon with virtio-mmio block/net/console and U-Boot/EFI support.
   [📦 repo](https://github.com/olofj/bhx)
 
+- **[tt-sim](https://github.com/mesham/tt-sim)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Community-built Tenstorrent architecture simulator written in Python. Runs without hardware — useful for researchers and developers exploring the Tensix architecture offline.
+  [📦 repo](https://github.com/mesham/tt-sim)
+
 - **[tt-bh-linux](https://github.com/tenstorrent/tt-bh-linux)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Linux demo for the Tenstorrent Blackhole P100/P150 card RISC-V cores. Boot a real Linux kernel on the 16 high-performance RISC-V cores built into the Blackhole chip.
   [📦 repo](https://github.com/tenstorrent/tt-bh-linux)
@@ -339,6 +395,10 @@
 - **[tt-boltz](https://github.com/moritztng/tt-boltz)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.
   [📦 repo](https://github.com/moritztng/tt-boltz) · [🎤 FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware](https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/)
+
+- **[tt-tutorial (HPC)](https://github.com/RISCVtestbed/tt-tutorial)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Tutorial on Tenstorrent hardware for HPC researchers from the RISC-V Testbed project at Edinburgh/EPCC. Covers Wormhole from an HPC parallel-computing perspective.
+  [📦 repo](https://github.com/RISCVtestbed/tt-tutorial)
 
 - **Exploring Fast Fourier Transforms on the Tenstorrent Wormhole** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Ports the Cooley-Tukey FFT algorithm to the Wormhole n300 RISC-V accelerator. The Wormhole draws 8× less power and consumes 2.8× less energy than a 24-core Xeon Platinum for a 2D FFT. ISC 2025.
@@ -370,6 +430,14 @@
   A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.
   [📦 repo](https://github.com/geohot/tt-twitch)
 
+- **[TT-GoL](https://github.com/JushBJJ/TT-GoL)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Conway's Game of Life implemented on Tenstorrent hardware using TT-Metal kernels.
+  [📦 repo](https://github.com/JushBJJ/TT-GoL)
+
+- **[ttMandelbrot](https://github.com/marty1885/ttMandelbrot)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Mandelbrot Set fractal renderer running on Tenstorrent hardware. A classic demo showcasing parallel compute on Tensix cores.
+  [📦 repo](https://github.com/marty1885/ttMandelbrot)
+
 - **[tt-zork-and-more](https://github.com/tsingletaryTT/tt-zork-and-more)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   A Tenstorrent fork of Infocom's Zork I (and more!), running a Z-machine interpreter at least four different ways on TT hardware. The most fun you can have with an AI accelerator.
   [📦 repo](https://github.com/tsingletaryTT/tt-zork-and-more)
@@ -400,13 +468,29 @@
   Honest field notes from getting a Grayskull card running and writing first Metalium kernels. Covers setup pitfalls, processor hangs, memory protection quirks, and what makes Metalium compelling despite early rough edges.
   [📝 clehaxze.tw — June 2024](https://clehaxze.tw/gemlog/2024/06-02-thoughts-and-logs-after-messing-with-tenstorrent-grayskull.gmi)
 
+- **[TT-Metal Mini Template](https://github.com/JushBJJ/TT-Metal-Mini-Template)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Minimal working CMake project template for starting a new TT-Metal project from scratch. Good starting point for community kernel development.
+  [📦 repo](https://github.com/JushBJJ/TT-Metal-Mini-Template)
+
+- **[tt-tutorial (HPC)](https://github.com/RISCVtestbed/tt-tutorial)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Tutorial on Tenstorrent hardware for HPC researchers from the RISC-V Testbed project at Edinburgh/EPCC. Covers Wormhole from an HPC parallel-computing perspective.
+  [📦 repo](https://github.com/RISCVtestbed/tt-tutorial)
+
 - **[tt-tutorial (Korean)](https://github.com/changh95/tt-tutorial)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Comprehensive tutorials for the Tenstorrent software stack in Korean. Jupyter notebooks covering the full developer path from hardware setup to model inference.
   [📦 repo](https://github.com/changh95/tt-tutorial)
 
+- **[tenstorrent-tiny-examples](https://github.com/jaebaek/tenstorrent-tiny-examples)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.
+  [📦 repo](https://github.com/jaebaek/tenstorrent-tiny-examples)
+
 - **[ttnn-helloworld-cpp](https://github.com/marty1885/ttnn-helloworld-cpp)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Minimal working example of using Tenstorrent TTNN in C++. The simplest possible starting point for C++ developers targeting TT hardware with TTNN.
   [📦 repo](https://github.com/marty1885/ttnn-helloworld-cpp)
+
+- **[ttVecAdd](https://github.com/marty1885/ttVecAdd)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Minimal vector-addition example on Tenstorrent devices using TT-Metalium. A clean hello-world for the TT-Metal kernel programming model in C++.
+  [📦 repo](https://github.com/marty1885/ttVecAdd)
 
 - **[tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.

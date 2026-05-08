@@ -1,0 +1,27 @@
+{
+  "id": "current-framework",
+  "name": "current",
+  "description": "High-level parallel programming framework for Tenstorrent accelerators, abstracting TT-Metal into a research-oriented programming model for parallel computation.",
+  "affiliation": "community",
+  "categories": [
+    "kernels"
+  ],
+  "tags": [
+    "framework",
+    "parallel",
+    "abstraction",
+    "research"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/seansiddens/current"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "author": "seansiddens",
+  "language": "C++"
+}

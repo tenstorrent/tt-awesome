@@ -1,0 +1,29 @@
+{
+  "id": "triton-tenstorrent",
+  "name": "triton-tenstorrent",
+  "description": "OpenAI Triton compiler plugin for Tenstorrent hardware. Write Triton kernels and target Tensix cores \u2014 brings the Triton ML kernel ecosystem to TT devices.",
+  "affiliation": "community",
+  "categories": [
+    "compilers",
+    "kernels"
+  ],
+  "tags": [
+    "triton",
+    "openai-triton",
+    "compiler",
+    "kernels"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/kernelize-ai/triton-tenstorrent"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "featured": true,
+  "author": "kernelize-ai",
+  "language": "C++"
+}

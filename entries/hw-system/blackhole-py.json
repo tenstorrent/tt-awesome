@@ -1,0 +1,28 @@
+{
+  "id": "blackhole-py",
+  "name": "blackhole-py",
+  "description": "Pure Python driver for Tenstorrent Blackhole cards providing direct low-level hardware access without going through the full TT-Metal stack.",
+  "affiliation": "community",
+  "categories": [
+    "hw-system"
+  ],
+  "tags": [
+    "driver",
+    "python",
+    "blackhole",
+    "low-level",
+    "hardware-access"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/boopdotpng/blackhole-py"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "boopdotpng",
+  "language": "Python",
+  "license": "MIT"
+}

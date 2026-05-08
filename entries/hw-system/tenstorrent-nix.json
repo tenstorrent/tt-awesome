@@ -1,0 +1,25 @@
+{
+  "id": "tenstorrent-nix",
+  "name": "tenstorrent.nix",
+  "description": "Nix flake packaging the Tenstorrent software stack for NixOS and Nix users. Reproducible, declarative installation of TT drivers and tools.",
+  "affiliation": "community",
+  "categories": [
+    "hw-system"
+  ],
+  "tags": [
+    "nix",
+    "nixos",
+    "packaging",
+    "flake",
+    "reproducible"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/RossComputerGuy/tenstorrent.nix"
+    }
+  ],
+  "author": "RossComputerGuy",
+  "language": "Nix",
+  "license": "LGPL-2.1"
+}
