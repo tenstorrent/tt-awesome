@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function selectCategory(slug, el) {
   activeCategory = slug;
-  activeEntryId = null;
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   el.classList.add("active");
   document.getElementById("list-title").textContent = el.textContent.trim();
