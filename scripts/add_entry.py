@@ -76,7 +76,7 @@ def slugify(s):
 def main():
     print("⚡ Add an Awesome Tenstorrent entry\n")
     name = ask("Name (e.g. tt-boltz)")
-    entry_id = slugify(name)
+    entry_id = ask("ID (slug)", default=slugify(name))
     dest = ENTRIES_DIR / f"{entry_id}.json"
     if dest.exists():
         print(f"ERROR: {dest} already exists.")
