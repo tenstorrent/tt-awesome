@@ -33,7 +33,7 @@ def fetch_repo(repo: str) -> dict:
 
 
 def main():
-    entries = [json.loads(f.read_text()) for f in sorted(ENTRIES_DIR.glob("*.json"))]
+    entries = [json.loads(f.read_text()) for f in sorted(ENTRIES_DIR.rglob("*.json"))]
     meta = {}
     for entry in entries:
         repo_link = next((l for l in entry.get("links", []) if l["type"] == "repo"), None)

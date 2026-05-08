@@ -65,7 +65,7 @@ def main():
     if not entries_dir.is_dir():
         print(f"ERROR: entries/ not found at {entries_dir}")
         sys.exit(1)
-    json_files = sorted(entries_dir.glob("*.json"))
+    json_files = sorted(entries_dir.rglob("*.json"))
     if not json_files:
         print("No entries found — nothing to validate.")
         sys.exit(0)

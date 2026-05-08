@@ -9,13 +9,27 @@ for (const [url, data] of Object.entries(meta)) {
 
 const AFFILIATION_ORDER = { community: 0, affiliated: 1, official: 2 };
 
+/** Recursively collect all .json file paths under a directory. */
+function collectJsonFiles(dir) {
+  const results = [];
+  for (const f of fs.readdirSync(dir)) {
+    const full = path.join(dir, f);
+    if (fs.statSync(full).isDirectory()) {
+      results.push(...collectJsonFiles(full));
+    } else if (f.endsWith(".json")) {
+      results.push(full);
+    }
+  }
+  return results;
+}
+
 module.exports = function () {
   const entriesDir = path.join(__dirname, "../../entries");
-  const files = fs.readdirSync(entriesDir).filter((f) => f.endsWith(".json"));
+  const files = collectJsonFiles(entriesDir);
 
   const entries = files.map((f) => {
     const entry = JSON.parse(
-      fs.readFileSync(path.join(entriesDir, f), "utf8")
+      fs.readFileSync(f, "utf8")
     );
     const repoLink = (entry.links || []).find((l) => l.type === "repo");
     if (repoLink && metaByUrl[repoLink.url]) {

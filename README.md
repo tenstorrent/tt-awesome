@@ -20,13 +20,13 @@
 
 ## 🤖 AI & Models
 
-- **[grayskull-attention](https://github.com/moritztng/grayskull-attention)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
-  [📦 repo](https://github.com/moritztng/grayskull-attention)
-
 - **[tt-boltz](https://github.com/moritztng/tt-boltz)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.
   [📦 repo](https://github.com/moritztng/tt-boltz) · [🎤 FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware](https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/)
+
+- **[grayskull-attention](https://github.com/moritztng/grayskull-attention)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
+  [📦 repo](https://github.com/moritztng/grayskull-attention)
 
 - **[koyeb/tenstorrent-examples](https://github.com/koyeb/tenstorrent-examples)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Example applications and deployment configurations for running AI workloads on Tenstorrent hardware via Koyeb's cloud platform.
@@ -112,13 +112,13 @@
   A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.
   [📦 repo](https://github.com/geohot/tt-twitch)
 
-- **Exploring Fast Fourier Transforms on the Tenstorrent Wormhole** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  Ports the Cooley-Tukey FFT algorithm to the Wormhole n300 RISC-V accelerator. The Wormhole draws 8× less power and consumes 2.8× less energy than a 24-core Xeon Platinum for a 2D FFT. ISC 2025.
-  [📄 arXiv:2506.15437](https://arxiv.org/abs/2506.15437) · [📝 University of Edinburgh](https://www.research.ed.ac.uk/en/publications/exploring-fast-fourier-transforms-on-the-tenstorrent-wormhole/)
-
 - **[ttnn-helloworld-cpp](https://github.com/marty1885/ttnn-helloworld-cpp)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Minimal working example of using Tenstorrent TTNN in C++. The simplest possible starting point for C++ developers targeting TT hardware with TTNN.
   [📦 repo](https://github.com/marty1885/ttnn-helloworld-cpp)
+
+- **Exploring Fast Fourier Transforms on the Tenstorrent Wormhole** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Ports the Cooley-Tukey FFT algorithm to the Wormhole n300 RISC-V accelerator. The Wormhole draws 8× less power and consumes 2.8× less energy than a 24-core Xeon Platinum for a 2D FFT. ISC 2025.
+  [📄 arXiv:2506.15437](https://arxiv.org/abs/2506.15437) · [📝 University of Edinburgh](https://www.research.ed.ac.uk/en/publications/exploring-fast-fourier-transforms-on-the-tenstorrent-wormhole/)
 
 - **[dflash](https://github.com/zoecarver/dflash)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   DFlash: Block Diffusion for Flash Speculative Decoding on Tenstorrent hardware using tt-lang. Combines block diffusion with speculative decoding for faster inference.
@@ -154,10 +154,6 @@
   Tenstorrent's MLIR-based compiler frontend. Enables running AI workloads from PyTorch, ONNX, and other frameworks on all Tenstorrent hardware configurations through an open-source, general, and performant compiler.
   [📦 repo](https://github.com/tenstorrent/tt-forge) · [🌐 website](https://tenstorrent.com)
 
-- **[tt-metal](https://github.com/tenstorrent/tt-metal)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.
-  [📦 repo](https://github.com/tenstorrent/tt-metal)
-
 - **[tt-mlir](https://github.com/tenstorrent/tt-mlir)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent MLIR compiler — the core compiler infrastructure shared by tt-forge and other frontends. Handles graph optimization, lowering, and code generation for Tensix hardware.
   [📦 repo](https://github.com/tenstorrent/tt-mlir)
@@ -174,6 +170,10 @@
   PJRT device plugin for Tenstorrent hardware. Enables JAX, PyTorch/XLA, and other XLA-based frameworks to target TT accelerators.
   [📦 repo](https://github.com/tenstorrent/tt-xla)
 
+- **[tt-metal](https://github.com/tenstorrent/tt-metal)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.
+  [📦 repo](https://github.com/tenstorrent/tt-metal)
+
 ## 🛠 Dev Tools & Debugging
 
 - **[tensix-viz](https://github.com/tsingletaryTT/tensix-viz)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
@@ -188,9 +188,9 @@
   Warp terminal plugin for Tenstorrent — integrates hardware status, model management, and developer workflows directly into the Warp terminal.
   [📦 repo](https://github.com/tsingletaryTT/tt-warp)
 
-- **[tensix-isa-simulator](https://github.com/tenstorrent/tensix-isa-simulator)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  ISA-level simulator for the Tensix compute engine. Simulates the matrix, vector, and scalar units inside each Tensix core.
-  [📦 repo](https://github.com/tenstorrent/tensix-isa-simulator)
+- **[TT-Studio](https://github.com/tenstorrent/tt-studio)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.
+  [📦 repo](https://github.com/tenstorrent/tt-studio)
 
 - **[tt-exalens](https://github.com/tenstorrent/tt-exalens)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Low-level hardware debugger for Tenstorrent devices. Inspect register state, memory contents, and kernel execution at the hardware level.
@@ -200,25 +200,25 @@
   Network-on-chip Performance Estimator for Tenstorrent Tensix-based devices. Model and estimate NoC utilization before running kernels on hardware.
   [📦 repo](https://github.com/tenstorrent/tt-npe)
 
-- **[tt-smi](https://github.com/tenstorrent/tt-smi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.
-  [📦 repo](https://github.com/tenstorrent/tt-smi)
-
-- **[TT-Studio](https://github.com/tenstorrent/tt-studio)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.
-  [📦 repo](https://github.com/tenstorrent/tt-studio)
-
-- **[tt-toplike](https://github.com/tenstorrent/tt-toplike)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.
-  [📦 repo](https://github.com/tenstorrent/tt-toplike)
+- **[ttnn-visualizer](https://github.com/tenstorrent/ttnn-visualizer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Comprehensive tool for visualizing and analyzing model execution on Tenstorrent hardware. Interactive graphs, memory plots, tensor details, buffer overviews, operation flow graphs, and multi-instance support.
+  [📦 repo](https://github.com/tenstorrent/ttnn-visualizer)
 
 - **[tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.
   [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
 
-- **[ttnn-visualizer](https://github.com/tenstorrent/ttnn-visualizer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  Comprehensive tool for visualizing and analyzing model execution on Tenstorrent hardware. Interactive graphs, memory plots, tensor details, buffer overviews, operation flow graphs, and multi-instance support.
-  [📦 repo](https://github.com/tenstorrent/ttnn-visualizer)
+- **[tt-smi](https://github.com/tenstorrent/tt-smi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.
+  [📦 repo](https://github.com/tenstorrent/tt-smi)
+
+- **[tt-toplike](https://github.com/tenstorrent/tt-toplike)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.
+  [📦 repo](https://github.com/tenstorrent/tt-toplike)
+
+- **[tensix-isa-simulator](https://github.com/tenstorrent/tensix-isa-simulator)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  ISA-level simulator for the Tensix compute engine. Simulates the matrix, vector, and scalar units inside each Tensix core.
+  [📦 repo](https://github.com/tenstorrent/tensix-isa-simulator)
 
 - **[ttsim](https://github.com/tenstorrent/ttsim)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Fast full-system simulator of Tenstorrent Wormhole and Blackhole hardware. Runs TT-Metalium workloads on any Linux/x86_64 system without physical silicon. Bit-exact results relative to hardware.
@@ -400,13 +400,13 @@
   Minimal working example of using Tenstorrent TTNN in C++. The simplest possible starting point for C++ developers targeting TT hardware with TTNN.
   [📦 repo](https://github.com/marty1885/ttnn-helloworld-cpp)
 
-- **[tt-installer](https://github.com/tenstorrent/tt-installer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.
-  [📦 repo](https://github.com/tenstorrent/tt-installer) · [📖 Modern Setup lesson (VSCode Toolkit)](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
-
 - **[tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.
   [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
+
+- **[tt-installer](https://github.com/tenstorrent/tt-installer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.
+  [📦 repo](https://github.com/tenstorrent/tt-installer) · [📖 Modern Setup lesson (VSCode Toolkit)](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
 
 ---
 

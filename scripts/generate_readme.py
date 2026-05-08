@@ -46,7 +46,7 @@ def load_entries():
     Entries with ``"hidden": true`` are excluded so they remain in the JSON
     database for historical reference but do not appear in the generated README.
     """
-    entries = [json.loads(f.read_text()) for f in sorted(ENTRIES_DIR.glob("*.json"))]
+    entries = [json.loads(f.read_text()) for f in sorted(ENTRIES_DIR.rglob("*.json"))]
     return [e for e in entries if not e.get("hidden") is True]
 
 

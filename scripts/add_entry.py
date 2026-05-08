@@ -77,10 +77,6 @@ def main():
     print("⚡ Add an Awesome Tenstorrent entry\n")
     name = ask("Name (e.g. tt-boltz)")
     entry_id = ask("ID (slug)", default=slugify(name))
-    dest = ENTRIES_DIR / f"{entry_id}.json"
-    if dest.exists():
-        print(f"ERROR: {dest} already exists.")
-        sys.exit(1)
     description = ask("Description (1–3 sentences)")
     affiliation = pick("Affiliation", AFFILIATIONS)
     categories = pick("Categories (multi-select OK)", CATEGORIES, multi=True)
@@ -114,11 +110,18 @@ def main():
     if license_id: entry["license"] = license_id
     if featured:   entry["featured"] = True
 
+    # Write the new entry into a subdirectory named by its first category slug.
+    out_dir = ENTRIES_DIR / categories[0]
+    out_dir.mkdir(parents=True, exist_ok=True)
+    dest = out_dir / f"{entry_id}.json"
+    if dest.exists():
+        print(f"ERROR: {dest} already exists.")
+        sys.exit(1)
     dest.write_text(json.dumps(entry, indent=2) + "\n")
     print(f"\n✅  Written to {dest}")
     print(f"\nNext steps:")
     print(f"  python3 scripts/validate.py")
-    print(f"  git add entries/{entry_id}.json && git commit -m 'feat: add {name}'")
+    print(f"  git add {dest} && git commit -m 'feat: add {name}'")
     print(f"  gh pr create --title 'Add {name}'")
 
 
