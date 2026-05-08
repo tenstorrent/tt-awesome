@@ -1,12 +1,31 @@
 {
   "id": "tt-mlir",
   "name": "tt-mlir",
-  "description": "Tenstorrent MLIR compiler — the core compiler infrastructure shared by tt-forge and other frontends. Handles graph optimization, lowering, and code generation for Tensix hardware.",
+  "description": "Tenstorrent MLIR compiler \u2014 the core compiler infrastructure shared by tt-forge and other frontends. Handles graph optimization, lowering, and code generation for Tensix hardware.",
   "affiliation": "official",
-  "categories": ["compilers"],
-  "tags": ["mlir", "compiler", "backend", "optimization"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-mlir" }],
-  "hardware": ["wormhole", "blackhole"],
+  "categories": [
+    "compilers"
+  ],
+  "tags": [
+    "mlir",
+    "compiler",
+    "backend",
+    "optimization"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-mlir"
+    },
+    {
+      "type": "website",
+      "url": "https://tenstorrent.github.io/tt-mlir/"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
   "language": "C++",
   "license": "Apache-2.0"
 }

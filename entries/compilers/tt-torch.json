@@ -3,10 +3,28 @@
   "name": "tt-torch",
   "description": "Frontend integration for PyTorch with tt-mlir. Compile PyTorch models directly to Tenstorrent hardware via torch.compile integration.",
   "affiliation": "official",
-  "categories": ["compilers"],
-  "tags": ["pytorch", "torch-compile", "frontend"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-torch" }],
-  "hardware": ["wormhole", "blackhole"],
+  "categories": [
+    "compilers"
+  ],
+  "tags": [
+    "pytorch",
+    "torch-compile",
+    "frontend"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-torch"
+    },
+    {
+      "type": "website",
+      "url": "https://docs.tenstorrent.com/tt-torch/"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
   "language": "Python",
   "license": "Apache-2.0"
 }

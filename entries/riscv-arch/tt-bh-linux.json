@@ -3,10 +3,29 @@
   "name": "tt-bh-linux",
   "description": "Linux demo for the Tenstorrent Blackhole P100/P150 card RISC-V cores. Boot a real Linux kernel on the 16 high-performance RISC-V cores built into the Blackhole chip.",
   "affiliation": "official",
-  "categories": ["riscv-arch"],
-  "tags": ["linux", "risc-v", "blackhole", "bare-metal", "boot"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-bh-linux" }],
-  "hardware": ["blackhole"],
+  "categories": [
+    "riscv-arch"
+  ],
+  "tags": [
+    "linux",
+    "risc-v",
+    "blackhole",
+    "bare-metal",
+    "boot"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-bh-linux"
+    },
+    {
+      "type": "website",
+      "url": "https://tenstorrent.com/hardware/blackhole"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
   "featured": true,
   "language": "C",
   "license": "GPL-2.0"

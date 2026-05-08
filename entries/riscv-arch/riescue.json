@@ -3,9 +3,25 @@
   "name": "RiESCUE",
   "description": "RISC-V Directed Test Framework and Compliance Suite. Comprehensive test infrastructure for verifying RISC-V processor implementations against the specification.",
   "affiliation": "official",
-  "categories": ["riscv-arch"],
-  "tags": ["risc-v", "testing", "compliance", "verification"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/riescue" }],
+  "categories": [
+    "riscv-arch"
+  ],
+  "tags": [
+    "risc-v",
+    "testing",
+    "compliance",
+    "verification"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/riescue"
+    },
+    {
+      "type": "website",
+      "url": "https://docs.tenstorrent.com/riescue/"
+    }
+  ],
   "language": "Python",
   "license": "Apache-2.0"
 }
