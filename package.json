@@ -1,0 +1,14 @@
+{
+  "name": "tt-awesome",
+  "version": "1.0.0",
+  "description": "Awesome Tenstorrent — community-first ecosystem list",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "validate": "python3 scripts/validate.py",
+    "generate": "python3 scripts/generate_readme.py"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}
