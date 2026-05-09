@@ -17,6 +17,11 @@
         {%- if entry.stars %}{{ entry.stars }}⭐{%- endif %}
       </div>
     </div>
+    {%- if entry.preview_image %}
+    <div class="detail-preview">
+      <img src="{{ entry.preview_image }}" alt="{{ entry.name }} preview" loading="lazy" />
+    </div>
+    {%- endif %}
     <p class="detail-desc">{{ entry.description }}</p>
     {%- if entry.links %}
     <div class="detail-section">

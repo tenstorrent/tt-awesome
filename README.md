@@ -42,11 +42,11 @@
 
 - **[dflash](https://github.com/zoecarver/dflash)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   DFlash: Block Diffusion for Flash Speculative Decoding on Tenstorrent hardware using tt-lang. Combines block diffusion with speculative decoding for faster inference.
-  [📦 repo](https://github.com/zoecarver/dflash)
+  [📦 repo](https://github.com/zoecarver/dflash) · [🌐 website](https://dflash.z-lab.ai)
 
 - **[diamond](https://github.com/zoecarver/diamond)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   DIAMOND: Atari game-playing agent implemented on Tenstorrent hardware via tt-lang. Diffusion-based world model for reinforcement learning.
-  [📦 repo](https://github.com/zoecarver/diamond)
+  [📦 repo](https://github.com/zoecarver/diamond) · [🌐 website](https://diamond-wm.github.io)
 
 - **[Engram](https://github.com/zoecarver/Engram)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   A Tenstorrent port of the DeepSeek Engram model using tt-lang. Brings DeepSeek's memory-efficient architecture to TT hardware.
@@ -82,7 +82,7 @@
 
 - **[tt-blacksmith](https://github.com/tenstorrent/tt-blacksmith)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Optimized training recipes for a variety of ML models on Tenstorrent hardware, powered by the TT-Forge compiler stack. Reference implementations for fine-tuning and training from scratch.
-  [📦 repo](https://github.com/tenstorrent/tt-blacksmith) · [📖 Custom Training lessons (VSCode Toolkit)](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
+  [📦 repo](https://github.com/tenstorrent/tt-blacksmith) · [📖 Custom Training lessons (VSCode Toolkit)](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons) · [🌐 website](https://docs.tenstorrent.com/tt-blacksmith/)
 
 - **[tt-buda-demos](https://github.com/tenstorrent/tt-buda-demos)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Repository of model demos using TT-Buda. The largest collection of pre-compiled model examples for Tenstorrent hardware — BERT, ResNet, YOLO, GPT-2, Whisper, and many more.
@@ -98,7 +98,7 @@
 
 - **[tt-local-generator](https://github.com/tenstorrent/tt-local-generator)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Generate infinite videos and images (and imaginative prompts to inspire them) on Tenstorrent's Quietbox 2. Fully local generative media pipeline.
-  [📦 repo](https://github.com/tenstorrent/tt-local-generator)
+  [📦 repo](https://github.com/tenstorrent/tt-local-generator) · [🌐 website](https://docs.tenstorrent.com/tt-local-generator/)
 
 - **[TT-Studio](https://github.com/tenstorrent/tt-studio)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.
@@ -113,6 +113,10 @@
 - **Local AI Agents on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   Three agentic projects running fully on-device: local AI agents on QuietBox 2, a coding assistant powered by Aider against a local inference server, and the OpenClaw AI assistant on QuietBox 2. No cloud APIs — all inference runs on TT hardware.
   [📖 Local AI Agents on QuietBox 2](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-local-agents/) · [📖 Coding Assistant with Aider](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/coding-assistant/) · [📖 OpenClaw AI Assistant on QuietBox 2](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-openclaw-assistant/)
+
+- **[tt-claw](https://github.com/tsingletaryTT/tt-claw)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  A Tenstorrent-powered claw machine that rewards players with real prizes. The QuietBox 2 runs local AI inference to act as an agent controlling the claw hardware — the OpenClaw AI assistant lesson builds directly on this project.
+  [📦 repo](https://github.com/tsingletaryTT/tt-claw) · [📖 OpenClaw AI Assistant on QuietBox 2](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-openclaw-assistant/)
 
 - **[tt-example-apps](https://github.com/tenstorrent/tt-example-apps)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   End-to-end AI applications running on Tenstorrent AI accelerators. Complete application examples from retrieval-augmented generation to image generation pipelines.
@@ -178,7 +182,7 @@
 
 - **[dflash](https://github.com/zoecarver/dflash)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   DFlash: Block Diffusion for Flash Speculative Decoding on Tenstorrent hardware using tt-lang. Combines block diffusion with speculative decoding for faster inference.
-  [📦 repo](https://github.com/zoecarver/dflash)
+  [📦 repo](https://github.com/zoecarver/dflash) · [🌐 website](https://dflash.z-lab.ai)
 
 - **[tt-lang-models](https://github.com/zoecarver/tt-lang-models)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   A growing collection of models that use tt-lang for some or all of their implementation. Reference implementations for bringing modern models to the tt-lang DSL.
@@ -198,7 +202,7 @@
 
 - **[tt-metal](https://github.com/tenstorrent/tt-metal)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.
-  [📦 repo](https://github.com/tenstorrent/tt-metal)
+  [📦 repo](https://github.com/tenstorrent/tt-metal) · [🌐 website](https://docs.tenstorrent.com/tt-metal/latest/ttnn/)
 
 ## 🔨 Compilers & Frontends
 
@@ -232,11 +236,11 @@
 
 - **[tt-mlir](https://github.com/tenstorrent/tt-mlir)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent MLIR compiler — the core compiler infrastructure shared by tt-forge and other frontends. Handles graph optimization, lowering, and code generation for Tensix hardware.
-  [📦 repo](https://github.com/tenstorrent/tt-mlir)
+  [📦 repo](https://github.com/tenstorrent/tt-mlir) · [🌐 website](https://tenstorrent.github.io/tt-mlir/)
 
 - **[tt-torch](https://github.com/tenstorrent/tt-torch)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Frontend integration for PyTorch with tt-mlir. Compile PyTorch models directly to Tenstorrent hardware via torch.compile integration.
-  [📦 repo](https://github.com/tenstorrent/tt-torch)
+  [📦 repo](https://github.com/tenstorrent/tt-torch) · [🌐 website](https://docs.tenstorrent.com/tt-torch/)
 
 - **[tt-tvm](https://github.com/tenstorrent/tt-tvm)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   TVM for Tenstorrent ASICs. Brings the Apache TVM compiler stack to Tenstorrent hardware, enabling model compilation from TensorFlow, PyTorch, ONNX, and more.
@@ -244,11 +248,11 @@
 
 - **[tt-xla](https://github.com/tenstorrent/tt-xla)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   PJRT device plugin for Tenstorrent hardware. Enables JAX, PyTorch/XLA, and other XLA-based frameworks to target TT accelerators.
-  [📦 repo](https://github.com/tenstorrent/tt-xla) · [📖 JAX and PyTorch/XLA on Tenstorrent](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/tt-xla-jax/)
+  [📦 repo](https://github.com/tenstorrent/tt-xla) · [📖 JAX and PyTorch/XLA on Tenstorrent](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/tt-xla-jax/) · [🌐 website](https://docs.tenstorrent.com/tt-xla)
 
 - **[tt-metal](https://github.com/tenstorrent/tt-metal)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.
-  [📦 repo](https://github.com/tenstorrent/tt-metal)
+  [📦 repo](https://github.com/tenstorrent/tt-metal) · [🌐 website](https://docs.tenstorrent.com/tt-metal/latest/ttnn/)
 
 ## 🛠 Dev Tools & Debugging
 
@@ -266,7 +270,7 @@
 
 - **[tensix-viz](https://github.com/tsingletaryTT/tensix-viz)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   Hardware topology visualizer for Tenstorrent chips — from individual chip to full cluster. Interactive JavaScript visualization of Tensix core layout and NoC connections.
-  [📦 repo](https://github.com/tsingletaryTT/tensix-viz)
+  [📦 repo](https://github.com/tsingletaryTT/tensix-viz) · [🌐 website](https://tsingletarytt.github.io/tensix-viz/)
 
 - **[tt-model-runner](https://github.com/tsingletaryTT/tt-model-runner)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   Discover, load, and benchmark models with a GUI and TUI for tt-inference-server. Makes exploring available models on Tenstorrent hardware as easy as browsing a catalog.
@@ -306,7 +310,7 @@
 
 - **[tt-toplike](https://github.com/tenstorrent/tt-toplike)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.
-  [📦 repo](https://github.com/tenstorrent/tt-toplike)
+  [📦 repo](https://github.com/tenstorrent/tt-toplike) · [🌐 website](https://docs.tenstorrent.com/tt-toplike/)
 
 - **[tensix-isa-simulator](https://github.com/tenstorrent/tensix-isa-simulator)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   ISA-level simulator for the Tensix compute engine. Simulates the matrix, vector, and scalar units inside each Tensix core.
@@ -364,11 +368,11 @@
 
 - **[tt-system-firmware](https://github.com/tenstorrent/tt-system-firmware)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   System firmware for Tenstorrent hardware. Low-level system initialization and control firmware that runs on-device.
-  [📦 repo](https://github.com/tenstorrent/tt-system-firmware)
+  [📦 repo](https://github.com/tenstorrent/tt-system-firmware) · [🌐 website](https://tenstorrent.com)
 
 - **[tt-toplike](https://github.com/tenstorrent/tt-toplike)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.
-  [📦 repo](https://github.com/tenstorrent/tt-toplike)
+  [📦 repo](https://github.com/tenstorrent/tt-toplike) · [🌐 website](https://docs.tenstorrent.com/tt-toplike/)
 
 - **[tt-topology](https://github.com/tenstorrent/tt-topology)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Configure Ethernet routing on multi-card Tenstorrent systems. Flash NB cards to use specific ETH routing configurations for scale-out deployments.
@@ -420,11 +424,11 @@
 
 - **[tt-bh-linux](https://github.com/tenstorrent/tt-bh-linux)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Linux demo for the Tenstorrent Blackhole P100/P150 card RISC-V cores. Boot a real Linux kernel on the 16 high-performance RISC-V cores built into the Blackhole chip.
-  [📦 repo](https://github.com/tenstorrent/tt-bh-linux)
+  [📦 repo](https://github.com/tenstorrent/tt-bh-linux) · [🌐 website](https://tenstorrent.com/hardware/blackhole)
 
 - **[RiESCUE](https://github.com/tenstorrent/riescue)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   RISC-V Directed Test Framework and Compliance Suite. Comprehensive test infrastructure for verifying RISC-V processor implementations against the specification.
-  [📦 repo](https://github.com/tenstorrent/riescue)
+  [📦 repo](https://github.com/tenstorrent/riescue) · [🌐 website](https://docs.tenstorrent.com/riescue/)
 
 - **[riscv-ocelot](https://github.com/tenstorrent/riscv-ocelot)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   The Berkeley Out-of-Order Machine with V-EXT (RISC-V Vector Extension) support. Tenstorrent's research-grade out-of-order RISC-V core with vector extension.
@@ -492,15 +496,19 @@
 
 - **[tt-zork-and-more](https://github.com/tsingletaryTT/tt-zork-and-more)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   A Tenstorrent fork of Infocom's Zork I (and more!), running a Z-machine interpreter at least four different ways on TT hardware. The most fun you can have with an AI accelerator.
-  [📦 repo](https://github.com/tsingletaryTT/tt-zork-and-more)
+  [📦 repo](https://github.com/tsingletaryTT/tt-zork-and-more) · [🌐 website](https://tsingletaryTT.github.io/tt-zork-and-more)
 
 - **Tenstorrent Cookbook: Particle Life Simulator** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   Particle Life simulation on Tenstorrent hardware — an emergent-behavior N-body system where simple attraction/repulsion rules between species produce complex lifelike patterns. Cookbook recipe demonstrating parallel N-body compute on Tensix.
   [📖 Cookbook Recipe 5: Particle Life Simulator](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-particle-life/)
 
+- **[tt-claw](https://github.com/tsingletaryTT/tt-claw)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  A Tenstorrent-powered claw machine that rewards players with real prizes. The QuietBox 2 runs local AI inference to act as an agent controlling the claw hardware — the OpenClaw AI assistant lesson builds directly on this project.
+  [📦 repo](https://github.com/tsingletaryTT/tt-claw) · [📖 OpenClaw AI Assistant on QuietBox 2](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-openclaw-assistant/)
+
 - **[diamond](https://github.com/zoecarver/diamond)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   DIAMOND: Atari game-playing agent implemented on Tenstorrent hardware via tt-lang. Diffusion-based world model for reinforcement learning.
-  [📦 repo](https://github.com/zoecarver/diamond)
+  [📦 repo](https://github.com/zoecarver/diamond) · [🌐 website](https://diamond-wm.github.io)
 
 - **[tt-forge-compiletron](https://github.com/tsingletaryTT/tt-forge-compiletron)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   Compile more than 100 models on tt-forge in a display format suitable for demos. Comprehensive showcase of tt-forge model compatibility.
