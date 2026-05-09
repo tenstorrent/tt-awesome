@@ -1,20 +1,30 @@
 name: Build and deploy
+
 on:
   push:
     branches: [main]
+
 permissions:
   contents: write
   pages: write
   id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
+
       - name: Generate README
         run: python3 scripts/generate_readme.py
+
       - name: Commit README if changed
         run: |
           git config user.name "github-actions[bot]"
@@ -22,11 +32,23 @@ jobs:
           git add README.md
           git diff --staged --quiet || git commit -m "chore: regenerate README [skip ci]"
           git push
+
       - uses: actions/setup-node@v4
         with: { node-version: "20", cache: "npm" }
+
       - run: npm ci
       - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v4
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          path: ./_site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
