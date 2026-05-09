@@ -1,6 +1,6 @@
 // State
 let activeCategory = null;
-let activeFilters = new Set(["community", "affiliated"]);
+let activeFilters = new Set(["community", "affiliated", "official"]);
 let activeEntryId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
