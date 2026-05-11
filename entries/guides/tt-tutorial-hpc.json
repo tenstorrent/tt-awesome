@@ -1,0 +1,29 @@
+{
+  "id": "tt-tutorial-hpc",
+  "name": "tt-tutorial (HPC)",
+  "description": "Tutorial on Tenstorrent hardware for HPC researchers from the RISC-V Testbed project at Edinburgh/EPCC. Covers Wormhole from an HPC parallel-computing perspective.",
+  "affiliation": "community",
+  "categories": [
+    "guides",
+    "research"
+  ],
+  "tags": [
+    "tutorial",
+    "hpc",
+    "epcc",
+    "edinburgh",
+    "wormhole"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/RISCVtestbed/tt-tutorial"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "RISCVtestbed",
+  "language": "C++",
+  "license": "BSD-3-Clause"
+}

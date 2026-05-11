@@ -1,0 +1,12 @@
+{
+  "id": "tt-umd",
+  "name": "tt-umd",
+  "description": "User-mode driver for Tenstorrent hardware. The userspace layer that sits between the kernel module and higher-level SDKs.",
+  "affiliation": "official",
+  "categories": ["hw-system"],
+  "tags": ["user-mode-driver", "umd", "hardware-interface"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-umd" }],
+  "hardware": ["grayskull", "wormhole", "blackhole"],
+  "language": "C++",
+  "license": "Apache-2.0"
+}

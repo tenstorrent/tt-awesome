@@ -1,0 +1,30 @@
+{
+  "id": "tt-local-generator",
+  "name": "tt-local-generator",
+  "description": "Generate infinite videos and images (and imaginative prompts to inspire them) on Tenstorrent's Quietbox 2. Fully local generative media pipeline.",
+  "affiliation": "official",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "video-generation",
+    "image-generation",
+    "quietbox",
+    "generative"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-local-generator"
+    },
+    {
+      "type": "website",
+      "url": "https://docs.tenstorrent.com/tt-local-generator/"
+    }
+  ],
+  "hardware": [
+    "quietbox"
+  ],
+  "language": "Python",
+  "license": "Apache-2.0"
+}

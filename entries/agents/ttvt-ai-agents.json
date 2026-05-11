@@ -1,0 +1,41 @@
+{
+  "id": "ttvt-ai-agents",
+  "name": "Local AI Agents on Tenstorrent",
+  "description": "Three agentic projects running fully on-device: local AI agents on QuietBox 2, a coding assistant powered by Aider against a local inference server, and the OpenClaw AI assistant on QuietBox 2. No cloud APIs \u2014 all inference runs on TT hardware.",
+  "affiliation": "affiliated",
+  "categories": [
+    "agents"
+  ],
+  "tags": [
+    "agents",
+    "local-llm",
+    "aider",
+    "coding-assistant",
+    "quietbox",
+    "on-device"
+  ],
+  "links": [
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-local-agents/",
+      "label": "Local AI Agents on QuietBox 2"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/coding-assistant/",
+      "label": "Coding Assistant with Aider"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-openclaw-assistant/",
+      "label": "OpenClaw AI Assistant on QuietBox 2"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "quietbox"
+  ],
+  "featured": true,
+  "author": "tsingletaryTT"
+}

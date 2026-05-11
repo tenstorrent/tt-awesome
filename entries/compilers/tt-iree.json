@@ -1,0 +1,29 @@
+{
+  "id": "tt-iree",
+  "name": "tt-iree",
+  "description": "IREE (Intermediate Representation Execution Environment) ML compiler ported to Tenstorrent AI accelerators. Brings the IREE compiler ecosystem to TT hardware.",
+  "affiliation": "community",
+  "categories": [
+    "compilers"
+  ],
+  "tags": [
+    "iree",
+    "compiler",
+    "mlir",
+    "inference"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/swote-git/tt-iree"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "featured": true,
+  "author": "swote-git",
+  "language": "C++",
+  "license": "Apache-2.0"
+}

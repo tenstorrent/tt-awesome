@@ -1,0 +1,25 @@
+{
+  "id": "tt-mandelbrot",
+  "name": "ttMandelbrot",
+  "description": "Mandelbrot Set fractal renderer running on Tenstorrent hardware. A classic demo showcasing parallel compute on Tensix cores.",
+  "affiliation": "community",
+  "categories": [
+    "games-demos",
+    "kernels"
+  ],
+  "tags": [
+    "mandelbrot",
+    "demo",
+    "fractals",
+    "parallel"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/marty1885/ttMandelbrot"
+    }
+  ],
+  "author": "marty1885",
+  "language": "C",
+  "license": "0BSD"
+}

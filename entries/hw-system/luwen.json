@@ -1,0 +1,12 @@
+{
+  "id": "luwen",
+  "name": "luwen",
+  "description": "Tenstorrent system interface library written in Rust. Low-level Rust bindings for communicating with and managing TT hardware.",
+  "affiliation": "official",
+  "categories": ["hw-system"],
+  "tags": ["rust", "system-interface", "low-level", "bindings"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/luwen" }],
+  "hardware": ["grayskull", "wormhole", "blackhole"],
+  "language": "Rust",
+  "license": "Apache-2.0"
+}

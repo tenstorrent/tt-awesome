@@ -1,0 +1,12 @@
+{
+  "id": "paper-numerical-kernels-wormhole",
+  "name": "Numerical Kernels on a Spatial Accelerator: Tenstorrent Wormhole",
+  "description": "Implements three numerical kernels and composes them into a conjugate gradient solver on Wormhole. Demonstrates AI accelerators merit consideration for HPC workloads traditionally dominated by CPUs and GPUs. 2026.",
+  "affiliation": "community",
+  "categories": ["research"],
+  "tags": ["numerical-methods", "hpc", "conjugate-gradient", "wormhole", "sparse"],
+  "links": [
+    { "type": "paper", "url": "https://arxiv.org/abs/2603.23343", "label": "arXiv:2603.23343" }
+  ],
+  "hardware": ["wormhole"]
+}

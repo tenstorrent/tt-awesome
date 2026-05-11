@@ -1,0 +1,28 @@
+{
+  "id": "dflash",
+  "name": "dflash",
+  "description": "DFlash: Block Diffusion for Flash Speculative Decoding on Tenstorrent hardware using tt-lang. Combines block diffusion with speculative decoding for faster inference.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models",
+    "kernels"
+  ],
+  "tags": [
+    "speculative-decoding",
+    "diffusion",
+    "tt-lang",
+    "inference"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/zoecarver/dflash"
+    },
+    {
+      "type": "website",
+      "url": "https://dflash.z-lab.ai"
+    }
+  ],
+  "author": "zoecarver",
+  "language": "Python"
+}

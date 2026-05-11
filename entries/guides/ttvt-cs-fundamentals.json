@@ -1,0 +1,62 @@
+{
+  "id": "ttvt-cs-fundamentals",
+  "name": "CS Fundamentals on Tenstorrent Hardware",
+  "description": "Seven-module computer science curriculum taught on real Tenstorrent hardware. Covers RISC-V architecture, memory hierarchy, parallel computing, networks and NoC, synchronization, abstraction layers, and computational complexity \u2014 all grounded in what is physically happening on the chip.",
+  "affiliation": "affiliated",
+  "categories": [
+    "guides",
+    "riscv-arch"
+  ],
+  "tags": [
+    "computer-science",
+    "curriculum",
+    "risc-v",
+    "parallelism",
+    "memory",
+    "noc",
+    "education"
+  ],
+  "links": [
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-01-computer/",
+      "label": "Module 1: RISC-V & Computer Architecture"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-02-memory/",
+      "label": "Module 2: The Memory Hierarchy"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-03-parallelism/",
+      "label": "Module 3: Parallel Computing"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-04-networks/",
+      "label": "Module 4: Networks and Communication"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-05-synchronization/",
+      "label": "Module 5: Synchronization"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-06-abstraction/",
+      "label": "Module 6: Abstraction Layers"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-07-complexity/",
+      "label": "Module 7: Computational Complexity in Practice"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "featured": true,
+  "author": "tsingletaryTT"
+}

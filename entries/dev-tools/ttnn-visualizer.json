@@ -1,0 +1,12 @@
+{
+  "id": "ttnn-visualizer",
+  "name": "ttnn-visualizer",
+  "description": "Comprehensive tool for visualizing and analyzing model execution on Tenstorrent hardware. Interactive graphs, memory plots, tensor details, buffer overviews, operation flow graphs, and multi-instance support.",
+  "affiliation": "official",
+  "categories": ["dev-tools"],
+  "tags": ["visualization", "profiling", "memory", "operations", "graphs"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/ttnn-visualizer" }],
+  "hardware": ["wormhole", "blackhole"],
+  "language": "TypeScript",
+  "license": "Apache-2.0"
+}

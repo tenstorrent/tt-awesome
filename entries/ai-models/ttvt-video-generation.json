@@ -1,0 +1,41 @@
+{
+  "id": "ttvt-video-generation",
+  "name": "Video Generation on Tenstorrent",
+  "description": "Three lesson-projects covering on-device video synthesis: frame-by-frame diffusion with tt-local-generator, native AnimateDiff video animation, and video generation on QuietBox 2. All run entirely on TT hardware with no cloud dependency.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "video-generation",
+    "diffusion",
+    "animatediff",
+    "tt-local-generator",
+    "quietbox",
+    "on-device"
+  ],
+  "links": [
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/video-generation-ttmetal/",
+      "label": "Video Generation via Frame-by-Frame Diffusion"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/animatediff-video-generation/",
+      "label": "Native Video Animation with AnimateDiff"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-video-generation/",
+      "label": "Video Generation on QuietBox 2"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "quietbox"
+  ],
+  "featured": true,
+  "author": "tsingletaryTT"
+}

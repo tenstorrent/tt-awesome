@@ -1,0 +1,33 @@
+{
+  "id": "tt-lang",
+  "name": "tt-lang",
+  "description": "Python-based domain-specific language for authoring custom operations on Tenstorrent hardware. Expresses concurrent compute and data-movement programs that compile directly to Tensix kernels.",
+  "affiliation": "official",
+  "categories": [
+    "kernels"
+  ],
+  "tags": [
+    "dsl",
+    "python",
+    "kernels",
+    "tt-lang"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-lang"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/tt-lang-intro/",
+      "label": "Introduction to tt-lang"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "ttsim"
+  ],
+  "language": "Python",
+  "license": "Apache-2.0"
+}

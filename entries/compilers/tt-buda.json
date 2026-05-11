@@ -1,0 +1,14 @@
+{
+  "id": "tt-buda",
+  "name": "tt-buda",
+  "description": "TT-BUDA: Tenstorrent's original Python compiler and runtime for AI workloads. Legacy stack — tt-forge is the recommended successor, but tt-buda has the largest model demo library.",
+  "affiliation": "official",
+  "categories": ["compilers"],
+  "tags": ["legacy", "compiler", "pytorch", "buda"],
+  "links": [
+    { "type": "repo", "url": "https://github.com/tenstorrent/tt-buda" }
+  ],
+  "hardware": ["grayskull", "wormhole"],
+  "language": "Python",
+  "license": "Apache-2.0"
+}

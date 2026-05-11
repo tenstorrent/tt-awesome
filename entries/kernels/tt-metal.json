@@ -1,0 +1,35 @@
+{
+  "id": "tt-metal",
+  "name": "tt-metal",
+  "description": "TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware \u2014 from high-level tensor ops to bare-metal RISC-V kernels.",
+  "affiliation": "official",
+  "categories": [
+    "kernels",
+    "compilers"
+  ],
+  "tags": [
+    "metalium",
+    "ttnn",
+    "sdk",
+    "kernels",
+    "core"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-metal"
+    },
+    {
+      "type": "website",
+      "url": "https://docs.tenstorrent.com/tt-metal/latest/ttnn/"
+    }
+  ],
+  "hardware": [
+    "grayskull",
+    "wormhole",
+    "blackhole",
+    "ttsim"
+  ],
+  "language": "C++",
+  "license": "Apache-2.0"
+}

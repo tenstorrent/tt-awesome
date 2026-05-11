@@ -1,0 +1,45 @@
+{
+  "id": "ttvt-cookbook-recipes",
+  "name": "Tenstorrent Cookbook: Core Recipes",
+  "description": "Three hands-on TT-Metalium kernel recipes: a Mandelbrot fractal explorer, real-time audio signal processing pipeline, and custom image filter stack. Each recipe is a complete kernel project with full source in the lesson.",
+  "affiliation": "affiliated",
+  "categories": [
+    "kernels",
+    "guides"
+  ],
+  "tags": [
+    "cookbook",
+    "mandelbrot",
+    "audio",
+    "image-processing",
+    "metalium",
+    "demo"
+  ],
+  "links": [
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-overview/",
+      "label": "Tenstorrent Cookbook Overview"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-mandelbrot/",
+      "label": "Recipe 3: Mandelbrot Fractal Explorer"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-audio-processor/",
+      "label": "Recipe 2: Audio Signal Processing"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-image-filters/",
+      "label": "Recipe 4: Custom Image Filters"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "author": "tsingletaryTT"
+}

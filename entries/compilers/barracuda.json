@@ -1,0 +1,15 @@
+{
+  "id": "barracuda",
+  "name": "BarraCUDA",
+  "description": "Open-source CUDA compiler targeting multiple GPU architectures including Tenstorrent. Compiles .cu files to run on AMD and Tenstorrent hardware without modification.",
+  "affiliation": "community",
+  "categories": ["compilers"],
+  "tags": ["cuda", "compiler", "cross-platform", "blackhole"],
+  "links": [
+    { "type": "repo", "url": "https://github.com/Zaneham/BarraCUDA" }
+  ],
+  "hardware": ["blackhole"],
+  "featured": true,
+  "author": "Zaneham",
+  "language": "C"
+}

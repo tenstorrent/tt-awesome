@@ -1,0 +1,30 @@
+{
+  "id": "tt-system-firmware",
+  "name": "tt-system-firmware",
+  "description": "System firmware for Tenstorrent hardware. Low-level system initialization and control firmware that runs on-device.",
+  "affiliation": "official",
+  "categories": [
+    "hw-system"
+  ],
+  "tags": [
+    "firmware",
+    "system",
+    "embedded"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-system-firmware"
+    },
+    {
+      "type": "website",
+      "url": "https://tenstorrent.com"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "language": "C",
+  "license": "Apache-2.0"
+}

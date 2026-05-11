@@ -1,0 +1,12 @@
+{
+  "id": "tt-kmd",
+  "name": "tt-kmd",
+  "description": "Tenstorrent kernel module driver. The Linux kernel module required to interface with Tenstorrent PCIe accelerator cards.",
+  "affiliation": "official",
+  "categories": ["hw-system"],
+  "tags": ["kernel-module", "driver", "linux", "pcie"],
+  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-kmd" }],
+  "hardware": ["grayskull", "wormhole", "blackhole"],
+  "language": "C",
+  "license": "GPL-2.0"
+}
