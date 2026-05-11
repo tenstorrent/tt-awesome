@@ -80,6 +80,10 @@
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Eight-lesson series covering the full custom training workflow on TT hardware: dataset fundamentals, configuration patterns, fine-tuning, multi-device distributed training, experiment tracking, model architecture basics, and training from scratch.
   [📖 Understanding Custom Training](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct1-understanding-training/) · [📖 Dataset Fundamentals](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct2-dataset-fundamentals/) · [📖 Configuration Patterns](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct3-configuration-patterns/) · [📖 Fine-tuning Basics](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct4-finetuning-basics/) · [📖 Multi-Device Training](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct5-multi-device-training/) · [📖 Experiment Tracking](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct6-experiment-tracking/) · [📖 Model Architecture Basics](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct7-architecture-basics/) · [📖 Training from Scratch](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct8-training-from-scratch/)
 
+- **TT Console** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Browser-based cloud console for exploring AI on Tenstorrent hardware. Run LLM inference, image and video generation, and browse the supported model catalog in-browser — backed by Tenstorrent accelerators. Cloud hardware access and advanced workflows (deployments, agents) available in staged rollout.
+  [🌐 console.tenstorrent.com](https://console.tenstorrent.com)
+
 - **[tt-blacksmith](https://github.com/tenstorrent/tt-blacksmith)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Optimized training recipes for a variety of ML models on Tenstorrent hardware, powered by the TT-Forge compiler stack. Reference implementations for fine-tuning and training from scratch.
   [📦 repo](https://github.com/tenstorrent/tt-blacksmith) · [📖 Custom Training lessons (VSCode Toolkit)](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons) · [🌐 website](https://docs.tenstorrent.com/tt-blacksmith/)
@@ -395,6 +399,10 @@
 - **[koyeb/tenstorrent-examples](https://github.com/koyeb/tenstorrent-examples)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@koyeb](https://github.com/koyeb) — Example applications and deployment configurations for running AI workloads on Tenstorrent hardware via Koyeb's cloud platform.
   [📦 repo](https://github.com/koyeb/tenstorrent-examples) · [🌐 Koyeb blog post](https://www.koyeb.com/blog/tenstorrent-cloud-instances-unveiling-next-gen-ai-accelerators)
+
+- **TT Console** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Browser-based cloud console for exploring AI on Tenstorrent hardware. Run LLM inference, image and video generation, and browse the supported model catalog in-browser — backed by Tenstorrent accelerators. Cloud hardware access and advanced workflows (deployments, agents) available in staged rollout.
+  [🌐 console.tenstorrent.com](https://console.tenstorrent.com)
 
 - **[tt-inference-server](https://github.com/tenstorrent/tt-inference-server)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Production-ready model serving for Tenstorrent hardware with OpenAI-compatible REST API. Supports continuous batching, multiple models, and all TT hardware configurations.
