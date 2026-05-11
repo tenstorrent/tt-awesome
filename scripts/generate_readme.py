@@ -64,18 +64,33 @@ def sort_entries(entries):
     return sorted(entries, key=key)
 
 
+def format_author(author_str):
+    """Return Markdown for an author field.
+
+    GitHub-style handles (no spaces, alphanumeric / - / _ / .) are linked to
+    their GitHub profile.  Full names and multi-person strings are returned as
+    plain text so nothing is silently mis-linked.
+    """
+    if not author_str:
+        return None
+    if re.match(r'^[a-zA-Z0-9][a-zA-Z0-9_./-]*$', author_str):
+        return f"[@{author_str}](https://github.com/{author_str})"
+    return author_str
+
+
 def render_entry(e):
     """Render a single entry as a Markdown list item.
 
     Produces a block like:
         - **[name](repo_url)** ![badge]
-          Description text.
+          by [@author](https://github.com/author) — Description text.
           [📦 repo](url) · [🎤 FOSDEM 2026](url)
     """
     name = e["name"]
     desc = e["description"]
     badge = SHIELDS.get(e.get("affiliation", "community"), "")
     links = e.get("links", [])
+    author_md = format_author(e.get("author"))
 
     # Use the first repo link (if any) to hyperlink the project name
     repo = next((l for l in links if l["type"] == "repo"), None)
@@ -86,7 +101,11 @@ def render_entry(e):
         f"[{LINK_ICONS.get(l['type'], '🔗')} {l.get('label') or l['type']}]({l['url']})"
         for l in links
     ]
-    result = f"- **{name_md}** {badge}\n  {desc}"
+
+    # Combine author + description on the same line when author is present
+    desc_line = f"by {author_md} — {desc}" if author_md else desc
+
+    result = f"- **{name_md}** {badge}\n  {desc_line}"
     if link_parts:
         result += f"\n  {' · '.join(link_parts)}"
     return result
