@@ -1,0 +1,14 @@
+# This file exists solely to tell Jekyll's build checker to ignore the
+# Eleventy source tree. The actual site is built by Eleventy via GitHub
+# Actions — Jekyll is never used for deployment.
+exclude:
+  - src/
+  - entries/
+  - scripts/
+  - tests/
+  - docs/
+  - node_modules/
+  - .eleventy.js
+  - package.json
+  - package-lock.json
+  - CONTRIBUTING.md
