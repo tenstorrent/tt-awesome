@@ -8,5 +8,8 @@
   "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-kmd" }],
   "hardware": ["grayskull", "wormhole", "blackhole"],
   "language": "C",
-  "license": "GPL-2.0"
+  "license": "GPL-2.0",
+  "packages": [
+    { "type": "apt", "name": "ttkmd", "ppa": "ppa:tenstorrent/ppa" }
+  ]
 }

@@ -42,6 +42,22 @@
       {%- endfor %}
     </div>
     {%- endif %}
+    {%- if entry.packages %}
+    <div class="detail-section">
+      <div class="section-label">Install</div>
+      {%- for pkg in entry.packages %}
+      {%- if pkg.type == "pypi" %}
+      <a class="pkg-badge pkg-badge--pypi" href="https://pypi.org/project/{{ pkg.name }}/" target="_blank" rel="noopener noreferrer">🐍 pip install {{ pkg.name }}</a>
+      {%- elif pkg.type == "cargo" %}
+      <a class="pkg-badge pkg-badge--cargo" href="https://crates.io/crates/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">🦀 cargo add {{ pkg.name }}</a>
+      {%- elif pkg.type == "apt" and pkg.ppa %}
+      <a class="pkg-badge pkg-badge--apt" href="https://launchpad.net/{{ pkg.ppa | replace('ppa:', '~') | replace('/', '/+archive/ubuntu/') }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
+      {%- elif pkg.type == "apt" %}
+      <span class="pkg-badge pkg-badge--apt">🐧 apt install {{ pkg.name }}</span>
+      {%- endif %}
+      {%- endfor %}
+    </div>
+    {%- endif %}
     {%- if entry.tags %}
     <div class="detail-section detail-tags">
       {%- for tag in entry.tags %}

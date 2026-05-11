@@ -306,7 +306,7 @@
 
 - **[tt-smi](https://github.com/tenstorrent/tt-smi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.
-  [📦 repo](https://github.com/tenstorrent/tt-smi)
+  [📦 repo](https://github.com/tenstorrent/tt-smi) · [🐍 `pip install tt-smi`](https://pypi.org/project/tt-smi/)
 
 - **[tt-toplike](https://github.com/tenstorrent/tt-toplike)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.
@@ -344,15 +344,15 @@
 
 - **[luwen](https://github.com/tenstorrent/luwen)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent system interface library written in Rust. Low-level Rust bindings for communicating with and managing TT hardware.
-  [📦 repo](https://github.com/tenstorrent/luwen)
+  [📦 repo](https://github.com/tenstorrent/luwen) · [🦀 `cargo add luwen`](https://crates.io/crates/luwen)
 
 - **[tt-firmware](https://github.com/tenstorrent/tt-firmware)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent firmware repository. Board management and control firmware for Tenstorrent accelerator cards.
-  [📦 repo](https://github.com/tenstorrent/tt-firmware)
+  [📦 repo](https://github.com/tenstorrent/tt-firmware) · [🐧 `apt install tt-firmware`](https://launchpad.net/~tenstorrent/+archive/ubuntu/ppa)
 
 - **[tt-flash](https://github.com/tenstorrent/tt-flash)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent firmware update utility. Flash new firmware onto Tenstorrent accelerator cards from the command line.
-  [📦 repo](https://github.com/tenstorrent/tt-flash)
+  [📦 repo](https://github.com/tenstorrent/tt-flash) · [🐍 `pip install tt-flash`](https://pypi.org/project/tt-flash/)
 
 - **[tt-installer](https://github.com/tenstorrent/tt-installer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.
@@ -360,11 +360,11 @@
 
 - **[tt-kmd](https://github.com/tenstorrent/tt-kmd)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent kernel module driver. The Linux kernel module required to interface with Tenstorrent PCIe accelerator cards.
-  [📦 repo](https://github.com/tenstorrent/tt-kmd)
+  [📦 repo](https://github.com/tenstorrent/tt-kmd) · [🐧 `apt install ttkmd`](https://launchpad.net/~tenstorrent/+archive/ubuntu/ppa)
 
 - **[tt-smi](https://github.com/tenstorrent/tt-smi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.
-  [📦 repo](https://github.com/tenstorrent/tt-smi)
+  [📦 repo](https://github.com/tenstorrent/tt-smi) · [🐍 `pip install tt-smi`](https://pypi.org/project/tt-smi/)
 
 - **[tt-system-firmware](https://github.com/tenstorrent/tt-system-firmware)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   System firmware for Tenstorrent hardware. Low-level system initialization and control firmware that runs on-device.
@@ -376,7 +376,7 @@
 
 - **[tt-topology](https://github.com/tenstorrent/tt-topology)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Configure Ethernet routing on multi-card Tenstorrent systems. Flash NB cards to use specific ETH routing configurations for scale-out deployments.
-  [📦 repo](https://github.com/tenstorrent/tt-topology)
+  [📦 repo](https://github.com/tenstorrent/tt-topology) · [🐍 `pip install tt-topology`](https://pypi.org/project/tt-topology/)
 
 - **[tt-umd](https://github.com/tenstorrent/tt-umd)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   User-mode driver for Tenstorrent hardware. The userspace layer that sits between the kernel module and higher-level SDKs.
@@ -402,7 +402,7 @@
 
 - **[tt-topology](https://github.com/tenstorrent/tt-topology)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Configure Ethernet routing on multi-card Tenstorrent systems. Flash NB cards to use specific ETH routing configurations for scale-out deployments.
-  [📦 repo](https://github.com/tenstorrent/tt-topology)
+  [📦 repo](https://github.com/tenstorrent/tt-topology) · [🐍 `pip install tt-topology`](https://pypi.org/project/tt-topology/)
 
 ## 🔩 RISC-V & Architecture
 

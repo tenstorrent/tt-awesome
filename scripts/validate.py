@@ -12,6 +12,7 @@ VALID_CATEGORY_SLUGS = {
 }
 VALID_LINK_TYPES = {"repo", "article", "talk", "video", "website", "demo", "lesson", "paper"}
 VALID_HARDWARE = {"grayskull", "wormhole", "blackhole", "quietbox", "galaxy", "ttsim"}
+VALID_PACKAGE_TYPES = {"pypi", "apt", "cargo"}
 URL_RE = re.compile(r"^https://.+")
 
 
@@ -50,6 +51,21 @@ def validate_entry(path: Path, data: dict) -> list:
             for h in hw:
                 if h not in VALID_HARDWARE:
                     errors.append(f"unknown hardware value: '{h}'")
+    pkgs = data.get("packages")
+    if pkgs is not None:
+        if not isinstance(pkgs, list):
+            errors.append("packages must be a list")
+        else:
+            for i, pkg in enumerate(pkgs):
+                if not isinstance(pkg, dict):
+                    errors.append(f"packages[{i}] must be an object")
+                    continue
+                if pkg.get("type") not in VALID_PACKAGE_TYPES:
+                    errors.append(f"packages[{i}].type must be one of {sorted(VALID_PACKAGE_TYPES)}")
+                if not pkg.get("name") or not isinstance(pkg.get("name"), str):
+                    errors.append(f"packages[{i}].name must be a non-empty string")
+                if "ppa" in pkg and not isinstance(pkg["ppa"], str):
+                    errors.append(f"packages[{i}].ppa must be a string")
     if "tags" in data and not isinstance(data["tags"], list):
         errors.append("tags must be a list")
     if "featured" in data and not isinstance(data["featured"], bool):
