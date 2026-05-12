@@ -1,0 +1,20 @@
+{
+  "id": "exploring-spectral-element-methods-on-the-tenstorrent-risc-v-accelerator",
+  "name": "Exploring spectral element methods on the Tenstorrent RISC-V accelerator",
+  "description": "This paper shows that the Nekbone HPC mini-app can be successfully ported to Tenstorrent\u2019s Wormhole RISC-V accelerator, and that the key to good performance is moving costly data transpositions onto the device instead of handling them on the host.",
+  "affiliation": "affiliated",
+  "categories": [
+    "riscv-arch",
+    "research"
+  ],
+  "links": [
+    {
+      "type": "paper",
+      "url": "https://www.epcc.ed.ac.uk/"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "Nick Brown"
+}
