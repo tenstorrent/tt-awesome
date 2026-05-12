@@ -484,6 +484,10 @@
   Explores stencil computation on the Grayskull PCIe RISC-V accelerator. Early academic work examining TT hardware for HPC stencil workloads. 2024.
   [📄 arXiv:2409.18835](https://arxiv.org/abs/2409.18835)
 
+- **Stencil Computations on Tenstorrent Wormhole** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Maps 2D 5-point stencil computations onto the Tenstorrent Wormhole RISC-V AI dataflow accelerator via two implementations: element-wise decomposition (Axpy) and matrix-multiplication reformulation (MatMul). Profiling shows the isolated Wormhole kernel is competitive with CPU execution, with PCIe transfers and initialization driving end-to-end overhead; Axpy achieves lower energy than the CPU baseline at large scales. Identifies architectural and software directions for making AI accelerators viable for HPC stencil workloads. 2025.
+  [📄 arXiv:2605.07599](https://arxiv.org/abs/2605.07599)
+
 - **SwiftNPU: Scalable Shape-Flexible Allocation for Inter-Core Connected NPUs** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Makes multi-tenant NPU sharing practical for Blackhole-class hardware using polynomial-time allocation algorithms. Delivers up to 1.37× higher utilization and 1.14× faster workload completion. Up to 890,000× faster than NP-hard baselines.
   [📄 ACM DL](https://dl.acm.org/doi/10.1145/3805621.3807614)
