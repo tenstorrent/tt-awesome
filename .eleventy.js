@@ -9,6 +9,21 @@ module.exports = function (eleventyConfig) {
     str && str.length > len ? str.slice(0, len) + "…" : str
   );
 
+  // Return the top entry for a category (featured first, then by sort order).
+  eleventyConfig.addFilter("featuredForCategory", (entries, slug) => {
+    const cat = (entries || []).filter(
+      (e) => Array.isArray(e.categories) && e.categories.includes(slug)
+    );
+    return cat.find((e) => e.featured) || cat[0] || null;
+  });
+
+  // Count entries belonging to a category.
+  eleventyConfig.addFilter("countForCategory", (entries, slug) =>
+    (entries || []).filter(
+      (e) => Array.isArray(e.categories) && e.categories.includes(slug)
+    ).length
+  );
+
   // Inline a file's content directly into the template.
   // Used to embed CSS and JS into the HTML so that private GitHub Pages
   // authentication doesn't intercept sub-resource requests and return an

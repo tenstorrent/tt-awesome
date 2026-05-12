@@ -10,38 +10,51 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
        background: var(--bg0); color: var(--text); font-size: 14px; }
 .app { display: flex; flex-direction: column; height: 100vh; }
 
-/* Topbar */
-.topbar { display: flex; align-items: center; gap: 12px; padding: 7px 16px;
-          background: var(--bg0); border-bottom: 1px solid var(--bg2); flex-shrink: 0; }
-.logo { font-weight: 800; font-size: 15px; color: var(--teal); white-space: nowrap; }
-.search { flex: 1; max-width: 280px; background: var(--bg1); border: 1px solid var(--bg2);
-          color: var(--text); padding: 5px 10px; border-radius: 4px; font-size: 13px; outline: none; }
+/* ── Topbar ─────────────────────────────────────────────────────────────── */
+.topbar { display: flex; align-items: center; gap: 12px; padding: 0 16px;
+          height: 48px; background: var(--bg3);
+          border-bottom: 1px solid rgba(79,209,197,0.15); flex-shrink: 0; }
+.logo { font-weight: 800; font-size: 15px; color: var(--teal);
+        white-space: nowrap; letter-spacing: -0.3px; }
+.search { flex: 1; max-width: 300px; background: var(--bg1);
+          border: 1px solid var(--bg2); color: var(--text);
+          padding: 6px 12px; border-radius: 6px; font-size: 13px; outline: none;
+          transition: border-color 0.15s; }
 .search:focus { border-color: var(--teal); }
-.chips { display: flex; gap: 5px; }
+.chips { display: flex; gap: 4px; }
 .chip { font-size: 11px; padding: 3px 10px; border-radius: 12px; border: none;
-        cursor: pointer; background: var(--bg1); color: var(--muted); transition: 0.15s; }
+        cursor: pointer; background: var(--bg1); color: var(--muted);
+        transition: background 0.15s, color 0.15s; letter-spacing: 0.2px; }
 .chip.active[data-filter="all"]       { background: var(--bg2); color: var(--text); }
 .chip.active[data-filter="community"] { background: var(--green); color: #fff; }
 .chip.active[data-filter="affiliated"]{ background: var(--pink);  color: #fff; }
 .chip.active[data-filter="official"]  { background: var(--muted); color: #fff; }
 
-/* Three panes */
+/* ── Layout ─────────────────────────────────────────────────────────────── */
 .panes { display: flex; flex: 1; overflow: hidden; }
 
-/* Sidebar */
-.sidebar { width: 160px; flex-shrink: 0; background: var(--bg3);
-           border-right: 1px solid var(--bg2); padding: 10px 6px; overflow-y: auto; }
-.sidebar-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
-                 color: var(--muted); padding: 0 8px 8px; }
-.sidebar-item { display: block; font-size: 12px; color: var(--muted); padding: 5px 8px;
-                border-radius: 4px; text-decoration: none; margin-bottom: 1px;
-                transition: 0.1s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sidebar-item:hover  { color: var(--text); background: var(--bg1); }
-.sidebar-item.active { color: var(--teal); background: var(--bg1); font-weight: 600; }
-.sidebar-muted       { font-size: 11px; opacity: 0.6; }
-.sidebar-hr          { border: none; border-top: 1px solid var(--bg2); margin: 8px 6px; }
+/* When home is active: show home-view, hide list + detail */
+.panes.home-active .list-pane   { display: none; }
+.panes.home-active .detail-pane { display: none; }
+.panes:not(.home-active) .home-view { display: none; }
 
-/* List pane */
+/* ── Sidebar ─────────────────────────────────────────────────────────────── */
+.sidebar { width: 168px; flex-shrink: 0; background: var(--bg3);
+           border-right: 1px solid rgba(79,209,197,0.12);
+           padding: 10px 6px; overflow-y: auto; display: flex; flex-direction: column; gap: 1px; }
+.sidebar-label { font-size: 9px; letter-spacing: 1.8px; text-transform: uppercase;
+                 color: var(--muted); padding: 6px 8px 4px; }
+.sidebar-item { display: block; font-size: 12px; color: var(--muted); padding: 5px 8px;
+                border-radius: 5px; text-decoration: none;
+                transition: color 0.1s, background 0.1s;
+                white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sidebar-item:hover  { color: var(--text); background: var(--bg1); }
+.sidebar-item.active { color: var(--teal); background: rgba(79,209,197,0.08); font-weight: 600; }
+.sidebar-home { font-weight: 600; }
+.sidebar-muted { font-size: 11px; opacity: 0.6; }
+.sidebar-hr    { border: none; border-top: 1px solid rgba(79,209,197,0.1); margin: 4px 6px; }
+
+/* ── List pane ───────────────────────────────────────────────────────────── */
 .list-pane { width: 300px; flex-shrink: 0; border-right: 1px solid var(--bg2);
              display: flex; flex-direction: column; overflow: hidden; }
 .list-head { padding: 10px 12px 8px; border-bottom: 1px solid var(--bg2); flex-shrink: 0; }
@@ -59,14 +72,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .row-desc   { font-size: 11px; color: var(--muted); line-height: 1.4; }
 .row-author { font-size: 10px; color: var(--teal-lt); opacity: 0.7; margin-top: 2px; }
 
-/* Badges */
+/* ── Badges ──────────────────────────────────────────────────────────────── */
 .badge { font-size: 9px; padding: 1px 6px; border-radius: 8px; color: #fff; white-space: nowrap; }
 .badge--community { background: var(--green); }
 .badge--affiliated{ background: var(--pink); }
 .badge--official  { background: var(--muted); }
 .featured-star    { font-size: 10px; color: var(--gold); }
 
-/* Detail pane */
+/* ── Detail pane ─────────────────────────────────────────────────────────── */
 .detail-pane  { flex: 1; overflow-y: auto; padding: 20px 24px; }
 .detail-empty { display: flex; align-items: center; justify-content: center;
                 height: 100%; color: var(--muted); font-size: 13px; }
@@ -94,7 +107,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .hw-badge    { display: inline-block; font-size: 11px; background: var(--bg1); color: var(--text);
                padding: 3px 10px; border-radius: 4px; border: 1px solid var(--bg2); margin: 2px 4px 2px 0; }
 
-/* Package install badges */
+/* ── Package install badges ───────────────────────────────────────────────── */
 .pkg-badge         { display: inline-block; font-size: 12px; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
                      text-decoration: none; padding: 4px 10px; border-radius: 4px;
                      margin: 2px 4px 2px 0; border: 1px solid; transition: filter 0.1s; }
@@ -102,3 +115,58 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .pkg-badge--apt    { background: var(--bg1); color: var(--green); border-color: var(--green); }
 .pkg-badge--cargo  { background: var(--bg1); color: #CE4A25; border-color: #CE4A25; }
 .pkg-badge:hover   { filter: brightness(1.2); }
+
+/* ── Home / Welcome view ─────────────────────────────────────────────────── */
+.home-view { flex: 1; overflow-y: auto; padding: 36px 44px 48px; }
+
+/* Hero */
+.home-hero    { margin-bottom: 40px; max-width: 700px; }
+.home-eyebrow { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+                color: var(--teal); margin-bottom: 12px; opacity: 0.85; }
+.home-title   { font-size: 34px; font-weight: 800; color: var(--text);
+                margin-bottom: 14px; letter-spacing: -0.5px; line-height: 1.15; }
+.home-sub     { font-size: 14px; color: var(--text2); line-height: 1.75;
+                margin-bottom: 28px; max-width: 600px; }
+.home-stats   { display: flex; gap: 36px; }
+.home-stat    { display: flex; flex-direction: column; }
+.home-stat-n  { font-size: 30px; font-weight: 800; color: var(--teal);
+                line-height: 1; margin-bottom: 4px; letter-spacing: -1px; }
+.home-stat-l  { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px;
+                color: var(--muted); }
+
+/* Section label above the grid */
+.home-section-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+                      color: var(--muted); margin-bottom: 16px; }
+
+/* Category card grid */
+.cat-grid { display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px; }
+
+.cat-card { background: var(--bg1); border: 1px solid var(--bg2); border-radius: 10px;
+            padding: 18px 20px 16px; cursor: pointer;
+            transition: border-color 0.18s, box-shadow 0.18s, transform 0.12s;
+            display: flex; flex-direction: column; gap: 12px; }
+.cat-card:hover { border-color: var(--teal);
+                  box-shadow: 0 0 0 1px rgba(79,209,197,0.25), 0 4px 20px rgba(0,0,0,0.3);
+                  transform: translateY(-2px); }
+
+.cat-card-top  { display: flex; flex-direction: column; gap: 4px; }
+.cat-card-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.cat-card-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* Featured entry preview inside the card */
+.cat-card-feature { background: var(--bg0); border: 1px solid rgba(79,209,197,0.1);
+                    border-radius: 6px; padding: 10px 12px; flex: 1; }
+.cat-card-feature-name { font-size: 12px; font-weight: 600; color: var(--teal-lt);
+                         margin-bottom: 4px; }
+.cat-card-feature-desc { font-size: 11px; color: var(--muted); line-height: 1.45;
+                         display: -webkit-box; -webkit-line-clamp: 2;
+                         -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Card footer */
+.cat-card-footer { display: flex; align-items: center; justify-content: space-between; }
+.cat-card-count  { font-size: 10px; color: var(--muted); }
+.cat-card-browse { font-size: 11px; color: var(--teal); font-weight: 700;
+                   letter-spacing: 0.3px; }
+.cat-card:hover .cat-card-browse { color: var(--teal-lt); }

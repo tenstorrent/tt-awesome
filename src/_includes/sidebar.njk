@@ -1,7 +1,12 @@
 <nav class="sidebar" id="sidebar">
-  <div class="sidebar-label">Use Cases</div>
+  <a class="sidebar-item sidebar-home active" id="home-item" href="#"
+     onclick="showHome(); return false;">
+    🏠 Home
+  </a>
+  <hr class="sidebar-hr">
+  <div class="sidebar-label">Categories</div>
   {%- for cat in categories %}
-  <a class="sidebar-item{% if loop.first %} active{% endif %}"
+  <a class="sidebar-item"
      href="#"
      data-category="{{ cat.slug }}"
      onclick="selectCategory('{{ cat.slug }}', this); return false;">
