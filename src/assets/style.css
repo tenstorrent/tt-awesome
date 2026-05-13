@@ -10,6 +10,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
        background: var(--bg0); color: var(--text); font-size: 14px; }
 .app { display: flex; flex-direction: column; height: 100vh; }
 
+/* ── Scrollbars ──────────────────────────────────────────────────────────── */
+/* Firefox */
+* { scrollbar-width: thin; scrollbar-color: rgba(79,209,197,0.2) transparent; }
+/* WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar              { width: 6px; height: 6px; }
+::-webkit-scrollbar-track        { background: transparent; }
+::-webkit-scrollbar-thumb        { background: rgba(79,209,197,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover  { background: rgba(79,209,197,0.45); }
+::-webkit-scrollbar-corner       { background: transparent; }
+
 /* ── Topbar ─────────────────────────────────────────────────────────────── */
 .topbar { display: flex; align-items: center; gap: 12px; padding: 0 16px;
           height: 48px; background: var(--bg3);
