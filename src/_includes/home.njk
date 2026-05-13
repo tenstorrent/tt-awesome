@@ -20,9 +20,10 @@
   </div>
 
   <div class="home-section-label">Browse by category</div>
+  {%- set featuredMap = entries | diversifiedFeatured(categories) %}
   <div class="cat-grid">
     {%- for cat in categories %}
-    {%- set topEntry = entries | featuredForCategory(cat.slug) %}
+    {%- set topEntry = featuredMap[cat.slug] %}
     {%- set count = entries | countForCategory(cat.slug) %}
     <div class="cat-card" onclick="selectCategoryBySlug('{{ cat.slug }}')">
       <div class="cat-card-top">

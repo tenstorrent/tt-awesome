@@ -55,7 +55,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .sidebar-hr    { border: none; border-top: 1px solid rgba(79,209,197,0.1); margin: 4px 6px; }
 
 /* ── List pane ───────────────────────────────────────────────────────────── */
-.list-pane { width: 300px; flex-shrink: 0; border-right: 1px solid var(--bg2);
+.list-pane { width: 340px; flex-shrink: 0; border-right: 1px solid var(--bg2);
              display: flex; flex-direction: column; overflow: hidden; }
 .list-head { padding: 10px 12px 8px; border-bottom: 1px solid var(--bg2); flex-shrink: 0; }
 .list-title { font-size: 13px; font-weight: 700; color: var(--text); }
