@@ -1,0 +1,14 @@
+{
+  "id": "lecture-wm-csci654-tenstorrent",
+  "name": "Tenstorrent Architecture — W&M CSCI654 Advanced Computer Architecture",
+  "description": "Lecture 20 from William & Mary's graduate Computer Architecture course. Frames Tenstorrent in the landscape between GPUs and TPUs, draws comparisons to Cerebras and SambaNova, then dives deep into the Wormhole chip and Tensix core: the 5 RISC-V core design, SFPU, NoC, and dataflow execution model.",
+  "affiliation": "community",
+  "categories": ["guides", "riscv-arch"],
+  "tags": ["lecture", "architecture", "wormhole", "tensix", "risc-v", "sfpu", "noc", "academia"],
+  "links": [
+    { "type": "video", "url": "https://www.youtube.com/watch?v=CixEFPc8oxg", "label": "Lecture 20 — Tenstorrent Architecture (YouTube)" }
+  ],
+  "hardware": ["wormhole"],
+  "author": "Yifan & GPU / William & Mary",
+  "date": "2026-05-13"
+}

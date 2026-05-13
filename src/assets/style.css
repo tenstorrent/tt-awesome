@@ -52,6 +52,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .sidebar-item.active { color: var(--teal); background: rgba(79,209,197,0.08); font-weight: 600; }
 .sidebar-home { font-weight: 600; }
 .sidebar-muted { font-size: 11px; opacity: 0.6; }
+/* External community links — slightly smaller, open in new tab, ↗ indicator */
+.sidebar-ext  { font-size: 11px; color: var(--text2); }
+.sidebar-ext:hover { color: var(--teal); background: var(--bg1); }
+.sidebar-ext::after { content: " ↗"; font-size: 9px; opacity: 0.5; }
 .sidebar-hr    { border: none; border-top: 1px solid rgba(79,209,197,0.1); margin: 4px 6px; }
 
 /* ── List pane ───────────────────────────────────────────────────────────── */
