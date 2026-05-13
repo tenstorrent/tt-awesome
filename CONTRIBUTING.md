@@ -63,6 +63,7 @@ Every entry must be valid against this schema:
 
 | Slug | Label |
 |---|---|
+| `getting-started` | 🚀 Getting Started |
 | `ai-models` | 🤖 AI & Models |
 | `agents` | 🕵️ AI Agents |
 | `kernels` | ⚙️ Custom Kernels & Low-Level |

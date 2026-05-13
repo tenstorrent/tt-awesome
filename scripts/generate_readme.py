@@ -9,6 +9,7 @@ ROOT = Path(__file__).parent.parent
 ENTRIES_DIR = ROOT / "entries"
 
 CATEGORIES = [
+    ("getting-started", "🚀 Getting Started"),
     ("ai-models",   "🤖 AI & Models"),
     ("agents",      "🕵️ AI Agents"),
     ("kernels",     "⚙️ Custom Kernels & Low-Level"),

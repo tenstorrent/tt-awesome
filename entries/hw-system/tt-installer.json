@@ -3,13 +3,32 @@
   "name": "tt-installer",
   "description": "Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.",
   "affiliation": "official",
-  "categories": ["hw-system", "guides"],
-  "tags": ["installation", "setup", "one-command", "getting-started"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/tenstorrent/tt-installer" },
-    { "type": "lesson", "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons", "label": "Modern Setup lesson (VSCode Toolkit)" }
+  "categories": [
+    "hw-system",
+    "guides",
+    "getting-started"
   ],
-  "hardware": ["wormhole", "blackhole"],
+  "tags": [
+    "installation",
+    "setup",
+    "one-command",
+    "getting-started"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-installer"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+      "label": "Modern Setup lesson (VSCode Toolkit)"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
   "language": "Shell",
   "license": "Apache-2.0"
 }

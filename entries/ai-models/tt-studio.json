@@ -3,10 +3,29 @@
   "name": "TT-Studio",
   "description": "Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.",
   "affiliation": "official",
-  "categories": ["ai-models", "dev-tools"],
-  "tags": ["web-ui", "gui", "models", "chat", "deployment"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-studio" }],
-  "hardware": ["wormhole", "blackhole", "quietbox"],
+  "categories": [
+    "ai-models",
+    "dev-tools",
+    "getting-started"
+  ],
+  "tags": [
+    "web-ui",
+    "gui",
+    "models",
+    "chat",
+    "deployment"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-studio"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "quietbox"
+  ],
   "language": "TypeScript",
   "license": "Apache-2.0"
 }

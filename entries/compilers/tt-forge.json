@@ -3,13 +3,32 @@
   "name": "tt-forge",
   "description": "Tenstorrent's MLIR-based compiler frontend. Enables running AI workloads from PyTorch, ONNX, and other frameworks on all Tenstorrent hardware configurations through an open-source, general, and performant compiler.",
   "affiliation": "official",
-  "categories": ["compilers"],
-  "tags": ["mlir", "compiler", "pytorch", "onnx", "frontend"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/tenstorrent/tt-forge" },
-    { "type": "website", "url": "https://tenstorrent.com" }
+  "categories": [
+    "compilers",
+    "getting-started"
   ],
-  "hardware": ["wormhole", "blackhole", "ttsim"],
+  "tags": [
+    "mlir",
+    "compiler",
+    "pytorch",
+    "onnx",
+    "frontend"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-forge"
+    },
+    {
+      "type": "website",
+      "url": "https://tenstorrent.com"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "ttsim"
+  ],
   "language": "Python",
   "license": "Apache-2.0"
 }

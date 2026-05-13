@@ -10,6 +10,7 @@ ENTRIES_DIR = ROOT / "entries"
 
 AFFILIATIONS = ["community", "affiliated", "official"]
 CATEGORIES = [
+    "getting-started",
     "ai-models", "agents", "kernels", "compilers", "dev-tools",
     "hw-system", "cloud-infra", "riscv-arch", "research", "games-demos", "guides",
 ]

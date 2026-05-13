@@ -3,13 +3,35 @@
   "name": "tt-vscode-toolkit",
   "description": "48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.",
   "affiliation": "official",
-  "categories": ["guides", "dev-tools"],
-  "tags": ["vscode", "lessons", "interactive", "getting-started", "code-server"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/tenstorrent/tt-vscode-toolkit" },
-    { "type": "lesson", "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons", "label": "All 48 lessons" }
+  "categories": [
+    "guides",
+    "dev-tools",
+    "getting-started"
   ],
-  "hardware": ["wormhole", "blackhole", "quietbox", "ttsim"],
+  "tags": [
+    "vscode",
+    "lessons",
+    "interactive",
+    "getting-started",
+    "code-server"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-vscode-toolkit"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+      "label": "All 48 lessons"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "quietbox",
+    "ttsim"
+  ],
   "language": "TypeScript",
   "license": "Apache-2.0"
 }
