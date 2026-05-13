@@ -3,12 +3,30 @@
   "name": "Programming Tenstorrent Processors",
   "description": "Deep-dive into the Tenstorrent architecture and Metalium programming model — circular buffers, kernel synchronization, NoC routing, and where the footguns are. The honest guide to thinking in Tensix.",
   "affiliation": "community",
-  "categories": ["guides", "kernels"],
-  "tags": ["metalium", "programming-model", "tensix", "noc", "circular-buffers", "blog"],
-  "links": [
-    { "type": "article", "url": "https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi", "label": "clehaxze.tw — April 2025" }
+  "categories": [
+    "guides",
+    "kernels",
+    "riscv-arch"
   ],
-  "hardware": ["wormhole", "blackhole"],
+  "tags": [
+    "metalium",
+    "programming-model",
+    "tensix",
+    "noc",
+    "circular-buffers",
+    "blog"
+  ],
+  "links": [
+    {
+      "type": "article",
+      "url": "https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi",
+      "label": "clehaxze.tw — April 2025"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
   "featured": true,
   "author": "Martin Chang"
 }
