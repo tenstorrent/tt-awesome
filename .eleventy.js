@@ -9,6 +9,16 @@ module.exports = function (eleventyConfig) {
     str && str.length > len ? str.slice(0, len) + "…" : str
   );
 
+  // Format an ISO date string (YYYY-MM-DD) as "Mon DD, YYYY" (e.g. "May 8, 2026").
+  eleventyConfig.addFilter("prettyDate", (dateStr) => {
+    if (!dateStr) return "";
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const parts = dateStr.split("-");
+    if (parts.length < 3) return dateStr;
+    const [y, m, d] = parts;
+    return `${months[parseInt(m, 10) - 1]} ${parseInt(d, 10)}, ${y}`;
+  });
+
   // Return the top entry for a category (featured first, then by sort order).
   eleventyConfig.addFilter("featuredForCategory", (entries, slug) => {
     const cat = (entries || []).filter(

@@ -14,7 +14,8 @@
         {%- if entry.author %}by {{ entry.author }} · {% endif -%}
         {%- if entry.language %}{{ entry.language }} · {% endif -%}
         {%- if entry.license %}{{ entry.license }} · {% endif -%}
-        {%- if entry.stars %}{{ entry.stars }}⭐{%- endif %}
+        {%- if entry.stars %}{{ entry.stars }}⭐ · {% endif -%}
+        {%- if entry.date %}{{ entry.date | prettyDate }}{%- endif %}
       </div>
     </div>
     {%- if entry.preview_image %}

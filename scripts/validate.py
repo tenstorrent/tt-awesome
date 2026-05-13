@@ -13,7 +13,8 @@ VALID_CATEGORY_SLUGS = {
 VALID_LINK_TYPES = {"repo", "article", "talk", "video", "website", "demo", "lesson", "paper"}
 VALID_HARDWARE = {"grayskull", "wormhole", "blackhole", "quietbox", "galaxy", "ttsim"}
 VALID_PACKAGE_TYPES = {"pypi", "apt", "cargo"}
-URL_RE = re.compile(r"^https://.+")
+URL_RE  = re.compile(r"^https://.+")
+DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 def validate_entry(path: Path, data: dict) -> list:
@@ -73,6 +74,10 @@ def validate_entry(path: Path, data: dict) -> list:
     # hidden: optional boolean — when true the entry is excluded from the README and website
     if "hidden" in data and not isinstance(data["hidden"], bool):
         errors.append("hidden must be a boolean")
+    # date: optional ISO 8601 date string (YYYY-MM-DD) — publication / submission date
+    if "date" in data:
+        if not isinstance(data["date"], str) or not DATE_RE.match(data["date"]):
+            errors.append(f"date must be a YYYY-MM-DD string, got '{data.get('date')}'")
     return errors
 
 

@@ -17,7 +17,13 @@
         {%- if entry.stars %}<span class="row-stars">{{ entry.stars }}⭐</span>{%- endif %}
       </div>
       <div class="row-desc">{{ entry.description | truncate(90) }}</div>
-      {%- if entry.author %}<div class="row-author">{{ entry.author }}</div>{%- endif %}
+      {%- if entry.author or entry.date %}
+      <div class="row-author">
+        {%- if entry.author %}{{ entry.author }}{% endif -%}
+        {%- if entry.author and entry.date %} · {% endif -%}
+        {%- if entry.date %}{{ entry.date | prettyDate }}{% endif %}
+      </div>
+      {%- endif %}
     </div>
     {%- endfor %}
   </div>

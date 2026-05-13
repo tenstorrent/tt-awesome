@@ -1,0 +1,14 @@
+{
+  "id": "paper-nbody-strategies-wormhole",
+  "name": "Porting Strategies for Gravitational N-Body Simulations on Tenstorrent Wormhole",
+  "description": "Evaluates three strategies for scaling an N-body code across multiple Tenstorrent Wormhole accelerators. Builds on the established performance of single-card N-body work to explore parallelism via the on-chip NoC and multi-accelerator configurations.",
+  "affiliation": "community",
+  "categories": ["research"],
+  "tags": ["n-body", "astrophysics", "hpc", "wormhole", "risc-v", "multi-accelerator", "simulation"],
+  "links": [
+    { "type": "paper", "url": "https://arxiv.org/abs/2605.02744", "label": "arXiv:2605.02744" }
+  ],
+  "hardware": ["wormhole"],
+  "author": "Jenny Lynn Almerol, Elisabetta Boella, Mario Spera, Daniele Gregori",
+  "date": "2026-05-04"
+}

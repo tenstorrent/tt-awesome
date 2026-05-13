@@ -1,0 +1,14 @@
+{
+  "id": "paper-matmul-grayskull",
+  "name": "Assessing Tenstorrent Grayskull RISC-V MatMul Acceleration for LLMs",
+  "description": "Evaluates the Tenstorrent Grayskull e75 RISC-V accelerator for matrix multiplication at reduced numerical precision (BFP8 and LoFi), a fundamental kernel in LLM inference computation.",
+  "affiliation": "community",
+  "categories": ["research"],
+  "tags": ["matmul", "grayskull", "risc-v", "bfp8", "lofi", "llm", "precision"],
+  "links": [
+    { "type": "paper", "url": "https://arxiv.org/abs/2505.06085", "label": "arXiv:2505.06085" }
+  ],
+  "hardware": ["grayskull"],
+  "author": "Hiari Pizzini Cavagna, Daniele Cesarini, Andrea Bartolini",
+  "date": "2025-05-09"
+}
