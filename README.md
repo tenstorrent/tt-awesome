@@ -35,7 +35,7 @@
 
 - **[tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.
-  [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
+  [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons) · [📖 RISC-V Programming Guide](https://docs.tenstorrent.com/tt-vscode-toolkit/riscv-guide/)
 
 - **[tt-installer](https://github.com/tenstorrent/tt-installer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.
@@ -239,6 +239,10 @@
   Python-based domain-specific language for authoring custom operations on Tenstorrent hardware. Expresses concurrent compute and data-movement programs that compile directly to Tensix kernels.
   [📦 repo](https://github.com/tenstorrent/tt-lang) · [📖 Introduction to tt-lang](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/tt-lang-intro/)
 
+- **[tt-llk](https://github.com/tenstorrent/tt-llk)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Tenstorrent Low-Level Kernels: the C++ library that directly programs the RISC-V cores inside each Tensix compute engine. TRISC0 (unpack), TRISC1 (math/FPU/SFPU), and TRISC2 (pack) are all programmed through this layer — it is the interface between TT-Metal kernel code and bare silicon.
+  [📦 repo](https://github.com/tenstorrent/tt-llk) · [📝 Top-level architecture overview](https://github.com/tenstorrent/tt-llk/blob/main/docs/llk/l2/top_level_overview.md)
+
 - **[tt-metal](https://github.com/tenstorrent/tt-metal)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.
   [📦 repo](https://github.com/tenstorrent/tt-metal) · [🌐 website](https://docs.tenstorrent.com/tt-metal/latest/ttnn/)
@@ -345,7 +349,7 @@
 
 - **[tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.
-  [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
+  [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons) · [📖 RISC-V Programming Guide](https://docs.tenstorrent.com/tt-vscode-toolkit/riscv-guide/)
 
 - **[tt-smi](https://github.com/tenstorrent/tt-smi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.
@@ -453,9 +457,17 @@
 
 ## 🔩 RISC-V & Architecture
 
+- **Programming Tenstorrent Processors** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Martin Chang — Deep-dive into the Tenstorrent architecture and Metalium programming model — circular buffers, kernel synchronization, NoC routing, and where the footguns are. The honest guide to thinking in Tensix.
+  [📝 clehaxze.tw — April 2025](https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi)
+
 - **[bhx](https://github.com/olofj/bhx)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@olofj](https://github.com/olofj) — Boot stock Linux cloud images on the SiFive X280 RISC-V cores inside Tenstorrent Blackhole AI accelerators. Per-card Rust daemon with virtio-mmio block/net/console and U-Boot/EFI support.
   [📦 repo](https://github.com/olofj/bhx)
+
+- **Tenstorrent Blackhole Architecture Guide** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@boopdotpng](https://github.com/boopdotpng) — A 6,500-word community deep dive into the Blackhole p100a architecture: the tile model (Tensix, DRAM, SiFive x280 L2CPU, Ethernet, PCIe, NoC arc), firmware startup sequence, MOP micro-op processor, replay buffer, FPU/SFPU sync, and the anatomy of a kernel. From the author of blackhole-py.
+  [📝 anuraagw.me — February 2026](https://anuraagw.me/blog/blackhole-architecture)
 
 - **[tt-sim](https://github.com/mesham/tt-sim)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@mesham](https://github.com/mesham) — Community-built Tenstorrent architecture simulator written in Python. Runs without hardware — useful for researchers and developers exploring the Tensix architecture offline.
@@ -476,6 +488,10 @@
 - **[tt-bh-linux](https://github.com/tenstorrent/tt-bh-linux)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Linux demo for the Tenstorrent Blackhole P100/P150 card RISC-V cores. Boot a real Linux kernel on the 16 high-performance RISC-V cores built into the Blackhole chip.
   [📦 repo](https://github.com/tenstorrent/tt-bh-linux) · [🌐 website](https://tenstorrent.com/hardware/blackhole)
+
+- **[tt-llk](https://github.com/tenstorrent/tt-llk)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Tenstorrent Low-Level Kernels: the C++ library that directly programs the RISC-V cores inside each Tensix compute engine. TRISC0 (unpack), TRISC1 (math/FPU/SFPU), and TRISC2 (pack) are all programmed through this layer — it is the interface between TT-Metal kernel code and bare silicon.
+  [📦 repo](https://github.com/tenstorrent/tt-llk) · [📝 Top-level architecture overview](https://github.com/tenstorrent/tt-llk/blob/main/docs/llk/l2/top_level_overview.md)
 
 - **[RiESCUE](https://github.com/tenstorrent/riescue)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   RISC-V Directed Test Framework and Compliance Suite. Comprehensive test infrastructure for verifying RISC-V processor implementations against the specification.
@@ -603,6 +619,10 @@
   by Martin Chang — Deep-dive into the Tenstorrent architecture and Metalium programming model — circular buffers, kernel synchronization, NoC routing, and where the footguns are. The honest guide to thinking in Tensix.
   [📝 clehaxze.tw — April 2025](https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi)
 
+- **Tenstorrent Blackhole Architecture Guide** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@boopdotpng](https://github.com/boopdotpng) — A 6,500-word community deep dive into the Blackhole p100a architecture: the tile model (Tensix, DRAM, SiFive x280 L2CPU, Ethernet, PCIe, NoC arc), firmware startup sequence, MOP micro-op processor, replay buffer, FPU/SFPU sync, and the anatomy of a kernel. From the author of blackhole-py.
+  [📝 anuraagw.me — February 2026](https://anuraagw.me/blog/blackhole-architecture)
+
 - **A Gentle Guide: Tenstorrent Card on Arch Linux with Metalium** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Martin Chang — Step-by-step guide to getting a Tenstorrent card running on Arch Linux with the full Metalium stack. Practical troubleshooting from someone who did it the hard way first.
   [📝 clehaxze.tw — July 2024](https://clehaxze.tw/gemlog/2024/07-07-a-gentle-guide-on-getting-your-tenstorrent-card-running-on-arch-linux-with-the-metalium-stack.gmi)
@@ -653,7 +673,7 @@
 
 - **[tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.
-  [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
+  [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons) · [📖 RISC-V Programming Guide](https://docs.tenstorrent.com/tt-vscode-toolkit/riscv-guide/)
 
 - **[tt-installer](https://github.com/tenstorrent/tt-installer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.
