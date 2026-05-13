@@ -4,7 +4,13 @@ Thank you for helping build the definitive resource for the Tenstorrent ecosyste
 
 ## Adding an entry
 
-### Option A: Interactive CLI (recommended)
+### Option A: Submit via issue (no PR required) — recommended for most contributors
+
+[Open a submission issue →](https://github.com/tenstorrent/tt-awesome/issues/new?template=submit-entry.yml)
+
+Fill in the form fields (name, description, affiliation, links, categories, etc.). A maintainer will review your submission. Once the `approved` label is applied, a pull request is created **automatically** — you don't need to fork the repo or write any JSON.
+
+### Option B: Interactive CLI
 
 ```bash
 python3 scripts/add_entry.py
@@ -12,7 +18,7 @@ python3 scripts/add_entry.py
 
 The CLI prompts for every required field, offers multi-select for categories and hardware, validates inline, and writes the `.json` file to the right `entries/{category}/` subdirectory. It prints the git commands to open a PR when done.
 
-### Option B: Write the JSON directly
+### Option C: Write the JSON directly
 
 1. Create `entries/{primary-category}/your-entry-id.json`
 2. Fill in the schema (see below)

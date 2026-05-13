@@ -152,7 +152,8 @@ def generate():
         "> A curated, community-first collection of awesome demos, tools, projects, and resources "
         "built by and for the Tenstorrent ecosystem.", "",
         "> **This file is auto-generated from `entries/*.json`. Do not edit directly — "
-        "see [CONTRIBUTING.md](CONTRIBUTING.md) to add an entry.**", "",
+        "[submit an entry via issue](https://github.com/tenstorrent/tt-awesome/issues/new?template=submit-entry.yml) "
+        "or see [CONTRIBUTING.md](CONTRIBUTING.md) for other options.**", "",
         "## Contents", "",
     ]
 

@@ -1,0 +1,91 @@
+name: Create entry PR from approved submission
+
+# Fires when any label is added to an issue.
+# The job only runs when the label being added is 'approved' AND the issue
+# also carries the 'submission' label (applied automatically by the issue form).
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write       # push a branch
+  pull-requests: write  # open a PR
+  issues: write         # comment on the issue
+
+jobs:
+  create-entry-pr:
+    # Guard: only run when a maintainer approves a submission issue
+    if: >
+      github.event.label.name == 'approved' &&
+      contains(toJson(github.event.issue.labels), '"submission"')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # ------------------------------------------------------------------
+      # 1. Parse the issue body and write the entry JSON
+      # ------------------------------------------------------------------
+      - name: Parse issue and write entry JSON
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+        run: python3 scripts/issue_to_entry.py
+
+      # ------------------------------------------------------------------
+      # 2. Validate the generated entry against the schema
+      # ------------------------------------------------------------------
+      - name: Validate entry
+        run: python3 scripts/validate.py
+
+      # ------------------------------------------------------------------
+      # 3. Commit the new file to a branch and open a PR
+      # ------------------------------------------------------------------
+      - name: Create branch, commit, and open PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          ENTRY_FILE=$(cat /tmp/entry_file.txt)
+          ENTRY_NAME=$(cat /tmp/entry_name.txt)
+          BRANCH="entry/issue-${ISSUE_NUMBER}"
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "${BRANCH}"
+          git add "${ENTRY_FILE}"
+          git commit -m "feat: add ${ENTRY_NAME} (closes #${ISSUE_NUMBER})"
+          git push origin "${BRANCH}" --force-with-lease
+
+          PR_URL=$(gh pr create \
+            --title "feat: add ${ENTRY_NAME}" \
+            --body "Adds **${ENTRY_NAME}** to the list.
+
+          Closes #${ISSUE_NUMBER}
+
+          > This PR was created automatically from an approved submission issue." \
+            --head "${BRANCH}" \
+            --base main)
+
+          echo "PR_URL=${PR_URL}" >> "$GITHUB_ENV"
+
+      # ------------------------------------------------------------------
+      # 4. Leave a comment on the issue so the submitter knows what happened
+      # ------------------------------------------------------------------
+      - name: Comment on issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "${ISSUE_NUMBER}" --body \
+            "A pull request has been opened automatically: ${PR_URL}
+
+          The entry will appear in the list once the PR is merged. Thank you for your contribution!"

@@ -4,8 +4,9 @@ let activeFilters = new Set(["community", "affiliated", "official"]);
 let activeEntryId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Start on the welcome page rather than auto-selecting the first category
-  showHome();
+  // Restore view from query string (?cat=…&entry=…) before first paint,
+  // so direct links and browser history both land in the right place.
+  restoreFromUrl();
 
   // Search — when typing while on the home view, jump into "all" mode
   document.getElementById("search").addEventListener("input", (e) => {
@@ -22,7 +23,46 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".chip").forEach((chip) =>
     chip.addEventListener("click", () => toggleChip(chip))
   );
+
+  // Browser back / forward
+  window.addEventListener("popstate", restoreFromUrl);
 });
+
+/* ── URL helpers ─────────────────────────────────────────────────────────── */
+
+/**
+ * Push a new history entry with the given query params.
+ * Pass an empty object {} to return to the root path with no query string.
+ */
+function pushUrl(params) {
+  const qs = new URLSearchParams(params).toString();
+  const url = qs ? `?${qs}` : location.pathname;
+  history.pushState(params, "", url);
+}
+
+/**
+ * Read the current query string and navigate to the matching view.
+ * Called on DOMContentLoaded and on every popstate (back / forward).
+ * Does NOT push a new history entry.
+ */
+function restoreFromUrl() {
+  const params = new URLSearchParams(location.search);
+  const cat = params.get("cat");
+  const entryId = params.get("entry");
+
+  if (cat) {
+    const el = document.querySelector(`.sidebar-item[data-category="${CSS.escape(cat)}"]`);
+    if (el) {
+      _applyCategory(cat, el);
+      if (entryId) {
+        const row = document.querySelector(`.entry-row[data-id="${CSS.escape(entryId)}"]`);
+        if (row) _applyEntry(entryId, row);
+      }
+      return;
+    }
+  }
+  _applyHome();
+}
 
 /* ── Home view ──────────────────────────────────────────────────────────── */
 
@@ -30,7 +70,14 @@ function isHomeActive() {
   return document.getElementById("panes").classList.contains("home-active");
 }
 
+/** Public: show home and update URL. */
 function showHome() {
+  pushUrl({});
+  _applyHome();
+}
+
+/** Internal: show home without touching history. */
+function _applyHome() {
   activeCategory = null;
   activeEntryId = null;
   document.getElementById("panes").classList.add("home-active");
@@ -40,24 +87,37 @@ function showHome() {
 
 /** Navigate to a category by slug — used by the home page card clicks. */
 function selectCategoryBySlug(slug) {
-  const el = document.querySelector(`.sidebar-item[data-category="${slug}"]`);
+  const el = document.querySelector(`.sidebar-item[data-category="${CSS.escape(slug)}"]`);
   if (el) selectCategory(slug, el);
 }
 
 /* ── Category / entry selection ─────────────────────────────────────────── */
 
+/** Public: select category and update URL. */
 function selectCategory(slug, el) {
+  pushUrl({ cat: slug });
+  _applyCategory(slug, el);
+}
+
+/** Internal: select category without touching history. */
+function _applyCategory(slug, el) {
   activeCategory = slug;
-  // Leave the home view
   document.getElementById("panes").classList.remove("home-active");
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   el.classList.add("active");
   document.getElementById("list-title").textContent = el.textContent.trim();
   applyFilters(document.getElementById("search").value.toLowerCase().trim());
-  clearDetail();
+  _clearDetail();
 }
 
+/** Public: select entry and update URL. */
 function selectEntry(id, el) {
+  pushUrl({ cat: activeCategory, entry: id });
+  _applyEntry(id, el);
+}
+
+/** Internal: show an entry detail card without touching history. */
+function _applyEntry(id, el) {
   activeEntryId = id;
   document.querySelectorAll(".entry-row").forEach((r) => r.classList.remove("active"));
   el.classList.add("active");
@@ -67,7 +127,8 @@ function selectEntry(id, el) {
   if (card) card.classList.add("visible");
 }
 
-function clearDetail() {
+/** Internal: clear detail panel without touching history. */
+function _clearDetail() {
   activeEntryId = null;
   document.getElementById("detail-empty").style.display = "";
   document.querySelectorAll(".detail-card").forEach((c) => c.classList.remove("visible"));
@@ -113,6 +174,6 @@ function applyFilters(query) {
   // If the active entry is now filtered out, clear the detail panel
   if (activeEntryId) {
     const row = document.querySelector(`.entry-row[data-id="${activeEntryId}"]`);
-    if (row && row.classList.contains("hidden")) clearDetail();
+    if (row && row.classList.contains("hidden")) _clearDetail();
   }
 }

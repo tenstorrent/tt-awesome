@@ -1,0 +1,129 @@
+name: Submit an Entry
+description: >
+  Propose a new entry for the Awesome Tenstorrent list.
+  A maintainer will review and, once approved, a PR will be opened automatically.
+title: "[Entry] "
+labels: ["submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fill in the fields below. A maintainer will review your submission.
+        Once the `approved` label is added, a PR will be created automatically — no manual PR needed.
+
+        See [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for field descriptions and the affiliation policy.
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Display name of the project or resource.
+      placeholder: My Tenstorrent Project
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: 1–3 sentences, plain text. What does it do and why is it relevant to Tenstorrent?
+      placeholder: A library that does X using Tenstorrent hardware via TT-Metalium.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: affiliation
+    attributes:
+      label: Affiliation
+      description: >
+        `community` = not employed by Tenstorrent.
+        `affiliated` = Tenstorrent employee, personal capacity.
+        `official` = lives under the `tenstorrent` GitHub org.
+      options:
+        - community
+        - affiliated
+        - official
+    validations:
+      required: true
+
+  - type: input
+    id: repo_url
+    attributes:
+      label: Repository URL
+      description: Primary GitHub/GitLab URL (must be HTTPS).
+      placeholder: https://github.com/username/repo
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra_links
+    attributes:
+      label: Additional Links
+      description: |
+        Optional. One per line in the format: `type | url | label`
+        Valid types: `article` `talk` `video` `website` `demo` `lesson` `paper`
+        The `label` column is optional.
+      placeholder: |
+        article | https://example.com/my-post | My Blog Post
+        video | https://youtube.com/watch?v=xyz | Demo Video
+
+  - type: checkboxes
+    id: categories
+    attributes:
+      label: Categories
+      description: Check at least one. The **first** checked category determines the entry's subdirectory.
+      options:
+        - label: "ai-models — AI & Models"
+        - label: "agents — AI Agents"
+        - label: "kernels — Custom Kernels & Low-Level"
+        - label: "compilers — Compilers & Frontends"
+        - label: "dev-tools — Dev Tools & Debugging"
+        - label: "hw-system — Hardware & System"
+        - label: "cloud-infra — Cloud & Orchestration"
+        - label: "riscv-arch — RISC-V & Architecture"
+        - label: "research — Research & Papers"
+        - label: "games-demos — Games & Demos"
+        - label: "guides — Guides, Tutorials & Education"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: hardware
+    attributes:
+      label: Hardware
+      description: Optional. Which Tenstorrent hardware has this been tested on?
+      options:
+        - label: grayskull
+        - label: wormhole
+        - label: blackhole
+        - label: quietbox
+        - label: galaxy
+        - label: ttsim
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Optional. Comma-separated, lowercase, hyphenated keywords.
+      placeholder: inference, transformer, llm, on-device
+
+  - type: input
+    id: author
+    attributes:
+      label: Author
+      description: Optional. GitHub username or "Firstname Lastname". Defaults to your GitHub username if left blank.
+      placeholder: your-github-username
+
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      description: Optional. Primary programming language.
+      placeholder: Python
+
+  - type: input
+    id: license
+    attributes:
+      label: License
+      description: Optional. SPDX identifier.
+      placeholder: MIT
