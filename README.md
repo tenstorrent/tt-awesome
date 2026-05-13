@@ -36,6 +36,10 @@
   by [@moritztng](https://github.com/moritztng) — FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
   [📦 repo](https://github.com/moritztng/grayskull-attention)
 
+- **Rewriting TTS Inference Economics: Lightning V2 on Tenstorrent vs. NVIDIA L40S** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Ranjith M. S., Akshat Mandloi, Sudarshan Kamath — Shows that Text-to-Speech inference on Tenstorrent Lightning V2 achieves 4× lower cost than NVIDIA L40S. Applies BlockFloat8 (BFP8) and low-fidelity (LoFi) precision strategies to TTS despite their greater numerical fragility compared to LLMs.
+  [📄 arXiv:2604.03279](https://arxiv.org/abs/2604.03279)
+
 - **Video Generation on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Three lesson-projects covering on-device video synthesis: frame-by-frame diffusion with tt-local-generator, native AnimateDiff video animation, and video generation on QuietBox 2. All run entirely on TT hardware with no cloud dependency.
   [📖 Video Generation via Frame-by-Frame Diffusion](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/video-generation-ttmetal/) · [📖 Native Video Animation with AnimateDiff](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/animatediff-video-generation/) · [📖 Video Generation on QuietBox 2](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-video-generation/)
@@ -176,6 +180,10 @@
   by [@marty1885](https://github.com/marty1885) — Minimal vector-addition example on Tenstorrent devices using TT-Metalium. A clean hello-world for the TT-Metal kernel programming model in C++.
   [📦 repo](https://github.com/marty1885/ttVecAdd)
 
+- **Attention in SRAM on Tenstorrent Grayskull** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Moritz Thüning — A fused kernel for the Grayskull architecture implementing Transformer self-attention entirely within SRAM. Combines matrix multiply, attention score scaling, and Softmax without DRAM accesses, achieving significant speedups over non-fused implementations.
+  [📄 arXiv:2407.13885](https://arxiv.org/abs/2407.13885)
+
 - **Exploring Fast Fourier Transforms on the Tenstorrent Wormhole** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Nick Brown, Jake Davies, Felix LeClair — Ports the Cooley-Tukey FFT algorithm to the Wormhole n300 RISC-V accelerator. The Wormhole draws 8× less power and consumes 2.8× less energy than a 24-core Xeon Platinum for a 2D FFT. ISC 2025.
   [📄 arXiv:2506.15437](https://arxiv.org/abs/2506.15437) · [📝 University of Edinburgh](https://www.research.ed.ac.uk/en/publications/exploring-fast-fourier-transforms-on-the-tenstorrent-wormhole/)
@@ -221,6 +229,10 @@
 - **[tt-iree](https://github.com/swote-git/tt-iree)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@swote-git](https://github.com/swote-git) — IREE (Intermediate Representation Execution Environment) ML compiler ported to Tenstorrent AI accelerators. Brings the IREE compiler ecosystem to TT hardware.
   [📦 repo](https://github.com/swote-git/tt-iree)
+
+- **TileLoom: Automatic Dataflow Planning for Spatial Dataflow Accelerators** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Wei Li, Zhenyu Bai, Heru Wang, Pranav Dangi — Compiler system that automatically generates efficient dataflow plans for tile-based languages on spatial accelerators including Tenstorrent Wormhole. Exploits on-chip network forwarding between processing elements to reduce DRAM pressure.
+  [📄 arXiv:2512.22168](https://arxiv.org/abs/2512.22168)
 
 - **[tt-forge-compiletron](https://github.com/tsingletaryTT/tt-forge-compiletron)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Compile more than 100 models on tt-forge in a display format suitable for demos. Comprehensive showcase of tt-forge model compatibility.
@@ -464,9 +476,21 @@
   by [@RISCVtestbed](https://github.com/RISCVtestbed) — Tutorial on Tenstorrent hardware for HPC researchers from the RISC-V Testbed project at Edinburgh/EPCC. Covers Wormhole from an HPC parallel-computing perspective.
   [📦 repo](https://github.com/RISCVtestbed/tt-tutorial)
 
+- **Attention in SRAM on Tenstorrent Grayskull** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Moritz Thüning — A fused kernel for the Grayskull architecture implementing Transformer self-attention entirely within SRAM. Combines matrix multiply, attention score scaling, and Softmax without DRAM accesses, achieving significant speedups over non-fused implementations.
+  [📄 arXiv:2407.13885](https://arxiv.org/abs/2407.13885)
+
 - **Exploring Fast Fourier Transforms on the Tenstorrent Wormhole** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Nick Brown, Jake Davies, Felix LeClair — Ports the Cooley-Tukey FFT algorithm to the Wormhole n300 RISC-V accelerator. The Wormhole draws 8× less power and consumes 2.8× less energy than a 24-core Xeon Platinum for a 2D FFT. ISC 2025.
   [📄 arXiv:2506.15437](https://arxiv.org/abs/2506.15437) · [📝 University of Edinburgh](https://www.research.ed.ac.uk/en/publications/exploring-fast-fourier-transforms-on-the-tenstorrent-wormhole/)
+
+- **Assessing Tenstorrent Grayskull RISC-V MatMul Acceleration for LLMs** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Hiari Pizzini Cavagna, Daniele Cesarini, Andrea Bartolini — Evaluates the Tenstorrent Grayskull e75 RISC-V accelerator for matrix multiplication at reduced numerical precision (BFP8 and LoFi), a fundamental kernel in LLM inference computation.
+  [📄 arXiv:2505.06085](https://arxiv.org/abs/2505.06085)
+
+- **Porting Strategies for Gravitational N-Body Simulations on Tenstorrent Wormhole** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Jenny Lynn Almerol, Elisabetta Boella, Mario Spera, Daniele Gregori — Evaluates three strategies for scaling an N-body code across multiple Tenstorrent Wormhole accelerators. Builds on the established performance of single-card N-body work to explore parallelism via the on-chip NoC and multi-accelerator configurations.
+  [📄 arXiv:2605.02744](https://arxiv.org/abs/2605.02744)
 
 - **Accelerating Gravitational N-Body Simulations on Tenstorrent Wormhole** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Accelerates an astrophysical N-body simulation on the Wormhole n300. Achieves 2× speedup and 2× energy savings over a highly optimized CPU implementation. SC '25 Workshop.
@@ -491,6 +515,14 @@
 - **SwiftNPU: Scalable Shape-Flexible Allocation for Inter-Core Connected NPUs** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Makes multi-tenant NPU sharing practical for Blackhole-class hardware using polynomial-time allocation algorithms. Delivers up to 1.37× higher utilization and 1.14× faster workload completion. Up to 890,000× faster than NP-hard baselines.
   [📄 ACM DL](https://dl.acm.org/doi/10.1145/3805621.3807614)
+
+- **TileLoom: Automatic Dataflow Planning for Spatial Dataflow Accelerators** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Wei Li, Zhenyu Bai, Heru Wang, Pranav Dangi — Compiler system that automatically generates efficient dataflow plans for tile-based languages on spatial accelerators including Tenstorrent Wormhole. Exploits on-chip network forwarding between processing elements to reduce DRAM pressure.
+  [📄 arXiv:2512.22168](https://arxiv.org/abs/2512.22168)
+
+- **Rewriting TTS Inference Economics: Lightning V2 on Tenstorrent vs. NVIDIA L40S** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Ranjith M. S., Akshat Mandloi, Sudarshan Kamath — Shows that Text-to-Speech inference on Tenstorrent Lightning V2 achieves 4× lower cost than NVIDIA L40S. Applies BlockFloat8 (BFP8) and low-fidelity (LoFi) precision strategies to TTS despite their greater numerical fragility compared to LLMs.
+  [📄 arXiv:2604.03279](https://arxiv.org/abs/2604.03279)
 
 ## 🎮 Games & Demos
 
