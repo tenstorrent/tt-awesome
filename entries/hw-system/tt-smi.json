@@ -8,5 +8,8 @@
   "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-smi" }],
   "hardware": ["grayskull", "wormhole", "blackhole"],
   "language": "Python",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "packages": [
+    { "type": "pypi", "name": "tt-smi" }
+  ]
 }

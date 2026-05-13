@@ -1,0 +1,46 @@
+<div class="home-view" id="home-view">
+  <div class="home-hero">
+    <div class="home-eyebrow">Community · Open Source · Tenstorrent Ecosystem</div>
+    <h1 class="home-title">A hidden dimension of Tenstorrent awesomeness</h1>
+    <p class="home-sub">A curated directory of projects, tools, models, and research for Tenstorrent hardware — contributed by the community and the team. Browse by category or search across all entries.</p>
+    <div class="home-stats">
+      <div class="home-stat">
+        <span class="home-stat-n">{{ entries | length }}</span>
+        <span class="home-stat-l">Projects</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-n">{{ categories | length }}</span>
+        <span class="home-stat-l">Categories</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-n">Open</span>
+        <span class="home-stat-l">Source</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-section-label">Browse by category</div>
+  {%- set featuredMap = entries | diversifiedFeatured(categories) %}
+  <div class="cat-grid">
+    {%- for cat in categories %}
+    {%- set topEntry = featuredMap[cat.slug] %}
+    {%- set count = entries | countForCategory(cat.slug) %}
+    <div class="cat-card" onclick="selectCategoryBySlug('{{ cat.slug }}')">
+      <div class="cat-card-top">
+        <div class="cat-card-name">{{ cat.label }}</div>
+        <div class="cat-card-desc">{{ cat.description }}</div>
+      </div>
+      {%- if topEntry %}
+      <div class="cat-card-feature">
+        <div class="cat-card-feature-name">{{ topEntry.name }}</div>
+        <div class="cat-card-feature-desc">{{ topEntry.description | truncate(100) }}</div>
+      </div>
+      {%- endif %}
+      <div class="cat-card-footer">
+        <span class="cat-card-count">{{ count }} {{ "entry" if count == 1 else "entries" }}</span>
+        <span class="cat-card-browse">Browse →</span>
+      </div>
+    </div>
+    {%- endfor %}
+  </div>
+</div>

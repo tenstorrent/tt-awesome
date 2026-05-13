@@ -80,6 +80,10 @@
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Eight-lesson series covering the full custom training workflow on TT hardware: dataset fundamentals, configuration patterns, fine-tuning, multi-device distributed training, experiment tracking, model architecture basics, and training from scratch.
   [📖 Understanding Custom Training](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct1-understanding-training/) · [📖 Dataset Fundamentals](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct2-dataset-fundamentals/) · [📖 Configuration Patterns](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct3-configuration-patterns/) · [📖 Fine-tuning Basics](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct4-finetuning-basics/) · [📖 Multi-Device Training](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct5-multi-device-training/) · [📖 Experiment Tracking](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct6-experiment-tracking/) · [📖 Model Architecture Basics](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct7-architecture-basics/) · [📖 Training from Scratch](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct8-training-from-scratch/)
 
+- **TT Console** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Browser-based cloud console for exploring AI on Tenstorrent hardware. Run LLM inference, image and video generation, and browse the supported model catalog in-browser — backed by Tenstorrent accelerators. Cloud hardware access and advanced workflows (deployments, agents) available in staged rollout.
+  [🌐 console.tenstorrent.com](https://console.tenstorrent.com)
+
 - **[tt-blacksmith](https://github.com/tenstorrent/tt-blacksmith)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Optimized training recipes for a variety of ML models on Tenstorrent hardware, powered by the TT-Forge compiler stack. Reference implementations for fine-tuning and training from scratch.
   [📦 repo](https://github.com/tenstorrent/tt-blacksmith) · [📖 Custom Training lessons (VSCode Toolkit)](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons) · [🌐 website](https://docs.tenstorrent.com/tt-blacksmith/)
@@ -306,7 +310,7 @@
 
 - **[tt-smi](https://github.com/tenstorrent/tt-smi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.
-  [📦 repo](https://github.com/tenstorrent/tt-smi)
+  [📦 repo](https://github.com/tenstorrent/tt-smi) · [🐍 `pip install tt-smi`](https://pypi.org/project/tt-smi/)
 
 - **[tt-toplike](https://github.com/tenstorrent/tt-toplike)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.
@@ -344,15 +348,15 @@
 
 - **[luwen](https://github.com/tenstorrent/luwen)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent system interface library written in Rust. Low-level Rust bindings for communicating with and managing TT hardware.
-  [📦 repo](https://github.com/tenstorrent/luwen)
+  [📦 repo](https://github.com/tenstorrent/luwen) · [🦀 `cargo add luwen`](https://crates.io/crates/luwen)
 
 - **[tt-firmware](https://github.com/tenstorrent/tt-firmware)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent firmware repository. Board management and control firmware for Tenstorrent accelerator cards.
-  [📦 repo](https://github.com/tenstorrent/tt-firmware)
+  [📦 repo](https://github.com/tenstorrent/tt-firmware) · [🐧 `apt install tt-firmware`](https://launchpad.net/~tenstorrent/+archive/ubuntu/ppa)
 
 - **[tt-flash](https://github.com/tenstorrent/tt-flash)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent firmware update utility. Flash new firmware onto Tenstorrent accelerator cards from the command line.
-  [📦 repo](https://github.com/tenstorrent/tt-flash)
+  [📦 repo](https://github.com/tenstorrent/tt-flash) · [🐍 `pip install tt-flash`](https://pypi.org/project/tt-flash/)
 
 - **[tt-installer](https://github.com/tenstorrent/tt-installer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.
@@ -360,11 +364,11 @@
 
 - **[tt-kmd](https://github.com/tenstorrent/tt-kmd)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent kernel module driver. The Linux kernel module required to interface with Tenstorrent PCIe accelerator cards.
-  [📦 repo](https://github.com/tenstorrent/tt-kmd)
+  [📦 repo](https://github.com/tenstorrent/tt-kmd) · [🐧 `apt install ttkmd`](https://launchpad.net/~tenstorrent/+archive/ubuntu/ppa)
 
 - **[tt-smi](https://github.com/tenstorrent/tt-smi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.
-  [📦 repo](https://github.com/tenstorrent/tt-smi)
+  [📦 repo](https://github.com/tenstorrent/tt-smi) · [🐍 `pip install tt-smi`](https://pypi.org/project/tt-smi/)
 
 - **[tt-system-firmware](https://github.com/tenstorrent/tt-system-firmware)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   System firmware for Tenstorrent hardware. Low-level system initialization and control firmware that runs on-device.
@@ -376,7 +380,7 @@
 
 - **[tt-topology](https://github.com/tenstorrent/tt-topology)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Configure Ethernet routing on multi-card Tenstorrent systems. Flash NB cards to use specific ETH routing configurations for scale-out deployments.
-  [📦 repo](https://github.com/tenstorrent/tt-topology)
+  [📦 repo](https://github.com/tenstorrent/tt-topology) · [🐍 `pip install tt-topology`](https://pypi.org/project/tt-topology/)
 
 - **[tt-umd](https://github.com/tenstorrent/tt-umd)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   User-mode driver for Tenstorrent hardware. The userspace layer that sits between the kernel module and higher-level SDKs.
@@ -396,13 +400,17 @@
   by [@koyeb](https://github.com/koyeb) — Example applications and deployment configurations for running AI workloads on Tenstorrent hardware via Koyeb's cloud platform.
   [📦 repo](https://github.com/koyeb/tenstorrent-examples) · [🌐 Koyeb blog post](https://www.koyeb.com/blog/tenstorrent-cloud-instances-unveiling-next-gen-ai-accelerators)
 
+- **TT Console** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Browser-based cloud console for exploring AI on Tenstorrent hardware. Run LLM inference, image and video generation, and browse the supported model catalog in-browser — backed by Tenstorrent accelerators. Cloud hardware access and advanced workflows (deployments, agents) available in staged rollout.
+  [🌐 console.tenstorrent.com](https://console.tenstorrent.com)
+
 - **[tt-inference-server](https://github.com/tenstorrent/tt-inference-server)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Production-ready model serving for Tenstorrent hardware with OpenAI-compatible REST API. Supports continuous batching, multiple models, and all TT hardware configurations.
   [📦 repo](https://github.com/tenstorrent/tt-inference-server) · [📖 Production Inference lesson (VSCode Toolkit)](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
 
 - **[tt-topology](https://github.com/tenstorrent/tt-topology)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Configure Ethernet routing on multi-card Tenstorrent systems. Flash NB cards to use specific ETH routing configurations for scale-out deployments.
-  [📦 repo](https://github.com/tenstorrent/tt-topology)
+  [📦 repo](https://github.com/tenstorrent/tt-topology) · [🐍 `pip install tt-topology`](https://pypi.org/project/tt-topology/)
 
 ## 🔩 RISC-V & Architecture
 
@@ -475,6 +483,10 @@
 - **Accelerating Stencils on the Tenstorrent Grayskull RISC-V Accelerator** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Explores stencil computation on the Grayskull PCIe RISC-V accelerator. Early academic work examining TT hardware for HPC stencil workloads. 2024.
   [📄 arXiv:2409.18835](https://arxiv.org/abs/2409.18835)
+
+- **Stencil Computations on Tenstorrent Wormhole** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  Maps 2D 5-point stencil computations onto the Tenstorrent Wormhole RISC-V AI dataflow accelerator via two implementations: element-wise decomposition (Axpy) and matrix-multiplication reformulation (MatMul). Profiling shows the isolated Wormhole kernel is competitive with CPU execution, with PCIe transfers and initialization driving end-to-end overhead; Axpy achieves lower energy than the CPU baseline at large scales. Identifies architectural and software directions for making AI accelerators viable for HPC stencil workloads. 2025.
+  [📄 arXiv:2605.07599](https://arxiv.org/abs/2605.07599)
 
 - **SwiftNPU: Scalable Shape-Flexible Allocation for Inter-Core Connected NPUs** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   Makes multi-tenant NPU sharing practical for Blackhole-class hardware using polynomial-time allocation algorithms. Delivers up to 1.37× higher utilization and 1.14× faster workload completion. Up to 890,000× faster than NP-hard baselines.

@@ -32,6 +32,29 @@ LINK_ICONS = {
     "website": "🌐", "demo": "🚀", "lesson": "📖", "paper": "📄",
 }
 
+# Icons and install commands for package registry types
+PKG_ICONS = {"pypi": "🐍", "apt": "🐧", "cargo": "🦀"}
+PKG_INSTALL = {"pypi": "pip install", "apt": "apt install", "cargo": "cargo add"}
+
+
+def pkg_url(pkg):
+    """Derive a registry URL for a package entry."""
+    t = pkg.get("type")
+    name = pkg.get("name", "")
+    if t == "pypi":
+        return f"https://pypi.org/project/{name}/"
+    if t == "cargo":
+        return f"https://crates.io/crates/{name}"
+    if t == "apt":
+        ppa = pkg.get("ppa", "")
+        if ppa.startswith("ppa:"):
+            # ppa:owner/name → https://launchpad.net/~owner/+archive/ubuntu/name
+            rest = ppa[4:]
+            owner, _, ppa_name = rest.partition("/")
+            if ppa_name:
+                return f"https://launchpad.net/~{owner}/+archive/ubuntu/{ppa_name}"
+    return None
+
 # Shields.io badges for each affiliation tier
 SHIELDS = {
     "community": "![community](https://img.shields.io/badge/community-27AE60?style=flat-square)",
@@ -102,12 +125,21 @@ def render_entry(e):
         for l in links
     ]
 
+    # Build package install links (appended after regular links)
+    pkg_parts = []
+    for pkg in e.get("packages", []):
+        icon = PKG_ICONS.get(pkg.get("type", ""), "📦")
+        cmd = f"{PKG_INSTALL.get(pkg.get('type', ''), 'install')} {pkg.get('name', '')}"
+        url = pkg_url(pkg)
+        pkg_parts.append(f"[{icon} `{cmd}`]({url})" if url else f"{icon} `{cmd}`")
+
     # Combine author + description on the same line when author is present
     desc_line = f"by {author_md} — {desc}" if author_md else desc
 
     result = f"- **{name_md}** {badge}\n  {desc_line}"
-    if link_parts:
-        result += f"\n  {' · '.join(link_parts)}"
+    all_parts = link_parts + pkg_parts
+    if all_parts:
+        result += f"\n  {' · '.join(all_parts)}"
     return result
 
 
