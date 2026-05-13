@@ -6,6 +6,7 @@
 
 ## Contents
 
+- [🚀 Getting Started](#getting-started)
 - [🤖 AI & Models](#ai-models)
 - [🕵️ AI Agents](#ai-agents)
 - [⚙️ Custom Kernels & Low-Level](#custom-kernels-low-level)
@@ -17,6 +18,32 @@
 - [🔬 Research & Papers](#research-papers)
 - [🎮 Games & Demos](#games-demos)
 - [📚 Guides, Tutorials & Education](#guides-tutorials-education)
+
+## 🚀 Getting Started
+
+- **[tt-inference-server](https://github.com/tenstorrent/tt-inference-server)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Production-ready model serving for Tenstorrent hardware with OpenAI-compatible REST API. Supports continuous batching, multiple models, and all TT hardware configurations.
+  [📦 repo](https://github.com/tenstorrent/tt-inference-server) · [📖 Production Inference lesson (VSCode Toolkit)](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
+
+- **[TT-Studio](https://github.com/tenstorrent/tt-studio)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.
+  [📦 repo](https://github.com/tenstorrent/tt-studio)
+
+- **[tt-forge](https://github.com/tenstorrent/tt-forge)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Tenstorrent's MLIR-based compiler frontend. Enables running AI workloads from PyTorch, ONNX, and other frameworks on all Tenstorrent hardware configurations through an open-source, general, and performant compiler.
+  [📦 repo](https://github.com/tenstorrent/tt-forge) · [🌐 website](https://tenstorrent.com)
+
+- **[tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.
+  [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
+
+- **[tt-installer](https://github.com/tenstorrent/tt-installer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.
+  [📦 repo](https://github.com/tenstorrent/tt-installer) · [📖 Modern Setup lesson (VSCode Toolkit)](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons)
+
+- **[tt-metal](https://github.com/tenstorrent/tt-metal)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.
+  [📦 repo](https://github.com/tenstorrent/tt-metal) · [🌐 website](https://docs.tenstorrent.com/tt-metal/latest/ttnn/)
 
 ## 🤖 AI & Models
 
