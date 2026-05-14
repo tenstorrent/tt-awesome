@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 // State
 let activeCategory = null;
 let activeFilters = new Set(["community", "affiliated", "official"]);

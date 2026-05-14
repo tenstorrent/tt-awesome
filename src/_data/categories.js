@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
 module.exports = [
   { slug: "getting-started", label: "🚀 Getting Started",              description: "The essential first steps — installer, core SDKs, and guided onboarding" },
   { slug: "ai-models",   label: "🤖 AI & Models",                   description: "Running, serving, and experimenting with AI models" },
