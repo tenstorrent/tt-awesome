@@ -27,7 +27,9 @@ module.exports = function () {
       if (data.embed && typeof data.embed.type === "string") {
         types.add(data.embed.type);
       }
-    } catch (_) {}
+    } catch (error) {
+      throw new Error(`Failed to read or parse entry JSON: ${file}: ${error.message}`);
+    }
   }
   return [...types];
 };
