@@ -13,14 +13,18 @@
   <meta property="og:title" content="tt-awesome — A curated list of Tenstorrent awesomeness">
   <meta property="og:description" content="Community projects, tools, AI models, research papers, and tutorials for Tenstorrent hardware — curated by the community.">
   <meta property="og:url" content="https://tenstorrent.github.io/tt-awesome/">
-
   <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@tenstorrent">
   <meta name="twitter:title" content="tt-awesome — A curated list of Tenstorrent awesomeness">
   <meta name="twitter:description" content="Community projects, tools, AI models, research papers, and tutorials for Tenstorrent hardware — curated by the community.">
 
   <style>{% inlineFile "src/assets/style.css" %}</style>
+
+  <!-- Embed asset stylesheets (loaded here so they're valid in <head>) -->
+  {%- if "tensix-viz" in embedTypes %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tsingletaryTT/tensix-viz@v2/tensix-viz.css">
+  {%- endif %}
 
   <!-- PostHog analytics (same key as docs.tenstorrent.com sites) -->
   <script>

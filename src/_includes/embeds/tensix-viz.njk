@@ -1,0 +1,44 @@
+{#
+  Embed: tensix-viz
+  Shows live BH + WH chip topology widgets with a mode switcher.
+  Triggered by "embed": { "type": "tensix-viz" } in the entry JSON.
+#}
+<script src="https://cdn.jsdelivr.net/gh/tsingletaryTT/tensix-viz@v2/tensix-viz.js"></script>
+
+<div class="detail-section editorial-embed editorial-embed--tensix-viz">
+  <div class="section-label">Live chip topology</div>
+
+  <div class="embed-chip-pair">
+    <div class="embed-chip-item">
+      <div class="embed-chip-label">Blackhole · P100 / P150 / P300c · 140 Tensix cores</div>
+      <canvas data-viz="chip" data-config="blackhole" data-mode="idle" width="340" height="240"></canvas>
+    </div>
+    <div class="embed-chip-item">
+      <div class="embed-chip-label">Wormhole · N150 / N300 · 64 Tensix cores</div>
+      <canvas data-viz="chip" data-config="wormhole" data-mode="idle" width="200" height="240"></canvas>
+    </div>
+  </div>
+
+  <div class="embed-mode-bar">
+    <span class="embed-mode-label">mode</span>
+    <button class="embed-mode-btn active" data-mode="idle">idle</button>
+    <button class="embed-mode-btn" data-mode="inference">inference</button>
+    <button class="embed-mode-btn" data-mode="thinking">thinking</button>
+    <button class="embed-mode-btn" data-mode="kernel_dispatch">kernel dispatch</button>
+  </div>
+
+  <script>
+    (function () {
+      var embed = document.currentScript.parentElement;
+      var canvases = embed.querySelectorAll('canvas[data-viz="chip"]');
+      embed.querySelectorAll('.embed-mode-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var mode = this.dataset.mode;
+          embed.querySelectorAll('.embed-mode-btn').forEach(function (b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          canvases.forEach(function (c) { if (c._tensixViz) c._tensixViz.activate(mode); });
+        });
+      });
+    })();
+  </script>
+</div>
