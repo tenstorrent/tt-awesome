@@ -11,13 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // so direct links and browser history both land in the right place.
   restoreFromUrl();
 
-  // Search — when typing while on the home view, jump into "all" mode
+  // Search — when typing while on the home view, switch to cross-category search mode.
+  // When the query is cleared in that mode, return home.
   document.getElementById("search").addEventListener("input", (e) => {
     const q = e.target.value.toLowerCase().trim();
     if (q && isHomeActive()) {
-      // Select the first category to surface results
-      const first = document.querySelector(".sidebar-item[data-category]");
-      if (first) selectCategory(first.dataset.category, first);
+      _applySearchAll();
+    } else if (!q && activeCategory === null && !isHomeActive()) {
+      _applyHome();
+      return;
     }
     applyFilters(q);
   });
@@ -86,6 +88,15 @@ function _applyHome() {
   document.getElementById("panes").classList.add("home-active");
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   document.getElementById("home-item").classList.add("active");
+}
+
+/** Internal: show list pane with no category filter (cross-category search). No history push. */
+function _applySearchAll() {
+  activeCategory = null;
+  document.getElementById("panes").classList.remove("home-active");
+  document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
+  document.getElementById("list-title").textContent = "All";
+  _clearDetail();
 }
 
 /** Navigate to a category by slug — used by the home page card clicks. */
