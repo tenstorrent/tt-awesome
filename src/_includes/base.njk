@@ -21,6 +21,11 @@
 
   <style>{% inlineFile "src/assets/style.css" %}</style>
 
+  <!-- Embed asset stylesheets (loaded here so they're valid in <head>) -->
+  {%- if "tensix-viz" in embedTypes %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tsingletaryTT/tensix-viz@v2/tensix-viz.css">
+  {%- endif %}
+
   <!-- PostHog analytics (same key as docs.tenstorrent.com sites) -->
   <script>
     (function (t, e) {
