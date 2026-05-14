@@ -6,7 +6,7 @@
     "build": "eleventy",
     "serve": "eleventy --serve",
     "validate": "python3 scripts/validate.py",
-    "generate": "python3 scripts/generate_readme.py"
+    "generate": "python3 scripts/generate_readme.py && python3 scripts/generate_data_json.py"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0"

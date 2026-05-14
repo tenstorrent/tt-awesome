@@ -1,0 +1,5058 @@
+{
+  "meta": {
+    "generated": "2026-05-14T15:16:37Z",
+    "schema_version": "1",
+    "total_entries": 103,
+    "categories": [
+      "getting-started",
+      "ai-models",
+      "agents",
+      "kernels",
+      "compilers",
+      "dev-tools",
+      "hw-system",
+      "cloud-infra",
+      "riscv-arch",
+      "research",
+      "games-demos",
+      "guides"
+    ]
+  },
+  "categories": {
+    "getting-started": {
+      "label": "Getting Started",
+      "count": 6,
+      "entries": [
+        {
+          "id": "tt-inference-server",
+          "name": "tt-inference-server",
+          "description": "Production-ready model serving for Tenstorrent hardware with OpenAI-compatible REST API. Supports continuous batching, multiple models, and all TT hardware configurations.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models",
+            "cloud-infra",
+            "getting-started"
+          ],
+          "tags": [
+            "serving",
+            "openai-compatible",
+            "production",
+            "rest-api"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-inference-server"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+              "label": "Production Inference lesson (VSCode Toolkit)"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox",
+            "galaxy"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-studio",
+          "name": "TT-Studio",
+          "description": "Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models",
+            "dev-tools",
+            "getting-started"
+          ],
+          "tags": [
+            "web-ui",
+            "gui",
+            "models",
+            "chat",
+            "deployment"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-studio"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox"
+          ],
+          "language": "TypeScript",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-forge",
+          "name": "tt-forge",
+          "description": "Tenstorrent's MLIR-based compiler frontend. Enables running AI workloads from PyTorch, ONNX, and other frameworks on all Tenstorrent hardware configurations through an open-source, general, and performant compiler.",
+          "affiliation": "official",
+          "categories": [
+            "compilers",
+            "getting-started"
+          ],
+          "tags": [
+            "mlir",
+            "compiler",
+            "pytorch",
+            "onnx",
+            "frontend"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-forge"
+            },
+            {
+              "type": "website",
+              "url": "https://tenstorrent.com"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "ttsim"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-vscode-toolkit",
+          "name": "tt-vscode-toolkit",
+          "description": "48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.",
+          "affiliation": "official",
+          "categories": [
+            "guides",
+            "dev-tools",
+            "getting-started"
+          ],
+          "tags": [
+            "vscode",
+            "lessons",
+            "interactive",
+            "getting-started",
+            "code-server"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-vscode-toolkit"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+              "label": "All 48 lessons"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/riscv-guide/",
+              "label": "RISC-V Programming Guide"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox",
+            "ttsim"
+          ],
+          "language": "TypeScript",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-installer",
+          "name": "tt-installer",
+          "description": "Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "guides",
+            "getting-started"
+          ],
+          "tags": [
+            "installation",
+            "setup",
+            "one-command",
+            "getting-started"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-installer"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+              "label": "Modern Setup lesson (VSCode Toolkit)"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Shell",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-metal",
+          "name": "tt-metal",
+          "description": "TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.",
+          "affiliation": "official",
+          "categories": [
+            "kernels",
+            "compilers",
+            "getting-started"
+          ],
+          "tags": [
+            "metalium",
+            "ttnn",
+            "sdk",
+            "kernels",
+            "core"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-metal"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-metal/latest/ttnn/"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole",
+            "ttsim"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "ai-models": {
+      "label": "AI & Models",
+      "count": 23,
+      "entries": [
+        {
+          "id": "tt-boltz",
+          "name": "tt-boltz",
+          "description": "Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.",
+          "affiliation": "community",
+          "categories": [
+            "ai-models",
+            "research"
+          ],
+          "tags": [
+            "drug-discovery",
+            "blackhole",
+            "inference",
+            "biology",
+            "multi-card"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/moritztng/tt-boltz"
+            },
+            {
+              "type": "talk",
+              "url": "https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/",
+              "label": "FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware"
+            }
+          ],
+          "hardware": [
+            "blackhole",
+            "quietbox",
+            "galaxy"
+          ],
+          "featured": true,
+          "author": "moritztng",
+          "language": "Python",
+          "license": "MIT"
+        },
+        {
+          "id": "gsplat-tt",
+          "name": "gsplat_tt",
+          "description": "Port of Gaussian Splatting (3D scene reconstruction from 2D images) to Tenstorrent hardware.",
+          "affiliation": "community",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "gaussian-splatting",
+            "computer-vision",
+            "3d-reconstruction",
+            "blackhole"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/Kovelja009/gsplat_tt"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "author": "Kovelja009",
+          "language": "Python"
+        },
+        {
+          "id": "koyeb-tenstorrent-examples",
+          "name": "koyeb/tenstorrent-examples",
+          "description": "Example applications and deployment configurations for running AI workloads on Tenstorrent hardware via Koyeb's cloud platform.",
+          "affiliation": "community",
+          "categories": [
+            "cloud-infra",
+            "ai-models"
+          ],
+          "tags": [
+            "cloud",
+            "koyeb",
+            "deployment",
+            "examples"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/koyeb/tenstorrent-examples"
+            },
+            {
+              "type": "website",
+              "url": "https://www.koyeb.com/blog/tenstorrent-cloud-instances-unveiling-next-gen-ai-accelerators",
+              "label": "Koyeb blog post"
+            }
+          ],
+          "author": "koyeb",
+          "language": "Dockerfile"
+        },
+        {
+          "id": "grayskull-attention",
+          "name": "grayskull-attention",
+          "description": "FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "ai-models"
+          ],
+          "tags": [
+            "attention",
+            "grayskull",
+            "metalium",
+            "sram",
+            "kernel"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/moritztng/grayskull-attention"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "moritztng",
+          "language": "TeX",
+          "license": "MIT"
+        },
+        {
+          "id": "paper-tts-lightning",
+          "name": "Rewriting TTS Inference Economics: Lightning V2 on Tenstorrent vs. NVIDIA L40S",
+          "description": "Shows that Text-to-Speech inference on Tenstorrent Lightning V2 achieves 4× lower cost than NVIDIA L40S. Applies BlockFloat8 (BFP8) and low-fidelity (LoFi) precision strategies to TTS despite their greater numerical fragility compared to LLMs.",
+          "affiliation": "community",
+          "categories": [
+            "research",
+            "ai-models"
+          ],
+          "tags": [
+            "tts",
+            "text-to-speech",
+            "inference",
+            "bfp8",
+            "lofi",
+            "cost-efficiency",
+            "precision"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2604.03279",
+              "label": "arXiv:2604.03279"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "Ranjith M. S., Akshat Mandloi, Sudarshan Kamath",
+          "date": "2026-03-24"
+        },
+        {
+          "id": "ttvt-video-generation",
+          "name": "Video Generation on Tenstorrent",
+          "description": "Three lesson-projects covering on-device video synthesis: frame-by-frame diffusion with tt-local-generator, native AnimateDiff video animation, and video generation on QuietBox 2. All run entirely on TT hardware with no cloud dependency.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "video-generation",
+            "diffusion",
+            "animatediff",
+            "tt-local-generator",
+            "quietbox",
+            "on-device"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/video-generation-ttmetal/",
+              "label": "Video Generation via Frame-by-Frame Diffusion"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/animatediff-video-generation/",
+              "label": "Native Video Animation with AnimateDiff"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-video-generation/",
+              "label": "Video Generation on QuietBox 2"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox"
+          ],
+          "featured": true,
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "dflash",
+          "name": "dflash",
+          "description": "DFlash: Block Diffusion for Flash Speculative Decoding on Tenstorrent hardware using tt-lang. Combines block diffusion with speculative decoding for faster inference.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models",
+            "kernels"
+          ],
+          "tags": [
+            "speculative-decoding",
+            "diffusion",
+            "tt-lang",
+            "inference"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zoecarver/dflash"
+            },
+            {
+              "type": "website",
+              "url": "https://dflash.z-lab.ai"
+            }
+          ],
+          "author": "zoecarver",
+          "language": "Python"
+        },
+        {
+          "id": "diamond-tt",
+          "name": "diamond",
+          "description": "DIAMOND: Atari game-playing agent implemented on Tenstorrent hardware via tt-lang. Diffusion-based world model for reinforcement learning.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models",
+            "games-demos"
+          ],
+          "tags": [
+            "atari",
+            "reinforcement-learning",
+            "world-model",
+            "tt-lang"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zoecarver/diamond"
+            },
+            {
+              "type": "website",
+              "url": "https://diamond-wm.github.io"
+            }
+          ],
+          "author": "zoecarver",
+          "language": "Python"
+        },
+        {
+          "id": "engram-tt",
+          "name": "Engram",
+          "description": "A Tenstorrent port of the DeepSeek Engram model using tt-lang. Brings DeepSeek's memory-efficient architecture to TT hardware.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "deepseek",
+            "engram",
+            "tt-lang",
+            "inference"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zoecarver/Engram"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "author": "zoecarver",
+          "language": "Python"
+        },
+        {
+          "id": "gemma4-tt",
+          "name": "gemma4",
+          "description": "Gemma 4 language model implemented in tt-lang (e4b variant) for direct execution on Tenstorrent hardware.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "gemma",
+            "llm",
+            "tt-lang",
+            "inference"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zoecarver/gemma4"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "author": "zoecarver",
+          "language": "Python"
+        },
+        {
+          "id": "open-oasis",
+          "name": "open-oasis",
+          "description": "tt-lang inference script for Oasis 500M — an interactive video world model running on Tenstorrent hardware via the tt-lang DSL.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "video",
+            "world-model",
+            "oasis",
+            "tt-lang",
+            "inference"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zoecarver/open-oasis"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "author": "zoecarver",
+          "language": "Python"
+        },
+        {
+          "id": "tt-lang-models",
+          "name": "tt-lang-models",
+          "description": "A growing collection of models that use tt-lang for some or all of their implementation. Reference implementations for bringing modern models to the tt-lang DSL.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models",
+            "kernels"
+          ],
+          "tags": [
+            "tt-lang",
+            "models",
+            "dsl",
+            "reference"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zoecarver/tt-lang-models"
+            }
+          ],
+          "author": "zoecarver",
+          "language": "Python"
+        },
+        {
+          "id": "ttvt-stable-diffusion",
+          "name": "Stable Diffusion XL on Tenstorrent",
+          "description": "On-device image generation with Stable Diffusion XL running entirely on Tenstorrent hardware. Full inference pipeline with no cloud dependency.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "stable-diffusion",
+            "sdxl",
+            "image-generation",
+            "diffusion",
+            "on-device"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/image-generation/",
+              "label": "Image Generation with Stable Diffusion XL"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "ttvt-forge-classification",
+          "name": "Image Classification with TT-Forge",
+          "description": "End-to-end image classification project using TT-Forge — compile and run a PyTorch classification model on Tenstorrent hardware with no kernel authoring required.",
+          "affiliation": "affiliated",
+          "categories": [
+            "compilers",
+            "ai-models"
+          ],
+          "tags": [
+            "forge",
+            "image-classification",
+            "pytorch",
+            "compiler",
+            "inference"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/forge-image-classification/",
+              "label": "Image Classification with TT-Forge"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "tt-model-runner",
+          "name": "tt-model-runner",
+          "description": "Discover, load, and benchmark models with a GUI and TUI for tt-inference-server. Makes exploring available models on Tenstorrent hardware as easy as browsing a catalog.",
+          "affiliation": "affiliated",
+          "categories": [
+            "dev-tools",
+            "ai-models"
+          ],
+          "tags": [
+            "gui",
+            "tui",
+            "models",
+            "inference",
+            "benchmark"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tt-model-runner"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox"
+          ],
+          "author": "tsingletaryTT",
+          "language": "Python"
+        },
+        {
+          "id": "ttvt-custom-training",
+          "name": "Custom Model Training on Tenstorrent",
+          "description": "Eight-lesson series covering the full custom training workflow on TT hardware: dataset fundamentals, configuration patterns, fine-tuning, multi-device distributed training, experiment tracking, model architecture basics, and training from scratch.",
+          "affiliation": "affiliated",
+          "categories": [
+            "guides",
+            "ai-models"
+          ],
+          "tags": [
+            "training",
+            "fine-tuning",
+            "multi-device",
+            "distributed",
+            "experiment-tracking",
+            "curriculum"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct1-understanding-training/",
+              "label": "Understanding Custom Training"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct2-dataset-fundamentals/",
+              "label": "Dataset Fundamentals"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct3-configuration-patterns/",
+              "label": "Configuration Patterns"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct4-finetuning-basics/",
+              "label": "Fine-tuning Basics"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct5-multi-device-training/",
+              "label": "Multi-Device Training"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct6-experiment-tracking/",
+              "label": "Experiment Tracking"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct7-architecture-basics/",
+              "label": "Model Architecture Basics"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct8-training-from-scratch/",
+              "label": "Training from Scratch"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "tt-console",
+          "name": "TT Console",
+          "description": "Browser-based cloud console for exploring AI on Tenstorrent hardware. Run LLM inference, image and video generation, and browse the supported model catalog in-browser — backed by Tenstorrent accelerators. Cloud hardware access and advanced workflows (deployments, agents) available in staged rollout.",
+          "affiliation": "official",
+          "categories": [
+            "cloud-infra",
+            "ai-models"
+          ],
+          "tags": [
+            "cloud",
+            "console",
+            "inference",
+            "playground",
+            "llm",
+            "image-generation",
+            "video-generation",
+            "demo"
+          ],
+          "links": [
+            {
+              "type": "website",
+              "url": "https://console.tenstorrent.com",
+              "label": "console.tenstorrent.com"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true
+        },
+        {
+          "id": "tt-blacksmith",
+          "name": "tt-blacksmith",
+          "description": "Optimized training recipes for a variety of ML models on Tenstorrent hardware, powered by the TT-Forge compiler stack. Reference implementations for fine-tuning and training from scratch.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "training",
+            "fine-tuning",
+            "recipes",
+            "pytorch"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-blacksmith"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+              "label": "Custom Training lessons (VSCode Toolkit)"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-blacksmith/"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-buda-demos",
+          "name": "tt-buda-demos",
+          "description": "Repository of model demos using TT-Buda. The largest collection of pre-compiled model examples for Tenstorrent hardware — BERT, ResNet, YOLO, GPT-2, Whisper, and many more.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "demos",
+            "models",
+            "bert",
+            "resnet",
+            "yolo",
+            "gpt2"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-buda-demos"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-example-apps",
+          "name": "tt-example-apps",
+          "description": "End-to-end AI applications running on Tenstorrent AI accelerators. Complete application examples from retrieval-augmented generation to image generation pipelines.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models",
+            "agents"
+          ],
+          "tags": [
+            "rag",
+            "applications",
+            "end-to-end",
+            "examples"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-example-apps"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Jupyter Notebook",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-inference-server",
+          "name": "tt-inference-server",
+          "description": "Production-ready model serving for Tenstorrent hardware with OpenAI-compatible REST API. Supports continuous batching, multiple models, and all TT hardware configurations.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models",
+            "cloud-infra",
+            "getting-started"
+          ],
+          "tags": [
+            "serving",
+            "openai-compatible",
+            "production",
+            "rest-api"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-inference-server"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+              "label": "Production Inference lesson (VSCode Toolkit)"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox",
+            "galaxy"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-local-generator",
+          "name": "tt-local-generator",
+          "description": "Generate infinite videos and images (and imaginative prompts to inspire them) on Tenstorrent's Quietbox 2. Fully local generative media pipeline.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "video-generation",
+            "image-generation",
+            "quietbox",
+            "generative"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-local-generator"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-local-generator/"
+            }
+          ],
+          "hardware": [
+            "quietbox"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-studio",
+          "name": "TT-Studio",
+          "description": "Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models",
+            "dev-tools",
+            "getting-started"
+          ],
+          "tags": [
+            "web-ui",
+            "gui",
+            "models",
+            "chat",
+            "deployment"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-studio"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox"
+          ],
+          "language": "TypeScript",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "agents": {
+      "label": "AI Agents",
+      "count": 4,
+      "entries": [
+        {
+          "id": "dstack",
+          "name": "dstack",
+          "description": "Vendor-agnostic orchestration for training, inference, and agentic workloads across NVIDIA, AMD, TPU, and Tenstorrent on clouds, Kubernetes, and bare metal.",
+          "affiliation": "community",
+          "categories": [
+            "cloud-infra",
+            "agents"
+          ],
+          "tags": [
+            "orchestration",
+            "kubernetes",
+            "cloud",
+            "multi-vendor"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/dstackai/dstack"
+            },
+            {
+              "type": "website",
+              "url": "https://dstack.ai"
+            }
+          ],
+          "featured": true,
+          "author": "dstackai",
+          "language": "Python",
+          "license": "MPL-2.0"
+        },
+        {
+          "id": "ttvt-ai-agents",
+          "name": "Local AI Agents on Tenstorrent",
+          "description": "Three agentic projects running fully on-device: local AI agents on QuietBox 2, a coding assistant powered by Aider against a local inference server, and the OpenClaw AI assistant on QuietBox 2. No cloud APIs — all inference runs on TT hardware.",
+          "affiliation": "affiliated",
+          "categories": [
+            "agents"
+          ],
+          "tags": [
+            "agents",
+            "local-llm",
+            "aider",
+            "coding-assistant",
+            "quietbox",
+            "on-device"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-local-agents/",
+              "label": "Local AI Agents on QuietBox 2"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/coding-assistant/",
+              "label": "Coding Assistant with Aider"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-openclaw-assistant/",
+              "label": "OpenClaw AI Assistant on QuietBox 2"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox"
+          ],
+          "featured": true,
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "tt-claw",
+          "name": "tt-claw",
+          "description": "A Tenstorrent-powered claw machine that rewards players with real prizes. The QuietBox 2 runs local AI inference to act as an agent controlling the claw hardware — the OpenClaw AI assistant lesson builds directly on this project.",
+          "affiliation": "affiliated",
+          "categories": [
+            "agents",
+            "games-demos"
+          ],
+          "tags": [
+            "claw-machine",
+            "agents",
+            "hardware",
+            "quietbox",
+            "physical",
+            "on-device"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tt-claw"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-openclaw-assistant/",
+              "label": "OpenClaw AI Assistant on QuietBox 2"
+            }
+          ],
+          "hardware": [
+            "quietbox"
+          ],
+          "author": "tsingletaryTT",
+          "language": "Shell"
+        },
+        {
+          "id": "tt-example-apps",
+          "name": "tt-example-apps",
+          "description": "End-to-end AI applications running on Tenstorrent AI accelerators. Complete application examples from retrieval-augmented generation to image generation pipelines.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models",
+            "agents"
+          ],
+          "tags": [
+            "rag",
+            "applications",
+            "end-to-end",
+            "examples"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-example-apps"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Jupyter Notebook",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "kernels": {
+      "label": "Custom Kernels & Low-Level",
+      "count": 22,
+      "entries": [
+        {
+          "id": "triton-tenstorrent",
+          "name": "triton-tenstorrent",
+          "description": "OpenAI Triton compiler plugin for Tenstorrent hardware. Write Triton kernels and target Tensix cores — brings the Triton ML kernel ecosystem to TT devices.",
+          "affiliation": "community",
+          "categories": [
+            "compilers",
+            "kernels"
+          ],
+          "tags": [
+            "triton",
+            "openai-triton",
+            "compiler",
+            "kernels"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/kernelize-ai/triton-tenstorrent"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "kernelize-ai",
+          "language": "C++"
+        },
+        {
+          "id": "blog-martin-chang-programming",
+          "name": "Programming Tenstorrent Processors",
+          "description": "Deep-dive into the Tenstorrent architecture and Metalium programming model — circular buffers, kernel synchronization, NoC routing, and where the footguns are. The honest guide to thinking in Tensix.",
+          "affiliation": "community",
+          "categories": [
+            "guides",
+            "kernels",
+            "riscv-arch"
+          ],
+          "tags": [
+            "metalium",
+            "programming-model",
+            "tensix",
+            "noc",
+            "circular-buffers",
+            "blog"
+          ],
+          "links": [
+            {
+              "type": "article",
+              "url": "https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi",
+              "label": "clehaxze.tw — April 2025"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "Martin Chang"
+        },
+        {
+          "id": "jasondavies-tt-series",
+          "name": "Tenstorrent SFPU Kernel Series — Jason Davies",
+          "description": "Sponsored series of deep technical articles on implementing optimal SFPU kernels for the Tenstorrent Wormhole and Blackhole vector units. Covers where, typecasting, 16/32-bit integer multiplication, cube root, and accurate sin/cos/tan — with cycle counts, assembly walkthroughs, and Blackhole vs Wormhole comparisons throughout.",
+          "affiliation": "community",
+          "categories": [
+            "kernels"
+          ],
+          "tags": [
+            "sfpu",
+            "assembly",
+            "vector-unit",
+            "cycle-counting",
+            "wormhole",
+            "blackhole",
+            "optimization",
+            "sponsored"
+          ],
+          "links": [
+            {
+              "type": "article",
+              "url": "https://www.jasondavies.com/2025/tenstorrent-where/",
+              "label": "Optimal \"where\" on Tenstorrent"
+            },
+            {
+              "type": "article",
+              "url": "https://www.jasondavies.com/2025/tenstorrent-multiply-int32/",
+              "label": "32-bit Integer Multiplication on Tenstorrent"
+            },
+            {
+              "type": "article",
+              "url": "https://www.jasondavies.com/2025/tenstorrent-typecast/",
+              "label": "Typecast on Tenstorrent"
+            },
+            {
+              "type": "article",
+              "url": "https://www.jasondavies.com/2026/tenstorrent-multiply-int16/",
+              "label": "16-bit Integer Multiplication on Tenstorrent"
+            },
+            {
+              "type": "article",
+              "url": "https://www.jasondavies.com/2026/tenstorrent-cbrt/",
+              "label": "Cube Root on Tenstorrent"
+            },
+            {
+              "type": "article",
+              "url": "https://www.jasondavies.com/2026/tenstorrent-sin-cos-tan/",
+              "label": "Accurate sin/cos/tan on Tenstorrent"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "jasondavies"
+        },
+        {
+          "id": "tt-tiny",
+          "name": "tt-tiny",
+          "description": "Minimal Python code to access and program the Tenstorrent Blackhole chip directly — George Hotz's exploration of TT hardware programmability with pointed commentary on the architecture.",
+          "affiliation": "community",
+          "categories": [
+            "kernels"
+          ],
+          "tags": [
+            "blackhole",
+            "low-level",
+            "exploration"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/geohot/tt-tiny"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "geohot",
+          "language": "Python"
+        },
+        {
+          "id": "tt-mandelbrot",
+          "name": "ttMandelbrot",
+          "description": "Mandelbrot Set fractal renderer running on Tenstorrent hardware. A classic demo showcasing parallel compute on Tensix cores.",
+          "affiliation": "community",
+          "categories": [
+            "games-demos",
+            "kernels"
+          ],
+          "tags": [
+            "mandelbrot",
+            "demo",
+            "fractals",
+            "parallel"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/marty1885/ttMandelbrot"
+            }
+          ],
+          "author": "marty1885",
+          "language": "C",
+          "license": "0BSD"
+        },
+        {
+          "id": "tt-metal-mini-template",
+          "name": "TT-Metal Mini Template",
+          "description": "Minimal working CMake project template for starting a new TT-Metal project from scratch. Good starting point for community kernel development.",
+          "affiliation": "community",
+          "categories": [
+            "guides",
+            "kernels"
+          ],
+          "tags": [
+            "template",
+            "cmake",
+            "starter",
+            "boilerplate"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/JushBJJ/TT-Metal-Mini-Template"
+            }
+          ],
+          "author": "JushBJJ",
+          "language": "C++"
+        },
+        {
+          "id": "current-framework",
+          "name": "current",
+          "description": "High-level parallel programming framework for Tenstorrent accelerators, abstracting TT-Metal into a research-oriented programming model for parallel computation.",
+          "affiliation": "community",
+          "categories": [
+            "kernels"
+          ],
+          "tags": [
+            "framework",
+            "parallel",
+            "abstraction",
+            "research"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/seansiddens/current"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "seansiddens",
+          "language": "C++"
+        },
+        {
+          "id": "grayskull-attention",
+          "name": "grayskull-attention",
+          "description": "FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "ai-models"
+          ],
+          "tags": [
+            "attention",
+            "grayskull",
+            "metalium",
+            "sram",
+            "kernel"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/moritztng/grayskull-attention"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "moritztng",
+          "language": "TeX",
+          "license": "MIT"
+        },
+        {
+          "id": "tenstorrent-tiny-examples",
+          "name": "tenstorrent-tiny-examples",
+          "description": "Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "guides"
+          ],
+          "tags": [
+            "examples",
+            "grayskull",
+            "cpp",
+            "learning"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/jaebaek/tenstorrent-tiny-examples"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "jaebaek",
+          "language": "C++"
+        },
+        {
+          "id": "tt-twitch",
+          "name": "tt-twitch",
+          "description": "A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "games-demos"
+          ],
+          "tags": [
+            "grayskull",
+            "kernel",
+            "live-coding",
+            "demo"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/geohot/tt-twitch"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "geohot",
+          "language": "C++"
+        },
+        {
+          "id": "ttnn-helloworld-cpp",
+          "name": "ttnn-helloworld-cpp",
+          "description": "Minimal working example of using Tenstorrent TTNN in C++. The simplest possible starting point for C++ developers targeting TT hardware with TTNN.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "guides"
+          ],
+          "tags": [
+            "c++",
+            "ttnn",
+            "hello-world",
+            "template"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/marty1885/ttnn-helloworld-cpp"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "marty1885",
+          "language": "C++"
+        },
+        {
+          "id": "ttvecadd",
+          "name": "ttVecAdd",
+          "description": "Minimal vector-addition example on Tenstorrent devices using TT-Metalium. A clean hello-world for the TT-Metal kernel programming model in C++.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "guides"
+          ],
+          "tags": [
+            "vector-add",
+            "example",
+            "metalium",
+            "hello-world"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/marty1885/ttVecAdd"
+            }
+          ],
+          "author": "marty1885",
+          "language": "C++",
+          "license": "ISC"
+        },
+        {
+          "id": "paper-attention-grayskull",
+          "name": "Attention in SRAM on Tenstorrent Grayskull",
+          "description": "A fused kernel for the Grayskull architecture implementing Transformer self-attention entirely within SRAM. Combines matrix multiply, attention score scaling, and Softmax without DRAM accesses, achieving significant speedups over non-fused implementations.",
+          "affiliation": "community",
+          "categories": [
+            "research",
+            "kernels"
+          ],
+          "tags": [
+            "attention",
+            "transformer",
+            "sram",
+            "grayskull",
+            "kernel",
+            "risc-v"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2407.13885",
+              "label": "arXiv:2407.13885"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "Moritz Thüning",
+          "date": "2024-07-18"
+        },
+        {
+          "id": "paper-fft-wormhole",
+          "name": "Exploring Fast Fourier Transforms on the Tenstorrent Wormhole",
+          "description": "Ports the Cooley-Tukey FFT algorithm to the Wormhole n300 RISC-V accelerator. The Wormhole draws 8× less power and consumes 2.8× less energy than a 24-core Xeon Platinum for a 2D FFT. ISC 2025.",
+          "affiliation": "community",
+          "categories": [
+            "research",
+            "kernels"
+          ],
+          "tags": [
+            "fft",
+            "wormhole",
+            "hpc",
+            "risc-v",
+            "energy-efficiency",
+            "epcc"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2506.15437",
+              "label": "arXiv:2506.15437"
+            },
+            {
+              "type": "article",
+              "url": "https://www.research.ed.ac.uk/en/publications/exploring-fast-fourier-transforms-on-the-tenstorrent-wormhole/",
+              "label": "University of Edinburgh"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "Nick Brown, Jake Davies, Felix LeClair",
+          "date": "2025-06-18"
+        },
+        {
+          "id": "ttvt-cookbook-particle-life",
+          "name": "Tenstorrent Cookbook: Particle Life Simulator",
+          "description": "Particle Life simulation on Tenstorrent hardware — an emergent-behavior N-body system where simple attraction/repulsion rules between species produce complex lifelike patterns. Cookbook recipe demonstrating parallel N-body compute on Tensix.",
+          "affiliation": "affiliated",
+          "categories": [
+            "games-demos",
+            "kernels"
+          ],
+          "tags": [
+            "particle-life",
+            "n-body",
+            "simulation",
+            "emergent",
+            "cookbook",
+            "demo"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-particle-life/",
+              "label": "Cookbook Recipe 5: Particle Life Simulator"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "dflash",
+          "name": "dflash",
+          "description": "DFlash: Block Diffusion for Flash Speculative Decoding on Tenstorrent hardware using tt-lang. Combines block diffusion with speculative decoding for faster inference.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models",
+            "kernels"
+          ],
+          "tags": [
+            "speculative-decoding",
+            "diffusion",
+            "tt-lang",
+            "inference"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zoecarver/dflash"
+            },
+            {
+              "type": "website",
+              "url": "https://dflash.z-lab.ai"
+            }
+          ],
+          "author": "zoecarver",
+          "language": "Python"
+        },
+        {
+          "id": "tt-lang-models",
+          "name": "tt-lang-models",
+          "description": "A growing collection of models that use tt-lang for some or all of their implementation. Reference implementations for bringing modern models to the tt-lang DSL.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models",
+            "kernels"
+          ],
+          "tags": [
+            "tt-lang",
+            "models",
+            "dsl",
+            "reference"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zoecarver/tt-lang-models"
+            }
+          ],
+          "author": "zoecarver",
+          "language": "Python"
+        },
+        {
+          "id": "ttvt-cookbook-gol",
+          "name": "Tenstorrent Cookbook: Conway's Game of Life",
+          "description": "TT-Metalium implementation of Conway's Game of Life as a cookbook recipe. Each generation is a full parallel kernel dispatch over the grid — a clean introduction to stateful compute on Tensix cores.",
+          "affiliation": "affiliated",
+          "categories": [
+            "games-demos",
+            "kernels"
+          ],
+          "tags": [
+            "game-of-life",
+            "demo",
+            "cookbook",
+            "parallel",
+            "metalium"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-game-of-life/",
+              "label": "Cookbook Recipe 1: Conway's Game of Life"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "ttvt-cookbook-recipes",
+          "name": "Tenstorrent Cookbook: Core Recipes",
+          "description": "Three hands-on TT-Metalium kernel recipes: a Mandelbrot fractal explorer, real-time audio signal processing pipeline, and custom image filter stack. Each recipe is a complete kernel project with full source in the lesson.",
+          "affiliation": "affiliated",
+          "categories": [
+            "kernels",
+            "guides"
+          ],
+          "tags": [
+            "cookbook",
+            "mandelbrot",
+            "audio",
+            "image-processing",
+            "metalium",
+            "demo"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-overview/",
+              "label": "Tenstorrent Cookbook Overview"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-mandelbrot/",
+              "label": "Recipe 3: Mandelbrot Fractal Explorer"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-audio-processor/",
+              "label": "Recipe 2: Audio Signal Processing"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-image-filters/",
+              "label": "Recipe 4: Custom Image Filters"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "tt-lang",
+          "name": "tt-lang",
+          "description": "Python-based domain-specific language for authoring custom operations on Tenstorrent hardware. Expresses concurrent compute and data-movement programs that compile directly to Tensix kernels.",
+          "affiliation": "official",
+          "categories": [
+            "kernels"
+          ],
+          "tags": [
+            "dsl",
+            "python",
+            "kernels",
+            "tt-lang"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-lang"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/tt-lang-intro/",
+              "label": "Introduction to tt-lang"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "ttsim"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-llk",
+          "name": "tt-llk",
+          "description": "Tenstorrent Low-Level Kernels: the C++ library that directly programs the RISC-V cores inside each Tensix compute engine. TRISC0 (unpack), TRISC1 (math/FPU/SFPU), and TRISC2 (pack) are all programmed through this layer — it is the interface between TT-Metal kernel code and bare silicon.",
+          "affiliation": "official",
+          "categories": [
+            "kernels",
+            "riscv-arch"
+          ],
+          "tags": [
+            "tensix",
+            "risc-v",
+            "llk",
+            "trisc",
+            "brisc",
+            "ncrisc",
+            "low-level",
+            "compute-engine"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-llk"
+            },
+            {
+              "type": "article",
+              "url": "https://github.com/tenstorrent/tt-llk/blob/main/docs/llk/l2/top_level_overview.md",
+              "label": "Top-level architecture overview"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-metal",
+          "name": "tt-metal",
+          "description": "TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.",
+          "affiliation": "official",
+          "categories": [
+            "kernels",
+            "compilers",
+            "getting-started"
+          ],
+          "tags": [
+            "metalium",
+            "ttnn",
+            "sdk",
+            "kernels",
+            "core"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-metal"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-metal/latest/ttnn/"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole",
+            "ttsim"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "compilers": {
+      "label": "Compilers & Frontends",
+      "count": 13,
+      "entries": [
+        {
+          "id": "barracuda",
+          "name": "BarraCUDA",
+          "description": "Open-source CUDA compiler targeting multiple GPU architectures including Tenstorrent. Compiles .cu files to run on AMD and Tenstorrent hardware without modification.",
+          "affiliation": "community",
+          "categories": [
+            "compilers"
+          ],
+          "tags": [
+            "cuda",
+            "compiler",
+            "cross-platform",
+            "blackhole"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/Zaneham/BarraCUDA"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "Zaneham",
+          "language": "C"
+        },
+        {
+          "id": "triton-tenstorrent",
+          "name": "triton-tenstorrent",
+          "description": "OpenAI Triton compiler plugin for Tenstorrent hardware. Write Triton kernels and target Tensix cores — brings the Triton ML kernel ecosystem to TT devices.",
+          "affiliation": "community",
+          "categories": [
+            "compilers",
+            "kernels"
+          ],
+          "tags": [
+            "triton",
+            "openai-triton",
+            "compiler",
+            "kernels"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/kernelize-ai/triton-tenstorrent"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "kernelize-ai",
+          "language": "C++"
+        },
+        {
+          "id": "tt-iree",
+          "name": "tt-iree",
+          "description": "IREE (Intermediate Representation Execution Environment) ML compiler ported to Tenstorrent AI accelerators. Brings the IREE compiler ecosystem to TT hardware.",
+          "affiliation": "community",
+          "categories": [
+            "compilers"
+          ],
+          "tags": [
+            "iree",
+            "compiler",
+            "mlir",
+            "inference"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/swote-git/tt-iree"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "swote-git",
+          "language": "C++",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "paper-tileloom",
+          "name": "TileLoom: Automatic Dataflow Planning for Spatial Dataflow Accelerators",
+          "description": "Compiler system that automatically generates efficient dataflow plans for tile-based languages on spatial accelerators including Tenstorrent Wormhole. Exploits on-chip network forwarding between processing elements to reduce DRAM pressure.",
+          "affiliation": "community",
+          "categories": [
+            "research",
+            "compilers"
+          ],
+          "tags": [
+            "compiler",
+            "dataflow",
+            "spatial-accelerator",
+            "tile-based",
+            "on-chip-network",
+            "wormhole"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2512.22168",
+              "label": "arXiv:2512.22168"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "Wei Li, Zhenyu Bai, Heru Wang, Pranav Dangi",
+          "date": "2025-12-17"
+        },
+        {
+          "id": "tt-forge-compiletron",
+          "name": "tt-forge-compiletron",
+          "description": "Compile more than 100 models on tt-forge in a display format suitable for demos. Comprehensive showcase of tt-forge model compatibility.",
+          "affiliation": "affiliated",
+          "categories": [
+            "compilers",
+            "games-demos"
+          ],
+          "tags": [
+            "tt-forge",
+            "models",
+            "demo",
+            "compilation"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tt-forge-compiletron"
+            }
+          ],
+          "author": "tsingletaryTT",
+          "language": "Python"
+        },
+        {
+          "id": "ttvt-forge-classification",
+          "name": "Image Classification with TT-Forge",
+          "description": "End-to-end image classification project using TT-Forge — compile and run a PyTorch classification model on Tenstorrent hardware with no kernel authoring required.",
+          "affiliation": "affiliated",
+          "categories": [
+            "compilers",
+            "ai-models"
+          ],
+          "tags": [
+            "forge",
+            "image-classification",
+            "pytorch",
+            "compiler",
+            "inference"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/forge-image-classification/",
+              "label": "Image Classification with TT-Forge"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "tt-buda",
+          "name": "tt-buda",
+          "description": "TT-BUDA: Tenstorrent's original Python compiler and runtime for AI workloads. Legacy stack — tt-forge is the recommended successor, but tt-buda has the largest model demo library.",
+          "affiliation": "official",
+          "categories": [
+            "compilers"
+          ],
+          "tags": [
+            "legacy",
+            "compiler",
+            "pytorch",
+            "buda"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-buda"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-forge",
+          "name": "tt-forge",
+          "description": "Tenstorrent's MLIR-based compiler frontend. Enables running AI workloads from PyTorch, ONNX, and other frameworks on all Tenstorrent hardware configurations through an open-source, general, and performant compiler.",
+          "affiliation": "official",
+          "categories": [
+            "compilers",
+            "getting-started"
+          ],
+          "tags": [
+            "mlir",
+            "compiler",
+            "pytorch",
+            "onnx",
+            "frontend"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-forge"
+            },
+            {
+              "type": "website",
+              "url": "https://tenstorrent.com"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "ttsim"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-mlir",
+          "name": "tt-mlir",
+          "description": "Tenstorrent MLIR compiler — the core compiler infrastructure shared by tt-forge and other frontends. Handles graph optimization, lowering, and code generation for Tensix hardware.",
+          "affiliation": "official",
+          "categories": [
+            "compilers"
+          ],
+          "tags": [
+            "mlir",
+            "compiler",
+            "backend",
+            "optimization"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-mlir"
+            },
+            {
+              "type": "website",
+              "url": "https://tenstorrent.github.io/tt-mlir/"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-torch",
+          "name": "tt-torch",
+          "description": "Frontend integration for PyTorch with tt-mlir. Compile PyTorch models directly to Tenstorrent hardware via torch.compile integration.",
+          "affiliation": "official",
+          "categories": [
+            "compilers"
+          ],
+          "tags": [
+            "pytorch",
+            "torch-compile",
+            "frontend"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-torch"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-torch/"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-tvm",
+          "name": "tt-tvm",
+          "description": "TVM for Tenstorrent ASICs. Brings the Apache TVM compiler stack to Tenstorrent hardware, enabling model compilation from TensorFlow, PyTorch, ONNX, and more.",
+          "affiliation": "official",
+          "categories": [
+            "compilers"
+          ],
+          "tags": [
+            "tvm",
+            "compiler",
+            "tensorflow",
+            "onnx"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-tvm"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-xla",
+          "name": "tt-xla",
+          "description": "PJRT device plugin for Tenstorrent hardware. Enables JAX, PyTorch/XLA, and other XLA-based frameworks to target TT accelerators.",
+          "affiliation": "official",
+          "categories": [
+            "compilers"
+          ],
+          "tags": [
+            "xla",
+            "pjrt",
+            "jax",
+            "pytorch"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-xla"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/tt-xla-jax/",
+              "label": "JAX and PyTorch/XLA on Tenstorrent"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-xla"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-metal",
+          "name": "tt-metal",
+          "description": "TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.",
+          "affiliation": "official",
+          "categories": [
+            "kernels",
+            "compilers",
+            "getting-started"
+          ],
+          "tags": [
+            "metalium",
+            "ttnn",
+            "sdk",
+            "kernels",
+            "core"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-metal"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-metal/latest/ttnn/"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole",
+            "ttsim"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "dev-tools": {
+      "label": "Dev Tools & Debugging",
+      "count": 16,
+      "entries": [
+        {
+          "id": "nvtop",
+          "name": "nvtop",
+          "description": "htop-style process monitor for GPUs and AI accelerators. Supports AMD, Apple, Huawei, Intel, NVIDIA, Qualcomm — and Tenstorrent. Real-time utilization, memory, and process info in a terminal UI.",
+          "affiliation": "community",
+          "categories": [
+            "dev-tools",
+            "hw-system"
+          ],
+          "tags": [
+            "monitoring",
+            "tui",
+            "htop",
+            "process-monitor",
+            "terminal"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/Syllo/nvtop"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "Syllo",
+          "language": "C",
+          "license": "GPL-3.0"
+        },
+        {
+          "id": "tt-sim",
+          "name": "tt-sim",
+          "description": "Community-built Tenstorrent architecture simulator written in Python. Runs without hardware — useful for researchers and developers exploring the Tensix architecture offline.",
+          "affiliation": "community",
+          "categories": [
+            "riscv-arch",
+            "dev-tools"
+          ],
+          "tags": [
+            "simulator",
+            "architecture",
+            "no-hardware",
+            "research"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/mesham/tt-sim"
+            }
+          ],
+          "featured": true,
+          "author": "mesham",
+          "language": "Python"
+        },
+        {
+          "id": "ttpeak",
+          "name": "ttPEAK",
+          "description": "clpeak-style peak-performance benchmark for Tenstorrent devices using TT-Metalium. Measures theoretical peak throughput across operations — useful for hardware characterization.",
+          "affiliation": "community",
+          "categories": [
+            "dev-tools"
+          ],
+          "tags": [
+            "benchmark",
+            "performance",
+            "clpeak",
+            "metalium"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/TT-Bounty-Hunters/ttPEAK"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "TT-Bounty-Hunters",
+          "language": "C++",
+          "license": "ISC"
+        },
+        {
+          "id": "tensix-viz",
+          "name": "tensix-viz",
+          "description": "Hardware topology visualizer for Tenstorrent chips — from individual chip to full cluster. Interactive JavaScript visualization of Tensix core layout and NoC connections.",
+          "affiliation": "affiliated",
+          "categories": [
+            "dev-tools"
+          ],
+          "tags": [
+            "visualization",
+            "topology",
+            "noc",
+            "hardware"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tensix-viz"
+            },
+            {
+              "type": "website",
+              "url": "https://tsingletarytt.github.io/tensix-viz/"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "tsingletaryTT",
+          "language": "JavaScript"
+        },
+        {
+          "id": "tt-model-runner",
+          "name": "tt-model-runner",
+          "description": "Discover, load, and benchmark models with a GUI and TUI for tt-inference-server. Makes exploring available models on Tenstorrent hardware as easy as browsing a catalog.",
+          "affiliation": "affiliated",
+          "categories": [
+            "dev-tools",
+            "ai-models"
+          ],
+          "tags": [
+            "gui",
+            "tui",
+            "models",
+            "inference",
+            "benchmark"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tt-model-runner"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox"
+          ],
+          "author": "tsingletaryTT",
+          "language": "Python"
+        },
+        {
+          "id": "tt-warp",
+          "name": "tt-warp",
+          "description": "Warp terminal plugin for Tenstorrent — integrates hardware status, model management, and developer workflows directly into the Warp terminal.",
+          "affiliation": "affiliated",
+          "categories": [
+            "dev-tools"
+          ],
+          "tags": [
+            "warp",
+            "terminal",
+            "plugin",
+            "developer-experience"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tt-warp"
+            }
+          ],
+          "author": "tsingletaryTT",
+          "language": "Python"
+        },
+        {
+          "id": "ttvt-tensix-playground",
+          "name": "Tensix Grid Playground",
+          "description": "Interactive browser-based visualizer of the Tenstorrent Tensix grid architecture. Explore the NoC, core layout, and dataflow patterns without hardware — a great companion for learning kernel programming.",
+          "affiliation": "affiliated",
+          "categories": [
+            "dev-tools",
+            "riscv-arch"
+          ],
+          "tags": [
+            "visualization",
+            "interactive",
+            "noc",
+            "tensix",
+            "browser",
+            "architecture"
+          ],
+          "links": [
+            {
+              "type": "demo",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/tensix-playground/",
+              "label": "Tensix Grid Playground (interactive)"
+            }
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "tt-studio",
+          "name": "TT-Studio",
+          "description": "Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models",
+            "dev-tools",
+            "getting-started"
+          ],
+          "tags": [
+            "web-ui",
+            "gui",
+            "models",
+            "chat",
+            "deployment"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-studio"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox"
+          ],
+          "language": "TypeScript",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-exalens",
+          "name": "tt-exalens",
+          "description": "Low-level hardware debugger for Tenstorrent devices. Inspect register state, memory contents, and kernel execution at the hardware level.",
+          "affiliation": "official",
+          "categories": [
+            "dev-tools"
+          ],
+          "tags": [
+            "debugger",
+            "low-level",
+            "hardware",
+            "registers"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-exalens"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-npe",
+          "name": "tt-npe",
+          "description": "Network-on-chip Performance Estimator for Tenstorrent Tensix-based devices. Model and estimate NoC utilization before running kernels on hardware.",
+          "affiliation": "official",
+          "categories": [
+            "dev-tools"
+          ],
+          "tags": [
+            "noc",
+            "performance",
+            "estimator",
+            "profiling"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-npe"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "ttnn-visualizer",
+          "name": "ttnn-visualizer",
+          "description": "Comprehensive tool for visualizing and analyzing model execution on Tenstorrent hardware. Interactive graphs, memory plots, tensor details, buffer overviews, operation flow graphs, and multi-instance support.",
+          "affiliation": "official",
+          "categories": [
+            "dev-tools"
+          ],
+          "tags": [
+            "visualization",
+            "profiling",
+            "memory",
+            "operations",
+            "graphs"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/ttnn-visualizer"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "TypeScript",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-vscode-toolkit",
+          "name": "tt-vscode-toolkit",
+          "description": "48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.",
+          "affiliation": "official",
+          "categories": [
+            "guides",
+            "dev-tools",
+            "getting-started"
+          ],
+          "tags": [
+            "vscode",
+            "lessons",
+            "interactive",
+            "getting-started",
+            "code-server"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-vscode-toolkit"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+              "label": "All 48 lessons"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/riscv-guide/",
+              "label": "RISC-V Programming Guide"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox",
+            "ttsim"
+          ],
+          "language": "TypeScript",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-smi",
+          "name": "tt-smi",
+          "description": "Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "dev-tools"
+          ],
+          "tags": [
+            "monitoring",
+            "telemetry",
+            "smi",
+            "hardware-management"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-smi"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "pypi",
+              "name": "tt-smi"
+            }
+          ]
+        },
+        {
+          "id": "tt-toplike",
+          "name": "tt-toplike",
+          "description": "A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "dev-tools"
+          ],
+          "tags": [
+            "monitoring",
+            "htop",
+            "rust",
+            "real-time"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-toplike"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-toplike/"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Rust",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tensix-isa-simulator",
+          "name": "tensix-isa-simulator",
+          "description": "ISA-level simulator for the Tensix compute engine. Simulates the matrix, vector, and scalar units inside each Tensix core.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch",
+            "dev-tools"
+          ],
+          "tags": [
+            "tensix",
+            "isa",
+            "simulator",
+            "compute-engine"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tensix-isa-simulator"
+            }
+          ],
+          "hardware": [
+            "ttsim"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "ttsim",
+          "name": "ttsim",
+          "description": "Fast full-system simulator of Tenstorrent Wormhole and Blackhole hardware. Runs TT-Metalium workloads on any Linux/x86_64 system without physical silicon. Bit-exact results relative to hardware.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch",
+            "dev-tools"
+          ],
+          "tags": [
+            "simulator",
+            "no-hardware",
+            "bit-exact",
+            "wormhole",
+            "blackhole"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/ttsim"
+            }
+          ],
+          "hardware": [
+            "ttsim"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "hw-system": {
+      "label": "Hardware & System",
+      "count": 16,
+      "entries": [
+        {
+          "id": "nvtop",
+          "name": "nvtop",
+          "description": "htop-style process monitor for GPUs and AI accelerators. Supports AMD, Apple, Huawei, Intel, NVIDIA, Qualcomm — and Tenstorrent. Real-time utilization, memory, and process info in a terminal UI.",
+          "affiliation": "community",
+          "categories": [
+            "dev-tools",
+            "hw-system"
+          ],
+          "tags": [
+            "monitoring",
+            "tui",
+            "htop",
+            "process-monitor",
+            "terminal"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/Syllo/nvtop"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "Syllo",
+          "language": "C",
+          "license": "GPL-3.0"
+        },
+        {
+          "id": "blackhole-py",
+          "name": "blackhole-py",
+          "description": "Pure Python driver for Tenstorrent Blackhole cards providing direct low-level hardware access without going through the full TT-Metal stack.",
+          "affiliation": "community",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "driver",
+            "python",
+            "blackhole",
+            "low-level",
+            "hardware-access"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/boopdotpng/blackhole-py"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "author": "boopdotpng",
+          "language": "Python",
+          "license": "MIT"
+        },
+        {
+          "id": "tenstorrent-nix",
+          "name": "tenstorrent.nix",
+          "description": "Nix flake packaging the Tenstorrent software stack for NixOS and Nix users. Reproducible, declarative installation of TT drivers and tools.",
+          "affiliation": "community",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "nix",
+            "nixos",
+            "packaging",
+            "flake",
+            "reproducible"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/RossComputerGuy/tenstorrent.nix"
+            }
+          ],
+          "author": "RossComputerGuy",
+          "language": "Nix",
+          "license": "LGPL-2.1"
+        },
+        {
+          "id": "paper-swiftnpu",
+          "name": "SwiftNPU: Scalable Shape-Flexible Allocation for Inter-Core Connected NPUs",
+          "description": "Makes multi-tenant NPU sharing practical for Blackhole-class hardware using polynomial-time allocation algorithms. Delivers up to 1.37× higher utilization and 1.14× faster workload completion. Up to 890,000× faster than NP-hard baselines.",
+          "affiliation": "community",
+          "categories": [
+            "research",
+            "hw-system"
+          ],
+          "tags": [
+            "multi-tenant",
+            "allocation",
+            "blackhole",
+            "npu",
+            "scheduling"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://dl.acm.org/doi/10.1145/3805621.3807614",
+              "label": "ACM DL"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ]
+        },
+        {
+          "id": "tt-qb-lights",
+          "name": "tt-qb-lights",
+          "description": "Sync your Tenstorrent Quietbox's RGB lighting to accelerator utilization status. Visual feedback for hardware activity in real time.",
+          "affiliation": "affiliated",
+          "categories": [
+            "hw-system",
+            "games-demos"
+          ],
+          "tags": [
+            "quietbox",
+            "rgb",
+            "hardware",
+            "fun"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tt-qb-lights"
+            }
+          ],
+          "hardware": [
+            "quietbox"
+          ],
+          "author": "tsingletaryTT",
+          "language": "Rust"
+        },
+        {
+          "id": "luwen",
+          "name": "luwen",
+          "description": "Tenstorrent system interface library written in Rust. Low-level Rust bindings for communicating with and managing TT hardware.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "rust",
+            "system-interface",
+            "low-level",
+            "bindings"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/luwen"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Rust",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "cargo",
+              "name": "luwen"
+            }
+          ]
+        },
+        {
+          "id": "tt-firmware",
+          "name": "tt-firmware",
+          "description": "Tenstorrent firmware repository. Board management and control firmware for Tenstorrent accelerator cards.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "firmware",
+            "bmc",
+            "board-management"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-firmware"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "apt",
+              "name": "tt-firmware",
+              "ppa": "ppa:tenstorrent/ppa"
+            }
+          ]
+        },
+        {
+          "id": "tt-flash",
+          "name": "tt-flash",
+          "description": "Tenstorrent firmware update utility. Flash new firmware onto Tenstorrent accelerator cards from the command line.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "firmware-update",
+            "flash",
+            "utility"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-flash"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "pypi",
+              "name": "tt-flash"
+            }
+          ]
+        },
+        {
+          "id": "tt-installer",
+          "name": "tt-installer",
+          "description": "Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "guides",
+            "getting-started"
+          ],
+          "tags": [
+            "installation",
+            "setup",
+            "one-command",
+            "getting-started"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-installer"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+              "label": "Modern Setup lesson (VSCode Toolkit)"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Shell",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-kmd",
+          "name": "tt-kmd",
+          "description": "Tenstorrent kernel module driver. The Linux kernel module required to interface with Tenstorrent PCIe accelerator cards.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "kernel-module",
+            "driver",
+            "linux",
+            "pcie"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-kmd"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "C",
+          "license": "GPL-2.0",
+          "packages": [
+            {
+              "type": "apt",
+              "name": "ttkmd",
+              "ppa": "ppa:tenstorrent/ppa"
+            }
+          ]
+        },
+        {
+          "id": "tt-smi",
+          "name": "tt-smi",
+          "description": "Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "dev-tools"
+          ],
+          "tags": [
+            "monitoring",
+            "telemetry",
+            "smi",
+            "hardware-management"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-smi"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "pypi",
+              "name": "tt-smi"
+            }
+          ]
+        },
+        {
+          "id": "tt-system-firmware",
+          "name": "tt-system-firmware",
+          "description": "System firmware for Tenstorrent hardware. Low-level system initialization and control firmware that runs on-device.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "firmware",
+            "system",
+            "embedded"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-system-firmware"
+            },
+            {
+              "type": "website",
+              "url": "https://tenstorrent.com"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "C",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-toplike",
+          "name": "tt-toplike",
+          "description": "A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "dev-tools"
+          ],
+          "tags": [
+            "monitoring",
+            "htop",
+            "rust",
+            "real-time"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-toplike"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-toplike/"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Rust",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-topology",
+          "name": "tt-topology",
+          "description": "Configure Ethernet routing on multi-card Tenstorrent systems. Flash NB cards to use specific ETH routing configurations for scale-out deployments.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "cloud-infra"
+          ],
+          "tags": [
+            "topology",
+            "ethernet",
+            "multi-card",
+            "routing"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-topology"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "pypi",
+              "name": "tt-topology"
+            }
+          ]
+        },
+        {
+          "id": "tt-umd",
+          "name": "tt-umd",
+          "description": "User-mode driver for Tenstorrent hardware. The userspace layer that sits between the kernel module and higher-level SDKs.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "user-mode-driver",
+            "umd",
+            "hardware-interface"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-umd"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "wallabmc",
+          "name": "WallaBMC",
+          "description": "Lightweight BMC (Baseboard Management Controller) for STM32 and similar MCUs, with Web UI, Redfish API, and HTTPS support. Built on Zephyr RTOS. Used in Tenstorrent systems.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "bmc",
+            "stm32",
+            "redfish",
+            "zephyr",
+            "embedded"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/wallabmc"
+            }
+          ],
+          "language": "C",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "cloud-infra": {
+      "label": "Cloud & Orchestration",
+      "count": 5,
+      "entries": [
+        {
+          "id": "dstack",
+          "name": "dstack",
+          "description": "Vendor-agnostic orchestration for training, inference, and agentic workloads across NVIDIA, AMD, TPU, and Tenstorrent on clouds, Kubernetes, and bare metal.",
+          "affiliation": "community",
+          "categories": [
+            "cloud-infra",
+            "agents"
+          ],
+          "tags": [
+            "orchestration",
+            "kubernetes",
+            "cloud",
+            "multi-vendor"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/dstackai/dstack"
+            },
+            {
+              "type": "website",
+              "url": "https://dstack.ai"
+            }
+          ],
+          "featured": true,
+          "author": "dstackai",
+          "language": "Python",
+          "license": "MPL-2.0"
+        },
+        {
+          "id": "koyeb-tenstorrent-examples",
+          "name": "koyeb/tenstorrent-examples",
+          "description": "Example applications and deployment configurations for running AI workloads on Tenstorrent hardware via Koyeb's cloud platform.",
+          "affiliation": "community",
+          "categories": [
+            "cloud-infra",
+            "ai-models"
+          ],
+          "tags": [
+            "cloud",
+            "koyeb",
+            "deployment",
+            "examples"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/koyeb/tenstorrent-examples"
+            },
+            {
+              "type": "website",
+              "url": "https://www.koyeb.com/blog/tenstorrent-cloud-instances-unveiling-next-gen-ai-accelerators",
+              "label": "Koyeb blog post"
+            }
+          ],
+          "author": "koyeb",
+          "language": "Dockerfile"
+        },
+        {
+          "id": "tt-console",
+          "name": "TT Console",
+          "description": "Browser-based cloud console for exploring AI on Tenstorrent hardware. Run LLM inference, image and video generation, and browse the supported model catalog in-browser — backed by Tenstorrent accelerators. Cloud hardware access and advanced workflows (deployments, agents) available in staged rollout.",
+          "affiliation": "official",
+          "categories": [
+            "cloud-infra",
+            "ai-models"
+          ],
+          "tags": [
+            "cloud",
+            "console",
+            "inference",
+            "playground",
+            "llm",
+            "image-generation",
+            "video-generation",
+            "demo"
+          ],
+          "links": [
+            {
+              "type": "website",
+              "url": "https://console.tenstorrent.com",
+              "label": "console.tenstorrent.com"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true
+        },
+        {
+          "id": "tt-inference-server",
+          "name": "tt-inference-server",
+          "description": "Production-ready model serving for Tenstorrent hardware with OpenAI-compatible REST API. Supports continuous batching, multiple models, and all TT hardware configurations.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models",
+            "cloud-infra",
+            "getting-started"
+          ],
+          "tags": [
+            "serving",
+            "openai-compatible",
+            "production",
+            "rest-api"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-inference-server"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+              "label": "Production Inference lesson (VSCode Toolkit)"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox",
+            "galaxy"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-topology",
+          "name": "tt-topology",
+          "description": "Configure Ethernet routing on multi-card Tenstorrent systems. Flash NB cards to use specific ETH routing configurations for scale-out deployments.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "cloud-infra"
+          ],
+          "tags": [
+            "topology",
+            "ethernet",
+            "multi-card",
+            "routing"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-topology"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "pypi",
+              "name": "tt-topology"
+            }
+          ]
+        }
+      ]
+    },
+    "riscv-arch": {
+      "label": "RISC-V & Architecture",
+      "count": 14,
+      "entries": [
+        {
+          "id": "blog-martin-chang-programming",
+          "name": "Programming Tenstorrent Processors",
+          "description": "Deep-dive into the Tenstorrent architecture and Metalium programming model — circular buffers, kernel synchronization, NoC routing, and where the footguns are. The honest guide to thinking in Tensix.",
+          "affiliation": "community",
+          "categories": [
+            "guides",
+            "kernels",
+            "riscv-arch"
+          ],
+          "tags": [
+            "metalium",
+            "programming-model",
+            "tensix",
+            "noc",
+            "circular-buffers",
+            "blog"
+          ],
+          "links": [
+            {
+              "type": "article",
+              "url": "https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi",
+              "label": "clehaxze.tw — April 2025"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "Martin Chang"
+        },
+        {
+          "id": "bhx",
+          "name": "bhx",
+          "description": "Boot stock Linux cloud images on the SiFive X280 RISC-V cores inside Tenstorrent Blackhole AI accelerators. Per-card Rust daemon with virtio-mmio block/net/console and U-Boot/EFI support.",
+          "affiliation": "community",
+          "categories": [
+            "riscv-arch"
+          ],
+          "tags": [
+            "blackhole",
+            "risc-v",
+            "linux",
+            "boot",
+            "virtio"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/olofj/bhx"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "olofj",
+          "language": "Rust"
+        },
+        {
+          "id": "blog-anuraagw-blackhole-arch",
+          "name": "Tenstorrent Blackhole Architecture Guide",
+          "description": "A 6,500-word community deep dive into the Blackhole p100a architecture: the tile model (Tensix, DRAM, SiFive x280 L2CPU, Ethernet, PCIe, NoC arc), firmware startup sequence, MOP micro-op processor, replay buffer, FPU/SFPU sync, and the anatomy of a kernel. From the author of blackhole-py.",
+          "affiliation": "community",
+          "categories": [
+            "riscv-arch",
+            "guides"
+          ],
+          "tags": [
+            "blackhole",
+            "architecture",
+            "tensix",
+            "noc",
+            "sifive-x280",
+            "firmware",
+            "mop",
+            "sfpu",
+            "deep-dive",
+            "blog"
+          ],
+          "links": [
+            {
+              "type": "article",
+              "url": "https://anuraagw.me/blog/blackhole-architecture",
+              "label": "anuraagw.me — February 2026"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "boopdotpng",
+          "date": "2026-02-28"
+        },
+        {
+          "id": "tt-sim",
+          "name": "tt-sim",
+          "description": "Community-built Tenstorrent architecture simulator written in Python. Runs without hardware — useful for researchers and developers exploring the Tensix architecture offline.",
+          "affiliation": "community",
+          "categories": [
+            "riscv-arch",
+            "dev-tools"
+          ],
+          "tags": [
+            "simulator",
+            "architecture",
+            "no-hardware",
+            "research"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/mesham/tt-sim"
+            }
+          ],
+          "featured": true,
+          "author": "mesham",
+          "language": "Python"
+        },
+        {
+          "id": "lecture-wm-csci654-tenstorrent",
+          "name": "Tenstorrent Architecture — W&M CSCI654 Advanced Computer Architecture",
+          "description": "Lecture 20 from William & Mary's graduate Computer Architecture course. Frames Tenstorrent in the landscape between GPUs and TPUs, draws comparisons to Cerebras and SambaNova, then dives deep into the Wormhole chip and Tensix core: the 5 RISC-V core design, SFPU, NoC, and dataflow execution model.",
+          "affiliation": "community",
+          "categories": [
+            "guides",
+            "riscv-arch"
+          ],
+          "tags": [
+            "lecture",
+            "architecture",
+            "wormhole",
+            "tensix",
+            "risc-v",
+            "sfpu",
+            "noc",
+            "academia"
+          ],
+          "links": [
+            {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=CixEFPc8oxg",
+              "label": "Lecture 20 — Tenstorrent Architecture (YouTube)"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "Yifan & GPU / William & Mary",
+          "date": "2026-05-13"
+        },
+        {
+          "id": "ttvt-cs-fundamentals",
+          "name": "CS Fundamentals on Tenstorrent Hardware",
+          "description": "Seven-module computer science curriculum taught on real Tenstorrent hardware. Covers RISC-V architecture, memory hierarchy, parallel computing, networks and NoC, synchronization, abstraction layers, and computational complexity — all grounded in what is physically happening on the chip.",
+          "affiliation": "affiliated",
+          "categories": [
+            "guides",
+            "riscv-arch"
+          ],
+          "tags": [
+            "computer-science",
+            "curriculum",
+            "risc-v",
+            "parallelism",
+            "memory",
+            "noc",
+            "education"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-01-computer/",
+              "label": "Module 1: RISC-V & Computer Architecture"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-02-memory/",
+              "label": "Module 2: The Memory Hierarchy"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-03-parallelism/",
+              "label": "Module 3: Parallel Computing"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-04-networks/",
+              "label": "Module 4: Networks and Communication"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-05-synchronization/",
+              "label": "Module 5: Synchronization"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-06-abstraction/",
+              "label": "Module 6: Abstraction Layers"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-07-complexity/",
+              "label": "Module 7: Computational Complexity in Practice"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "ttvt-tensix-playground",
+          "name": "Tensix Grid Playground",
+          "description": "Interactive browser-based visualizer of the Tenstorrent Tensix grid architecture. Explore the NoC, core layout, and dataflow patterns without hardware — a great companion for learning kernel programming.",
+          "affiliation": "affiliated",
+          "categories": [
+            "dev-tools",
+            "riscv-arch"
+          ],
+          "tags": [
+            "visualization",
+            "interactive",
+            "noc",
+            "tensix",
+            "browser",
+            "architecture"
+          ],
+          "links": [
+            {
+              "type": "demo",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/tensix-playground/",
+              "label": "Tensix Grid Playground (interactive)"
+            }
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "tt-bh-linux",
+          "name": "tt-bh-linux",
+          "description": "Linux demo for the Tenstorrent Blackhole P100/P150 card RISC-V cores. Boot a real Linux kernel on the 16 high-performance RISC-V cores built into the Blackhole chip.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch"
+          ],
+          "tags": [
+            "linux",
+            "risc-v",
+            "blackhole",
+            "bare-metal",
+            "boot"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-bh-linux"
+            },
+            {
+              "type": "website",
+              "url": "https://tenstorrent.com/hardware/blackhole"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "featured": true,
+          "language": "C",
+          "license": "GPL-2.0"
+        },
+        {
+          "id": "tt-llk",
+          "name": "tt-llk",
+          "description": "Tenstorrent Low-Level Kernels: the C++ library that directly programs the RISC-V cores inside each Tensix compute engine. TRISC0 (unpack), TRISC1 (math/FPU/SFPU), and TRISC2 (pack) are all programmed through this layer — it is the interface between TT-Metal kernel code and bare silicon.",
+          "affiliation": "official",
+          "categories": [
+            "kernels",
+            "riscv-arch"
+          ],
+          "tags": [
+            "tensix",
+            "risc-v",
+            "llk",
+            "trisc",
+            "brisc",
+            "ncrisc",
+            "low-level",
+            "compute-engine"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-llk"
+            },
+            {
+              "type": "article",
+              "url": "https://github.com/tenstorrent/tt-llk/blob/main/docs/llk/l2/top_level_overview.md",
+              "label": "Top-level architecture overview"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "riescue",
+          "name": "RiESCUE",
+          "description": "RISC-V Directed Test Framework and Compliance Suite. Comprehensive test infrastructure for verifying RISC-V processor implementations against the specification.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch"
+          ],
+          "tags": [
+            "risc-v",
+            "testing",
+            "compliance",
+            "verification"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/riescue"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/riescue/"
+            }
+          ],
+          "language": "Python",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "riscv-ocelot",
+          "name": "riscv-ocelot",
+          "description": "The Berkeley Out-of-Order Machine with V-EXT (RISC-V Vector Extension) support. Tenstorrent's research-grade out-of-order RISC-V core with vector extension.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch"
+          ],
+          "tags": [
+            "risc-v",
+            "out-of-order",
+            "vector-extension",
+            "processor-design"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/riscv-ocelot"
+            }
+          ],
+          "language": "SystemVerilog",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tensix-isa-simulator",
+          "name": "tensix-isa-simulator",
+          "description": "ISA-level simulator for the Tensix compute engine. Simulates the matrix, vector, and scalar units inside each Tensix core.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch",
+            "dev-tools"
+          ],
+          "tags": [
+            "tensix",
+            "isa",
+            "simulator",
+            "compute-engine"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tensix-isa-simulator"
+            }
+          ],
+          "hardware": [
+            "ttsim"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "ttsim",
+          "name": "ttsim",
+          "description": "Fast full-system simulator of Tenstorrent Wormhole and Blackhole hardware. Runs TT-Metalium workloads on any Linux/x86_64 system without physical silicon. Bit-exact results relative to hardware.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch",
+            "dev-tools"
+          ],
+          "tags": [
+            "simulator",
+            "no-hardware",
+            "bit-exact",
+            "wormhole",
+            "blackhole"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/ttsim"
+            }
+          ],
+          "hardware": [
+            "ttsim"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "whisper-iss",
+          "name": "whisper",
+          "description": "RISC-V Instruction Set Simulator (ISS) used by Tenstorrent for processor verification. Powers the co-simulation architecture checker.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch"
+          ],
+          "tags": [
+            "risc-v",
+            "iss",
+            "simulator",
+            "verification"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/whisper"
+            }
+          ],
+          "language": "C++",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "research": {
+      "label": "Research & Papers",
+      "count": 14,
+      "entries": [
+        {
+          "id": "tt-boltz",
+          "name": "tt-boltz",
+          "description": "Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.",
+          "affiliation": "community",
+          "categories": [
+            "ai-models",
+            "research"
+          ],
+          "tags": [
+            "drug-discovery",
+            "blackhole",
+            "inference",
+            "biology",
+            "multi-card"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/moritztng/tt-boltz"
+            },
+            {
+              "type": "talk",
+              "url": "https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/",
+              "label": "FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware"
+            }
+          ],
+          "hardware": [
+            "blackhole",
+            "quietbox",
+            "galaxy"
+          ],
+          "featured": true,
+          "author": "moritztng",
+          "language": "Python",
+          "license": "MIT"
+        },
+        {
+          "id": "tt-tutorial-hpc",
+          "name": "tt-tutorial (HPC)",
+          "description": "Tutorial on Tenstorrent hardware for HPC researchers from the RISC-V Testbed project at Edinburgh/EPCC. Covers Wormhole from an HPC parallel-computing perspective.",
+          "affiliation": "community",
+          "categories": [
+            "guides",
+            "research"
+          ],
+          "tags": [
+            "tutorial",
+            "hpc",
+            "epcc",
+            "edinburgh",
+            "wormhole"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/RISCVtestbed/tt-tutorial"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "RISCVtestbed",
+          "language": "C++",
+          "license": "BSD-3-Clause"
+        },
+        {
+          "id": "paper-attention-grayskull",
+          "name": "Attention in SRAM on Tenstorrent Grayskull",
+          "description": "A fused kernel for the Grayskull architecture implementing Transformer self-attention entirely within SRAM. Combines matrix multiply, attention score scaling, and Softmax without DRAM accesses, achieving significant speedups over non-fused implementations.",
+          "affiliation": "community",
+          "categories": [
+            "research",
+            "kernels"
+          ],
+          "tags": [
+            "attention",
+            "transformer",
+            "sram",
+            "grayskull",
+            "kernel",
+            "risc-v"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2407.13885",
+              "label": "arXiv:2407.13885"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "Moritz Thüning",
+          "date": "2024-07-18"
+        },
+        {
+          "id": "paper-fft-wormhole",
+          "name": "Exploring Fast Fourier Transforms on the Tenstorrent Wormhole",
+          "description": "Ports the Cooley-Tukey FFT algorithm to the Wormhole n300 RISC-V accelerator. The Wormhole draws 8× less power and consumes 2.8× less energy than a 24-core Xeon Platinum for a 2D FFT. ISC 2025.",
+          "affiliation": "community",
+          "categories": [
+            "research",
+            "kernels"
+          ],
+          "tags": [
+            "fft",
+            "wormhole",
+            "hpc",
+            "risc-v",
+            "energy-efficiency",
+            "epcc"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2506.15437",
+              "label": "arXiv:2506.15437"
+            },
+            {
+              "type": "article",
+              "url": "https://www.research.ed.ac.uk/en/publications/exploring-fast-fourier-transforms-on-the-tenstorrent-wormhole/",
+              "label": "University of Edinburgh"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "Nick Brown, Jake Davies, Felix LeClair",
+          "date": "2025-06-18"
+        },
+        {
+          "id": "paper-matmul-grayskull",
+          "name": "Assessing Tenstorrent Grayskull RISC-V MatMul Acceleration for LLMs",
+          "description": "Evaluates the Tenstorrent Grayskull e75 RISC-V accelerator for matrix multiplication at reduced numerical precision (BFP8 and LoFi), a fundamental kernel in LLM inference computation.",
+          "affiliation": "community",
+          "categories": [
+            "research"
+          ],
+          "tags": [
+            "matmul",
+            "grayskull",
+            "risc-v",
+            "bfp8",
+            "lofi",
+            "llm",
+            "precision"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2505.06085",
+              "label": "arXiv:2505.06085"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "Hiari Pizzini Cavagna, Daniele Cesarini, Andrea Bartolini",
+          "date": "2025-05-09"
+        },
+        {
+          "id": "paper-nbody-strategies-wormhole",
+          "name": "Porting Strategies for Gravitational N-Body Simulations on Tenstorrent Wormhole",
+          "description": "Evaluates three strategies for scaling an N-body code across multiple Tenstorrent Wormhole accelerators. Builds on the established performance of single-card N-body work to explore parallelism via the on-chip NoC and multi-accelerator configurations.",
+          "affiliation": "community",
+          "categories": [
+            "research"
+          ],
+          "tags": [
+            "n-body",
+            "astrophysics",
+            "hpc",
+            "wormhole",
+            "risc-v",
+            "multi-accelerator",
+            "simulation"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2605.02744",
+              "label": "arXiv:2605.02744"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "Jenny Lynn Almerol, Elisabetta Boella, Mario Spera, Daniele Gregori",
+          "date": "2026-05-04"
+        },
+        {
+          "id": "paper-nbody-wormhole",
+          "name": "Accelerating Gravitational N-Body Simulations on Tenstorrent Wormhole",
+          "description": "Accelerates an astrophysical N-body simulation on the Wormhole n300. Achieves 2× speedup and 2× energy savings over a highly optimized CPU implementation. SC '25 Workshop.",
+          "affiliation": "community",
+          "categories": [
+            "research"
+          ],
+          "tags": [
+            "n-body",
+            "astrophysics",
+            "hpc",
+            "wormhole",
+            "risc-v",
+            "simulation"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2509.19294",
+              "label": "arXiv:2509.19294"
+            },
+            {
+              "type": "article",
+              "url": "https://dl.acm.org/doi/10.1145/3731599.3767528",
+              "label": "ACM SC '25"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "date": "2025-09-23"
+        },
+        {
+          "id": "paper-numerical-kernels-wormhole",
+          "name": "Numerical Kernels on a Spatial Accelerator: Tenstorrent Wormhole",
+          "description": "Implements three numerical kernels and composes them into a conjugate gradient solver on Wormhole. Demonstrates AI accelerators merit consideration for HPC workloads traditionally dominated by CPUs and GPUs. 2026.",
+          "affiliation": "community",
+          "categories": [
+            "research"
+          ],
+          "tags": [
+            "numerical-methods",
+            "hpc",
+            "conjugate-gradient",
+            "wormhole",
+            "sparse"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2603.23343",
+              "label": "arXiv:2603.23343"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "date": "2026-03-24"
+        },
+        {
+          "id": "paper-sapienza-allreduce",
+          "name": "Collective Operations on Wormhole n150 (Sapienza University of Rome)",
+          "description": "Master's thesis implementing and benchmarking five allreduce algorithms (Swing, Recursive Doubling, Bandwidth Optimal, Latency Optimal, Shared Memory) on the Wormhole n150. Bandwidth Optimal achieved best performance, approaching within 2× of theoretical optimal.",
+          "affiliation": "community",
+          "categories": [
+            "research"
+          ],
+          "tags": [
+            "allreduce",
+            "collective-ops",
+            "wormhole",
+            "mpi",
+            "bandwidth"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/EngineerCharlie/TenstorrentAllreduce"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "Charles Heron (Sapienza University of Rome)"
+        },
+        {
+          "id": "paper-stencils-grayskull",
+          "name": "Accelerating Stencils on the Tenstorrent Grayskull RISC-V Accelerator",
+          "description": "Explores stencil computation on the Grayskull PCIe RISC-V accelerator. Early academic work examining TT hardware for HPC stencil workloads. 2024.",
+          "affiliation": "community",
+          "categories": [
+            "research"
+          ],
+          "tags": [
+            "stencil",
+            "hpc",
+            "grayskull",
+            "risc-v"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2409.18835",
+              "label": "arXiv:2409.18835"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "date": "2024-09-27"
+        },
+        {
+          "id": "paper-stencils-wormhole",
+          "name": "Stencil Computations on Tenstorrent Wormhole",
+          "description": "Maps 2D 5-point stencil computations onto the Tenstorrent Wormhole RISC-V AI dataflow accelerator via two implementations: element-wise decomposition (Axpy) and matrix-multiplication reformulation (MatMul). Profiling shows the isolated Wormhole kernel is competitive with CPU execution, with PCIe transfers and initialization driving end-to-end overhead; Axpy achieves lower energy than the CPU baseline at large scales. Identifies architectural and software directions for making AI accelerators viable for HPC stencil workloads. 2025.",
+          "affiliation": "community",
+          "categories": [
+            "research"
+          ],
+          "tags": [
+            "stencil",
+            "hpc",
+            "wormhole",
+            "risc-v",
+            "energy-efficiency",
+            "benchmarks",
+            "dataflow"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2605.07599",
+              "label": "arXiv:2605.07599"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "date": "2026-05-08"
+        },
+        {
+          "id": "paper-swiftnpu",
+          "name": "SwiftNPU: Scalable Shape-Flexible Allocation for Inter-Core Connected NPUs",
+          "description": "Makes multi-tenant NPU sharing practical for Blackhole-class hardware using polynomial-time allocation algorithms. Delivers up to 1.37× higher utilization and 1.14× faster workload completion. Up to 890,000× faster than NP-hard baselines.",
+          "affiliation": "community",
+          "categories": [
+            "research",
+            "hw-system"
+          ],
+          "tags": [
+            "multi-tenant",
+            "allocation",
+            "blackhole",
+            "npu",
+            "scheduling"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://dl.acm.org/doi/10.1145/3805621.3807614",
+              "label": "ACM DL"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ]
+        },
+        {
+          "id": "paper-tileloom",
+          "name": "TileLoom: Automatic Dataflow Planning for Spatial Dataflow Accelerators",
+          "description": "Compiler system that automatically generates efficient dataflow plans for tile-based languages on spatial accelerators including Tenstorrent Wormhole. Exploits on-chip network forwarding between processing elements to reduce DRAM pressure.",
+          "affiliation": "community",
+          "categories": [
+            "research",
+            "compilers"
+          ],
+          "tags": [
+            "compiler",
+            "dataflow",
+            "spatial-accelerator",
+            "tile-based",
+            "on-chip-network",
+            "wormhole"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2512.22168",
+              "label": "arXiv:2512.22168"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "Wei Li, Zhenyu Bai, Heru Wang, Pranav Dangi",
+          "date": "2025-12-17"
+        },
+        {
+          "id": "paper-tts-lightning",
+          "name": "Rewriting TTS Inference Economics: Lightning V2 on Tenstorrent vs. NVIDIA L40S",
+          "description": "Shows that Text-to-Speech inference on Tenstorrent Lightning V2 achieves 4× lower cost than NVIDIA L40S. Applies BlockFloat8 (BFP8) and low-fidelity (LoFi) precision strategies to TTS despite their greater numerical fragility compared to LLMs.",
+          "affiliation": "community",
+          "categories": [
+            "research",
+            "ai-models"
+          ],
+          "tags": [
+            "tts",
+            "text-to-speech",
+            "inference",
+            "bfp8",
+            "lofi",
+            "cost-efficiency",
+            "precision"
+          ],
+          "links": [
+            {
+              "type": "paper",
+              "url": "https://arxiv.org/abs/2604.03279",
+              "label": "arXiv:2604.03279"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "Ranjith M. S., Akshat Mandloi, Sudarshan Kamath",
+          "date": "2026-03-24"
+        }
+      ]
+    },
+    "games-demos": {
+      "label": "Games & Demos",
+      "count": 10,
+      "entries": [
+        {
+          "id": "tt-gol",
+          "name": "TT-GoL",
+          "description": "Conway's Game of Life implemented on Tenstorrent hardware using TT-Metal kernels.",
+          "affiliation": "community",
+          "categories": [
+            "games-demos"
+          ],
+          "tags": [
+            "game-of-life",
+            "demo",
+            "kernels"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/JushBJJ/TT-GoL"
+            }
+          ],
+          "author": "JushBJJ",
+          "language": "C++"
+        },
+        {
+          "id": "tt-mandelbrot",
+          "name": "ttMandelbrot",
+          "description": "Mandelbrot Set fractal renderer running on Tenstorrent hardware. A classic demo showcasing parallel compute on Tensix cores.",
+          "affiliation": "community",
+          "categories": [
+            "games-demos",
+            "kernels"
+          ],
+          "tags": [
+            "mandelbrot",
+            "demo",
+            "fractals",
+            "parallel"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/marty1885/ttMandelbrot"
+            }
+          ],
+          "author": "marty1885",
+          "language": "C",
+          "license": "0BSD"
+        },
+        {
+          "id": "tt-twitch",
+          "name": "tt-twitch",
+          "description": "A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "games-demos"
+          ],
+          "tags": [
+            "grayskull",
+            "kernel",
+            "live-coding",
+            "demo"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/geohot/tt-twitch"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "geohot",
+          "language": "C++"
+        },
+        {
+          "id": "tt-zork-and-more",
+          "name": "tt-zork-and-more",
+          "description": "A Tenstorrent fork of Infocom's Zork I (and more!), running a Z-machine interpreter at least four different ways on TT hardware. The most fun you can have with an AI accelerator.",
+          "affiliation": "affiliated",
+          "categories": [
+            "games-demos"
+          ],
+          "tags": [
+            "zork",
+            "z-machine",
+            "interactive-fiction",
+            "demo",
+            "fun"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tt-zork-and-more"
+            },
+            {
+              "type": "website",
+              "url": "https://tsingletaryTT.github.io/tt-zork-and-more"
+            }
+          ],
+          "featured": true,
+          "author": "tsingletaryTT",
+          "language": "Python"
+        },
+        {
+          "id": "ttvt-cookbook-particle-life",
+          "name": "Tenstorrent Cookbook: Particle Life Simulator",
+          "description": "Particle Life simulation on Tenstorrent hardware — an emergent-behavior N-body system where simple attraction/repulsion rules between species produce complex lifelike patterns. Cookbook recipe demonstrating parallel N-body compute on Tensix.",
+          "affiliation": "affiliated",
+          "categories": [
+            "games-demos",
+            "kernels"
+          ],
+          "tags": [
+            "particle-life",
+            "n-body",
+            "simulation",
+            "emergent",
+            "cookbook",
+            "demo"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-particle-life/",
+              "label": "Cookbook Recipe 5: Particle Life Simulator"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "tt-claw",
+          "name": "tt-claw",
+          "description": "A Tenstorrent-powered claw machine that rewards players with real prizes. The QuietBox 2 runs local AI inference to act as an agent controlling the claw hardware — the OpenClaw AI assistant lesson builds directly on this project.",
+          "affiliation": "affiliated",
+          "categories": [
+            "agents",
+            "games-demos"
+          ],
+          "tags": [
+            "claw-machine",
+            "agents",
+            "hardware",
+            "quietbox",
+            "physical",
+            "on-device"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tt-claw"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-openclaw-assistant/",
+              "label": "OpenClaw AI Assistant on QuietBox 2"
+            }
+          ],
+          "hardware": [
+            "quietbox"
+          ],
+          "author": "tsingletaryTT",
+          "language": "Shell"
+        },
+        {
+          "id": "diamond-tt",
+          "name": "diamond",
+          "description": "DIAMOND: Atari game-playing agent implemented on Tenstorrent hardware via tt-lang. Diffusion-based world model for reinforcement learning.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models",
+            "games-demos"
+          ],
+          "tags": [
+            "atari",
+            "reinforcement-learning",
+            "world-model",
+            "tt-lang"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zoecarver/diamond"
+            },
+            {
+              "type": "website",
+              "url": "https://diamond-wm.github.io"
+            }
+          ],
+          "author": "zoecarver",
+          "language": "Python"
+        },
+        {
+          "id": "tt-forge-compiletron",
+          "name": "tt-forge-compiletron",
+          "description": "Compile more than 100 models on tt-forge in a display format suitable for demos. Comprehensive showcase of tt-forge model compatibility.",
+          "affiliation": "affiliated",
+          "categories": [
+            "compilers",
+            "games-demos"
+          ],
+          "tags": [
+            "tt-forge",
+            "models",
+            "demo",
+            "compilation"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tt-forge-compiletron"
+            }
+          ],
+          "author": "tsingletaryTT",
+          "language": "Python"
+        },
+        {
+          "id": "ttvt-cookbook-gol",
+          "name": "Tenstorrent Cookbook: Conway's Game of Life",
+          "description": "TT-Metalium implementation of Conway's Game of Life as a cookbook recipe. Each generation is a full parallel kernel dispatch over the grid — a clean introduction to stateful compute on Tensix cores.",
+          "affiliation": "affiliated",
+          "categories": [
+            "games-demos",
+            "kernels"
+          ],
+          "tags": [
+            "game-of-life",
+            "demo",
+            "cookbook",
+            "parallel",
+            "metalium"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-game-of-life/",
+              "label": "Cookbook Recipe 1: Conway's Game of Life"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "tt-qb-lights",
+          "name": "tt-qb-lights",
+          "description": "Sync your Tenstorrent Quietbox's RGB lighting to accelerator utilization status. Visual feedback for hardware activity in real time.",
+          "affiliation": "affiliated",
+          "categories": [
+            "hw-system",
+            "games-demos"
+          ],
+          "tags": [
+            "quietbox",
+            "rgb",
+            "hardware",
+            "fun"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tsingletaryTT/tt-qb-lights"
+            }
+          ],
+          "hardware": [
+            "quietbox"
+          ],
+          "author": "tsingletaryTT",
+          "language": "Rust"
+        }
+      ]
+    },
+    "guides": {
+      "label": "Guides, Tutorials & Education",
+      "count": 16,
+      "entries": [
+        {
+          "id": "blog-martin-chang-programming",
+          "name": "Programming Tenstorrent Processors",
+          "description": "Deep-dive into the Tenstorrent architecture and Metalium programming model — circular buffers, kernel synchronization, NoC routing, and where the footguns are. The honest guide to thinking in Tensix.",
+          "affiliation": "community",
+          "categories": [
+            "guides",
+            "kernels",
+            "riscv-arch"
+          ],
+          "tags": [
+            "metalium",
+            "programming-model",
+            "tensix",
+            "noc",
+            "circular-buffers",
+            "blog"
+          ],
+          "links": [
+            {
+              "type": "article",
+              "url": "https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi",
+              "label": "clehaxze.tw — April 2025"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "Martin Chang"
+        },
+        {
+          "id": "blog-anuraagw-blackhole-arch",
+          "name": "Tenstorrent Blackhole Architecture Guide",
+          "description": "A 6,500-word community deep dive into the Blackhole p100a architecture: the tile model (Tensix, DRAM, SiFive x280 L2CPU, Ethernet, PCIe, NoC arc), firmware startup sequence, MOP micro-op processor, replay buffer, FPU/SFPU sync, and the anatomy of a kernel. From the author of blackhole-py.",
+          "affiliation": "community",
+          "categories": [
+            "riscv-arch",
+            "guides"
+          ],
+          "tags": [
+            "blackhole",
+            "architecture",
+            "tensix",
+            "noc",
+            "sifive-x280",
+            "firmware",
+            "mop",
+            "sfpu",
+            "deep-dive",
+            "blog"
+          ],
+          "links": [
+            {
+              "type": "article",
+              "url": "https://anuraagw.me/blog/blackhole-architecture",
+              "label": "anuraagw.me — February 2026"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "boopdotpng",
+          "date": "2026-02-28"
+        },
+        {
+          "id": "blog-martin-chang-arch-linux",
+          "name": "A Gentle Guide: Tenstorrent Card on Arch Linux with Metalium",
+          "description": "Step-by-step guide to getting a Tenstorrent card running on Arch Linux with the full Metalium stack. Practical troubleshooting from someone who did it the hard way first.",
+          "affiliation": "community",
+          "categories": [
+            "guides"
+          ],
+          "tags": [
+            "arch-linux",
+            "metalium",
+            "installation",
+            "blog",
+            "getting-started"
+          ],
+          "links": [
+            {
+              "type": "article",
+              "url": "https://clehaxze.tw/gemlog/2024/07-07-a-gentle-guide-on-getting-your-tenstorrent-card-running-on-arch-linux-with-the-metalium-stack.gmi",
+              "label": "clehaxze.tw — July 2024"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole"
+          ],
+          "author": "Martin Chang"
+        },
+        {
+          "id": "blog-martin-chang-grayskull",
+          "name": "Thoughts and Logs After Messing with Tenstorrent Grayskull",
+          "description": "Honest field notes from getting a Grayskull card running and writing first Metalium kernels. Covers setup pitfalls, processor hangs, memory protection quirks, and what makes Metalium compelling despite early rough edges.",
+          "affiliation": "community",
+          "categories": [
+            "guides"
+          ],
+          "tags": [
+            "grayskull",
+            "metalium",
+            "getting-started",
+            "blog",
+            "honest-review"
+          ],
+          "links": [
+            {
+              "type": "article",
+              "url": "https://clehaxze.tw/gemlog/2024/06-02-thoughts-and-logs-after-messing-with-tenstorrent-grayskull.gmi",
+              "label": "clehaxze.tw — June 2024"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "Martin Chang"
+        },
+        {
+          "id": "lecture-wm-csci654-tenstorrent",
+          "name": "Tenstorrent Architecture — W&M CSCI654 Advanced Computer Architecture",
+          "description": "Lecture 20 from William & Mary's graduate Computer Architecture course. Frames Tenstorrent in the landscape between GPUs and TPUs, draws comparisons to Cerebras and SambaNova, then dives deep into the Wormhole chip and Tensix core: the 5 RISC-V core design, SFPU, NoC, and dataflow execution model.",
+          "affiliation": "community",
+          "categories": [
+            "guides",
+            "riscv-arch"
+          ],
+          "tags": [
+            "lecture",
+            "architecture",
+            "wormhole",
+            "tensix",
+            "risc-v",
+            "sfpu",
+            "noc",
+            "academia"
+          ],
+          "links": [
+            {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=CixEFPc8oxg",
+              "label": "Lecture 20 — Tenstorrent Architecture (YouTube)"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "Yifan & GPU / William & Mary",
+          "date": "2026-05-13"
+        },
+        {
+          "id": "tt-metal-mini-template",
+          "name": "TT-Metal Mini Template",
+          "description": "Minimal working CMake project template for starting a new TT-Metal project from scratch. Good starting point for community kernel development.",
+          "affiliation": "community",
+          "categories": [
+            "guides",
+            "kernels"
+          ],
+          "tags": [
+            "template",
+            "cmake",
+            "starter",
+            "boilerplate"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/JushBJJ/TT-Metal-Mini-Template"
+            }
+          ],
+          "author": "JushBJJ",
+          "language": "C++"
+        },
+        {
+          "id": "tt-tutorial-hpc",
+          "name": "tt-tutorial (HPC)",
+          "description": "Tutorial on Tenstorrent hardware for HPC researchers from the RISC-V Testbed project at Edinburgh/EPCC. Covers Wormhole from an HPC parallel-computing perspective.",
+          "affiliation": "community",
+          "categories": [
+            "guides",
+            "research"
+          ],
+          "tags": [
+            "tutorial",
+            "hpc",
+            "epcc",
+            "edinburgh",
+            "wormhole"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/RISCVtestbed/tt-tutorial"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "RISCVtestbed",
+          "language": "C++",
+          "license": "BSD-3-Clause"
+        },
+        {
+          "id": "tt-tutorial-korean",
+          "name": "tt-tutorial (Korean)",
+          "description": "Comprehensive tutorials for the Tenstorrent software stack in Korean. Jupyter notebooks covering the full developer path from hardware setup to model inference.",
+          "affiliation": "community",
+          "categories": [
+            "guides"
+          ],
+          "tags": [
+            "tutorial",
+            "korean",
+            "jupyter",
+            "getting-started"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/changh95/tt-tutorial"
+            }
+          ],
+          "hardware": [
+            "wormhole"
+          ],
+          "author": "changh95",
+          "language": "Jupyter Notebook"
+        },
+        {
+          "id": "tenstorrent-tiny-examples",
+          "name": "tenstorrent-tiny-examples",
+          "description": "Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "guides"
+          ],
+          "tags": [
+            "examples",
+            "grayskull",
+            "cpp",
+            "learning"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/jaebaek/tenstorrent-tiny-examples"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "jaebaek",
+          "language": "C++"
+        },
+        {
+          "id": "ttnn-helloworld-cpp",
+          "name": "ttnn-helloworld-cpp",
+          "description": "Minimal working example of using Tenstorrent TTNN in C++. The simplest possible starting point for C++ developers targeting TT hardware with TTNN.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "guides"
+          ],
+          "tags": [
+            "c++",
+            "ttnn",
+            "hello-world",
+            "template"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/marty1885/ttnn-helloworld-cpp"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "marty1885",
+          "language": "C++"
+        },
+        {
+          "id": "ttvecadd",
+          "name": "ttVecAdd",
+          "description": "Minimal vector-addition example on Tenstorrent devices using TT-Metalium. A clean hello-world for the TT-Metal kernel programming model in C++.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "guides"
+          ],
+          "tags": [
+            "vector-add",
+            "example",
+            "metalium",
+            "hello-world"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/marty1885/ttVecAdd"
+            }
+          ],
+          "author": "marty1885",
+          "language": "C++",
+          "license": "ISC"
+        },
+        {
+          "id": "ttvt-cs-fundamentals",
+          "name": "CS Fundamentals on Tenstorrent Hardware",
+          "description": "Seven-module computer science curriculum taught on real Tenstorrent hardware. Covers RISC-V architecture, memory hierarchy, parallel computing, networks and NoC, synchronization, abstraction layers, and computational complexity — all grounded in what is physically happening on the chip.",
+          "affiliation": "affiliated",
+          "categories": [
+            "guides",
+            "riscv-arch"
+          ],
+          "tags": [
+            "computer-science",
+            "curriculum",
+            "risc-v",
+            "parallelism",
+            "memory",
+            "noc",
+            "education"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-01-computer/",
+              "label": "Module 1: RISC-V & Computer Architecture"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-02-memory/",
+              "label": "Module 2: The Memory Hierarchy"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-03-parallelism/",
+              "label": "Module 3: Parallel Computing"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-04-networks/",
+              "label": "Module 4: Networks and Communication"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-05-synchronization/",
+              "label": "Module 5: Synchronization"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-06-abstraction/",
+              "label": "Module 6: Abstraction Layers"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-07-complexity/",
+              "label": "Module 7: Computational Complexity in Practice"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "featured": true,
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "ttvt-custom-training",
+          "name": "Custom Model Training on Tenstorrent",
+          "description": "Eight-lesson series covering the full custom training workflow on TT hardware: dataset fundamentals, configuration patterns, fine-tuning, multi-device distributed training, experiment tracking, model architecture basics, and training from scratch.",
+          "affiliation": "affiliated",
+          "categories": [
+            "guides",
+            "ai-models"
+          ],
+          "tags": [
+            "training",
+            "fine-tuning",
+            "multi-device",
+            "distributed",
+            "experiment-tracking",
+            "curriculum"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct1-understanding-training/",
+              "label": "Understanding Custom Training"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct2-dataset-fundamentals/",
+              "label": "Dataset Fundamentals"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct3-configuration-patterns/",
+              "label": "Configuration Patterns"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct4-finetuning-basics/",
+              "label": "Fine-tuning Basics"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct5-multi-device-training/",
+              "label": "Multi-Device Training"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct6-experiment-tracking/",
+              "label": "Experiment Tracking"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct7-architecture-basics/",
+              "label": "Model Architecture Basics"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct8-training-from-scratch/",
+              "label": "Training from Scratch"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "ttvt-cookbook-recipes",
+          "name": "Tenstorrent Cookbook: Core Recipes",
+          "description": "Three hands-on TT-Metalium kernel recipes: a Mandelbrot fractal explorer, real-time audio signal processing pipeline, and custom image filter stack. Each recipe is a complete kernel project with full source in the lesson.",
+          "affiliation": "affiliated",
+          "categories": [
+            "kernels",
+            "guides"
+          ],
+          "tags": [
+            "cookbook",
+            "mandelbrot",
+            "audio",
+            "image-processing",
+            "metalium",
+            "demo"
+          ],
+          "links": [
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-overview/",
+              "label": "Tenstorrent Cookbook Overview"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-mandelbrot/",
+              "label": "Recipe 3: Mandelbrot Fractal Explorer"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-audio-processor/",
+              "label": "Recipe 2: Audio Signal Processing"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-image-filters/",
+              "label": "Recipe 4: Custom Image Filters"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "author": "tsingletaryTT"
+        },
+        {
+          "id": "tt-vscode-toolkit",
+          "name": "tt-vscode-toolkit",
+          "description": "48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.",
+          "affiliation": "official",
+          "categories": [
+            "guides",
+            "dev-tools",
+            "getting-started"
+          ],
+          "tags": [
+            "vscode",
+            "lessons",
+            "interactive",
+            "getting-started",
+            "code-server"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-vscode-toolkit"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+              "label": "All 48 lessons"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/riscv-guide/",
+              "label": "RISC-V Programming Guide"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "quietbox",
+            "ttsim"
+          ],
+          "language": "TypeScript",
+          "license": "Apache-2.0"
+        },
+        {
+          "id": "tt-installer",
+          "name": "tt-installer",
+          "description": "Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "guides",
+            "getting-started"
+          ],
+          "tags": [
+            "installation",
+            "setup",
+            "one-command",
+            "getting-started"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-installer"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons",
+              "label": "Modern Setup lesson (VSCode Toolkit)"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Shell",
+          "license": "Apache-2.0"
+        }
+      ]
+    }
+  }
+}
