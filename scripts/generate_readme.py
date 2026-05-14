@@ -149,9 +149,10 @@ def generate():
     entries = sort_entries(load_entries())
 
     lines = [
-        "# ⚡ Awesome Tenstorrent", "",
-        "> A curated, community-first collection of awesome demos, tools, projects, and resources "
-        "built by and for the Tenstorrent ecosystem.", "",
+        "# tt-awesome", "",
+        "## A hidden dimension of Tenstorrent awesomeness", "",
+        "A curated directory of projects, tools, models, and research for Tenstorrent hardware "
+        "— contributed by the community and our team.", "",
         "> **This file is auto-generated from `entries/*.json`. Do not edit directly — "
         "[submit an entry via issue](https://github.com/tenstorrent/tt-awesome/issues/new?template=submit-entry.yml) "
         "or see [CONTRIBUTING.md](CONTRIBUTING.md) for other options.**", "",
