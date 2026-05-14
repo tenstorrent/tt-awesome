@@ -74,6 +74,10 @@
       {%- endfor %}
     </div>
     {%- endif %}
+    {%- if entry.embed %}
+    {%- set embedPath = "embeds/" + entry.embed.type + ".njk" %}
+    {%- include embedPath %}
+    {%- endif %}
   </div>
   {%- endfor %}
 </div>
