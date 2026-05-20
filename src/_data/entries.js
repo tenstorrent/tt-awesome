@@ -39,9 +39,18 @@ module.exports = function () {
       Object.assign(entry, metaByUrl[repoLink.url]);
     }
     // Derive author profile URL from the GitHub repo owner when not explicitly set
-    if (!entry.author_url && repoLink && repoLink.url && repoLink.url.includes("github.com")) {
-      const m = repoLink.url.match(/github\.com\/([^/]+)/);
-      if (m) entry.author_url = `https://github.com/${m[1]}`;
+    if (!entry.author_url && repoLink && repoLink.url) {
+      try {
+        const parsed = new URL(repoLink.url);
+        if (parsed.hostname === "github.com") {
+          const owner = parsed.pathname.split("/")[1];
+          if (owner) entry.author_url = `https://github.com/${owner}`;
+        }
+      } catch (_) {}
+    }
+    // Only keep author_url values with an https scheme to prevent javascript: injection
+    if (entry.author_url && !entry.author_url.startsWith("https://")) {
+      delete entry.author_url;
     }
     return entry;
   });

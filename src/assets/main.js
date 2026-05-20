@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const q = e.target.value.toLowerCase().trim();
     if (q && isHomeActive()) {
       _applySearchAll();
-    } else if (!q && activeCategory === null && !isHomeActive()) {
+    } else if (!q && activeCategory === null && activeAuthorFilter === null && !isHomeActive()) {
       _applyHome();
       return;
     }
@@ -188,6 +188,7 @@ function toggleChip(chip) {
 
 function applyFilters(query) {
   let visible = 0;
+  const authorFilter = activeAuthorFilter ? activeAuthorFilter.toLowerCase() : null;
   document.querySelectorAll(".entry-row").forEach((row) => {
     const cats  = (row.dataset.categories || "").split(",");
     const aff   = row.dataset.affiliation;
@@ -196,7 +197,7 @@ function applyFilters(query) {
       (!activeCategory || cats.includes(activeCategory)) &&
       activeFilters.has(aff) &&
       (!query || text.includes(query)) &&
-      (!activeAuthorFilter || (row.dataset.author || "") === activeAuthorFilter.toLowerCase());
+      (!authorFilter || (row.dataset.author || "") === authorFilter);
     row.classList.toggle("hidden", !show);
     if (show) visible++;
   });

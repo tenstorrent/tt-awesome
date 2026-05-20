@@ -20,7 +20,7 @@
       <div class="row-desc">{{ entry.description | truncate(90) }}</div>
       {%- if entry.author or entry.date %}
       <div class="row-author">
-        {%- if entry.author %}<span class="row-author-name" onclick="event.stopPropagation(); filterByAuthor('{{ entry.author }}')">{{ entry.author }}</span>{% endif -%}
+        {%- if entry.author %}<span class="row-author-name" data-author-name="{{ entry.author }}" onclick="event.stopPropagation(); filterByAuthor(this.dataset.authorName)">{{ entry.author }}</span>{% endif -%}
         {%- if entry.author and entry.date %} · {% endif -%}
         {%- if entry.date %}{{ entry.date | prettyDate }}{% endif %}
       </div>
