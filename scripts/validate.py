@@ -71,6 +71,10 @@ def validate_entry(path: Path, data: dict) -> list:
                     errors.append(f"packages[{i}].name must be a non-empty string")
                 if "ppa" in pkg and not isinstance(pkg["ppa"], str):
                     errors.append(f"packages[{i}].ppa must be a string")
+    author_url = data.get("author_url")
+    if author_url is not None:
+        if not isinstance(author_url, str) or not URL_RE.match(author_url):
+            errors.append(f"author_url must be a valid https:// URL, got '{author_url}'")
     if "tags" in data and not isinstance(data["tags"], list):
         errors.append("tags must be a list")
     if "featured" in data and not isinstance(data["featured"], bool):

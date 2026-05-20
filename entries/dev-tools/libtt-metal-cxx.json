@@ -1,0 +1,14 @@
+{
+  "id": "libtt-metal-cxx",
+  "name": "libtt-metal-cxx",
+  "description": "Rust crate that exposes the TT-Metal host API through a C++ bridge via cxx.rs — covering device management, program/kernel creation (from source file or inline string), circular buffers, semaphores, runtime arguments, sharded buffers, and MeshDevice workflows, with hardware-backed integration tests.",
+  "affiliation": "community",
+  "categories": ["dev-tools"],
+  "tags": ["rust", "bindings", "cxx", "tt-metal", "ffi", "host-api"],
+  "links": [
+    { "type": "repo", "url": "https://github.com/Knight-Ops/libtt-metal-cxx" }
+  ],
+  "hardware": ["wormhole", "blackhole"],
+  "author": "Knight-Ops",
+  "language": "Rust"
+}

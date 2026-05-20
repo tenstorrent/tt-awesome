@@ -12,6 +12,17 @@ for (const [url, data] of Object.entries(meta)) {
 
 const AFFILIATION_ORDER = { community: 0, affiliated: 1, official: 2 };
 
+/** Returns true only for well-formed https URLs with a non-empty hostname. */
+function isSafeHttpsUrl(url) {
+  if (!url || typeof url !== "string") return false;
+  try {
+    const { protocol, hostname } = new URL(url);
+    return protocol === "https:" && hostname.length > 0;
+  } catch (_) {
+    return false;
+  }
+}
+
 /** Recursively collect all .json file paths under a directory. */
 function collectJsonFiles(dir) {
   const results = [];
@@ -38,6 +49,24 @@ module.exports = function () {
     if (repoLink && metaByUrl[repoLink.url]) {
       Object.assign(entry, metaByUrl[repoLink.url]);
     }
+    // Derive author profile URL from the GitHub repo owner when not explicitly set
+    if (!entry.author_url && repoLink && repoLink.url) {
+      try {
+        const parsed = new URL(repoLink.url);
+        if (parsed.hostname === "github.com") {
+          const owner = parsed.pathname.split("/")[1];
+          if (owner) entry.author_url = `https://github.com/${owner}`;
+        }
+      } catch (_) {}
+    }
+    // Enforce safe https URLs — drops anything malformed or non-https
+    if (!isSafeHttpsUrl(entry.author_url)) delete entry.author_url;
+    if (entry.links) {
+      entry.links = entry.links.filter(
+        (l) => !l.url || isSafeHttpsUrl(l.url)
+      );
+    }
+    if (!isSafeHttpsUrl(entry.preview_image)) delete entry.preview_image;
     return entry;
   });
 

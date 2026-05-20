@@ -5,6 +5,7 @@
 let activeCategory = null;
 let activeFilters = new Set(["community", "affiliated", "official"]);
 let activeEntryId = null;
+let activeAuthorFilter = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   // Restore view from query string (?cat=…&entry=…) before first paint,
@@ -17,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const q = e.target.value.toLowerCase().trim();
     if (q && isHomeActive()) {
       _applySearchAll();
-    } else if (!q && activeCategory === null && !isHomeActive()) {
+    } else if (!q && activeCategory === null && activeAuthorFilter === null && !isHomeActive()) {
       _applyHome();
       return;
     }
@@ -40,9 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
  * Pass an empty object {} to return to the root path with no query string.
  */
 function pushUrl(params) {
-  const qs = new URLSearchParams(params).toString();
+  const clean = Object.fromEntries(
+    Object.entries(params).filter(([, v]) => v != null)
+  );
+  const qs = new URLSearchParams(clean).toString();
   const url = qs ? `?${qs}` : location.pathname;
-  history.pushState(params, "", url);
+  history.pushState(clean, "", url);
 }
 
 /**
@@ -53,6 +57,7 @@ function pushUrl(params) {
 function restoreFromUrl() {
   const params = new URLSearchParams(location.search);
   const cat = params.get("cat");
+  const author = params.get("author");
   const entryId = params.get("entry");
 
   if (cat) {
@@ -65,6 +70,14 @@ function restoreFromUrl() {
       }
       return;
     }
+  }
+  if (author) {
+    _applyAuthorFilter(author);
+    if (entryId) {
+      const row = document.querySelector(`.entry-row[data-id="${CSS.escape(entryId)}"]`);
+      if (row) _applyEntry(entryId, row);
+    }
+    return;
   }
   _applyHome();
 }
@@ -85,6 +98,7 @@ function showHome() {
 function _applyHome() {
   activeCategory = null;
   activeEntryId = null;
+  activeAuthorFilter = null;
   document.getElementById("panes").classList.add("home-active");
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   document.getElementById("home-item").classList.add("active");
@@ -93,10 +107,28 @@ function _applyHome() {
 /** Internal: show list pane with no category filter (cross-category search). No history push. */
 function _applySearchAll() {
   activeCategory = null;
+  activeAuthorFilter = null;
   document.getElementById("panes").classList.remove("home-active");
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   document.getElementById("list-title").textContent = "All";
   _clearDetail();
+}
+
+/** Public: filter all entries to those by a given author name. Updates URL. */
+function filterByAuthor(name) {
+  pushUrl({ author: name });
+  _applyAuthorFilter(name);
+}
+
+/** Internal: show author-filtered list without touching history. */
+function _applyAuthorFilter(name) {
+  activeAuthorFilter = name;
+  activeCategory = null;
+  document.getElementById("panes").classList.remove("home-active");
+  document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
+  document.getElementById("list-title").textContent = name;
+  _clearDetail();
+  applyFilters(document.getElementById("search").value.toLowerCase().trim());
 }
 
 /** Navigate to a category by slug — used by the home page card clicks. */
@@ -116,6 +148,7 @@ function selectCategory(slug, el) {
 /** Internal: select category without touching history. */
 function _applyCategory(slug, el) {
   activeCategory = slug;
+  activeAuthorFilter = null;
   document.getElementById("panes").classList.remove("home-active");
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   el.classList.add("active");
@@ -126,7 +159,11 @@ function _applyCategory(slug, el) {
 
 /** Public: select entry and update URL. */
 function selectEntry(id, el) {
-  pushUrl({ cat: activeCategory, entry: id });
+  if (activeAuthorFilter) {
+    pushUrl({ author: activeAuthorFilter, entry: id });
+  } else {
+    pushUrl({ cat: activeCategory, entry: id });
+  }
   _applyEntry(id, el);
 }
 
@@ -173,6 +210,7 @@ function toggleChip(chip) {
 
 function applyFilters(query) {
   let visible = 0;
+  const authorFilter = activeAuthorFilter ? activeAuthorFilter.toLowerCase() : null;
   document.querySelectorAll(".entry-row").forEach((row) => {
     const cats  = (row.dataset.categories || "").split(",");
     const aff   = row.dataset.affiliation;
@@ -180,7 +218,8 @@ function applyFilters(query) {
     const show  =
       (!activeCategory || cats.includes(activeCategory)) &&
       activeFilters.has(aff) &&
-      (!query || text.includes(query));
+      (!query || text.includes(query)) &&
+      (!authorFilter || (row.dataset.author || "") === authorFilter);
     row.classList.toggle("hidden", !show);
     if (show) visible++;
   });
