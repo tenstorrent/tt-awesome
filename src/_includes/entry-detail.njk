@@ -12,10 +12,10 @@
       </div>
       <div class="detail-meta">
         {%- if entry.author %}by
-          {%- if entry.author_url and entry.author_url | string | truncate(8, false, "") == "https://" %}
+          {%- if entry.author_url %}
             <a class="detail-author-link" href="{{ entry.author_url }}" target="_blank" rel="noopener noreferrer">{{ entry.author }}</a>
           {%- else %}
-            <button class="detail-author-link detail-author-filter" data-author-name="{{ entry.author }}" onclick="filterByAuthor(this.dataset.authorName)">{{ entry.author }}</button>
+            <button type="button" class="detail-author-link detail-author-filter" data-author-name="{{ entry.author }}" onclick="filterByAuthor(this.dataset.authorName)">{{ entry.author }}</button>
           {%- endif %}
           · {% endif -%}
         {%- if entry.language %}{{ entry.language }} · {% endif -%}
