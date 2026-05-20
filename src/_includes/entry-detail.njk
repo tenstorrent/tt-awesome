@@ -11,7 +11,13 @@
         {%- if entry.featured %}<span class="featured-star">★ featured</span>{%- endif %}
       </div>
       <div class="detail-meta">
-        {%- if entry.author %}by {{ entry.author }} · {% endif -%}
+        {%- if entry.author %}by
+          {%- if entry.author_url %}
+            <a class="detail-author-link" href="{{ entry.author_url }}" target="_blank" rel="noopener noreferrer">{{ entry.author }}</a>
+          {%- else %}
+            <span class="detail-author-link detail-author-filter" onclick="filterByAuthor('{{ entry.author }}')">{{ entry.author }}</span>
+          {%- endif %}
+          · {% endif -%}
         {%- if entry.language %}{{ entry.language }} · {% endif -%}
         {%- if entry.license %}{{ entry.license }} · {% endif -%}
         {%- if entry.stars %}{{ entry.stars }}⭐ · {% endif -%}

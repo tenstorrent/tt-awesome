@@ -38,6 +38,11 @@ module.exports = function () {
     if (repoLink && metaByUrl[repoLink.url]) {
       Object.assign(entry, metaByUrl[repoLink.url]);
     }
+    // Derive author profile URL from the GitHub repo owner when not explicitly set
+    if (!entry.author_url && repoLink && repoLink.url && repoLink.url.includes("github.com")) {
+      const m = repoLink.url.match(/github\.com\/([^/]+)/);
+      if (m) entry.author_url = `https://github.com/${m[1]}`;
+    }
     return entry;
   });
 

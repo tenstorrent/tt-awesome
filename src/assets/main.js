@@ -5,6 +5,7 @@
 let activeCategory = null;
 let activeFilters = new Set(["community", "affiliated", "official"]);
 let activeEntryId = null;
+let activeAuthorFilter = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   // Restore view from query string (?cat=…&entry=…) before first paint,
@@ -85,6 +86,7 @@ function showHome() {
 function _applyHome() {
   activeCategory = null;
   activeEntryId = null;
+  activeAuthorFilter = null;
   document.getElementById("panes").classList.add("home-active");
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   document.getElementById("home-item").classList.add("active");
@@ -93,10 +95,22 @@ function _applyHome() {
 /** Internal: show list pane with no category filter (cross-category search). No history push. */
 function _applySearchAll() {
   activeCategory = null;
+  activeAuthorFilter = null;
   document.getElementById("panes").classList.remove("home-active");
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   document.getElementById("list-title").textContent = "All";
   _clearDetail();
+}
+
+/** Public: filter all entries to those by a given author name. */
+function filterByAuthor(name) {
+  activeAuthorFilter = name;
+  activeCategory = null;
+  document.getElementById("panes").classList.remove("home-active");
+  document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
+  document.getElementById("list-title").textContent = name;
+  _clearDetail();
+  applyFilters(document.getElementById("search").value.toLowerCase().trim());
 }
 
 /** Navigate to a category by slug — used by the home page card clicks. */
@@ -116,6 +130,7 @@ function selectCategory(slug, el) {
 /** Internal: select category without touching history. */
 function _applyCategory(slug, el) {
   activeCategory = slug;
+  activeAuthorFilter = null;
   document.getElementById("panes").classList.remove("home-active");
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   el.classList.add("active");
@@ -180,7 +195,8 @@ function applyFilters(query) {
     const show  =
       (!activeCategory || cats.includes(activeCategory)) &&
       activeFilters.has(aff) &&
-      (!query || text.includes(query));
+      (!query || text.includes(query)) &&
+      (!activeAuthorFilter || (row.dataset.author || "") === activeAuthorFilter.toLowerCase());
     row.classList.toggle("hidden", !show);
     if (show) visible++;
   });
