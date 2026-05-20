@@ -12,6 +12,17 @@ for (const [url, data] of Object.entries(meta)) {
 
 const AFFILIATION_ORDER = { community: 0, affiliated: 1, official: 2 };
 
+/** Returns true only for well-formed https URLs with a non-empty hostname. */
+function isSafeHttpsUrl(url) {
+  if (!url || typeof url !== "string") return false;
+  try {
+    const { protocol, hostname } = new URL(url);
+    return protocol === "https:" && hostname.length > 0;
+  } catch (_) {
+    return false;
+  }
+}
+
 /** Recursively collect all .json file paths under a directory. */
 function collectJsonFiles(dir) {
   const results = [];
@@ -48,10 +59,14 @@ module.exports = function () {
         }
       } catch (_) {}
     }
-    // Only keep author_url values with an https scheme to prevent javascript: injection
-    if (entry.author_url && !entry.author_url.startsWith("https://")) {
-      delete entry.author_url;
+    // Enforce safe https URLs — drops anything malformed or non-https
+    if (!isSafeHttpsUrl(entry.author_url)) delete entry.author_url;
+    if (entry.links) {
+      entry.links = entry.links.filter(
+        (l) => !l.url || isSafeHttpsUrl(l.url)
+      );
     }
+    if (!isSafeHttpsUrl(entry.preview_image)) delete entry.preview_image;
     return entry;
   });
 

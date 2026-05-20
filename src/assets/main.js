@@ -41,9 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
  * Pass an empty object {} to return to the root path with no query string.
  */
 function pushUrl(params) {
-  const qs = new URLSearchParams(params).toString();
+  const clean = Object.fromEntries(
+    Object.entries(params).filter(([, v]) => v != null)
+  );
+  const qs = new URLSearchParams(clean).toString();
   const url = qs ? `?${qs}` : location.pathname;
-  history.pushState(params, "", url);
+  history.pushState(clean, "", url);
 }
 
 /**
@@ -54,6 +57,7 @@ function pushUrl(params) {
 function restoreFromUrl() {
   const params = new URLSearchParams(location.search);
   const cat = params.get("cat");
+  const author = params.get("author");
   const entryId = params.get("entry");
 
   if (cat) {
@@ -66,6 +70,14 @@ function restoreFromUrl() {
       }
       return;
     }
+  }
+  if (author) {
+    _applyAuthorFilter(author);
+    if (entryId) {
+      const row = document.querySelector(`.entry-row[data-id="${CSS.escape(entryId)}"]`);
+      if (row) _applyEntry(entryId, row);
+    }
+    return;
   }
   _applyHome();
 }
@@ -102,8 +114,14 @@ function _applySearchAll() {
   _clearDetail();
 }
 
-/** Public: filter all entries to those by a given author name. */
+/** Public: filter all entries to those by a given author name. Updates URL. */
 function filterByAuthor(name) {
+  pushUrl({ author: name });
+  _applyAuthorFilter(name);
+}
+
+/** Internal: show author-filtered list without touching history. */
+function _applyAuthorFilter(name) {
   activeAuthorFilter = name;
   activeCategory = null;
   document.getElementById("panes").classList.remove("home-active");
@@ -141,7 +159,11 @@ function _applyCategory(slug, el) {
 
 /** Public: select entry and update URL. */
 function selectEntry(id, el) {
-  pushUrl({ cat: activeCategory, entry: id });
+  if (activeAuthorFilter) {
+    pushUrl({ author: activeAuthorFilter, entry: id });
+  } else {
+    pushUrl({ cat: activeCategory, entry: id });
+  }
   _applyEntry(id, el);
 }
 
