@@ -1,0 +1,31 @@
+<div class="releases-pane" id="releases-pane">
+  <div class="list-head">
+    <div class="list-title-row">
+      <div class="list-title">🏷 Recent Releases</div>
+      <div class="list-count" id="releases-count">{{ recentReleases | length }} releases</div>
+    </div>
+    <div class="releases-toggle">
+      <button class="rtoggle-btn active" data-rview="all"
+              onclick="toggleReleasesView(this)">All</button>
+      <button class="rtoggle-btn" data-rview="official"
+              onclick="toggleReleasesView(this)">Official</button>
+      <button class="rtoggle-btn" data-rview="community"
+              onclick="toggleReleasesView(this)">Community</button>
+    </div>
+  </div>
+  <div class="list-rows" id="releases-rows">
+    {%- for rel in recentReleases %}
+    <div class="release-row"
+         data-id="{{ rel.entryId }}"
+         data-affiliation="{{ rel.affiliation }}"
+         onclick="selectEntry('{{ rel.entryId }}', this)">
+      <div class="row-top">
+        <span class="row-name">{{ rel.entryName }}</span>
+        <span class="badge badge--{{ rel.affiliation }}">{{ rel.affiliation }}</span>
+        <span class="rel-tag">{{ rel.tagName }}</span>
+      </div>
+      <div class="rel-date" data-ts="{{ rel.publishedAt }}">{{ rel.publishedAt }}</div>
+    </div>
+    {%- endfor %}
+  </div>
+</div>
