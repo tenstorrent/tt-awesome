@@ -67,6 +67,13 @@ module.exports = function () {
       );
     }
     if (!isSafeHttpsUrl(entry.preview_image)) delete entry.preview_image;
+    // Pre-compute latestStableRelease so Nunjucks templates can use it directly.
+    // Nunjucks lacks selectattr and loop-scoped variables don't persist to outer
+    // scope, so this must be resolved in the data layer, not in templates.
+    if (Array.isArray(entry.releases) && entry.releases.length) {
+      const stable = entry.releases.find(r => r.prerelease === false);
+      if (stable) entry.latestStableRelease = stable;
+    }
     return entry;
   });
 
