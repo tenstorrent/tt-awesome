@@ -94,6 +94,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .list-pane { width: var(--list-w); flex-shrink: 0; border-right: 1px solid var(--bg2);
              display: flex; flex-direction: column; overflow: hidden; }
 .list-head { padding: 10px 12px 8px; border-bottom: 1px solid var(--bg2); flex-shrink: 0; }
+.list-title-row { display: flex; align-items: baseline; justify-content: space-between; }
 .list-title { font-size: 13px; font-weight: 700; color: var(--text); }
 .list-count { font-size: 10px; color: var(--muted); margin-top: 1px; }
 .list-rows  { overflow-y: auto; flex: 1; }
