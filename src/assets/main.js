@@ -298,6 +298,9 @@ function toggleChip(chip) {
 /* ── Row visibility ─────────────────────────────────────────────────────── */
 
 function applyFilters(query) {
+  // Skip entry-row filtering while the releases pane is active — it operates on
+  // a separate set of rows and the list pane is not visible.
+  if (document.getElementById("panes").classList.contains("releases-active")) return;
   let visible = 0;
   const authorFilter = activeAuthorFilter ? activeAuthorFilter.toLowerCase() : null;
   document.querySelectorAll(".entry-row").forEach((row) => {
