@@ -18,7 +18,7 @@
     <div class="release-row"
          data-id="{{ rel.entryId }}"
          data-affiliation="{{ rel.affiliation }}"
-         onclick="selectEntry('{{ rel.entryId }}', this)">
+         onclick="selectEntry(this.dataset.id, this)">
       <div class="row-top">
         <span class="row-name">{{ rel.entryName }}</span>
         <span class="badge badge--{{ rel.affiliation }}">{{ rel.affiliation }}</span>

@@ -10,7 +10,9 @@ let activeReleasesView = 'all';
 
 /** Convert an ISO date string to a human-friendly "N days ago" string. */
 function relativeTime(iso) {
-  const diff = Date.now() - new Date(iso).getTime();
+  const ts = new Date(iso).getTime();
+  if (Number.isNaN(ts)) return iso;
+  const diff = Math.max(0, Date.now() - ts);
   const mins = Math.floor(diff / 60000);
   if (mins < 60) return `${mins} minute${mins !== 1 ? "s" : ""} ago`;
   const hrs = Math.floor(mins / 60);
@@ -86,9 +88,9 @@ function restoreFromUrl() {
   if (releases) {
     _applyReleases(releases);
     if (entryId) {
-      const row = document.querySelector(
-        `.entry-row[data-id="${CSS.escape(entryId)}"], .release-row[data-id="${CSS.escape(entryId)}"]`
-      );
+      // releases pane rows come after entry-list rows in DOM order, so query
+      // .release-row explicitly to avoid matching a hidden .entry-row first.
+      const row = document.querySelector(`.release-row[data-id="${CSS.escape(entryId)}"]`);
       if (row) _applyEntry(entryId, row);
     }
     return;

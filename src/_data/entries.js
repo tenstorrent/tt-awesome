@@ -71,7 +71,7 @@ module.exports = function () {
     // Nunjucks lacks selectattr and loop-scoped variables don't persist to outer
     // scope, so this must be resolved in the data layer, not in templates.
     if (Array.isArray(entry.releases) && entry.releases.length) {
-      const stable = entry.releases.find(r => r.prerelease === false);
+      const stable = entry.releases.find(r => !r.prerelease);
       if (stable) entry.latestStableRelease = stable;
     }
     return entry;
