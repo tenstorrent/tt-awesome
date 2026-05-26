@@ -73,14 +73,16 @@ fs.statSync = function(f) {
   return _origStatSync.apply(this, arguments);
 };
 
-delete require.cache[require.resolve("../src/_data/entries.js")];
-const entries = require("../src/_data/entries.js")();
-
-// Restore fs mocks
-fs.readdirSync = _origReaddir;
-fs.readFileSync = _origReadFile;
-fs.statSync = _origStatSync;
-Module._load = _origLoad;
+let entries;
+try {
+  delete require.cache[require.resolve("../src/_data/entries.js")];
+  entries = require("../src/_data/entries.js")();
+} finally {
+  fs.readdirSync = _origReaddir;
+  fs.readFileSync = _origReadFile;
+  fs.statSync = _origStatSync;
+  Module._load = _origLoad;
+}
 
 // Test 1: entry with stable release gets latestStableRelease
 const stableEntry = entries.find(e => e.id === "entry-stable");
@@ -117,9 +119,13 @@ Module._load = function (request, parent, isMain) {
   return _origLoad.apply(this, arguments);
 };
 
-delete require.cache[require.resolve("../src/_data/recentReleases.js")];
-const recentReleases = require("../src/_data/recentReleases.js")();
-Module._load = _origLoad;
+let recentReleases;
+try {
+  delete require.cache[require.resolve("../src/_data/recentReleases.js")];
+  recentReleases = require("../src/_data/recentReleases.js")();
+} finally {
+  Module._load = _origLoad;
+}
 
 // Test 4: only entries with latestStableRelease appear in feed
 assert.strictEqual(recentReleases.length, 1, "only 1 stable release expected in feed");
@@ -156,9 +162,13 @@ Module._load = function (request, parent, isMain) {
   return _origLoad.apply(this, arguments);
 };
 
-delete require.cache[require.resolve("../src/_data/recentReleases.js")];
-const sorted = require("../src/_data/recentReleases.js")();
-Module._load = _origLoad;
+let sorted;
+try {
+  delete require.cache[require.resolve("../src/_data/recentReleases.js")];
+  sorted = require("../src/_data/recentReleases.js")();
+} finally {
+  Module._load = _origLoad;
+}
 
 assert.strictEqual(sorted.length, 2, "both entries should appear");
 assert.strictEqual(sorted[0].entryId, "new", "newest entry should be first");
@@ -184,9 +194,13 @@ Module._load = function (request, parent, isMain) {
   return _origLoad.apply(this, arguments);
 };
 
-delete require.cache[require.resolve("../src/_data/recentReleases.js")];
-const capped = require("../src/_data/recentReleases.js")();
-Module._load = _origLoad;
+let capped;
+try {
+  delete require.cache[require.resolve("../src/_data/recentReleases.js")];
+  capped = require("../src/_data/recentReleases.js")();
+} finally {
+  Module._load = _origLoad;
+}
 
 assert.strictEqual(capped.length, 50, "feed should be capped at 50 entries");
 

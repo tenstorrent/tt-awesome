@@ -2,7 +2,7 @@
   <div class="list-head">
     <div class="list-title-row">
       <div class="list-title">🏷 Recent Releases</div>
-      <div class="list-count" id="releases-count">{{ recentReleases | length }} releases</div>
+      <div class="list-count" id="releases-count">{{ recentReleases | length }} release{{ "s" if recentReleases | length != 1 }}</div>
     </div>
     <div class="releases-toggle">
       <button class="rtoggle-btn active" data-rview="all"

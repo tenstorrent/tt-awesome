@@ -182,7 +182,8 @@ function selectReleases(view) {
 
 /** Internal: activate releases pane without touching history. */
 function _applyReleases(view) {
-  activeReleasesView = view || 'all';
+  const VALID_VIEWS = new Set(['all', 'official', 'community']);
+  activeReleasesView = VALID_VIEWS.has(view) ? view : 'all';
   activeCategory = null;
   activeAuthorFilter = null;
   const panes = document.getElementById("panes");
