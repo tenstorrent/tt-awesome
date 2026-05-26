@@ -8,6 +8,10 @@
       <div class="detail-title-row">
         <h1 class="detail-name">{{ entry.name }}</h1>
         <span class="badge badge--{{ entry.affiliation }}">{{ entry.affiliation }}</span>
+        {%- if entry.isFork and entry.forkParentUrl %}
+        <a class="fork-badge" href="{{ entry.forkParentUrl }}"
+           target="_blank" rel="noopener noreferrer">⑂ {{ entry.forkParent }}</a>
+        {%- endif %}
         {%- if entry.featured %}<span class="featured-star">★ featured</span>{%- endif %}
       </div>
       <div class="detail-meta">
@@ -46,6 +50,41 @@
         {%- endif %}
         {{ link.label if link.label else link.type | title }}
       </a>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+    {%- if entry.releases and entry.releases.length %}
+    <div class="detail-section">
+      <div class="section-label">Releases</div>
+      {%- if entry.latestStableRelease %}
+      <div class="latest-callout">
+        <span class="latest-badge">LATEST</span>
+        <span class="latest-tag">{{ entry.latestStableRelease.tagName }}</span>
+        <span class="latest-date" data-ts="{{ entry.latestStableRelease.publishedAt }}">{{ entry.latestStableRelease.publishedAt }}</span>
+        <a class="release-notes-link" href="{{ entry.latestStableRelease.url }}"
+           target="_blank" rel="noopener noreferrer">Release notes ↗</a>
+      </div>
+      {%- endif %}
+      {%- if entry.releases | length > 1 or not entry.latestStableRelease %}
+      {%- set latestTag = entry.latestStableRelease.tagName if entry.latestStableRelease else "" %}
+      <div class="release-history-list">
+        {%- for rel in entry.releases %}
+        {%- if rel.tagName != latestTag %}
+        <div class="rel-hist-row">
+          <a class="rel-tag" href="{{ rel.url }}"
+             target="_blank" rel="noopener noreferrer">{{ rel.tagName }}</a>
+          {%- if rel.prerelease %}<span class="rel-pre">pre</span>{%- endif %}
+          <span class="rel-date" data-ts="{{ rel.publishedAt }}">{{ rel.publishedAt }}</span>
+        </div>
+        {%- endif %}
+        {%- endfor %}
+      </div>
+      {%- endif %}
+      {%- for lnk in entry.links %}
+      {%- if lnk.type == "repo" %}
+      <a class="releases-all-link" href="{{ lnk.url }}/releases"
+         target="_blank" rel="noopener noreferrer">See all releases on GitHub ↗</a>
+      {%- endif %}
       {%- endfor %}
     </div>
     {%- endif %}

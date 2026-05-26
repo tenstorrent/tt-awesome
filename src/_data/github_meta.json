@@ -5,16 +5,25 @@
   },
   "https://github.com/zoecarver/dflash": {
     "stars": 0,
-    "updatedAt": "2026-04-08T19:10:12Z"
+    "updatedAt": "2026-04-08T19:10:12Z",
+    "isFork": true,
+    "forkParent": "z-lab/dflash",
+    "forkParentUrl": "https://github.com/z-lab/dflash"
   },
   "https://github.com/zoecarver/diamond": {
     "stars": 0,
     "updatedAt": "2026-03-31T18:37:55Z",
+    "isFork": true,
+    "forkParent": "eloialonso/diamond",
+    "forkParentUrl": "https://github.com/eloialonso/diamond",
     "preview_image": "https://raw.githubusercontent.com/zoecarver/diamond/main/tt/doc/play_server.png"
   },
   "https://github.com/zoecarver/Engram": {
     "stars": 0,
-    "updatedAt": "2026-03-11T19:59:16Z"
+    "updatedAt": "2026-03-11T19:59:16Z",
+    "isFork": true,
+    "forkParent": "deepseek-ai/Engram",
+    "forkParentUrl": "https://github.com/deepseek-ai/Engram"
   },
   "https://github.com/zoecarver/gemma4": {
     "stars": 1,
@@ -26,16 +35,28 @@
   },
   "https://github.com/zoecarver/open-oasis": {
     "stars": 1,
-    "updatedAt": "2026-04-29T23:54:55Z"
+    "updatedAt": "2026-04-29T23:54:55Z",
+    "isFork": true,
+    "forkParent": "etched-ai/open-oasis",
+    "forkParentUrl": "https://github.com/etched-ai/open-oasis"
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 11,
-    "updatedAt": "2026-05-25T08:07:54Z"
+    "updatedAt": "2026-05-22T08:21:36Z"
   },
   "https://github.com/moritztng/tt-boltz": {
     "stars": 89,
-    "updatedAt": "2026-05-25T22:30:22Z",
-    "preview_image": "https://raw.githubusercontent.com/moritztng/tt-boltz/main/banner.png"
+    "updatedAt": "2026-05-20T02:41:11Z",
+    "preview_image": "https://raw.githubusercontent.com/moritztng/tt-boltz/main/banner.png",
+    "releases": [
+      {
+        "tagName": "v0.1",
+        "name": "v0.1",
+        "publishedAt": "2025-04-22T17:02:14Z",
+        "url": "https://github.com/moritztng/tt-boltz/releases/tag/v0.1",
+        "prerelease": true
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 64,
@@ -47,7 +68,44 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 53,
-    "updatedAt": "2026-05-25T19:20:46Z"
+    "updatedAt": "2026-05-22T20:51:53Z",
+    "releases": [
+      {
+        "tagName": "v0.14.0",
+        "name": "v0.14.0",
+        "publishedAt": "2026-05-15T22:34:02Z",
+        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.14.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.13.0",
+        "name": "v0.13.0",
+        "publishedAt": "2026-04-24T20:21:26Z",
+        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.13.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.10.1",
+        "name": "v0.10.1",
+        "publishedAt": "2026-04-08T09:58:17Z",
+        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.10.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.12.0",
+        "name": "v0.12.0",
+        "publishedAt": "2026-04-02T21:50:57Z",
+        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.12.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.11.1",
+        "name": "v0.11.1",
+        "publishedAt": "2026-03-25T21:46:21Z",
+        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.11.1",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tsingletaryTT/tt-jukebox": {
     "stars": 0,
@@ -61,24 +119,128 @@
   "https://github.com/tenstorrent/tt-local-generator": {
     "stars": 1,
     "updatedAt": "2026-05-07T18:20:17Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-local-generator/main/assets/tt-local-generator-main.png"
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-local-generator/main/assets/tt-local-generator-main.png",
+    "releases": [
+      {
+        "tagName": "v0.2.6",
+        "name": "Generative art flows",
+        "publishedAt": "2026-05-07T18:20:34Z",
+        "url": "https://github.com/tenstorrent/tt-local-generator/releases/tag/v0.2.6",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.2.2",
+        "name": "v02.2",
+        "publishedAt": "2026-04-27T16:26:06Z",
+        "url": "https://github.com/tenstorrent/tt-local-generator/releases/tag/v0.2.2",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.2.1",
+        "name": "v0.2.1 - working debs",
+        "publishedAt": "2026-04-25T21:46:17Z",
+        "url": "https://github.com/tenstorrent/tt-local-generator/releases/tag/v0.2.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.2.0",
+        "name": "v0.2.0 curation station arrives",
+        "publishedAt": "2026-04-24T22:49:02Z",
+        "url": "https://github.com/tenstorrent/tt-local-generator/releases/tag/v0.2.0",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-studio": {
     "stars": 43,
-    "updatedAt": "2026-05-20T14:04:29Z"
+    "updatedAt": "2026-05-20T14:04:29Z",
+    "releases": [
+      {
+        "tagName": "v2.6.0",
+        "name": "v2.6.0",
+        "publishedAt": "2026-05-20T17:04:32Z",
+        "url": "https://github.com/tenstorrent/tt-studio/releases/tag/v2.6.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v2.5.0",
+        "name": "v2.5.0",
+        "publishedAt": "2026-04-20T17:03:48Z",
+        "url": "https://github.com/tenstorrent/tt-studio/releases/tag/v2.5.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v2.4.1",
+        "name": "v2.4.1",
+        "publishedAt": "2026-03-24T15:09:57Z",
+        "url": "https://github.com/tenstorrent/tt-studio/releases/tag/v2.4.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v2.1.0",
+        "name": "v2.1.0",
+        "publishedAt": "2025-10-04T01:33:59Z",
+        "url": "https://github.com/tenstorrent/tt-studio/releases/tag/v2.1.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v2.0.1",
+        "name": "v2.0.1",
+        "publishedAt": "2025-07-21T19:53:40Z",
+        "url": "https://github.com/tenstorrent/tt-studio/releases/tag/v2.0.1",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2148,
-    "updatedAt": "2026-05-25T17:16:33Z",
-    "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg"
+    "stars": 2146,
+    "updatedAt": "2026-05-22T20:22:52Z",
+    "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
+    "releases": [
+      {
+        "tagName": "0.20.21",
+        "name": "0.20.21",
+        "publishedAt": "2026-05-21T12:43:40Z",
+        "url": "https://github.com/dstackai/dstack/releases/tag/0.20.21",
+        "prerelease": false
+      },
+      {
+        "tagName": "0.20.20",
+        "name": "0.20.20",
+        "publishedAt": "2026-05-15T11:45:23Z",
+        "url": "https://github.com/dstackai/dstack/releases/tag/0.20.20",
+        "prerelease": false
+      },
+      {
+        "tagName": "0.20.19",
+        "name": "0.20.19",
+        "publishedAt": "2026-04-30T11:01:36Z",
+        "url": "https://github.com/dstackai/dstack/releases/tag/0.20.19",
+        "prerelease": false
+      },
+      {
+        "tagName": "0.20.18",
+        "name": "0.20.18",
+        "publishedAt": "2026-04-23T14:54:09Z",
+        "url": "https://github.com/dstackai/dstack/releases/tag/0.20.18",
+        "prerelease": false
+      },
+      {
+        "tagName": "0.20.17",
+        "name": "0.20.17",
+        "publishedAt": "2026-04-16T12:45:58Z",
+        "url": "https://github.com/dstackai/dstack/releases/tag/0.20.17",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/koyeb/tenstorrent-examples": {
     "stars": 17,
     "updatedAt": "2026-03-19T21:25:59Z"
   },
   "https://github.com/Zaneham/BarraCUDA": {
-    "stars": 1687,
-    "updatedAt": "2026-05-26T02:12:53Z"
+    "stars": 1686,
+    "updatedAt": "2026-05-23T00:06:55Z"
   },
   "https://github.com/kernelize-ai/triton-tenstorrent": {
     "stars": 9,
@@ -86,7 +248,44 @@
   },
   "https://github.com/tenstorrent/tt-buda": {
     "stars": 312,
-    "updatedAt": "2026-05-11T11:45:27Z"
+    "updatedAt": "2026-05-11T11:45:27Z",
+    "releases": [
+      {
+        "tagName": "v0.19.3",
+        "name": "v0.19.3",
+        "publishedAt": "2024-09-24T21:01:08Z",
+        "url": "https://github.com/tenstorrent/tt-buda/releases/tag/v0.19.3",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.18.2",
+        "name": "v0.18.2",
+        "publishedAt": "2024-07-18T15:58:39Z",
+        "url": "https://github.com/tenstorrent/tt-buda/releases/tag/v0.18.2",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.17.0-alpha",
+        "name": "v0.17.0-alpha",
+        "publishedAt": "2024-06-05T20:07:29Z",
+        "url": "https://github.com/tenstorrent/tt-buda/releases/tag/v0.17.0-alpha",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.15.0-alpha",
+        "name": "v0.15.0-alpha",
+        "publishedAt": "2024-05-23T19:53:00Z",
+        "url": "https://github.com/tenstorrent/tt-buda/releases/tag/v0.15.0-alpha",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.12.3",
+        "name": "v0.12.3",
+        "publishedAt": "2024-05-10T22:25:40Z",
+        "url": "https://github.com/tenstorrent/tt-buda/releases/tag/v0.12.3",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tsingletaryTT/tt-forge-compiletron": {
     "stars": 0,
@@ -94,9 +293,46 @@
     "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tt-forge-compiletron/main/docs/demo.gif"
   },
   "https://github.com/tenstorrent/tt-forge": {
-    "stars": 225,
-    "updatedAt": "2026-05-25T19:29:28Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png"
+    "stars": 224,
+    "updatedAt": "2026-05-20T15:52:47Z",
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
+    "releases": [
+      {
+        "tagName": "1.2.0.dev20260522002921",
+        "name": "1.2.0.dev20260522002921",
+        "publishedAt": "2026-05-22T01:32:51Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0.dev20260522002921",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.2.0.dev20260521003111",
+        "name": "1.2.0.dev20260521003111",
+        "publishedAt": "2026-05-21T01:45:47Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0.dev20260521003111",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.2.0.dev20260520003105",
+        "name": "1.2.0.dev20260520003105",
+        "publishedAt": "2026-05-20T01:19:44Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0.dev20260520003105",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.2.0.dev20260519003011",
+        "name": "1.2.0.dev20260519003011",
+        "publishedAt": "2026-05-19T01:38:14Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0.dev20260519003011",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.2.0.dev20260518002707",
+        "name": "1.2.0.dev20260518002707",
+        "publishedAt": "2026-05-18T01:10:36Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0.dev20260518002707",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/swote-git/tt-iree": {
     "stars": 12,
@@ -104,11 +340,85 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 271,
-    "updatedAt": "2026-05-25T16:28:00Z"
+    "updatedAt": "2026-05-22T17:11:07Z",
+    "releases": [
+      {
+        "tagName": "0.9.0.dev20260221",
+        "name": "Nightly 0.9.0.dev20260221",
+        "publishedAt": "2026-02-21T04:31:50Z",
+        "url": "https://github.com/tenstorrent/tt-mlir/releases/tag/0.9.0.dev20260221",
+        "prerelease": true
+      },
+      {
+        "tagName": "0.9.0.dev20260220",
+        "name": "Nightly 0.9.0.dev20260220",
+        "publishedAt": "2026-02-20T04:34:35Z",
+        "url": "https://github.com/tenstorrent/tt-mlir/releases/tag/0.9.0.dev20260220",
+        "prerelease": true
+      },
+      {
+        "tagName": "0.9.0.dev20260219",
+        "name": "Nightly 0.9.0.dev20260219",
+        "publishedAt": "2026-02-19T04:37:24Z",
+        "url": "https://github.com/tenstorrent/tt-mlir/releases/tag/0.9.0.dev20260219",
+        "prerelease": true
+      },
+      {
+        "tagName": "0.9.0.dev20260218",
+        "name": "Nightly 0.9.0.dev20260218",
+        "publishedAt": "2026-02-18T04:38:21Z",
+        "url": "https://github.com/tenstorrent/tt-mlir/releases/tag/0.9.0.dev20260218",
+        "prerelease": true
+      },
+      {
+        "tagName": "0.9.0.dev20260217",
+        "name": "Nightly 0.9.0.dev20260217",
+        "publishedAt": "2026-02-17T04:37:09Z",
+        "url": "https://github.com/tenstorrent/tt-mlir/releases/tag/0.9.0.dev20260217",
+        "prerelease": true
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-torch": {
     "stars": 24,
-    "updatedAt": "2026-05-05T10:00:46Z"
+    "updatedAt": "2026-05-05T10:00:46Z",
+    "releases": [
+      {
+        "tagName": "0.5.0.dev20251008",
+        "name": "Nightly 0.5.0.dev20251008",
+        "publishedAt": "2025-10-08T05:36:07Z",
+        "url": "https://github.com/tenstorrent/tt-torch/releases/tag/0.5.0.dev20251008",
+        "prerelease": true
+      },
+      {
+        "tagName": "0.5.0.dev20251007",
+        "name": "Nightly 0.5.0.dev20251007",
+        "publishedAt": "2025-10-07T04:22:29Z",
+        "url": "https://github.com/tenstorrent/tt-torch/releases/tag/0.5.0.dev20251007",
+        "prerelease": true
+      },
+      {
+        "tagName": "0.5.0.dev20251006",
+        "name": "Nightly 0.5.0.dev20251006",
+        "publishedAt": "2025-10-06T04:21:23Z",
+        "url": "https://github.com/tenstorrent/tt-torch/releases/tag/0.5.0.dev20251006",
+        "prerelease": true
+      },
+      {
+        "tagName": "0.5.0.dev20251005",
+        "name": "Nightly 0.5.0.dev20251005",
+        "publishedAt": "2025-10-05T04:38:19Z",
+        "url": "https://github.com/tenstorrent/tt-torch/releases/tag/0.5.0.dev20251005",
+        "prerelease": true
+      },
+      {
+        "tagName": "0.5.0.dev20251004",
+        "name": "Nightly 0.5.0.dev20251004",
+        "publishedAt": "2025-10-04T04:22:15Z",
+        "url": "https://github.com/tenstorrent/tt-torch/releases/tag/0.5.0.dev20251004",
+        "prerelease": true
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-tvm": {
     "stars": 29,
@@ -116,16 +426,90 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 63,
-    "updatedAt": "2026-05-25T22:26:41Z"
+    "updatedAt": "2026-05-22T23:54:05Z",
+    "releases": [
+      {
+        "tagName": "1.2.0.dev20260522002921",
+        "name": "1.2.0.dev20260522002921",
+        "publishedAt": "2026-05-22T01:25:07Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0.dev20260522002921",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.2.0.dev20260521003111",
+        "name": "1.2.0.dev20260521003111",
+        "publishedAt": "2026-05-21T01:37:00Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0.dev20260521003111",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.2.0.dev20260520003105",
+        "name": "1.2.0.dev20260520003105",
+        "publishedAt": "2026-05-20T01:11:23Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0.dev20260520003105",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.2.0.dev20260519003011",
+        "name": "1.2.0.dev20260519003011",
+        "publishedAt": "2026-05-19T01:30:35Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0.dev20260519003011",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.2.0.dev20260518002707",
+        "name": "1.2.0.dev20260518002707",
+        "publishedAt": "2026-05-18T01:02:45Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0.dev20260518002707",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/Knight-Ops/libtt-metal-cxx": {
     "stars": 2,
     "updatedAt": "2026-05-21T22:59:39Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10687,
-    "updatedAt": "2026-05-25T17:58:49Z",
-    "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png"
+    "stars": 10679,
+    "updatedAt": "2026-05-23T00:48:56Z",
+    "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
+    "releases": [
+      {
+        "tagName": "3.3.2",
+        "name": "Release 3.3.2",
+        "publishedAt": "2026-02-08T17:57:16Z",
+        "url": "https://github.com/Syllo/nvtop/releases/tag/3.3.2",
+        "prerelease": false
+      },
+      {
+        "tagName": "3.3.1",
+        "name": "Bugfix release 3.3.1",
+        "publishedAt": "2026-01-18T13:12:34Z",
+        "url": "https://github.com/Syllo/nvtop/releases/tag/3.3.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "3.3.0",
+        "name": "Release 3.3.0",
+        "publishedAt": "2026-01-16T13:28:09Z",
+        "url": "https://github.com/Syllo/nvtop/releases/tag/3.3.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "3.2.0",
+        "name": "Release 3.2.0",
+        "publishedAt": "2025-03-29T11:26:44Z",
+        "url": "https://github.com/Syllo/nvtop/releases/tag/3.2.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "3.1.0",
+        "name": "Release 3.1.0",
+        "publishedAt": "2024-02-23T15:04:44Z",
+        "url": "https://github.com/Syllo/nvtop/releases/tag/3.1.0",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tsingletaryTT/tensix-viz": {
     "stars": 0,
@@ -134,7 +518,44 @@
   },
   "https://github.com/tenstorrent/tt-exalens": {
     "stars": 20,
-    "updatedAt": "2026-05-25T21:55:37Z"
+    "updatedAt": "2026-05-22T16:01:06Z",
+    "releases": [
+      {
+        "tagName": "v0.3.19",
+        "name": "Release v0.3.19",
+        "publishedAt": "2026-05-13T09:25:52Z",
+        "url": "https://github.com/tenstorrent/tt-exalens/releases/tag/v0.3.19",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.3.18",
+        "name": "Release v0.3.18",
+        "publishedAt": "2026-05-11T19:41:11Z",
+        "url": "https://github.com/tenstorrent/tt-exalens/releases/tag/v0.3.18",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.3.17",
+        "name": "Release v0.3.17",
+        "publishedAt": "2026-04-24T12:28:18Z",
+        "url": "https://github.com/tenstorrent/tt-exalens/releases/tag/v0.3.17",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.3.16",
+        "name": "Release v0.3.16",
+        "publishedAt": "2026-04-23T13:10:16Z",
+        "url": "https://github.com/tenstorrent/tt-exalens/releases/tag/v0.3.16",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.3.15",
+        "name": "Release v0.3.15",
+        "publishedAt": "2026-04-22T15:40:26Z",
+        "url": "https://github.com/tenstorrent/tt-exalens/releases/tag/v0.3.15",
+        "prerelease": true
+      }
+    ]
   },
   "https://github.com/tsingletaryTT/tt-model-runner": {
     "stars": 1,
@@ -152,7 +573,44 @@
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 50,
     "updatedAt": "2026-05-22T19:29:15Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg"
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
+    "releases": [
+      {
+        "tagName": "v0.86.0",
+        "name": "v0.86.0",
+        "publishedAt": "2026-05-20T18:34:19Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.86.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.85.0",
+        "name": "v0.85.0",
+        "publishedAt": "2026-05-13T20:31:18Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.85.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.84.1",
+        "name": "v0.84.1",
+        "publishedAt": "2026-05-07T00:44:46Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.84.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.84.0",
+        "name": "v0.84.0",
+        "publishedAt": "2026-05-06T20:49:41Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.84.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.83.0",
+        "name": "v0.83.0",
+        "publishedAt": "2026-04-29T21:15:08Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.83.0",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/TT-Bounty-Hunters/ttPEAK": {
     "stars": 6,
@@ -170,6 +628,9 @@
   "https://github.com/tsingletaryTT/tt-zork-and-more": {
     "stars": 1,
     "updatedAt": "2026-05-08T21:32:50Z",
+    "isFork": true,
+    "forkParent": "historicalsource/zork1",
+    "forkParentUrl": "https://github.com/historicalsource/zork1",
     "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tt-zork-and-more/main/demos/hybrid.gif"
   },
   "https://github.com/JushBJJ/TT-Metal-Mini-Template": {
@@ -187,7 +648,44 @@
   "https://github.com/tenstorrent/tt-vscode-toolkit": {
     "stars": 6,
     "updatedAt": "2026-05-18T22:39:14Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-vscode-toolkit/main/assets/img/screenshot.png"
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-vscode-toolkit/main/assets/img/screenshot.png",
+    "releases": [
+      {
+        "tagName": "v0.0.447",
+        "name": "Release v0.0.447",
+        "publishedAt": "2026-05-18T22:27:56Z",
+        "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.0.447",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.0.438",
+        "name": "Release v0.0.438",
+        "publishedAt": "2026-05-11T16:43:12Z",
+        "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.0.438",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.0.428",
+        "name": "Release v0.0.428",
+        "publishedAt": "2026-05-01T15:18:19Z",
+        "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.0.428",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.0.420",
+        "name": "Release v0.0.420",
+        "publishedAt": "2026-04-30T15:35:08Z",
+        "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.0.420",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.0.417",
+        "name": "Release v0.0.417",
+        "publishedAt": "2026-04-28T20:48:28Z",
+        "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.0.417",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/boopdotpng/blackhole-py": {
     "stars": 14,
@@ -195,7 +693,44 @@
   },
   "https://github.com/tenstorrent/luwen": {
     "stars": 34,
-    "updatedAt": "2026-05-19T15:04:15Z"
+    "updatedAt": "2026-05-19T15:04:15Z",
+    "releases": [
+      {
+        "tagName": "v0.8.5",
+        "name": "v0.8.5",
+        "publishedAt": "2026-03-30T21:03:56Z",
+        "url": "https://github.com/tenstorrent/luwen/releases/tag/v0.8.5",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.8.4",
+        "name": "v0.8.4",
+        "publishedAt": "2026-03-26T19:34:59Z",
+        "url": "https://github.com/tenstorrent/luwen/releases/tag/v0.8.4",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.8.3",
+        "name": "v0.8.3",
+        "publishedAt": "2026-03-26T16:02:34Z",
+        "url": "https://github.com/tenstorrent/luwen/releases/tag/v0.8.3",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.8.2",
+        "name": "v0.8.2",
+        "publishedAt": "2026-03-23T18:58:20Z",
+        "url": "https://github.com/tenstorrent/luwen/releases/tag/v0.8.2",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.8.1",
+        "name": "v0.8.1",
+        "publishedAt": "2025-12-17T21:16:21Z",
+        "url": "https://github.com/tenstorrent/luwen/releases/tag/v0.8.1",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/RossComputerGuy/tenstorrent.nix": {
     "stars": 6,
@@ -203,19 +738,167 @@
   },
   "https://github.com/tenstorrent/tt-firmware": {
     "stars": 24,
-    "updatedAt": "2026-02-25T17:04:30Z"
+    "updatedAt": "2026-02-25T17:04:30Z",
+    "releases": [
+      {
+        "tagName": "v19.6.0",
+        "name": "v19.6.0",
+        "publishedAt": "2026-02-20T16:53:34Z",
+        "url": "https://github.com/tenstorrent/tt-firmware/releases/tag/v19.6.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v19.5.0",
+        "name": "v19.5.0",
+        "publishedAt": "2026-02-04T18:22:15Z",
+        "url": "https://github.com/tenstorrent/tt-firmware/releases/tag/v19.5.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v19.4.2",
+        "name": "v19.4.2",
+        "publishedAt": "2026-01-05T23:32:14Z",
+        "url": "https://github.com/tenstorrent/tt-firmware/releases/tag/v19.4.2",
+        "prerelease": false
+      },
+      {
+        "tagName": "v19.4.1",
+        "name": "v19.4.1",
+        "publishedAt": "2025-12-19T17:06:37Z",
+        "url": "https://github.com/tenstorrent/tt-firmware/releases/tag/v19.4.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v19.4.0",
+        "name": "v19.4.0",
+        "publishedAt": "2025-12-16T05:38:23Z",
+        "url": "https://github.com/tenstorrent/tt-firmware/releases/tag/v19.4.0",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-flash": {
     "stars": 13,
-    "updatedAt": "2026-05-15T19:32:43Z"
+    "updatedAt": "2026-05-15T19:32:43Z",
+    "releases": [
+      {
+        "tagName": "v3.7.0",
+        "name": "v3.7.0",
+        "publishedAt": "2026-05-15T19:32:29Z",
+        "url": "https://github.com/tenstorrent/tt-flash/releases/tag/v3.7.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v3.6.5",
+        "name": "v3.6.5",
+        "publishedAt": "2026-04-16T19:43:11Z",
+        "url": "https://github.com/tenstorrent/tt-flash/releases/tag/v3.6.5",
+        "prerelease": false
+      },
+      {
+        "tagName": "v3.6.4",
+        "name": "v3.6.4",
+        "publishedAt": "2026-04-10T14:44:44Z",
+        "url": "https://github.com/tenstorrent/tt-flash/releases/tag/v3.6.4",
+        "prerelease": false
+      },
+      {
+        "tagName": "v3.6.3",
+        "name": "v3.6.3",
+        "publishedAt": "2026-04-08T15:38:59Z",
+        "url": "https://github.com/tenstorrent/tt-flash/releases/tag/v3.6.3",
+        "prerelease": false
+      },
+      {
+        "tagName": "v3.6.2",
+        "name": "v3.6.2",
+        "publishedAt": "2026-03-02T23:34:08Z",
+        "url": "https://github.com/tenstorrent/tt-flash/releases/tag/v3.6.2",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-installer": {
     "stars": 22,
-    "updatedAt": "2026-05-06T14:06:34Z"
+    "updatedAt": "2026-05-06T14:06:34Z",
+    "releases": [
+      {
+        "tagName": "v2.2.1",
+        "name": "v2.2.1",
+        "publishedAt": "2026-03-16T18:54:29Z",
+        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v2.2.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v2.2.0",
+        "name": "v2.2.0",
+        "publishedAt": "2026-03-10T19:52:29Z",
+        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v2.2.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v2.1.0",
+        "name": "v2.1.0",
+        "publishedAt": "2026-01-14T19:34:46Z",
+        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v2.1.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v2.0.0",
+        "name": "v2.0.0",
+        "publishedAt": "2025-12-05T20:38:41Z",
+        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v2.0.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.11.0",
+        "name": "v1.11.0",
+        "publishedAt": "2025-12-02T20:02:43Z",
+        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v1.11.0",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-kmd": {
     "stars": 64,
-    "updatedAt": "2026-05-22T19:39:38Z"
+    "updatedAt": "2026-05-22T19:39:38Z",
+    "releases": [
+      {
+        "tagName": "ttkmd-2.8.0",
+        "name": "ttkmd-2.8.0",
+        "publishedAt": "2026-04-06T18:58:39Z",
+        "url": "https://github.com/tenstorrent/tt-kmd/releases/tag/ttkmd-2.8.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "ttkmd-2.8.0-rc1",
+        "name": "ttkmd-2.8.0-rc1",
+        "publishedAt": "2026-04-04T01:30:29Z",
+        "url": "https://github.com/tenstorrent/tt-kmd/releases/tag/ttkmd-2.8.0-rc1",
+        "prerelease": true
+      },
+      {
+        "tagName": "ttkmd-2.7.0",
+        "name": "ttkmd-2.7.0",
+        "publishedAt": "2026-02-09T20:23:07Z",
+        "url": "https://github.com/tenstorrent/tt-kmd/releases/tag/ttkmd-2.7.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "ttkmd-2.7.0-rc1",
+        "name": "ttkmd-2.7.0-rc1",
+        "publishedAt": "2026-02-06T20:24:30Z",
+        "url": "https://github.com/tenstorrent/tt-kmd/releases/tag/ttkmd-2.7.0-rc1",
+        "prerelease": true
+      },
+      {
+        "tagName": "ttkmd-2.6.0",
+        "name": "ttkmd-2.6.0",
+        "publishedAt": "2026-01-06T15:27:53Z",
+        "url": "https://github.com/tenstorrent/tt-kmd/releases/tag/ttkmd-2.6.0",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tsingletaryTT/tt-qb-lights": {
     "stars": 2,
@@ -224,26 +907,204 @@
   "https://github.com/tenstorrent/tt-smi": {
     "stars": 60,
     "updatedAt": "2026-05-21T17:34:51Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-smi/main/images/tt_smi.png"
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-smi/main/images/tt_smi.png",
+    "releases": [
+      {
+        "tagName": "v5.2.0",
+        "name": "v5.2.0",
+        "publishedAt": "2026-05-14T17:26:26Z",
+        "url": "https://github.com/tenstorrent/tt-smi/releases/tag/v5.2.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v5.1.1",
+        "name": "v5.1.1",
+        "publishedAt": "2026-05-12T22:18:05Z",
+        "url": "https://github.com/tenstorrent/tt-smi/releases/tag/v5.1.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v5.1.0",
+        "name": "v5.1.0",
+        "publishedAt": "2026-05-11T16:23:13Z",
+        "url": "https://github.com/tenstorrent/tt-smi/releases/tag/v5.1.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v5.0.1",
+        "name": "v5.0.1",
+        "publishedAt": "2026-04-24T11:39:48Z",
+        "url": "https://github.com/tenstorrent/tt-smi/releases/tag/v5.0.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v5.0.0",
+        "name": "v5.0.0",
+        "publishedAt": "2026-04-01T21:13:31Z",
+        "url": "https://github.com/tenstorrent/tt-smi/releases/tag/v5.0.0",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 39,
-    "updatedAt": "2026-05-25T18:46:54Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif"
+    "updatedAt": "2026-05-19T12:14:26Z",
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
+    "releases": [
+      {
+        "tagName": "v19.10.0-rc1",
+        "name": "v19.10.0-rc1",
+        "publishedAt": "2026-05-08T19:27:36Z",
+        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.10.0-rc1",
+        "prerelease": true
+      },
+      {
+        "tagName": "v19.9.0",
+        "name": "v19.9.0",
+        "publishedAt": "2026-04-22T14:36:09Z",
+        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.9.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v19.9.0-rc2",
+        "name": "v19.9.0-rc2",
+        "publishedAt": "2026-04-17T21:29:29Z",
+        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.9.0-rc2",
+        "prerelease": true
+      },
+      {
+        "tagName": "v19.8.1",
+        "name": "v19.8.1",
+        "publishedAt": "2026-04-10T03:08:49Z",
+        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.8.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v19.8.1-rc1",
+        "name": "v19.8.1-rc1",
+        "publishedAt": "2026-04-08T14:58:46Z",
+        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.8.1-rc1",
+        "prerelease": true
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-toplike": {
     "stars": 1,
     "updatedAt": "2026-04-29T17:28:58Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-toplike/main/assets/tt-toplike-arcade-active.png"
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-toplike/main/assets/tt-toplike-arcade-active.png",
+    "releases": [
+      {
+        "tagName": "v0.5.0",
+        "name": "v0.5.0",
+        "publishedAt": "2026-04-29T17:39:43Z",
+        "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.5.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.4.3",
+        "name": "v0.4.3 - stable deb",
+        "publishedAt": "2026-04-25T20:02:37Z",
+        "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.4.3",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.4.2",
+        "name": "v0.4.2 ready to go",
+        "publishedAt": "2026-04-24T23:19:11Z",
+        "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.4.2",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.4.1",
+        "name": "First release in tenstorrent org",
+        "publishedAt": "2026-04-24T19:35:48Z",
+        "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.4.1",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-topology": {
     "stars": 16,
     "updatedAt": "2026-02-26T21:14:55Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-topology/main/images/mesh_layout_2x4.png?raw=true"
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-topology/main/images/mesh_layout_2x4.png?raw=true",
+    "releases": [
+      {
+        "tagName": "v1.2.19",
+        "name": "v1.2.19",
+        "publishedAt": "2026-02-26T21:14:41Z",
+        "url": "https://github.com/tenstorrent/tt-topology/releases/tag/v1.2.19",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.2.18",
+        "name": "v1.2.18",
+        "publishedAt": "2026-01-30T22:07:17Z",
+        "url": "https://github.com/tenstorrent/tt-topology/releases/tag/v1.2.18",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.2.17",
+        "name": "v1.2.17",
+        "publishedAt": "2026-01-29T19:20:46Z",
+        "url": "https://github.com/tenstorrent/tt-topology/releases/tag/v1.2.17",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.2.16",
+        "name": "v1.2.16",
+        "publishedAt": "2025-12-08T16:43:42Z",
+        "url": "https://github.com/tenstorrent/tt-topology/releases/tag/v1.2.16",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.2.15",
+        "name": "v1.2.15",
+        "publishedAt": "2025-11-04T16:03:26Z",
+        "url": "https://github.com/tenstorrent/tt-topology/releases/tag/v1.2.15",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 42,
-    "updatedAt": "2026-05-25T20:54:18Z"
+    "updatedAt": "2026-05-21T10:26:43Z",
+    "releases": [
+      {
+        "tagName": "v0.9.5-dev.260424",
+        "name": "Release v0.9.5-dev.260424",
+        "publishedAt": "2026-04-30T10:50:47Z",
+        "url": "https://github.com/tenstorrent/tt-umd/releases/tag/v0.9.5-dev.260424",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.9.4",
+        "name": "Release v0.9.4",
+        "publishedAt": "2026-03-18T21:42:11Z",
+        "url": "https://github.com/tenstorrent/tt-umd/releases/tag/v0.9.4",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.9.3",
+        "name": "Release v0.9.3",
+        "publishedAt": "2026-02-24T18:29:21Z",
+        "url": "https://github.com/tenstorrent/tt-umd/releases/tag/v0.9.3",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.9.1",
+        "name": "Release v0.9.1",
+        "publishedAt": "2026-01-23T22:54:19Z",
+        "url": "https://github.com/tenstorrent/tt-umd/releases/tag/v0.9.1",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.9.0",
+        "name": "Release v0.9.0",
+        "publishedAt": "2026-01-23T10:28:35Z",
+        "url": "https://github.com/tenstorrent/tt-umd/releases/tag/v0.9.0",
+        "prerelease": true
+      }
+    ]
   },
   "https://github.com/tenstorrent/wallabmc": {
     "stars": 43,
@@ -264,17 +1125,54 @@
   },
   "https://github.com/tenstorrent/tt-lang": {
     "stars": 45,
-    "updatedAt": "2026-05-23T01:40:09Z",
+    "updatedAt": "2026-05-23T00:01:03Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png"
   },
   "https://github.com/tenstorrent/tt-llk": {
-    "stars": 48,
-    "updatedAt": "2026-05-25T07:53:36Z"
+    "stars": 46,
+    "updatedAt": "2026-05-18T05:54:40Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1463,
-    "updatedAt": "2026-05-26T02:52:37Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png"
+    "stars": 1459,
+    "updatedAt": "2026-05-23T00:11:54Z",
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
+    "releases": [
+      {
+        "tagName": "v0.72.0-dev20260522",
+        "name": "v0.72.0-dev20260522",
+        "publishedAt": "2026-05-22T05:03:27Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.72.0-dev20260522",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.71.0-rc3",
+        "name": "v0.71.0-rc3",
+        "publishedAt": "2026-05-22T07:04:19Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.71.0-rc3",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.72.0-dev20260521",
+        "name": "v0.72.0-dev20260521",
+        "publishedAt": "2026-05-21T05:14:38Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.72.0-dev20260521",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.72.0-dev20260520",
+        "name": "v0.72.0-dev20260520",
+        "publishedAt": "2026-05-20T03:35:11Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.72.0-dev20260520",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.71.0-rc2",
+        "name": "v0.71.0-rc2",
+        "publishedAt": "2026-05-20T14:57:42Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.71.0-rc2",
+        "prerelease": true
+      }
+    ]
   },
   "https://github.com/geohot/tt-tiny": {
     "stars": 65,
@@ -302,11 +1200,51 @@
   },
   "https://github.com/tenstorrent/riescue": {
     "stars": 64,
-    "updatedAt": "2026-05-20T00:05:52Z"
+    "updatedAt": "2026-05-20T00:05:52Z",
+    "releases": [
+      {
+        "tagName": "v1.7.0",
+        "name": "v1.7.0",
+        "publishedAt": "2025-12-03T19:29:44Z",
+        "url": "https://github.com/tenstorrent/riescue/releases/tag/v1.7.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.5.0",
+        "name": "Release v1.5.0",
+        "publishedAt": "2025-11-17T21:58:14Z",
+        "url": "https://github.com/tenstorrent/riescue/releases/tag/v1.5.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.3.0",
+        "name": "Release v1.3.0",
+        "publishedAt": "2025-11-06T20:12:13Z",
+        "url": "https://github.com/tenstorrent/riescue/releases/tag/v1.3.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.1.2",
+        "name": "v1.1.2",
+        "publishedAt": "2025-10-16T17:21:43Z",
+        "url": "https://github.com/tenstorrent/riescue/releases/tag/v1.1.2",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.2.5",
+        "name": "Architectural Coverage Framework Using Reference Model",
+        "publishedAt": "2025-07-10T00:59:12Z",
+        "url": "https://github.com/tenstorrent/riescue/releases/tag/v0.2.5",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tenstorrent/riscv-ocelot": {
     "stars": 247,
     "updatedAt": "2026-05-02T14:11:55Z",
+    "isFork": true,
+    "forkParent": "riscv-boom/riscv-boom",
+    "forkParentUrl": "https://github.com/riscv-boom/riscv-boom",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/riscv-ocelot/bobtail/main/docs/figures/evolution.png"
   },
   "https://github.com/tenstorrent/tensix-isa-simulator": {
@@ -316,18 +1254,113 @@
   "https://github.com/tenstorrent/tt-bh-linux": {
     "stars": 48,
     "updatedAt": "2026-05-22T20:42:09Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-bh-linux/main/misc/P150.jpg"
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-bh-linux/main/misc/P150.jpg",
+    "releases": [
+      {
+        "tagName": "v0.11",
+        "name": "Release with Kernel 7.0 + Perf Support in DT + Fixes to tt-bh-linux",
+        "publishedAt": "2026-04-13T15:10:59Z",
+        "url": "https://github.com/tenstorrent-riscv-software/tt-bh-linux/releases/tag/v0.11",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.10",
+        "name": "Release with Kernel 6.19 + Opensbi 1.7",
+        "publishedAt": "2026-02-11T22:41:22Z",
+        "url": "https://github.com/tenstorrent-riscv-software/tt-bh-linux/releases/tag/v0.10",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.9",
+        "name": "Release with Kernel 6.17 + Opensbi 1.7",
+        "publishedAt": "2025-10-14T20:56:23Z",
+        "url": "https://github.com/tenstorrent-riscv-software/tt-bh-linux/releases/tag/v0.9",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.5",
+        "name": "Robustness Improvements to Virtio Implementation",
+        "publishedAt": "2025-10-01T15:40:57Z",
+        "url": "https://github.com/tenstorrent-riscv-software/tt-bh-linux/releases/tag/v0.5",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.4",
+        "name": "Add ca-certificates package to debian image",
+        "publishedAt": "2025-08-09T18:05:10Z",
+        "url": "https://github.com/tenstorrent-riscv-software/tt-bh-linux/releases/tag/v0.4",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/mesham/tt-sim": {
     "stars": 13,
-    "updatedAt": "2026-05-24T23:52:10Z"
+    "updatedAt": "2026-05-13T21:46:40Z",
+    "releases": [
+      {
+        "tagName": "v1.0",
+        "name": "v1.0",
+        "publishedAt": "2026-05-11T13:07:42Z",
+        "url": "https://github.com/mesham/tt-sim/releases/tag/v1.0",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tenstorrent/ttsim": {
-    "stars": 51,
-    "updatedAt": "2026-05-25T13:37:08Z"
+    "stars": 50,
+    "updatedAt": "2026-05-20T01:17:45Z",
+    "releases": [
+      {
+        "tagName": "v1.6.4",
+        "name": "v1.6.4",
+        "publishedAt": "2026-05-21T23:12:11Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.6.4",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.6.3",
+        "name": "v1.6.3",
+        "publishedAt": "2026-05-20T01:05:18Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.6.3",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.6.2",
+        "name": "v1.6.2",
+        "publishedAt": "2026-05-18T20:26:57Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.6.2",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.6.1",
+        "name": "v1.6.1",
+        "publishedAt": "2026-05-15T20:35:52Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.6.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.6.0",
+        "name": "v1.6.0",
+        "publishedAt": "2026-05-14T18:09:33Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.6.0",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tenstorrent/whisper": {
     "stars": 87,
-    "updatedAt": "2026-05-17T15:42:20Z"
+    "updatedAt": "2026-05-17T15:42:20Z",
+    "isFork": true,
+    "forkParent": "chipsalliance/VeeR-ISS",
+    "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS",
+    "releases": [
+      {
+        "tagName": "1.861",
+        "name": "1.861",
+        "publishedAt": "2026-05-11T15:44:36Z",
+        "url": "https://github.com/tenstorrent/whisper/releases/tag/1.861",
+        "prerelease": false
+      }
+    ]
   }
 }

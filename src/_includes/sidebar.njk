@@ -4,6 +4,11 @@
      onclick="showHome(); return false;">
     🏠 Home
   </a>
+  <a class="sidebar-item" id="releases-item"
+     href="?releases=all"
+     onclick="selectReleases('all'); return false;">
+    🏷 Recent Releases
+  </a>
   <hr class="sidebar-hr">
   <div class="sidebar-label">Categories</div>
   {%- for cat in categories %}

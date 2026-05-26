@@ -43,10 +43,17 @@ def fetch_repo(repo: str) -> dict:
     try:
         with urllib.request.urlopen(_request(f"https://api.github.com/repos/{repo}"), timeout=10) as r:
             d = json.loads(r.read())
+            # Use `or {}` so that fork:true with a missing/null parent key never raises.
+            parent = d.get("parent") or {}
             return {
                 "stars": d.get("stargazers_count", 0),
                 "updatedAt": d.get("updated_at", ""),
                 "_default_branch": d.get("default_branch", "main"),
+                # Private fields consumed in main() and converted to public keys
+                # only when the repo is actually a fork with a known parent.
+                "_is_fork": d.get("fork", False),
+                "_fork_parent_name": parent.get("full_name", ""),
+                "_fork_parent_url": parent.get("html_url", ""),
             }
     except urllib.error.HTTPError as e:
         print(f"  WARN {repo}: HTTP {e.code}", file=sys.stderr)
@@ -78,6 +85,37 @@ def fetch_readme_image(repo: str, default_branch: str = "main") -> str | None:
     return None
 
 
+def fetch_releases(repo: str, per_page: int = 5) -> list:
+    """Fetch the most recent releases for a repo, excluding drafts.
+
+    Returns a list of dicts with camelCase keys matching the frontend schema:
+        tagName, name, publishedAt, url, prerelease
+    Draft releases are skipped; pre-releases are included (caller can filter).
+    Returns an empty list on any error so a single bad repo never aborts the run.
+    """
+    try:
+        url = f"https://api.github.com/repos/{repo}/releases?per_page={per_page}"
+        with urllib.request.urlopen(_request(url), timeout=10) as r:
+            releases = json.loads(r.read())
+            return [
+                {
+                    "tagName": rel["tag_name"],
+                    # Fall back to the tag name when the release has no display name.
+                    "name": rel.get("name") or rel["tag_name"],
+                    "publishedAt": rel.get("published_at", ""),
+                    "url": rel.get("html_url", ""),
+                    "prerelease": rel.get("prerelease", False),
+                }
+                for rel in releases
+                if not rel.get("draft", False)
+            ]
+    except urllib.error.HTTPError as e:
+        print(f"  WARN {repo} releases: HTTP {e.code}", file=sys.stderr)
+    except Exception as e:
+        print(f"  WARN {repo} releases: {e}", file=sys.stderr)
+    return []
+
+
 def main():
     entries = [json.loads(f.read_text()) for f in sorted(ENTRIES_DIR.rglob("*.json"))]
     meta = {}
@@ -93,10 +131,22 @@ def main():
         result = fetch_repo(repo)
         if result:
             default_branch = result.pop("_default_branch", "main")
+            # Consume private fork fields; expose public keys only for actual forks.
+            is_fork = result.pop("_is_fork", False)
+            fork_parent_name = result.pop("_fork_parent_name", "")
+            fork_parent_url = result.pop("_fork_parent_url", "")
+            if is_fork and fork_parent_name:
+                result["isFork"] = True
+                result["forkParent"] = fork_parent_name
+                result["forkParentUrl"] = fork_parent_url
             image = fetch_readme_image(repo, default_branch)
             if image:
                 result["preview_image"] = image
                 print(f"  preview: {image[:80]}")
+            releases = fetch_releases(repo)
+            if releases:
+                result["releases"] = releases
+                print(f"  releases: {len(releases)} fetched")
             meta[repo_link["url"]] = result
     META_OUT.parent.mkdir(parents=True, exist_ok=True)
     META_OUT.write_text(json.dumps(meta, indent=2) + "\n")
