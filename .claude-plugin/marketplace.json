@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "tt-awesome",
+  "description": "Plugins bundled with the Awesome Tenstorrent list",
+  "owner": {
+    "name": "Tenstorrent"
+  },
+  "plugins": [
+    {
+      "name": "tt-awesome",
+      "description": "Claude Code plugin for the Awesome Tenstorrent list. Provides /tt-awesome:add-project to guide contributors through submitting new entries.",
+      "author": {
+        "name": "Tenstorrent"
+      },
+      "source": {
+        "source": "github",
+        "repo": "tenstorrent/tt-awesome"
+      }
+    }
+  ]
+}
