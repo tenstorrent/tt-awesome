@@ -91,7 +91,7 @@ Ask one question at a time. Fields and order:
 
 **GitHub meta fetch:** Run `gh api repos/{owner}/{repo} --jq '{description:.description, language:.language, license:.license.spdx_id}'`. If the URL is not a GitHub URL or the fetch fails, skip silently and ask the user to fill in manually.
 
-**Entry ID generation:** Derive from the repo name: lowercase, strip leading `tt-` only if the result would still be recognizable, replace non-alphanumeric with `-`. Show the proposed ID to the user and let them override.
+**Entry ID generation:** Derive from the **project name** (not the repo name), matching `scripts/issue_to_entry.py`'s `slugify(name)` logic: lowercase, strip non-word characters except hyphens, replace whitespace/underscores with `-`, collapse consecutive `-`, strip leading/trailing `-`. Show the proposed ID to the user and let them override. This ensures the ID the contributor confirms in the preview matches the ID in the auto-generated PR for Path A.
 
 ### Phase 2 — Preview
 

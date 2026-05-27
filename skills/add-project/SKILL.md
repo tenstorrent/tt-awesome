@@ -87,14 +87,16 @@ gh api repos/{owner}/{repo} --jq '{description:.description, language:.language,
 
 ### Entry ID generation
 
-Derive the entry ID from the repo name:
+Derive the entry ID from the **project name** (not the repo name) — this matches how `scripts/issue_to_entry.py` derives the ID from the `Name` field, so Path A (issue) and Paths B/C (local JSON) produce the same ID:
 - Lowercase
-- Replace non-alphanumeric characters with `-`
+- Strip non-word characters except hyphens
+- Replace whitespace and underscores with `-`
 - Collapse multiple consecutive `-` into one
 - Strip leading/trailing `-`
-- Do **not** strip `tt-` prefix (it's meaningful for Tenstorrent repos)
 
 Show the proposed ID and let the user override it.
+
+> **Note for Path A:** The auto-generated PR from an approved issue derives its ID the same way — from the `Name` field — so the ID the contributor sees in the preview will match the final file.
 
 ---
 
