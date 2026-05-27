@@ -1,0 +1,25 @@
+{
+  "id": "ttas",
+  "name": "ttas",
+  "description": "ttas is a hacker-friendly assembler/disassembler for Tensix on Wormhole. It turns assembly into the exact 32-bit words the hardware runs, and turns binaries back into readable instructions using the same shared instruction table.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools",
+    "hw-system"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Zaneham/ttas"
+    }
+  ],
+  "tags": [
+    "assembler"
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "Zaneham",
+  "language": "C",
+  "license": "Apache-2.0"
+}
