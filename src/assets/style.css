@@ -314,3 +314,124 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 body.drawer-open .drawer-backdrop {
   background: rgba(0,0,0,0.55); pointer-events: auto;
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   MOBILE  (≤767px)
+   ════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* Allow page to scroll normally on mobile */
+  html, body { overflow: auto; height: auto; }
+  .app { height: auto; min-height: 100vh; flex-direction: column; }
+
+  /* ── Topbar ──────────────────────────────────────────────────────────── */
+  .topbar { padding: 0 10px; gap: 8px; position: sticky; top: 0; z-index: 100; height: 44px; }
+  .logo   { font-size: 14px; }
+  /* Hide desktop search input and chips from topbar */
+  .search      { display: none; }
+  #topbar-chips { display: none; }
+  /* Show mobile-only elements */
+  .mobile-back  { display: flex; align-items: center; justify-content: center;
+                  background: none; border: none; color: var(--teal);
+                  font-size: 20px; min-width: 44px; min-height: 44px;
+                  cursor: pointer; padding: 0; visibility: hidden; }
+  .mobile-back.visible { visibility: visible; }
+  .mobile-title { display: block; font-size: 13px; font-weight: 600;
+                  color: var(--text); flex: 1; overflow: hidden;
+                  text-overflow: ellipsis; white-space: nowrap; }
+  .logo.hidden  { display: none; }
+  .search-toggle { display: flex; align-items: center; justify-content: center;
+                   background: none; border: none; font-size: 16px;
+                   min-width: 44px; min-height: 44px; cursor: pointer; padding: 0; }
+  .hamburger   { display: flex; align-items: center; justify-content: center;
+                 background: none; border: none; color: var(--text);
+                 font-size: 18px; min-width: 44px; min-height: 44px;
+                 cursor: pointer; padding: 0; flex-shrink: 0; }
+
+  /* ── Expandable search bar ───────────────────────────────────────────── */
+  .search-bar-row { background: var(--bg3);
+                    padding: 0 10px; overflow: hidden; max-height: 0;
+                    transition: max-height 180ms ease-out, padding 180ms ease-out;
+                    border-bottom: 1px solid rgba(79,209,197,0.1); }
+  .search-bar-row.expanded { display: flex; max-height: 52px; padding: 8px 10px; }
+  .search-bar-row .search { display: flex; flex: 1; max-width: none; }
+  .search-close { background: none; border: none; color: var(--muted);
+                  font-size: 18px; min-width: 44px; min-height: 44px;
+                  cursor: pointer; display: flex; align-items: center;
+                  justify-content: center; }
+  /* Chips row shown below search when expanded */
+  .search-chips-row { background: var(--bg3);
+                      padding: 0 10px; overflow: hidden; max-height: 0;
+                      transition: max-height 180ms ease-out;
+                      border-bottom: 1px solid rgba(79,209,197,0.1); }
+  .search-chips-row.expanded { display: flex; max-height: 44px;
+                                padding: 6px 10px; gap: 6px; flex-wrap: nowrap;
+                                overflow-x: auto; }
+
+  /* ── Panes — stacked single column ──────────────────────────────────── */
+  .panes { flex-direction: column; overflow: visible; flex: unset; }
+  /* By default hide all panes on mobile — JS adds active classes */
+  .sidebar     { display: none; }
+  .home-view   { display: none; }
+  .list-pane   { display: none; width: 100%; border-right: none; }
+  .releases-pane { display: none; width: 100%; border-right: none; }
+  .detail-pane { display: none; width: 100%; padding: 16px; }
+
+  /* Show the right pane based on state class */
+  .panes.home-active    .home-view      { display: block; }
+  .panes.list-active    .list-pane      { display: flex; }
+  .panes.detail-active  .detail-pane    { display: block; }
+  .panes.releases-active .releases-pane { display: flex; }
+
+  /* ── Home view ───────────────────────────────────────────────────────── */
+  .home-view  { padding: 20px 16px 32px; }
+  .home-title { font-size: 24px; }
+  .home-sub   { font-size: 13px; margin-bottom: 20px; }
+  .home-stats { gap: 24px; }
+  .home-stat-n { font-size: 24px; }
+  .cat-grid   { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* ── List pane ───────────────────────────────────────────────────────── */
+  .list-head  { padding: 8px 12px; }
+  .mobile-chips { display: flex; gap: 4px; flex-wrap: nowrap;
+                  overflow-x: auto; padding: 6px 0 2px;
+                  scrollbar-width: none; }
+  .mobile-chips::-webkit-scrollbar { display: none; }
+  .entry-row  { padding: 10px 12px; }
+  .row-name   { font-size: 13px; }
+  .row-desc   { font-size: 12px; }
+
+  /* ── Detail pane ─────────────────────────────────────────────────────── */
+  .detail-name { font-size: 18px; }
+  .detail-desc { font-size: 13px; }
+
+  /* ── Pane slide transition ───────────────────────────────────────────── */
+  .list-pane, .detail-pane, .releases-pane, .home-view {
+    transition: opacity 180ms ease-out;
+    animation: pane-in 220ms ease-out;
+  }
+  @keyframes pane-in {
+    from { opacity: 0; transform: translateX(18px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── Drawer (sidebar as overlay) ─────────────────────────────────────── */
+  .sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 280px; z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 200ms ease-out;
+    padding-top: 56px;
+  }
+  body.drawer-open .sidebar { transform: translateX(0); display: flex; }
+
+  /* ── Touch targets ───────────────────────────────────────────────────── */
+  .sidebar-item { min-height: 44px; display: flex; align-items: center; }
+  .chip         { min-height: 36px; padding: 4px 12px; }
+  .entry-row    { min-height: 56px; }
+  .release-row  { min-height: 56px; }
+
+  /* ── Smallest screens ────────────────────────────────────────────────── */
+  @media (max-width: 400px) {
+    .cat-grid { grid-template-columns: 1fr; }
+  }
+}

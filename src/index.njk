@@ -16,6 +16,16 @@ layout: base.njk
     </div>
     <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" onclick="openDrawer()">☰</button>
   </header>
+  <div class="search-bar-row" id="search-bar-row">
+    <input class="search" id="search-expanded" type="text" placeholder="Search {{ entries | length }} entries…" autocomplete="off">
+    <button type="button" class="search-close" onclick="toggleSearch()">✕</button>
+  </div>
+  <div class="search-chips-row" id="search-chips-row">
+    <button type="button" class="chip active" data-filter="all">All</button>
+    <button type="button" class="chip active" data-filter="community">community</button>
+    <button type="button" class="chip active" data-filter="affiliated">affiliated</button>
+    <button type="button" class="chip active" data-filter="official">official</button>
+  </div>
   <div class="panes home-active" id="panes">
     {%- include "sidebar.njk" -%}
     {%- include "home.njk" -%}
