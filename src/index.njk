@@ -3,15 +3,29 @@ layout: base.njk
 ---
 <div class="app">
   <header class="topbar">
-    <span class="logo">⚡ tt-awesome</span>
+    <button type="button" class="mobile-back" id="mobile-back" aria-label="Go back" onclick="mobilePaneBack()">←</button>
+    <button type="button" class="logo" id="topbar-logo" onclick="showHome()">⚡ tt-awesome</button>
+    <span class="mobile-title" id="mobile-title"></span>
     <input class="search" id="search" type="text" placeholder="Search {{ entries | length }} entries…" autocomplete="off">
-    <div class="chips">
+    <button type="button" class="search-toggle" id="search-toggle" aria-label="Search" onclick="toggleSearch()">🔍</button>
+    <div class="chips" id="topbar-chips">
       <button class="chip active" data-filter="all">All</button>
       <button class="chip active" data-filter="community">community</button>
       <button class="chip active" data-filter="affiliated">affiliated</button>
       <button class="chip active" data-filter="official">official</button>
     </div>
+    <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" onclick="openDrawer()">☰</button>
   </header>
+  <div class="search-bar-row" id="search-bar-row">
+    <input class="search" id="search-expanded" type="text" placeholder="Search {{ entries | length }} entries…" autocomplete="off">
+    <button type="button" class="search-close" aria-label="Close search" onclick="toggleSearch()">✕</button>
+  </div>
+  <div class="search-chips-row" id="search-chips-row">
+    <button type="button" class="chip active" data-filter="all">All</button>
+    <button type="button" class="chip active" data-filter="community">community</button>
+    <button type="button" class="chip active" data-filter="affiliated">affiliated</button>
+    <button type="button" class="chip active" data-filter="official">official</button>
+  </div>
   <div class="panes home-active" id="panes">
     {%- include "sidebar.njk" -%}
     {%- include "home.njk" -%}
@@ -19,4 +33,5 @@ layout: base.njk
     {%- include "releases-list.njk" -%}
     {%- include "entry-detail.njk" -%}
   </div>
+  <div class="drawer-backdrop" id="drawer-backdrop" onclick="closeDrawer()"></div>
 </div>

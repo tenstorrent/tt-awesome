@@ -8,6 +8,121 @@ let activeEntryId = null;
 let activeAuthorFilter = null;
 let activeReleasesView = 'all';
 
+/* ── Mobile helpers ─────────────────────────────────────────────────────── */
+
+/** True when the mobile breakpoint is active. */
+function isMobile() {
+  return window.matchMedia("(max-width: 767px)").matches;
+}
+
+/** Open the nav drawer (mobile only). */
+function openDrawer() {
+  document.body.classList.add("drawer-open");
+}
+
+/** Close the nav drawer. */
+function closeDrawer() {
+  document.body.classList.remove("drawer-open");
+}
+
+/**
+ * Toggle the expandable search bar (mobile only).
+ * On expand, wires the mobile search input to the same applyFilters() path.
+ * On collapse, clears both inputs and returns to filtered state.
+ */
+function toggleSearch() {
+  const row   = document.getElementById("search-bar-row");
+  const chips = document.getElementById("search-chips-row");
+  const input = document.getElementById("search-expanded");
+  const isOpen = row.classList.contains("expanded");
+  if (isOpen) {
+    const hadQuery = input.value.trim() !== "";
+    row.classList.remove("expanded");
+    chips.classList.remove("expanded");
+    input.value = "";
+    document.getElementById("search").value = "";
+    // Only navigate home if a search was actually in progress — otherwise stay on current pane.
+    if (hadQuery) {
+      _applyHome();
+    }
+  } else {
+    row.classList.add("expanded");
+    chips.classList.add("expanded");
+    input.focus();
+  }
+}
+
+/**
+ * Update the mobile topbar for a given pane state.
+ * title: string shown as the page title (empty = show logo).
+ * showBack: whether the ← arrow is visible.
+ */
+function updateMobileTopbar(title, showBack) {
+  const back  = document.getElementById("mobile-back");
+  const logo  = document.getElementById("topbar-logo");
+  const label = document.getElementById("mobile-title");
+  if (!back) return;
+  if (showBack) {
+    back.classList.add("visible");
+    logo.classList.add("hidden");
+    label.textContent = title || "";
+  } else {
+    back.classList.remove("visible");
+    logo.classList.remove("hidden");
+    label.textContent = "";
+  }
+}
+
+/**
+ * Mobile back button handler.
+ * If detail is visible → go back to list.
+ * If list is visible → go back to home.
+ */
+function mobilePaneBack() {
+  const panes = document.getElementById("panes");
+  if (panes.classList.contains("detail-active")) {
+    panes.classList.remove("detail-active");
+    // Return to the pane we came from (stored in dataset.detailFrom by _applyEntry)
+    if (panes.dataset.detailFrom === "releases") {
+      panes.classList.add("releases-active");
+      updateMobileTopbar("Recent Releases", true);
+    } else {
+      panes.classList.add("list-active");
+      const title = document.getElementById("list-title").textContent;
+      updateMobileTopbar(title, true);
+    }
+    document.querySelectorAll(".entry-row, .release-row").forEach(r => r.classList.remove("active"));
+    document.getElementById("detail-empty").style.display = "";
+    document.querySelectorAll(".detail-card").forEach(c => c.classList.remove("visible"));
+    activeEntryId = null;
+    // Update URL to remove the entry param so refresh/share lands on the list, not the detail
+    if (panes.dataset.detailFrom === "releases") {
+      pushUrl({ releases: activeReleasesView });
+    } else if (activeCategory) {
+      pushUrl({ cat: activeCategory });
+    } else if (activeAuthorFilter) {
+      pushUrl({ author: activeAuthorFilter });
+    } else {
+      pushUrl({});
+    }
+  } else {
+    showHome();
+  }
+}
+
+/**
+ * Sync active class on all mobile chip copies to match the canonical topbar chips.
+ * Called after any chip toggle so all three chip sets stay in sync.
+ */
+function syncMobileChips() {
+  document.querySelectorAll(".mobile-chips .chip, #search-chips-row .chip").forEach(chip => {
+    const f = chip.dataset.filter;
+    chip.classList.toggle("active",
+      f === "all" ? activeFilters.size === 3 : activeFilters.has(f)
+    );
+  });
+}
+
 /** Convert an ISO date string to a human-friendly "N days ago" string. */
 function relativeTime(iso) {
   const ts = new Date(iso).getTime();
@@ -36,26 +151,81 @@ document.addEventListener("DOMContentLoaded", () => {
     if (el.dataset.ts) el.textContent = relativeTime(el.dataset.ts);
   });
 
-  // Search — when typing while on the home view, switch to cross-category search mode.
-  // When the query is cleared in that mode, return home.
+  // Search — always switch to global (cross-category) search when a query is typed,
+  // regardless of which pane is active. When cleared, return home.
   document.getElementById("search").addEventListener("input", (e) => {
     const q = e.target.value.toLowerCase().trim();
-    if (q && isHomeActive()) {
+    if (q) {
       _applySearchAll();
-    } else if (!q && activeCategory === null && activeAuthorFilter === null && !isHomeActive()) {
+    } else {
       _applyHome();
       return;
     }
     applyFilters(q);
   });
 
-  // Filter chips
+  // Filter chips — this selector covers ALL .chip elements including mobile chip
+  // copies, so a single registration is sufficient for all chip sets.
   document.querySelectorAll(".chip").forEach((chip) =>
     chip.addEventListener("click", () => toggleChip(chip))
   );
 
+  // Mobile expandable search — always global search, same as desktop.
+  const mobileInput = document.getElementById("search-expanded");
+  if (mobileInput) {
+    mobileInput.addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      document.getElementById("search").value = e.target.value;
+      if (q) {
+        _applySearchAll();
+        if (isMobile()) {
+          const panes = document.getElementById("panes");
+          panes.classList.remove("detail-active");
+          panes.classList.add("list-active");
+          updateMobileTopbar("All", true);
+        }
+      } else {
+        _applyHome();
+        return;
+      }
+      applyFilters(q);
+    });
+  }
+
   // Browser back / forward
   window.addEventListener("popstate", restoreFromUrl);
+
+  // Sync pane state when viewport crosses the mobile/desktop boundary.
+  window.matchMedia("(max-width: 767px)").addEventListener("change", (e) => {
+    const panes = document.getElementById("panes");
+    if (!e.matches) {
+      // Desktop: remove mobile-only pane classes
+      panes.classList.remove("list-active", "detail-active");
+      updateMobileTopbar("", false);
+      closeDrawer();
+    } else {
+      // Mobile: derive which pane to show from current desktop state
+      if (activeEntryId) {
+        panes.classList.remove("list-active");
+        panes.classList.add("detail-active");
+        const title = activeCategory
+          ? document.getElementById("list-title").textContent
+          : (activeAuthorFilter || "Releases");
+        updateMobileTopbar(title, true);
+      } else if (panes.classList.contains("releases-active")) {
+        updateMobileTopbar("Recent Releases", true);
+      } else if (activeCategory || activeAuthorFilter) {
+        panes.classList.add("list-active");
+        const title = document.getElementById("list-title").textContent;
+        updateMobileTopbar(title, true);
+      } else if (!panes.classList.contains("home-active")) {
+        // Fallback: cross-category search or unknown state — show list
+        panes.classList.add("list-active");
+        updateMobileTopbar("All", true);
+      }
+      // home-active is already handled by CSS — no class addition needed
+    }
+  });
 });
 
 /* ── URL helpers ─────────────────────────────────────────────────────────── */
@@ -139,6 +309,13 @@ function _applyHome() {
   panes.classList.remove("releases-active");
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   document.getElementById("home-item").classList.add("active");
+  if (isMobile()) {
+    panes.classList.remove("list-active");
+    panes.classList.remove("detail-active");
+    delete panes.dataset.detailFrom;
+    updateMobileTopbar("", false);
+    closeDrawer();
+  }
 }
 
 /** Internal: show list pane with no category filter (cross-category search). No history push. */
@@ -170,6 +347,12 @@ function _applyAuthorFilter(name) {
   document.getElementById("list-title").textContent = name;
   _clearDetail();
   applyFilters(document.getElementById("search").value.toLowerCase().trim());
+  if (isMobile()) {
+    panes.classList.remove("detail-active");
+    panes.classList.add("list-active");
+    updateMobileTopbar(name, true);
+    closeDrawer();
+  }
 }
 
 /* ── Releases pane ──────────────────────────────────────────────────────── */
@@ -194,6 +377,12 @@ function _applyReleases(view) {
   if (relItem) relItem.classList.add("active");
   applyReleasesFilter(activeReleasesView);
   _clearDetail();
+  if (isMobile()) {
+    panes.classList.remove("list-active");
+    panes.classList.remove("detail-active");
+    updateMobileTopbar("Recent Releases", true);
+    closeDrawer();
+  }
 }
 
 /** Toggle the All/Official/Community button strip in the releases pane. */
@@ -245,6 +434,12 @@ function _applyCategory(slug, el) {
   document.getElementById("list-title").textContent = el.textContent.trim();
   applyFilters(document.getElementById("search").value.toLowerCase().trim());
   _clearDetail();
+  if (isMobile()) {
+    panes.classList.remove("detail-active");
+    panes.classList.add("list-active");
+    updateMobileTopbar(el.textContent.trim(), true);
+    closeDrawer();
+  }
 }
 
 /** Public: select entry and update URL. */
@@ -268,6 +463,20 @@ function _applyEntry(id, el) {
   document.querySelectorAll(".detail-card").forEach((c) => c.classList.remove("visible"));
   const card = document.getElementById("detail-" + id);
   if (card) card.classList.add("visible");
+  if (isMobile()) {
+    const panes = document.getElementById("panes");
+    const fromReleases = panes.classList.contains("releases-active");
+    panes.classList.remove("list-active", "releases-active");
+    panes.classList.add("detail-active");
+    // Store origin so mobilePaneBack() can return to the correct pane
+    panes.dataset.detailFrom = fromReleases ? "releases" : "list";
+    const title = fromReleases
+      ? "Releases"
+      : (activeCategory
+          ? document.getElementById("list-title").textContent
+          : (activeAuthorFilter || ""));
+    updateMobileTopbar(title, true);
+  }
 }
 
 /** Internal: clear detail panel without touching history. */
@@ -296,6 +505,7 @@ function toggleChip(chip) {
     );
   });
   applyFilters(document.getElementById("search").value.toLowerCase().trim());
+  syncMobileChips();
 }
 
 /* ── Row visibility ─────────────────────────────────────────────────────── */
