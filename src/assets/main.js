@@ -148,11 +148,11 @@ document.addEventListener("DOMContentLoaded", () => {
     chip.addEventListener("click", () => toggleChip(chip))
   );
 
-  // Mobile chip copies use the same toggleChip logic and sync active state.
+  // Mobile chip copies use the same toggleChip logic; syncMobileChips() is
+  // already called inside toggleChip(), so no explicit call is needed here.
   document.querySelectorAll(".mobile-chips .chip, #search-chips-row .chip").forEach((chip) =>
     chip.addEventListener("click", () => {
       toggleChip(chip);
-      syncMobileChips();
     })
   );
 
