@@ -36,11 +36,15 @@ function toggleSearch() {
   const input = document.getElementById("search-expanded");
   const isOpen = row.classList.contains("expanded");
   if (isOpen) {
+    const hadQuery = input.value.trim() !== "";
     row.classList.remove("expanded");
     chips.classList.remove("expanded");
     input.value = "";
     document.getElementById("search").value = "";
-    _applyHome();
+    // Only navigate home if a search was actually in progress — otherwise stay on current pane.
+    if (hadQuery) {
+      _applyHome();
+    }
   } else {
     row.classList.add("expanded");
     chips.classList.add("expanded");
@@ -191,13 +195,35 @@ document.addEventListener("DOMContentLoaded", () => {
   // Browser back / forward
   window.addEventListener("popstate", restoreFromUrl);
 
-  // On resize back to desktop, reset mobile pane state.
+  // Sync pane state when viewport crosses the mobile/desktop boundary.
   window.matchMedia("(max-width: 767px)").addEventListener("change", (e) => {
+    const panes = document.getElementById("panes");
     if (!e.matches) {
-      const panes = document.getElementById("panes");
+      // Desktop: remove mobile-only pane classes
       panes.classList.remove("list-active", "detail-active");
       updateMobileTopbar("", false);
       closeDrawer();
+    } else {
+      // Mobile: derive which pane to show from current desktop state
+      if (activeEntryId) {
+        panes.classList.remove("list-active");
+        panes.classList.add("detail-active");
+        const title = activeCategory
+          ? document.getElementById("list-title").textContent
+          : (activeAuthorFilter || "Releases");
+        updateMobileTopbar(title, true);
+      } else if (panes.classList.contains("releases-active")) {
+        updateMobileTopbar("Recent Releases", true);
+      } else if (activeCategory || activeAuthorFilter) {
+        panes.classList.add("list-active");
+        const title = document.getElementById("list-title").textContent;
+        updateMobileTopbar(title, true);
+      } else if (!panes.classList.contains("home-active")) {
+        // Fallback: cross-category search or unknown state — show list
+        panes.classList.add("list-active");
+        updateMobileTopbar("All", true);
+      }
+      // home-active is already handled by CSS — no class addition needed
     }
   });
 });
