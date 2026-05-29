@@ -8,6 +8,100 @@ let activeEntryId = null;
 let activeAuthorFilter = null;
 let activeReleasesView = 'all';
 
+/* ── Mobile helpers ─────────────────────────────────────────────────────── */
+
+/** True when the mobile breakpoint is active. */
+function isMobile() {
+  return window.matchMedia("(max-width: 767px)").matches;
+}
+
+/** Open the nav drawer (mobile only). */
+function openDrawer() {
+  document.body.classList.add("drawer-open");
+}
+
+/** Close the nav drawer. */
+function closeDrawer() {
+  document.body.classList.remove("drawer-open");
+}
+
+/**
+ * Toggle the expandable search bar (mobile only).
+ * On expand, wires the mobile search input to the same applyFilters() path.
+ * On collapse, clears both inputs and returns to filtered state.
+ */
+function toggleSearch() {
+  const row   = document.getElementById("search-bar-row");
+  const chips = document.getElementById("search-chips-row");
+  const input = document.getElementById("search-expanded");
+  const isOpen = row.classList.contains("expanded");
+  if (isOpen) {
+    row.classList.remove("expanded");
+    chips.classList.remove("expanded");
+    input.value = "";
+    applyFilters("");
+  } else {
+    row.classList.add("expanded");
+    chips.classList.add("expanded");
+    input.focus();
+  }
+}
+
+/**
+ * Update the mobile topbar for a given pane state.
+ * title: string shown as the page title (empty = show logo).
+ * showBack: whether the ← arrow is visible.
+ */
+function updateMobileTopbar(title, showBack) {
+  const back  = document.getElementById("mobile-back");
+  const logo  = document.getElementById("topbar-logo");
+  const label = document.getElementById("mobile-title");
+  if (!back) return;
+  if (showBack) {
+    back.classList.add("visible");
+    logo.classList.add("hidden");
+    label.textContent = title || "";
+  } else {
+    back.classList.remove("visible");
+    logo.classList.remove("hidden");
+    label.textContent = "";
+  }
+}
+
+/**
+ * Mobile back button handler.
+ * If detail is visible → go back to list.
+ * If list is visible → go back to home.
+ */
+function mobilePaneBack() {
+  const panes = document.getElementById("panes");
+  if (panes.classList.contains("detail-active")) {
+    panes.classList.remove("detail-active");
+    panes.classList.add("list-active");
+    const title = document.getElementById("list-title").textContent;
+    updateMobileTopbar(title, true);
+    document.querySelectorAll(".entry-row, .release-row").forEach(r => r.classList.remove("active"));
+    document.getElementById("detail-empty").style.display = "";
+    document.querySelectorAll(".detail-card").forEach(c => c.classList.remove("visible"));
+    activeEntryId = null;
+  } else {
+    showHome();
+  }
+}
+
+/**
+ * Sync active class on all mobile chip copies to match the canonical topbar chips.
+ * Called after any chip toggle so all three chip sets stay in sync.
+ */
+function syncMobileChips() {
+  document.querySelectorAll(".mobile-chips .chip, #search-chips-row .chip").forEach(chip => {
+    const f = chip.dataset.filter;
+    chip.classList.toggle("active",
+      f === "all" ? activeFilters.size === 3 : activeFilters.has(f)
+    );
+  });
+}
+
 /** Convert an ISO date string to a human-friendly "N days ago" string. */
 function relativeTime(iso) {
   const ts = new Date(iso).getTime();
@@ -54,8 +148,47 @@ document.addEventListener("DOMContentLoaded", () => {
     chip.addEventListener("click", () => toggleChip(chip))
   );
 
+  // Mobile chip copies use the same toggleChip logic and sync active state.
+  document.querySelectorAll(".mobile-chips .chip, #search-chips-row .chip").forEach((chip) =>
+    chip.addEventListener("click", () => {
+      toggleChip(chip);
+      syncMobileChips();
+    })
+  );
+
+  // Mobile expandable search input mirrors the desktop search
+  const mobileInput = document.getElementById("search-expanded");
+  if (mobileInput) {
+    mobileInput.addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      document.getElementById("search").value = e.target.value;
+      if (q && isHomeActive()) {
+        _applySearchAll();
+        if (isMobile()) {
+          const panes = document.getElementById("panes");
+          panes.classList.add("list-active");
+          updateMobileTopbar("All", true);
+        }
+      } else if (!q && activeCategory === null && activeAuthorFilter === null && !isHomeActive()) {
+        _applyHome();
+        return;
+      }
+      applyFilters(q);
+    });
+  }
+
   // Browser back / forward
   window.addEventListener("popstate", restoreFromUrl);
+
+  // On resize back to desktop, reset mobile pane state.
+  window.matchMedia("(max-width: 767px)").addEventListener("change", (e) => {
+    if (!e.matches) {
+      const panes = document.getElementById("panes");
+      panes.classList.remove("list-active", "detail-active");
+      updateMobileTopbar("", false);
+      closeDrawer();
+    }
+  });
 });
 
 /* ── URL helpers ─────────────────────────────────────────────────────────── */
@@ -139,6 +272,12 @@ function _applyHome() {
   panes.classList.remove("releases-active");
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   document.getElementById("home-item").classList.add("active");
+  if (isMobile()) {
+    panes.classList.remove("list-active");
+    panes.classList.remove("detail-active");
+    updateMobileTopbar("", false);
+    closeDrawer();
+  }
 }
 
 /** Internal: show list pane with no category filter (cross-category search). No history push. */
@@ -170,6 +309,12 @@ function _applyAuthorFilter(name) {
   document.getElementById("list-title").textContent = name;
   _clearDetail();
   applyFilters(document.getElementById("search").value.toLowerCase().trim());
+  if (isMobile()) {
+    panes.classList.remove("detail-active");
+    panes.classList.add("list-active");
+    updateMobileTopbar(name, true);
+    closeDrawer();
+  }
 }
 
 /* ── Releases pane ──────────────────────────────────────────────────────── */
@@ -194,6 +339,12 @@ function _applyReleases(view) {
   if (relItem) relItem.classList.add("active");
   applyReleasesFilter(activeReleasesView);
   _clearDetail();
+  if (isMobile()) {
+    panes.classList.remove("list-active");
+    panes.classList.remove("detail-active");
+    updateMobileTopbar("Recent Releases", true);
+    closeDrawer();
+  }
 }
 
 /** Toggle the All/Official/Community button strip in the releases pane. */
@@ -245,6 +396,12 @@ function _applyCategory(slug, el) {
   document.getElementById("list-title").textContent = el.textContent.trim();
   applyFilters(document.getElementById("search").value.toLowerCase().trim());
   _clearDetail();
+  if (isMobile()) {
+    panes.classList.remove("detail-active");
+    panes.classList.add("list-active");
+    updateMobileTopbar(el.textContent.trim(), true);
+    closeDrawer();
+  }
 }
 
 /** Public: select entry and update URL. */
@@ -268,6 +425,15 @@ function _applyEntry(id, el) {
   document.querySelectorAll(".detail-card").forEach((c) => c.classList.remove("visible"));
   const card = document.getElementById("detail-" + id);
   if (card) card.classList.add("visible");
+  if (isMobile()) {
+    const panes = document.getElementById("panes");
+    panes.classList.remove("list-active");
+    panes.classList.add("detail-active");
+    const title = activeCategory
+      ? document.getElementById("list-title").textContent
+      : (activeAuthorFilter || "Releases");
+    updateMobileTopbar(title, true);
+  }
 }
 
 /** Internal: clear detail panel without touching history. */
@@ -296,6 +462,7 @@ function toggleChip(chip) {
     );
   });
   applyFilters(document.getElementById("search").value.toLowerCase().trim());
+  syncMobileChips();
 }
 
 /* ── Row visibility ─────────────────────────────────────────────────────── */
