@@ -3,18 +3,18 @@ layout: base.njk
 ---
 <div class="app">
   <header class="topbar">
-    <button class="mobile-back" id="mobile-back" aria-label="Go back" onclick="mobilePaneBack()">←</button>
-    <span class="logo" id="topbar-logo" onclick="showHome(); return false;" style="cursor:pointer;">⚡ tt-awesome</span>
+    <button type="button" class="mobile-back" id="mobile-back" aria-label="Go back" onclick="mobilePaneBack()">←</button>
+    <span class="logo" id="topbar-logo" onclick="showHome(); return false;">⚡ tt-awesome</span>
     <span class="mobile-title" id="mobile-title"></span>
     <input class="search" id="search" type="text" placeholder="Search {{ entries | length }} entries…" autocomplete="off">
-    <button class="search-toggle" id="search-toggle" aria-label="Search" onclick="toggleSearch()">🔍</button>
+    <button type="button" class="search-toggle" id="search-toggle" aria-label="Search" onclick="toggleSearch()">🔍</button>
     <div class="chips" id="topbar-chips">
       <button class="chip active" data-filter="all">All</button>
       <button class="chip active" data-filter="community">community</button>
       <button class="chip active" data-filter="affiliated">affiliated</button>
       <button class="chip active" data-filter="official">official</button>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="openDrawer()">☰</button>
+    <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" onclick="openDrawer()">☰</button>
   </header>
   <div class="panes home-active" id="panes">
     {%- include "sidebar.njk" -%}
