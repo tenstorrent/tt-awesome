@@ -78,8 +78,9 @@ function mobilePaneBack() {
   const panes = document.getElementById("panes");
   if (panes.classList.contains("detail-active")) {
     panes.classList.remove("detail-active");
-    // Return to releases pane if that's where we came from, otherwise list pane
-    if (panes.classList.contains("releases-active")) {
+    // Return to the pane we came from (stored in dataset.detailFrom by _applyEntry)
+    if (panes.dataset.detailFrom === "releases") {
+      panes.classList.add("releases-active");
       updateMobileTopbar("Recent Releases", true);
     } else {
       panes.classList.add("list-active");
@@ -275,6 +276,7 @@ function _applyHome() {
   if (isMobile()) {
     panes.classList.remove("list-active");
     panes.classList.remove("detail-active");
+    delete panes.dataset.detailFrom;
     updateMobileTopbar("", false);
     closeDrawer();
   }
@@ -427,11 +429,16 @@ function _applyEntry(id, el) {
   if (card) card.classList.add("visible");
   if (isMobile()) {
     const panes = document.getElementById("panes");
+    const fromReleases = panes.classList.contains("releases-active");
     panes.classList.remove("list-active", "releases-active");
     panes.classList.add("detail-active");
-    const title = activeCategory
-      ? document.getElementById("list-title").textContent
-      : (activeAuthorFilter || "Releases");
+    // Store origin so mobilePaneBack() can return to the correct pane
+    panes.dataset.detailFrom = fromReleases ? "releases" : "list";
+    const title = fromReleases
+      ? "Releases"
+      : (activeCategory
+          ? document.getElementById("list-title").textContent
+          : (activeAuthorFilter || ""));
     updateMobileTopbar(title, true);
   }
 }

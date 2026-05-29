@@ -4,7 +4,7 @@ layout: base.njk
 <div class="app">
   <header class="topbar">
     <button type="button" class="mobile-back" id="mobile-back" aria-label="Go back" onclick="mobilePaneBack()">←</button>
-    <span class="logo" id="topbar-logo" onclick="showHome(); return false;">⚡ tt-awesome</span>
+    <button type="button" class="logo" id="topbar-logo" onclick="showHome()">⚡ tt-awesome</button>
     <span class="mobile-title" id="mobile-title"></span>
     <input class="search" id="search" type="text" placeholder="Search {{ entries | length }} entries…" autocomplete="off">
     <button type="button" class="search-toggle" id="search-toggle" aria-label="Search" onclick="toggleSearch()">🔍</button>
@@ -18,7 +18,7 @@ layout: base.njk
   </header>
   <div class="search-bar-row" id="search-bar-row">
     <input class="search" id="search-expanded" type="text" placeholder="Search {{ entries | length }} entries…" autocomplete="off">
-    <button type="button" class="search-close" onclick="toggleSearch()">✕</button>
+    <button type="button" class="search-close" aria-label="Close search" onclick="toggleSearch()">✕</button>
   </div>
   <div class="search-chips-row" id="search-chips-row">
     <button type="button" class="chip active" data-filter="all">All</button>
