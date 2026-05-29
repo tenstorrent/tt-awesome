@@ -39,6 +39,7 @@ function toggleSearch() {
     row.classList.remove("expanded");
     chips.classList.remove("expanded");
     input.value = "";
+    document.getElementById("search").value = "";
     applyFilters("");
   } else {
     row.classList.add("expanded");
@@ -426,7 +427,7 @@ function _applyEntry(id, el) {
   if (card) card.classList.add("visible");
   if (isMobile()) {
     const panes = document.getElementById("panes");
-    panes.classList.remove("list-active");
+    panes.classList.remove("list-active", "releases-active");
     panes.classList.add("detail-active");
     const title = activeCategory
       ? document.getElementById("list-title").textContent
