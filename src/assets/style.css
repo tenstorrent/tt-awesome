@@ -370,7 +370,7 @@ body.drawer-open .drawer-backdrop {
   /* ── Panes — stacked single column ──────────────────────────────────── */
   .panes { flex-direction: column; overflow: visible; flex: unset; }
   /* By default hide all panes on mobile — JS adds active classes */
-  .sidebar     { display: none; }
+  .sidebar     { display: none; } /* shown as drawer overlay via body.drawer-open below */
   .home-view   { display: none; }
   .list-pane   { display: none; width: 100%; border-right: none; }
   .releases-pane { display: none; width: 100%; border-right: none; }
@@ -431,6 +431,9 @@ body.drawer-open .drawer-backdrop {
   .release-row  { min-height: 56px; }
 
   /* ── Smallest screens ────────────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .cat-card-feature { display: none; }
+  }
   @media (max-width: 400px) {
     .cat-grid { grid-template-columns: 1fr; }
   }
