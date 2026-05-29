@@ -42,7 +42,7 @@
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 12,
-    "updatedAt": "2026-05-27T08:57:29Z"
+    "updatedAt": "2026-05-28T08:25:37Z"
   },
   "https://github.com/moritztng/tt-boltz": {
     "stars": 89,
@@ -68,7 +68,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 54,
-    "updatedAt": "2026-05-27T23:28:33Z",
+    "updatedAt": "2026-05-28T23:35:56Z",
     "releases": [
       {
         "tagName": "v0.14.0",
@@ -159,8 +159,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-studio": {
-    "stars": 46,
-    "updatedAt": "2026-05-28T02:27:02Z",
+    "stars": 47,
+    "updatedAt": "2026-05-28T21:21:29Z",
     "releases": [
       {
         "tagName": "v2.6.0",
@@ -200,10 +200,17 @@
     ]
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2149,
-    "updatedAt": "2026-05-27T22:56:59Z",
+    "stars": 2151,
+    "updatedAt": "2026-05-28T20:11:03Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
+      {
+        "tagName": "0.20.22",
+        "name": "0.20.22",
+        "publishedAt": "2026-05-28T10:24:19Z",
+        "url": "https://github.com/dstackai/dstack/releases/tag/0.20.22",
+        "prerelease": false
+      },
       {
         "tagName": "0.20.21",
         "name": "0.20.21",
@@ -231,13 +238,6 @@
         "publishedAt": "2026-04-23T14:54:09Z",
         "url": "https://github.com/dstackai/dstack/releases/tag/0.20.18",
         "prerelease": false
-      },
-      {
-        "tagName": "0.20.17",
-        "name": "0.20.17",
-        "publishedAt": "2026-04-16T12:45:58Z",
-        "url": "https://github.com/dstackai/dstack/releases/tag/0.20.17",
-        "prerelease": false
       }
     ]
   },
@@ -247,11 +247,11 @@
   },
   "https://github.com/Zaneham/BarraCUDA": {
     "stars": 1689,
-    "updatedAt": "2026-05-27T16:05:16Z"
+    "updatedAt": "2026-05-29T03:05:41Z"
   },
   "https://github.com/kernelize-ai/triton-tenstorrent": {
-    "stars": 9,
-    "updatedAt": "2026-05-27T13:29:55Z"
+    "stars": 10,
+    "updatedAt": "2026-05-29T00:10:55Z"
   },
   "https://github.com/tenstorrent/tt-buda": {
     "stars": 312,
@@ -296,19 +296,33 @@
   },
   "https://github.com/tsingletaryTT/tt-forge-compiletron": {
     "stars": 0,
-    "updatedAt": "2026-05-26T22:35:05Z",
+    "updatedAt": "2026-05-28T23:31:46Z",
     "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tt-forge-compiletron/main/docs/demo.gif"
   },
   "https://github.com/tenstorrent/tt-forge": {
-    "stars": 237,
-    "updatedAt": "2026-05-28T00:39:11Z",
+    "stars": 239,
+    "updatedAt": "2026-05-28T21:21:59Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
+      {
+        "tagName": "1.2.0.dev20260529003234",
+        "name": "1.2.0.dev20260529003234",
+        "publishedAt": "2026-05-29T01:51:18Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0.dev20260529003234",
+        "prerelease": false
+      },
       {
         "tagName": "1.2.0.dev20260528002737",
         "name": "1.2.0.dev20260528002737",
         "publishedAt": "2026-05-28T01:11:13Z",
         "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0.dev20260528002737",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.2.0",
+        "name": "1.2.0",
+        "publishedAt": "2026-05-28T09:59:56Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0",
         "prerelease": false
       },
       {
@@ -324,20 +338,6 @@
         "publishedAt": "2026-05-26T02:24:44Z",
         "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0.dev20260526002843",
         "prerelease": false
-      },
-      {
-        "tagName": "1.2.0.dev20260525002927",
-        "name": "1.2.0.dev20260525002927",
-        "publishedAt": "2026-05-25T01:26:33Z",
-        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0.dev20260525002927",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.2.0.dev20260524002812",
-        "name": "1.2.0.dev20260524002812",
-        "publishedAt": "2026-05-24T01:20:41Z",
-        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.2.0.dev20260524002812",
-        "prerelease": false
       }
     ]
   },
@@ -347,7 +347,7 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 272,
-    "updatedAt": "2026-05-27T20:38:10Z",
+    "updatedAt": "2026-05-28T22:18:53Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -433,13 +433,27 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 63,
-    "updatedAt": "2026-05-27T20:31:59Z",
+    "updatedAt": "2026-05-28T19:43:06Z",
     "releases": [
+      {
+        "tagName": "1.2.0.dev20260529003234",
+        "name": "1.2.0.dev20260529003234",
+        "publishedAt": "2026-05-29T01:43:25Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0.dev20260529003234",
+        "prerelease": false
+      },
       {
         "tagName": "1.2.0.dev20260528002737",
         "name": "1.2.0.dev20260528002737",
         "publishedAt": "2026-05-28T01:02:33Z",
         "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0.dev20260528002737",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.2.0",
+        "name": "1.2.0",
+        "publishedAt": "2026-05-28T09:50:59Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0",
         "prerelease": false
       },
       {
@@ -455,20 +469,6 @@
         "publishedAt": "2026-05-26T02:16:18Z",
         "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0.dev20260526002843",
         "prerelease": false
-      },
-      {
-        "tagName": "1.2.0.dev20260525002927",
-        "name": "1.2.0.dev20260525002927",
-        "publishedAt": "2026-05-25T01:17:59Z",
-        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0.dev20260525002927",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.2.0.dev20260524002812",
-        "name": "1.2.0.dev20260524002812",
-        "publishedAt": "2026-05-24T01:12:37Z",
-        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.2.0.dev20260524002812",
-        "prerelease": false
       }
     ]
   },
@@ -477,8 +477,8 @@
     "updatedAt": "2026-05-21T22:59:39Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10695,
-    "updatedAt": "2026-05-27T19:38:58Z",
+    "stars": 10699,
+    "updatedAt": "2026-05-28T22:41:31Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -524,8 +524,8 @@
     "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tensix-viz/main/docs/assets/chip.gif"
   },
   "https://github.com/tenstorrent/tt-exalens": {
-    "stars": 20,
-    "updatedAt": "2026-05-26T08:34:16Z",
+    "stars": 21,
+    "updatedAt": "2026-05-28T18:06:07Z",
     "releases": [
       {
         "tagName": "v0.3.19",
@@ -578,9 +578,16 @@
     "updatedAt": "2026-05-01T21:28:10Z"
   },
   "https://github.com/Zaneham/ttas": {
-    "stars": 1,
-    "updatedAt": "2026-05-27T16:02:46Z",
+    "stars": 3,
+    "updatedAt": "2026-05-28T10:33:53Z",
     "releases": [
+      {
+        "tagName": "v0.1.0",
+        "name": "ttas v0.1.0",
+        "publishedAt": "2026-05-28T07:08:35Z",
+        "url": "https://github.com/Zaneham/ttas/releases/tag/v0.1.0",
+        "prerelease": false
+      },
       {
         "tagName": "v0.0.1",
         "name": "ttas v0.0.1",
@@ -646,8 +653,8 @@
     "updatedAt": "2025-09-11T08:24:11Z"
   },
   "https://github.com/tsingletaryTT/tt-zork-and-more": {
-    "stars": 1,
-    "updatedAt": "2026-05-08T21:32:50Z",
+    "stars": 2,
+    "updatedAt": "2026-05-28T19:10:25Z",
     "isFork": true,
     "forkParent": "historicalsource/zork1",
     "forkParentUrl": "https://github.com/historicalsource/zork1",
@@ -709,7 +716,7 @@
   },
   "https://github.com/boopdotpng/blackhole-py": {
     "stars": 14,
-    "updatedAt": "2026-05-21T08:32:02Z"
+    "updatedAt": "2026-05-29T01:50:07Z"
   },
   "https://github.com/tenstorrent/luwen": {
     "stars": 34,
@@ -880,8 +887,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-kmd": {
-    "stars": 64,
-    "updatedAt": "2026-05-26T18:29:29Z",
+    "stars": 65,
+    "updatedAt": "2026-05-28T18:06:16Z",
     "releases": [
       {
         "tagName": "ttkmd-2.9.0-rc1",
@@ -1094,7 +1101,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 42,
-    "updatedAt": "2026-05-27T21:38:18Z",
+    "updatedAt": "2026-05-28T10:29:15Z",
     "releases": [
       {
         "tagName": "v0.9.5-dev.260424",
@@ -1151,17 +1158,17 @@
     "updatedAt": "2026-04-15T08:40:22Z"
   },
   "https://github.com/tenstorrent/tt-lang": {
-    "stars": 47,
-    "updatedAt": "2026-05-27T18:07:46Z",
+    "stars": 48,
+    "updatedAt": "2026-05-28T21:22:36Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png"
   },
   "https://github.com/tenstorrent/tt-llk": {
     "stars": 49,
-    "updatedAt": "2026-05-27T05:34:00Z"
+    "updatedAt": "2026-05-28T16:43:24Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1470,
-    "updatedAt": "2026-05-28T02:54:34Z",
+    "stars": 1472,
+    "updatedAt": "2026-05-29T03:17:13Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -1172,31 +1179,31 @@
         "prerelease": true
       },
       {
-        "tagName": "v0.72.0-dev20260527",
-        "name": "v0.72.0-dev20260527",
-        "publishedAt": "2026-05-27T05:18:57Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.72.0-dev20260527",
+        "tagName": "v0.71.2",
+        "name": "v0.71.2",
+        "publishedAt": "2026-05-28T23:20:54Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.71.2",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.71.2-rc2",
+        "name": "v0.71.2-rc2",
+        "publishedAt": "2026-05-28T20:21:32Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.71.2-rc2",
         "prerelease": true
       },
       {
-        "tagName": "v0.71.1-rc2",
-        "name": "v0.71.1-rc2",
-        "publishedAt": "2026-05-28T01:03:49Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.71.1-rc2",
+        "tagName": "v0.71.2-rc1",
+        "name": "v0.71.2-rc1",
+        "publishedAt": "2026-05-28T21:27:27Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.71.2-rc1",
         "prerelease": true
       },
       {
-        "tagName": "v0.72.0-dev20260526",
-        "name": "v0.72.0-dev20260526",
-        "publishedAt": "2026-05-26T02:55:15Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.72.0-dev20260526",
-        "prerelease": true
-      },
-      {
-        "tagName": "v0.72.0-dev20260525",
-        "name": "v0.72.0-dev20260525",
-        "publishedAt": "2026-05-25T03:12:57Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.72.0-dev20260525",
+        "tagName": "v0.71.1-rc4",
+        "name": "v0.71.1-rc4",
+        "publishedAt": "2026-05-28T05:33:18Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.71.1-rc4",
         "prerelease": true
       }
     ]
@@ -1267,8 +1274,8 @@
     ]
   },
   "https://github.com/tenstorrent/riscv-ocelot": {
-    "stars": 248,
-    "updatedAt": "2026-05-27T18:06:20Z",
+    "stars": 249,
+    "updatedAt": "2026-05-28T19:55:37Z",
     "isFork": true,
     "forkParent": "riscv-boom/riscv-boom",
     "forkParentUrl": "https://github.com/riscv-boom/riscv-boom",
@@ -1334,8 +1341,8 @@
     ]
   },
   "https://github.com/tenstorrent/ttsim": {
-    "stars": 81,
-    "updatedAt": "2026-05-28T00:57:39Z",
+    "stars": 104,
+    "updatedAt": "2026-05-28T23:55:19Z",
     "releases": [
       {
         "tagName": "v1.7.0",
