@@ -135,13 +135,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (el.dataset.ts) el.textContent = relativeTime(el.dataset.ts);
   });
 
-  // Search — when typing while on the home view, switch to cross-category search mode.
-  // When the query is cleared in that mode, return home.
+  // Search — always switch to global (cross-category) search when a query is typed,
+  // regardless of which pane is active. When cleared, return home.
   document.getElementById("search").addEventListener("input", (e) => {
     const q = e.target.value.toLowerCase().trim();
-    if (q && isHomeActive()) {
+    if (q) {
       _applySearchAll();
-    } else if (!q && activeCategory === null && activeAuthorFilter === null && !isHomeActive()) {
+    } else {
       _applyHome();
       return;
     }
@@ -154,20 +154,21 @@ document.addEventListener("DOMContentLoaded", () => {
     chip.addEventListener("click", () => toggleChip(chip))
   );
 
-  // Mobile expandable search input mirrors the desktop search
+  // Mobile expandable search — always global search, same as desktop.
   const mobileInput = document.getElementById("search-expanded");
   if (mobileInput) {
     mobileInput.addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase().trim();
       document.getElementById("search").value = e.target.value;
-      if (q && isHomeActive()) {
+      if (q) {
         _applySearchAll();
         if (isMobile()) {
           const panes = document.getElementById("panes");
+          panes.classList.remove("detail-active");
           panes.classList.add("list-active");
           updateMobileTopbar("All", true);
         }
-      } else if (!q && activeCategory === null && activeAuthorFilter === null && !isHomeActive()) {
+      } else {
         _applyHome();
         return;
       }
