@@ -40,7 +40,7 @@ function toggleSearch() {
     chips.classList.remove("expanded");
     input.value = "";
     document.getElementById("search").value = "";
-    applyFilters("");
+    _applyHome();
   } else {
     row.classList.add("expanded");
     chips.classList.add("expanded");
@@ -91,6 +91,16 @@ function mobilePaneBack() {
     document.getElementById("detail-empty").style.display = "";
     document.querySelectorAll(".detail-card").forEach(c => c.classList.remove("visible"));
     activeEntryId = null;
+    // Update URL to remove the entry param so refresh/share lands on the list, not the detail
+    if (panes.dataset.detailFrom === "releases") {
+      pushUrl({ releases: activeReleasesView });
+    } else if (activeCategory) {
+      pushUrl({ cat: activeCategory });
+    } else if (activeAuthorFilter) {
+      pushUrl({ author: activeAuthorFilter });
+    } else {
+      pushUrl({});
+    }
   } else {
     showHome();
   }
