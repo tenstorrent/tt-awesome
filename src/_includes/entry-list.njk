@@ -1,7 +1,15 @@
 <div class="list-pane">
   <div class="list-head">
-    <div class="list-title" id="list-title">{{ categories[0].label }}</div>
-    <div class="list-count" id="list-count"></div>
+    <div class="list-title-row">
+      <div class="list-title" id="list-title">{{ categories[0].label }}</div>
+      <div class="list-count" id="list-count"></div>
+    </div>
+    <div class="chips mobile-chips" id="list-chips">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip active" data-filter="community">community</button>
+      <button class="chip active" data-filter="affiliated">affiliated</button>
+      <button class="chip active" data-filter="official">official</button>
+    </div>
   </div>
   <div class="list-rows" id="list-rows">
     {%- for entry in entries %}
