@@ -426,6 +426,9 @@ body.drawer-open .drawer-backdrop {
   }
   body.drawer-open .sidebar { transform: translateX(0); display: flex; }
 
+  /* ── Embeds ──────────────────────────────────────────────────────────── */
+  .editorial-embed--tensix-viz { display: none; }
+
   /* ── Touch targets ───────────────────────────────────────────────────── */
   .sidebar-item { min-height: 44px; display: flex; align-items: center; }
   .chip         { min-height: 36px; padding: 4px 12px; }
