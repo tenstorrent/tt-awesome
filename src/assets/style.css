@@ -299,11 +299,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .releases-all-link:hover { opacity: 1; text-decoration: underline; text-underline-offset: 2px; }
 
 /* ── Mobile-only elements (hidden on desktop) ──────────────────────────── */
-.mobile-back   { display: none; }
-.mobile-title  { display: none; }
-.search-toggle { display: none; }
-.hamburger     { display: none; }
-.mobile-chips  { display: none; }
+.mobile-back      { display: none; }
+.mobile-title     { display: none; }
+.search-toggle    { display: none; }
+.hamburger        { display: none; }
+.mobile-chips     { display: none; }
+.search-bar-row   { display: none; }
+.search-chips-row { display: none; }
 
 /* ── Drawer backdrop ────────────────────────────────────────────────────── */
 .drawer-backdrop {

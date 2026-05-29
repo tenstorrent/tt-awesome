@@ -77,9 +77,14 @@ function mobilePaneBack() {
   const panes = document.getElementById("panes");
   if (panes.classList.contains("detail-active")) {
     panes.classList.remove("detail-active");
-    panes.classList.add("list-active");
-    const title = document.getElementById("list-title").textContent;
-    updateMobileTopbar(title, true);
+    // Return to releases pane if that's where we came from, otherwise list pane
+    if (panes.classList.contains("releases-active")) {
+      updateMobileTopbar("Recent Releases", true);
+    } else {
+      panes.classList.add("list-active");
+      const title = document.getElementById("list-title").textContent;
+      updateMobileTopbar(title, true);
+    }
     document.querySelectorAll(".entry-row, .release-row").forEach(r => r.classList.remove("active"));
     document.getElementById("detail-empty").style.display = "";
     document.querySelectorAll(".detail-card").forEach(c => c.classList.remove("visible"));
@@ -143,17 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
     applyFilters(q);
   });
 
-  // Filter chips
+  // Filter chips — this selector covers ALL .chip elements including mobile chip
+  // copies, so a single registration is sufficient for all chip sets.
   document.querySelectorAll(".chip").forEach((chip) =>
     chip.addEventListener("click", () => toggleChip(chip))
-  );
-
-  // Mobile chip copies use the same toggleChip logic; syncMobileChips() is
-  // already called inside toggleChip(), so no explicit call is needed here.
-  document.querySelectorAll(".mobile-chips .chip, #search-chips-row .chip").forEach((chip) =>
-    chip.addEventListener("click", () => {
-      toggleChip(chip);
-    })
   );
 
   // Mobile expandable search input mirrors the desktop search
