@@ -1,0 +1,13 @@
+---
+permalink: /feeds/feed.json
+eleventyExcludeFromCollections: true
+---
+{{ {
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "tt-awesome",
+  "home_page_url": "https://tenstorrent.github.io/tt-awesome/",
+  "feed_url": "https://tenstorrent.github.io/tt-awesome/feeds/feed.json",
+  "description": "Projects, releases, articles, and resources from the Tenstorrent ecosystem",
+  "icon": "https://tenstorrent.github.io/tt-awesome/assets/og-card.svg",
+  "items": entries | jsonFeedItems(recentReleases)
+} | dump(2) | safe }}

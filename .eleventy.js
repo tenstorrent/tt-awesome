@@ -134,6 +134,89 @@ module.exports = function (eleventyConfig) {
     return items;
   });
 
+  // Build the complete JSON Feed 1.1 items array for the combined feed.
+  //
+  // Accepts:
+  //   entries       — full entries collection (from _data/entries.js)
+  //   recentReleases — from _data/recentReleases.js
+  //
+  // Returns an array of JSON Feed item objects containing:
+  //   - One item per release in recentReleases
+  //   - One item per entry (up to 50, sorted newest-first by added_at)
+  //   - One item per article-type link per entry (deduped by URL)
+  //
+  // Article link types matched: article, lesson, paper, talk, video, demo.
+  eleventyConfig.addFilter("jsonFeedItems", (entries, recentReleases) => {
+    const ARTICLE_TYPES = new Set(["article", "lesson", "paper", "talk", "video", "demo"]);
+    const items = [];
+
+    // 1. Release items — one per entry in recentReleases.
+    for (const rel of recentReleases || []) {
+      items.push({
+        id:             rel.url,
+        url:            rel.url,
+        title:          `${rel.entryName} ${rel.tagName}`,
+        summary:        `${rel.entryName} released ${rel.tagName}. Repository: ${rel.repoUrl}`,
+        date_published: rel.publishedAt,
+        tags:           [rel.affiliation, "release"],
+      });
+    }
+
+    // 2. Sort entries by added_at descending (newest first).
+    const sorted = [...(entries || [])].sort((a, b) => {
+      const da = a.added_at || "1970-01-01";
+      const db = b.added_at || "1970-01-01";
+      return db < da ? -1 : db > da ? 1 : 0;
+    });
+
+    const seenLinks = new Set();
+
+    for (let i = 0; i < Math.min(sorted.length, 50); i++) {
+      const entry = sorted[i];
+
+      // Resolve a canonical URL for the entry from its repo link (if present).
+      const repoLink = (entry.links || []).find((l) => l.type === "repo");
+      const repoUrl  = repoLink ? repoLink.url : null;
+
+      // Date helper — ensure full ISO 8601 timestamp.
+      const entryDate = entry.added_at
+        ? `${entry.added_at}T00:00:00Z`
+        : "1970-01-01T00:00:00Z";
+
+      // 2a. One item for the entry itself.
+      items.push({
+        id:             repoUrl || `https://tenstorrent.github.io/tt-awesome/#${entry.id}`,
+        url:            repoUrl || "https://tenstorrent.github.io/tt-awesome/",
+        title:          entry.name,
+        summary:        entry.description || "",
+        date_published: entryDate,
+        tags:           [...(entry.categories || []), entry.affiliation || "", "entry"],
+      });
+
+      // 2b. One item per article-type link (deduped by URL).
+      for (const link of entry.links || []) {
+        if (!ARTICLE_TYPES.has(link.type)) continue;
+        if (seenLinks.has(link.url)) continue;
+        seenLinks.add(link.url);
+        items.push({
+          id:             link.url,
+          url:            link.url,
+          title:          `${entry.name} — ${link.label || link.type}`,
+          summary:        entry.description || "",
+          date_published: entryDate,
+          tags:           [
+            ...(entry.categories || []),
+            entry.affiliation || "",
+            link.type,
+            "article",
+          ],
+        });
+      }
+    }
+
+    return items;
+  });
+
   // Inline a file's content directly into the template.
   // Used to embed CSS and JS into the HTML so that private GitHub Pages
   // authentication doesn't intercept sub-resource requests and return an
