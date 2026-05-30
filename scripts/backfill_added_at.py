@@ -34,11 +34,14 @@ def parse_git_date(output: str) -> str | None:
 def get_added_date(path: Path) -> str | None:
     """Return the YYYY-MM-DD date when path was first committed, or None."""
     result = subprocess.run(
-        ["git", "log", "--follow", "--diff-filter=A", "--format=%ai", "--", str(path)],
+        ["git", "log", "--follow", "--diff-filter=A", "--format=%ai", "--reverse", "--", str(path)],
         capture_output=True,
         text=True,
         cwd=ROOT,
     )
+    if result.returncode != 0:
+        print(f"  WARN: git error for {path.name}: {result.stderr.strip()}", file=sys.stderr)
+        return None
     return parse_git_date(result.stdout)
 
 
@@ -46,7 +49,12 @@ def backfill_entries(files: list, dry_run: bool = False) -> tuple[int, int]:
     """Backfill added_at on each file. Returns (updated_count, skipped_count)."""
     updated = skipped = 0
     for f in files:
-        data = json.loads(f.read_text())
+        try:
+            data = json.loads(f.read_text())
+        except json.JSONDecodeError as e:
+            print(f"  SKIP (invalid JSON): {f.name}: {e}", file=sys.stderr)
+            skipped += 1
+            continue
         if "added_at" in data:
             skipped += 1
             continue

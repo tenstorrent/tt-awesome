@@ -88,4 +88,12 @@ def test_backfill_preserves_field_order(tmp_path):
         baa.backfill_entries([f])
     result = json.loads(f.read_text())
     keys = list(result.keys())
-    assert set(keys) == {"id", "name", "description", "affiliation", "added_at"}
+    assert keys == ["id", "name", "description", "affiliation", "added_at"]
+
+
+def test_backfill_skips_invalid_json(tmp_path):
+    f = tmp_path / "bad-entry.json"
+    f.write_text("{not valid json")
+    updated, skipped = baa.backfill_entries([f])
+    assert updated == 0
+    assert skipped == 1
