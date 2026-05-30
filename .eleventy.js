@@ -86,6 +86,54 @@ module.exports = function (eleventyConfig) {
     return result;
   });
 
+  // Append a single item to an array — used in Nunjucks templates where
+  // the built-in .concat() method is not reliably available (e.g. feeds that
+  // build up deduped item lists with namespace variables).
+  eleventyConfig.addFilter("appendItem", (arr, item) => [...(arr || []), item]);
+
+  // Build a deduplicated, date-sorted list of article-type feed items from the
+  // full entries collection.  Runs entirely in JS to avoid Nunjucks limitations
+  // around namespace mutation with complex object literals.
+  //
+  // Returns up to `limit` objects with the shape:
+  //   { entryId, entryName, entryDesc, affiliation, categories,
+  //     linkType, linkUrl, linkLabel, added_at }
+  //
+  // Article link types: article, lesson, paper, talk, video, demo.
+  eleventyConfig.addFilter("articleFeedItems", (entries, limit = 50) => {
+    const ARTICLE_TYPES = new Set(["article", "lesson", "paper", "talk", "video", "demo"]);
+    const sorted = [...(entries || [])].sort((a, b) => {
+      const da = a.added_at || "1970-01-01";
+      const db = b.added_at || "1970-01-01";
+      // Descending: newest first.
+      return db < da ? -1 : db > da ? 1 : 0;
+    });
+
+    const seen = new Set();
+    const items = [];
+
+    for (const entry of sorted) {
+      for (const link of entry.links || []) {
+        if (!ARTICLE_TYPES.has(link.type)) continue;
+        if (seen.has(link.url)) continue;
+        seen.add(link.url);
+        items.push({
+          entryId:    entry.id,
+          entryName:  entry.name,
+          entryDesc:  entry.description || "",
+          affiliation: entry.affiliation || "",
+          categories: entry.categories || [],
+          linkType:   link.type,
+          linkUrl:    link.url,
+          linkLabel:  link.label || (link.type.charAt(0).toUpperCase() + link.type.slice(1)),
+          added_at:   entry.added_at || "1970-01-01",
+        });
+        if (items.length >= limit) return items;
+      }
+    }
+    return items;
+  });
+
   // Inline a file's content directly into the template.
   // Used to embed CSS and JS into the HTML so that private GitHub Pages
   // authentication doesn't intercept sub-resource requests and return an

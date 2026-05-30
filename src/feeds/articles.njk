@@ -1,0 +1,28 @@
+---
+permalink: /feeds/articles.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+{%- set items = entries | articleFeedItems(50) %}
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>tt-awesome — Articles &amp; Resources</title>
+  <subtitle>Articles, papers, lessons, talks, videos, and demos from the Tenstorrent ecosystem</subtitle>
+  <link href="https://tenstorrent.github.io/tt-awesome/feeds/articles.xml" rel="self"/>
+  <link href="https://tenstorrent.github.io/tt-awesome/"/>
+  <id>https://tenstorrent.github.io/tt-awesome/feeds/articles.xml</id>
+  <updated>{{ items[0].added_at + "T00:00:00Z" if items.length else "1970-01-01T00:00:00Z" }}</updated>
+  {%- for item in items %}
+  <entry>
+    <id>{{ item.linkUrl }}</id>
+    <title>{{ item.entryName }} — {{ item.linkLabel }}</title>
+    <link href="{{ item.linkUrl }}"/>
+    <updated>{{ item.added_at + "T00:00:00Z" }}</updated>
+    <summary>{{ item.entryDesc }}</summary>
+    <category term="{{ item.linkType }}"/>
+    <category term="{{ item.affiliation }}"/>
+    {%- for cat in item.categories %}
+    <category term="{{ cat }}"/>
+    {%- endfor %}
+  </entry>
+  {%- endfor %}
+</feed>
