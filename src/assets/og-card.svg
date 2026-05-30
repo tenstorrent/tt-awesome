@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0d1117"/>
+  <!-- subtle grid lines -->
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="#21262d" stroke-width="1"/>
+  <line x1="600" y1="0" x2="600" y2="630" stroke="#21262d" stroke-width="1"/>
+  <!-- accent bar -->
+  <rect x="0" y="0" width="8" height="630" fill="#ff6600"/>
+  <!-- logo text -->
+  <text x="80" y="260" font-family="ui-monospace,SFMono-Regular,Menlo,monospace"
+        font-size="96" font-weight="700" fill="#f0f6fc">&#x26A1; tt-awesome</text>
+  <!-- tagline -->
+  <text x="80" y="330" font-family="ui-monospace,SFMono-Regular,Menlo,monospace"
+        font-size="36" fill="#8b949e">A curated list of Tenstorrent awesomeness</text>
+  <!-- sub-tagline -->
+  <text x="80" y="390" font-family="ui-monospace,SFMono-Regular,Menlo,monospace"
+        font-size="28" fill="#484f58">tenstorrent.github.io/tt-awesome</text>
+</svg>
