@@ -9,6 +9,7 @@ eleventyExcludeFromCollections: true
   <link href="https://tenstorrent.github.io/tt-awesome/feeds/releases.xml" rel="self"/>
   <link href="https://tenstorrent.github.io/tt-awesome/"/>
   <id>https://tenstorrent.github.io/tt-awesome/feeds/releases.xml</id>
+  <author><name>Tenstorrent Community</name><uri>https://tenstorrent.github.io/tt-awesome/</uri></author>
   <updated>{{ recentReleases[0].publishedAt if recentReleases.length else "1970-01-01T00:00:00Z" }}</updated>
   {%- for rel in recentReleases %}
   <entry>

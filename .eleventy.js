@@ -86,11 +86,6 @@ module.exports = function (eleventyConfig) {
     return result;
   });
 
-  // Append a single item to an array — used in Nunjucks templates where
-  // the built-in .concat() method is not reliably available (e.g. feeds that
-  // build up deduped item lists with namespace variables).
-  eleventyConfig.addFilter("appendItem", (arr, item) => [...(arr || []), item]);
-
   // Build a deduplicated, date-sorted list of article-type feed items from the
   // full entries collection.  Runs entirely in JS to avoid Nunjucks limitations
   // around namespace mutation with complex object literals.
@@ -174,8 +169,10 @@ module.exports = function (eleventyConfig) {
     for (let i = 0; i < Math.min(sorted.length, 50); i++) {
       const entry = sorted[i];
 
-      // Resolve a canonical URL for the entry from its repo link (if present).
+      // Resolve a canonical URL for the entry.  Prefer the repo link; fall back
+      // to the first link of any type; last resort is an anchor on the homepage.
       const repoLink = (entry.links || []).find((l) => l.type === "repo");
+      const anyLink  = (entry.links || []).find((l) => l.url);
       const repoUrl  = repoLink ? repoLink.url : null;
 
       // Date helper — ensure full ISO 8601 timestamp.
@@ -186,7 +183,7 @@ module.exports = function (eleventyConfig) {
       // 2a. One item for the entry itself.
       items.push({
         id:             repoUrl || `https://tenstorrent.github.io/tt-awesome/#${entry.id}`,
-        url:            repoUrl || "https://tenstorrent.github.io/tt-awesome/",
+        url:            repoUrl || (anyLink ? anyLink.url : `https://tenstorrent.github.io/tt-awesome/#${entry.id}`),
         title:          entry.name,
         summary:        entry.description || "",
         date_published: entryDate,
