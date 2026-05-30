@@ -3,12 +3,29 @@
   "name": "tt-model-runner",
   "description": "Discover, load, and benchmark models with a GUI and TUI for tt-inference-server. Makes exploring available models on Tenstorrent hardware as easy as browsing a catalog.",
   "affiliation": "affiliated",
-  "categories": ["dev-tools", "ai-models"],
-  "tags": ["gui", "tui", "models", "inference", "benchmark"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/tsingletaryTT/tt-model-runner" }
+  "categories": [
+    "dev-tools",
+    "ai-models"
   ],
-  "hardware": ["wormhole", "blackhole", "quietbox"],
+  "tags": [
+    "gui",
+    "tui",
+    "models",
+    "inference",
+    "benchmark"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tsingletaryTT/tt-model-runner"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "quietbox"
+  ],
   "author": "tsingletaryTT",
-  "language": "Python"
+  "language": "Python",
+  "added_at": "2026-05-08"
 }

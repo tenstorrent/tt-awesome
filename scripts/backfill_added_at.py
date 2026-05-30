@@ -31,8 +31,8 @@ def parse_git_date(output: str) -> str | None:
     return output.strip().split()[0]
 
 
-def get_added_date(path: Path) -> str | None:
-    """Return the YYYY-MM-DD date when path was first committed, or None."""
+def _run_git_log_for(path: Path) -> str | None:
+    """Run git log --follow --diff-filter=A for a single path; return raw stdout or None on error."""
     result = subprocess.run(
         ["git", "log", "--follow", "--diff-filter=A", "--format=%ai", "--reverse", "--", str(path)],
         capture_output=True,
@@ -42,7 +42,31 @@ def get_added_date(path: Path) -> str | None:
     if result.returncode != 0:
         print(f"  WARN: git error for {path.name}: {result.stderr.strip()}", file=sys.stderr)
         return None
-    return parse_git_date(result.stdout)
+    return result.stdout or None
+
+
+def get_added_date(path: Path) -> str | None:
+    """Return the YYYY-MM-DD date when path was first committed, or None.
+
+    For files that were reorganised from a flat entries/<name>.json path into a
+    category subdirectory (entries/<category>/<name>.json), git --follow may not
+    traverse the rename because the reorganisation was done as a copy rather than
+    a tracked rename.  We therefore fall back to checking the legacy flat path
+    entries/<basename> when the subdir path yields no history.
+    """
+    raw = _run_git_log_for(path)
+    if raw:
+        return parse_git_date(raw)
+
+    # Fallback: check the original flat path entries/<basename> that existed
+    # before the category-subdirectory reorganisation commit.
+    flat_path = ENTRIES_DIR / path.name
+    if flat_path != path:
+        raw = _run_git_log_for(flat_path)
+        if raw:
+            return parse_git_date(raw)
+
+    return None
 
 
 def backfill_entries(files: list, dry_run: bool = False) -> tuple[int, int]:

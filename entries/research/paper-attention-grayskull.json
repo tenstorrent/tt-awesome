@@ -3,12 +3,29 @@
   "name": "Attention in SRAM on Tenstorrent Grayskull",
   "description": "A fused kernel for the Grayskull architecture implementing Transformer self-attention entirely within SRAM. Combines matrix multiply, attention score scaling, and Softmax without DRAM accesses, achieving significant speedups over non-fused implementations.",
   "affiliation": "community",
-  "categories": ["research", "kernels"],
-  "tags": ["attention", "transformer", "sram", "grayskull", "kernel", "risc-v"],
-  "links": [
-    { "type": "paper", "url": "https://arxiv.org/abs/2407.13885", "label": "arXiv:2407.13885" }
+  "categories": [
+    "research",
+    "kernels"
   ],
-  "hardware": ["grayskull"],
-  "author": "Moritz Thüning",
-  "date": "2024-07-18"
+  "tags": [
+    "attention",
+    "transformer",
+    "sram",
+    "grayskull",
+    "kernel",
+    "risc-v"
+  ],
+  "links": [
+    {
+      "type": "paper",
+      "url": "https://arxiv.org/abs/2407.13885",
+      "label": "arXiv:2407.13885"
+    }
+  ],
+  "hardware": [
+    "grayskull"
+  ],
+  "author": "Moritz Th\u00fcning",
+  "date": "2024-07-18",
+  "added_at": "2026-05-13"
 }

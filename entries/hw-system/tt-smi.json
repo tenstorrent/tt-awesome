@@ -1,15 +1,36 @@
 {
   "id": "tt-smi",
   "name": "tt-smi",
-  "description": "Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.",
+  "description": "Tenstorrent System Management Interface \u2014 monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.",
   "affiliation": "official",
-  "categories": ["hw-system", "dev-tools"],
-  "tags": ["monitoring", "telemetry", "smi", "hardware-management"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-smi" }],
-  "hardware": ["grayskull", "wormhole", "blackhole"],
+  "categories": [
+    "hw-system",
+    "dev-tools"
+  ],
+  "tags": [
+    "monitoring",
+    "telemetry",
+    "smi",
+    "hardware-management"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-smi"
+    }
+  ],
+  "hardware": [
+    "grayskull",
+    "wormhole",
+    "blackhole"
+  ],
   "language": "Python",
   "license": "Apache-2.0",
   "packages": [
-    { "type": "pypi", "name": "tt-smi" }
-  ]
+    {
+      "type": "pypi",
+      "name": "tt-smi"
+    }
+  ],
+  "added_at": "2026-05-08"
 }

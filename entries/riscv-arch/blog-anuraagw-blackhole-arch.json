@@ -3,13 +3,34 @@
   "name": "Tenstorrent Blackhole Architecture Guide",
   "description": "A 6,500-word community deep dive into the Blackhole p100a architecture: the tile model (Tensix, DRAM, SiFive x280 L2CPU, Ethernet, PCIe, NoC arc), firmware startup sequence, MOP micro-op processor, replay buffer, FPU/SFPU sync, and the anatomy of a kernel. From the author of blackhole-py.",
   "affiliation": "community",
-  "categories": ["riscv-arch", "guides"],
-  "tags": ["blackhole", "architecture", "tensix", "noc", "sifive-x280", "firmware", "mop", "sfpu", "deep-dive", "blog"],
-  "links": [
-    { "type": "article", "url": "https://anuraagw.me/blog/blackhole-architecture", "label": "anuraagw.me — February 2026" }
+  "categories": [
+    "riscv-arch",
+    "guides"
   ],
-  "hardware": ["blackhole"],
+  "tags": [
+    "blackhole",
+    "architecture",
+    "tensix",
+    "noc",
+    "sifive-x280",
+    "firmware",
+    "mop",
+    "sfpu",
+    "deep-dive",
+    "blog"
+  ],
+  "links": [
+    {
+      "type": "article",
+      "url": "https://anuraagw.me/blog/blackhole-architecture",
+      "label": "anuraagw.me \u2014 February 2026"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
   "featured": true,
   "author": "boopdotpng",
-  "date": "2026-02-28"
+  "date": "2026-02-28",
+  "added_at": "2026-05-13"
 }

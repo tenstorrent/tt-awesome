@@ -1,14 +1,34 @@
 {
   "id": "paper-nbody-wormhole",
   "name": "Accelerating Gravitational N-Body Simulations on Tenstorrent Wormhole",
-  "description": "Accelerates an astrophysical N-body simulation on the Wormhole n300. Achieves 2× speedup and 2× energy savings over a highly optimized CPU implementation. SC '25 Workshop.",
+  "description": "Accelerates an astrophysical N-body simulation on the Wormhole n300. Achieves 2\u00d7 speedup and 2\u00d7 energy savings over a highly optimized CPU implementation. SC '25 Workshop.",
   "affiliation": "community",
-  "categories": ["research"],
-  "tags": ["n-body", "astrophysics", "hpc", "wormhole", "risc-v", "simulation"],
-  "links": [
-    { "type": "paper", "url": "https://arxiv.org/abs/2509.19294", "label": "arXiv:2509.19294" },
-    { "type": "article", "url": "https://dl.acm.org/doi/10.1145/3731599.3767528", "label": "ACM SC '25" }
+  "categories": [
+    "research"
   ],
-  "hardware": ["wormhole"],
-  "date": "2025-09-23"
+  "tags": [
+    "n-body",
+    "astrophysics",
+    "hpc",
+    "wormhole",
+    "risc-v",
+    "simulation"
+  ],
+  "links": [
+    {
+      "type": "paper",
+      "url": "https://arxiv.org/abs/2509.19294",
+      "label": "arXiv:2509.19294"
+    },
+    {
+      "type": "article",
+      "url": "https://dl.acm.org/doi/10.1145/3731599.3767528",
+      "label": "ACM SC '25"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "date": "2025-09-23",
+  "added_at": "2026-05-08"
 }

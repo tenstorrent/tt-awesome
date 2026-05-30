@@ -3,12 +3,25 @@
   "name": "gemma4",
   "description": "Gemma 4 language model implemented in tt-lang (e4b variant) for direct execution on Tenstorrent hardware.",
   "affiliation": "affiliated",
-  "categories": ["ai-models"],
-  "tags": ["gemma", "llm", "tt-lang", "inference"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/zoecarver/gemma4" }
+  "categories": [
+    "ai-models"
   ],
-  "hardware": ["blackhole"],
+  "tags": [
+    "gemma",
+    "llm",
+    "tt-lang",
+    "inference"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/zoecarver/gemma4"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
   "author": "zoecarver",
-  "language": "Python"
+  "language": "Python",
+  "added_at": "2026-05-08"
 }

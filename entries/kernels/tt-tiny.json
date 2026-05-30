@@ -1,15 +1,27 @@
 {
   "id": "tt-tiny",
   "name": "tt-tiny",
-  "description": "Minimal Python code to access and program the Tenstorrent Blackhole chip directly — George Hotz's exploration of TT hardware programmability with pointed commentary on the architecture.",
+  "description": "Minimal Python code to access and program the Tenstorrent Blackhole chip directly \u2014 George Hotz's exploration of TT hardware programmability with pointed commentary on the architecture.",
   "affiliation": "community",
-  "categories": ["kernels"],
-  "tags": ["blackhole", "low-level", "exploration"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/geohot/tt-tiny" }
+  "categories": [
+    "kernels"
   ],
-  "hardware": ["blackhole"],
+  "tags": [
+    "blackhole",
+    "low-level",
+    "exploration"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/geohot/tt-tiny"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
   "featured": true,
   "author": "geohot",
-  "language": "Python"
+  "language": "Python",
+  "added_at": "2026-05-08"
 }

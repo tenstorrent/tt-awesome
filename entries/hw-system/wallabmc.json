@@ -3,9 +3,23 @@
   "name": "WallaBMC",
   "description": "Lightweight BMC (Baseboard Management Controller) for STM32 and similar MCUs, with Web UI, Redfish API, and HTTPS support. Built on Zephyr RTOS. Used in Tenstorrent systems.",
   "affiliation": "official",
-  "categories": ["hw-system"],
-  "tags": ["bmc", "stm32", "redfish", "zephyr", "embedded"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/wallabmc" }],
+  "categories": [
+    "hw-system"
+  ],
+  "tags": [
+    "bmc",
+    "stm32",
+    "redfish",
+    "zephyr",
+    "embedded"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/wallabmc"
+    }
+  ],
   "language": "C",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "added_at": "2026-05-08"
 }

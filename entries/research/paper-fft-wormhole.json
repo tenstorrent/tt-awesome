@@ -1,15 +1,36 @@
 {
   "id": "paper-fft-wormhole",
   "name": "Exploring Fast Fourier Transforms on the Tenstorrent Wormhole",
-  "description": "Ports the Cooley-Tukey FFT algorithm to the Wormhole n300 RISC-V accelerator. The Wormhole draws 8× less power and consumes 2.8× less energy than a 24-core Xeon Platinum for a 2D FFT. ISC 2025.",
+  "description": "Ports the Cooley-Tukey FFT algorithm to the Wormhole n300 RISC-V accelerator. The Wormhole draws 8\u00d7 less power and consumes 2.8\u00d7 less energy than a 24-core Xeon Platinum for a 2D FFT. ISC 2025.",
   "affiliation": "community",
-  "categories": ["research", "kernels"],
-  "tags": ["fft", "wormhole", "hpc", "risc-v", "energy-efficiency", "epcc"],
-  "links": [
-    { "type": "paper", "url": "https://arxiv.org/abs/2506.15437", "label": "arXiv:2506.15437" },
-    { "type": "article", "url": "https://www.research.ed.ac.uk/en/publications/exploring-fast-fourier-transforms-on-the-tenstorrent-wormhole/", "label": "University of Edinburgh" }
+  "categories": [
+    "research",
+    "kernels"
   ],
-  "hardware": ["wormhole"],
+  "tags": [
+    "fft",
+    "wormhole",
+    "hpc",
+    "risc-v",
+    "energy-efficiency",
+    "epcc"
+  ],
+  "links": [
+    {
+      "type": "paper",
+      "url": "https://arxiv.org/abs/2506.15437",
+      "label": "arXiv:2506.15437"
+    },
+    {
+      "type": "article",
+      "url": "https://www.research.ed.ac.uk/en/publications/exploring-fast-fourier-transforms-on-the-tenstorrent-wormhole/",
+      "label": "University of Edinburgh"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
   "author": "Nick Brown, Jake Davies, Felix LeClair",
-  "date": "2025-06-18"
+  "date": "2025-06-18",
+  "added_at": "2026-05-08"
 }

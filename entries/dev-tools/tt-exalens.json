@@ -3,10 +3,26 @@
   "name": "tt-exalens",
   "description": "Low-level hardware debugger for Tenstorrent devices. Inspect register state, memory contents, and kernel execution at the hardware level.",
   "affiliation": "official",
-  "categories": ["dev-tools"],
-  "tags": ["debugger", "low-level", "hardware", "registers"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-exalens" }],
-  "hardware": ["wormhole", "blackhole"],
+  "categories": [
+    "dev-tools"
+  ],
+  "tags": [
+    "debugger",
+    "low-level",
+    "hardware",
+    "registers"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-exalens"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
   "language": "Python",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "added_at": "2026-05-08"
 }

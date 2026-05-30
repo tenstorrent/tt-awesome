@@ -3,12 +3,27 @@
   "name": "ttnn-helloworld-cpp",
   "description": "Minimal working example of using Tenstorrent TTNN in C++. The simplest possible starting point for C++ developers targeting TT hardware with TTNN.",
   "affiliation": "community",
-  "categories": ["kernels", "guides"],
-  "tags": ["c++", "ttnn", "hello-world", "template"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/marty1885/ttnn-helloworld-cpp" }
+  "categories": [
+    "kernels",
+    "guides"
   ],
-  "hardware": ["wormhole", "blackhole"],
+  "tags": [
+    "c++",
+    "ttnn",
+    "hello-world",
+    "template"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/marty1885/ttnn-helloworld-cpp"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
   "author": "marty1885",
-  "language": "C++"
+  "language": "C++",
+  "added_at": "2026-05-08"
 }
