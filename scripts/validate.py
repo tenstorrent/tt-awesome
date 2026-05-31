@@ -126,12 +126,12 @@ def main():
             for e in errors:
                 print(f"  - {e}")
             total_errors += len(errors)
-        elif warnings:
+        if warnings:
             print(f"  WARN {fpath.name}:")
             for w in warnings:
                 print(f"    ~ {w}")
             total_warnings += len(warnings)
-        else:
+        if not errors and not warnings:
             print(f"  OK {fpath.name}")
     seen = set()
     for eid in all_ids:

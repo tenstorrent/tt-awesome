@@ -153,7 +153,7 @@ module.exports = function (eleventyConfig) {
         title:          `${rel.entryName} ${rel.tagName}`,
         summary:        `${rel.entryName} released ${rel.tagName}. Repository: ${rel.repoUrl}`,
         date_published: rel.publishedAt,
-        tags:           [rel.affiliation, "release"],
+        tags:           [rel.affiliation, "release"].filter(Boolean),
       });
     }
 
@@ -187,7 +187,7 @@ module.exports = function (eleventyConfig) {
         title:          entry.name,
         summary:        entry.description || "",
         date_published: entryDate,
-        tags:           [...(entry.categories || []), entry.affiliation || "", "entry"],
+        tags:           [...(entry.categories || []), entry.affiliation, "entry"].filter(Boolean),
       });
 
       // 2b. One item per article-type link (deduped by URL).
@@ -203,10 +203,10 @@ module.exports = function (eleventyConfig) {
           date_published: entryDate,
           tags:           [
             ...(entry.categories || []),
-            entry.affiliation || "",
+            entry.affiliation,
             link.type,
             "article",
-          ],
+          ].filter(Boolean),
         });
       }
     }

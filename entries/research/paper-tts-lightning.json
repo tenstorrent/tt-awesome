@@ -1,7 +1,7 @@
 {
   "id": "paper-tts-lightning",
   "name": "Rewriting TTS Inference Economics: Lightning V2 on Tenstorrent vs. NVIDIA L40S",
-  "description": "Shows that Text-to-Speech inference on Tenstorrent Lightning V2 achieves 4\u00d7 lower cost than NVIDIA L40S. Applies BlockFloat8 (BFP8) and low-fidelity (LoFi) precision strategies to TTS despite their greater numerical fragility compared to LLMs.",
+  "description": "Shows that Text-to-Speech inference on Tenstorrent Lightning V2 achieves 4× lower cost than NVIDIA L40S. Applies BlockFloat8 (BFP8) and low-fidelity (LoFi) precision strategies to TTS despite their greater numerical fragility compared to LLMs.",
   "affiliation": "community",
   "categories": [
     "research",

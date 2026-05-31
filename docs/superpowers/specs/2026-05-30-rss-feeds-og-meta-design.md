@@ -75,7 +75,7 @@ If `git log` returns no output for a file (e.g., untracked), the script skips it
 
 ### 3.1 Static social card image
 
-A new `src/assets/og-card.png` (1200×630 px) is created — a simple dark-background card with "⚡ tt-awesome" and the tagline "A curated list of Tenstorrent awesomeness". This is a static asset committed to the repo; no per-build generation.
+A new `src/assets/og-card.svg` (1200×630) is created — a simple dark-background card with "⚡ tt-awesome" and the tagline "A curated list of Tenstorrent awesomeness". SVG is used so the asset is text-based and diff-friendly. **Caveat:** Twitter/X and Facebook do not support SVG for `og:image`; a future step should generate `og-card.png` at build time (e.g. via `sharp` or `resvg`) and reference that instead.
 
 ### 3.2 `base.njk` head block improvements
 
@@ -87,15 +87,13 @@ og:site_name   = tt-awesome
 og:title       = tt-awesome — A curated list of Tenstorrent awesomeness
 og:description = <dynamic: "Discover N projects across M categories — tools, AI models, kernels, compilers, and more for Tenstorrent hardware.">
 og:url         = https://tenstorrent.github.io/tt-awesome/
-og:image       = https://tenstorrent.github.io/tt-awesome/assets/og-card.png
-og:image:width = 1200
-og:image:height= 630
+og:image       = https://tenstorrent.github.io/tt-awesome/assets/og-card.svg
+                 (SVG for now; replace with og-card.png for full Twitter/Facebook support)
 
-twitter:card        = summary_large_image  (upgraded from summary)
+twitter:card        = summary  (stays summary until a PNG card is available)
 twitter:site        = @tenstorrent
 twitter:title       = (same as og:title)
 twitter:description = (same as og:description)
-twitter:image       = (same as og:image)
 ```
 
 The description uses the `entries | length` and `categories | length` values already available in the template — so it reflects the real count at build time.
@@ -134,7 +132,7 @@ Entry count and category count are rendered inline from Eleventy data at build t
 | `src/feeds/new-entries.njk` | **New** — Atom feed for new entries |
 | `src/feeds/articles.njk` | **New** — Atom feed for articles/links |
 | `src/feeds/feed.njk` | **New** — JSON Feed 1.1 combined feed |
-| `src/assets/og-card.png` | **New** — 1200×630 social card image |
+| `src/assets/og-card.svg` | **New** — 1200×630 social card (SVG; PNG needed for full Twitter/Facebook support) |
 | `src/_includes/base.njk` | **Update** — richer OG/Twitter tags, JSON-LD, feed autodiscovery links |
 | `entries/**/*.json` | **Update** — `added_at` field backfilled by script |
 

@@ -12,6 +12,7 @@ eleventyExcludeFromCollections: true
   <author><name>Tenstorrent Community</name><uri>https://tenstorrent.github.io/tt-awesome/</uri></author>
   <updated>{{ recentReleases[0].publishedAt if recentReleases.length else "1970-01-01T00:00:00Z" }}</updated>
   {%- for rel in recentReleases %}
+  {%- if loop.index <= 50 %}
   <entry>
     <id>{{ rel.url }}</id>
     <title>{{ rel.entryName }} {{ rel.tagName }}</title>
@@ -21,5 +22,6 @@ eleventyExcludeFromCollections: true
     <category term="{{ rel.affiliation }}"/>
     <category term="release"/>
   </entry>
+  {%- endif %}
   {%- endfor %}
 </feed>

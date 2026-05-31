@@ -89,7 +89,7 @@ def backfill_entries(files: list, dry_run: bool = False) -> tuple[int, int]:
             continue
         data["added_at"] = date
         if not dry_run:
-            f.write_text(json.dumps(data, indent=2) + "\n")
+            f.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
         updated += 1
     return updated, skipped
 

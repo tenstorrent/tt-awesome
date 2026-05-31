@@ -13,17 +13,14 @@
   <meta property="og:title" content="tt-awesome — A curated list of Tenstorrent awesomeness">
   <meta property="og:description" content="Discover {{ entries | length }} projects across {{ categories | length }} categories — tools, AI models, kernels, compilers, and more for Tenstorrent hardware.">
   <meta property="og:url" content="https://tenstorrent.github.io/tt-awesome/">
-  <!-- NOTE: Twitter/X and Facebook require PNG/JPEG for og:image (SVG is not supported).
-       Replace og-card.svg with a PNG version for full social card support. -->
+  <!-- og:image is an SVG. Twitter/X and Facebook require PNG/JPEG — upgrade to
+       summary_large_image once og-card.png is generated at build time. -->
   <meta property="og:image" content="https://tenstorrent.github.io/tt-awesome/assets/og-card.svg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
   <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@tenstorrent">
   <meta name="twitter:title" content="tt-awesome — A curated list of Tenstorrent awesomeness">
   <meta name="twitter:description" content="Discover {{ entries | length }} projects across {{ categories | length }} categories — tools, AI models, kernels, compilers, and more for Tenstorrent hardware.">
-  <meta name="twitter:image" content="https://tenstorrent.github.io/tt-awesome/assets/og-card.svg">
   <!-- Feed autodiscovery -->
   <link rel="alternate" type="application/atom+xml" title="tt-awesome — Recent Releases" href="https://tenstorrent.github.io/tt-awesome/feeds/releases.xml">
   <link rel="alternate" type="application/atom+xml" title="tt-awesome — New Entries" href="https://tenstorrent.github.io/tt-awesome/feeds/new-entries.xml">
