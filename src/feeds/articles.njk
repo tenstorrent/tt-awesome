@@ -11,7 +11,7 @@ eleventyExcludeFromCollections: true
   <link href="https://tenstorrent.github.io/tt-awesome/"/>
   <id>https://tenstorrent.github.io/tt-awesome/feeds/articles.xml</id>
   <author><name>Tenstorrent Community</name><uri>https://tenstorrent.github.io/tt-awesome/</uri></author>
-  <updated>{{ items[0].added_at + "T00:00:00Z" if items.length else "1970-01-01T00:00:00Z" }}</updated>
+  <updated>{{ items[0].added_at + "T00:00:00Z" if (items.length and items[0].added_at and items[0].added_at != "1970-01-01") else "1970-01-01T00:00:00Z" }}</updated>
   {%- for item in items %}
   <entry>
     <id>{{ item.linkUrl }}</id>

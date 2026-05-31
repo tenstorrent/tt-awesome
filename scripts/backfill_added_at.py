@@ -13,6 +13,10 @@ to find the commit date when the file was first added, then writes
   "added_at": "YYYY-MM-DD"
 into the JSON. Files that already have the field, or for which git returns
 nothing (untracked), are skipped with a warning.
+
+JSON is written with ensure_ascii=False to preserve UTF-8 characters (em-dashes,
+multiplication signs, accented names, etc.) as literal Unicode rather than \\uXXXX
+escape sequences.
 """
 
 import json

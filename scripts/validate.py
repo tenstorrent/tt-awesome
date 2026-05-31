@@ -127,9 +127,9 @@ def main():
                 print(f"  - {e}")
             total_errors += len(errors)
         if warnings:
-            print(f"  WARN {fpath.name}:")
+            print(f"WARN {fpath.name}:")
             for w in warnings:
-                print(f"    ~ {w}")
+                print(f"  ~ {w}")
             total_warnings += len(warnings)
         if not errors and not warnings:
             print(f"  OK {fpath.name}")
@@ -145,7 +145,7 @@ def main():
         print(f"\n{total_errors} error(s) found.")
         sys.exit(1)
     if total_warnings:
-        print(f"\nAll {len(json_files)} entries valid ({total_warnings} warning(s)).")
+        print(f"\nNo errors. {len(json_files)} entries checked ({total_warnings} warning(s)).")
     else:
         print(f"\nAll {len(json_files)} entries valid.")
 
