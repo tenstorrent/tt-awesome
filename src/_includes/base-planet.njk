@@ -69,9 +69,11 @@
           feed.setAttribute('data-active-type', type);
         }
 
-        // Sync sidebar button active states
+        // Sync sidebar button active states + aria-pressed
         filterBtns.forEach(function(btn) {
-          btn.classList.toggle('active', btn.dataset.planetFilter === type);
+          var isActive = btn.dataset.planetFilter === type;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         });
 
         // Sync chip active states

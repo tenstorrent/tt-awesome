@@ -256,8 +256,10 @@ module.exports = function (eleventyConfig) {
       }
     }
 
-    // Stable releases from recentReleases
+    // Stable releases from recentReleases — skip dev/nightly builds (tagName
+    // contains ".dev" or "-dev", e.g. "1.2.0.dev20260530" / "v0.72.0-dev20260529").
     for (const rel of recentReleases || []) {
+      if (/[\.\-]dev\d/i.test(rel.tagName || "")) continue;
       const dateStr = rel.publishedAt ? rel.publishedAt.slice(0, 10) : "1970-01-01";
       items.push({
         type:        "release",
@@ -297,7 +299,8 @@ module.exports = function (eleventyConfig) {
     if (parts.length < 2) return dateStr;
     const month = parseInt(parts[1], 10) - 1;
     const year = parts[0];
-    return `${months[month] || ""} ${year}`;
+    if (month < 0 || month > 11) return dateStr;
+    return `${months[month]} ${year}`;
   });
 
   // Inline a file's content directly into the template.

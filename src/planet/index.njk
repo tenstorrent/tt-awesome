@@ -72,10 +72,10 @@ eleventyExcludeFromCollections: true
 <div class="planet-body" id="planet-body">
 
   <!-- Filter sidebar (hidden on narrow viewports, collapsible on wide) -->
-  <nav class="planet-sidebar" id="planet-sidebar">
+  <nav class="planet-sidebar" id="planet-sidebar" aria-label="Filter by type">
     <div class="planet-sidebar-label">Filter</div>
 
-    <button class="planet-filter-btn active" data-planet-filter="all">
+    <button class="planet-filter-btn active" data-planet-filter="all" aria-pressed="true">
       All <span class="planet-filter-count">{{ items | length }}</span>
     </button>
     {%- if paperItems | length > 0 %}

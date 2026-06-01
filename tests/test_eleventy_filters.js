@@ -224,9 +224,11 @@ function makeRelease(overrides) {
 
 const planetItems = filters["planetItems"];
 const monthLabel  = filters["monthLabel"];
+const monthKey    = filters["monthKey"];
 
 assert(typeof planetItems  === "function", "planetItems filter not registered");
 assert(typeof monthLabel   === "function", "monthLabel filter not registered");
+assert(typeof monthKey     === "function", "monthKey filter not registered");
 
 // Test 15: article links appear in planet items
 {
@@ -294,6 +296,41 @@ assert(typeof monthLabel   === "function", "monthLabel filter not registered");
   assert.strictEqual(monthLabel("2026-12-31"), "December 2026");
   assert.strictEqual(monthLabel(""),           "");
   console.log("✓ monthLabel: converts YYYY-MM and YYYY-MM-DD correctly");
+}
+
+// Test 21: monthKey slices YYYY-MM from date strings
+{
+  assert.strictEqual(monthKey("2026-05-01"), "2026-05");
+  assert.strictEqual(monthKey("2026-12-31"), "2026-12");
+  assert.strictEqual(monthKey("2026-05"),    "2026-05");
+  assert.strictEqual(monthKey(""),           "");
+  assert.strictEqual(monthKey(null),         "");
+  console.log("✓ monthKey: slices YYYY-MM correctly");
+}
+
+// Test 22: monthLabel guards invalid month numbers
+{
+  assert.strictEqual(monthLabel("2026-00-15"), "2026-00-15"); // month 0 → returns dateStr
+  assert.strictEqual(monthLabel("2026-13-01"), "2026-13-01"); // month 13 → returns dateStr
+  console.log("✓ monthLabel: guards out-of-range month numbers");
+}
+
+// Test 23: planetItems excludes dev releases
+{
+  const devRel  = { entryId: "x", entryName: "X", affiliation: "official",
+                    tagName: "1.2.0.dev20260530", publishedAt: "2026-05-30T00:00:00Z",
+                    url: "https://github.com/test/x/releases/tag/1.2.0.dev20260530", repoUrl: "https://github.com/test/x" };
+  const dashDev = { entryId: "x", entryName: "X", affiliation: "official",
+                    tagName: "v0.72.0-dev20260529", publishedAt: "2026-05-29T00:00:00Z",
+                    url: "https://github.com/test/x/releases/tag/v0.72.0-dev20260529", repoUrl: "https://github.com/test/x" };
+  const stableRel = { entryId: "x", entryName: "X", affiliation: "official",
+                      tagName: "v1.0.0", publishedAt: "2026-05-01T00:00:00Z",
+                      url: "https://github.com/test/x/releases/tag/v1.0.0", repoUrl: "https://github.com/test/x" };
+  const items = planetItems([], [devRel, dashDev, stableRel]);
+  const releaseItems = items.filter((i) => i.type === "release");
+  assert.strictEqual(releaseItems.length, 1, "only stable release should appear");
+  assert.strictEqual(releaseItems[0].label, "v1.0.0");
+  console.log("✓ planetItems: excludes .dev and -dev release tags");
 }
 
 console.log("\nAll eleventy filter tests passed ✓");
