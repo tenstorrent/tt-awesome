@@ -84,6 +84,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .sidebar-item.active { color: var(--teal); background: rgba(79,209,197,0.08); font-weight: 600; }
 .sidebar-home { font-weight: 600; }
 .sidebar-muted { font-size: 11px; opacity: 0.6; }
+.sidebar-submit-wrap { padding: 10px 6px 6px; margin-top: auto; }
+.sidebar-submit { display: block; text-align: center; font-size: 12px; font-weight: 600;
+                  color: #fff; background: var(--green); text-decoration: none;
+                  padding: 7px 10px; border-radius: 6px;
+                  transition: filter 0.15s, box-shadow 0.15s; letter-spacing: 0.2px; }
+.sidebar-submit:hover { filter: brightness(1.15);
+                        box-shadow: 0 2px 8px rgba(39,174,96,0.35); }
 /* External community links — slightly smaller, open in new tab, ↗ indicator */
 .sidebar-ext  { font-size: 11px; color: var(--text2); }
 .sidebar-ext:hover { color: var(--teal); background: var(--bg1); }
