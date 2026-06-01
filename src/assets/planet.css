@@ -7,15 +7,24 @@
   --purple: #A78BFA;
 }
 
+/* ── Override style.css viewport lock for this standalone page ───────────── */
+/* style.css sets html, body { height: 100%; overflow: hidden } for the SPA.  */
+/* The planet page is a normal scrolling document, so we undo that here.      */
+html, body {
+  height: 100% !important;
+  overflow: visible !important;
+}
+
 /* ── Page shell ──────────────────────────────────────────────────────────── */
 .planet-page {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   background: var(--bg0);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 14px;
+  overflow: hidden;
 }
 
 /* ── Planet topbar ───────────────────────────────────────────────────────── */
@@ -85,11 +94,13 @@
   flex-direction: column;
   gap: 2px;
   transition: width 0.2s ease, padding 0.2s ease;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .planet-sidebar.collapsed {
   width: 0;
   padding: 0;
+  overflow: hidden;
 }
 .planet-sidebar-label {
   font-size: 9px;
@@ -387,9 +398,14 @@
 }
 
 @media (max-width: 680px) {
+  /* On mobile, switch to natural page scroll instead of flex-column viewport */
+  html, body { overflow: auto !important; height: auto !important; }
+  .planet-page { height: auto; overflow: visible; }
+  .planet-body { overflow: visible; }
+  .planet-content { overflow: visible; }
   .planet-sidebar { display: none; }
   .planet-chips-bar { display: flex; }
   .planet-content { padding: 12px 12px 32px; }
   .planet-feed-links { display: none; }
-  .planet-topbar { padding: 0 12px; }
+  .planet-topbar { padding: 0 12px; position: sticky; top: 0; }
 }
