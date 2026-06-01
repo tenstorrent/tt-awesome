@@ -59,7 +59,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .chip.active[data-filter="official"]  { background: var(--muted); color: #fff; }
 .topbar-github { display: flex; align-items: center; color: var(--muted);
                  text-decoration: none; padding: 4px; border-radius: 4px;
-                 transition: color 0.15s; flex-shrink: 0; }
+                 transition: color 0.15s; flex-shrink: 0; margin-left: auto; }
 .topbar-github:hover { color: var(--text); }
 
 /* ── Layout ─────────────────────────────────────────────────────────────── */
