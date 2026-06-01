@@ -16,7 +16,7 @@
      href="?cat={{ cat.slug }}"
      data-category="{{ cat.slug }}"
      onclick="selectCategory('{{ cat.slug }}', this); return false;">
-    {{ cat.label }}
+    {{ cat.sidebarLabel if cat.sidebarLabel else cat.label }}
   </a>
   {%- endfor %}
   <hr class="sidebar-hr">
