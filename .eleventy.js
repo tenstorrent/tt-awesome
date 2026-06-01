@@ -243,7 +243,7 @@ module.exports = function (eleventyConfig) {
         const dateStr = entry.added_at || "1970-01-01";
         items.push({
           type:        link.type,
-          title:       link.label || entry.name,
+          title:       entry.name,
           url:         link.url,
           description: entry.description || "",
           date:        dateStr,

@@ -240,7 +240,8 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   assert.strictEqual(items.length, 1, "only article-type links, not repo");
   assert.strictEqual(items[0].type, "paper");
   assert.strictEqual(items[0].url, "https://arxiv.org/abs/1234.5678");
-  assert.strictEqual(items[0].label, "arXiv:1234.5678");
+  assert.strictEqual(items[0].title, "Test Entry", "title should be entry.name, not link.label");
+  assert.strictEqual(items[0].label, "arXiv:1234.5678", "label is the link citation, shown as source");
   assert.strictEqual(items[0].projectId, "test-entry");
   console.log("✓ planetItems: article links included with correct shape");
 }
