@@ -1,0 +1,200 @@
+---
+layout: base-planet.njk
+permalink: /planet/
+eleventyExcludeFromCollections: true
+---
+{#-
+  Planet Tenstorrent — /planet/
+  Aggregated view of papers, articles, lessons, talks, videos, demos, and
+  releases from across the Tenstorrent ecosystem, grouped by month.
+
+  Data sources:
+    entries        — all curated entries (_data/entries.js)
+    recentReleases — GitHub release data (_data/recentReleases.js)
+
+  Filters used (registered in .eleventy.js):
+    planetItems(entries, recentReleases) → sorted item array
+    monthKey(dateStr)                    → "YYYY-MM" slice (no ellipsis)
+    monthLabel(dateStr)                  → "Month YYYY" display string
+    prettyDate(dateStr)                  → "Mon D, YYYY" display string
+-#}
+{%- set items = entries | planetItems(recentReleases) %}
+
+{#- Compute per-type counts in JS-land via a custom filter call chain.
+    Nunjucks selectattr + list is not reliably available in Eleventy; the
+    monthKey filter we added avoids the truncate-ellipsis problem for grouping. -#}
+{%- set paperItems   = items | selectattr("type", "equalto", "paper")   %}
+{%- set articleItems = items | selectattr("type", "equalto", "article") %}
+{%- set lessonItems  = items | selectattr("type", "equalto", "lesson")  %}
+{%- set videoItems   = items | selectattr("type", "equalto", "video")   %}
+{%- set talkItems    = items | selectattr("type", "equalto", "talk")    %}
+{%- set demoItems    = items | selectattr("type", "equalto", "demo")    %}
+{%- set releaseItems = items | selectattr("type", "equalto", "release") %}
+
+<!-- Topbar -->
+<header class="planet-topbar">
+  <a class="planet-back" href="/">← tt-awesome</a>
+  <span class="planet-topbar-divider">/</span>
+  <span class="planet-title">⚡ Planet Tenstorrent</span>
+  <div class="planet-feed-links">
+    <a class="planet-feed-link" href="/feeds/releases.xml" target="_blank" rel="noopener noreferrer">📡 Atom</a>
+    <a class="planet-feed-link" href="/feeds/feed.json" target="_blank" rel="noopener noreferrer">📡 JSON</a>
+  </div>
+</header>
+
+<!-- Mobile chip filter bar — shown only on narrow viewports via CSS -->
+<div class="planet-chips-bar">
+  <button class="planet-chip active" data-planet-chip="all">All ({{ items | length }})</button>
+  {%- if paperItems | length > 0 %}
+  <button class="planet-chip" data-planet-chip="paper">📄 Papers ({{ paperItems | length }})</button>
+  {%- endif %}
+  {%- if articleItems | length > 0 %}
+  <button class="planet-chip" data-planet-chip="article">📝 Articles ({{ articleItems | length }})</button>
+  {%- endif %}
+  {%- if lessonItems | length > 0 %}
+  <button class="planet-chip" data-planet-chip="lesson">📖 Lessons ({{ lessonItems | length }})</button>
+  {%- endif %}
+  {%- if videoItems | length > 0 %}
+  <button class="planet-chip" data-planet-chip="video">🎥 Videos ({{ videoItems | length }})</button>
+  {%- endif %}
+  {%- if talkItems | length > 0 %}
+  <button class="planet-chip" data-planet-chip="talk">🎤 Talks ({{ talkItems | length }})</button>
+  {%- endif %}
+  {%- if demoItems | length > 0 %}
+  <button class="planet-chip" data-planet-chip="demo">🚀 Demos ({{ demoItems | length }})</button>
+  {%- endif %}
+  {%- if releaseItems | length > 0 %}
+  <button class="planet-chip" data-planet-chip="release">🏷 Releases ({{ releaseItems | length }})</button>
+  {%- endif %}
+</div>
+
+<!-- Two-column body: filter sidebar + scrollable content -->
+<div class="planet-body" id="planet-body">
+
+  <!-- Filter sidebar (hidden on narrow viewports, collapsible on wide) -->
+  <nav class="planet-sidebar" id="planet-sidebar">
+    <div class="planet-sidebar-label">Filter</div>
+
+    <button class="planet-filter-btn active" data-planet-filter="all">
+      All <span class="planet-filter-count">{{ items | length }}</span>
+    </button>
+    {%- if paperItems | length > 0 %}
+    <button class="planet-filter-btn" data-planet-filter="paper">
+      📄 Papers <span class="planet-filter-count">{{ paperItems | length }}</span>
+    </button>
+    {%- endif %}
+    {%- if articleItems | length > 0 %}
+    <button class="planet-filter-btn" data-planet-filter="article">
+      📝 Articles <span class="planet-filter-count">{{ articleItems | length }}</span>
+    </button>
+    {%- endif %}
+    {%- if lessonItems | length > 0 %}
+    <button class="planet-filter-btn" data-planet-filter="lesson">
+      📖 Lessons <span class="planet-filter-count">{{ lessonItems | length }}</span>
+    </button>
+    {%- endif %}
+    {%- if videoItems | length > 0 %}
+    <button class="planet-filter-btn" data-planet-filter="video">
+      🎥 Videos <span class="planet-filter-count">{{ videoItems | length }}</span>
+    </button>
+    {%- endif %}
+    {%- if talkItems | length > 0 %}
+    <button class="planet-filter-btn" data-planet-filter="talk">
+      🎤 Talks <span class="planet-filter-count">{{ talkItems | length }}</span>
+    </button>
+    {%- endif %}
+    {%- if demoItems | length > 0 %}
+    <button class="planet-filter-btn" data-planet-filter="demo">
+      🚀 Demos <span class="planet-filter-count">{{ demoItems | length }}</span>
+    </button>
+    {%- endif %}
+    {%- if releaseItems | length > 0 %}
+    <button class="planet-filter-btn" data-planet-filter="release">
+      🏷 Releases <span class="planet-filter-count">{{ releaseItems | length }}</span>
+    </button>
+    {%- endif %}
+
+    <hr class="planet-sidebar-hr">
+
+    <div class="planet-subscribe-label">Subscribe</div>
+    <a class="planet-subscribe-link" href="/feeds/releases.xml" target="_blank" rel="noopener noreferrer">📡 Releases (Atom)</a>
+    <a class="planet-subscribe-link" href="/feeds/articles.xml" target="_blank" rel="noopener noreferrer">📡 Articles (Atom)</a>
+    <a class="planet-subscribe-link" href="/feeds/feed.json" target="_blank" rel="noopener noreferrer">📡 JSON Feed</a>
+
+    <div class="planet-sidebar-collapse">
+      <button class="planet-collapse-btn" id="planet-collapse-btn">← Collapse</button>
+    </div>
+  </nav>
+
+  <!-- Main content: items grouped by month -->
+  <main class="planet-content">
+    <div class="planet-content-inner">
+
+      <!-- Expand button — only visible when sidebar is collapsed -->
+      <button class="planet-expand-btn" id="planet-expand-btn">☰ Filters</button>
+
+      <!--
+        The feed container receives data-active-type="<type>" when a filter is
+        active.  The planet.css hides .planet-item elements whose [data-type]
+        doesn't match, so no JS per-item toggling is needed.
+      -->
+      <div class="planet-feed" id="planet-feed">
+        {%- for item in items %}
+          {%- set thisMonth = item.date | monthKey %}
+          {%- set prevMonth = items[loop.index0 - 1].date | monthKey if loop.index0 > 0 else "" %}
+          {%- if thisMonth != prevMonth %}
+        <div class="planet-month">{{ item.date | monthLabel }}</div>
+          {%- endif %}
+        <article class="planet-item" data-type="{{ item.type }}">
+          <div class="planet-item-meta">
+            <!-- Type badge — colour-coded via .planet-type-badge--<type> in CSS -->
+            <span class="planet-type-badge planet-type-badge--{{ item.type }}">
+              {%- if item.type == "paper" %}📄 paper
+              {%- elif item.type == "article" %}📝 article
+              {%- elif item.type == "lesson" %}📖 lesson
+              {%- elif item.type == "video" %}🎥 video
+              {%- elif item.type == "talk" %}🎤 talk
+              {%- elif item.type == "demo" %}🚀 demo
+              {%- else %}🏷 release
+              {%- endif %}
+            </span>
+            {%- if item.affiliation %}
+            <span class="planet-affil-badge planet-affil-badge--{{ item.affiliation }}">{{ item.affiliation }}</span>
+            {%- endif %}
+            <span class="planet-item-date">{{ item.date | prettyDate }}</span>
+          </div>
+
+          <a class="planet-item-title" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+
+          {%- if item.label %}
+          <div class="planet-item-source">{{ item.label }}</div>
+          {%- endif %}
+
+          {%- if item.description %}
+          <p class="planet-item-desc">{{ item.description }}</p>
+          {%- endif %}
+
+          <div class="planet-item-footer">
+            <!-- Link back to the tt-awesome entry for this project -->
+            <a class="planet-item-project" href="/?entry={{ item.projectId }}">{{ item.projectName }}</a>
+            <!-- Primary CTA — label varies by type -->
+            <a class="planet-item-read" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
+              {%- if item.type == "release" %}View release ↗
+              {%- elif item.type == "video" %}Watch ↗
+              {%- elif item.type == "paper" %}Read paper ↗
+              {%- else %}Read ↗
+              {%- endif %}
+            </a>
+          </div>
+        </article>
+        {%- endfor %}
+
+        {%- if not items.length %}
+        <div class="planet-empty">No items yet — check back soon.</div>
+        {%- endif %}
+      </div>{# /planet-feed #}
+
+    </div>{# /planet-content-inner #}
+  </main>
+
+</div>{# /planet-body #}

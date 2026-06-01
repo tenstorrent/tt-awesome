@@ -278,6 +278,14 @@ module.exports = function (eleventyConfig) {
     return items;
   });
 
+  // Extract "YYYY-MM" from a "YYYY-MM-DD" (or "YYYY-MM") date string.
+  // Used on the Planet Tenstorrent page to group items by month without the
+  // ellipsis that the truncate filter appends.
+  eleventyConfig.addFilter("monthKey", (dateStr) => {
+    if (!dateStr) return "";
+    return String(dateStr).slice(0, 7);
+  });
+
   // Convert a "YYYY-MM" or "YYYY-MM-DD" date string to a human-readable month
   // label such as "May 2026".  Returns an empty string for falsy input.
   eleventyConfig.addFilter("monthLabel", (dateStr) => {
