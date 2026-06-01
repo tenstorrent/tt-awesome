@@ -3,10 +3,28 @@
   "name": "tt-buda-demos",
   "description": "Repository of model demos using TT-Buda. The largest collection of pre-compiled model examples for Tenstorrent hardware — BERT, ResNet, YOLO, GPT-2, Whisper, and many more.",
   "affiliation": "official",
-  "categories": ["ai-models"],
-  "tags": ["demos", "models", "bert", "resnet", "yolo", "gpt2"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-buda-demos" }],
-  "hardware": ["grayskull", "wormhole"],
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "demos",
+    "models",
+    "bert",
+    "resnet",
+    "yolo",
+    "gpt2"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-buda-demos"
+    }
+  ],
+  "hardware": [
+    "grayskull",
+    "wormhole"
+  ],
   "language": "Python",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "added_at": "2026-05-08"
 }

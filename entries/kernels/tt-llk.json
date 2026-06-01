@@ -3,13 +3,37 @@
   "name": "tt-llk",
   "description": "Tenstorrent Low-Level Kernels: the C++ library that directly programs the RISC-V cores inside each Tensix compute engine. TRISC0 (unpack), TRISC1 (math/FPU/SFPU), and TRISC2 (pack) are all programmed through this layer — it is the interface between TT-Metal kernel code and bare silicon.",
   "affiliation": "official",
-  "categories": ["kernels", "riscv-arch"],
-  "tags": ["tensix", "risc-v", "llk", "trisc", "brisc", "ncrisc", "low-level", "compute-engine"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/tenstorrent/tt-llk" },
-    { "type": "article", "url": "https://github.com/tenstorrent/tt-llk/blob/main/docs/llk/l2/top_level_overview.md", "label": "Top-level architecture overview" }
+  "categories": [
+    "kernels",
+    "riscv-arch"
   ],
-  "hardware": ["grayskull", "wormhole", "blackhole"],
+  "tags": [
+    "tensix",
+    "risc-v",
+    "llk",
+    "trisc",
+    "brisc",
+    "ncrisc",
+    "low-level",
+    "compute-engine"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-llk"
+    },
+    {
+      "type": "article",
+      "url": "https://github.com/tenstorrent/tt-llk/blob/main/docs/llk/l2/top_level_overview.md",
+      "label": "Top-level architecture overview"
+    }
+  ],
+  "hardware": [
+    "grayskull",
+    "wormhole",
+    "blackhole"
+  ],
   "language": "C++",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "added_at": "2026-05-13"
 }

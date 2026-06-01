@@ -11,13 +11,36 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="tt-awesome">
   <meta property="og:title" content="tt-awesome — A curated list of Tenstorrent awesomeness">
-  <meta property="og:description" content="Community projects, tools, AI models, research papers, and tutorials for Tenstorrent hardware — curated by the community.">
+  <meta property="og:description" content="Discover {{ entries | length }} projects across {{ categories | length }} categories — tools, AI models, kernels, compilers, and more for Tenstorrent hardware.">
   <meta property="og:url" content="https://tenstorrent.github.io/tt-awesome/">
+  <!-- og:image is an SVG. Twitter/X and Facebook require PNG/JPEG — upgrade to
+       summary_large_image once og-card.png is generated at build time. -->
+  <meta property="og:image" content="https://tenstorrent.github.io/tt-awesome/assets/og-card.svg">
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@tenstorrent">
   <meta name="twitter:title" content="tt-awesome — A curated list of Tenstorrent awesomeness">
-  <meta name="twitter:description" content="Community projects, tools, AI models, research papers, and tutorials for Tenstorrent hardware — curated by the community.">
+  <meta name="twitter:description" content="Discover {{ entries | length }} projects across {{ categories | length }} categories — tools, AI models, kernels, compilers, and more for Tenstorrent hardware.">
+  <!-- Feed autodiscovery -->
+  <link rel="alternate" type="application/atom+xml" title="tt-awesome — Recent Releases" href="https://tenstorrent.github.io/tt-awesome/feeds/releases.xml">
+  <link rel="alternate" type="application/atom+xml" title="tt-awesome — New Entries" href="https://tenstorrent.github.io/tt-awesome/feeds/new-entries.xml">
+  <link rel="alternate" type="application/atom+xml" title="tt-awesome — Articles &amp; Resources" href="https://tenstorrent.github.io/tt-awesome/feeds/articles.xml">
+  <link rel="alternate" type="application/feed+json" title="tt-awesome — JSON Feed" href="https://tenstorrent.github.io/tt-awesome/feeds/feed.json">
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "tt-awesome",
+    "url": "https://tenstorrent.github.io/tt-awesome/",
+    "description": "Discover {{ entries | length }} projects across {{ categories | length }} categories — tools, AI models, kernels, compilers, and more for Tenstorrent hardware.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://tenstorrent.github.io/tt-awesome/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 
   <style>{% inlineFile "src/assets/style.css" %}</style>
 

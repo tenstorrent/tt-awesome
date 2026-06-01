@@ -3,11 +3,25 @@
   "name": "Accelerating Stencils on the Tenstorrent Grayskull RISC-V Accelerator",
   "description": "Explores stencil computation on the Grayskull PCIe RISC-V accelerator. Early academic work examining TT hardware for HPC stencil workloads. 2024.",
   "affiliation": "community",
-  "categories": ["research"],
-  "tags": ["stencil", "hpc", "grayskull", "risc-v"],
-  "links": [
-    { "type": "paper", "url": "https://arxiv.org/abs/2409.18835", "label": "arXiv:2409.18835" }
+  "categories": [
+    "research"
   ],
-  "hardware": ["grayskull"],
-  "date": "2024-09-27"
+  "tags": [
+    "stencil",
+    "hpc",
+    "grayskull",
+    "risc-v"
+  ],
+  "links": [
+    {
+      "type": "paper",
+      "url": "https://arxiv.org/abs/2409.18835",
+      "label": "arXiv:2409.18835"
+    }
+  ],
+  "hardware": [
+    "grayskull"
+  ],
+  "date": "2024-09-27",
+  "added_at": "2026-05-08"
 }

@@ -3,13 +3,32 @@
   "name": "tt-flash",
   "description": "Tenstorrent firmware update utility. Flash new firmware onto Tenstorrent accelerator cards from the command line.",
   "affiliation": "official",
-  "categories": ["hw-system"],
-  "tags": ["firmware-update", "flash", "utility"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-flash" }],
-  "hardware": ["grayskull", "wormhole", "blackhole"],
+  "categories": [
+    "hw-system"
+  ],
+  "tags": [
+    "firmware-update",
+    "flash",
+    "utility"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-flash"
+    }
+  ],
+  "hardware": [
+    "grayskull",
+    "wormhole",
+    "blackhole"
+  ],
   "language": "Python",
   "license": "Apache-2.0",
   "packages": [
-    { "type": "pypi", "name": "tt-flash" }
-  ]
+    {
+      "type": "pypi",
+      "name": "tt-flash"
+    }
+  ],
+  "added_at": "2026-05-08"
 }

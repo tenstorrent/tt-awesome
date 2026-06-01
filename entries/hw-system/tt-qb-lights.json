@@ -3,12 +3,26 @@
   "name": "tt-qb-lights",
   "description": "Sync your Tenstorrent Quietbox's RGB lighting to accelerator utilization status. Visual feedback for hardware activity in real time.",
   "affiliation": "affiliated",
-  "categories": ["hw-system", "games-demos"],
-  "tags": ["quietbox", "rgb", "hardware", "fun"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/tsingletaryTT/tt-qb-lights" }
+  "categories": [
+    "hw-system",
+    "games-demos"
   ],
-  "hardware": ["quietbox"],
+  "tags": [
+    "quietbox",
+    "rgb",
+    "hardware",
+    "fun"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tsingletaryTT/tt-qb-lights"
+    }
+  ],
+  "hardware": [
+    "quietbox"
+  ],
   "author": "tsingletaryTT",
-  "language": "Rust"
+  "language": "Rust",
+  "added_at": "2026-05-08"
 }

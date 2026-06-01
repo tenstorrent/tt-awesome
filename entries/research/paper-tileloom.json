@@ -3,12 +3,29 @@
   "name": "TileLoom: Automatic Dataflow Planning for Spatial Dataflow Accelerators",
   "description": "Compiler system that automatically generates efficient dataflow plans for tile-based languages on spatial accelerators including Tenstorrent Wormhole. Exploits on-chip network forwarding between processing elements to reduce DRAM pressure.",
   "affiliation": "community",
-  "categories": ["research", "compilers"],
-  "tags": ["compiler", "dataflow", "spatial-accelerator", "tile-based", "on-chip-network", "wormhole"],
-  "links": [
-    { "type": "paper", "url": "https://arxiv.org/abs/2512.22168", "label": "arXiv:2512.22168" }
+  "categories": [
+    "research",
+    "compilers"
   ],
-  "hardware": ["wormhole"],
+  "tags": [
+    "compiler",
+    "dataflow",
+    "spatial-accelerator",
+    "tile-based",
+    "on-chip-network",
+    "wormhole"
+  ],
+  "links": [
+    {
+      "type": "paper",
+      "url": "https://arxiv.org/abs/2512.22168",
+      "label": "arXiv:2512.22168"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
   "author": "Wei Li, Zhenyu Bai, Heru Wang, Pranav Dangi",
-  "date": "2025-12-17"
+  "date": "2025-12-17",
+  "added_at": "2026-05-13"
 }

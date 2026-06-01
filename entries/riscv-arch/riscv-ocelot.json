@@ -3,9 +3,22 @@
   "name": "riscv-ocelot",
   "description": "The Berkeley Out-of-Order Machine with V-EXT (RISC-V Vector Extension) support. Tenstorrent's research-grade out-of-order RISC-V core with vector extension.",
   "affiliation": "official",
-  "categories": ["riscv-arch"],
-  "tags": ["risc-v", "out-of-order", "vector-extension", "processor-design"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/riscv-ocelot" }],
+  "categories": [
+    "riscv-arch"
+  ],
+  "tags": [
+    "risc-v",
+    "out-of-order",
+    "vector-extension",
+    "processor-design"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/riscv-ocelot"
+    }
+  ],
   "language": "SystemVerilog",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "added_at": "2026-05-08"
 }

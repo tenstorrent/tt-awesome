@@ -3,13 +3,33 @@
   "name": "tt-claw",
   "description": "A Tenstorrent-powered claw machine that rewards players with real prizes. The QuietBox 2 runs local AI inference to act as an agent controlling the claw hardware — the OpenClaw AI assistant lesson builds directly on this project.",
   "affiliation": "affiliated",
-  "categories": ["agents", "games-demos"],
-  "tags": ["claw-machine", "agents", "hardware", "quietbox", "physical", "on-device"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/tsingletaryTT/tt-claw" },
-    { "type": "lesson", "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-openclaw-assistant/", "label": "OpenClaw AI Assistant on QuietBox 2" }
+  "categories": [
+    "agents",
+    "games-demos"
   ],
-  "hardware": ["quietbox"],
+  "tags": [
+    "claw-machine",
+    "agents",
+    "hardware",
+    "quietbox",
+    "physical",
+    "on-device"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tsingletaryTT/tt-claw"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-openclaw-assistant/",
+      "label": "OpenClaw AI Assistant on QuietBox 2"
+    }
+  ],
+  "hardware": [
+    "quietbox"
+  ],
   "author": "tsingletaryTT",
-  "language": "Shell"
+  "language": "Shell",
+  "added_at": "2026-05-08"
 }

@@ -3,6 +3,7 @@
 # SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
 """Interactive CLI to add a new entry to entries/."""
+import datetime
 import json
 import re
 import sys
@@ -106,6 +107,7 @@ def main():
     entry = {
         "id": entry_id, "name": name, "description": description,
         "affiliation": affiliation, "categories": categories, "links": links,
+        "added_at": datetime.date.today().isoformat(),
     }
     if hardware:   entry["hardware"] = hardware
     if tags:       entry["tags"] = tags

@@ -1,7 +1,7 @@
 {
   "id": "tensix-viz",
   "name": "tensix-viz",
-  "description": "Hardware topology visualizer for Tenstorrent chips \u2014 from individual chip to full cluster. Interactive JavaScript visualization of Tensix core layout and NoC connections.",
+  "description": "Hardware topology visualizer for Tenstorrent chips — from individual chip to full cluster. Interactive JavaScript visualization of Tensix core layout and NoC connections.",
   "affiliation": "affiliated",
   "categories": [
     "dev-tools"
@@ -29,5 +29,8 @@
   "featured": true,
   "author": "tsingletaryTT",
   "language": "JavaScript",
-  "embed": { "type": "tensix-viz" }
+  "embed": {
+    "type": "tensix-viz"
+  },
+  "added_at": "2026-05-08"
 }

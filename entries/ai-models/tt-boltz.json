@@ -3,15 +3,36 @@
   "name": "tt-boltz",
   "description": "Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.",
   "affiliation": "community",
-  "categories": ["ai-models", "research"],
-  "tags": ["drug-discovery", "blackhole", "inference", "biology", "multi-card"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/moritztng/tt-boltz" },
-    { "type": "talk", "url": "https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/", "label": "FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware" }
+  "categories": [
+    "ai-models",
+    "research"
   ],
-  "hardware": ["blackhole", "quietbox", "galaxy"],
+  "tags": [
+    "drug-discovery",
+    "blackhole",
+    "inference",
+    "biology",
+    "multi-card"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/moritztng/tt-boltz"
+    },
+    {
+      "type": "talk",
+      "url": "https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/",
+      "label": "FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox",
+    "galaxy"
+  ],
   "featured": true,
   "author": "moritztng",
   "language": "Python",
-  "license": "MIT"
+  "license": "MIT",
+  "added_at": "2026-05-08"
 }

@@ -86,7 +86,19 @@ def validate_entry(path: Path, data: dict) -> list:
     if "date" in data:
         if not isinstance(data["date"], str) or not DATE_RE.match(data["date"]):
             errors.append(f"date must be a YYYY-MM-DD string, got '{data.get('date')}'")
+    # added_at: optional ISO 8601 date string (YYYY-MM-DD) — when the entry was first listed
+    if "added_at" in data:
+        if not isinstance(data["added_at"], str) or not DATE_RE.match(data["added_at"]):
+            errors.append(f"added_at must be a YYYY-MM-DD string, got '{data.get('added_at')}'")
     return errors
+
+
+def validate_entry_warnings(path: Path, data: dict) -> list:
+    """Return soft warnings (non-fatal) for an entry."""
+    warnings = []
+    if not data.get("added_at"):
+        warnings.append("missing added_at (run scripts/backfill_added_at.py)")
+    return warnings
 
 
 def main():
@@ -98,7 +110,7 @@ def main():
     if not json_files:
         print("No entries found — nothing to validate.")
         sys.exit(0)
-    all_ids, total_errors = [], 0
+    all_ids, total_errors, total_warnings = [], 0, 0
     for fpath in json_files:
         try:
             data = json.loads(fpath.read_text())
@@ -107,13 +119,19 @@ def main():
             total_errors += 1
             continue
         errors = validate_entry(fpath, data)
+        warnings = validate_entry_warnings(fpath, data)
         all_ids.append(data.get("id"))
         if errors:
             print(f"FAIL {fpath.name}:")
             for e in errors:
                 print(f"  - {e}")
             total_errors += len(errors)
-        else:
+        if warnings:
+            print(f"WARN {fpath.name}:")
+            for w in warnings:
+                print(f"  ~ {w}")
+            total_warnings += len(warnings)
+        if not errors and not warnings:
             print(f"  OK {fpath.name}")
     seen = set()
     for eid in all_ids:
@@ -126,7 +144,10 @@ def main():
     if total_errors:
         print(f"\n{total_errors} error(s) found.")
         sys.exit(1)
-    print(f"\nAll {len(json_files)} entries valid.")
+    if total_warnings:
+        print(f"\nNo errors. {len(json_files)} entries checked ({total_warnings} warning(s)).")
+    else:
+        print(f"\nAll {len(json_files)} entries valid.")
 
 
 if __name__ == "__main__":

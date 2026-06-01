@@ -3,11 +3,31 @@
   "name": "TT Console",
   "description": "Browser-based cloud console for exploring AI on Tenstorrent hardware. Run LLM inference, image and video generation, and browse the supported model catalog in-browser — backed by Tenstorrent accelerators. Cloud hardware access and advanced workflows (deployments, agents) available in staged rollout.",
   "affiliation": "official",
-  "categories": ["cloud-infra", "ai-models"],
-  "tags": ["cloud", "console", "inference", "playground", "llm", "image-generation", "video-generation", "demo"],
-  "links": [
-    { "type": "website", "url": "https://console.tenstorrent.com", "label": "console.tenstorrent.com" }
+  "categories": [
+    "cloud-infra",
+    "ai-models"
   ],
-  "hardware": ["wormhole", "blackhole"],
-  "featured": true
+  "tags": [
+    "cloud",
+    "console",
+    "inference",
+    "playground",
+    "llm",
+    "image-generation",
+    "video-generation",
+    "demo"
+  ],
+  "links": [
+    {
+      "type": "website",
+      "url": "https://console.tenstorrent.com",
+      "label": "console.tenstorrent.com"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "featured": true,
+  "added_at": "2026-05-11"
 }

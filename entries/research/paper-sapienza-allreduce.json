@@ -3,11 +3,25 @@
   "name": "Collective Operations on Wormhole n150 (Sapienza University of Rome)",
   "description": "Master's thesis implementing and benchmarking five allreduce algorithms (Swing, Recursive Doubling, Bandwidth Optimal, Latency Optimal, Shared Memory) on the Wormhole n150. Bandwidth Optimal achieved best performance, approaching within 2× of theoretical optimal.",
   "affiliation": "community",
-  "categories": ["research"],
-  "tags": ["allreduce", "collective-ops", "wormhole", "mpi", "bandwidth"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/EngineerCharlie/TenstorrentAllreduce" }
+  "categories": [
+    "research"
   ],
-  "hardware": ["wormhole"],
-  "author": "Charles Heron (Sapienza University of Rome)"
+  "tags": [
+    "allreduce",
+    "collective-ops",
+    "wormhole",
+    "mpi",
+    "bandwidth"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/EngineerCharlie/TenstorrentAllreduce"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "Charles Heron (Sapienza University of Rome)",
+  "added_at": "2026-05-08"
 }

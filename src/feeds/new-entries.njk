@@ -1,0 +1,31 @@
+---
+permalink: /feeds/new-entries.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>tt-awesome — New Entries</title>
+  <subtitle>Newly added projects, tools, and resources in the Tenstorrent ecosystem</subtitle>
+  <link href="https://tenstorrent.github.io/tt-awesome/feeds/new-entries.xml" rel="self"/>
+  <link href="https://tenstorrent.github.io/tt-awesome/"/>
+  <id>https://tenstorrent.github.io/tt-awesome/feeds/new-entries.xml</id>
+  <author><name>Tenstorrent Community</name><uri>https://tenstorrent.github.io/tt-awesome/</uri></author>
+  {%- set sortedEntries = entries | sort(true, false, "added_at") %}
+  <updated>{{ sortedEntries[0].added_at + "T00:00:00Z" if (sortedEntries.length and sortedEntries[0].added_at) else "1970-01-01T00:00:00Z" }}</updated>
+  {%- for entry in sortedEntries %}
+  {%- if loop.index <= 50 %}
+  {%- set repoLink = entry.links | selectattr("type", "equalto", "repo") | first %}
+  <entry>
+    <id>{{ repoLink.url if repoLink else "https://tenstorrent.github.io/tt-awesome/#" + entry.id }}</id>
+    <title>{{ entry.name }}</title>
+    <link href="{{ repoLink.url if repoLink else "https://tenstorrent.github.io/tt-awesome/#" + entry.id }}"/>
+    <updated>{{ entry.added_at + "T00:00:00Z" if entry.added_at else "1970-01-01T00:00:00Z" }}</updated>
+    <summary>{{ entry.description }}</summary>
+    <category term="{{ entry.affiliation }}"/>
+    {%- for cat in entry.categories %}
+    <category term="{{ cat }}"/>
+    {%- endfor %}
+  </entry>
+  {%- endif %}
+  {%- endfor %}
+</feed>

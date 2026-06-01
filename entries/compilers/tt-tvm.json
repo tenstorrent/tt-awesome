@@ -3,10 +3,27 @@
   "name": "tt-tvm",
   "description": "TVM for Tenstorrent ASICs. Brings the Apache TVM compiler stack to Tenstorrent hardware, enabling model compilation from TensorFlow, PyTorch, ONNX, and more.",
   "affiliation": "official",
-  "categories": ["compilers"],
-  "tags": ["tvm", "compiler", "tensorflow", "onnx"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-tvm" }],
-  "hardware": ["grayskull", "wormhole", "blackhole"],
+  "categories": [
+    "compilers"
+  ],
+  "tags": [
+    "tvm",
+    "compiler",
+    "tensorflow",
+    "onnx"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-tvm"
+    }
+  ],
+  "hardware": [
+    "grayskull",
+    "wormhole",
+    "blackhole"
+  ],
   "language": "Python",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "added_at": "2026-05-08"
 }

@@ -3,13 +3,27 @@
   "name": "bhx",
   "description": "Boot stock Linux cloud images on the SiFive X280 RISC-V cores inside Tenstorrent Blackhole AI accelerators. Per-card Rust daemon with virtio-mmio block/net/console and U-Boot/EFI support.",
   "affiliation": "community",
-  "categories": ["riscv-arch"],
-  "tags": ["blackhole", "risc-v", "linux", "boot", "virtio"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/olofj/bhx" }
+  "categories": [
+    "riscv-arch"
   ],
-  "hardware": ["blackhole"],
+  "tags": [
+    "blackhole",
+    "risc-v",
+    "linux",
+    "boot",
+    "virtio"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/olofj/bhx"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
   "featured": true,
   "author": "olofj",
-  "language": "Rust"
+  "language": "Rust",
+  "added_at": "2026-05-08"
 }

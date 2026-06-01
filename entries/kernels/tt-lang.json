@@ -30,8 +30,14 @@
     }
   ],
   "packages": [
-    { "type": "pypi", "name": "tt-lang" },
-    { "type": "pypi", "name": "tt-lang-sim" }
+    {
+      "type": "pypi",
+      "name": "tt-lang"
+    },
+    {
+      "type": "pypi",
+      "name": "tt-lang-sim"
+    }
   ],
   "hardware": [
     "wormhole",
@@ -39,5 +45,6 @@
     "ttsim"
   ],
   "language": "Python",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "added_at": "2026-05-08"
 }

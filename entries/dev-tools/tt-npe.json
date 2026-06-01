@@ -3,10 +3,26 @@
   "name": "tt-npe",
   "description": "Network-on-chip Performance Estimator for Tenstorrent Tensix-based devices. Model and estimate NoC utilization before running kernels on hardware.",
   "affiliation": "official",
-  "categories": ["dev-tools"],
-  "tags": ["noc", "performance", "estimator", "profiling"],
-  "links": [{ "type": "repo", "url": "https://github.com/tenstorrent/tt-npe" }],
-  "hardware": ["wormhole", "blackhole"],
+  "categories": [
+    "dev-tools"
+  ],
+  "tags": [
+    "noc",
+    "performance",
+    "estimator",
+    "profiling"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-npe"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
   "language": "C++",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "added_at": "2026-05-08"
 }

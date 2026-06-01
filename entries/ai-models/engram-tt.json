@@ -3,12 +3,25 @@
   "name": "Engram",
   "description": "A Tenstorrent port of the DeepSeek Engram model using tt-lang. Brings DeepSeek's memory-efficient architecture to TT hardware.",
   "affiliation": "affiliated",
-  "categories": ["ai-models"],
-  "tags": ["deepseek", "engram", "tt-lang", "inference"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/zoecarver/Engram" }
+  "categories": [
+    "ai-models"
   ],
-  "hardware": ["blackhole"],
+  "tags": [
+    "deepseek",
+    "engram",
+    "tt-lang",
+    "inference"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/zoecarver/Engram"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
   "author": "zoecarver",
-  "language": "Python"
+  "language": "Python",
+  "added_at": "2026-05-08"
 }

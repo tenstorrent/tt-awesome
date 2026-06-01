@@ -3,14 +3,30 @@
   "name": "nvtop",
   "description": "htop-style process monitor for GPUs and AI accelerators. Supports AMD, Apple, Huawei, Intel, NVIDIA, Qualcomm — and Tenstorrent. Real-time utilization, memory, and process info in a terminal UI.",
   "affiliation": "community",
-  "categories": ["dev-tools", "hw-system"],
-  "tags": ["monitoring", "tui", "htop", "process-monitor", "terminal"],
-  "links": [
-    { "type": "repo", "url": "https://github.com/Syllo/nvtop" }
+  "categories": [
+    "dev-tools",
+    "hw-system"
   ],
-  "hardware": ["wormhole", "blackhole"],
+  "tags": [
+    "monitoring",
+    "tui",
+    "htop",
+    "process-monitor",
+    "terminal"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Syllo/nvtop"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
   "featured": true,
   "author": "Syllo",
   "language": "C",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "added_at": "2026-05-08"
 }

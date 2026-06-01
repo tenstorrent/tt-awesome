@@ -1,0 +1,28 @@
+---
+permalink: /feeds/releases.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>tt-awesome — Recent Releases</title>
+  <subtitle>Latest stable releases from Tenstorrent ecosystem projects</subtitle>
+  <link href="https://tenstorrent.github.io/tt-awesome/feeds/releases.xml" rel="self"/>
+  <link href="https://tenstorrent.github.io/tt-awesome/"/>
+  <id>https://tenstorrent.github.io/tt-awesome/feeds/releases.xml</id>
+  <author><name>Tenstorrent Community</name><uri>https://tenstorrent.github.io/tt-awesome/</uri></author>
+  {# recentReleases is sorted newest-first by recentReleases.js — index 0 is the latest. #}
+  <updated>{{ recentReleases[0].publishedAt if recentReleases.length else "1970-01-01T00:00:00Z" }}</updated>
+  {%- for rel in recentReleases %}
+  {%- if loop.index <= 50 %}
+  <entry>
+    <id>{{ rel.url }}</id>
+    <title>{{ rel.entryName }} {{ rel.tagName }}</title>
+    <link href="{{ rel.url }}"/>
+    <updated>{{ rel.publishedAt }}</updated>
+    <summary>{{ rel.entryName }} released {{ rel.tagName }}. Repository: {{ rel.repoUrl }}</summary>
+    <category term="{{ rel.affiliation }}"/>
+    <category term="release"/>
+  </entry>
+  {%- endif %}
+  {%- endfor %}
+</feed>
