@@ -211,6 +211,8 @@ module.exports = function (eleventyConfig) {
       }
     }
 
+    // Sort all items newest-first regardless of which sub-list they came from.
+    items.sort((a, b) => (a.date_published < b.date_published ? 1 : a.date_published > b.date_published ? -1 : 0));
     return items;
   });
 
