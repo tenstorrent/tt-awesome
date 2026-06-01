@@ -216,6 +216,82 @@ module.exports = function (eleventyConfig) {
     return items;
   });
 
+  // Build the combined item list for the Planet Tenstorrent page.
+  //
+  // Accepts:
+  //   entries        — full entries collection (from _data/entries.js)
+  //   recentReleases — from _data/recentReleases.js
+  //
+  // Returns an array of items sorted newest-first, each with the shape:
+  //   { type, title, url, description, date, dateISO,
+  //     projectName, projectId, affiliation, label }
+  //
+  // Article-type links (article, lesson, paper, talk, video, demo) are pulled
+  // from all entries; releases come from recentReleases.  URLs are deduplicated
+  // across article links.
+  eleventyConfig.addFilter("planetItems", (entries, recentReleases) => {
+    const ARTICLE_TYPES = new Set(["article", "lesson", "paper", "talk", "video", "demo"]);
+    const items = [];
+    const seenUrls = new Set();
+
+    // Article-type links from all entries
+    for (const entry of entries || []) {
+      for (const link of entry.links || []) {
+        if (!ARTICLE_TYPES.has(link.type)) continue;
+        if (seenUrls.has(link.url)) continue;
+        seenUrls.add(link.url);
+        const dateStr = entry.added_at || "1970-01-01";
+        items.push({
+          type:        link.type,
+          title:       link.label || entry.name,
+          url:         link.url,
+          description: entry.description || "",
+          date:        dateStr,
+          dateISO:     dateStr + "T00:00:00Z",
+          projectName: entry.name,
+          projectId:   entry.id,
+          affiliation: entry.affiliation || "",
+          label:       link.label || "",
+        });
+      }
+    }
+
+    // Stable releases from recentReleases
+    for (const rel of recentReleases || []) {
+      const dateStr = rel.publishedAt ? rel.publishedAt.slice(0, 10) : "1970-01-01";
+      items.push({
+        type:        "release",
+        title:       `${rel.entryName} ${rel.tagName}`,
+        url:         rel.url,
+        description: `New release: ${rel.entryName} ${rel.tagName}`,
+        date:        dateStr,
+        dateISO:     rel.publishedAt || dateStr + "T00:00:00Z",
+        projectName: rel.entryName,
+        projectId:   rel.entryId,
+        affiliation: rel.affiliation || "",
+        label:       rel.tagName,
+      });
+    }
+
+    // Sort all items newest-first
+    items.sort((a, b) => (a.dateISO < b.dateISO ? 1 : a.dateISO > b.dateISO ? -1 : 0));
+    return items;
+  });
+
+  // Convert a "YYYY-MM" or "YYYY-MM-DD" date string to a human-readable month
+  // label such as "May 2026".  Returns an empty string for falsy input.
+  eleventyConfig.addFilter("monthLabel", (dateStr) => {
+    if (!dateStr) return "";
+    const months = ["January","February","March","April","May","June",
+                    "July","August","September","October","November","December"];
+    // Accept "YYYY-MM" or "YYYY-MM-DD"
+    const parts = String(dateStr).split("-");
+    if (parts.length < 2) return dateStr;
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parts[0];
+    return `${months[month] || ""} ${year}`;
+  });
+
   // Inline a file's content directly into the template.
   // Used to embed CSS and JS into the HTML so that private GitHub Pages
   // authentication doesn't intercept sub-resource requests and return an
