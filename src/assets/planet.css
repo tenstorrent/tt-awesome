@@ -1,0 +1,395 @@
+/* ── Planet Tenstorrent — standalone page styles ─────────────────────────── */
+/* Shares CSS variables with style.css; no overlap with the main app classes. */
+
+:root {
+  --planet-sidebar-w: 200px;
+  --planet-gap: 20px;
+  --purple: #A78BFA;
+}
+
+/* ── Page shell ──────────────────────────────────────────────────────────── */
+.planet-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg0);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+}
+
+/* ── Planet topbar ───────────────────────────────────────────────────────── */
+.planet-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  height: 48px;
+  background: var(--bg3);
+  border-bottom: 1px solid rgba(79,209,197,0.15);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.planet-back {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  transition: color 0.1s;
+}
+.planet-back:hover { color: var(--teal); }
+.planet-topbar-divider { color: var(--bg2); font-size: 16px; }
+.planet-title {
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--teal);
+  letter-spacing: -0.3px;
+  flex: 1;
+}
+.planet-feed-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.planet-feed-link {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--bg2);
+  transition: color 0.1s, border-color 0.1s;
+}
+.planet-feed-link:hover { color: var(--teal); border-color: var(--teal); }
+
+/* ── Main body layout ────────────────────────────────────────────────────── */
+.planet-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Filter sidebar ──────────────────────────────────────────────────────── */
+.planet-sidebar {
+  width: var(--planet-sidebar-w);
+  flex-shrink: 0;
+  background: var(--bg3);
+  border-right: 1px solid rgba(79,209,197,0.12);
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: width 0.2s ease, padding 0.2s ease;
+  overflow: hidden;
+}
+.planet-sidebar.collapsed {
+  width: 0;
+  padding: 0;
+}
+.planet-sidebar-label {
+  font-size: 9px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 4px 8px 6px;
+  white-space: nowrap;
+}
+.planet-filter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  border-radius: 0 5px 5px 0;
+  padding: 6px 8px 6px 10px;
+  font: inherit;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  transition: color 0.1s, background 0.1s, border-color 0.1s;
+}
+.planet-filter-btn:hover { color: var(--text); background: var(--bg1); }
+.planet-filter-btn.active {
+  color: var(--teal);
+  background: rgba(79,209,197,0.08);
+  border-left-color: var(--teal);
+  font-weight: 600;
+}
+.planet-filter-count {
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--bg2);
+  padding: 0 5px;
+  border-radius: 8px;
+  margin-left: 4px;
+}
+.planet-sidebar-hr {
+  border: none;
+  border-top: 1px solid rgba(79,209,197,0.1);
+  margin: 8px 6px;
+}
+.planet-subscribe-label {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 4px 10px 2px;
+  white-space: nowrap;
+}
+.planet-subscribe-link {
+  display: block;
+  font-size: 11px;
+  color: var(--text2);
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: color 0.1s, background 0.1s;
+}
+.planet-subscribe-link:hover { color: var(--teal); background: var(--bg1); }
+.planet-sidebar-collapse {
+  margin-top: auto;
+  padding-top: 12px;
+}
+.planet-collapse-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: color 0.1s, background 0.1s;
+}
+.planet-collapse-btn:hover { color: var(--text); background: var(--bg1); }
+
+/* ── Content area ────────────────────────────────────────────────────────── */
+.planet-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 32px 48px;
+  min-width: 0;
+}
+.planet-content-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* Expand button shown when sidebar is collapsed */
+.planet-expand-btn {
+  display: none;
+  background: none;
+  border: 1px solid var(--bg2);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px 10px;
+  margin-bottom: 16px;
+  transition: color 0.1s, border-color 0.1s;
+}
+.planet-expand-btn:hover { color: var(--teal); border-color: var(--teal); }
+.planet-body.sidebar-collapsed .planet-expand-btn { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ── Month headers ───────────────────────────────────────────────────────── */
+.planet-month {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 24px 0 10px;
+  border-bottom: 1px solid rgba(79,209,197,0.1);
+  margin-bottom: 16px;
+}
+.planet-month:first-child { padding-top: 0; }
+
+/* ── Item cards ──────────────────────────────────────────────────────────── */
+.planet-item {
+  background: var(--bg1);
+  border: 1px solid var(--bg2);
+  border-radius: 10px;
+  padding: 16px 18px 14px;
+  margin-bottom: 12px;
+  transition: border-color 0.18s, box-shadow 0.18s, transform 0.12s;
+}
+.planet-item:hover {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 1px rgba(79,209,197,0.2), 0 4px 16px rgba(0,0,0,0.25);
+  transform: translateY(-1px);
+}
+
+/* Top meta row */
+.planet-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.planet-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+.planet-type-badge--paper   { background: rgba(244,196,113,0.15); color: var(--gold); }
+.planet-type-badge--article { background: rgba(79,209,197,0.12); color: var(--teal); }
+.planet-type-badge--lesson  { background: rgba(39,174,96,0.15); color: var(--green); }
+.planet-type-badge--video   { background: rgba(236,150,184,0.15); color: var(--pink); }
+.planet-type-badge--talk    { background: rgba(167,139,250,0.15); color: var(--purple); }
+.planet-type-badge--demo    { background: rgba(129,230,217,0.12); color: var(--teal-lt); }
+.planet-type-badge--release { background: rgba(96,125,139,0.2); color: var(--muted); }
+
+.planet-affil-badge {
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  color: #fff;
+}
+.planet-affil-badge--official   { background: var(--muted); }
+.planet-affil-badge--affiliated { background: var(--pink); }
+.planet-affil-badge--community  { background: var(--green); }
+
+.planet-item-date {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Title */
+.planet-item-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  line-height: 1.3;
+  display: block;
+  margin-bottom: 6px;
+  transition: color 0.1s;
+}
+.planet-item-title:hover { color: var(--teal); }
+
+/* Source label */
+.planet-item-source {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* Description */
+.planet-item-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+/* Footer */
+.planet-item-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.planet-item-project {
+  font-size: 11px;
+  color: var(--teal-lt);
+  text-decoration: none;
+  transition: color 0.1s;
+}
+.planet-item-project:hover { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
+.planet-item-read {
+  font-size: 11px;
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.1s;
+  white-space: nowrap;
+}
+.planet-item-read:hover { color: var(--teal-lt); }
+
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+.planet-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ── Mobile chips (shown instead of sidebar on narrow screens) ───────────── */
+.planet-chips-bar {
+  display: none;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--bg3);
+  border-bottom: 1px solid rgba(79,209,197,0.1);
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+.planet-chips-bar::-webkit-scrollbar { display: none; }
+.planet-chip {
+  flex-shrink: 0;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: var(--bg1);
+  color: var(--muted);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.planet-chip.active { background: rgba(79,209,197,0.12); color: var(--teal); }
+
+/* ── Filtering — hide non-matching items ─────────────────────────────────── */
+.planet-feed[data-active-type] .planet-item { display: none; }
+.planet-feed[data-active-type="paper"]   .planet-item[data-type="paper"]   { display: block; }
+.planet-feed[data-active-type="article"] .planet-item[data-type="article"] { display: block; }
+.planet-feed[data-active-type="lesson"]  .planet-item[data-type="lesson"]  { display: block; }
+.planet-feed[data-active-type="video"]   .planet-item[data-type="video"]   { display: block; }
+.planet-feed[data-active-type="talk"]    .planet-item[data-type="talk"]    { display: block; }
+.planet-feed[data-active-type="demo"]    .planet-item[data-type="demo"]    { display: block; }
+.planet-feed[data-active-type="release"] .planet-item[data-type="release"] { display: block; }
+/* When filtering, also hide month headers that have no visible items */
+/* (handled by JS toggling .planet-month elements) */
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .planet-content { padding: 16px 16px 32px; }
+  .planet-item-title { font-size: 14px; }
+}
+
+@media (max-width: 680px) {
+  .planet-sidebar { display: none; }
+  .planet-chips-bar { display: flex; }
+  .planet-content { padding: 12px 12px 32px; }
+  .planet-feed-links { display: none; }
+  .planet-topbar { padding: 0 12px; }
+}
