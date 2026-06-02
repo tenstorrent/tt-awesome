@@ -58,6 +58,7 @@
       var feed     = document.getElementById('planet-feed');
       var sidebar  = document.getElementById('planet-sidebar');
       var body     = document.getElementById('planet-body');
+      if (!feed || !sidebar || !body) return;
       var filterBtns = document.querySelectorAll('[data-planet-filter]');
       var chipBtns   = document.querySelectorAll('[data-planet-chip]');
 

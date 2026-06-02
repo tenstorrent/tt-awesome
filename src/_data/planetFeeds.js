@@ -9,5 +9,9 @@ const path = require("path");
 module.exports = function () {
   const p = path.join(__dirname, "planet_feeds.json");
   if (!fs.existsSync(p)) return [];
-  return JSON.parse(fs.readFileSync(p, "utf8"));
+  try {
+    return JSON.parse(fs.readFileSync(p, "utf8"));
+  } catch (e) {
+    throw new Error(`planet_feeds.json is malformed — fix or delete it before building: ${e.message}`);
+  }
 };

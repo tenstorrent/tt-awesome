@@ -292,7 +292,8 @@ def main():
     if OUT.exists():
         try:
             for item in json.loads(OUT.read_text()):
-                existing[item["url"]] = item
+                if item.get("url"):
+                    existing[item["url"]] = item
         except Exception as e:
             print(f"  WARN: could not read {OUT}: {e}", file=sys.stderr)
 
