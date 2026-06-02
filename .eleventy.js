@@ -216,19 +216,11 @@ module.exports = function (eleventyConfig) {
     return items;
   });
 
-  // Build the combined item list for the Planet Tenstorrent page.
-  //
-  // Accepts:
-  //   entries        — full entries collection (from _data/entries.js)
-  //   recentReleases — from _data/recentReleases.js
-  //
-  // Returns an array of items sorted newest-first, each with the shape:
-  //   { type, title, url, description, date, dateISO,
-  //     projectName, projectId, affiliation, label }
-  //
-  // Article-type links (article, lesson, paper, talk, video, demo) are pulled
-  // from all entries; releases come from recentReleases.  URLs are deduplicated
-  // across article links.
+  // Builds the Planet Tenstorrent item list from three sources:
+  //   entries        — article-type links from curated entry JSONs
+  //   recentReleases — stable releases (dev builds filtered out)
+  //   externalFeeds  — approved items from planet_feeds.json (YouTube, arXiv, etc.)
+  // Returns items sorted newest-first; URLs are deduplicated across all sources.
   eleventyConfig.addFilter("planetItems", (entries, recentReleases, externalFeeds) => {
     const ARTICLE_TYPES = new Set(["article", "lesson", "paper", "talk", "video", "demo"]);
     const items = [];

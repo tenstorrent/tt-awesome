@@ -77,13 +77,27 @@ def truncate(text: str, limit: int = 800) -> str:
     return text[:limit].rsplit(" ", 1)[0] + "…"
 
 
-def iso_to_date(iso: str) -> str:
-    """Extract YYYY-MM-DD from an ISO 8601 string."""
-    return (iso or "1970-01-01")[:10]
+def iso_to_date(date_str: str) -> str:
+    """Return YYYY-MM-DD from an ISO 8601 or RFC 2822 date string."""
+    if not date_str:
+        return "1970-01-01"
+    # ISO 8601: "2026-06-02T..." or "2026-06-02 ..."
+    m = re.match(r"(\d{4}-\d{2}-\d{2})", date_str)
+    if m:
+        return m.group(1)
+    # RFC 2822: "Mon, 02 Jun 2026 12:00:00 +0000"
+    try:
+        from email.utils import parsedate
+        t = parsedate(date_str)
+        if t:
+            return f"{t[0]:04d}-{t[1]:02d}-{t[2]:02d}"
+    except Exception:
+        pass
+    return "1970-01-01"
 
 
 def load_known_arxiv_ids() -> set:
-    """Scan entries/research/*.json for arXiv IDs already curated."""
+    """Scan all entry JSONs for arXiv IDs already curated."""
     ids = set()
     for f in ENTRIES.rglob("*.json"):
         try:
@@ -256,7 +270,7 @@ def fetch_community_feed(feed: dict, known_urls: set) -> list:
             "url":         url,
             "description": desc,
             "date":        date_str,
-            "dateISO":     published or f"{date_str}T00:00:00Z",
+            "dateISO":     f"{date_str}T00:00:00Z",
             "label":       feed["name"],
             "projectName": feed["name"],
             "projectId":   None,

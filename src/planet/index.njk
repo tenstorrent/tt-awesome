@@ -5,24 +5,14 @@ eleventyExcludeFromCollections: true
 ---
 {#-
   Planet Tenstorrent — /planet/
-  Aggregated view of papers, articles, lessons, talks, videos, demos, and
-  releases from across the Tenstorrent ecosystem, grouped by month.
-
-  Data sources:
-    entries        — all curated entries (_data/entries.js)
-    recentReleases — GitHub release data (_data/recentReleases.js)
-
-  Filters used (registered in .eleventy.js):
-    planetItems(entries, recentReleases) → sorted item array
-    monthKey(dateStr)                    → "YYYY-MM" slice (no ellipsis)
-    monthLabel(dateStr)                  → "Month YYYY" display string
-    prettyDate(dateStr)                  → "Mon D, YYYY" display string
+  Data sources: entries (_data/entries.js), recentReleases (_data/recentReleases.js),
+                planetFeeds (_data/planetFeeds.js → planet_feeds.json)
+  Key filters: planetItems(entries, recentReleases, planetFeeds), monthKey, monthLabel, prettyDate
 -#}
 {%- set items = entries | planetItems(recentReleases, planetFeeds) %}
 
-{#- Compute per-type counts in JS-land via a custom filter call chain.
-    Nunjucks selectattr + list is not reliably available in Eleventy; the
-    monthKey filter we added avoids the truncate-ellipsis problem for grouping. -#}
+{#- selectattr is available in Eleventy's Nunjucks; monthKey avoids the truncate
+    ellipsis problem when grouping by YYYY-MM. -#}
 {%- set paperItems   = items | selectattr("type", "equalto", "paper")   %}
 {%- set articleItems = items | selectattr("type", "equalto", "article") %}
 {%- set lessonItems  = items | selectattr("type", "equalto", "lesson")  %}
