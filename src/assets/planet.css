@@ -335,6 +335,10 @@ html, body {
   transition: color 0.1s;
 }
 .planet-item-project:hover { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
+.planet-item-project-plain {
+  font-size: 11px;
+  color: var(--muted);
+}
 .planet-item-read {
   font-size: 11px;
   color: var(--teal);

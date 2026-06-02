@@ -229,7 +229,7 @@ module.exports = function (eleventyConfig) {
   // Article-type links (article, lesson, paper, talk, video, demo) are pulled
   // from all entries; releases come from recentReleases.  URLs are deduplicated
   // across article links.
-  eleventyConfig.addFilter("planetItems", (entries, recentReleases) => {
+  eleventyConfig.addFilter("planetItems", (entries, recentReleases, externalFeeds) => {
     const ARTICLE_TYPES = new Set(["article", "lesson", "paper", "talk", "video", "demo"]);
     const items = [];
     const seenUrls = new Set();
@@ -273,6 +273,15 @@ module.exports = function (eleventyConfig) {
         affiliation: rel.affiliation || "",
         label:       rel.tagName,
       });
+    }
+
+    // Merge approved external feed items (YouTube, arXiv, Reddit, community blogs)
+    // approved=false items stay in planet_feeds.json for PR review but don't render
+    for (const item of externalFeeds || []) {
+      if (!item.approved) continue;
+      if (seenUrls.has(item.url)) continue;
+      seenUrls.add(item.url);
+      items.push(item);
     }
 
     // Sort all items newest-first

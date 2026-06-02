@@ -18,7 +18,7 @@ eleventyExcludeFromCollections: true
     monthLabel(dateStr)                  → "Month YYYY" display string
     prettyDate(dateStr)                  → "Mon D, YYYY" display string
 -#}
-{%- set items = entries | planetItems(recentReleases) %}
+{%- set items = entries | planetItems(recentReleases, planetFeeds) %}
 
 {#- Compute per-type counts in JS-land via a custom filter call chain.
     Nunjucks selectattr + list is not reliably available in Eleventy; the
@@ -176,7 +176,11 @@ eleventyExcludeFromCollections: true
 
           <div class="planet-item-footer">
             <!-- Link back to the tt-awesome entry for this project -->
+            {%- if item.projectId %}
             <a class="planet-item-project" href="/?entry={{ item.projectId }}">{{ item.projectName }}</a>
+            {%- else %}
+            <span class="planet-item-project-plain">{{ item.projectName }}</span>
+            {%- endif %}
             <!-- Primary CTA — label varies by type -->
             <a class="planet-item-read" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
               {%- if item.type == "release" %}View release ↗

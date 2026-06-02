@@ -236,7 +236,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
     { type: "repo",    url: "https://github.com/test/repo" },
     { type: "paper",   url: "https://arxiv.org/abs/1234.5678", label: "arXiv:1234.5678" },
   ]});
-  const items = planetItems([entry], []);
+  const items = planetItems([entry], [], []);
   assert.strictEqual(items.length, 1, "only article-type links, not repo");
   assert.strictEqual(items[0].type, "paper");
   assert.strictEqual(items[0].url, "https://arxiv.org/abs/1234.5678");
@@ -249,7 +249,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
 // Test 16: releases appear with type "release"
 {
   const rel = makeRelease();
-  const items = planetItems([], [rel]);
+  const items = planetItems([], [rel], []);
   assert.strictEqual(items.length, 1);
   assert.strictEqual(items[0].type, "release");
   assert.strictEqual(items[0].projectId, "test-entry");
@@ -262,7 +262,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
 {
   const old  = makeEntry({ id: "old",  added_at: "2025-01-01", links: [{ type: "article", url: "https://example.com/old" }] });
   const newE = makeEntry({ id: "newE", added_at: "2026-06-01", links: [{ type: "article", url: "https://example.com/new" }] });
-  const items = planetItems([old, newE], []);
+  const items = planetItems([old, newE], [], []);
   assert.strictEqual(items[0].date, "2026-06-01", "newest first");
   assert.strictEqual(items[1].date, "2025-01-01", "oldest last");
   console.log("✓ planetItems: sorted newest-first");
@@ -272,7 +272,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
 {
   const e1 = makeEntry({ id: "e1", links: [{ type: "article", url: "https://example.com/same" }] });
   const e2 = makeEntry({ id: "e2", links: [{ type: "article", url: "https://example.com/same" }] });
-  const items = planetItems([e1, e2], []);
+  const items = planetItems([e1, e2], [], []);
   assert.strictEqual(items.length, 1, "duplicate URLs deduplicated");
   console.log("✓ planetItems: deduplicates by URL");
 }
@@ -282,7 +282,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   const types = ["article", "lesson", "paper", "talk", "video", "demo"];
   const links = types.map((t) => ({ type: t, url: `https://example.com/${t}` }));
   const entry = makeEntry({ links });
-  const items = planetItems([entry], []);
+  const items = planetItems([entry], [], []);
   assert.strictEqual(items.length, types.length);
   const gotTypes = items.map((i) => i.type).sort();
   assert.deepStrictEqual(gotTypes, types.slice().sort());
@@ -327,11 +327,32 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   const stableRel = { entryId: "x", entryName: "X", affiliation: "official",
                       tagName: "v1.0.0", publishedAt: "2026-05-01T00:00:00Z",
                       url: "https://github.com/test/x/releases/tag/v1.0.0", repoUrl: "https://github.com/test/x" };
-  const items = planetItems([], [devRel, dashDev, stableRel]);
+  const items = planetItems([], [devRel, dashDev, stableRel], []);
   const releaseItems = items.filter((i) => i.type === "release");
   assert.strictEqual(releaseItems.length, 1, "only stable release should appear");
   assert.strictEqual(releaseItems[0].label, "v1.0.0");
   console.log("✓ planetItems: excludes .dev and -dev release tags");
+}
+
+// Test 24: approved external items appear; unapproved do not
+{
+  const extApproved = {
+    type: "video", source: "youtube", approved: true,
+    title: "TT Video", url: "https://www.youtube.com/watch?v=abc",
+    description: "A video.", date: "2026-06-01", dateISO: "2026-06-01T00:00:00Z",
+    label: "Tenstorrent — YouTube", projectName: "Tenstorrent", projectId: null, affiliation: "official",
+  };
+  const extPending = {
+    type: "article", source: "reddit", approved: false,
+    title: "Reddit Post", url: "https://reddit.com/r/test/1",
+    description: "A post.", date: "2026-06-01", dateISO: "2026-06-01T00:00:00Z",
+    label: "r/tenstorrent", projectName: "r/tenstorrent", projectId: null, affiliation: "community",
+  };
+  const items = planetItems([], [], [extApproved, extPending]);
+  assert.strictEqual(items.length, 1, "only approved external items should appear");
+  assert.strictEqual(items[0].url, extApproved.url);
+  assert.strictEqual(items[0].projectId, null, "external items have null projectId");
+  console.log("✓ planetItems: approved external items included, unapproved excluded");
 }
 
 console.log("\nAll eleventy filter tests passed ✓");
