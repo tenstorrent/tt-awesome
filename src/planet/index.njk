@@ -170,6 +170,19 @@ eleventyExcludeFromCollections: true
           <div class="planet-item-source">{{ item.label }}</div>
           {%- endif %}
 
+          {%- if item.source == "youtube" and item.url %}
+          {%- set ytId = item.url | replace("https://www.youtube.com/watch?v=", "") %}
+          <div class="planet-embed">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/{{ ytId }}"
+              title="{{ item.title }}"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          {%- endif %}
+
           {%- if item.description %}
           <p class="planet-item-desc">{{ item.description }}</p>
           {%- endif %}
