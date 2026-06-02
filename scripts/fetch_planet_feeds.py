@@ -63,10 +63,15 @@ def strip_html(html: str) -> str:
     # Decode named entities
     text = text.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
     text = text.replace("&quot;", '"').replace("&#39;", "'").replace("&nbsp;", " ")
-    # Decode decimal numeric entities (e.g. &#32; &#8217;)
-    text = re.sub(r"&#(\d+);", lambda m: chr(int(m.group(1))), text)
-    # Decode hex numeric entities (e.g. &#x2019;)
-    text = re.sub(r"&#x([0-9a-fA-F]+);", lambda m: chr(int(m.group(1), 16)), text)
+    # Decode numeric entities; clamp to valid Unicode to survive malformed feeds
+    def _decode_dec(m):
+        cp = int(m.group(1))
+        return chr(cp) if cp <= 0x10FFFF else ""
+    def _decode_hex(m):
+        cp = int(m.group(1), 16)
+        return chr(cp) if cp <= 0x10FFFF else ""
+    text = re.sub(r"&#(\d+);", _decode_dec, text)
+    text = re.sub(r"&#x([0-9a-fA-F]+);", _decode_hex, text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
 

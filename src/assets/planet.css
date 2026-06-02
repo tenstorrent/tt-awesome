@@ -101,6 +101,8 @@ html, body {
   width: 0;
   padding: 0;
   overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
 }
 .planet-sidebar-label {
   font-size: 9px;

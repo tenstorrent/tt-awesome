@@ -34,7 +34,7 @@ eleventyExcludeFromCollections: true
 
 <!-- Mobile chip filter bar — shown only on narrow viewports via CSS -->
 <div class="planet-chips-bar">
-  <button class="planet-chip active" data-planet-chip="all" aria-pressed="true">All ({{ items | length }})</button>
+  <button class="planet-chip active" data-planet-chip="all">All ({{ items | length }})</button>
   {%- if paperItems | length > 0 %}
   <button class="planet-chip" data-planet-chip="paper">📄 Papers ({{ paperItems | length }})</button>
   {%- endif %}
@@ -65,7 +65,7 @@ eleventyExcludeFromCollections: true
   <nav class="planet-sidebar" id="planet-sidebar" aria-label="Filter by type">
     <div class="planet-sidebar-label">Filter</div>
 
-    <button class="planet-filter-btn active" data-planet-filter="all" aria-pressed="true">
+    <button class="planet-filter-btn active" data-planet-filter="all">
       All <span class="planet-filter-count">{{ items | length }}</span>
     </button>
     {%- if paperItems | length > 0 %}

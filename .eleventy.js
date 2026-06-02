@@ -252,6 +252,8 @@ module.exports = function (eleventyConfig) {
     // Matches: "1.2.0.dev20260530", "v0.72.0-dev20260529", "v0.9.5-dev.260424"
     for (const rel of recentReleases || []) {
       if (/[\.\-]dev[\.\d]/i.test(rel.tagName || "")) continue;
+      if (seenUrls.has(rel.url)) continue;
+      seenUrls.add(rel.url);
       const dateStr = rel.publishedAt ? rel.publishedAt.slice(0, 10) : "1970-01-01";
       items.push({
         type:        "release",
