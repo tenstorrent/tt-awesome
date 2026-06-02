@@ -332,10 +332,20 @@ html, body {
   color: var(--text2);
   line-height: 1.6;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 12px;
+}
+/* Lessons and articles: let the full text breathe */
+.planet-item[data-type="lesson"] .planet-item-desc,
+.planet-item[data-type="article"] .planet-item-desc {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+/* Papers: show more of the abstract */
+.planet-item[data-type="paper"] .planet-item-desc {
+  -webkit-line-clamp: 10;
 }
 
 /* Footer */

@@ -68,7 +68,7 @@ def strip_html(html: str) -> str:
     return text
 
 
-def truncate(text: str, limit: int = 500) -> str:
+def truncate(text: str, limit: int = 800) -> str:
     if len(text) <= limit:
         return text
     return text[:limit].rsplit(" ", 1)[0] + "…"
@@ -165,7 +165,7 @@ def fetch_arxiv(known_arxiv_ids: set, known_urls: set) -> list:
             "approved":    True,
             "title":       title,
             "url":         url,
-            "description": truncate(summary, 500),
+            "description": truncate(summary, 800),
             "date":        date_str,
             "dateISO":     published or f"{date_str}T00:00:00Z",
             "label":       f"arXiv:{arxiv_id}" if arxiv_id else "arXiv",
