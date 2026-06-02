@@ -60,8 +60,13 @@ def _get(url: str, timeout: int = 12) -> bytes:
 def strip_html(html: str) -> str:
     """Remove HTML tags and decode basic entities."""
     text = re.sub(r"<[^>]+>", " ", html or "")
+    # Decode named entities
     text = text.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
     text = text.replace("&quot;", '"').replace("&#39;", "'").replace("&nbsp;", " ")
+    # Decode decimal numeric entities (e.g. &#32; &#8217;)
+    text = re.sub(r"&#(\d+);", lambda m: chr(int(m.group(1))), text)
+    # Decode hex numeric entities (e.g. &#x2019;)
+    text = re.sub(r"&#x([0-9a-fA-F]+);", lambda m: chr(int(m.group(1), 16)), text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
