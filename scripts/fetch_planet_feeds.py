@@ -21,10 +21,8 @@ Usage:
 import json
 import re
 import sys
-import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT     = Path(__file__).parent.parent
@@ -95,7 +93,7 @@ def load_known_arxiv_ids() -> set:
     return ids
 
 
-def fetch_youtube() -> list:
+def fetch_youtube(known_urls: set) -> list:
     all_items = []
     for channel in YOUTUBE_CHANNELS:
         url = f"https://www.youtube.com/feeds/videos.xml?channel_id={channel['id']}"
@@ -112,6 +110,8 @@ def fetch_youtube() -> list:
             if not vid_id:
                 continue
             video_url = f"https://www.youtube.com/watch?v={vid_id}"
+            if video_url in known_urls:
+                continue
             desc_el   = entry.find(f".//{{{NS_MEDIA}}}description")
             desc      = truncate(strip_html(desc_el.text if desc_el is not None else ""))
             date_str  = iso_to_date(published)
@@ -275,25 +275,31 @@ def main():
     known_arxiv = load_known_arxiv_ids()
     known_urls  = set(existing.keys())
 
+    # known_urls grows as each source is fetched to prevent cross-source dupes
     print(f"Fetching YouTube ({len(YOUTUBE_CHANNELS)} channels)…")
-    new_items = fetch_youtube()
-    print(f"  {len(new_items)} videos")
+    yt = fetch_youtube(known_urls)
+    print(f"  {len(yt)} new videos")
+    new_items = yt
+    known_urls.update(i["url"] for i in yt)
 
     print("Fetching arXiv…")
     ax = fetch_arxiv(known_arxiv, known_urls)
     print(f"  {len(ax)} new papers")
     new_items += ax
+    known_urls.update(i["url"] for i in ax)
 
     print("Fetching Reddit…")
     rd = fetch_reddit(known_urls)
     print(f"  {len(rd)} posts")
     new_items += rd
+    known_urls.update(i["url"] for i in rd)
 
     for feed in COMMUNITY_FEEDS:
         print(f"Fetching {feed['name']}…")
         cf = fetch_community_feed(feed, known_urls)
         print(f"  {len(cf)} items")
         new_items += cf
+        known_urls.update(i["url"] for i in cf)
 
     # Merge: existing items keep their approved state; new items get script defaults
     all_items = list(existing.values()) + new_items

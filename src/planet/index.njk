@@ -44,7 +44,7 @@ eleventyExcludeFromCollections: true
 
 <!-- Mobile chip filter bar — shown only on narrow viewports via CSS -->
 <div class="planet-chips-bar">
-  <button class="planet-chip active" data-planet-chip="all">All ({{ items | length }})</button>
+  <button class="planet-chip active" data-planet-chip="all" aria-pressed="true">All ({{ items | length }})</button>
   {%- if paperItems | length > 0 %}
   <button class="planet-chip" data-planet-chip="paper">📄 Papers ({{ paperItems | length }})</button>
   {%- endif %}

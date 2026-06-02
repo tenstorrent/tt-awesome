@@ -76,9 +76,11 @@
           btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         });
 
-        // Sync chip active states
+        // Sync chip active states + aria-pressed
         chipBtns.forEach(function(btn) {
-          btn.classList.toggle('active', btn.dataset.planetChip === type);
+          var isActive = btn.dataset.planetChip === type;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         });
 
         // Hide month headers that have no visible items under them

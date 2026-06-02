@@ -316,22 +316,24 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ monthLabel: guards out-of-range month numbers");
 }
 
-// Test 23: planetItems excludes dev releases
+// Test 23: planetItems excludes dev releases (all known patterns)
 {
-  const devRel  = { entryId: "x", entryName: "X", affiliation: "official",
-                    tagName: "1.2.0.dev20260530", publishedAt: "2026-05-30T00:00:00Z",
-                    url: "https://github.com/test/x/releases/tag/1.2.0.dev20260530", repoUrl: "https://github.com/test/x" };
-  const dashDev = { entryId: "x", entryName: "X", affiliation: "official",
-                    tagName: "v0.72.0-dev20260529", publishedAt: "2026-05-29T00:00:00Z",
-                    url: "https://github.com/test/x/releases/tag/v0.72.0-dev20260529", repoUrl: "https://github.com/test/x" };
-  const stableRel = { entryId: "x", entryName: "X", affiliation: "official",
-                      tagName: "v1.0.0", publishedAt: "2026-05-01T00:00:00Z",
-                      url: "https://github.com/test/x/releases/tag/v1.0.0", repoUrl: "https://github.com/test/x" };
-  const items = planetItems([], [devRel, dashDev, stableRel], []);
+  const mkRel = (tagName, url) => ({
+    entryId: "x", entryName: "X", affiliation: "official",
+    tagName, publishedAt: "2026-05-30T00:00:00Z",
+    url: `https://github.com/test/x/releases/tag/${url || tagName}`, repoUrl: "https://github.com/test/x",
+  });
+  const devRels = [
+    mkRel("1.2.0.dev20260530"),          // forge pattern: .dev<digits>
+    mkRel("v0.72.0-dev20260529"),         // tt-metal pattern: -dev<digits>
+    mkRel("v0.9.5-dev.260424"),           // tt-metal pattern: -dev.<digits>
+  ];
+  const stableRel = mkRel("v1.0.0");
+  const items = planetItems([], [...devRels, stableRel], []);
   const releaseItems = items.filter((i) => i.type === "release");
   assert.strictEqual(releaseItems.length, 1, "only stable release should appear");
   assert.strictEqual(releaseItems[0].label, "v1.0.0");
-  console.log("✓ planetItems: excludes .dev and -dev release tags");
+  console.log("✓ planetItems: excludes .dev, -dev, and -dev.<digits> release tags");
 }
 
 // Test 24: approved external items appear; unapproved do not
