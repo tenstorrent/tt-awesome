@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Fetch GitHub metadata"]
+    types: [completed]
 
 permissions:
   contents: write

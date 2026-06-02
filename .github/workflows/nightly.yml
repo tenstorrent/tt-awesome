@@ -1,7 +1,8 @@
 name: Fetch GitHub metadata
 on:
   schedule:
-    - cron: "17 2 * * *"
+    # Every 3 hours, 8x/day — offset from planet feeds run (:23)
+    - cron: "47 0,3,6,9,12,15,18,21 * * *"
   workflow_dispatch:
 permissions:
   contents: write
