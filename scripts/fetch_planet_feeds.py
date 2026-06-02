@@ -31,7 +31,10 @@ ROOT     = Path(__file__).parent.parent
 ENTRIES  = ROOT / "entries"
 OUT      = ROOT / "src" / "_data" / "planet_feeds.json"
 
-YOUTUBE_CHANNEL_ID = "UC7041p6DlAh0r4_Fnlk10pQ"  # @tenstorrentinc
+YOUTUBE_CHANNELS = [
+    {"id": "UC7041p6DlAh0r4_Fnlk10pQ", "name": "Tenstorrent",  "affiliation": "official"},
+    {"id": "UC2AWMRWukuukkLf52phMdjw",  "name": "tt-tinkering", "affiliation": "affiliated"},
+]
 REDDIT_URL = "https://www.reddit.com/r/tenstorrent/.rss?limit=25&sort=new"
 ARXIV_URL  = ("https://export.arxiv.org/api/query"
               "?search_query=all:tenstorrent"
@@ -93,40 +96,40 @@ def load_known_arxiv_ids() -> set:
 
 
 def fetch_youtube() -> list:
-    url = f"https://www.youtube.com/feeds/videos.xml?channel_id={YOUTUBE_CHANNEL_ID}"
-    try:
-        root = ET.fromstring(_get(url))
-    except Exception as e:
-        print(f"  WARN youtube: {e}", file=sys.stderr)
-        return []
-
-    items = []
-    for entry in root.findall(f"{{{NS_ATOM}}}entry"):
-        title     = (entry.findtext(f"{{{NS_ATOM}}}title") or "").strip()
-        published = entry.findtext(f"{{{NS_ATOM}}}published") or ""
-        vid_el    = entry.find(f"{{{NS_YT}}}videoId")
-        vid_id    = vid_el.text if vid_el is not None else None
-        if not vid_id:
+    all_items = []
+    for channel in YOUTUBE_CHANNELS:
+        url = f"https://www.youtube.com/feeds/videos.xml?channel_id={channel['id']}"
+        try:
+            root = ET.fromstring(_get(url))
+        except Exception as e:
+            print(f"  WARN youtube ({channel['name']}): {e}", file=sys.stderr)
             continue
-        video_url = f"https://www.youtube.com/watch?v={vid_id}"
-        desc_el   = entry.find(f".//{{{NS_MEDIA}}}description")
-        desc      = truncate(strip_html(desc_el.text if desc_el is not None else ""))
-        date_str  = iso_to_date(published)
-        items.append({
-            "type":        "video",
-            "source":      "youtube",
-            "approved":    True,
-            "title":       title,
-            "url":         video_url,
-            "description": desc,
-            "date":        date_str,
-            "dateISO":     published or f"{date_str}T00:00:00Z",
-            "label":       "Tenstorrent — YouTube",
-            "projectName": "Tenstorrent",
-            "projectId":   None,
-            "affiliation": "official",
-        })
-    return items
+        for entry in root.findall(f"{{{NS_ATOM}}}entry"):
+            title     = (entry.findtext(f"{{{NS_ATOM}}}title") or "").strip()
+            published = entry.findtext(f"{{{NS_ATOM}}}published") or ""
+            vid_el    = entry.find(f"{{{NS_YT}}}videoId")
+            vid_id    = vid_el.text if vid_el is not None else None
+            if not vid_id:
+                continue
+            video_url = f"https://www.youtube.com/watch?v={vid_id}"
+            desc_el   = entry.find(f".//{{{NS_MEDIA}}}description")
+            desc      = truncate(strip_html(desc_el.text if desc_el is not None else ""))
+            date_str  = iso_to_date(published)
+            all_items.append({
+                "type":        "video",
+                "source":      "youtube",
+                "approved":    True,
+                "title":       title,
+                "url":         video_url,
+                "description": desc,
+                "date":        date_str,
+                "dateISO":     published or f"{date_str}T00:00:00Z",
+                "label":       f"{channel['name']} — YouTube",
+                "projectName": channel["name"],
+                "projectId":   None,
+                "affiliation": channel["affiliation"],
+            })
+    return all_items
 
 
 def fetch_arxiv(known_arxiv_ids: set, known_urls: set) -> list:
@@ -272,7 +275,7 @@ def main():
     known_arxiv = load_known_arxiv_ids()
     known_urls  = set(existing.keys())
 
-    print("Fetching YouTube…")
+    print(f"Fetching YouTube ({len(YOUTUBE_CHANNELS)} channels)…")
     new_items = fetch_youtube()
     print(f"  {len(new_items)} videos")
 
