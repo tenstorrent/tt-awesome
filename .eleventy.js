@@ -216,6 +216,96 @@ module.exports = function (eleventyConfig) {
     return items;
   });
 
+  // Builds the Planet Tenstorrent item list from three sources:
+  //   entries        — article-type links from curated entry JSONs
+  //   recentReleases — stable releases (dev builds filtered out)
+  //   externalFeeds  — approved items from planet_feeds.json (YouTube, arXiv, etc.)
+  // Returns items sorted newest-first; URLs are deduplicated across all sources.
+  eleventyConfig.addFilter("planetItems", (entries, recentReleases, externalFeeds) => {
+    const ARTICLE_TYPES = new Set(["article", "lesson", "paper", "talk", "video", "demo"]);
+    const items = [];
+    const seenUrls = new Set();
+
+    // Article-type links from all entries
+    for (const entry of entries || []) {
+      for (const link of entry.links || []) {
+        if (!ARTICLE_TYPES.has(link.type)) continue;
+        if (seenUrls.has(link.url)) continue;
+        seenUrls.add(link.url);
+        const dateStr = entry.added_at || "1970-01-01";
+        items.push({
+          type:        link.type,
+          title:       entry.name,
+          url:         link.url,
+          description: entry.description || "",
+          date:        dateStr,
+          dateISO:     dateStr + "T00:00:00Z",
+          projectName: entry.name,
+          projectId:   entry.id,
+          affiliation: entry.affiliation || "",
+          label:       link.label || "",
+        });
+      }
+    }
+
+    // Stable releases from recentReleases — skip dev/nightly builds.
+    // Matches: "1.2.0.dev20260530", "v0.72.0-dev20260529", "v0.9.5-dev.260424"
+    for (const rel of recentReleases || []) {
+      if (/[\.\-]dev[\.\d]/i.test(rel.tagName || "")) continue;
+      if (seenUrls.has(rel.url)) continue;
+      seenUrls.add(rel.url);
+      const dateStr = rel.publishedAt ? rel.publishedAt.slice(0, 10) : "1970-01-01";
+      items.push({
+        type:        "release",
+        title:       `${rel.entryName} ${rel.tagName}`,
+        url:         rel.url,
+        description: `New release: ${rel.entryName} ${rel.tagName}`,
+        date:        dateStr,
+        dateISO:     rel.publishedAt || dateStr + "T00:00:00Z",
+        projectName: rel.entryName,
+        projectId:   rel.entryId,
+        affiliation: rel.affiliation || "",
+        label:       rel.tagName,
+      });
+    }
+
+    // Merge approved external feed items (YouTube, arXiv, Reddit, community blogs)
+    // approved=false items stay in planet_feeds.json for PR review but don't render
+    for (const item of externalFeeds || []) {
+      if (!item.approved) continue;
+      if (seenUrls.has(item.url)) continue;
+      seenUrls.add(item.url);
+      items.push(item);
+    }
+
+    // Sort all items newest-first
+    items.sort((a, b) => (a.dateISO < b.dateISO ? 1 : a.dateISO > b.dateISO ? -1 : 0));
+    return items;
+  });
+
+  // Extract "YYYY-MM" from a "YYYY-MM-DD" (or "YYYY-MM") date string.
+  // Used on the Planet Tenstorrent page to group items by month without the
+  // ellipsis that the truncate filter appends.
+  eleventyConfig.addFilter("monthKey", (dateStr) => {
+    if (!dateStr) return "";
+    return String(dateStr).slice(0, 7);
+  });
+
+  // Convert a "YYYY-MM" or "YYYY-MM-DD" date string to a human-readable month
+  // label such as "May 2026".  Returns an empty string for falsy input.
+  eleventyConfig.addFilter("monthLabel", (dateStr) => {
+    if (!dateStr) return "";
+    const months = ["January","February","March","April","May","June",
+                    "July","August","September","October","November","December"];
+    // Accept "YYYY-MM" or "YYYY-MM-DD"
+    const parts = String(dateStr).split("-");
+    if (parts.length < 2) return dateStr;
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parts[0];
+    if (month < 0 || month > 11) return dateStr;
+    return `${months[month]} ${year}`;
+  });
+
   // Inline a file's content directly into the template.
   // Used to embed CSS and JS into the HTML so that private GitHub Pages
   // authentication doesn't intercept sub-resource requests and return an

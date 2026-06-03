@@ -1,0 +1,30 @@
+name: Fetch planet feeds
+on:
+  schedule:
+    # Every 3 hours, 8x/day — offset 24 min from the github_meta run (:47)
+    - cron: "23 0,3,6,9,12,15,18,21 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Fetch planet feeds
+        run: python3 scripts/fetch_planet_feeds.py
+      - name: Create pull request if changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: src/_data/planet_feeds.json
+          commit-message: "chore: update planet feeds [skip ci]"
+          branch: "chore/nightly-planet-feeds"
+          delete-branch: true
+          title: "chore: update planet feeds"
+          body: |
+            Automated planet feed refresh (runs 8×/day).
+
+            Review new items (approved: false) and flip to true to publish on Planet Tenstorrent.

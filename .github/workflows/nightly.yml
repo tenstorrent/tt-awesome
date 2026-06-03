@@ -1,11 +1,14 @@
 name: Fetch GitHub metadata
 on:
   schedule:
-    - cron: "17 2 * * *"
+    # Every 3 hours, 8x/day — offset from planet feeds run (:23)
+    - cron: "47 0,3,6,9,12,15,18,21 * * *"
   workflow_dispatch:
 permissions:
   contents: write
-  pull-requests: write
+concurrency:
+  group: nightly-github-meta
+  cancel-in-progress: true
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -17,12 +20,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 scripts/fetch_github_meta.py
-      - name: Create pull request if changed
-        uses: peter-evans/create-pull-request@v7
-        with:
-          add-paths: src/_data/github_meta.json
-          commit-message: "chore: update GitHub metadata [skip ci]"
-          branch: "chore/nightly-github-metadata"
-          delete-branch: true
-          title: "chore: update GitHub metadata"
-          body: "Automated nightly metadata refresh."
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/_data/github_meta.json
+          git diff --cached --quiet || git commit -m "chore: update GitHub metadata"
+          git pull --rebase && git push
