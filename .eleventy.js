@@ -316,6 +316,7 @@ module.exports = function (eleventyConfig) {
   );
 
   return {
+    pathPrefix: "/tt-awesome/",
     dir: { input: "src", output: "_site", includes: "_includes", data: "_data" },
   };
 };
