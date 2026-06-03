@@ -11,50 +11,48 @@ eleventyExcludeFromCollections: true
 -#}
 {%- set items = entries | planetItems(recentReleases, planetFeeds) %}
 
-{#- selectattr is available in Eleventy's Nunjucks; monthKey avoids the truncate
-    ellipsis problem when grouping by YYYY-MM. -#}
-{%- set paperItems   = items | selectattr("type", "equalto", "paper")   %}
-{%- set articleItems = items | selectattr("type", "equalto", "article") %}
-{%- set lessonItems  = items | selectattr("type", "equalto", "lesson")  %}
-{%- set videoItems   = items | selectattr("type", "equalto", "video")   %}
-{%- set talkItems    = items | selectattr("type", "equalto", "talk")    %}
-{%- set demoItems    = items | selectattr("type", "equalto", "demo")    %}
-{%- set releaseItems = items | selectattr("type", "equalto", "release") %}
+{%- set paperCount   = items | planetCount("paper")   %}
+{%- set articleCount = items | planetCount("article") %}
+{%- set lessonCount  = items | planetCount("lesson")  %}
+{%- set videoCount   = items | planetCount("video")   %}
+{%- set talkCount    = items | planetCount("talk")    %}
+{%- set demoCount    = items | planetCount("demo")    %}
+{%- set releaseCount = items | planetCount("release") %}
 
 <!-- Topbar -->
 <header class="planet-topbar">
-  <a class="planet-back" href="/">← tt-awesome</a>
+  <a class="planet-back" href="{{ '/' | url }}">← tt-awesome</a>
   <span class="planet-topbar-divider">/</span>
   <span class="planet-title">🪐 Planet Tenstorrent</span>
   <div class="planet-feed-links">
-    <a class="planet-feed-link" href="/feeds/releases.xml" target="_blank" rel="noopener noreferrer">📡 Atom</a>
-    <a class="planet-feed-link" href="/feeds/feed.json" target="_blank" rel="noopener noreferrer">📡 JSON</a>
+    <a class="planet-feed-link" href="{{ '/feeds/releases.xml' | url }}" target="_blank" rel="noopener noreferrer">📡 Atom</a>
+    <a class="planet-feed-link" href="{{ '/feeds/feed.json' | url }}" target="_blank" rel="noopener noreferrer">📡 JSON</a>
   </div>
 </header>
 
 <!-- Mobile chip filter bar — shown only on narrow viewports via CSS -->
 <div class="planet-chips-bar">
   <button class="planet-chip active" data-planet-chip="all">All ({{ items | length }})</button>
-  {%- if paperItems | length > 0 %}
-  <button class="planet-chip" data-planet-chip="paper">📄 Papers ({{ paperItems | length }})</button>
+  {%- if paperCount > 0 %}
+  <button class="planet-chip" data-planet-chip="paper">📄 Papers ({{ paperCount }})</button>
   {%- endif %}
-  {%- if articleItems | length > 0 %}
-  <button class="planet-chip" data-planet-chip="article">📝 Articles ({{ articleItems | length }})</button>
+  {%- if articleCount > 0 %}
+  <button class="planet-chip" data-planet-chip="article">📝 Articles ({{ articleCount }})</button>
   {%- endif %}
-  {%- if lessonItems | length > 0 %}
-  <button class="planet-chip" data-planet-chip="lesson">📖 Lessons ({{ lessonItems | length }})</button>
+  {%- if lessonCount > 0 %}
+  <button class="planet-chip" data-planet-chip="lesson">📖 Lessons ({{ lessonCount }})</button>
   {%- endif %}
-  {%- if videoItems | length > 0 %}
-  <button class="planet-chip" data-planet-chip="video">🎥 Videos ({{ videoItems | length }})</button>
+  {%- if videoCount > 0 %}
+  <button class="planet-chip" data-planet-chip="video">🎥 Videos ({{ videoCount }})</button>
   {%- endif %}
-  {%- if talkItems | length > 0 %}
-  <button class="planet-chip" data-planet-chip="talk">🎤 Talks ({{ talkItems | length }})</button>
+  {%- if talkCount > 0 %}
+  <button class="planet-chip" data-planet-chip="talk">🎤 Talks ({{ talkCount }})</button>
   {%- endif %}
-  {%- if demoItems | length > 0 %}
-  <button class="planet-chip" data-planet-chip="demo">🚀 Demos ({{ demoItems | length }})</button>
+  {%- if demoCount > 0 %}
+  <button class="planet-chip" data-planet-chip="demo">🚀 Demos ({{ demoCount }})</button>
   {%- endif %}
-  {%- if releaseItems | length > 0 %}
-  <button class="planet-chip" data-planet-chip="release">🏷 Releases ({{ releaseItems | length }})</button>
+  {%- if releaseCount > 0 %}
+  <button class="planet-chip" data-planet-chip="release">🏷 Releases ({{ releaseCount }})</button>
   {%- endif %}
 </div>
 
@@ -68,48 +66,48 @@ eleventyExcludeFromCollections: true
     <button class="planet-filter-btn active" data-planet-filter="all">
       All <span class="planet-filter-count">{{ items | length }}</span>
     </button>
-    {%- if paperItems | length > 0 %}
+    {%- if paperCount > 0 %}
     <button class="planet-filter-btn" data-planet-filter="paper">
-      📄 Papers <span class="planet-filter-count">{{ paperItems | length }}</span>
+      📄 Papers <span class="planet-filter-count">{{ paperCount }}</span>
     </button>
     {%- endif %}
-    {%- if articleItems | length > 0 %}
+    {%- if articleCount > 0 %}
     <button class="planet-filter-btn" data-planet-filter="article">
-      📝 Articles <span class="planet-filter-count">{{ articleItems | length }}</span>
+      📝 Articles <span class="planet-filter-count">{{ articleCount }}</span>
     </button>
     {%- endif %}
-    {%- if lessonItems | length > 0 %}
+    {%- if lessonCount > 0 %}
     <button class="planet-filter-btn" data-planet-filter="lesson">
-      📖 Lessons <span class="planet-filter-count">{{ lessonItems | length }}</span>
+      📖 Lessons <span class="planet-filter-count">{{ lessonCount }}</span>
     </button>
     {%- endif %}
-    {%- if videoItems | length > 0 %}
+    {%- if videoCount > 0 %}
     <button class="planet-filter-btn" data-planet-filter="video">
-      🎥 Videos <span class="planet-filter-count">{{ videoItems | length }}</span>
+      🎥 Videos <span class="planet-filter-count">{{ videoCount }}</span>
     </button>
     {%- endif %}
-    {%- if talkItems | length > 0 %}
+    {%- if talkCount > 0 %}
     <button class="planet-filter-btn" data-planet-filter="talk">
-      🎤 Talks <span class="planet-filter-count">{{ talkItems | length }}</span>
+      🎤 Talks <span class="planet-filter-count">{{ talkCount }}</span>
     </button>
     {%- endif %}
-    {%- if demoItems | length > 0 %}
+    {%- if demoCount > 0 %}
     <button class="planet-filter-btn" data-planet-filter="demo">
-      🚀 Demos <span class="planet-filter-count">{{ demoItems | length }}</span>
+      🚀 Demos <span class="planet-filter-count">{{ demoCount }}</span>
     </button>
     {%- endif %}
-    {%- if releaseItems | length > 0 %}
+    {%- if releaseCount > 0 %}
     <button class="planet-filter-btn" data-planet-filter="release">
-      🏷 Releases <span class="planet-filter-count">{{ releaseItems | length }}</span>
+      🏷 Releases <span class="planet-filter-count">{{ releaseCount }}</span>
     </button>
     {%- endif %}
 
     <hr class="planet-sidebar-hr">
 
     <div class="planet-subscribe-label">Subscribe</div>
-    <a class="planet-subscribe-link" href="/feeds/releases.xml" target="_blank" rel="noopener noreferrer">📡 Releases (Atom)</a>
-    <a class="planet-subscribe-link" href="/feeds/articles.xml" target="_blank" rel="noopener noreferrer">📡 Articles (Atom)</a>
-    <a class="planet-subscribe-link" href="/feeds/feed.json" target="_blank" rel="noopener noreferrer">📡 JSON Feed</a>
+    <a class="planet-subscribe-link" href="{{ '/feeds/releases.xml' | url }}" target="_blank" rel="noopener noreferrer">📡 Releases (Atom)</a>
+    <a class="planet-subscribe-link" href="{{ '/feeds/articles.xml' | url }}" target="_blank" rel="noopener noreferrer">📡 Articles (Atom)</a>
+    <a class="planet-subscribe-link" href="{{ '/feeds/feed.json' | url }}" target="_blank" rel="noopener noreferrer">📡 JSON Feed</a>
 
     <div class="planet-sidebar-collapse">
       <button class="planet-collapse-btn" id="planet-collapse-btn">← Collapse</button>

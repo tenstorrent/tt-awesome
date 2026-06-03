@@ -306,6 +306,12 @@ module.exports = function (eleventyConfig) {
     return `${months[month]} ${year}`;
   });
 
+  // Count items of a given type in a planetItems array. Used by the planet
+  // sidebar instead of selectattr, which doesn't filter reliably in Eleventy's Nunjucks.
+  eleventyConfig.addFilter("planetCount", (items, type) =>
+    (items || []).filter((i) => i.type === type).length
+  );
+
   // Inline a file's content directly into the template.
   // Used to embed CSS and JS into the HTML so that private GitHub Pages
   // authentication doesn't intercept sub-resource requests and return an
@@ -316,6 +322,7 @@ module.exports = function (eleventyConfig) {
   );
 
   return {
+    pathPrefix: "/tt-awesome/",
     dir: { input: "src", output: "_site", includes: "_includes", data: "_data" },
   };
 };
