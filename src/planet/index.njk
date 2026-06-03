@@ -23,12 +23,12 @@ eleventyExcludeFromCollections: true
 
 <!-- Topbar -->
 <header class="planet-topbar">
-  <a class="planet-back" href="/">← tt-awesome</a>
+  <a class="planet-back" href="{{ '/' | url }}">← tt-awesome</a>
   <span class="planet-topbar-divider">/</span>
   <span class="planet-title">🪐 Planet Tenstorrent</span>
   <div class="planet-feed-links">
-    <a class="planet-feed-link" href="/feeds/releases.xml" target="_blank" rel="noopener noreferrer">📡 Atom</a>
-    <a class="planet-feed-link" href="/feeds/feed.json" target="_blank" rel="noopener noreferrer">📡 JSON</a>
+    <a class="planet-feed-link" href="{{ '/feeds/releases.xml' | url }}" target="_blank" rel="noopener noreferrer">📡 Atom</a>
+    <a class="planet-feed-link" href="{{ '/feeds/feed.json' | url }}" target="_blank" rel="noopener noreferrer">📡 JSON</a>
   </div>
 </header>
 
@@ -107,9 +107,9 @@ eleventyExcludeFromCollections: true
     <hr class="planet-sidebar-hr">
 
     <div class="planet-subscribe-label">Subscribe</div>
-    <a class="planet-subscribe-link" href="/feeds/releases.xml" target="_blank" rel="noopener noreferrer">📡 Releases (Atom)</a>
-    <a class="planet-subscribe-link" href="/feeds/articles.xml" target="_blank" rel="noopener noreferrer">📡 Articles (Atom)</a>
-    <a class="planet-subscribe-link" href="/feeds/feed.json" target="_blank" rel="noopener noreferrer">📡 JSON Feed</a>
+    <a class="planet-subscribe-link" href="{{ '/feeds/releases.xml' | url }}" target="_blank" rel="noopener noreferrer">📡 Releases (Atom)</a>
+    <a class="planet-subscribe-link" href="{{ '/feeds/articles.xml' | url }}" target="_blank" rel="noopener noreferrer">📡 Articles (Atom)</a>
+    <a class="planet-subscribe-link" href="{{ '/feeds/feed.json' | url }}" target="_blank" rel="noopener noreferrer">📡 JSON Feed</a>
 
     <div class="planet-sidebar-collapse">
       <button class="planet-collapse-btn" id="planet-collapse-btn">← Collapse</button>
@@ -180,7 +180,7 @@ eleventyExcludeFromCollections: true
           <div class="planet-item-footer">
             <!-- Link back to the tt-awesome entry for this project -->
             {%- if item.projectId %}
-            <a class="planet-item-project" href="/?entry={{ item.projectId }}">{{ item.projectName }}</a>
+            <a class="planet-item-project" href="{{ '/' | url }}?entry={{ item.projectId }}">{{ item.projectName }}</a>
             {%- else %}
             <span class="planet-item-project-plain">{{ item.projectName }}</span>
             {%- endif %}
