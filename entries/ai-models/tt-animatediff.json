@@ -1,0 +1,35 @@
+{
+  "id": "tt-animatediff",
+  "name": "tt-animatediff",
+  "description": "Generates short, temporally coherent animated GIFs using the AnimateDiff model on Tenstorrent hardware. Phase 1 runs the correct SD 1.4 + MotionAdapter architecture on CPU; Phase 2 accelerates spatial denoising on Blackhole using the TTNN UNet. Produces vibrant 8-frame animations in ~15 s/frame on a P300C.",
+  "affiliation": "official",
+  "categories": [
+    "ai-models",
+    "games-demos"
+  ],
+  "tags": [
+    "animatediff",
+    "video-generation",
+    "stable-diffusion",
+    "diffusion",
+    "gif",
+    "blackhole"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-animatediff"
+    },
+    {
+      "type": "lesson",
+      "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/animatediff-video-generation/",
+      "label": "Native Video Animation with AnimateDiff (VSCode Toolkit)"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-06-03"
+}
