@@ -178,7 +178,7 @@ eleventyExcludeFromCollections: true
           <div class="planet-item-footer">
             <!-- Link back to the tt-awesome entry for this project -->
             {%- if item.projectId %}
-            <a class="planet-item-project" href="/?entry={{ item.projectId }}">{{ item.projectName }}</a>
+            <a class="planet-item-project" href="{{ '/' | url }}?entry={{ item.projectId }}">{{ item.projectName }}</a>
             {%- else %}
             <span class="planet-item-project-plain">{{ item.projectName }}</span>
             {%- endif %}
