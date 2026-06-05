@@ -105,3 +105,29 @@ def test_is_sparse_true_for_short_body():
 def test_is_sparse_false_for_substantial_body():
     body = "A" * 151
     assert sr.is_sparse(body) is False
+
+
+def test_call_github_models_returns_summary():
+    api_response = {
+        "choices": [{"message": {"content": "This release adds multi-chip support."}}]
+    }
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen(api_response)):
+        result = sr.call_github_models(
+            repo="tenstorrent/tt-metal",
+            release_name="v0.58.0",
+            body="## Multi-chip support\n\nAdds routing for n300 configurations across 4 chips...\n" + "x" * 120,
+            affiliation="official",
+        )
+    assert result == "This release adds multi-chip support."
+
+
+def test_call_github_models_returns_empty_on_error():
+    import urllib.error
+    with patch("urllib.request.urlopen", side_effect=urllib.error.HTTPError(None, 429, "Too Many Requests", {}, None)):
+        result = sr.call_github_models(
+            repo="tenstorrent/tt-metal",
+            release_name="v0.58.0",
+            body="x" * 200,
+            affiliation="official",
+        )
+    assert result == ""

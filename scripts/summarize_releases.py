@@ -88,3 +88,51 @@ def fetch_release_body(repo: str, tag: str) -> str:
 def is_sparse(body: str) -> bool:
     """Return True if the release body is too short to summarize."""
     return len(body.strip()) < SPARSE_LIMIT
+
+
+SYSTEM_PROMPT = (
+    "You write brief, engaging release summaries for Planet Tenstorrent, an aggregator "
+    "read by developers and researchers following the Tenstorrent ecosystem. Your tone "
+    "is warm and technically literate — like a knowledgeable colleague sharing what's "
+    "new, not a press release. Write one paragraph of 2–4 sentences. Focus on what "
+    "changed and why it matters. Do not repeat the version number or project name. "
+    "Do not use hype words like \"exciting\" or \"powerful\". Do not use bullet points."
+)
+
+
+def call_github_models(repo: str, release_name: str, body: str, affiliation: str) -> str:
+    """Call GitHub Models inference API and return the summary string, or '' on error."""
+    user_message = (
+        f"Summarize this release for Planet Tenstorrent readers.\n\n"
+        f"Project: {repo} ({affiliation})\n"
+        f"Release: {release_name}\n\n"
+        f"Release notes:\n{body}"
+    )
+    payload = json.dumps({
+        "model": MODEL,
+        "messages": [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user",   "content": user_message},
+        ],
+        "max_tokens": 300,
+        "temperature": 0.7,
+    }).encode()
+
+    req = urllib.request.Request(
+        INFERENCE_URL,
+        data=payload,
+        method="POST",
+    )
+    req.add_header("Content-Type", "application/json")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("X-GitHub-Api-Version", "2022-11-28")
+
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = json.loads(r.read())
+            return data["choices"][0]["message"]["content"].strip()
+    except urllib.error.HTTPError as e:
+        print(f"  WARN call_github_models {repo}: HTTP {e.code}", file=sys.stderr)
+    except Exception as e:
+        print(f"  WARN call_github_models {repo}: {e}", file=sys.stderr)
+    return ""
