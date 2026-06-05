@@ -3,9 +3,15 @@ on:
   schedule:
     - cron: "17 6,18 * * *"
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — print summaries, write nothing"
+        type: boolean
+        default: false
 permissions:
   contents: write
   pull-requests: write
+  models: read
 concurrency:
   group: nightly-github-meta
   cancel-in-progress: true
@@ -20,10 +26,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 scripts/fetch_github_meta.py
+      - name: Summarize new releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          FLAGS=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then FLAGS="--dry-run"; fi
+          python3 scripts/summarize_releases.py $FLAGS
       - name: Create pull request if changed
         uses: peter-evans/create-pull-request@v7
         with:
-          add-paths: src/_data/github_meta.json
+          add-paths: |
+            src/_data/github_meta.json
+            src/_data/planet_feeds.json
           commit-message: "chore: update GitHub metadata [skip ci]"
           branch: "chore/nightly-github-metadata"
           delete-branch: true
