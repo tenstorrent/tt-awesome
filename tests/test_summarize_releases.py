@@ -270,6 +270,39 @@ def test_main_skips_already_known_url(tmp_path, monkeypatch):
     mock_body.assert_not_called()
 
 
+def test_main_skips_release_with_null_published_at(tmp_path, monkeypatch):
+    meta = {
+        "https://github.com/tenstorrent/tt-metal": {
+            "releases": [{
+                "tagName": "v1.0.0",
+                "name": "v1.0.0",
+                "publishedAt": None,
+                "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v1.0.0",
+                "prerelease": False,
+            }]
+        }
+    }
+    meta_file  = tmp_path / "github_meta.json"
+    feeds_file = tmp_path / "planet_feeds.json"
+    meta_file.write_text(json.dumps(meta))
+    feeds_file.write_text(json.dumps([]))
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+
+    monkeypatch.setattr(sr, "META_IN",     meta_file)
+    monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
+    monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+
+    with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
+         patch.object(sr, "call_github_models",  return_value="A summary."):
+        sr.main([])  # must not raise TypeError
+
+    result = json.loads(feeds_file.read_text())
+    assert len(result) == 1
+    assert result[0]["date"] == "1970-01-01"
+
+
 def test_main_dry_run_counts_items(tmp_path, monkeypatch):
     meta = {
         "https://github.com/tenstorrent/tt-metal": {

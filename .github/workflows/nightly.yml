@@ -34,6 +34,7 @@ jobs:
           if [ "${{ inputs.dry_run }}" = "true" ]; then FLAGS="--dry-run"; fi
           python3 scripts/summarize_releases.py $FLAGS
       - name: Create pull request if changed
+        if: ${{ !inputs.dry_run }}
         uses: peter-evans/create-pull-request@v7
         with:
           add-paths: |

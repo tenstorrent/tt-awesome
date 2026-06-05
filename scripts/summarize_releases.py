@@ -191,7 +191,9 @@ def main(argv: list | None = None):
                 # Missing URL or already processed — nothing to do.
                 continue
 
-            tag  = release["tagName"]
+            tag = release.get("tagName", "")
+            if not tag:
+                continue
             name = release.get("name") or tag
 
             # Fetch and quality-gate the release body before calling the LLM.
@@ -209,7 +211,7 @@ def main(argv: list | None = None):
                 continue
 
             # Build the ISO date string and short date for display/sorting.
-            date_str = release.get("publishedAt", "")[:10] or "1970-01-01"
+            date_str = (release.get("publishedAt") or "")[:10] or "1970-01-01"
             item = {
                 "type":        "release",
                 "source":      "github",
