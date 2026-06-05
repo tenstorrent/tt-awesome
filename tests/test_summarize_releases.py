@@ -63,3 +63,45 @@ def test_load_known_urls_returns_empty_set_on_malformed_json(tmp_path):
     f.write_text("not valid json {{{")
     result = sr.load_known_urls(f)
     assert result == set()
+
+
+def _mock_urlopen(data):
+    encoded = json.dumps(data).encode()
+    mock = MagicMock()
+    mock.read.return_value = encoded
+    mock.__enter__ = lambda s: s
+    mock.__exit__ = MagicMock(return_value=False)
+    return mock
+
+
+def test_fetch_release_body_returns_body():
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen({"body": "## What's new\n\nAdded feature X."})):
+        result = sr.fetch_release_body("tenstorrent/tt-metal", "v1.0.0")
+    assert result == "## What's new\n\nAdded feature X."
+
+
+def test_fetch_release_body_returns_empty_on_http_error():
+    import urllib.error
+    with patch("urllib.request.urlopen", side_effect=urllib.error.HTTPError(None, 404, "Not Found", {}, None)):
+        result = sr.fetch_release_body("tenstorrent/tt-metal", "v1.0.0")
+    assert result == ""
+
+
+def test_fetch_release_body_returns_empty_when_body_is_none():
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen({"body": None})):
+        result = sr.fetch_release_body("tenstorrent/tt-metal", "v1.0.0")
+    assert result == ""
+
+
+def test_is_sparse_true_for_empty():
+    assert sr.is_sparse("") is True
+    assert sr.is_sparse("   \n  ") is True
+
+
+def test_is_sparse_true_for_short_body():
+    assert sr.is_sparse("Bug fixes.") is True
+
+
+def test_is_sparse_false_for_substantial_body():
+    body = "A" * 151
+    assert sr.is_sparse(body) is False

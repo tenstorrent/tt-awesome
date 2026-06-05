@@ -60,3 +60,31 @@ def resolve_affiliation(repo_url: str, entry_dirs: list) -> str:
             except Exception:
                 continue
     return "community"
+
+
+def _gh_request(url: str) -> urllib.request.Request:
+    req = urllib.request.Request(url)
+    req.add_header("Accept", "application/vnd.github+json")
+    req.add_header("X-GitHub-Api-Version", "2022-11-28")
+    if TOKEN:
+        req.add_header("Authorization", f"Bearer {TOKEN}")
+    return req
+
+
+def fetch_release_body(repo: str, tag: str) -> str:
+    """Fetch the markdown body of a specific release. Returns '' on any error."""
+    url = f"https://api.github.com/repos/{repo}/releases/tags/{tag}"
+    try:
+        with urllib.request.urlopen(_gh_request(url), timeout=10) as r:
+            data = json.loads(r.read())
+            return data.get("body") or ""
+    except urllib.error.HTTPError as e:
+        print(f"  WARN fetch_release_body {repo}@{tag}: HTTP {e.code}", file=sys.stderr)
+    except Exception as e:
+        print(f"  WARN fetch_release_body {repo}@{tag}: {e}", file=sys.stderr)
+    return ""
+
+
+def is_sparse(body: str) -> bool:
+    """Return True if the release body is too short to summarize."""
+    return len(body.strip()) < SPARSE_LIMIT
