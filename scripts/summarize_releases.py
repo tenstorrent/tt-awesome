@@ -150,6 +150,10 @@ def main(argv: list | None = None):
         argv = sys.argv[1:]
     dry_run = "--dry-run" in argv
 
+    if not TOKEN and not dry_run:
+        print("ERROR: GITHUB_TOKEN not set", file=sys.stderr)
+        sys.exit(1)
+
     # ── Load input data ──────────────────────────────────────────────────────
     meta = {}
     if META_IN.exists():

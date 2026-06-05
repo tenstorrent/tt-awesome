@@ -161,6 +161,7 @@ def test_main_appends_new_release_item(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_github_models",  return_value="A great summary."):
@@ -200,6 +201,7 @@ def test_main_skips_sparse_body(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
 
     with patch.object(sr, "fetch_release_body", return_value="Bug fixes."):
         sr.main([])
@@ -260,6 +262,7 @@ def test_main_skips_already_known_url(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
 
     with patch.object(sr, "fetch_release_body") as mock_body:
         sr.main([])
