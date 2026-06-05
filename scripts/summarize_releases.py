@@ -230,11 +230,12 @@ def main(argv: list | None = None):
                 print(f"\n--- DRY RUN: {repo}@{tag} ---")
                 print(summary)
             else:
-                new_items.append(item)
                 # Track the URL immediately so later iterations in the same run
                 # don't re-process the same release (e.g. if it appears twice).
                 known_urls.add(url)
                 print(f"  ADDED {repo}@{tag}")
+            # Accumulate in both modes so the dry-run summary count is accurate.
+            new_items.append(item)
 
     # ── Dry-run: report and exit without touching the filesystem ─────────────
     if dry_run:

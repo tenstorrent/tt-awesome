@@ -268,3 +268,36 @@ def test_main_skips_already_known_url(tmp_path, monkeypatch):
         sr.main([])
 
     mock_body.assert_not_called()
+
+
+def test_main_dry_run_counts_items(tmp_path, monkeypatch):
+    meta = {
+        "https://github.com/tenstorrent/tt-metal": {
+            "releases": [{
+                "tagName": "v3.0.0",
+                "name": "v3.0.0",
+                "publishedAt": "2026-06-01T12:00:00Z",
+                "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v3.0.0",
+                "prerelease": False,
+            }]
+        }
+    }
+    meta_file  = tmp_path / "github_meta.json"
+    feeds_file = tmp_path / "planet_feeds.json"
+    meta_file.write_text(json.dumps(meta))
+    feeds_file.write_text(json.dumps([]))
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+
+    monkeypatch.setattr(sr, "META_IN",     meta_file)
+    monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
+    monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+
+    with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
+         patch.object(sr, "call_github_models",  return_value="A summary."), \
+         patch("builtins.print") as mock_print:
+        sr.main(["--dry-run"])
+
+    # The final summary line must mention 1 item, not 0
+    printed = " ".join(str(c) for c in [call.args for call in mock_print.call_args_list])
+    assert "1" in printed
