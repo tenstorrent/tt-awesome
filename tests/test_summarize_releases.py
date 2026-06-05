@@ -131,3 +131,137 @@ def test_call_github_models_returns_empty_on_error():
             affiliation="official",
         )
     assert result == ""
+
+
+def test_main_appends_new_release_item(tmp_path, monkeypatch):
+    meta = {
+        "https://github.com/tenstorrent/tt-metal": {
+            "releases": [{
+                "tagName": "v1.0.0",
+                "name": "v1.0.0",
+                "publishedAt": "2026-06-01T12:00:00Z",
+                "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v1.0.0",
+                "prerelease": False,
+            }]
+        }
+    }
+    feeds = []
+    meta_file  = tmp_path / "github_meta.json"
+    feeds_file = tmp_path / "planet_feeds.json"
+    meta_file.write_text(json.dumps(meta))
+    feeds_file.write_text(json.dumps(feeds))
+
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+    (entry_dir / "tt-metal.json").write_text(json.dumps({
+        "affiliation": "official",
+        "links": [{"type": "repo", "url": "https://github.com/tenstorrent/tt-metal"}],
+    }))
+
+    monkeypatch.setattr(sr, "META_IN",     meta_file)
+    monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
+    monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+
+    with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
+         patch.object(sr, "call_github_models",  return_value="A great summary."):
+        sr.main([])
+
+    result = json.loads(feeds_file.read_text())
+    assert len(result) == 1
+    item = result[0]
+    assert item["type"] == "release"
+    assert item["source"] == "github"
+    assert item["approved"] is False
+    assert item["affiliation"] == "official"
+    assert item["description"] == "A great summary."
+    assert item["url"] == "https://github.com/tenstorrent/tt-metal/releases/tag/v1.0.0"
+
+
+def test_main_skips_sparse_body(tmp_path, monkeypatch):
+    meta = {
+        "https://github.com/foo/bar": {
+            "releases": [{
+                "tagName": "v0.1",
+                "name": "v0.1",
+                "publishedAt": "2026-06-01T12:00:00Z",
+                "url": "https://github.com/foo/bar/releases/tag/v0.1",
+                "prerelease": False,
+            }]
+        }
+    }
+    feeds = []
+    meta_file  = tmp_path / "github_meta.json"
+    feeds_file = tmp_path / "planet_feeds.json"
+    meta_file.write_text(json.dumps(meta))
+    feeds_file.write_text(json.dumps(feeds))
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+
+    monkeypatch.setattr(sr, "META_IN",     meta_file)
+    monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
+    monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+
+    with patch.object(sr, "fetch_release_body", return_value="Bug fixes."):
+        sr.main([])
+
+    result = json.loads(feeds_file.read_text())
+    assert result == []
+
+
+def test_main_dry_run_does_not_write(tmp_path, monkeypatch):
+    meta = {
+        "https://github.com/tenstorrent/tt-metal": {
+            "releases": [{
+                "tagName": "v2.0.0",
+                "name": "v2.0.0",
+                "publishedAt": "2026-06-01T12:00:00Z",
+                "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v2.0.0",
+                "prerelease": False,
+            }]
+        }
+    }
+    feeds = []
+    meta_file  = tmp_path / "github_meta.json"
+    feeds_file = tmp_path / "planet_feeds.json"
+    meta_file.write_text(json.dumps(meta))
+    feeds_file.write_text(json.dumps(feeds))
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+
+    monkeypatch.setattr(sr, "META_IN",     meta_file)
+    monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
+    monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+
+    with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
+         patch.object(sr, "call_github_models",  return_value="A summary."):
+        sr.main(["--dry-run"])
+
+    result = json.loads(feeds_file.read_text())
+    assert result == []
+
+
+def test_main_skips_already_known_url(tmp_path, monkeypatch):
+    url = "https://github.com/tenstorrent/tt-metal/releases/tag/v1.0.0"
+    meta = {
+        "https://github.com/tenstorrent/tt-metal": {
+            "releases": [{"tagName": "v1.0.0", "name": "v1.0.0",
+                          "publishedAt": "2026-06-01T12:00:00Z",
+                          "url": url, "prerelease": False}]
+        }
+    }
+    feeds = [{"url": url, "type": "release", "approved": True}]
+    meta_file  = tmp_path / "github_meta.json"
+    feeds_file = tmp_path / "planet_feeds.json"
+    meta_file.write_text(json.dumps(meta))
+    feeds_file.write_text(json.dumps(feeds))
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+
+    monkeypatch.setattr(sr, "META_IN",     meta_file)
+    monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
+    monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+
+    with patch.object(sr, "fetch_release_body") as mock_body:
+        sr.main([])
+
+    mock_body.assert_not_called()

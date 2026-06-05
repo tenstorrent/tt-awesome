@@ -136,3 +136,126 @@ def call_github_models(repo: str, release_name: str, body: str, affiliation: str
     except Exception as e:
         print(f"  WARN call_github_models {repo}: {e}", file=sys.stderr)
     return ""
+
+
+def main(argv: list | None = None):
+    """Entry point: scan github_meta.json and append new release summaries to planet_feeds.json.
+
+    Args:
+        argv: Command-line arguments. Pass ``[]`` in tests to avoid reading sys.argv.
+              Recognized flags:
+                ``--dry-run``  Print summaries without writing any files.
+    """
+    if argv is None:
+        argv = sys.argv[1:]
+    dry_run = "--dry-run" in argv
+
+    # ── Load input data ──────────────────────────────────────────────────────
+    meta = {}
+    if META_IN.exists():
+        try:
+            meta = json.loads(META_IN.read_text())
+        except Exception as e:
+            print(f"ERROR: cannot read {META_IN}: {e}", file=sys.stderr)
+            sys.exit(1)
+
+    # URLs already in planet_feeds.json — we skip these to avoid duplicates.
+    known_urls = load_known_urls(FEEDS_OUT)
+
+    # The current contents of planet_feeds.json (used when writing back merged output).
+    existing_feeds = []
+    if FEEDS_OUT.exists():
+        try:
+            existing_feeds = json.loads(FEEDS_OUT.read_text())
+        except Exception:
+            pass  # If the file is malformed we start fresh; load_known_urls already warned.
+
+    new_items = []
+
+    # ── Iterate over every repo and its releases ─────────────────────────────
+    for repo_url, repo_data in meta.items():
+        m = REPO_RE.match(repo_url)
+        if not m:
+            # repo_url does not look like a github.com repo URL — skip silently.
+            continue
+        repo = m.group(1)          # e.g. "tenstorrent/tt-metal"
+        repo_name = repo.split("/")[-1]  # e.g. "tt-metal"
+
+        for release in repo_data.get("releases", []):
+            url = release.get("url", "")
+            if not url or url in known_urls:
+                # Missing URL or already processed — nothing to do.
+                continue
+
+            tag  = release["tagName"]
+            name = release.get("name") or tag
+
+            # Fetch and quality-gate the release body before calling the LLM.
+            body = fetch_release_body(repo, tag)
+            if is_sparse(body):
+                print(f"  SKIP {repo}@{tag}: body too sparse ({len(body.strip())} chars)")
+                continue
+
+            # Determine whether this repo is official, community, etc.
+            affiliation = resolve_affiliation(repo_url, [ENTRIES_DIR])
+
+            summary = call_github_models(repo, name, body, affiliation)
+            if not summary:
+                print(f"  SKIP {repo}@{tag}: summarization failed")
+                continue
+
+            # Build the ISO date string and short date for display/sorting.
+            date_str = release.get("publishedAt", "")[:10] or "1970-01-01"
+            item = {
+                "type":        "release",
+                "source":      "github",
+                "approved":    False,   # requires human review before appearing publicly
+                "title":       f"{repo_name} {tag}",
+                "url":         url,
+                "description": summary,
+                "date":        date_str,
+                "dateISO":     release.get("publishedAt", f"{date_str}T00:00:00Z"),
+                "label":       repo,
+                "projectName": repo_name,
+                "projectId":   None,
+                "affiliation": affiliation,
+            }
+
+            if dry_run:
+                # In dry-run mode we print the summary but never mutate any file.
+                print(f"\n--- DRY RUN: {repo}@{tag} ---")
+                print(summary)
+            else:
+                new_items.append(item)
+                # Track the URL immediately so later iterations in the same run
+                # don't re-process the same release (e.g. if it appears twice).
+                known_urls.add(url)
+                print(f"  ADDED {repo}@{tag}")
+
+    # ── Dry-run: report and exit without touching the filesystem ─────────────
+    if dry_run:
+        print(f"\nDRY RUN complete. {len(new_items)} items would be added.")
+        return
+
+    # ── Write output atomically via a temp file ───────────────────────────────
+    if new_items:
+        all_items = existing_feeds + new_items
+        # Sort newest-first so the feed renders in chronological order without
+        # requiring a downstream sort step.
+        all_items.sort(key=lambda x: x.get("dateISO", ""), reverse=True)
+        tmp = FEEDS_OUT.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(all_items, indent=2, ensure_ascii=False) + "\n")
+        tmp.rename(FEEDS_OUT)
+        # Show a project-relative path when possible; fall back to absolute path
+        # (e.g. when FEEDS_OUT is a tmp_path in tests).
+        try:
+            display_path = FEEDS_OUT.relative_to(ROOT)
+        except ValueError:
+            display_path = FEEDS_OUT
+        print(f"\nWrote {len(new_items)} new release item(s) to {display_path}")
+    else:
+        print("\nNo new release items.")
+
+
+if __name__ == "__main__":
+    main()
