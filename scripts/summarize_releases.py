@@ -22,14 +22,14 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 
-ROOT         = Path(__file__).parent.parent
-ENTRIES_DIR  = ROOT / "entries"
-META_IN      = ROOT / "src" / "_data" / "github_meta.json"
-FEEDS_OUT    = ROOT / "src" / "_data" / "planet_feeds.json"
+ROOT = Path(__file__).parent.parent
+ENTRIES_DIR = ROOT / "entries"
+META_IN = ROOT / "src" / "_data" / "github_meta.json"
+FEEDS_OUT = ROOT / "src" / "_data" / "planet_feeds.json"
 
 INFERENCE_URL = "https://models.github.ai/inference/chat/completions"
-MODEL         = "openai/gpt-4o-mini"
-SPARSE_LIMIT  = 150  # characters; bodies shorter than this are skipped
+MODEL = "openai/gpt-4o-mini"
+SPARSE_LIMIT = 150  # characters; bodies shorter than this are skipped
 
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 

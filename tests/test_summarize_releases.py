@@ -44,3 +44,22 @@ def test_resolve_affiliation_finds_matching_entry(tmp_path):
 def test_resolve_affiliation_returns_community_when_no_match(tmp_path):
     result = sr.resolve_affiliation("https://github.com/unknown/repo", [tmp_path])
     assert result == "community"
+
+
+def test_resolve_affiliation_handles_trailing_slash(tmp_path):
+    entry = {
+        "affiliation": "community",
+        "links": [{"type": "repo", "url": "https://github.com/foo/bar"}],
+    }
+    f = tmp_path / "bar.json"
+    f.write_text(json.dumps(entry))
+    # URL with trailing slash should still match
+    result = sr.resolve_affiliation("https://github.com/foo/bar/", [tmp_path])
+    assert result == "community"
+
+
+def test_load_known_urls_returns_empty_set_on_malformed_json(tmp_path):
+    f = tmp_path / "planet_feeds.json"
+    f.write_text("not valid json {{{")
+    result = sr.load_known_urls(f)
+    assert result == set()
