@@ -100,7 +100,7 @@ Expected: `ModuleNotFoundError: No module named 'summarize_releases'`
 For each release URL in github_meta.json not already in planet_feeds.json:
   - Fetches the release body from the GitHub API
   - Skips if body is empty or under 150 characters
-  - Calls GitHub Models to generate a one-paragraph human summary
+  - Calls the Anthropic Messages API to generate a one-paragraph human summary
   - Appends a type:"release" item (approved:false) to planet_feeds.json
 
 Usage:

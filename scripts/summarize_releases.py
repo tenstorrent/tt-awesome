@@ -253,7 +253,8 @@ def main(argv: list | None = None):
 
     # ── Dry-run: report and exit without touching the filesystem ─────────────
     if dry_run:
-        print(f"\nDRY RUN complete. {len(new_items)} items would be added.")
+        noun = "item" if len(new_items) == 1 else "items"
+        print(f"\nDRY RUN complete. {len(new_items)} {noun} would be added.")
         return
 
     # ── Write output atomically via a temp file ───────────────────────────────
