@@ -248,7 +248,19 @@ module.exports = function (eleventyConfig) {
       }
     }
 
-    // Stable releases from recentReleases — skip dev/nightly builds.
+    // Approved external feed items first (YouTube, arXiv, Reddit, community blogs,
+    // and summarized releases). Processed before recentReleases so that summarized
+    // release items from planet_feeds.json win the URL dedup over the generic fallback.
+    // approved=false items stay in planet_feeds.json for PR review but don't render.
+    for (const item of externalFeeds || []) {
+      if (!item.approved) continue;
+      if (seenUrls.has(item.url)) continue;
+      seenUrls.add(item.url);
+      items.push(item);
+    }
+
+    // Stable releases from recentReleases — skip dev/nightly builds and any release
+    // already covered by a summarized item in externalFeeds (seenUrls handles dedup).
     // Matches: "1.2.0.dev20260530", "v0.72.0-dev20260529", "v0.9.5-dev.260424"
     for (const rel of recentReleases || []) {
       if (/[\.\-]dev[\.\d]/i.test(rel.tagName || "")) continue;
@@ -267,15 +279,6 @@ module.exports = function (eleventyConfig) {
         affiliation: rel.affiliation || "",
         label:       rel.tagName,
       });
-    }
-
-    // Merge approved external feed items (YouTube, arXiv, Reddit, community blogs)
-    // approved=false items stay in planet_feeds.json for PR review but don't render
-    for (const item of externalFeeds || []) {
-      if (!item.approved) continue;
-      if (seenUrls.has(item.url)) continue;
-      seenUrls.add(item.url);
-      items.push(item);
     }
 
     // Sort all items newest-first
