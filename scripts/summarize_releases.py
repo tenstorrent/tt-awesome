@@ -7,7 +7,7 @@
 For each release URL in github_meta.json not already in planet_feeds.json:
   - Fetches the release body from the GitHub API
   - Skips if body is empty or under 150 characters
-  - Calls GitHub Models to generate a one-paragraph human summary
+  - Calls the Anthropic Messages API to generate a one-paragraph human summary
   - Appends a type:"release" item (approved:false) to planet_feeds.json
 
 Usage:
@@ -27,11 +27,13 @@ ENTRIES_DIR = ROOT / "entries"
 META_IN = ROOT / "src" / "_data" / "github_meta.json"
 FEEDS_OUT = ROOT / "src" / "_data" / "planet_feeds.json"
 
-INFERENCE_URL = "https://models.github.ai/inference/chat/completions"
-MODEL = "openai/gpt-4o-mini"
+INFERENCE_URL = "https://api.anthropic.com/v1/messages"
+ANTHROPIC_VERSION = "2023-06-01"
+MODEL = "claude-haiku-4-5-20251001"
 SPARSE_LIMIT = 150  # characters; bodies shorter than this are skipped
 
-TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")
+TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")    # gates the step; used for LLM calls
+GH_TOKEN = os.environ.get("GITHUB_TOKEN", "")      # used only for GitHub REST API calls
 
 REPO_RE = re.compile(r"https://github\.com/([^/?#]+/[^/?#]+?)(?:\.git)?$")
 
@@ -66,8 +68,8 @@ def _gh_request(url: str) -> urllib.request.Request:
     req = urllib.request.Request(url)
     req.add_header("Accept", "application/vnd.github+json")
     req.add_header("X-GitHub-Api-Version", "2022-11-28")
-    if TOKEN:
-        req.add_header("Authorization", f"Bearer {TOKEN}")
+    if GH_TOKEN:
+        req.add_header("Authorization", f"Bearer {GH_TOKEN}")
     return req
 
 
@@ -101,7 +103,7 @@ SYSTEM_PROMPT = (
 
 
 def call_github_models(repo: str, release_name: str, body: str, affiliation: str) -> str:
-    """Call GitHub Models inference API and return the summary string, or '' on error."""
+    """Call the Anthropic Messages API and return the summary string, or '' on error."""
     user_message = (
         f"Summarize this release for Planet Tenstorrent readers.\n\n"
         f"Project: {repo} ({affiliation})\n"
@@ -110,12 +112,11 @@ def call_github_models(repo: str, release_name: str, body: str, affiliation: str
     )
     payload = json.dumps({
         "model": MODEL,
-        "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user",   "content": user_message},
-        ],
         "max_tokens": 300,
-        "temperature": 0.7,
+        "system": SYSTEM_PROMPT,
+        "messages": [
+            {"role": "user", "content": user_message},
+        ],
     }).encode()
 
     req = urllib.request.Request(
@@ -124,13 +125,13 @@ def call_github_models(repo: str, release_name: str, body: str, affiliation: str
         method="POST",
     )
     req.add_header("Content-Type", "application/json")
-    req.add_header("Authorization", f"Bearer {TOKEN}")
-    req.add_header("X-GitHub-Api-Version", "2022-11-28")
+    req.add_header("x-api-key", TOKEN)
+    req.add_header("anthropic-version", ANTHROPIC_VERSION)
 
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
             data = json.loads(r.read())
-            return data["choices"][0]["message"]["content"].strip()
+            return data["content"][0]["text"].strip()
     except urllib.error.HTTPError as e:
         print(f"  WARN call_github_models {repo}: HTTP {e.code}", file=sys.stderr)
     except Exception as e:
@@ -150,8 +151,8 @@ def main(argv: list | None = None):
         argv = sys.argv[1:]
     dry_run = "--dry-run" in argv
 
-    if not TOKEN and not dry_run:
-        print("ERROR: GITHUB_TOKEN not set", file=sys.stderr)
+    if not TOKEN:
+        print("ERROR: ANTHROPIC_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
     # ── Load input data ──────────────────────────────────────────────────────
@@ -220,7 +221,7 @@ def main(argv: list | None = None):
                 "url":         url,
                 "description": summary,
                 "date":        date_str,
-                "dateISO":     release.get("publishedAt", f"{date_str}T00:00:00Z"),
+                "dateISO":     (release.get("publishedAt") or f"{date_str}T00:00:00Z"),
                 "label":       repo,
                 "projectName": repo_name,
                 "projectId":   None,

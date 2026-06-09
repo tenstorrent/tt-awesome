@@ -109,7 +109,7 @@ def test_is_sparse_false_for_substantial_body():
 
 def test_call_github_models_returns_summary():
     api_response = {
-        "choices": [{"message": {"content": "This release adds multi-chip support."}}]
+        "content": [{"type": "text", "text": "This release adds multi-chip support."}]
     }
     with patch("urllib.request.urlopen", return_value=_mock_urlopen(api_response)):
         result = sr.call_github_models(
@@ -233,6 +233,7 @@ def test_main_dry_run_does_not_write(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_github_models",  return_value="A summary."):
@@ -325,6 +326,7 @@ def test_main_dry_run_counts_items(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_github_models",  return_value="A summary."), \
