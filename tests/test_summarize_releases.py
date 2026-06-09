@@ -333,6 +333,8 @@ def test_main_dry_run_counts_items(tmp_path, monkeypatch):
          patch("builtins.print") as mock_print:
         sr.main(["--dry-run"])
 
-    # The final summary line must mention 1 item, not 0
-    printed = " ".join(str(c) for c in [call.args for call in mock_print.call_args_list])
-    assert "1" in printed
+    # The final summary line must say exactly 1 item was would be added, not 0 or 2+.
+    assert any(
+        "1 items would be added" in str(call.args)
+        for call in mock_print.call_args_list
+    )

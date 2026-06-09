@@ -20,7 +20,7 @@ When the nightly job detects a new release with enough release notes to summariz
 
 ## Architecture
 
-No new workflow file. The summarization step is a new script (`scripts/summarize_releases.py`) invoked by the existing `nightly.yml` job immediately after `fetch_github_meta.py`. Both scripts share the same job, the same `GITHUB_TOKEN`, and the same `create-pull-request` step — which expands `add-paths` to cover `planet_feeds.json` alongside `github_meta.json`.
+No new workflow file. The summarization step is a new script (`scripts/summarize_releases.py`) invoked by the existing `nightly.yml` job immediately after `fetch_github_meta.py`. Both scripts share the same job and the same `create-pull-request` step — which expands `add-paths` to cover `planet_feeds.json` alongside `github_meta.json`. The summarization step is gated on the `ANTHROPIC_API_KEY` secret and skipped entirely when the secret is absent.
 
 ```
 nightly.yml job
@@ -39,7 +39,7 @@ nightly.yml job
 3. For each release URL not in the dedup set:
    - Fetches the GitHub release `body` via `GET /repos/{owner}/{repo}/releases/tags/{tag}`
    - If `body` is empty or under 150 characters: skip, log reason, continue
-   - Otherwise: calls GitHub Models inference API with the release body
+   - Otherwise: calls the Anthropic Messages API with the release body
 4. Each successful summary is appended to `planet_feeds.json` as a new item with `approved: false`
 5. `create-pull-request` opens a PR with both changed files (or only one if only metadata changed)
 
@@ -66,13 +66,14 @@ New release items match the existing `planet_feeds.json` shape exactly:
 
 `affiliation` is resolved from the matching entry JSON, the same source `fetch_github_meta.py` already reads.
 
-## GitHub Models Integration
+## Anthropic API Integration
 
-- **Endpoint:** `POST https://models.github.ai/inference/chat/completions`
-- **Auth:** `Authorization: Bearer $GITHUB_TOKEN`
-- **Model:** `openai/gpt-4o-mini` (free tier, fast)
-- **Workflow permission required:** `models: read` (added to `nightly.yml` job)
+- **Endpoint:** `POST https://api.anthropic.com/v1/messages`
+- **Auth:** `x-api-key: $ANTHROPIC_API_KEY`
+- **Model:** `claude-haiku-4-5-20251001` (fast, low-cost)
+- **Secret required:** `ANTHROPIC_API_KEY` repo secret; step is skipped when absent
 - **Implementation:** raw `urllib` HTTP call in the Python script — no new dependencies
+- **GitHub REST API** (fetching release bodies) still uses `GITHUB_TOKEN`
 
 ## Prompt
 
@@ -109,7 +110,7 @@ Log the skip reason to stdout so the nightly job output is inspectable.
 
 `summarize_releases.py --dry-run`:
 - Reads all inputs normally
-- Calls the GitHub Models API and prints candidate summaries to stdout
+- Calls the Anthropic API and prints candidate summaries to stdout
 - Writes nothing to `planet_feeds.json`
 - Exits 0
 
@@ -126,13 +127,14 @@ Log the skip reason to stdout so the nightly job output is inspectable.
 permissions:
   contents: write
   pull-requests: write
-  models: read          # NEW
 
 steps:
   # ... existing fetch step unchanged ...
 
-  - name: Summarize new releases        # NEW STEP
+  - name: Summarize new releases        # NEW STEP — skipped when secret absent
+    if: ${{ secrets.ANTHROPIC_API_KEY != '' }}
     env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     run: python3 scripts/summarize_releases.py
 
@@ -147,6 +149,6 @@ steps:
 
 ## Testing Strategy
 
-1. **Local dry run:** `GITHUB_TOKEN=... python3 scripts/summarize_releases.py --dry-run` against existing `github_meta.json` data — iterate on prompt without touching any files
-2. **CI dry run:** trigger `nightly.yml` via `workflow_dispatch` with `dry_run: true` — confirms `models: read` permission and API call work end-to-end
+1. **Local dry run:** `ANTHROPIC_API_KEY=... python3 scripts/summarize_releases.py --dry-run` against existing `github_meta.json` data — iterate on prompt without touching any files
+2. **CI dry run:** trigger `nightly.yml` via `workflow_dispatch` with `dry_run: true` — confirms API call works end-to-end
 3. **Live:** enable with `dry_run: false`, review the first real PR with both files changed

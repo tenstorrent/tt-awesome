@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** When the nightly metadata job detects a new GitHub release with sufficient release notes, generate a humanized one-paragraph summary via GitHub Models and queue it as an `approved: false` planet feed item.
+**Goal:** When the nightly metadata job detects a new GitHub release with sufficient release notes, generate a humanized one-paragraph summary via the Anthropic API and queue it as an `approved: false` planet feed item.
 
-**Architecture:** A new standalone script `scripts/summarize_releases.py` runs after `fetch_github_meta.py` in the existing `nightly.yml` job. It reads `github_meta.json` (all current releases) and `planet_feeds.json` (dedup set), fetches the release body for each new release URL, calls GitHub Models if body is substantial enough, and appends new `type: "release"` items to `planet_feeds.json`. The existing `create-pull-request` step stages both files.
+**Architecture:** A new standalone script `scripts/summarize_releases.py` runs after `fetch_github_meta.py` in the existing `nightly.yml` job. It reads `github_meta.json` (all current releases) and `planet_feeds.json` (dedup set), fetches the release body for each new release URL via the GitHub REST API, calls the Anthropic Messages API if body is substantial enough, and appends new `type: "release"` items to `planet_feeds.json`. The existing `create-pull-request` step stages both files. The summarization step is gated on `secrets.ANTHROPIC_API_KEY` and skipped entirely when absent.
 
-**Tech Stack:** Python 3.11, `urllib` (stdlib only — no new deps), GitHub Models REST API (`https://models.github.ai/inference/chat/completions`), `openai/gpt-4o-mini` model, `GITHUB_TOKEN` with `models: read` permission.
+**Tech Stack:** Python 3.11, `urllib` (stdlib only — no new deps), Anthropic Messages API (`https://api.anthropic.com/v1/messages`), `claude-haiku-4-5-20251001` model, `ANTHROPIC_API_KEY` secret (for LLM calls) + `GITHUB_TOKEN` (for GitHub REST API release body fetches).
 
 **Spec:** `docs/superpowers/specs/2026-06-05-release-summarization-design.md`
 
@@ -18,7 +18,7 @@
 |--------|------|----------------|
 | Create | `scripts/summarize_releases.py` | Core script: dedup, body fetch, sparse check, summarize, write |
 | Create | `tests/test_summarize_releases.py` | Unit tests for all functions in the script |
-| Modify | `.github/workflows/nightly.yml` | Add `models: read` permission, new step, `dry_run` input, expand `add-paths` |
+| Modify | `.github/workflows/nightly.yml` | Add gated summarization step, `dry_run` input, expand `add-paths` |
 
 ---
 

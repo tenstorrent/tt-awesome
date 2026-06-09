@@ -50,18 +50,26 @@ def load_known_urls(feeds_path: Path) -> set:
         return set()
 
 
-def resolve_affiliation(repo_url: str, entry_dirs: list) -> str:
-    """Return affiliation for a repo URL by scanning entry JSONs."""
+def build_affiliation_map(entry_dirs: list) -> dict:
+    """Scan all entry JSONs once and return a repo_url -> affiliation mapping."""
+    mapping = {}
     for d in entry_dirs:
         for f in Path(d).rglob("*.json"):
             try:
                 data = json.loads(f.read_text())
+                affil = data.get("affiliation", "community")
                 for link in data.get("links", []):
-                    if link.get("url", "").rstrip("/") == repo_url.rstrip("/"):
-                        return data.get("affiliation", "community")
+                    url = link.get("url", "").rstrip("/")
+                    if url:
+                        mapping[url] = affil
             except Exception:
                 continue
-    return "community"
+    return mapping
+
+
+def resolve_affiliation(repo_url: str, entry_dirs: list) -> str:
+    """Return affiliation for a repo URL by scanning entry JSONs."""
+    return build_affiliation_map(entry_dirs).get(repo_url.rstrip("/"), "community")
 
 
 def _gh_request(url: str) -> urllib.request.Request:
@@ -175,6 +183,9 @@ def main(argv: list | None = None):
         except Exception:
             pass  # If the file is malformed we start fresh; load_known_urls already warned.
 
+    # Precompute once — avoids O(repos × entries) file reads per run.
+    affiliation_map = build_affiliation_map([ENTRIES_DIR])
+
     new_items = []
 
     # ── Iterate over every repo and its releases ─────────────────────────────
@@ -204,7 +215,7 @@ def main(argv: list | None = None):
                 continue
 
             # Determine whether this repo is official, community, etc.
-            affiliation = resolve_affiliation(repo_url, [ENTRIES_DIR])
+            affiliation = affiliation_map.get(repo_url.rstrip("/"), "community")
 
             summary = call_summarization_model(repo, name, body, affiliation)
             if not summary:
