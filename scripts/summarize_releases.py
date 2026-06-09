@@ -31,7 +31,7 @@ INFERENCE_URL = "https://models.github.ai/inference/chat/completions"
 MODEL = "openai/gpt-4o-mini"
 SPARSE_LIMIT = 150  # characters; bodies shorter than this are skipped
 
-TOKEN = os.environ.get("GITHUB_TOKEN", "")
+TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")
 
 REPO_RE = re.compile(r"https://github\.com/([^/?#]+/[^/?#]+?)(?:\.git)?$")
 
