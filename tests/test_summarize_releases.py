@@ -107,12 +107,12 @@ def test_is_sparse_false_for_substantial_body():
     assert sr.is_sparse(body) is False
 
 
-def test_call_github_models_returns_summary():
+def test_call_summarization_model_returns_summary():
     api_response = {
         "content": [{"type": "text", "text": "This release adds multi-chip support."}]
     }
     with patch("urllib.request.urlopen", return_value=_mock_urlopen(api_response)):
-        result = sr.call_github_models(
+        result = sr.call_summarization_model(
             repo="tenstorrent/tt-metal",
             release_name="v0.58.0",
             body="## Multi-chip support\n\nAdds routing for n300 configurations across 4 chips...\n" + "x" * 120,
@@ -121,10 +121,10 @@ def test_call_github_models_returns_summary():
     assert result == "This release adds multi-chip support."
 
 
-def test_call_github_models_returns_empty_on_error():
+def test_call_summarization_model_returns_empty_on_error():
     import urllib.error
     with patch("urllib.request.urlopen", side_effect=urllib.error.HTTPError(None, 429, "Too Many Requests", {}, None)):
-        result = sr.call_github_models(
+        result = sr.call_summarization_model(
             repo="tenstorrent/tt-metal",
             release_name="v0.58.0",
             body="x" * 200,
@@ -164,7 +164,7 @@ def test_main_appends_new_release_item(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "TOKEN",       "fake-token")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
-         patch.object(sr, "call_github_models",  return_value="A great summary."):
+         patch.object(sr, "call_summarization_model",  return_value="A great summary."):
         sr.main([])
 
     result = json.loads(feeds_file.read_text())
@@ -236,7 +236,7 @@ def test_main_dry_run_does_not_write(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "TOKEN",       "fake-token")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
-         patch.object(sr, "call_github_models",  return_value="A summary."):
+         patch.object(sr, "call_summarization_model",  return_value="A summary."):
         sr.main(["--dry-run"])
 
     result = json.loads(feeds_file.read_text())
@@ -296,7 +296,7 @@ def test_main_skips_release_with_null_published_at(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "TOKEN",       "fake-token")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
-         patch.object(sr, "call_github_models",  return_value="A summary."):
+         patch.object(sr, "call_summarization_model",  return_value="A summary."):
         sr.main([])  # must not raise TypeError
 
     result = json.loads(feeds_file.read_text())
@@ -329,7 +329,7 @@ def test_main_dry_run_counts_items(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "TOKEN",       "fake-token")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
-         patch.object(sr, "call_github_models",  return_value="A summary."), \
+         patch.object(sr, "call_summarization_model",  return_value="A summary."), \
          patch("builtins.print") as mock_print:
         sr.main(["--dry-run"])
 

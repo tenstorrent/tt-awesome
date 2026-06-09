@@ -102,7 +102,7 @@ SYSTEM_PROMPT = (
 )
 
 
-def call_github_models(repo: str, release_name: str, body: str, affiliation: str) -> str:
+def call_summarization_model(repo: str, release_name: str, body: str, affiliation: str) -> str:
     """Call the Anthropic Messages API and return the summary string, or '' on error."""
     user_message = (
         f"Summarize this release for Planet Tenstorrent readers.\n\n"
@@ -133,9 +133,9 @@ def call_github_models(repo: str, release_name: str, body: str, affiliation: str
             data = json.loads(r.read())
             return data["content"][0]["text"].strip()
     except urllib.error.HTTPError as e:
-        print(f"  WARN call_github_models {repo}: HTTP {e.code}", file=sys.stderr)
+        print(f"  WARN call_summarization_model {repo}: HTTP {e.code}", file=sys.stderr)
     except Exception as e:
-        print(f"  WARN call_github_models {repo}: {e}", file=sys.stderr)
+        print(f"  WARN call_summarization_model {repo}: {e}", file=sys.stderr)
     return ""
 
 
@@ -206,7 +206,7 @@ def main(argv: list | None = None):
             # Determine whether this repo is official, community, etc.
             affiliation = resolve_affiliation(repo_url, [ENTRIES_DIR])
 
-            summary = call_github_models(repo, name, body, affiliation)
+            summary = call_summarization_model(repo, name, body, affiliation)
             if not summary:
                 print(f"  SKIP {repo}@{tag}: summarization failed")
                 continue
