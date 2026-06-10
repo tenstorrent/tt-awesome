@@ -7,12 +7,12 @@
 Sources:
   - YouTube @tenstorrentinc (trusted — auto-approved)
   - arXiv papers mentioning Tenstorrent (trusted — auto-approved, skips entries already curated)
-  - r/tenstorrent subreddit (reviewed — approved=False, needs maintainer flip)
-  - Community blogs (reviewed — approved=False)
+  - r/tenstorrent subreddit (reviewed — auto-approved)
+  - Community blogs (reviewed — auto-approved)
 
-Items are appended to src/_data/planet_feeds.json.  Existing items (by URL)
-are never overwritten, so approved=True state set by maintainers persists
-across runs.
+Items are appended to src/_data/planet_feeds.json. All items (new and
+existing) are written with approved=True so they appear on the Planet
+feed immediately.
 
 Usage:
     python3 scripts/fetch_planet_feeds.py [--dry-run]
@@ -39,9 +39,9 @@ ARXIV_URL  = ("https://export.arxiv.org/api/query"
               "&sortBy=submittedDate&sortOrder=descending&max_results=20")
 
 COMMUNITY_FEEDS = [
-    {"name": "clehaxze.tw",    "url": "https://clehaxze.tw/gemlog/atom.xml",      "affiliation": "community", "trusted": False},
-    {"name": "jasondavies.com","url": "https://www.jasondavies.com/atom.xml",      "affiliation": "community", "trusted": False},
-    {"name": "anuraagw.me",    "url": "https://anuraagw.me/atom.xml",              "affiliation": "community", "trusted": False},
+    {"name": "clehaxze.tw",    "url": "https://clehaxze.tw/gemlog/atom.xml",      "affiliation": "community", "trusted": True},
+    {"name": "jasondavies.com","url": "https://www.jasondavies.com/atom.xml",      "affiliation": "community", "trusted": True},
+    {"name": "anuraagw.me",    "url": "https://anuraagw.me/atom.xml",              "affiliation": "community", "trusted": True},
 ]
 
 USER_AGENT = "tt-awesome-planet/1.0 (github.com/tenstorrent/tt-awesome)"
@@ -287,12 +287,13 @@ def fetch_community_feed(feed: dict, known_urls: set) -> list:
 def main():
     dry_run = "--dry-run" in sys.argv
 
-    # Load existing items — preserve approved state keyed by URL
+    # Load existing items — force approved=True on all (auto-approve policy)
     existing: dict = {}
     if OUT.exists():
         try:
             for item in json.loads(OUT.read_text()):
                 if item.get("url"):
+                    item["approved"] = True
                     existing[item["url"]] = item
         except Exception as e:
             print(f"  WARN: could not read {OUT}: {e}", file=sys.stderr)
@@ -326,7 +327,7 @@ def main():
         new_items += cf
         known_urls.update(i["url"] for i in cf)
 
-    # Merge: existing items keep their approved state; new items get script defaults
+    # Merge: all existing items remain approved; new items use source defaults
     all_items = list(existing.values()) + new_items
     all_items.sort(key=lambda x: x.get("dateISO", ""), reverse=True)
 

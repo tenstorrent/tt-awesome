@@ -172,7 +172,7 @@ def test_main_appends_new_release_item(tmp_path, monkeypatch):
     item = result[0]
     assert item["type"] == "release"
     assert item["source"] == "github"
-    assert item["approved"] is False
+    assert item["approved"] is True
     assert item["affiliation"] == "official"
     assert item["description"] == "A great summary."
     assert item["url"] == "https://github.com/tenstorrent/tt-metal/releases/tag/v1.0.0"

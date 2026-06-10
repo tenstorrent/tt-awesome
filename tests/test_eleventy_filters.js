@@ -220,7 +220,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: linkless entry falls back to anchor URL");
 }
 
-// ── planetItems tests ─────────────────────────────────────────────────────────
+// ── planetItems tests ───────────────────────────────────────────────────────
 
 const planetItems = filters["planetItems"];
 const monthLabel  = filters["monthLabel"];
@@ -336,24 +336,32 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: excludes .dev, -dev, and -dev.<digits> release tags");
 }
 
-// Test 24: approved external items appear; unapproved do not
+// Test 24: approved external items appear
 {
-  const extApproved = {
+  const extApproved1 = {
     type: "video", source: "youtube", approved: true,
     title: "TT Video", url: "https://www.youtube.com/watch?v=abc",
     description: "A video.", date: "2026-06-01", dateISO: "2026-06-01T00:00:00Z",
     label: "Tenstorrent — YouTube", projectName: "Tenstorrent", projectId: null, affiliation: "official",
   };
-  const extPending = {
-    type: "article", source: "reddit", approved: false,
+  const extApproved2 = {
+    type: "article", source: "reddit", approved: true,
     title: "Reddit Post", url: "https://reddit.com/r/test/1",
     description: "A post.", date: "2026-06-01", dateISO: "2026-06-01T00:00:00Z",
     label: "r/tenstorrent", projectName: "r/tenstorrent", projectId: null, affiliation: "community",
   };
-  const items = planetItems([], [], [extApproved, extPending]);
-  assert.strictEqual(items.length, 1, "only approved external items should appear");
-  assert.strictEqual(items[0].url, extApproved.url);
-  assert.strictEqual(items[0].projectId, null, "external items have null projectId");
+  const extUnapproved = {
+    type: "article", source: "reddit", approved: false,
+    title: "Unapproved Post", url: "https://reddit.com/r/test/2",
+    description: "Not yet.", date: "2026-06-01", dateISO: "2026-06-01T00:00:00Z",
+    label: "r/tenstorrent", projectName: "r/tenstorrent", projectId: null, affiliation: "community",
+  };
+  const items = planetItems([], [], [extApproved1, extApproved2, extUnapproved]);
+  const urls = items.map(i => i.url);
+  assert.strictEqual(items.length, 2, "unapproved external items should be excluded");
+  assert.ok(urls.includes("https://www.youtube.com/watch?v=abc"), "approved YouTube item included");
+  assert.ok(urls.includes("https://reddit.com/r/test/1"), "approved Reddit item included");
+  assert.ok(!urls.includes("https://reddit.com/r/test/2"), "unapproved item excluded");
   console.log("✓ planetItems: approved external items included, unapproved excluded");
 }
 

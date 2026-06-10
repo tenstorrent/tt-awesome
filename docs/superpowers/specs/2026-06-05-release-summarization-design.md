@@ -9,12 +9,12 @@ The nightly metadata crawler (`fetch_github_meta.py`) tracks GitHub releases acr
 
 ## Goal
 
-When the nightly job detects a new release with enough release notes to summarize, automatically generate a one-paragraph human-readable summary and queue it in `planet_feeds.json` as a `type: "release"` item pending maintainer review — the same approval gate used for Reddit posts.
+When the nightly job detects a new release with enough release notes to summarize, automatically generate a one-paragraph human-readable summary and append it to `planet_feeds.json` as a `type: "release"` item with `approved: true` for immediate inclusion in the Planet feed.
 
 ## Non-Goals
 
 - Summarizing releases with sparse notes (body under ~150 characters, or empty)
-- Auto-approving release summaries (always `approved: false`)
+- Holding release summaries for manual review (items are `approved: true` immediately)
 - Modifying the Planet UI or frontend templates
 - Adding any new workflow files
 
@@ -40,7 +40,7 @@ nightly.yml job
    - Fetches the GitHub release `body` via `GET /repos/{owner}/{repo}/releases/tags/{tag}`
    - If `body` is empty or under 150 characters: skip, log reason, continue
    - Otherwise: calls the Anthropic Messages API with the release body
-4. Each successful summary is appended to `planet_feeds.json` as a new item with `approved: false`
+4. Each successful summary is appended to `planet_feeds.json` as a new item with `approved: true`
 5. `create-pull-request` opens a PR with both changed files (or only one if only metadata changed)
 
 ## Planet Feed Item Schema
@@ -51,7 +51,7 @@ New release items match the existing `planet_feeds.json` shape exactly:
 {
   "type": "release",
   "source": "github",
-  "approved": false,
+  "approved": true,
   "title": "{projectName} {tagName}",
   "url": "https://github.com/{repo}/releases/tag/{tagName}",
   "description": "...humanized paragraph...",
