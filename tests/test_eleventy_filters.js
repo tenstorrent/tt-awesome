@@ -350,11 +350,17 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
     description: "A post.", date: "2026-06-01", dateISO: "2026-06-01T00:00:00Z",
     label: "r/tenstorrent", projectName: "r/tenstorrent", projectId: null, affiliation: "community",
   };
-  const items = planetItems([], [], [extApproved1, extApproved2]);
-  assert.strictEqual(items.length, 2, "approved external items should appear");
+  const extUnapproved = {
+    type: "article", source: "reddit", approved: false,
+    title: "Unapproved Post", url: "https://reddit.com/r/test/2",
+    description: "Not yet.", date: "2026-06-01", dateISO: "2026-06-01T00:00:00Z",
+    label: "r/tenstorrent", projectName: "r/tenstorrent", projectId: null, affiliation: "community",
+  };
+  const items = planetItems([], [], [extApproved1, extApproved2, extUnapproved]);
+  assert.strictEqual(items.length, 2, "unapproved external items should be excluded");
   assert.strictEqual(items[0].projectId, null, "external items have null projectId");
   assert.strictEqual(items[1].projectId, null, "external items have null projectId");
-  console.log("✓ planetItems: approved external items included");
+  console.log("✓ planetItems: approved external items included, unapproved excluded");
 }
 
 console.log("\nAll eleventy filter tests passed ✓");

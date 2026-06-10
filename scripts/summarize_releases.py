@@ -227,7 +227,7 @@ def main(argv: list | None = None):
             item = {
                 "type":        "release",
                 "source":      "github",
-                "approved":    True,
+                "approved":    True,    # auto-approved; summaries go live immediately
                 "title":       f"{repo_name} {tag}",
                 "url":         url,
                 "description": summary,

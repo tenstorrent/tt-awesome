@@ -10,9 +10,9 @@ Sources:
   - r/tenstorrent subreddit (reviewed — auto-approved)
   - Community blogs (reviewed — auto-approved)
 
-Items are appended to src/_data/planet_feeds.json. Existing items (by URL)
-are never overwritten, so approved=True state set by maintainers persists
-across runs.
+Items are appended to src/_data/planet_feeds.json. All items (new and
+existing) are written with approved=True so they appear on the Planet
+feed immediately.
 
 Usage:
     python3 scripts/fetch_planet_feeds.py [--dry-run]
@@ -287,7 +287,7 @@ def fetch_community_feed(feed: dict, known_urls: set) -> list:
 def main():
     dry_run = "--dry-run" in sys.argv
 
-    # Load existing items — preserve approved state keyed by URL
+    # Load existing items — force approved=True on all (auto-approve policy)
     existing: dict = {}
     if OUT.exists():
         try:
