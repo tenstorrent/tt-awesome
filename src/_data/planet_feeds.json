@@ -140,6 +140,20 @@
     "affiliation": "official"
   },
   {
+    "type": "paper",
+    "source": "arxiv",
+    "approved": true,
+    "title": "Operator Fusion for LLM Inference on the Tensix Architecture",
+    "url": "https://arxiv.org/abs/2606.09879v1",
+    "description": "This study addresses on-device inference bottlenecks of Transformer models on Tenstorrent's Tensix architecture and proposes an operator fusion strategy that enhances data locality. RMSNorm is fused with matrix multiplication in self-attention and in the FFN, enabling back-to-back execution of memory-bound and compute-bound operators in on-chip SRAM to significantly reduce DRAM reads/writes of intermediate results and scheduling overhead. To support multi-core parallelism, a NoC-based multicast mechanism is leveraged in which row/column master nodes efficiently distribute inputs and weights across the core mesh, alleviating DRAM bandwidth contention. Experiments on the Wormhole platform with Qwen2.5-0.5B, Qwen3-0.6B, and Qwen3-4B show up to 37.44% latency reduction for attention and…",
+    "date": "2026-06-03",
+    "dateISO": "2026-06-03T02:48:34Z",
+    "label": "arXiv:2606.09879",
+    "projectName": "arXiv",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
