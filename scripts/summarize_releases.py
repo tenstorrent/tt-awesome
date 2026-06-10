@@ -208,10 +208,12 @@ def main(argv: list | None = None):
                 continue
             name = release.get("name") or tag
 
-            # Skip dev/nightly builds: matches "1.3.0.dev20260609" and "v0.73.0-dev20260610".
-            # Mirrors the filter in .eleventy.js planetItems for the recentReleases path.
-            if re.search(r"[.\-]dev[.\d]", tag, re.IGNORECASE):
-                print(f"  SKIP {repo}@{tag}: dev/nightly build")
+            # Skip pre-release builds — dev/nightly, RC, and QA tags add noise.
+            # dev:  "1.3.0.dev20260609", "v0.73.0-dev20260610"
+            # RC:   "v0.72.0-rc4", "ttkmd-2.9.0-rc1"
+            # QA:   "v1.0.0-qa1"
+            if re.search(r"[.\-]dev[.\d]|[-.]rc\d|[-.]qa[\d.]", tag, re.IGNORECASE):
+                print(f"  SKIP {repo}@{tag}: pre-release build")
                 continue
 
             # Fetch and quality-gate the release body before calling the LLM.

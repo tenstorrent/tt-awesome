@@ -108,11 +108,16 @@ def test_is_sparse_false_for_substantial_body():
 
 
 def test_main_skips_dev_build_tags(tmp_path, monkeypatch):
-    # tt-forge style: "1.3.0.dev20260609002802"; tt-metal style: "v0.73.0-dev20260610"
+    # dev: "1.3.0.dev20260609002802", "v0.73.0-dev20260610"
+    # RC:  "v0.72.0-rc4", "ttkmd-2.9.0-rc1"
+    # QA:  "v1.0.0-qa1"
     dev_tags = [
         "1.3.0.dev20260609002802",
         "v0.73.0-dev20260610",
         "v0.9.5-dev.260424",
+        "v0.72.0-rc4",
+        "ttkmd-2.9.0-rc1",
+        "v1.0.0-qa1",
     ]
     releases = [
         {"tagName": t, "name": t, "publishedAt": "2026-06-01T00:00:00Z",
