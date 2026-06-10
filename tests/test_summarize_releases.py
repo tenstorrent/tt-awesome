@@ -107,6 +107,39 @@ def test_is_sparse_false_for_substantial_body():
     assert sr.is_sparse(body) is False
 
 
+def test_main_skips_dev_build_tags(tmp_path, monkeypatch):
+    # tt-forge style: "1.3.0.dev20260609002802"; tt-metal style: "v0.73.0-dev20260610"
+    dev_tags = [
+        "1.3.0.dev20260609002802",
+        "v0.73.0-dev20260610",
+        "v0.9.5-dev.260424",
+    ]
+    releases = [
+        {"tagName": t, "name": t, "publishedAt": "2026-06-01T00:00:00Z",
+         "url": f"https://github.com/tenstorrent/tt-metal/releases/tag/{t}",
+         "prerelease": False}
+        for t in dev_tags
+    ]
+    meta = {"https://github.com/tenstorrent/tt-metal": {"releases": releases}}
+    meta_file  = tmp_path / "github_meta.json"
+    feeds_file = tmp_path / "planet_feeds.json"
+    meta_file.write_text(json.dumps(meta))
+    feeds_file.write_text(json.dumps([]))
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+
+    monkeypatch.setattr(sr, "META_IN",     meta_file)
+    monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
+    monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+
+    with patch.object(sr, "fetch_release_body") as mock_body:
+        sr.main([])
+
+    mock_body.assert_not_called()
+    assert json.loads(feeds_file.read_text()) == []
+
+
 def test_call_summarization_model_returns_summary():
     api_response = {
         "content": [{"type": "text", "text": "This release adds multi-chip support."}]
