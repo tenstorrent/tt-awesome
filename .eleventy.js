@@ -259,11 +259,11 @@ module.exports = function (eleventyConfig) {
       items.push(item);
     }
 
-    // Stable releases from recentReleases — skip dev/nightly builds and any release
+    // Stable releases from recentReleases — skip pre-release builds and any release
     // already covered by a summarized item in externalFeeds (seenUrls handles dedup).
-    // Matches: "1.2.0.dev20260530", "v0.72.0-dev20260529", "v0.9.5-dev.260424"
+    // dev: "1.2.0.dev20260530", "v0.72.0-dev20260529"  RC: "v0.72.0-rc4"  QA: "v1.0-qa1"
     for (const rel of recentReleases || []) {
-      if (/[\.\-]dev[\.\d]/i.test(rel.tagName || "")) continue;
+      if (/[\.\-]dev[\.\d]|[-.]rc\d|[-.]qa[\d.]/i.test(rel.tagName || "")) continue;
       if (seenUrls.has(rel.url)) continue;
       seenUrls.add(rel.url);
       const dateStr = rel.publishedAt ? rel.publishedAt.slice(0, 10) : "1970-01-01";
