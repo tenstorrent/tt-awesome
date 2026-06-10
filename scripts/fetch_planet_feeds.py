@@ -222,7 +222,7 @@ def fetch_reddit(known_urls: set) -> list:
         items.append({
             "type":        "article",
             "source":      "reddit",
-            "approved":    True,
+            "approved":    False,
             "title":       title,
             "url":         url,
             "description": desc,

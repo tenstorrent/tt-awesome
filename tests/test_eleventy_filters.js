@@ -357,9 +357,11 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
     label: "r/tenstorrent", projectName: "r/tenstorrent", projectId: null, affiliation: "community",
   };
   const items = planetItems([], [], [extApproved1, extApproved2, extUnapproved]);
+  const urls = items.map(i => i.url);
   assert.strictEqual(items.length, 2, "unapproved external items should be excluded");
-  assert.strictEqual(items[0].projectId, null, "external items have null projectId");
-  assert.strictEqual(items[1].projectId, null, "external items have null projectId");
+  assert.ok(urls.includes("https://www.youtube.com/watch?v=abc"), "approved YouTube item included");
+  assert.ok(urls.includes("https://reddit.com/r/test/1"), "approved Reddit item included");
+  assert.ok(!urls.includes("https://reddit.com/r/test/2"), "unapproved item excluded");
   console.log("✓ planetItems: approved external items included, unapproved excluded");
 }
 
