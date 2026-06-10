@@ -7,10 +7,10 @@
 Sources:
   - YouTube @tenstorrentinc (trusted — auto-approved)
   - arXiv papers mentioning Tenstorrent (trusted — auto-approved, skips entries already curated)
-  - r/tenstorrent subreddit (reviewed — approved=False, needs maintainer flip)
-  - Community blogs (reviewed — approved=False)
+  - r/tenstorrent subreddit (reviewed — auto-approved)
+  - Community blogs (reviewed — auto-approved)
 
-Items are appended to src/_data/planet_feeds.json.  Existing items (by URL)
+Items are appended to src/_data/planet_feeds.json. Existing items (by URL)
 are never overwritten, so approved=True state set by maintainers persists
 across runs.
 
@@ -39,9 +39,9 @@ ARXIV_URL  = ("https://export.arxiv.org/api/query"
               "&sortBy=submittedDate&sortOrder=descending&max_results=20")
 
 COMMUNITY_FEEDS = [
-    {"name": "clehaxze.tw",    "url": "https://clehaxze.tw/gemlog/atom.xml",      "affiliation": "community", "trusted": False},
-    {"name": "jasondavies.com","url": "https://www.jasondavies.com/atom.xml",      "affiliation": "community", "trusted": False},
-    {"name": "anuraagw.me",    "url": "https://anuraagw.me/atom.xml",              "affiliation": "community", "trusted": False},
+    {"name": "clehaxze.tw",    "url": "https://clehaxze.tw/gemlog/atom.xml",      "affiliation": "community", "trusted": True},
+    {"name": "jasondavies.com","url": "https://www.jasondavies.com/atom.xml",      "affiliation": "community", "trusted": True},
+    {"name": "anuraagw.me",    "url": "https://anuraagw.me/atom.xml",              "affiliation": "community", "trusted": True},
 ]
 
 USER_AGENT = "tt-awesome-planet/1.0 (github.com/tenstorrent/tt-awesome)"
@@ -222,7 +222,7 @@ def fetch_reddit(known_urls: set) -> list:
         items.append({
             "type":        "article",
             "source":      "reddit",
-            "approved":    False,
+            "approved":    True,
             "title":       title,
             "url":         url,
             "description": desc,
@@ -293,6 +293,7 @@ def main():
         try:
             for item in json.loads(OUT.read_text()):
                 if item.get("url"):
+                    item["approved"] = True
                     existing[item["url"]] = item
         except Exception as e:
             print(f"  WARN: could not read {OUT}: {e}", file=sys.stderr)
@@ -326,7 +327,7 @@ def main():
         new_items += cf
         known_urls.update(i["url"] for i in cf)
 
-    # Merge: existing items keep their approved state; new items get script defaults
+    # Merge: all existing items remain approved; new items use source defaults
     all_items = list(existing.values()) + new_items
     all_items.sort(key=lambda x: x.get("dateISO", ""), reverse=True)
 

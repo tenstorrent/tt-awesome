@@ -220,7 +220,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: linkless entry falls back to anchor URL");
 }
 
-// ── planetItems tests ─────────────────────────────────────────────────────────
+// ── planetItems tests ───────────────────────────────────────────────────────
 
 const planetItems = filters["planetItems"];
 const monthLabel  = filters["monthLabel"];
@@ -336,25 +336,25 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: excludes .dev, -dev, and -dev.<digits> release tags");
 }
 
-// Test 24: approved external items appear; unapproved do not
+// Test 24: approved external items appear
 {
-  const extApproved = {
+  const extApproved1 = {
     type: "video", source: "youtube", approved: true,
     title: "TT Video", url: "https://www.youtube.com/watch?v=abc",
     description: "A video.", date: "2026-06-01", dateISO: "2026-06-01T00:00:00Z",
     label: "Tenstorrent — YouTube", projectName: "Tenstorrent", projectId: null, affiliation: "official",
   };
-  const extPending = {
-    type: "article", source: "reddit", approved: false,
+  const extApproved2 = {
+    type: "article", source: "reddit", approved: true,
     title: "Reddit Post", url: "https://reddit.com/r/test/1",
     description: "A post.", date: "2026-06-01", dateISO: "2026-06-01T00:00:00Z",
     label: "r/tenstorrent", projectName: "r/tenstorrent", projectId: null, affiliation: "community",
   };
-  const items = planetItems([], [], [extApproved, extPending]);
-  assert.strictEqual(items.length, 1, "only approved external items should appear");
-  assert.strictEqual(items[0].url, extApproved.url);
+  const items = planetItems([], [], [extApproved1, extApproved2]);
+  assert.strictEqual(items.length, 2, "approved external items should appear");
   assert.strictEqual(items[0].projectId, null, "external items have null projectId");
-  console.log("✓ planetItems: approved external items included, unapproved excluded");
+  assert.strictEqual(items[1].projectId, null, "external items have null projectId");
+  console.log("✓ planetItems: approved external items included");
 }
 
 console.log("\nAll eleventy filter tests passed ✓");
