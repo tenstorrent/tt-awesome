@@ -1,5 +1,47 @@
 [
   {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "tt-system-firmware v19.11.0",
+    "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.11.0",
+    "description": "This release brings Zephyr 4.4.0 to Blackhole and Grendel, along with several quality-of-life improvements for Blackhole operations. Error reporting is now more granular—the `STATUS_ERROR_STATUS0` register now accumulates init failures as a bit field so you can see exactly which stage failed (regulator, cable, Tensix, MRISC, or GDDR training) in a single read. Runtime firmware parameters like TDP limits can now be overridden and persisted across upgrades, though you'll want to be on `tt-flash` v3.8.0+ to ensure those overrides stick. On the connectivity side, P300C boards get PCIe Gen4 for better QB2 stability, and Ethernet firmware improvements address interrupt handling and add ECC support to MACPCS.",
+    "date": "2026-06-11",
+    "dateISO": "2026-06-11T14:56:55Z",
+    "label": "tenstorrent/tt-system-firmware",
+    "projectName": "tt-system-firmware",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "tt-exalens v0.3.23",
+    "url": "https://github.com/tenstorrent/tt-exalens/releases/tag/v0.3.23",
+    "description": "This release fixes a bug where the program counter couldn't be read reliably when a core was halted, and extends UmdApi to properly handle core reset logic on the QUASAR architecture. The test suite also gains conditional skipping for scenarios that don't apply to certain configurations, reducing noise in CI runs and making it easier to focus on relevant failures.",
+    "date": "2026-06-11",
+    "dateISO": "2026-06-11T14:42:44Z",
+    "label": "tenstorrent/tt-exalens",
+    "projectName": "tt-exalens",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "dstack 0.20.24",
+    "url": "https://github.com/dstackai/dstack/releases/tag/0.20.24",
+    "description": "This release brings several refinements to dev environments and service deployments. Zed is now supported as a remote IDE option, with automatic server setup and convenient `zed://` links for quick connection—useful if you're already in that editor ecosystem. On the services side, you can now specify `spot_policy` and `reservation` at the replica group level, enabling mixed strategies like running baseline replicas on reserved capacity while autoscaling overflow on spots; additionally, Shepherd Model Gateway workers now communicate via gRPC with both vLLM and SGLang, which reduces duplicate tokenization work and makes request routing more efficient. Azure users gain finer subnet control, JarvisLabs adds RTX PRO 6000 GPU support, and several reliability fixes address SSH connection pooling and service scaling edge cases.",
+    "date": "2026-06-11",
+    "dateISO": "2026-06-11T13:55:33Z",
+    "label": "dstackai/dstack",
+    "projectName": "dstack",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
     "type": "video",
     "source": "youtube",
     "approved": true,
