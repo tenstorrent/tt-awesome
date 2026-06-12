@@ -152,7 +152,11 @@ eleventyExcludeFromCollections: true
             <span class="planet-item-date">{{ item.date | prettyDate }}</span>
           </div>
 
+          {%- if item.type == "release" and item.projectId %}
+          <a class="planet-item-title" href="{{ '/' | url }}?entry={{ item.projectId }}">{{ item.title }}</a>
+          {%- else %}
           <a class="planet-item-title" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+          {%- endif %}
 
           {%- if item.label %}
           <div class="planet-item-source">{{ item.label }}</div>
