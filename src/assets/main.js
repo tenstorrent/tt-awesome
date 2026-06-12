@@ -1,6 +1,14 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
+function copyPkgCmd(btn) {
+  navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+    btn.textContent = "copied!";
+    btn.classList.add("copied");
+    setTimeout(() => { btn.textContent = "copy"; btn.classList.remove("copied"); }, 1800);
+  });
+}
+
 // State
 let activeCategory = null;
 let activeFilters = new Set(["community", "affiliated", "official"]);

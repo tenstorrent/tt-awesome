@@ -119,11 +119,20 @@
       {%- elif pkg.type == "cargo" %}
       <a class="pkg-badge pkg-badge--cargo" href="https://crates.io/crates/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">🦀 cargo add {{ pkg.name }}</a>
       {%- elif pkg.type == "apt" and pkg.url %}
-      <a class="pkg-badge pkg-badge--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
+      <div class="pkg-apt-row">
+        <a class="pkg-badge pkg-badge--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
+        <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
+      </div>
       {%- elif pkg.type == "apt" and pkg.ppa %}
-      <a class="pkg-badge pkg-badge--apt" href="https://launchpad.net/{{ pkg.ppa | replace('ppa:', '~') | replace('/', '/+archive/ubuntu/') }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
+      <div class="pkg-apt-row">
+        <a class="pkg-badge pkg-badge--apt" href="https://launchpad.net/{{ pkg.ppa | replace('ppa:', '~') | replace('/', '/+archive/ubuntu/') }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
+        <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
+      </div>
       {%- elif pkg.type == "apt" %}
-      <span class="pkg-badge pkg-badge--apt">🐧 apt install {{ pkg.name }}</span>
+      <div class="pkg-apt-row">
+        <span class="pkg-badge pkg-badge--apt">🐧 apt install {{ pkg.name }}</span>
+        <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
+      </div>
       {%- endif %}
       {%- endfor %}
     </div>
