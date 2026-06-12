@@ -284,6 +284,17 @@ function restoreFromUrl() {
     }
     return;
   }
+  // Bare ?entry= with no cat/releases/author — find the entry's category and open it.
+  if (entryId) {
+    const row = document.querySelector(`.entry-row[data-id="${CSS.escape(entryId)}"]`);
+    if (row) {
+      const cat = (row.dataset.categories || "").split(" ")[0];
+      const sidebarEl = cat && document.querySelector(`.sidebar-item[data-category="${CSS.escape(cat)}"]`);
+      if (sidebarEl) _applyCategory(cat, sidebarEl);
+      _applyEntry(entryId, row);
+      return;
+    }
+  }
   _applyHome();
 }
 
