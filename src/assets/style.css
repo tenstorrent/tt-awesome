@@ -306,6 +306,32 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
                      display: block; text-align: right; margin-top: 4px; opacity: 0.7; }
 .releases-all-link:hover { opacity: 1; text-decoration: underline; text-underline-offset: 2px; }
 
+/* ── Release asset chips ─────────────────────────────────────────────────── */
+.release-assets { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 8px; }
+.asset-chip { display: inline-flex; align-items: center; gap: 4px;
+              font-size: 10px; font-family: ui-monospace, "SFMono-Regular", monospace;
+              color: var(--teal-lt); background: rgba(79,209,197,0.06);
+              border: 1px solid rgba(79,209,197,0.2); border-radius: 4px;
+              padding: 2px 7px; text-decoration: none; white-space: nowrap;
+              max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+.asset-chip:hover { background: rgba(79,209,197,0.12); border-color: var(--teal);
+                    color: var(--teal); }
+
+/* ── Changelog collapsible ───────────────────────────────────────────────── */
+.changelog-details { border: none; }
+.changelog-details[open] .changelog-summary { opacity: 0.75; }
+.changelog-summary { cursor: pointer; user-select: none; list-style: none;
+                     display: flex; align-items: center; gap: 6px; }
+.changelog-summary::-webkit-details-marker { display: none; }
+.changelog-summary::after { content: "▸"; font-size: 9px; color: var(--muted);
+                             transition: transform 140ms ease; }
+.changelog-details[open] .changelog-summary::after { transform: rotate(90deg); }
+.changelog-pre { margin: 8px 0 0; padding: 10px 12px; overflow-x: auto;
+                 background: rgba(0,0,0,0.25); border-radius: 5px;
+                 font-size: 10px; line-height: 1.55; white-space: pre-wrap;
+                 word-break: break-word; max-height: 320px; overflow-y: auto;
+                 color: var(--fg1); border: 1px solid rgba(255,255,255,0.06); }
+
 /* ── Mobile-only elements (hidden on desktop) ──────────────────────────── */
 .mobile-back      { display: none; }
 .mobile-title     { display: none; }

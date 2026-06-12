@@ -85,11 +85,16 @@ def fetch_readme_image(repo: str, default_branch: str = "main") -> str | None:
     return None
 
 
+ASSET_EXTS = re.compile(r'\.(deb|whl|tar\.gz|tgz|zip|rpm|dmg|exe|AppImage)$', re.IGNORECASE)
+CHANGELOG_NAMES = ("CHANGELOG.md", "CHANGELOG", "CHANGES.md", "CHANGES", "HISTORY.md")
+CHANGELOG_MAX = 3000
+
+
 def fetch_releases(repo: str, per_page: int = 5) -> list:
     """Fetch the most recent releases for a repo, excluding drafts.
 
     Returns a list of dicts with camelCase keys matching the frontend schema:
-        tagName, name, publishedAt, url, prerelease
+        tagName, name, publishedAt, url, prerelease, assets
     Draft releases are skipped; pre-releases are included (caller can filter).
     Returns an empty list on any error so a single bad repo never aborts the run.
     """
@@ -97,23 +102,53 @@ def fetch_releases(repo: str, per_page: int = 5) -> list:
         url = f"https://api.github.com/repos/{repo}/releases?per_page={per_page}"
         with urllib.request.urlopen(_request(url), timeout=10) as r:
             releases = json.loads(r.read())
-            return [
-                {
+            result = []
+            for rel in releases:
+                if rel.get("draft", False):
+                    continue
+                assets = [
+                    {
+                        "name": a["name"],
+                        "url": a["browser_download_url"],
+                        "size": a["size"],
+                    }
+                    for a in rel.get("assets", [])
+                    if ASSET_EXTS.search(a["name"])
+                ]
+                entry = {
                     "tagName": rel["tag_name"],
-                    # Fall back to the tag name when the release has no display name.
                     "name": rel.get("name") or rel["tag_name"],
                     "publishedAt": rel.get("published_at", ""),
                     "url": rel.get("html_url", ""),
                     "prerelease": rel.get("prerelease", False),
                 }
-                for rel in releases
-                if not rel.get("draft", False)
-            ]
+                if assets:
+                    entry["assets"] = assets
+                result.append(entry)
+            return result
     except urllib.error.HTTPError as e:
         print(f"  WARN {repo} releases: HTTP {e.code}", file=sys.stderr)
     except Exception as e:
         print(f"  WARN {repo} releases: {e}", file=sys.stderr)
     return []
+
+
+def fetch_changelog(repo: str, default_branch: str = "main") -> str | None:
+    """Return the first CHANGELOG_MAX chars of the repo's changelog, or None."""
+    for name in CHANGELOG_NAMES:
+        url = f"https://api.github.com/repos/{repo}/contents/{name}?ref={default_branch}"
+        try:
+            with urllib.request.urlopen(_request(url), timeout=10) as r:
+                data = json.loads(r.read())
+                content = base64.b64decode(data.get("content", "").replace("\n", ""))
+                text = content.decode("utf-8", errors="replace")
+                return text[:CHANGELOG_MAX].strip() or None
+        except urllib.error.HTTPError as e:
+            if e.code != 404:
+                print(f"  WARN {repo} changelog {name}: HTTP {e.code}", file=sys.stderr)
+        except Exception as e:
+            print(f"  WARN {repo} changelog {name}: {e}", file=sys.stderr)
+    return None
 
 
 def main():
@@ -146,7 +181,12 @@ def main():
             releases = fetch_releases(repo)
             if releases:
                 result["releases"] = releases
-                print(f"  releases: {len(releases)} fetched")
+                asset_count = sum(len(r.get("assets", [])) for r in releases)
+                print(f"  releases: {len(releases)} fetched, {asset_count} assets")
+            changelog = fetch_changelog(repo, default_branch)
+            if changelog:
+                result["changelog_excerpt"] = changelog
+                print(f"  changelog: {len(changelog)} chars")
             meta[repo_link["url"]] = result
     META_OUT.parent.mkdir(parents=True, exist_ok=True)
     META_OUT.write_text(json.dumps(meta, indent=2) + "\n")

@@ -64,6 +64,20 @@
         <a class="release-notes-link" href="{{ entry.latestStableRelease.url }}"
            target="_blank" rel="noopener noreferrer">Release notes ↗</a>
       </div>
+      {%- if entry.latestStableRelease.assets and entry.latestStableRelease.assets.length %}
+      <div class="release-assets">
+        {%- for asset in entry.latestStableRelease.assets %}
+        <a class="asset-chip" href="{{ asset.url }}" target="_blank" rel="noopener noreferrer">
+          {%- if ".deb" in asset.name %}🐧
+          {%- elif ".whl" in asset.name %}🐍
+          {%- elif ".tar.gz" in asset.name or ".tgz" in asset.name %}📦
+          {%- else %}⬇
+          {%- endif %}
+          {{ asset.name }}
+        </a>
+        {%- endfor %}
+      </div>
+      {%- endif %}
       {%- endif %}
       {%- if entry.releases | length > 1 or not entry.latestStableRelease %}
       {%- set latestTag = entry.latestStableRelease.tagName if entry.latestStableRelease else "" %}
@@ -86,6 +100,14 @@
          target="_blank" rel="noopener noreferrer">See all releases on GitHub ↗</a>
       {%- endif %}
       {%- endfor %}
+    </div>
+    {%- endif %}
+    {%- if entry.changelog_excerpt %}
+    <div class="detail-section">
+      <details class="changelog-details">
+        <summary class="section-label changelog-summary">📋 Changelog</summary>
+        <pre class="changelog-pre">{{ entry.changelog_excerpt }}</pre>
+      </details>
     </div>
     {%- endif %}
     {%- if entry.packages %}
