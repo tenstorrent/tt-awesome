@@ -67,7 +67,8 @@
       {%- if entry.latestStableRelease.assets and entry.latestStableRelease.assets.length %}
       <div class="release-assets">
         {%- for asset in entry.latestStableRelease.assets %}
-        <a class="asset-chip" href="{{ asset.url }}" target="_blank" rel="noopener noreferrer">
+        {%- if loop.index <= 4 %}
+        <a class="asset-chip" href="{{ asset.url }}" target="_blank" rel="noopener noreferrer" title="{{ asset.name }}">
           {%- if ".deb" in asset.name %}🐧
           {%- elif ".whl" in asset.name %}🐍
           {%- elif ".tar.gz" in asset.name or ".tgz" in asset.name %}📦
@@ -75,24 +76,38 @@
           {%- endif %}
           {{ asset.name }}
         </a>
-        {%- endfor %}
-      </div>
-      {%- endif %}
-      {%- endif %}
-      {%- if entry.releases | length > 1 or not entry.latestStableRelease %}
-      {%- set latestTag = entry.latestStableRelease.tagName if entry.latestStableRelease else "" %}
-      <div class="release-history-list">
-        {%- for rel in entry.releases %}
-        {%- if rel.tagName != latestTag %}
-        <div class="rel-hist-row">
-          <a class="rel-tag" href="{{ rel.url }}"
-             target="_blank" rel="noopener noreferrer">{{ rel.tagName }}</a>
-          {%- if rel.prerelease %}<span class="rel-pre">pre</span>{%- endif %}
-          <span class="rel-date" data-ts="{{ rel.publishedAt }}">{{ rel.publishedAt }}</span>
-        </div>
         {%- endif %}
         {%- endfor %}
+        {%- if entry.latestStableRelease.assets | length > 4 %}
+        {%- for lnk in entry.links %}{%- if lnk.type == "repo" %}
+        <a class="assets-overflow" href="{{ lnk.url }}/releases/latest" target="_blank" rel="noopener noreferrer">+{{ entry.latestStableRelease.assets | length - 4 }} more</a>
+        {%- endif %}{%- endfor %}
+        {%- endif %}
       </div>
+      {%- endif %}
+      {%- endif %}
+      {%- set latestTag = entry.latestStableRelease.tagName if entry.latestStableRelease else "" %}
+      {%- set histCount = (entry.releases | length) - (1 if entry.latestStableRelease else 0) %}
+      {%- if histCount > 0 %}
+      <details class="release-history-details">
+        <summary class="release-history-toggle">{{ histCount }} {{ "previous " if entry.latestStableRelease }}release{{ "s" if histCount != 1 }}</summary>
+        <div class="release-history-list">
+          {%- for rel in entry.releases %}
+          {%- if rel.tagName != latestTag %}
+          <div class="rel-hist-row">
+            <a class="rel-tag" href="{{ rel.url }}"
+               target="_blank" rel="noopener noreferrer">{{ rel.tagName }}</a>
+            {%- if rel.prerelease %}<span class="rel-pre">pre</span>{%- endif %}
+            <span class="rel-date" data-ts="{{ rel.publishedAt }}">{{ rel.publishedAt }}</span>
+          </div>
+          {%- endif %}
+          {%- endfor %}
+        </div>
+      </details>
+      {%- elif not entry.latestStableRelease %}
+      {%- for lnk in entry.links %}{%- if lnk.type == "repo" %}
+      <a class="releases-all-link" href="{{ lnk.url }}/releases" target="_blank" rel="noopener noreferrer">Active development — see all releases ↗</a>
+      {%- endif %}{%- endfor %}
       {%- endif %}
       {%- for lnk in entry.links %}
       {%- if lnk.type == "repo" %}

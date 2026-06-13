@@ -301,12 +301,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .release-notes-link:hover { color: var(--teal); text-decoration: underline;
                              text-underline-offset: 2px; }
 
-.release-history-list { margin-bottom: 4px; }
+/* History collapsed by default behind a <details> toggle */
+.release-history-details { border: none; margin-bottom: 2px; }
+.release-history-toggle { cursor: pointer; user-select: none; list-style: none;
+                           font-size: 10px; color: var(--muted); padding: 3px 0;
+                           display: flex; align-items: center; gap: 4px; }
+.release-history-toggle::-webkit-details-marker { display: none; }
+.release-history-toggle::before { content: "▸"; font-size: 8px; transition: transform 140ms ease; }
+.release-history-details[open] .release-history-toggle::before { transform: rotate(90deg); }
+.release-history-details[open] .release-history-toggle { color: var(--fg1); }
+
+.release-history-list { margin: 4px 0 2px; }
 .rel-hist-row { display: flex; align-items: center; gap: 8px; padding: 4px 0;
                 border-bottom: 1px solid rgba(255,255,255,0.04); }
 .rel-hist-row:last-child { border-bottom: none; }
 .rel-hist-row .rel-tag { text-decoration: none; }
 .rel-hist-row .rel-tag:hover { color: var(--teal); }
+
+/* Recent release date — green tint when < 30 days old */
+[data-ts].fresh { color: var(--green); }
 
 .releases-all-link { font-size: 10px; color: var(--teal); text-decoration: none;
                      display: block; text-align: right; margin-top: 4px; opacity: 0.7; }
@@ -322,6 +335,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
               max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
 .asset-chip:hover { background: rgba(79,209,197,0.12); border-color: var(--teal);
                     color: var(--teal); }
+.assets-overflow { font-size: 10px; color: var(--muted); text-decoration: none;
+                   align-self: center; white-space: nowrap; padding: 2px 4px; }
+.assets-overflow:hover { color: var(--teal-lt); }
 
 /* ── Changelog collapsible ───────────────────────────────────────────────── */
 .changelog-details { border: none; }

@@ -155,8 +155,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // so direct links and browser history both land in the right place.
   restoreFromUrl();
 
+  const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
   document.querySelectorAll("[data-ts]").forEach(el => {
-    if (el.dataset.ts) el.textContent = relativeTime(el.dataset.ts);
+    if (!el.dataset.ts) return;
+    el.textContent = relativeTime(el.dataset.ts);
+    if (Date.now() - new Date(el.dataset.ts).getTime() < THIRTY_DAYS) {
+      el.classList.add("fresh");
+    }
   });
 
   // Search — always switch to global (cross-category) search when a query is typed,
