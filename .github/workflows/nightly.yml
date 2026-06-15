@@ -20,6 +20,8 @@ jobs:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
 
@@ -52,12 +54,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin main
-          git rebase origin/main
           git add src/_data/github_meta.json src/_data/planet_feeds.json README.md
           if git diff --cached --quiet; then
             echo "No data changes — nothing to push"
           else
             git commit -m "chore: update GitHub metadata"
+            git fetch origin main
+            git rebase origin/main
             git push origin HEAD:main
           fi
