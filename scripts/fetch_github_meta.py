@@ -85,11 +85,40 @@ def fetch_readme_image(repo: str, default_branch: str = "main") -> str | None:
     return None
 
 
+ASSET_EXTS = re.compile(r'\.(deb|whl|tar\.gz|tgz|zip|rpm|dmg|exe|AppImage)$', re.IGNORECASE)
+PRE_RELEASE_TAG = re.compile(r"[.\-]dev[.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]", re.IGNORECASE)
+CHANGELOG_NAMES = ("CHANGELOG.md", "CHANGELOG", "CHANGES.md", "CHANGES", "HISTORY.md")
+CHANGELOG_MAX = 3000
+
+
+def _parse_release(rel: dict) -> dict:
+    """Convert a GitHub API release object to our camelCase frontend schema."""
+    assets = [
+        {
+            "name": a["name"],
+            "url": a["browser_download_url"],
+            "size": a["size"],
+        }
+        for a in rel.get("assets", [])
+        if ASSET_EXTS.search(a["name"])
+    ]
+    entry = {
+        "tagName": rel["tag_name"],
+        "name": rel.get("name") or rel["tag_name"],
+        "publishedAt": rel.get("published_at", ""),
+        "url": rel.get("html_url", ""),
+        "prerelease": rel.get("prerelease", False),
+    }
+    if assets:
+        entry["assets"] = assets
+    return entry
+
+
 def fetch_releases(repo: str, per_page: int = 5) -> list:
     """Fetch the most recent releases for a repo, excluding drafts.
 
     Returns a list of dicts with camelCase keys matching the frontend schema:
-        tagName, name, publishedAt, url, prerelease
+        tagName, name, publishedAt, url, prerelease, assets
     Draft releases are skipped; pre-releases are included (caller can filter).
     Returns an empty list on any error so a single bad repo never aborts the run.
     """
@@ -98,14 +127,7 @@ def fetch_releases(repo: str, per_page: int = 5) -> list:
         with urllib.request.urlopen(_request(url), timeout=10) as r:
             releases = json.loads(r.read())
             return [
-                {
-                    "tagName": rel["tag_name"],
-                    # Fall back to the tag name when the release has no display name.
-                    "name": rel.get("name") or rel["tag_name"],
-                    "publishedAt": rel.get("published_at", ""),
-                    "url": rel.get("html_url", ""),
-                    "prerelease": rel.get("prerelease", False),
-                }
+                _parse_release(rel)
                 for rel in releases
                 if not rel.get("draft", False)
             ]
@@ -114,6 +136,67 @@ def fetch_releases(repo: str, per_page: int = 5) -> list:
     except Exception as e:
         print(f"  WARN {repo} releases: {e}", file=sys.stderr)
     return []
+
+
+def fetch_latest_stable(repo: str) -> dict | None:
+    """Fetch the latest published full release for a repo.
+
+    Strategy:
+    1. Try GitHub's /releases/latest. If it returns a clean (non-dev/non-rc)
+       tag, that's our answer.
+    2. If /releases/latest returns a dev/rc tag (common when repos publish
+       nightly dev builds without setting prerelease=true), fall back to
+       fetching up to 50 releases and returning the first clean-tagged one.
+    3. Returns None if no stable release is found (404, network error, etc).
+    """
+    try:
+        url = f"https://api.github.com/repos/{repo}/releases/latest"
+        with urllib.request.urlopen(_request(url), timeout=10) as r:
+            parsed = _parse_release(json.loads(r.read()))
+            if not PRE_RELEASE_TAG.search(parsed["tagName"]):
+                return parsed
+            # /releases/latest returned a dev build — fall through to deep scan
+    except urllib.error.HTTPError as e:
+        if e.code != 404:
+            print(f"  WARN {repo} releases/latest: HTTP {e.code}", file=sys.stderr)
+        # 404 means no releases at all; skip the deep scan too
+        else:
+            return None
+    except Exception as e:
+        print(f"  WARN {repo} releases/latest: {e}", file=sys.stderr)
+        return None
+
+    # Deep scan: fetch a larger batch and find the first clean-tagged release
+    try:
+        url = f"https://api.github.com/repos/{repo}/releases?per_page=50"
+        with urllib.request.urlopen(_request(url), timeout=10) as r:
+            for rel in json.loads(r.read()):
+                if rel.get("draft", False):
+                    continue
+                parsed = _parse_release(rel)
+                if not PRE_RELEASE_TAG.search(parsed["tagName"]):
+                    return parsed
+    except Exception as e:
+        print(f"  WARN {repo} deep release scan: {e}", file=sys.stderr)
+    return None
+
+
+def fetch_changelog(repo: str, default_branch: str = "main") -> str | None:
+    """Return the first CHANGELOG_MAX chars of the repo's changelog, or None."""
+    for name in CHANGELOG_NAMES:
+        url = f"https://api.github.com/repos/{repo}/contents/{name}?ref={default_branch}"
+        try:
+            with urllib.request.urlopen(_request(url), timeout=10) as r:
+                data = json.loads(r.read())
+                content = base64.b64decode(data.get("content", "").replace("\n", ""))
+                text = content.decode("utf-8", errors="replace")
+                return text[:CHANGELOG_MAX].strip() or None
+        except urllib.error.HTTPError as e:
+            if e.code != 404:
+                print(f"  WARN {repo} changelog {name}: HTTP {e.code}", file=sys.stderr)
+        except Exception as e:
+            print(f"  WARN {repo} changelog {name}: {e}", file=sys.stderr)
+    return None
 
 
 def main():
@@ -146,7 +229,25 @@ def main():
             releases = fetch_releases(repo)
             if releases:
                 result["releases"] = releases
-                print(f"  releases: {len(releases)} fetched")
+                asset_count = sum(len(r.get("assets", [])) for r in releases)
+                print(f"  releases: {len(releases)} fetched, {asset_count} assets")
+                # When all recent releases are dev/rc builds, the latest stable
+                # release may lie beyond the fetched window. Fetch it explicitly
+                # so the UI can always display a LATEST stable callout.
+                # Check tag name too — GitHub sometimes marks dev builds non-prerelease.
+                has_stable = any(
+                    not r["prerelease"] and not PRE_RELEASE_TAG.search(r["tagName"])
+                    for r in releases
+                )
+                if not has_stable:
+                    stable = fetch_latest_stable(repo)
+                    if stable:
+                        result["latestStableRelease"] = stable
+                        print(f"  latestStable: {stable['tagName']} (beyond recent window)")
+            changelog = fetch_changelog(repo, default_branch)
+            if changelog:
+                result["changelog_excerpt"] = changelog
+                print(f"  changelog: {len(changelog)} chars")
             meta[repo_link["url"]] = result
     META_OUT.parent.mkdir(parents=True, exist_ok=True)
     META_OUT.write_text(json.dumps(meta, indent=2) + "\n")

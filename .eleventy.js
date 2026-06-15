@@ -248,6 +248,13 @@ module.exports = function (eleventyConfig) {
       }
     }
 
+    // Build a repo-URL → entry lookup for backfilling missing projectIds below.
+    const entryByRepoUrl = {};
+    for (const entry of entries || []) {
+      const repoLink = (entry.links || []).find(l => l.type === "repo");
+      if (repoLink && repoLink.url) entryByRepoUrl[repoLink.url] = entry;
+    }
+
     // Approved external feed items first (YouTube, arXiv, Reddit, community blogs,
     // and summarized releases). Processed before recentReleases so that summarized
     // release items from planet_feeds.json win the URL dedup over the generic fallback.
@@ -256,6 +263,17 @@ module.exports = function (eleventyConfig) {
       if (!item.approved) continue;
       if (seenUrls.has(item.url)) continue;
       seenUrls.add(item.url);
+      // Backfill projectId for summarized release items — summarize_releases.py stores
+      // null, but we can recover it by matching the release URL against known repo URLs.
+      if (item.type === "release" && !item.projectId && item.url) {
+        for (const [repoUrl, entry] of Object.entries(entryByRepoUrl)) {
+          if (item.url.startsWith(repoUrl + "/releases/")) {
+            item.projectId = entry.id;
+            item.projectName = item.projectName || entry.name;
+            break;
+          }
+        }
+      }
       items.push(item);
     }
 

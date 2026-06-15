@@ -64,21 +64,74 @@
         <a class="release-notes-link" href="{{ entry.latestStableRelease.url }}"
            target="_blank" rel="noopener noreferrer">Release notes ↗</a>
       </div>
+      {%- if entry.latestStableRelease.assets and entry.latestStableRelease.assets.length %}
+      <div class="release-assets">
+        {%- for asset in entry.latestStableRelease.assets %}
+        {%- if loop.index <= 4 %}
+        {%- set assetNameLower = asset.name | lower %}
+        <a class="asset-chip" href="{{ asset.url }}" target="_blank" rel="noopener noreferrer" title="{{ asset.name }}">
+          {%- if ".deb" in assetNameLower %}🐧
+          {%- elif ".whl" in assetNameLower %}🐍
+          {%- elif ".tar.gz" in assetNameLower or ".tgz" in assetNameLower %}📦
+          {%- else %}⬇
+          {%- endif %}
+          {{ asset.name }}
+        </a>
+        {%- endif %}
+        {%- endfor %}
+        {%- if entry.latestStableRelease.assets | length > 4 %}
+        {%- for lnk in entry.links %}{%- if lnk.type == "repo" %}
+        <a class="assets-overflow" href="{{ lnk.url }}/releases/latest" target="_blank" rel="noopener noreferrer">+{{ entry.latestStableRelease.assets | length - 4 }} more</a>
+        {%- endif %}{%- endfor %}
+        {%- endif %}
+      </div>
       {%- endif %}
-      {%- if entry.releases | length > 1 or not entry.latestStableRelease %}
-      {%- set latestTag = entry.latestStableRelease.tagName if entry.latestStableRelease else "" %}
-      <div class="release-history-list">
-        {%- for rel in entry.releases %}
-        {%- if rel.tagName != latestTag %}
-        <div class="rel-hist-row">
-          <a class="rel-tag" href="{{ rel.url }}"
-             target="_blank" rel="noopener noreferrer">{{ rel.tagName }}</a>
-          {%- if rel.prerelease %}<span class="rel-pre">pre</span>{%- endif %}
-          <span class="rel-date" data-ts="{{ rel.publishedAt }}">{{ rel.publishedAt }}</span>
+      {%- endif %}{# /latestStableRelease #}
+      {%- if entry.packages %}
+      <div class="pkg-inline">
+        {%- for pkg in entry.packages %}
+        {%- if pkg.type == "pypi" %}
+        <a class="pkg-badge pkg-badge--pypi" href="https://pypi.org/project/{{ pkg.name }}/" target="_blank" rel="noopener noreferrer">🐍 pip install {{ pkg.name }}</a>
+        {%- elif pkg.type == "cargo" %}
+        <a class="pkg-badge pkg-badge--cargo" href="https://crates.io/crates/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">🦀 cargo add {{ pkg.name }}</a>
+        {%- elif pkg.type == "apt" and pkg.url %}
+        <div class="pkg-apt-row">
+          <a class="pkg-badge pkg-badge--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
+          <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
+        </div>
+        <div class="pkg-setup-note">⚙ Requires PPA — <a href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">setup instructions ↗</a></div>
+        {%- elif pkg.type == "apt" and pkg.ppa %}
+        <div class="pkg-apt-row">
+          <a class="pkg-badge pkg-badge--apt" href="https://launchpad.net/{{ pkg.ppa | replace('ppa:', '~') | replace('/', '/+archive/ubuntu/') }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
+          <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
+        </div>
+        {%- elif pkg.type == "apt" %}
+        <div class="pkg-apt-row">
+          <span class="pkg-badge pkg-badge--apt">🐧 apt install {{ pkg.name }}</span>
+          <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
         </div>
         {%- endif %}
         {%- endfor %}
       </div>
+      {%- endif %}
+      {%- set latestTag = entry.latestStableRelease.tagName if entry.latestStableRelease else "" %}
+      {%- set histCount = (entry.releases | length) - (1 if entry.latestStableRelease else 0) %}
+      {%- if histCount > 0 %}
+      <details class="release-history-details">
+        <summary class="release-history-toggle">{{ histCount }} {{ "previous " if entry.latestStableRelease }}release{{ "s" if histCount != 1 }}</summary>
+        <div class="release-history-list">
+          {%- for rel in entry.releases %}
+          {%- if rel.tagName != latestTag %}
+          <div class="rel-hist-row">
+            <a class="rel-tag" href="{{ rel.url }}"
+               target="_blank" rel="noopener noreferrer">{{ rel.tagName }}</a>
+            {%- if rel.prerelease %}<span class="rel-pre">pre</span>{%- endif %}
+            <span class="rel-date" data-ts="{{ rel.publishedAt }}">{{ rel.publishedAt }}</span>
+          </div>
+          {%- endif %}
+          {%- endfor %}
+        </div>
+      </details>
       {%- endif %}
       {%- for lnk in entry.links %}
       {%- if lnk.type == "repo" %}
@@ -88,7 +141,15 @@
       {%- endfor %}
     </div>
     {%- endif %}
-    {%- if entry.packages %}
+    {%- if entry.changelog_excerpt %}
+    <div class="detail-section">
+      <details class="changelog-details">
+        <summary class="section-label changelog-summary">📋 Changelog</summary>
+        <pre class="changelog-pre">{{ entry.changelog_excerpt }}</pre>
+      </details>
+    </div>
+    {%- endif %}
+    {%- if entry.packages and not entry.releases %}
     <div class="detail-section">
       <div class="section-label">Install</div>
       {%- for pkg in entry.packages %}
@@ -96,10 +157,22 @@
       <a class="pkg-badge pkg-badge--pypi" href="https://pypi.org/project/{{ pkg.name }}/" target="_blank" rel="noopener noreferrer">🐍 pip install {{ pkg.name }}</a>
       {%- elif pkg.type == "cargo" %}
       <a class="pkg-badge pkg-badge--cargo" href="https://crates.io/crates/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">🦀 cargo add {{ pkg.name }}</a>
+      {%- elif pkg.type == "apt" and pkg.url %}
+      <div class="pkg-apt-row">
+        <a class="pkg-badge pkg-badge--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
+        <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
+      </div>
+      <div class="pkg-setup-note">⚙ Requires PPA — <a href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">setup instructions ↗</a></div>
       {%- elif pkg.type == "apt" and pkg.ppa %}
-      <a class="pkg-badge pkg-badge--apt" href="https://launchpad.net/{{ pkg.ppa | replace('ppa:', '~') | replace('/', '/+archive/ubuntu/') }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
+      <div class="pkg-apt-row">
+        <a class="pkg-badge pkg-badge--apt" href="https://launchpad.net/{{ pkg.ppa | replace('ppa:', '~') | replace('/', '/+archive/ubuntu/') }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
+        <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
+      </div>
       {%- elif pkg.type == "apt" %}
-      <span class="pkg-badge pkg-badge--apt">🐧 apt install {{ pkg.name }}</span>
+      <div class="pkg-apt-row">
+        <span class="pkg-badge pkg-badge--apt">🐧 apt install {{ pkg.name }}</span>
+        <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
+      </div>
       {%- endif %}
       {%- endfor %}
     </div>
@@ -116,6 +189,14 @@
       <div class="section-label">Works on</div>
       {%- for hw in entry.hardware %}
       <span class="hw-badge">{{ hw }}</span>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+    {%- if entry.related and entry.related.length %}
+    <div class="detail-section detail-related">
+      <div class="section-label">Related</div>
+      {%- for relId in entry.related %}
+      <button type="button" class="related-chip" onclick="navigateToEntry('{{ relId }}')">{{ relId }}</button>
       {%- endfor %}
     </div>
     {%- endif %}

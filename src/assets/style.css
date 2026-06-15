@@ -113,7 +113,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .entry-row.hidden { display: none; }
 .row-top  { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
 .row-name { font-size: 12px; font-weight: 600; color: var(--text); }
-.row-stars{ font-size: 10px; color: var(--teal-lt); margin-left: auto; white-space: nowrap; }
+.row-stars{ font-size: 10px; color: var(--teal-lt); white-space: nowrap; padding-left: 4px; }
+.row-pkgs { margin-left: auto; display: flex; gap: 3px; align-items: center; }
+.pkg-dot  { font-size: 8px; font-family: ui-monospace, "SFMono-Regular", monospace;
+            padding: 1px 4px; border-radius: 3px; font-weight: 600; letter-spacing: 0.02em; }
+.pkg-dot--pypi  { background: rgba(75,139,190,0.18); color: #7ab3d4; }
+.pkg-dot--apt   { background: rgba(232,115,44,0.15); color: #e07040; }
+.pkg-dot--cargo { background: rgba(220,80,50,0.15);  color: #d46a50; }
+a.pkg-dot       { text-decoration: none; cursor: pointer; }
+a.pkg-dot:hover { filter: brightness(1.3); }
+.pkg-setup-note { font-size: 10px; color: var(--muted); margin: 2px 0 4px 2px; }
+.pkg-setup-note a { color: var(--teal-lt); text-decoration: none; }
+.pkg-setup-note a:hover { text-decoration: underline; }
 .row-desc   { font-size: 11px; color: var(--muted); line-height: 1.4; }
 .row-author { font-size: 10px; color: var(--teal-lt); margin-top: 2px; }
 .row-author-name { cursor: pointer; border: none; background: none; padding: 0;
@@ -161,8 +172,22 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
                padding: 2px 8px; border-radius: 10px; }
 .hw-badge    { display: inline-block; font-size: 11px; background: var(--bg1); color: var(--text);
                padding: 3px 10px; border-radius: 4px; border: 1px solid var(--bg2); margin: 2px 4px 2px 0; }
+.related-chip { font-size: 11px; font-family: ui-monospace, "SFMono-Regular", monospace;
+                background: transparent; color: var(--teal-lt); border: 1px solid rgba(94,234,212,0.25);
+                border-radius: 4px; padding: 2px 8px; margin: 2px 4px 2px 0; cursor: pointer;
+                transition: color .15s, border-color .15s; }
+.related-chip:hover,
+.related-chip:focus-visible { color: var(--teal); border-color: var(--teal); outline: none; }
 
 /* ── Package install badges ───────────────────────────────────────────────── */
+.pkg-inline { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 4px; }
+.pkg-apt-row { display: flex; align-items: center; gap: 6px; }
+.pkg-copy-btn { font-size: 10px; font-family: ui-monospace, "SFMono-Regular", monospace;
+                color: var(--muted); background: transparent; border: 1px solid rgba(255,255,255,0.12);
+                border-radius: 3px; padding: 1px 7px; cursor: pointer; transition: color 120ms, border-color 120ms; }
+.pkg-copy-btn:hover,
+.pkg-copy-btn:focus-visible { color: var(--teal-lt); border-color: rgba(79,209,197,0.35); outline: none; }
+.pkg-copy-btn.copied { color: var(--green); border-color: var(--green); }
 .pkg-badge         { display: inline-block; font-size: 12px; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
                      text-decoration: none; padding: 4px 10px; border-radius: 4px;
                      margin: 2px 4px 2px 0; border: 1px solid; transition: filter 0.1s; }
@@ -295,16 +320,58 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .release-notes-link:hover { color: var(--teal); text-decoration: underline;
                              text-underline-offset: 2px; }
 
-.release-history-list { margin-bottom: 4px; }
+/* History collapsed by default behind a <details> toggle */
+.release-history-details { border: none; margin-bottom: 2px; }
+.release-history-toggle { cursor: pointer; user-select: none; list-style: none;
+                           font-size: 10px; color: var(--muted); padding: 3px 0;
+                           display: flex; align-items: center; gap: 4px; }
+.release-history-toggle::-webkit-details-marker { display: none; }
+.release-history-toggle::before { content: "▸"; font-size: 8px; transition: transform 140ms ease; }
+.release-history-details[open] .release-history-toggle::before { transform: rotate(90deg); }
+.release-history-details[open] .release-history-toggle { color: var(--fg1); }
+
+.release-history-list { margin: 4px 0 2px; }
 .rel-hist-row { display: flex; align-items: center; gap: 8px; padding: 4px 0;
                 border-bottom: 1px solid rgba(255,255,255,0.04); }
 .rel-hist-row:last-child { border-bottom: none; }
 .rel-hist-row .rel-tag { text-decoration: none; }
 .rel-hist-row .rel-tag:hover { color: var(--teal); }
 
+/* Recent release date — green tint when < 30 days old */
+[data-ts].fresh { color: var(--green); }
+
 .releases-all-link { font-size: 10px; color: var(--teal); text-decoration: none;
                      display: block; text-align: right; margin-top: 4px; opacity: 0.7; }
 .releases-all-link:hover { opacity: 1; text-decoration: underline; text-underline-offset: 2px; }
+
+/* ── Release asset chips ─────────────────────────────────────────────────── */
+.release-assets { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 8px; }
+.asset-chip { display: inline-flex; align-items: center; gap: 4px;
+              font-size: 10px; font-family: ui-monospace, "SFMono-Regular", monospace;
+              color: var(--teal-lt); background: rgba(79,209,197,0.06);
+              border: 1px solid rgba(79,209,197,0.2); border-radius: 4px;
+              padding: 2px 7px; text-decoration: none; white-space: nowrap;
+              max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+.asset-chip:hover { background: rgba(79,209,197,0.12); border-color: var(--teal);
+                    color: var(--teal); }
+.assets-overflow { font-size: 10px; color: var(--muted); text-decoration: none;
+                   align-self: center; white-space: nowrap; padding: 2px 4px; }
+.assets-overflow:hover { color: var(--teal-lt); }
+
+/* ── Changelog collapsible ───────────────────────────────────────────────── */
+.changelog-details { border: none; }
+.changelog-details[open] .changelog-summary { opacity: 0.75; }
+.changelog-summary { cursor: pointer; user-select: none; list-style: none;
+                     display: flex; align-items: center; gap: 6px; }
+.changelog-summary::-webkit-details-marker { display: none; }
+.changelog-summary::after { content: "▸"; font-size: 9px; color: var(--muted);
+                             transition: transform 140ms ease; }
+.changelog-details[open] .changelog-summary::after { transform: rotate(90deg); }
+.changelog-pre { margin: 8px 0 0; padding: 10px 12px; overflow-x: auto;
+                 background: rgba(0,0,0,0.25); border-radius: 5px;
+                 font-size: 10px; line-height: 1.55; white-space: pre-wrap;
+                 word-break: break-word; max-height: 320px; overflow-y: auto;
+                 color: var(--fg1); border: 1px solid rgba(255,255,255,0.06); }
 
 /* ── Mobile-only elements (hidden on desktop) ──────────────────────────── */
 .mobile-back      { display: none; }

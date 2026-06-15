@@ -1,0 +1,29 @@
+{
+  "id": "tt-forge-onnx",
+  "name": "tt-forge-onnx",
+  "description": "ONNX graph compiler for Tenstorrent hardware. Optimizes and transforms ONNX model graphs for efficient execution on Tensix accelerators. Used as a backend by tt-forge for ONNX model ingestion.",
+  "affiliation": "official",
+  "categories": [
+    "compilers"
+  ],
+  "tags": [
+    "onnx",
+    "compiler",
+    "graph-optimization",
+    "mlir"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-forge-onnx"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-06-15",
+  "related": ["tt-forge", "tt-xla", "tt-mlir"]
+}

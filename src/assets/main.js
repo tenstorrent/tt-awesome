@@ -1,6 +1,22 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
+function copyPkgCmd(btn) {
+  if (!navigator.clipboard || !navigator.clipboard.writeText) {
+    btn.textContent = "n/a";
+    setTimeout(() => { btn.textContent = "copy"; }, 1800);
+    return;
+  }
+  navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+    btn.textContent = "copied!";
+    btn.classList.add("copied");
+    setTimeout(() => { btn.textContent = "copy"; btn.classList.remove("copied"); }, 1800);
+  }).catch(() => {
+    btn.textContent = "failed";
+    setTimeout(() => { btn.textContent = "copy"; }, 1800);
+  });
+}
+
 // State
 let activeCategory = null;
 let activeFilters = new Set(["community", "affiliated", "official"]);
@@ -147,8 +163,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // so direct links and browser history both land in the right place.
   restoreFromUrl();
 
+  const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
   document.querySelectorAll("[data-ts]").forEach(el => {
-    if (el.dataset.ts) el.textContent = relativeTime(el.dataset.ts);
+    if (!el.dataset.ts) return;
+    el.textContent = relativeTime(el.dataset.ts);
+    if (Date.now() - new Date(el.dataset.ts).getTime() < THIRTY_DAYS) {
+      el.classList.add("fresh");
+    }
   });
 
   // Search — always switch to global (cross-category) search when a query is typed,
@@ -284,6 +305,17 @@ function restoreFromUrl() {
     }
     return;
   }
+  // Bare ?entry= with no cat/releases/author — find the entry's category and open it.
+  if (entryId) {
+    const row = document.querySelector(`.entry-row[data-id="${CSS.escape(entryId)}"]`);
+    if (row) {
+      const cat = (row.dataset.categories || "").split(/[\s,]+/)[0];
+      const sidebarEl = cat && document.querySelector(`.sidebar-item[data-category="${CSS.escape(cat)}"]`);
+      if (sidebarEl) _applyCategory(cat, sidebarEl);
+      _applyEntry(entryId, row);
+      return;
+    }
+  }
   _applyHome();
 }
 
@@ -334,6 +366,17 @@ function _applySearchAll() {
 function filterByAuthor(name) {
   pushUrl({ author: name });
   _applyAuthorFilter(name);
+}
+
+/** Navigate to a related entry by id, opening its category sidebar first. */
+function navigateToEntry(id) {
+  const row = document.querySelector(`.entry-row[data-id="${CSS.escape(id)}"]`);
+  if (!row) return;
+  const cat = (row.dataset.categories || "").split(/[\s,]+/)[0];
+  const sidebarEl = cat && document.querySelector(`.sidebar-item[data-category="${CSS.escape(cat)}"]`);
+  if (sidebarEl) _applyCategory(cat, sidebarEl);
+  _applyEntry(id, row);
+  pushUrl({ cat, entry: id });
 }
 
 /** Internal: show author-filtered list without touching history. */

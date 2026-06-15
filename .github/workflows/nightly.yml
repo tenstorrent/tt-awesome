@@ -10,7 +10,6 @@ on:
         default: false
 permissions:
   contents: write
-  pull-requests: write
 concurrency:
   group: nightly-github-meta
   cancel-in-progress: true
@@ -23,10 +22,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
+
       - name: Fetch metadata
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 scripts/fetch_github_meta.py
+
       - name: Summarize new releases
         if: ${{ env.ANTHROPIC_API_KEY != '' }}
         env:
@@ -35,15 +36,28 @@ jobs:
           FLAGS=""
           if [ "${{ inputs.dry_run }}" = "true" ]; then FLAGS="--dry-run"; fi
           python3 scripts/summarize_releases.py $FLAGS
-      - name: Create pull request if changed
+
+      - name: Regenerate README
         if: ${{ !inputs.dry_run }}
-        uses: peter-evans/create-pull-request@v7
-        with:
-          add-paths: |
-            src/_data/github_meta.json
-            src/_data/planet_feeds.json
-          commit-message: "chore: update GitHub metadata [skip ci]"
-          branch: "chore/nightly-github-metadata"
-          delete-branch: true
-          title: "chore: update GitHub metadata"
-          body: "Automated twice-daily metadata refresh."
+        run: python3 scripts/generate_readme.py
+
+      # Pushes github_meta.json, planet_feeds.json (release summaries only),
+      # and README.md directly to main. Requires branch protection to allow
+      # this: store a PAT with repo scope as secret GH_PAT and use it in the
+      # checkout step above (token: ${{ secrets.GH_PAT }}), then update the
+      # remote URL below to use that token. Without this, the push will fail
+      # if main has a PR-required protection rule.
+      - name: Push data files directly to main
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+          git add src/_data/github_meta.json src/_data/planet_feeds.json README.md
+          if git diff --cached --quiet; then
+            echo "No data changes — nothing to push"
+          else
+            git commit -m "chore: update GitHub metadata"
+            git push origin HEAD:main
+          fi

@@ -173,7 +173,7 @@ def generate():
 
     # Per-category sections
     for slug, label in CATEGORIES:
-        cat_entries = [e for e in entries if slug in e.get("categories", [])]
+        cat_entries = [e for e in entries if e.get("categories", [None])[0] == slug]
         if not cat_entries:
             continue
         lines += [f"## {label}", ""]
