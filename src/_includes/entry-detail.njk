@@ -193,6 +193,14 @@
       {%- endfor %}
     </div>
     {%- endif %}
+    {%- if entry.related and entry.related.length %}
+    <div class="detail-section detail-related">
+      <div class="section-label">Related</div>
+      {%- for relId in entry.related %}
+      <button type="button" class="related-chip" onclick="navigateToEntry('{{ relId }}')">{{ relId }}</button>
+      {%- endfor %}
+    </div>
+    {%- endif %}
     {%- if entry.embed %}
     {%- set _embedWhitelist = { "tensix-viz": "embeds/tensix-viz.njk" } %}
     {%- set _embedPath = _embedWhitelist[entry.embed.type] %}

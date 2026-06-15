@@ -139,20 +139,45 @@ def fetch_releases(repo: str, per_page: int = 5) -> list:
 
 
 def fetch_latest_stable(repo: str) -> dict | None:
-    """Fetch the latest published full release (GitHub's /releases/latest).
+    """Fetch the latest published full release for a repo.
 
-    GitHub defines 'latest' as the most recent non-draft, non-prerelease release.
-    Returns None on 404 (no stable releases) or any other error.
+    Strategy:
+    1. Try GitHub's /releases/latest. If it returns a clean (non-dev/non-rc)
+       tag, that's our answer.
+    2. If /releases/latest returns a dev/rc tag (common when repos publish
+       nightly dev builds without setting prerelease=true), fall back to
+       fetching up to 50 releases and returning the first clean-tagged one.
+    3. Returns None if no stable release is found (404, network error, etc).
     """
     try:
         url = f"https://api.github.com/repos/{repo}/releases/latest"
         with urllib.request.urlopen(_request(url), timeout=10) as r:
-            return _parse_release(json.loads(r.read()))
+            parsed = _parse_release(json.loads(r.read()))
+            if not PRE_RELEASE_TAG.search(parsed["tagName"]):
+                return parsed
+            # /releases/latest returned a dev build — fall through to deep scan
     except urllib.error.HTTPError as e:
         if e.code != 404:
             print(f"  WARN {repo} releases/latest: HTTP {e.code}", file=sys.stderr)
+        # 404 means no releases at all; skip the deep scan too
+        else:
+            return None
     except Exception as e:
         print(f"  WARN {repo} releases/latest: {e}", file=sys.stderr)
+        return None
+
+    # Deep scan: fetch a larger batch and find the first clean-tagged release
+    try:
+        url = f"https://api.github.com/repos/{repo}/releases?per_page=50"
+        with urllib.request.urlopen(_request(url), timeout=10) as r:
+            for rel in json.loads(r.read()):
+                if rel.get("draft", False):
+                    continue
+                parsed = _parse_release(rel)
+                if not PRE_RELEASE_TAG.search(parsed["tagName"]):
+                    return parsed
+    except Exception as e:
+        print(f"  WARN {repo} deep release scan: {e}", file=sys.stderr)
     return None
 
 

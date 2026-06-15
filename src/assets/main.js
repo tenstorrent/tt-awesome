@@ -360,6 +360,17 @@ function filterByAuthor(name) {
   _applyAuthorFilter(name);
 }
 
+/** Navigate to a related entry by id, opening its category sidebar first. */
+function navigateToEntry(id) {
+  const row = document.querySelector(`.entry-row[data-id="${CSS.escape(id)}"]`);
+  if (!row) return;
+  const cat = (row.dataset.categories || "").split(/[\s,]+/)[0];
+  const sidebarEl = cat && document.querySelector(`.sidebar-item[data-category="${CSS.escape(cat)}"]`);
+  if (sidebarEl) _applyCategory(cat, sidebarEl);
+  _applyEntry(id, row);
+  pushUrl({ cat, entry: id });
+}
+
 /** Internal: show author-filtered list without touching history. */
 function _applyAuthorFilter(name) {
   activeAuthorFilter = name;
