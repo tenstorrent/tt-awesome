@@ -38,8 +38,13 @@ jobs:
           if [ "${{ inputs.dry_run }}" = "true" ]; then FLAGS="--dry-run"; fi
           python3 scripts/summarize_releases.py $FLAGS
 
+      - name: Regenerate README
+        if: ${{ !inputs.dry_run }}
+        run: python3 scripts/generate_readme.py
+
       # github_meta.json is pure crawled data; summarize_releases.py items are
-      # already approved:true — both go straight to main so the site redeploys.
+      # already approved:true; README.md is auto-generated — all go straight to
+      # main so the site redeploys automatically.
       #
       # NOTE: if the repo has a branch protection rule requiring PRs on main,
       # this push will fail. Fix: add github-actions[bot] as a bypass actor in
@@ -49,7 +54,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/_data/github_meta.json src/_data/planet_feeds.json
+          git add src/_data/github_meta.json src/_data/planet_feeds.json README.md
           if git diff --cached --quiet; then
             echo "No data changes — nothing to push"
           else
