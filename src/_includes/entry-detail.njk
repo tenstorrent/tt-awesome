@@ -98,6 +98,7 @@
           <a class="pkg-badge pkg-badge--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
           <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
         </div>
+        <div class="pkg-setup-note">⚙ Requires PPA — <a href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">setup instructions ↗</a></div>
         {%- elif pkg.type == "apt" and pkg.ppa %}
         <div class="pkg-apt-row">
           <a class="pkg-badge pkg-badge--apt" href="https://launchpad.net/{{ pkg.ppa | replace('ppa:', '~') | replace('/', '/+archive/ubuntu/') }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
@@ -164,6 +165,7 @@
         <a class="pkg-badge pkg-badge--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
         <button class="pkg-copy-btn" data-copy="sudo apt install {{ pkg.name }}" title="Copy install command" onclick="copyPkgCmd(this)">copy</button>
       </div>
+      <div class="pkg-setup-note">⚙ Requires PPA — <a href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">setup instructions ↗</a></div>
       {%- elif pkg.type == "apt" and pkg.ppa %}
       <div class="pkg-apt-row">
         <a class="pkg-badge pkg-badge--apt" href="https://launchpad.net/{{ pkg.ppa | replace('ppa:', '~') | replace('/', '/+archive/ubuntu/') }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>

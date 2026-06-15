@@ -113,7 +113,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .entry-row.hidden { display: none; }
 .row-top  { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
 .row-name { font-size: 12px; font-weight: 600; color: var(--text); }
-.row-stars{ font-size: 10px; color: var(--teal-lt); margin-left: auto; white-space: nowrap; }
+.row-stars{ font-size: 10px; color: var(--teal-lt); white-space: nowrap; padding-left: 4px; }
+.row-pkgs { margin-left: auto; display: flex; gap: 3px; align-items: center; }
+.pkg-dot  { font-size: 8px; font-family: ui-monospace, "SFMono-Regular", monospace;
+            padding: 1px 4px; border-radius: 3px; font-weight: 600; letter-spacing: 0.02em; }
+.pkg-dot--pypi  { background: rgba(75,139,190,0.18); color: #7ab3d4; }
+.pkg-dot--apt   { background: rgba(232,115,44,0.15); color: #e07040; }
+.pkg-dot--cargo { background: rgba(220,80,50,0.15);  color: #d46a50; }
+a.pkg-dot       { text-decoration: none; cursor: pointer; }
+a.pkg-dot:hover { filter: brightness(1.3); }
+.pkg-setup-note { font-size: 10px; color: var(--muted); margin: 2px 0 4px 2px; }
+.pkg-setup-note a { color: var(--teal-lt); text-decoration: none; }
+.pkg-setup-note a:hover { text-decoration: underline; }
 .row-desc   { font-size: 11px; color: var(--muted); line-height: 1.4; }
 .row-author { font-size: 10px; color: var(--teal-lt); margin-top: 2px; }
 .row-author-name { cursor: pointer; border: none; background: none; padding: 0;
