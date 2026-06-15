@@ -86,8 +86,32 @@ def fetch_readme_image(repo: str, default_branch: str = "main") -> str | None:
 
 
 ASSET_EXTS = re.compile(r'\.(deb|whl|tar\.gz|tgz|zip|rpm|dmg|exe|AppImage)$', re.IGNORECASE)
+PRE_RELEASE_TAG = re.compile(r"[.\-]dev[.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]", re.IGNORECASE)
 CHANGELOG_NAMES = ("CHANGELOG.md", "CHANGELOG", "CHANGES.md", "CHANGES", "HISTORY.md")
 CHANGELOG_MAX = 3000
+
+
+def _parse_release(rel: dict) -> dict:
+    """Convert a GitHub API release object to our camelCase frontend schema."""
+    assets = [
+        {
+            "name": a["name"],
+            "url": a["browser_download_url"],
+            "size": a["size"],
+        }
+        for a in rel.get("assets", [])
+        if ASSET_EXTS.search(a["name"])
+    ]
+    entry = {
+        "tagName": rel["tag_name"],
+        "name": rel.get("name") or rel["tag_name"],
+        "publishedAt": rel.get("published_at", ""),
+        "url": rel.get("html_url", ""),
+        "prerelease": rel.get("prerelease", False),
+    }
+    if assets:
+        entry["assets"] = assets
+    return entry
 
 
 def fetch_releases(repo: str, per_page: int = 5) -> list:
@@ -102,35 +126,34 @@ def fetch_releases(repo: str, per_page: int = 5) -> list:
         url = f"https://api.github.com/repos/{repo}/releases?per_page={per_page}"
         with urllib.request.urlopen(_request(url), timeout=10) as r:
             releases = json.loads(r.read())
-            result = []
-            for rel in releases:
-                if rel.get("draft", False):
-                    continue
-                assets = [
-                    {
-                        "name": a["name"],
-                        "url": a["browser_download_url"],
-                        "size": a["size"],
-                    }
-                    for a in rel.get("assets", [])
-                    if ASSET_EXTS.search(a["name"])
-                ]
-                entry = {
-                    "tagName": rel["tag_name"],
-                    "name": rel.get("name") or rel["tag_name"],
-                    "publishedAt": rel.get("published_at", ""),
-                    "url": rel.get("html_url", ""),
-                    "prerelease": rel.get("prerelease", False),
-                }
-                if assets:
-                    entry["assets"] = assets
-                result.append(entry)
-            return result
+            return [
+                _parse_release(rel)
+                for rel in releases
+                if not rel.get("draft", False)
+            ]
     except urllib.error.HTTPError as e:
         print(f"  WARN {repo} releases: HTTP {e.code}", file=sys.stderr)
     except Exception as e:
         print(f"  WARN {repo} releases: {e}", file=sys.stderr)
     return []
+
+
+def fetch_latest_stable(repo: str) -> dict | None:
+    """Fetch the latest published full release (GitHub's /releases/latest).
+
+    GitHub defines 'latest' as the most recent non-draft, non-prerelease release.
+    Returns None on 404 (no stable releases) or any other error.
+    """
+    try:
+        url = f"https://api.github.com/repos/{repo}/releases/latest"
+        with urllib.request.urlopen(_request(url), timeout=10) as r:
+            return _parse_release(json.loads(r.read()))
+    except urllib.error.HTTPError as e:
+        if e.code != 404:
+            print(f"  WARN {repo} releases/latest: HTTP {e.code}", file=sys.stderr)
+    except Exception as e:
+        print(f"  WARN {repo} releases/latest: {e}", file=sys.stderr)
+    return None
 
 
 def fetch_changelog(repo: str, default_branch: str = "main") -> str | None:
@@ -183,6 +206,19 @@ def main():
                 result["releases"] = releases
                 asset_count = sum(len(r.get("assets", [])) for r in releases)
                 print(f"  releases: {len(releases)} fetched, {asset_count} assets")
+                # When all recent releases are dev/rc builds, the latest stable
+                # release may lie beyond the fetched window. Fetch it explicitly
+                # so the UI can always display a LATEST stable callout.
+                # Check tag name too — GitHub sometimes marks dev builds non-prerelease.
+                has_stable = any(
+                    not r["prerelease"] and not PRE_RELEASE_TAG.search(r["tagName"])
+                    for r in releases
+                )
+                if not has_stable:
+                    stable = fetch_latest_stable(repo)
+                    if stable:
+                        result["latestStableRelease"] = stable
+                        print(f"  latestStable: {stable['tagName']} (beyond recent window)")
             changelog = fetch_changelog(repo, default_branch)
             if changelog:
                 result["changelog_excerpt"] = changelog

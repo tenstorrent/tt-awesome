@@ -70,8 +70,44 @@ module.exports = function () {
     // Pre-compute latestStableRelease so Nunjucks templates can use it directly.
     // Nunjucks lacks selectattr and loop-scoped variables don't persist to outer
     // scope, so this must be resolved in the data layer, not in templates.
+    //
+    // Strategy (in priority order):
+    //   1. Most recent release GitHub explicitly flags non-prerelease — authoritative.
+    //   2. If all recent releases are dev/rc by TAG NAME, use the latestStableRelease
+    //      fetched from /releases/latest (may lie beyond the 5-release window).
+    //   3. If recent releases have clean version tags but GitHub mis-labels them
+    //      prerelease, use the most recent clean-tagged one as effective stable.
+    const PRE_RELEASE_TAG = /[.\-]dev[.\d]|[-.]rc\d+|[-.]alpha|[-.]beta|[-.]qa[\d.]/i;
+
     if (Array.isArray(entry.releases) && entry.releases.length) {
-      const stable = entry.releases.find(r => !r.prerelease);
+      // Check both GitHub's prerelease flag AND the tag name — GitHub sometimes
+      // marks dev/rc builds as non-prerelease, so the tag is the tiebreaker.
+      let stable = entry.releases.find(
+        r => !r.prerelease && !PRE_RELEASE_TAG.test(r.tagName)
+      );
+
+      if (!stable) {
+        const allTagsAreDev = entry.releases.every(r => PRE_RELEASE_TAG.test(r.tagName));
+
+        if (allTagsAreDev && entry.latestStableRelease) {
+          // All recent builds are dev/rc; the true latest stable lives beyond the
+          // fetch window — it was retrieved via /releases/latest and stored in meta.
+          // Prepend it to releases so the history count is consistent.
+          const alreadyInList = entry.releases.some(
+            (r) => r.tagName === entry.latestStableRelease.tagName
+          );
+          if (!alreadyInList) {
+            entry.releases = [entry.latestStableRelease, ...entry.releases];
+          }
+          stable = entry.latestStableRelease;
+        } else if (!allTagsAreDev) {
+          // Some recent releases have clean version tags but GitHub mis-labels them
+          // prerelease (common for repos that never toggle the flag off). Use the
+          // most recent clean-tagged release as the effective stable.
+          stable = entry.releases.find(r => !PRE_RELEASE_TAG.test(r.tagName));
+        }
+      }
+
       if (stable) entry.latestStableRelease = stable;
     }
     return entry;
