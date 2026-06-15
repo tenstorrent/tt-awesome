@@ -2,10 +2,18 @@
 // SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
 function copyPkgCmd(btn) {
+  if (!navigator.clipboard || !navigator.clipboard.writeText) {
+    btn.textContent = "n/a";
+    setTimeout(() => { btn.textContent = "copy"; }, 1800);
+    return;
+  }
   navigator.clipboard.writeText(btn.dataset.copy).then(() => {
     btn.textContent = "copied!";
     btn.classList.add("copied");
     setTimeout(() => { btn.textContent = "copy"; btn.classList.remove("copied"); }, 1800);
+  }).catch(() => {
+    btn.textContent = "failed";
+    setTimeout(() => { btn.textContent = "copy"; }, 1800);
   });
 }
 

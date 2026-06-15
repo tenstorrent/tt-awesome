@@ -57,5 +57,5 @@ jobs:
             echo "No data changes — nothing to push"
           else
             git commit -m "chore: update GitHub metadata"
-            git push
+            git push origin HEAD:main
           fi

@@ -131,10 +131,6 @@
           {%- endfor %}
         </div>
       </details>
-      {%- elif not entry.latestStableRelease %}
-      {%- for lnk in entry.links %}{%- if lnk.type == "repo" %}
-      <a class="releases-all-link" href="{{ lnk.url }}/releases" target="_blank" rel="noopener noreferrer">Active development — see all releases ↗</a>
-      {%- endif %}{%- endfor %}
       {%- endif %}
       {%- for lnk in entry.links %}
       {%- if lnk.type == "repo" %}
