@@ -24,6 +24,8 @@ jobs:
           delete-branch: true
           title: "chore: update planet feeds"
           body: |
-            Automated planet feed refresh (runs 8×/day).
+            Automated planet feed refresh.
 
-            Review new items (approved: false) and flip to true to publish on Planet Tenstorrent.
+            New items from Reddit and untrusted community feeds start as `approved: false`.
+            Flip any you want to publish to `true`, then merge. Items already `approved: true`
+            (YouTube, arXiv) are safe to merge without review.
