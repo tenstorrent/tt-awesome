@@ -10,7 +10,6 @@ on:
         default: false
 permissions:
   contents: write
-  pull-requests: write
 concurrency:
   group: nightly-github-meta
   cancel-in-progress: true
@@ -42,13 +41,12 @@ jobs:
         if: ${{ !inputs.dry_run }}
         run: python3 scripts/generate_readme.py
 
-      # github_meta.json is pure crawled data; summarize_releases.py items are
-      # already approved:true; README.md is auto-generated — all go straight to
-      # main so the site redeploys automatically.
-      #
-      # NOTE: if the repo has a branch protection rule requiring PRs on main,
-      # this push will fail. Fix: add github-actions[bot] as a bypass actor in
-      # Settings → Branches → Edit protection rule → Allow specified actors to bypass.
+      # Pushes github_meta.json, planet_feeds.json (release summaries only),
+      # and README.md directly to main. Requires branch protection to allow
+      # this: store a PAT with repo scope as secret GH_PAT and use it in the
+      # checkout step above (token: ${{ secrets.GH_PAT }}), then update the
+      # remote URL below to use that token. Without this, the push will fail
+      # if main has a PR-required protection rule.
       - name: Push data files directly to main
         if: ${{ !inputs.dry_run }}
         run: |
