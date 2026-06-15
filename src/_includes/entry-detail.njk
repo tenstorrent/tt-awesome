@@ -68,10 +68,11 @@
       <div class="release-assets">
         {%- for asset in entry.latestStableRelease.assets %}
         {%- if loop.index <= 4 %}
+        {%- set assetNameLower = asset.name | lower %}
         <a class="asset-chip" href="{{ asset.url }}" target="_blank" rel="noopener noreferrer" title="{{ asset.name }}">
-          {%- if ".deb" in asset.name %}🐧
-          {%- elif ".whl" in asset.name %}🐍
-          {%- elif ".tar.gz" in asset.name or ".tgz" in asset.name %}📦
+          {%- if ".deb" in assetNameLower %}🐧
+          {%- elif ".whl" in assetNameLower %}🐍
+          {%- elif ".tar.gz" in assetNameLower or ".tgz" in assetNameLower %}📦
           {%- else %}⬇
           {%- endif %}
           {{ asset.name }}
