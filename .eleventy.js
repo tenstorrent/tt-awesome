@@ -3,6 +3,16 @@
 
 const fs = require("fs");
 const path = require("path");
+const MarkdownIt = require("markdown-it");
+
+// Inline-only markdown renderer for short feed descriptions (release summaries,
+// article blurbs). We use renderInline() rather than render() so the output has
+// no block wrapper — it drops cleanly inside the existing <p class="planet-item-desc">
+// without producing invalid nested <p> tags. html:false escapes any raw HTML in
+// the source, which matters because some descriptions originate from untrusted
+// external RSS feeds; linkify:false keeps bare URLs untouched so only explicit
+// markdown ([text](url), **bold**, `code`) is interpreted.
+const mdInline = new MarkdownIt({ html: false, linkify: false });
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
@@ -14,6 +24,13 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("truncate", (str, len) =>
     str && str.length > len ? str.slice(0, len) + "…" : str
+  );
+
+  // Render inline markdown in a short string (e.g. a feed description) to HTML.
+  // Must be paired with `| safe` in the template since it returns HTML markup.
+  // Returns "" for falsy input so templates can pipe unconditionally.
+  eleventyConfig.addFilter("markdownInline", (str) =>
+    str ? mdInline.renderInline(str) : ""
   );
 
   // Format an ISO date string (YYYY-MM-DD) as "Mon DD, YYYY" (e.g. "May 8, 2026").

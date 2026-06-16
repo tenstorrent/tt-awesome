@@ -176,7 +176,7 @@ eleventyExcludeFromCollections: true
           {%- endif %}
 
           {%- if item.description %}
-          <p class="planet-item-desc">{{ item.description }}</p>
+          <p class="planet-item-desc">{{ item.description | markdownInline | safe }}</p>
           {%- endif %}
 
           <div class="planet-item-footer">

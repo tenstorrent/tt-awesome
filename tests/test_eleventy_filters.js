@@ -365,4 +365,38 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: approved external items included, unapproved excluded");
 }
 
+// ── markdownInline tests ────────────────────────────────────────────────────
+const markdownInline = filters["markdownInline"];
+assert(typeof markdownInline === "function", "markdownInline filter not registered");
+
+{
+  // Inline markdown is converted to HTML.
+  assert.strictEqual(
+    markdownInline("Adds `ARC_MSG_QCB_PTR` register support"),
+    "Adds <code>ARC_MSG_QCB_PTR</code> register support",
+    "backticks become <code>"
+  );
+  assert.strictEqual(markdownInline("**bold** and _em_"),
+    "<strong>bold</strong> and <em>em</em>", "bold/em rendered");
+  assert.strictEqual(markdownInline("see [docs](https://example.com)"),
+    'see <a href="https://example.com">docs</a>', "links rendered");
+
+  // No block wrapper — output nests safely inside <p>.
+  assert.ok(!markdownInline("plain text").includes("<p>"), "renderInline adds no <p> wrapper");
+
+  // Falsy input is safe.
+  assert.strictEqual(markdownInline(""), "", "empty string → empty");
+  assert.strictEqual(markdownInline(undefined), "", "undefined → empty");
+
+  // Raw HTML from (untrusted) feed sources is escaped, not emitted.
+  const xss = markdownInline('<img src=x onerror=alert(1)> hi');
+  assert.ok(!xss.includes("<img"), "raw HTML is escaped, not passed through");
+  // Dangerous link schemes are neutralized by markdown-it's link validator:
+  // the syntax is left as inert text rather than becoming a clickable anchor.
+  const js = markdownInline("[x](javascript:alert(1))");
+  assert.ok(!/<a\b/.test(js) && !js.includes('href="javascript'),
+    "javascript: links are not rendered as anchors");
+  console.log("✓ markdownInline: renders inline markdown, escapes HTML, blocks bad links");
+}
+
 console.log("\nAll eleventy filter tests passed ✓");
