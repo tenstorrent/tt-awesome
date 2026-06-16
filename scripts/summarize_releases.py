@@ -6,7 +6,7 @@
 
 For each release URL in github_meta.json not already in planet_feeds.json:
   - Fetches the release body from the GitHub API
-  - Skips if body is empty or under 150 characters
+  - Skips if body is empty or under 120 characters
   - Calls the Anthropic Messages API to generate a one-paragraph human summary
   - Appends a type:"release" item (approved:false) to planet_feeds.json
 
@@ -30,7 +30,10 @@ FEEDS_OUT = ROOT / "src" / "_data" / "planet_feeds.json"
 INFERENCE_URL = "https://api.anthropic.com/v1/messages"
 ANTHROPIC_VERSION = "2023-06-01"
 MODEL = "claude-haiku-4-5-20251001"
-SPARSE_LIMIT = 150  # characters; bodies shorter than this are skipped
+SPARSE_LIMIT = 120  # characters; bodies shorter than this are skipped.
+# Set to 120 (down from 150) so terse-but-substantive notes — a few real
+# bullet points, e.g. ttsim v1.8.4's ~134-char changelog — still get
+# summarized, while one-liners like "Bug fixes." remain filtered out.
 
 TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")    # gates the step; used for LLM calls
 GH_TOKEN = os.environ.get("GITHUB_TOKEN", "")      # used only for GitHub REST API calls

@@ -107,6 +107,24 @@ def test_is_sparse_false_for_substantial_body():
     assert sr.is_sparse(body) is False
 
 
+def test_is_sparse_boundary_at_limit():
+    # Bodies at or above SPARSE_LIMIT pass; one char below is still sparse.
+    assert sr.is_sparse("A" * (sr.SPARSE_LIMIT - 1)) is True
+    assert sr.is_sparse("A" * sr.SPARSE_LIMIT) is False
+
+
+def test_is_sparse_false_for_terse_multi_bullet_release():
+    # Representative of ttsim v1.8.4: a few real bullets, ~134 chars.
+    # The 120-char limit must let these through (regression guard).
+    body = (
+        "- Added more ARC, PCIe, and tile register functionality\n"
+        "- Various minor Tensix bug fixes/features\n"
+        "- Improved error message reporting"
+    )
+    assert len(body.strip()) >= sr.SPARSE_LIMIT
+    assert sr.is_sparse(body) is False
+
+
 def test_main_skips_prerelease_tags(tmp_path, monkeypatch):
     # dev: "1.3.0.dev20260609002802", "v0.73.0-dev20260610"
     # RC:  "v0.72.0-rc4", "ttkmd-2.9.0-rc1"

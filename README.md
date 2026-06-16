@@ -349,6 +349,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   ISA-level simulator for the Tensix compute engine. Simulates the matrix, vector, and scalar units inside each Tensix core.
   [📦 repo](https://github.com/tenstorrent/tensix-isa-simulator)
 
+- **[ttsim-qemu](https://github.com/tenstorrent/ttsim-qemu)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Tenstorrent's fork of QEMU that provides the full-system emulation layer behind ttsim. Models the RISC-V cores and system devices of Wormhole and Blackhole so TT-Metalium workloads can boot and run without physical silicon.
+  [📦 repo](https://github.com/tenstorrent/ttsim-qemu)
+
 - **[ttsim](https://github.com/tenstorrent/ttsim)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Fast full-system simulator of Tenstorrent Wormhole and Blackhole hardware. Runs TT-Metalium workloads on any Linux/x86_64 system without physical silicon. Bit-exact results relative to hardware.
   [📦 repo](https://github.com/tenstorrent/ttsim) · [📖 lesson](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ttsim-twenty-and-ten/)
