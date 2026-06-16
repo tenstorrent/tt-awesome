@@ -414,7 +414,23 @@ assert(typeof markdownInline === "function", "markdownInline filter not register
   const js = markdownInline("[x](javascript:alert(1))");
   assert.ok(!/<a\b/.test(js) && !js.includes('href="javascript'),
     "javascript: links are not rendered as anchors");
-  console.log("✓ markdownInline: renders inline markdown, escapes HTML, blocks bad links");
+  // Image syntax must not produce an <img> — it auto-fetches (tracking pixel)
+  // and this runs on untrusted feed content.
+  assert.ok(!markdownInline("![x](http://evil/pixel.gif)").includes("<img"),
+    "image markdown does not produce an <img> tag");
+  console.log("✓ markdownInline: renders inline markdown, escapes HTML, blocks images + bad links");
+}
+
+// ── cdataSafe tests ─────────────────────────────────────────────────────────
+const cdataSafe = filters["cdataSafe"];
+assert(typeof cdataSafe === "function", "cdataSafe filter not registered");
+{
+  assert.strictEqual(cdataSafe("a]]>b"), "a]]]]><![CDATA[>b",
+    "]]> is split so it cannot close the CDATA section early");
+  assert.strictEqual(cdataSafe("no markers here"), "no markers here", "plain text untouched");
+  assert.strictEqual(cdataSafe(""), "", "empty input safe");
+  assert.strictEqual(cdataSafe(undefined), "", "undefined input safe");
+  console.log("✓ cdataSafe: neutralizes ]]> sequences");
 }
 
 console.log("\nAll eleventy filter tests passed ✓");

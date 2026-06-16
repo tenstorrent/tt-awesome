@@ -13,6 +13,10 @@ const MarkdownIt = require("markdown-it");
 // external RSS feeds; linkify:false keeps bare URLs untouched so only explicit
 // markdown ([text](url), **bold**, `code`) is interpreted.
 const mdInline = new MarkdownIt({ html: false, linkify: false });
+// Disable image syntax: ![alt](url) would emit an <img> that auto-fetches on
+// render. Since this runs on untrusted external feed content, that would allow
+// tracking pixels / unexpected network requests. We keep links/code/emphasis only.
+mdInline.disable("image");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
@@ -31,6 +35,15 @@ module.exports = function (eleventyConfig) {
   // Returns "" for falsy input so templates can pipe unconditionally.
   eleventyConfig.addFilter("markdownInline", (str) =>
     str ? mdInline.renderInline(str) : ""
+  );
+
+  // Make a string safe to embed inside an XML CDATA section. A literal "]]>"
+  // would close the section early and break the feed (or allow injection), so
+  // split it across two CDATA sections per the standard idiom. markdownInline's
+  // output already escapes ">" to "&gt;" so this is normally a no-op, but we
+  // neutralize explicitly so the guarantee can't drift with config changes.
+  eleventyConfig.addFilter("cdataSafe", (str) =>
+    (str || "").replace(/]]>/g, "]]]]><![CDATA[>")
   );
 
   // Format an ISO date string (YYYY-MM-DD) as "Mon DD, YYYY" (e.g. "May 8, 2026").
