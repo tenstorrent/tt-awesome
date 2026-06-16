@@ -20,7 +20,9 @@ eleventyExcludeFromCollections: true
     <title>{{ entry.name }}</title>
     <link href="{{ repoLink.url if repoLink else "https://tenstorrent.github.io/tt-awesome/#" + entry.id }}"/>
     <updated>{{ entry.added_at + "T00:00:00Z" if entry.added_at else "1970-01-01T00:00:00Z" }}</updated>
-    <summary>{{ entry.description }}</summary>
+    {#- type="html" + CDATA so inline markdown renders in readers without
+        double-escaping markdown-it's already-entity-encoded output. #}
+    <summary type="html"><![CDATA[{{ entry.description | markdownInline | safe }}]]></summary>
     <category term="{{ entry.affiliation }}"/>
     {%- for cat in entry.categories %}
     <category term="{{ cat }}"/>

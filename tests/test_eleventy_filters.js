@@ -165,6 +165,24 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: entry items have correct shape");
 }
 
+// Test 9b: items carry content_html (JSON Feed 1.1 requires content_html or
+// content_text) with inline markdown rendered; summary stays plain text.
+{
+  const entry = makeEntry({
+    description: "Uses `tt_metal` under the hood.",
+    links: [{ type: "repo", url: "https://github.com/test/repo" }],
+  });
+  const items = jsonFeedItems([entry], []);
+  const entryItem = items.find((i) => i.tags.includes("entry"));
+  assert.strictEqual(entryItem.content_html, "Uses <code>tt_metal</code> under the hood.",
+    "content_html renders inline markdown");
+  assert.strictEqual(entryItem.summary, "Uses `tt_metal` under the hood.",
+    "summary stays plain text");
+  assert.ok(items.every((i) => typeof i.content_html === "string"),
+    "every item has content_html");
+  console.log("✓ jsonFeedItems: items carry rendered content_html + plain summary");
+}
+
 // Test 10: article-type links produce article items
 {
   const entry = makeEntry();
