@@ -8,7 +8,7 @@ For each release URL in github_meta.json not already in planet_feeds.json:
   - Fetches the release body from the GitHub API
   - Skips if body is empty or under 120 characters
   - Calls the Anthropic Messages API to generate a one-paragraph human summary
-  - Appends a type:"release" item (approved:false) to planet_feeds.json
+  - Appends a type:"release" item (approved:true) to planet_feeds.json
 
 Usage:
     python3 scripts/summarize_releases.py [--dry-run]
