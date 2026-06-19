@@ -165,6 +165,24 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: entry items have correct shape");
 }
 
+// Test 9b: items carry content_html (JSON Feed 1.1 requires content_html or
+// content_text) with inline markdown rendered; summary stays plain text.
+{
+  const entry = makeEntry({
+    description: "Uses `tt_metal` under the hood.",
+    links: [{ type: "repo", url: "https://github.com/test/repo" }],
+  });
+  const items = jsonFeedItems([entry], []);
+  const entryItem = items.find((i) => i.tags.includes("entry"));
+  assert.strictEqual(entryItem.content_html, "Uses <code>tt_metal</code> under the hood.",
+    "content_html renders inline markdown");
+  assert.strictEqual(entryItem.summary, "Uses `tt_metal` under the hood.",
+    "summary stays plain text");
+  assert.ok(items.every((i) => typeof i.content_html === "string"),
+    "every item has content_html");
+  console.log("✓ jsonFeedItems: items carry rendered content_html + plain summary");
+}
+
 // Test 10: article-type links produce article items
 {
   const entry = makeEntry();
@@ -363,6 +381,56 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   assert.ok(urls.includes("https://reddit.com/r/test/1"), "approved Reddit item included");
   assert.ok(!urls.includes("https://reddit.com/r/test/2"), "unapproved item excluded");
   console.log("✓ planetItems: approved external items included, unapproved excluded");
+}
+
+// ── markdownInline tests ────────────────────────────────────────────────────
+const markdownInline = filters["markdownInline"];
+assert(typeof markdownInline === "function", "markdownInline filter not registered");
+
+{
+  // Inline markdown is converted to HTML.
+  assert.strictEqual(
+    markdownInline("Adds `ARC_MSG_QCB_PTR` register support"),
+    "Adds <code>ARC_MSG_QCB_PTR</code> register support",
+    "backticks become <code>"
+  );
+  assert.strictEqual(markdownInline("**bold** and _em_"),
+    "<strong>bold</strong> and <em>em</em>", "bold/em rendered");
+  assert.strictEqual(markdownInline("see [docs](https://example.com)"),
+    'see <a href="https://example.com">docs</a>', "links rendered");
+
+  // No block wrapper — output nests safely inside <p>.
+  assert.ok(!markdownInline("plain text").includes("<p>"), "renderInline adds no <p> wrapper");
+
+  // Falsy input is safe.
+  assert.strictEqual(markdownInline(""), "", "empty string → empty");
+  assert.strictEqual(markdownInline(undefined), "", "undefined → empty");
+
+  // Raw HTML from (untrusted) feed sources is escaped, not emitted.
+  const xss = markdownInline('<img src=x onerror=alert(1)> hi');
+  assert.ok(!xss.includes("<img"), "raw HTML is escaped, not passed through");
+  // Dangerous link schemes are neutralized by markdown-it's link validator:
+  // the syntax is left as inert text rather than becoming a clickable anchor.
+  const js = markdownInline("[x](javascript:alert(1))");
+  assert.ok(!/<a\b/.test(js) && !js.includes('href="javascript'),
+    "javascript: links are not rendered as anchors");
+  // Image syntax must not produce an <img> — it auto-fetches (tracking pixel)
+  // and this runs on untrusted feed content.
+  assert.ok(!markdownInline("![x](http://evil/pixel.gif)").includes("<img"),
+    "image markdown does not produce an <img> tag");
+  console.log("✓ markdownInline: renders inline markdown, escapes HTML, blocks images + bad links");
+}
+
+// ── cdataSafe tests ─────────────────────────────────────────────────────────
+const cdataSafe = filters["cdataSafe"];
+assert(typeof cdataSafe === "function", "cdataSafe filter not registered");
+{
+  assert.strictEqual(cdataSafe("a]]>b"), "a]]]]><![CDATA[>b",
+    "]]> is split so it cannot close the CDATA section early");
+  assert.strictEqual(cdataSafe("no markers here"), "no markers here", "plain text untouched");
+  assert.strictEqual(cdataSafe(""), "", "empty input safe");
+  assert.strictEqual(cdataSafe(undefined), "", "undefined input safe");
+  console.log("✓ cdataSafe: neutralizes ]]> sequences");
 }
 
 console.log("\nAll eleventy filter tests passed ✓");

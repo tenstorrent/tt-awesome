@@ -3,6 +3,20 @@
 
 const fs = require("fs");
 const path = require("path");
+const MarkdownIt = require("markdown-it");
+
+// Inline-only markdown renderer for short feed descriptions (release summaries,
+// article blurbs). We use renderInline() rather than render() so the output has
+// no block wrapper — it drops cleanly inside the existing <p class="planet-item-desc">
+// without producing invalid nested <p> tags. html:false escapes any raw HTML in
+// the source, which matters because some descriptions originate from untrusted
+// external RSS feeds; linkify:false keeps bare URLs untouched so only explicit
+// markdown ([text](url), **bold**, `code`) is interpreted.
+const mdInline = new MarkdownIt({ html: false, linkify: false });
+// Disable image syntax: ![alt](url) would emit an <img> that auto-fetches on
+// render. Since this runs on untrusted external feed content, that would allow
+// tracking pixels / unexpected network requests. We keep links/code/emphasis only.
+mdInline.disable("image");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
@@ -14,6 +28,22 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("truncate", (str, len) =>
     str && str.length > len ? str.slice(0, len) + "…" : str
+  );
+
+  // Render inline markdown in a short string (e.g. a feed description) to HTML.
+  // Must be paired with `| safe` in the template since it returns HTML markup.
+  // Returns "" for falsy input so templates can pipe unconditionally.
+  eleventyConfig.addFilter("markdownInline", (str) =>
+    str ? mdInline.renderInline(str) : ""
+  );
+
+  // Make a string safe to embed inside an XML CDATA section. A literal "]]>"
+  // would close the section early and break the feed (or allow injection), so
+  // split it across two CDATA sections per the standard idiom. markdownInline's
+  // output already escapes ">" to "&gt;" so this is normally a no-op, but we
+  // neutralize explicitly so the guarantee can't drift with config changes.
+  eleventyConfig.addFilter("cdataSafe", (str) =>
+    (str || "").replace(/]]>/g, "]]]]><![CDATA[>")
   );
 
   // Format an ISO date string (YYYY-MM-DD) as "Mon DD, YYYY" (e.g. "May 8, 2026").
@@ -147,11 +177,15 @@ module.exports = function (eleventyConfig) {
 
     // 1. Release items — one per entry in recentReleases.
     for (const rel of recentReleases || []) {
+      const summary = `${rel.entryName} released ${rel.tagName}. Repository: ${rel.repoUrl}`;
       items.push({
         id:             rel.url,
         url:            rel.url,
         title:          `${rel.entryName} ${rel.tagName}`,
-        summary:        `${rel.entryName} released ${rel.tagName}. Repository: ${rel.repoUrl}`,
+        // content_html satisfies JSON Feed 1.1 (an item needs content_html or
+        // content_text) and renders any inline markdown; summary stays plain text.
+        content_html:   mdInline.renderInline(summary),
+        summary:        summary,
         date_published: rel.publishedAt,
         tags:           [rel.affiliation, "release"].filter(Boolean),
       });
@@ -185,6 +219,7 @@ module.exports = function (eleventyConfig) {
         id:             repoUrl || `https://tenstorrent.github.io/tt-awesome/#${entry.id}`,
         url:            repoUrl || (anyLink ? anyLink.url : `https://tenstorrent.github.io/tt-awesome/#${entry.id}`),
         title:          entry.name,
+        content_html:   mdInline.renderInline(entry.description || ""),
         summary:        entry.description || "",
         date_published: entryDate,
         tags:           [...(entry.categories || []), entry.affiliation, "entry"].filter(Boolean),
@@ -199,6 +234,7 @@ module.exports = function (eleventyConfig) {
           id:             link.url,
           url:            link.url,
           title:          `${entry.name} — ${link.label || link.type}`,
+          content_html:   mdInline.renderInline(entry.description || ""),
           summary:        entry.description || "",
           date_published: entryDate,
           tags:           [

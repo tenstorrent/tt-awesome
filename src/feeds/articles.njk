@@ -18,7 +18,9 @@ eleventyExcludeFromCollections: true
     <title>{{ item.entryName }} — {{ item.linkLabel }}</title>
     <link href="{{ item.linkUrl }}"/>
     <updated>{{ item.added_at + "T00:00:00Z" }}</updated>
-    <summary>{{ item.entryDesc }}</summary>
+    {#- type="html" + CDATA so inline markdown (e.g. `code`, **bold**) renders in
+        readers without double-escaping markdown-it's already-entity-encoded output. #}
+    <summary type="html"><![CDATA[{{ item.entryDesc | markdownInline | cdataSafe | safe }}]]></summary>
     <category term="{{ item.linkType }}"/>
     <category term="{{ item.affiliation }}"/>
     {%- for cat in item.categories %}

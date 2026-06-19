@@ -1,0 +1,32 @@
+{
+  "id": "ttsim-qemu",
+  "name": "ttsim-qemu",
+  "description": "Tenstorrent's fork of QEMU that provides the full-system emulation layer behind ttsim. Models the RISC-V cores and system devices of Wormhole and Blackhole so TT-Metalium workloads can boot and run without physical silicon.",
+  "affiliation": "official",
+  "categories": [
+    "riscv-arch",
+    "dev-tools"
+  ],
+  "tags": [
+    "simulator",
+    "qemu",
+    "full-system",
+    "emulation",
+    "no-hardware",
+    "wormhole",
+    "blackhole"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/ttsim-qemu"
+    }
+  ],
+  "hardware": [
+    "ttsim"
+  ],
+  "language": "C",
+  "license": "GPL-2.0",
+  "added_at": "2026-06-16",
+  "related": ["ttsim", "tensix-isa-simulator"]
+}
