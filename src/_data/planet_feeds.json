@@ -1,5 +1,33 @@
 [
   {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "tt-exalens v0.3.24",
+    "url": "https://github.com/tenstorrent/tt-exalens/releases/tag/v0.3.24",
+    "description": "This release focuses on performance and debugger reliability across the board. The team refactored CMake configuration for tt-metal compatibility, moved callstack introspection to C++ for efficiency, and tackled flaky test failures on Wormhole EriSC and low-clock scenarios. Key improvements include faster MemoryMap operations, better frame reconstruction with tail call and inline frame expansion support, and more robust GDB server behavior in the test harness—changes that should make debugging Tenstorrent workloads smoother and more predictable.",
+    "date": "2026-06-19",
+    "dateISO": "2026-06-19T14:17:19Z",
+    "label": "tenstorrent/tt-exalens",
+    "projectName": "tt-exalens",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "ttsim v1.9.0",
+    "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.9.0",
+    "description": "We've released ttsim-riscv64, a lightweight full-system simulator that can boot Linux, giving developers a faster way to validate RISC-V workloads without hardware. Beyond that, we've expanded register support across ARC, PCIe, and tile domains, and added two important Tensix features: pack format conversion mode 0x111 and SFPSTORE mode LO16, which unlock new data manipulation patterns for compute kernels.",
+    "date": "2026-06-18",
+    "dateISO": "2026-06-18T23:03:25Z",
+    "label": "tenstorrent/ttsim",
+    "projectName": "ttsim",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
     "type": "video",
     "source": "youtube",
     "approved": true,
@@ -80,6 +108,20 @@
     "dateISO": "2026-06-17T07:52:40Z",
     "label": "tenstorrent/tt-flash",
     "projectName": "tt-flash",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "ttsim v1.8.5",
+    "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.8.5",
+    "description": "The simulator now covers more of the hardware stack, with expanded ARC, PCIe, Ethernet, and tile register support bringing its model closer to real silicon behavior. A few Tensix fixes and clearer error messages should also smooth out debugging workflows for developers working through simulation.",
+    "date": "2026-06-16",
+    "dateISO": "2026-06-16T22:46:38Z",
+    "label": "tenstorrent/ttsim",
+    "projectName": "ttsim",
     "projectId": null,
     "affiliation": "official"
   },
