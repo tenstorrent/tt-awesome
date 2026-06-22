@@ -29,10 +29,6 @@
     "stars": 1,
     "updatedAt": "2026-05-22T20:18:42Z"
   },
-  "https://github.com/Kovelja009/gsplat_tt": {
-    "stars": 1,
-    "updatedAt": "2026-06-21T18:40:37Z"
-  },
   "https://github.com/zoecarver/open-oasis": {
     "stars": 1,
     "updatedAt": "2026-04-29T23:54:55Z",
@@ -63,7 +59,7 @@
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 13,
-    "updatedAt": "2026-06-20T08:14:50Z"
+    "updatedAt": "2026-06-22T14:23:14Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 64,
@@ -75,7 +71,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 60,
-    "updatedAt": "2026-06-21T13:36:48Z",
+    "updatedAt": "2026-06-22T09:56:33Z",
     "releases": [
       {
         "tagName": "v0.16.0",
@@ -705,8 +701,8 @@
     }
   },
   "https://github.com/tenstorrent/tt-forge": {
-    "stars": 297,
-    "updatedAt": "2026-06-20T22:45:52Z",
+    "stars": 299,
+    "updatedAt": "2026-06-22T14:46:44Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
       {
@@ -759,7 +755,7 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 280,
-    "updatedAt": "2026-06-22T07:55:18Z",
+    "updatedAt": "2026-06-22T16:00:29Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -929,7 +925,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 70,
-    "updatedAt": "2026-06-20T15:57:39Z",
+    "updatedAt": "2026-06-22T16:54:53Z",
     "releases": [
       {
         "tagName": "1.3.0.dev20260622003500",
@@ -980,8 +976,8 @@
     "updatedAt": "2026-06-04T14:15:02Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10762,
-    "updatedAt": "2026-06-22T01:13:47Z",
+    "stars": 10761,
+    "updatedAt": "2026-06-22T17:40:49Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1336,7 +1332,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 52,
-    "updatedAt": "2026-06-19T15:39:11Z",
+    "updatedAt": "2026-06-22T16:59:53Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -1647,8 +1643,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-flash": {
-    "stars": 13,
-    "updatedAt": "2026-06-17T07:52:54Z",
+    "stars": 14,
+    "updatedAt": "2026-06-22T12:45:10Z",
     "releases": [
       {
         "tagName": "v3.9.0",
@@ -1795,8 +1791,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-kmd": {
-    "stars": 65,
-    "updatedAt": "2026-06-18T15:12:11Z",
+    "stars": 66,
+    "updatedAt": "2026-06-22T12:44:59Z",
     "releases": [
       {
         "tagName": "ttkmd-2.9.99-testing",
@@ -1898,8 +1894,8 @@
     "updatedAt": "2026-04-21T13:28:47Z"
   },
   "https://github.com/tenstorrent/tt-smi": {
-    "stars": 61,
-    "updatedAt": "2026-06-12T15:35:19Z",
+    "stars": 62,
+    "updatedAt": "2026-06-22T12:45:34Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-smi/main/images/tt_smi.png",
     "releases": [
       {
@@ -1991,8 +1987,8 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## 3.0.26 - 29/07/25\n- Added single tray galaxy reset option\n- Bumped luwen from 0.7.5 -> 0.7.10\n  - Chip detect now doesn't wait for eth to train for the 6U galaxy's, allowing multi tray resets to happen independently\n- Updated readme with the new reset option\n\n## 3.0.25 - 29/07/25\n- Added packaging\n\n## 3.0.24 - 04/07/25\n- Now users have 2 galay reset modes available\n  - glx_reset: resets the galaxy, informs users if there has been an eth failure\n  - glx_reset_auto: resets the galaxy upto 3 times if eth failures are detected\n\n## 3.0.23 - 03/07/25\n- Bumped luwen 0.7.3 -> 0.7.5 to fix cargo lock compatibilty issue\n\n## 3.0.22 - 02/07/25\n- Bumped tt-tools-common 1.4.16 -> 1.4.17\n- Bumped luwen 0.7.2 -> 0.7.3\n- Bumped smi 3.0.21 -> 3.0.22\n\n## 3.0.21 - 26/06/25\n\n- Added option to not re-init chips after reset\n- Updated galaxy 6u reset option from --ubb_reset to -glx_reset\n- Removed the a3 arc message before doing a 6u reset, meaning we can reset even when chips are not pcie accessible\n- Added eth link check and return failure if any of the eth links have a LINK_INACTIVE_FAIL_DUMMY_PACKET failure\n\n## 3.0.20 - 04/06/25\n\n- Chore - bumped tt-tools-common version to fix driver version check for compatability with tt-kmd 2.0.0\n\n## 3.0.19 - 30/04/25\n\n- Fixed an issue preventing the telemetry thread from being dispatched when the user clicked tab 2\n\n## 3.0.18 - 22/05/25\n\n- Added BH and WH UBB board type support\n- Removed the dependency on tt-tools-common for this info\n\n## 3.0.17 - 13/05/25\n\n- Added proper telemetry heartbeat checks for Grayskull\n\n## 3.0.16 - 12/05/25\n\n- Used new ResetTypes from tools-common to simplify reset code\n- Added a heartbeat spinner to the telemetry pane. We expect this spinner to update about twice per second. If the spinner is not moving, this indicates new telemetry is not being fetched.\n\n## 3.0.15 - 24/04/25\n\n- Patch for the ubb_reset to just discover local only post reset. Looks like eth port status 2 has been re-used to mean connected and pyluwen waits for it to clear, leading to eth timeout.\n\n## 3.0.14 - 21/04/25\n\n- Added wh ubb reset via command line `tt-smi --ubb_reset`. Intention is that this command line option will be removed and integrated into `tt-smi -r` after we update board detection with the correct external naming.\n- Removed some unused imports and code - no functional changes\n\n## 3.0.13 - 21/03/25\n\n- Removed get\\_sw\\_versions\n\n## 3.0.12 - 21/03/25\n\n- Chore - bumped luwen version to include eth fw version check fix\n\n## 3.0.11 - 13/03/25\n\n- Chore - bumped luwen version to include enable chips with external connections but no routing\n\n## 3.0.10 - 10/03/25\n\n- Chore - bumped luwen version to include protoc lib detection check\n\n## 3.0.9 - 07/03/25\n\n- Chore - bumped luwen v"
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
-    "stars": 39,
-    "updatedAt": "2026-06-19T19:21:17Z",
+    "stars": 41,
+    "updatedAt": "2026-06-22T16:39:07Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -2417,7 +2413,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 43,
-    "updatedAt": "2026-06-22T08:16:05Z",
+    "updatedAt": "2026-06-22T14:59:44Z",
     "releases": [
       {
         "tagName": "v0.9.6",
@@ -2795,8 +2791,8 @@
     "updatedAt": "2026-06-16T02:58:10Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1536,
-    "updatedAt": "2026-06-22T07:21:03Z",
+    "stars": 1539,
+    "updatedAt": "2026-06-22T19:13:35Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
