@@ -66,7 +66,7 @@
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 13,
-    "updatedAt": "2026-06-22T14:23:14Z"
+    "updatedAt": "2026-06-23T09:42:14Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 64,
@@ -78,7 +78,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 61,
-    "updatedAt": "2026-06-23T06:53:53Z",
+    "updatedAt": "2026-06-23T19:27:51Z",
     "releases": [
       {
         "tagName": "v0.16.0",
@@ -163,9 +163,63 @@
   },
   "https://github.com/tenstorrent/tt-local-generator": {
     "stars": 1,
-    "updatedAt": "2026-06-11T00:01:04Z",
+    "updatedAt": "2026-06-23T20:11:36Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-local-generator/main/assets/tt-local-generator-main.png",
     "releases": [
+      {
+        "tagName": "v0.8.0",
+        "name": "v0.8.0 - smart install, tt-animatediff upgrade",
+        "publishedAt": "2026-06-23T20:13:42Z",
+        "url": "https://github.com/tenstorrent/tt-local-generator/releases/tag/v0.8.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt-local-generator-models-all_0.8.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.8.0/tt-local-generator-models-all_0.8.0_all.deb",
+            "size": 11602
+          },
+          {
+            "name": "tt-local-generator_0.8.0_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.8.0/tt-local-generator_0.8.0_amd64.deb",
+            "size": 4606686
+          },
+          {
+            "name": "tt-model-animate_0.8.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.8.0/tt-model-animate_0.8.0_all.deb",
+            "size": 13266
+          },
+          {
+            "name": "tt-model-flux_0.8.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.8.0/tt-model-flux_0.8.0_all.deb",
+            "size": 13584
+          },
+          {
+            "name": "tt-model-mochi_0.8.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.8.0/tt-model-mochi_0.8.0_all.deb",
+            "size": 13230
+          },
+          {
+            "name": "tt-model-qwen3_0.8.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.8.0/tt-model-qwen3_0.8.0_all.deb",
+            "size": 13544
+          },
+          {
+            "name": "tt-model-skyreels-i2v_0.8.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.8.0/tt-model-skyreels-i2v_0.8.0_all.deb",
+            "size": 13246
+          },
+          {
+            "name": "tt-model-skyreels-t2v_0.8.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.8.0/tt-model-skyreels-t2v_0.8.0_all.deb",
+            "size": 13114
+          },
+          {
+            "name": "tt-model-wan2-t2v_0.8.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.8.0/tt-model-wan2-t2v_0.8.0_all.deb",
+            "size": 13866
+          }
+        ]
+      },
       {
         "tagName": "v0.7.4",
         "name": "v0.7.4 - plug it in plug it in plug it in",
@@ -361,40 +415,6 @@
             "size": 6964
           }
         ]
-      },
-      {
-        "tagName": "v0.2.2",
-        "name": "v02.2",
-        "publishedAt": "2026-04-27T16:26:06Z",
-        "url": "https://github.com/tenstorrent/tt-local-generator/releases/tag/v0.2.2",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt-local-generator_0.2.2_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.2.2/tt-local-generator_0.2.2_amd64.deb",
-            "size": 4407646
-          },
-          {
-            "name": "tt-model-flux_0.2.2_all.deb",
-            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.2.2/tt-model-flux_0.2.2_all.deb",
-            "size": 5366
-          },
-          {
-            "name": "tt-model-mochi_0.2.2_all.deb",
-            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.2.2/tt-model-mochi_0.2.2_all.deb",
-            "size": 5018
-          },
-          {
-            "name": "tt-model-qwen3_0.2.2_all.deb",
-            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.2.2/tt-model-qwen3_0.2.2_all.deb",
-            "size": 5330
-          },
-          {
-            "name": "tt-model-wan2-t2v_0.2.2_all.deb",
-            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.2.2/tt-model-wan2-t2v_0.2.2_all.deb",
-            "size": 5652
-          }
-        ]
       }
     ]
   },
@@ -441,7 +461,7 @@
   },
   "https://github.com/dstackai/dstack": {
     "stars": 2164,
-    "updatedAt": "2026-06-23T06:49:08Z",
+    "updatedAt": "2026-06-23T09:12:31Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -486,8 +506,8 @@
     "updatedAt": "2026-05-26T08:35:57Z"
   },
   "https://github.com/Zaneham/BarraCUDA": {
-    "stars": 1699,
-    "updatedAt": "2026-06-20T19:59:53Z",
+    "stars": 1698,
+    "updatedAt": "2026-06-23T12:54:44Z",
     "releases": [
       {
         "tagName": "v0.5.0",
@@ -708,8 +728,8 @@
     }
   },
   "https://github.com/tenstorrent/tt-forge": {
-    "stars": 301,
-    "updatedAt": "2026-06-23T07:19:35Z",
+    "stars": 302,
+    "updatedAt": "2026-06-23T15:46:14Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
       {
@@ -761,8 +781,8 @@
     "updatedAt": "2026-05-04T10:03:58Z"
   },
   "https://github.com/tenstorrent/tt-mlir": {
-    "stars": 281,
-    "updatedAt": "2026-06-23T03:19:56Z",
+    "stars": 282,
+    "updatedAt": "2026-06-23T18:37:30Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -932,7 +952,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 70,
-    "updatedAt": "2026-06-23T07:04:55Z",
+    "updatedAt": "2026-06-23T14:23:10Z",
     "releases": [
       {
         "tagName": "1.3.0.dev20260623003249",
@@ -983,8 +1003,8 @@
     "updatedAt": "2026-06-04T14:15:02Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10764,
-    "updatedAt": "2026-06-22T23:47:12Z",
+    "stars": 10770,
+    "updatedAt": "2026-06-23T18:17:37Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1076,7 +1096,7 @@
   },
   "https://github.com/tenstorrent/tt-exalens": {
     "stars": 21,
-    "updatedAt": "2026-06-19T14:15:10Z",
+    "updatedAt": "2026-06-23T14:29:05Z",
     "releases": [
       {
         "tagName": "v0.3.24",
@@ -1339,7 +1359,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 52,
-    "updatedAt": "2026-06-22T16:59:53Z",
+    "updatedAt": "2026-06-23T20:47:12Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -1449,9 +1469,16 @@
   },
   "https://github.com/tenstorrent/tt-vscode-toolkit": {
     "stars": 7,
-    "updatedAt": "2026-06-12T23:03:29Z",
+    "updatedAt": "2026-06-23T20:14:41Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-vscode-toolkit/main/assets/img/screenshot.png",
     "releases": [
+      {
+        "tagName": "v0.0.514",
+        "name": "Release v0.0.514",
+        "publishedAt": "2026-06-23T20:15:47Z",
+        "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.0.514",
+        "prerelease": false
+      },
       {
         "tagName": "v0.0.465",
         "name": "Release v0.0.465",
@@ -1479,16 +1506,9 @@
         "publishedAt": "2026-05-18T22:27:56Z",
         "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.0.447",
         "prerelease": false
-      },
-      {
-        "tagName": "v0.0.438",
-        "name": "Release v0.0.438",
-        "publishedAt": "2026-05-11T16:43:12Z",
-        "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.0.438",
-        "prerelease": false
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to the TT-VSCode-Toolkit will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n---\n\n## [0.0.503] - 2026-06-12\n### Fixed\n- **Self-review fixes** \u2014 29 issues confirmed by automated adversarial review: corrected MESH_DEVICE enum values in code-fence comments (T3000\u2192T3K, n150\u2192N150, Galaxy\u2192GALAXY throughout vllm-production, image-generation, bounty-program, version-compatibility, step-zero, README); removed `<sup>\u2122/</sup>` HTML injected into yaml/bash code fences (ct3-configuration-patterns, step-zero); fixed api-server print string back to `tt-metal ready`; corrected `p100`\u2192`P100` in hardware-detection and QB_follows prose; completed T3K\u2192T3000 normalization in ttsim/cookbook-particle-life prose callouts; fixed FAQ duplicate stale QB2 paragraph and TTNN/tt-metal prose table cells; fixed bare `tt-metal` prose in image-generation (\u2192 TT-Metalium); updated link display text in cookbook-overview and tt-inference-server (github URL\u2192 product name); clarified Vale config comments (ProductNames.yml T3000 exception, Terminology.yml link-text caveat).\n\n## [0.0.502] - 2026-06-11\n### Fixed\n- **QB2 \u2192 TT-QuietBox 2 in llms.txt** \u2014 the LLM context file (consumed by the content website) had 11 prose `QB2` references; all replaced with `TT-QuietBox 2`; URL slugs (`qb2-*`) left untouched.\n\n## [0.0.501] - 2026-06-11\n### Fixed\n- **QB2 \u2192 TT-QuietBox 2 prose normalization** \u2014 replaced all `QB2` shorthand in prose with the full `TT-QuietBox 2` product name across `ttsim-twenty-and-ten.md`, `cookbook-particle-life.md`, and `FAQ.md`; lesson title slugs (`qb2-*`) and command IDs left untouched.\n\n## [0.0.500] - 2026-06-11\n\n### Changed\n\n- **Version bump** \u2014 increment to 0.0.500 after merging copyedit branch with origin/main; consolidates copyedit normalization (hardware IDs, TT-Metalium\u2122/TT-NN\u2122 trademarks, TT-QuietBox naming) with main's ttsim, AnimateDiff Phase 2.5, and mobile improvements.\n\n---\n\n## [0.0.477] - 2026-05-27\n\n### Changed\n\n- **Prose copyedit pass** \u2014 fixed TT-Forge<sup>\u2122</sup> trademark placement in `tt-xla-jax.md`; updated `STYLE_GUIDE.md` hardware casing rules (`n150`/`n300`/`T3000`/`p300c`, capitalized `Galaxy`); normalized hardware IDs and `TTNN`\u2192`TT-NN` in prose and sample output; renamed `TT Metal`\u2192`TT-Metalium` in `tt-inference-server.md`. Extended `normalize-hardware-copy.js` and `normalize-ttnn-copy.js`; added `normalize-tt-metal-copy.js`. Polished `STYLE_GUIDE.md` trademark examples; fixed `normalize-open-source-copy.js` to skip inline code; added `plans/vscode-toolkit-copyedit-pr.md` PR summary.\n\n---\n\n## [0.0.476] - 2026-05-27\n\n### Changed\n\n- **TT-Metalium<sup>\u2122</sup> and TT-NN<sup>\u2122</sup> trademarks** \u2014 first prose mention per page now uses `TT-Metalium` and `TT-NN` (trademark, not registered). Updated `scripts/add-tt-product-trademarks.js` and `STYLE_GUIDE.md`; migrated pri"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to the TT-VSCode-Toolkit will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n---\n\n## [0.0.514] - 2026-06-23\n### Fixed\n- **`isTtsimQemuInstalled` avoids `grep` subprocess** \u2014 replaced `shell: true` + `grep -q` with a pure-Node stdout/stderr substring check. No longer depends on `grep` being on PATH; more portable and easier to debug.\n- **Disk space check uses correct mount point** \u2014 `freeDiskGb` is now called with `~/sim/ttsim-qemu` (the target directory) instead of `$HOME`, so the check is accurate when `~/sim` is on a separate partition or bind mount. Threshold raised to 12 GB (image is resized to 10 GB on download).\n- **ttsim-qemu-bridge lesson: \"pip install ttnn and go\" wording clarified** \u2014 reworded to make clear this is the design goal / intended end state, not the current working status. Directs users to the status block for what is and isn't working yet.\n\n## [0.0.513] - 2026-06-23\n### Fixed\n- **QB2 compatibility audit: `python` \u2192 `python3` across all remaining lessons** \u2014 fixed bare `python` invocations in `bounty-program-model-bringup` (validate_reference.py, generate_reference_hf.py) and `tt-xla-jax` (gpt_demo.py). Ubuntu 24.04 / tt-developer-image have no `python` symlink; `python3` is required everywhere.\n- **QB2 compatibility audit: venv activation paths updated to dual-path pattern** \u2014 replaced hardcoded `source ~/tt-metal/python_env/bin/activate` and `source ~/tt-forge-venv/bin/activate` in `explore-metalium`, `video-generation-ttmetal`, `tt-xla-jax`, and `animatediff-video-generation`. Each activation block now shows three options: `tt-metal`/`tt-forge` shell switcher (tt-developer-image/Docker), `~/.tenstorrent-venv/bin/activate` (QB2 pre-installed image), and `/opt/venv-metal/bin/activate` or `/opt/venv-forge/bin/activate` (cloud/custom install).\n- **QB2 compatibility audit: hardcoded `/home/ttuser/` paths removed** \u2014 replaced with `$HOME/...` or `~/...` in `qb2-openclaw-assistant` (memory search config), `qb2-video-generation` (`TT_DIT_CACHE_DIR`), and `qb2-local-agents` (directory and troubleshooting path examples). These lessons must work for any user account, not just the development machine's `ttuser`.\n\n## [0.0.512] - 2026-06-23\n### Fixed\n- **AnimateDiff lesson uses `python3` throughout** \u2014 replaced all bare `python` invocations in the lesson's code blocks with `python3`. Ubuntu 24.04 (and many other Linux distributions) do not install a `python` symlink by default; `python3` is the correct command for out-of-the-box compatibility.\n\n## [0.0.511] - 2026-06-22\n### Changed\n- **AnimateDiff lesson updated to v0.9.0** \u2014 complete rewrite to match the latest tt-animatediff release. Added: Phase 3 (full `AnimateDiffTransformer3D` injected at 7 UNet points, ~52 s/frame), fast Phase 3 path (`--motion-adapter-skip up1 up2`, **~7.7 s/frame**, faster than P"
   },
   "https://github.com/boopdotpng/blackhole-py": {
     "stars": 15,
@@ -1651,8 +1671,22 @@
   },
   "https://github.com/tenstorrent/tt-flash": {
     "stars": 14,
-    "updatedAt": "2026-06-22T12:45:10Z",
+    "updatedAt": "2026-06-23T19:59:54Z",
     "releases": [
+      {
+        "tagName": "v3.10.0",
+        "name": "v3.10.0",
+        "publishedAt": "2026-06-23T19:59:38Z",
+        "url": "https://github.com/tenstorrent/tt-flash/releases/tag/v3.10.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt_flash-3.10.0-py3-none-any.whl",
+            "url": "https://github.com/tenstorrent/tt-flash/releases/download/v3.10.0/tt_flash-3.10.0-py3-none-any.whl",
+            "size": 46237
+          }
+        ]
+      },
       {
         "tagName": "v3.9.0",
         "name": "v3.9.0",
@@ -1721,35 +1755,6 @@
             "name": "tt_flash-3.6.5-py3-none-any.whl",
             "url": "https://github.com/tenstorrent/tt-flash/releases/download/v3.6.5/tt_flash-3.6.5-py3-none-any.whl",
             "size": 45011
-          }
-        ]
-      },
-      {
-        "tagName": "v3.6.4",
-        "name": "v3.6.4",
-        "publishedAt": "2026-04-10T14:44:44Z",
-        "url": "https://github.com/tenstorrent/tt-flash/releases/tag/v3.6.4",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt-flash_3.6.4_all-ubuntu-22.04.deb",
-            "url": "https://github.com/tenstorrent/tt-flash/releases/download/v3.6.4/tt-flash_3.6.4_all-ubuntu-22.04.deb",
-            "size": 26964
-          },
-          {
-            "name": "tt-flash_3.6.4_all-ubuntu-24.04.deb",
-            "url": "https://github.com/tenstorrent/tt-flash/releases/download/v3.6.4/tt-flash_3.6.4_all-ubuntu-24.04.deb",
-            "size": 30950
-          },
-          {
-            "name": "tt-flash_3.6.4_all-ubuntu-latest.deb",
-            "url": "https://github.com/tenstorrent/tt-flash/releases/download/v3.6.4/tt-flash_3.6.4_all-ubuntu-latest.deb",
-            "size": 30946
-          },
-          {
-            "name": "tt_flash-3.6.4-py3-none-any.whl",
-            "url": "https://github.com/tenstorrent/tt-flash/releases/download/v3.6.4/tt_flash-3.6.4-py3-none-any.whl",
-            "size": 44987
           }
         ]
       }
@@ -1995,7 +2000,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 41,
-    "updatedAt": "2026-06-22T16:39:07Z",
+    "updatedAt": "2026-06-23T19:32:25Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -2147,9 +2152,38 @@
   },
   "https://github.com/tenstorrent/tt-toplike": {
     "stars": 4,
-    "updatedAt": "2026-06-21T18:16:49Z",
+    "updatedAt": "2026-06-23T20:16:59Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-toplike/main/assets/tt-toplike-arcade.gif",
     "releases": [
+      {
+        "tagName": "v0.6.3",
+        "name": "v0.6.3 - consistency release",
+        "publishedAt": "2026-06-23T20:17:53Z",
+        "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.6.3",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt-toplike-app_0.6.3_amd64_jammy.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.6.3/tt-toplike-app_0.6.3_amd64_jammy.deb",
+            "size": 4169006
+          },
+          {
+            "name": "tt-toplike-app_0.6.3_amd64_noble.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.6.3/tt-toplike-app_0.6.3_amd64_noble.deb",
+            "size": 4136404
+          },
+          {
+            "name": "tt-toplike_0.6.3_amd64_jammy.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.6.3/tt-toplike_0.6.3_amd64_jammy.deb",
+            "size": 1045650
+          },
+          {
+            "name": "tt-toplike_0.6.3_amd64_noble.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.6.3/tt-toplike_0.6.3_amd64_noble.deb",
+            "size": 1032074
+          }
+        ]
+      },
       {
         "tagName": "v0.6.2",
         "name": "v0.6.2 - temperature checks revised",
@@ -2241,25 +2275,6 @@
             "name": "tt-toplike_0.5.0_amd64_noble.deb",
             "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.5.0/tt-toplike_0.5.0_amd64_noble.deb",
             "size": 780614
-          }
-        ]
-      },
-      {
-        "tagName": "v0.4.3",
-        "name": "v0.4.3 - stable deb",
-        "publishedAt": "2026-04-25T20:02:37Z",
-        "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.4.3",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt-toplike-app_0.4.3_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.4.3/tt-toplike-app_0.4.3_amd64.deb",
-            "size": 4148594
-          },
-          {
-            "name": "tt-toplike_0.4.3_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.4.3/tt-toplike_0.4.3_amd64.deb",
-            "size": 774892
           }
         ]
       }
@@ -2420,7 +2435,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 43,
-    "updatedAt": "2026-06-23T06:44:03Z",
+    "updatedAt": "2026-06-23T17:46:33Z",
     "releases": [
       {
         "tagName": "v0.9.6",
@@ -2788,8 +2803,8 @@
     "updatedAt": "2026-04-15T08:40:22Z"
   },
   "https://github.com/tenstorrent/tt-lang": {
-    "stars": 52,
-    "updatedAt": "2026-06-19T01:39:58Z",
+    "stars": 53,
+    "updatedAt": "2026-06-23T20:54:59Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
@@ -2798,8 +2813,8 @@
     "updatedAt": "2026-06-16T02:58:10Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1541,
-    "updatedAt": "2026-06-23T07:19:49Z",
+    "stars": 1543,
+    "updatedAt": "2026-06-23T20:44:56Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -3455,7 +3470,7 @@
   },
   "https://github.com/tenstorrent/riescue": {
     "stars": 67,
-    "updatedAt": "2026-06-20T20:31:12Z",
+    "updatedAt": "2026-06-23T16:40:36Z",
     "releases": [
       {
         "tagName": "v1.7.0",
@@ -3629,8 +3644,8 @@
     "forkParentUrl": "https://github.com/qemu/qemu"
   },
   "https://github.com/tenstorrent/ttsim": {
-    "stars": 126,
-    "updatedAt": "2026-06-21T11:52:15Z",
+    "stars": 128,
+    "updatedAt": "2026-06-23T13:17:11Z",
     "releases": [
       {
         "tagName": "v1.9.1",
