@@ -14,6 +14,7 @@ Usage:
     python3 scripts/summarize_releases.py [--dry-run]
 """
 
+import base64
 import json
 import os
 import re
@@ -101,6 +102,121 @@ def fetch_release_body(repo: str, tag: str) -> str:
 def is_sparse(body: str) -> bool:
     """Return True if the release body is too short to summarize."""
     return len(body.strip()) < SPARSE_LIMIT
+
+
+# Files we look in for a per-version changelog, in priority order. Mirrors the
+# list in fetch_github_meta.py so both scripts agree on what "the changelog" is.
+CHANGELOG_NAMES = ("CHANGELOG.md", "CHANGELOG", "CHANGES.md", "CHANGES", "HISTORY.md")
+
+# A release body "defers to the changelog" when it points readers at a changelog
+# file for the actual changes instead of listing them inline. This is the
+# signature of a boilerplate template body (install steps + prerequisites +
+# "What's New → See CHANGELOG.md"), e.g. tt-vscode-toolkit's releases. Matching
+# the *.md filename keeps this narrow: bodies that inline their own notes almost
+# never link out to a changelog file.
+_DEFERS_RE = re.compile(r"\b(?:CHANGELOG|CHANGES|HISTORY)\.md\b", re.IGNORECASE)
+
+
+def body_defers_to_changelog(body: str) -> bool:
+    """Return True if the release body points to a changelog file for the changes.
+
+    These bodies are fixed boilerplate (install instructions, prerequisites, and
+    a "See CHANGELOG.md" pointer) that the same for every release — summarizing
+    them yields a generic blurb, so the caller should fetch the real changelog
+    section instead.
+    """
+    return bool(_DEFERS_RE.search(body or ""))
+
+
+def extract_changelog_section(changelog_text: str, tag: str, date: str | None = None) -> str | None:
+    """Return the changelog section for a given release tag, or None.
+
+    Parses "Keep a Changelog"-style markdown — version sections introduced by a
+    heading such as ``## [0.0.514] - 2026-06-23`` — and returns just the block
+    for the version matching ``tag`` (leading ``v`` stripped), up to but not
+    including the next heading of the same or higher level. Sub-headings within
+    the section (e.g. ``### Fixed``) are preserved.
+
+    Args:
+        changelog_text: Full changelog markdown.
+        tag: Release tag, e.g. ``v0.0.514``; a leading ``v`` is stripped.
+        date: Optional ``YYYY-MM-DD`` release date. When a changelog contains
+            more than one heading for the same version (an upstream duplicate),
+            the heading whose line carries this date is preferred; otherwise the
+            first matching heading is used.
+
+    Returns None if the changelog is empty or the version is not found.
+    """
+    if not changelog_text or not tag:
+        return None
+
+    version = tag.lstrip("vV")
+    ver_re = re.escape(version)
+    # A markdown heading line that contains the version as a standalone token.
+    # The lookbehind/lookahead guard against matching a substring of a longer
+    # version (so "0.0.51" does not match the "0.0.514" heading).
+    heading_re = re.compile(
+        rf"^(#{{1,6}})\s.*?(?<![\d.]){ver_re}(?![\d.]).*$",
+        re.MULTILINE,
+    )
+    matches = list(heading_re.finditer(changelog_text))
+    if not matches:
+        return None
+
+    # Disambiguate duplicate version headings by the release date when given,
+    # so a republished version maps to the right notes (e.g. two "[0.0.454]"
+    # headings dated differently). Fall back to the first heading otherwise.
+    m = matches[0]
+    if date:
+        for cand in matches:
+            if date in cand.group(0):
+                m = cand
+                break
+
+    level = len(m.group(1))  # number of leading '#' on the matched heading
+    # The section ends at the next heading of the same or higher level (fewer or
+    # equal '#'); deeper sub-headings stay inside this version's block.
+    next_re = re.compile(rf"^#{{1,{level}}}\s", re.MULTILINE)
+    nxt = next_re.search(changelog_text, m.end())
+    end = nxt.start() if nxt else len(changelog_text)
+
+    section = changelog_text[m.start():end].strip()
+    return section or None
+
+
+def _fetch_changelog_text(repo: str, ref: str) -> str | None:
+    """Return the raw changelog markdown for a repo at a git ref, or None."""
+    for name in CHANGELOG_NAMES:
+        url = f"https://api.github.com/repos/{repo}/contents/{name}?ref={ref}"
+        try:
+            with urllib.request.urlopen(_gh_request(url), timeout=10) as r:
+                data = json.loads(r.read())
+                raw = base64.b64decode(data.get("content", "").replace("\n", ""))
+                return raw.decode("utf-8", errors="replace")
+        except urllib.error.HTTPError as e:
+            if e.code != 404:
+                print(f"  WARN _fetch_changelog_text {repo}@{ref} {name}: HTTP {e.code}", file=sys.stderr)
+        except Exception as e:
+            print(f"  WARN _fetch_changelog_text {repo}@{ref} {name}: {e}", file=sys.stderr)
+    return None
+
+
+def fetch_changelog_section(repo: str, tag: str, date: str | None = None) -> str | None:
+    """Fetch a repo's changelog and return the section for a release tag.
+
+    Tries the changelog *at the release tag* first (``?ref={tag}``) — that's the
+    changelog as it shipped with the build. If the version's section isn't there
+    yet (the changelog entry can land in a separate commit, lagging the tag), it
+    falls back to the default branches. Returns None if no section is found.
+    """
+    for ref in (tag, "main", "master"):
+        text = _fetch_changelog_text(repo, ref)
+        if not text:
+            continue
+        section = extract_changelog_section(text, tag, date=date)
+        if section:
+            return section
+    return None
 
 
 SYSTEM_PROMPT = (
@@ -219,16 +335,34 @@ def main(argv: list | None = None):
                 print(f"  SKIP {repo}@{tag}: pre-release build")
                 continue
 
-            # Fetch and quality-gate the release body before calling the LLM.
+            # Fetch the release body — this is what we summarize by default.
             body = fetch_release_body(repo, tag)
-            if is_sparse(body):
-                print(f"  SKIP {repo}@{tag}: body too sparse ({len(body.strip())} chars)")
+
+            # Some repos publish a fixed boilerplate body (install steps +
+            # prerequisites + "See CHANGELOG.md") and keep the real per-version
+            # changes in the changelog. Summarizing the boilerplate produces a
+            # generic blurb, so when the body defers to the changelog we fetch
+            # that version's section and summarize it instead.
+            content = body
+            if body_defers_to_changelog(body):
+                # Pass the release date so a duplicated version heading in the
+                # changelog resolves to the notes for this specific release.
+                release_date = (release.get("publishedAt") or "")[:10] or None
+                section = fetch_changelog_section(repo, tag, date=release_date)
+                if section:
+                    content = section
+                    print(f"  CHANGELOG {repo}@{tag}: summarizing changelog section "
+                          f"({len(section.strip())} chars) — body defers to it")
+
+            # Quality-gate whatever content we actually plan to summarize.
+            if is_sparse(content):
+                print(f"  SKIP {repo}@{tag}: content too sparse ({len(content.strip())} chars)")
                 continue
 
             # Determine whether this repo is official, community, etc.
             affiliation = affiliation_map.get(repo_url.rstrip("/"), "community")
 
-            summary = call_summarization_model(repo, name, body, affiliation)
+            summary = call_summarization_model(repo, name, content, affiliation)
             if not summary:
                 print(f"  SKIP {repo}@{tag}: summarization failed")
                 continue
