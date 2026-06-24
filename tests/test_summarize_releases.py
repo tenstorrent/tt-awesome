@@ -432,6 +432,36 @@ def test_extract_changelog_section_no_false_substring_match():
     assert sr.extract_changelog_section(SAMPLE_CHANGELOG, "v0.0.51") is None
 
 
+PRERELEASE_CHANGELOG = """\
+# Changelog
+
+## [0.0.514-rc1] - 2026-06-20
+### Added
+- A release-candidate-only entry that is long enough to clear the sparse gate.
+
+## [0.0.514] - 2026-06-23
+### Fixed
+- The actual stable entry, also long enough to clear the sparse gate easily.
+"""
+
+
+def test_extract_changelog_section_ignores_prerelease_suffix():
+    # Requesting the stable tag must return the stable section, never a
+    # pre-release heading like "[0.0.514-rc1]" that shares the version prefix —
+    # even when the pre-release heading appears first in the file.
+    section = sr.extract_changelog_section(PRERELEASE_CHANGELOG, "v0.0.514")
+    assert "The actual stable entry" in section
+    assert "release-candidate-only" not in section
+    assert "rc1" not in section
+
+
+def test_extract_changelog_section_no_match_for_prerelease_only():
+    # If only a pre-release section exists, a stable-tag request finds nothing
+    # (better to fall back than to summarize the wrong version's notes).
+    only_rc = "# Changelog\n\n## [0.0.514-rc1] - 2026-06-20\n### Added\n- rc only.\n"
+    assert sr.extract_changelog_section(only_rc, "v0.0.514") is None
+
+
 DUP_CHANGELOG = """\
 # Changelog
 
@@ -459,17 +489,20 @@ def test_extract_changelog_section_first_match_without_date():
     assert "Hardware naming normalization" in section
 
 
-def test_fetch_changelog_section_falls_back_to_default_branch():
+def test_fetch_changelog_section_falls_back_to_resolved_default_branch():
     # The changelog at the release tag lags (no section yet); the section only
-    # exists on the default branch. fetch must try the branch after the tag ref.
-    tagged = {"content": base64.b64encode(SAMPLE_CHANGELOG.encode()).decode()}   # lacks 0.0.999
-    on_main = {"content": base64.b64encode(
+    # exists on the repo's default branch — which here is "develop", not main.
+    # fetch must resolve the real default branch and look there.
+    tagged   = {"content": base64.b64encode(SAMPLE_CHANGELOG.encode()).decode()}  # lacks 0.0.999
+    repo_meta = {"default_branch": "develop"}
+    on_branch = {"content": base64.b64encode(
         "# Changelog\n\n## [0.0.999] - 2026-07-01\n### Added\n"
         "- A genuinely new and sufficiently long changelog entry for testing.\n".encode()
     ).decode()}
-    responses = [_mock_urlopen(tagged), _mock_urlopen(on_main)]
+    # Call order: changelog@tag -> /repos/{repo} (default branch) -> changelog@develop
+    responses = [_mock_urlopen(tagged), _mock_urlopen(repo_meta), _mock_urlopen(on_branch)]
     with patch("urllib.request.urlopen", side_effect=responses):
-        section = sr.fetch_changelog_section("tenstorrent/tt-vscode-toolkit", "v0.0.999")
+        section = sr.fetch_changelog_section("tenstorrent/some-repo", "v0.0.999")
     assert section is not None
     assert "genuinely new" in section
 

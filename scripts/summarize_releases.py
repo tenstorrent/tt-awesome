@@ -153,10 +153,14 @@ def extract_changelog_section(changelog_text: str, tag: str, date: str | None = 
     version = tag.lstrip("vV")
     ver_re = re.escape(version)
     # A markdown heading line that contains the version as a standalone token.
-    # The lookbehind/lookahead guard against matching a substring of a longer
-    # version (so "0.0.51" does not match the "0.0.514" heading).
+    # Boundaries keep the match from being a substring of a different version:
+    #   - lookbehind rejects a preceding digit/dot (so "0.0.51" never matches
+    #     inside "10.0.51") while still allowing a leading "v" (e.g. "## v0.0.51");
+    #   - lookahead rejects a trailing word char, dot, or hyphen, so a stable
+    #     tag never matches a longer version or a pre-release heading such as
+    #     "[0.0.514-rc1]" when "0.0.514" was requested.
     heading_re = re.compile(
-        rf"^(#{{1,6}})\s.*?(?<![\d.]){ver_re}(?![\d.]).*$",
+        rf"^(#{{1,6}})\s.*?(?<![\d.]){ver_re}(?![\w.-]).*$",
         re.MULTILINE,
     )
     matches = list(heading_re.finditer(changelog_text))
@@ -201,21 +205,44 @@ def _fetch_changelog_text(repo: str, ref: str) -> str | None:
     return None
 
 
+def _fetch_default_branch(repo: str) -> str:
+    """Return a repo's default branch name, falling back to 'main' on any error."""
+    url = f"https://api.github.com/repos/{repo}"
+    try:
+        with urllib.request.urlopen(_gh_request(url), timeout=10) as r:
+            return json.loads(r.read()).get("default_branch") or "main"
+    except urllib.error.HTTPError as e:
+        print(f"  WARN _fetch_default_branch {repo}: HTTP {e.code}", file=sys.stderr)
+    except Exception as e:
+        print(f"  WARN _fetch_default_branch {repo}: {e}", file=sys.stderr)
+    return "main"
+
+
 def fetch_changelog_section(repo: str, tag: str, date: str | None = None) -> str | None:
     """Fetch a repo's changelog and return the section for a release tag.
 
     Tries the changelog *at the release tag* first (``?ref={tag}``) — that's the
     changelog as it shipped with the build. If the version's section isn't there
     yet (the changelog entry can land in a separate commit, lagging the tag), it
-    falls back to the default branches. Returns None if no section is found.
+    falls back to the repo's actual default branch (resolved via the API, so
+    repos on ``trunk``/``develop`` work, not just ``main``/``master``). Returns
+    None if no section is found.
     """
-    for ref in (tag, "main", "master"):
-        text = _fetch_changelog_text(repo, ref)
-        if not text:
-            continue
+    # 1. Changelog as it shipped at the release tag.
+    text = _fetch_changelog_text(repo, tag)
+    if text:
         section = extract_changelog_section(text, tag, date=date)
         if section:
             return section
+
+    # 2. Fall back to the tip of the default branch (the entry may post-date the tag).
+    branch = _fetch_default_branch(repo)
+    if branch != tag:
+        text = _fetch_changelog_text(repo, branch)
+        if text:
+            section = extract_changelog_section(text, tag, date=date)
+            if section:
+                return section
     return None
 
 
