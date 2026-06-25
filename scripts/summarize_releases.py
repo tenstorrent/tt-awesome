@@ -188,20 +188,54 @@ def extract_changelog_section(changelog_text: str, tag: str, date: str | None = 
     return section or None
 
 
+def _fetch_url_text(url: str) -> str | None:
+    """GET a URL and return its body as text, or None on error."""
+    try:
+        with urllib.request.urlopen(_gh_request(url), timeout=10) as r:
+            return r.read().decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as e:
+        print(f"  WARN _fetch_url_text {url}: HTTP {e.code}", file=sys.stderr)
+    except Exception as e:
+        print(f"  WARN _fetch_url_text {url}: {e}", file=sys.stderr)
+    return None
+
+
 def _fetch_changelog_text(repo: str, ref: str) -> str | None:
-    """Return the raw changelog markdown for a repo at a git ref, or None."""
+    """Return the raw changelog markdown for a repo at a git ref, or None.
+
+    Tries each name in CHANGELOG_NAMES. A candidate that exists but yields no
+    usable text does not abort the search — the next candidate is tried. The
+    Contents API only inlines base64 ``content`` for files up to ~1MB; larger
+    files come back with empty content and a ``download_url``, which we follow.
+    """
     for name in CHANGELOG_NAMES:
         url = f"https://api.github.com/repos/{repo}/contents/{name}?ref={ref}"
         try:
             with urllib.request.urlopen(_gh_request(url), timeout=10) as r:
                 data = json.loads(r.read())
-                raw = base64.b64decode(data.get("content", "").replace("\n", ""))
-                return raw.decode("utf-8", errors="replace")
         except urllib.error.HTTPError as e:
             if e.code != 404:
                 print(f"  WARN _fetch_changelog_text {repo}@{ref} {name}: HTTP {e.code}", file=sys.stderr)
+            continue  # not found / error — try the next candidate name
         except Exception as e:
             print(f"  WARN _fetch_changelog_text {repo}@{ref} {name}: {e}", file=sys.stderr)
+            continue
+
+        # Common case: file <=1MB, content is inlined as base64.
+        encoded = (data.get("content") or "").replace("\n", "")
+        if encoded:
+            text = base64.b64decode(encoded).decode("utf-8", errors="replace")
+            if text.strip():
+                return text
+
+        # Large files (>1MB) carry empty content and only a download_url.
+        download_url = data.get("download_url")
+        if download_url:
+            text = _fetch_url_text(download_url)
+            if text and text.strip():
+                return text
+
+        # This candidate yielded nothing usable; fall through to the next name.
     return None
 
 

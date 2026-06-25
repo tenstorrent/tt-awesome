@@ -75,6 +75,15 @@ def _mock_urlopen(data):
     return mock
 
 
+def _mock_raw(text):
+    """A urlopen mock whose body is raw bytes (e.g. a download_url response)."""
+    mock = MagicMock()
+    mock.read.return_value = text.encode()
+    mock.__enter__ = lambda s: s
+    mock.__exit__ = MagicMock(return_value=False)
+    return mock
+
+
 def test_fetch_release_body_returns_body():
     with patch("urllib.request.urlopen", return_value=_mock_urlopen({"body": "## What's new\n\nAdded feature X."})):
         result = sr.fetch_release_body("tenstorrent/tt-metal", "v1.0.0")
@@ -505,6 +514,29 @@ def test_fetch_changelog_section_falls_back_to_resolved_default_branch():
         section = sr.fetch_changelog_section("tenstorrent/some-repo", "v0.0.999")
     assert section is not None
     assert "genuinely new" in section
+
+
+def test_fetch_changelog_text_uses_download_url_for_large_file():
+    # Files over ~1MB come back from the Contents API with empty `content` and a
+    # `download_url`. The fetcher must follow that URL instead of returning "".
+    contents = _mock_urlopen({"content": "", "download_url": "https://raw/CHANGELOG.md"})
+    raw = _mock_raw("# Changelog\n\n## [0.0.999] - 2026-07-01\n### Added\n- A big changelog.\n")
+    with patch("urllib.request.urlopen", side_effect=[contents, raw]):
+        text = sr._fetch_changelog_text("tenstorrent/big-repo", "main")
+    assert text is not None
+    assert "0.0.999" in text
+
+
+def test_fetch_changelog_text_tries_next_name_when_content_empty():
+    # A candidate file that yields no usable content (empty, no download_url)
+    # must not abort the search — the next CHANGELOG_NAMES candidate is tried.
+    empty = _mock_urlopen({"content": "", "download_url": None})            # CHANGELOG.md
+    good_text = "# Changelog\n\n## [1.0.0] - 2026-01-01\n### Added\n- Real notes here.\n"
+    good = _mock_urlopen({"content": base64.b64encode(good_text.encode()).decode()})  # CHANGELOG
+    with patch("urllib.request.urlopen", side_effect=[empty, good]):
+        text = sr._fetch_changelog_text("tenstorrent/repo", "main")
+    assert text is not None
+    assert "1.0.0" in text
 
 
 def test_body_defers_to_changelog_true_for_boilerplate():
