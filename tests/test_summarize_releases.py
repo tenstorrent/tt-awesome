@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
+import base64
 import json
 import sys
 from pathlib import Path
@@ -69,6 +70,15 @@ def _mock_urlopen(data):
     encoded = json.dumps(data).encode()
     mock = MagicMock()
     mock.read.return_value = encoded
+    mock.__enter__ = lambda s: s
+    mock.__exit__ = MagicMock(return_value=False)
+    return mock
+
+
+def _mock_raw(text):
+    """A urlopen mock whose body is raw bytes (e.g. a download_url response)."""
+    mock = MagicMock()
+    mock.read.return_value = text.encode()
     mock.__enter__ = lambda s: s
     mock.__exit__ = MagicMock(return_value=False)
     return mock
@@ -358,6 +368,227 @@ def test_main_skips_release_with_null_published_at(tmp_path, monkeypatch):
     result = json.loads(feeds_file.read_text())
     assert len(result) == 1
     assert result[0]["date"] == "1970-01-01"
+
+
+# ── Changelog fallback: bodies that defer to CHANGELOG.md ────────────────────
+# Some repos (e.g. tt-vscode-toolkit) publish a fixed boilerplate release body
+# — install instructions, prerequisites, and a "What's New → See CHANGELOG.md"
+# pointer — while the actual per-version changes live in CHANGELOG.md. The
+# summarizer must recognise this and summarize the matching changelog section
+# instead of the boilerplate preamble.
+
+SAMPLE_CHANGELOG = """\
+# Changelog
+
+All notable changes to the project will be documented in this file.
+
+The format is based on Keep a Changelog.
+
+---
+
+## [0.0.514] - 2026-06-23
+### Fixed
+- **isTtsimQemuInstalled avoids grep subprocess** — pure-Node stdout check.
+- **Disk space check uses correct mount point** — threshold raised to 12 GB.
+
+## [0.0.513] - 2026-06-23
+### Fixed
+- **python -> python3 across all remaining lessons** — Ubuntu 24.04 fix.
+"""
+
+BOILERPLATE_BODY = """\
+## tt-vscode-toolkit v0.0.514
+
+### Installation
+
+code --install-extension Tenstorrent.tt-vscode-toolkit
+
+### Prerequisites
+
+- Tenstorrent hardware (n150, n300, T3000, p100, p150, or Galaxy)
+- Linux (Ubuntu 20.04+, RHEL 8+)
+
+### What's New
+
+See [CHANGELOG.md](https://github.com/tenstorrent/tt-vscode-toolkit/blob/v0.0.514/CHANGELOG.md)
+"""
+
+
+def test_extract_changelog_section_returns_matching_version():
+    section = sr.extract_changelog_section(SAMPLE_CHANGELOG, "v0.0.514")
+    assert section is not None
+    assert "isTtsimQemuInstalled avoids grep subprocess" in section
+    assert "Disk space check uses correct mount point" in section
+    # Must not bleed into the previous/next version's notes.
+    assert "python3 across all remaining lessons" not in section
+    assert "0.0.513" not in section
+
+
+def test_extract_changelog_section_strips_v_prefix():
+    # Tag is "v0.0.514" but the changelog header reads "## [0.0.514]".
+    assert sr.extract_changelog_section(SAMPLE_CHANGELOG, "v0.0.514") is not None
+    # And a bare version tag (no leading v) also matches.
+    assert sr.extract_changelog_section(SAMPLE_CHANGELOG, "0.0.514") is not None
+
+
+def test_extract_changelog_section_returns_none_when_absent():
+    assert sr.extract_changelog_section(SAMPLE_CHANGELOG, "v9.9.9") is None
+    assert sr.extract_changelog_section("", "v0.0.514") is None
+
+
+def test_extract_changelog_section_no_false_substring_match():
+    # "0.0.51" must NOT match the "0.0.514" header (version boundary).
+    assert sr.extract_changelog_section(SAMPLE_CHANGELOG, "v0.0.51") is None
+
+
+PRERELEASE_CHANGELOG = """\
+# Changelog
+
+## [0.0.514-rc1] - 2026-06-20
+### Added
+- A release-candidate-only entry that is long enough to clear the sparse gate.
+
+## [0.0.514] - 2026-06-23
+### Fixed
+- The actual stable entry, also long enough to clear the sparse gate easily.
+"""
+
+
+def test_extract_changelog_section_ignores_prerelease_suffix():
+    # Requesting the stable tag must return the stable section, never a
+    # pre-release heading like "[0.0.514-rc1]" that shares the version prefix —
+    # even when the pre-release heading appears first in the file.
+    section = sr.extract_changelog_section(PRERELEASE_CHANGELOG, "v0.0.514")
+    assert "The actual stable entry" in section
+    assert "release-candidate-only" not in section
+    assert "rc1" not in section
+
+
+def test_extract_changelog_section_no_match_for_prerelease_only():
+    # If only a pre-release section exists, a stable-tag request finds nothing
+    # (better to fall back than to summarize the wrong version's notes).
+    only_rc = "# Changelog\n\n## [0.0.514-rc1] - 2026-06-20\n### Added\n- rc only.\n"
+    assert sr.extract_changelog_section(only_rc, "v0.0.514") is None
+
+
+DUP_CHANGELOG = """\
+# Changelog
+
+## [0.0.454] - 2026-05-27
+### Changed
+- Hardware naming normalization across lessons, pages, and docs prose/tables.
+
+## [0.0.454] - 2026-06-05
+### Fixed
+- Web build GitHub-blob media links now carry the BASE_PATH prefix correctly.
+"""
+
+
+def test_extract_changelog_section_disambiguates_by_date():
+    # The same version appears twice (an upstream duplicate). When a release
+    # date is supplied, the section whose header carries that date wins.
+    section = sr.extract_changelog_section(DUP_CHANGELOG, "v0.0.454", date="2026-06-05")
+    assert "Web build GitHub-blob media links" in section
+    assert "Hardware naming normalization" not in section
+
+
+def test_extract_changelog_section_first_match_without_date():
+    # With no date hint, fall back to the first matching section.
+    section = sr.extract_changelog_section(DUP_CHANGELOG, "v0.0.454")
+    assert "Hardware naming normalization" in section
+
+
+def test_fetch_changelog_section_falls_back_to_resolved_default_branch():
+    # The changelog at the release tag lags (no section yet); the section only
+    # exists on the repo's default branch — which here is "develop", not main.
+    # fetch must resolve the real default branch and look there.
+    tagged   = {"content": base64.b64encode(SAMPLE_CHANGELOG.encode()).decode()}  # lacks 0.0.999
+    repo_meta = {"default_branch": "develop"}
+    on_branch = {"content": base64.b64encode(
+        "# Changelog\n\n## [0.0.999] - 2026-07-01\n### Added\n"
+        "- A genuinely new and sufficiently long changelog entry for testing.\n".encode()
+    ).decode()}
+    # Call order: changelog@tag -> /repos/{repo} (default branch) -> changelog@develop
+    responses = [_mock_urlopen(tagged), _mock_urlopen(repo_meta), _mock_urlopen(on_branch)]
+    with patch("urllib.request.urlopen", side_effect=responses):
+        section = sr.fetch_changelog_section("tenstorrent/some-repo", "v0.0.999")
+    assert section is not None
+    assert "genuinely new" in section
+
+
+def test_fetch_changelog_text_uses_download_url_for_large_file():
+    # Files over ~1MB come back from the Contents API with empty `content` and a
+    # `download_url`. The fetcher must follow that URL instead of returning "".
+    contents = _mock_urlopen({"content": "", "download_url": "https://raw/CHANGELOG.md"})
+    raw = _mock_raw("# Changelog\n\n## [0.0.999] - 2026-07-01\n### Added\n- A big changelog.\n")
+    with patch("urllib.request.urlopen", side_effect=[contents, raw]):
+        text = sr._fetch_changelog_text("tenstorrent/big-repo", "main")
+    assert text is not None
+    assert "0.0.999" in text
+
+
+def test_fetch_changelog_text_tries_next_name_when_content_empty():
+    # A candidate file that yields no usable content (empty, no download_url)
+    # must not abort the search — the next CHANGELOG_NAMES candidate is tried.
+    empty = _mock_urlopen({"content": "", "download_url": None})            # CHANGELOG.md
+    good_text = "# Changelog\n\n## [1.0.0] - 2026-01-01\n### Added\n- Real notes here.\n"
+    good = _mock_urlopen({"content": base64.b64encode(good_text.encode()).decode()})  # CHANGELOG
+    with patch("urllib.request.urlopen", side_effect=[empty, good]):
+        text = sr._fetch_changelog_text("tenstorrent/repo", "main")
+    assert text is not None
+    assert "1.0.0" in text
+
+
+def test_body_defers_to_changelog_true_for_boilerplate():
+    assert sr.body_defers_to_changelog(BOILERPLATE_BODY) is True
+
+
+def test_body_defers_to_changelog_false_for_real_notes():
+    body = (
+        "## What's new\n\nAdds multi-chip routing for n300 configurations across "
+        "four chips, plus assorted bug fixes in the dispatch path." + "x" * 80
+    )
+    assert sr.body_defers_to_changelog(body) is False
+
+
+def test_main_summarizes_changelog_when_body_defers(tmp_path, monkeypatch):
+    meta = {
+        "https://github.com/tenstorrent/tt-vscode-toolkit": {
+            "releases": [{
+                "tagName": "v0.0.514",
+                "name": "v0.0.514",
+                "publishedAt": "2026-06-23T12:00:00Z",
+                "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.0.514",
+                "prerelease": False,
+            }]
+        }
+    }
+    meta_file  = tmp_path / "github_meta.json"
+    feeds_file = tmp_path / "planet_feeds.json"
+    meta_file.write_text(json.dumps(meta))
+    feeds_file.write_text(json.dumps([]))
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+
+    monkeypatch.setattr(sr, "META_IN",     meta_file)
+    monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
+    monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+
+    with patch.object(sr, "fetch_release_body", return_value=BOILERPLATE_BODY), \
+         patch.object(sr, "fetch_changelog_section", return_value=(
+             "## [0.0.514]\n### Fixed\n"
+             "- Real change A — isTtsimQemuInstalled now avoids the grep subprocess.\n"
+             "- Real change B — disk space check uses the correct mount point."
+         )) as mock_cl, \
+         patch.object(sr, "call_summarization_model", return_value="A real summary.") as mock_llm:
+        sr.main([])
+
+    # The changelog section — not the boilerplate body — must be what gets summarized.
+    mock_cl.assert_called_once_with("tenstorrent/tt-vscode-toolkit", "v0.0.514", date="2026-06-23")
+    summarized_content = mock_llm.call_args.kwargs.get("body") or mock_llm.call_args.args[2]
+    assert "Real change A" in summarized_content
+    assert "Installation" not in summarized_content
 
 
 def test_main_dry_run_counts_items(tmp_path, monkeypatch):
