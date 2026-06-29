@@ -241,6 +241,25 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: article link items produced");
 }
 
+// Test 11b: an article-link item's content lists ONLY its own link, not the
+// entry's whole link set (the entry item already carries all links). Avoids
+// byte-identical duplicate content across the two items.
+{
+  const entry = makeEntry(); // has a repo link + an article link
+  const items = jsonFeedItems([entry], []);
+  const entryItem   = items.find((i) => i.tags.includes("entry"));
+  const articleItem = items.find((i) => i.tags.includes("article"));
+  assert.ok(entryItem.content_html.includes("https://github.com/test/repo"),
+    "entry item content includes the repo link");
+  assert.ok(!articleItem.content_html.includes("https://github.com/test/repo"),
+    "article item content omits the repo link (focuses on its own link)");
+  assert.ok(articleItem.content_html.includes("https://example.com/article"),
+    "article item content includes its own link");
+  assert.notStrictEqual(entryItem.content_html, articleItem.content_html,
+    "entry and article item content are not byte-identical");
+  console.log("✓ jsonFeedItems: article item content focuses on its own link");
+}
+
 // Test 12: output is sorted newest-first by date_published
 {
   const oldRel = makeRelease({ publishedAt: "2025-01-01T00:00:00Z", url: "https://github.com/test/repo/releases/tag/v0.1" });
@@ -550,6 +569,63 @@ assert(typeof feedContentHtml === "function", "feedContentHtml filter not regist
   assert.ok(!html.includes("javascript:"), "javascript: scheme dropped");
   assert.ok(html.includes("https://github.com/ok/repo"), "https link kept");
   console.log("✓ feedContentHtml: drops non-http(s) link schemes");
+}
+{
+  // Links render inline with " · ", NOT as a <ul>/<li> list, so they stay
+  // readable when a client flattens the HTML to plain text (Slack RSS).
+  const html = feedContentHtml({
+    description: "x",
+    links: [
+      { type: "repo", url: "https://github.com/a/b", label: "Repo" },
+      { type: "release", url: "https://github.com/a/b/releases/tag/1.3.0", label: "1.3.0" },
+    ],
+  });
+  assert.ok(!html.includes("<ul>") && !html.includes("<li>"), "no list markup");
+  assert.ok(html.includes("</a> · <a"), "links joined by middot separator");
+  assert.ok(html.includes("<strong>Links:</strong> <a"), "inline Links label");
+  console.log("✓ feedContentHtml: links render inline with separator");
+}
+{
+  // Attribution: '@handle' only when author_url is a github.com profile.
+  const gh = feedContentHtml({ author: "geohot", author_url: "https://github.com/geohot" });
+  assert.ok(gh.includes('By <a href="https://github.com/geohot">@geohot</a>'), "github author → @handle linked");
+
+  // A display name / author list with NO url → plain "By Name", no '@'.
+  const name = feedContentHtml({ author: "Jenny Lynn Almerol, Mario Spera" });
+  assert.ok(name.includes("By Jenny Lynn Almerol, Mario Spera"), "plain name rendered");
+  assert.ok(!name.includes("@"), "no bogus @ prefix on a non-handle author");
+
+  // A non-github profile url → linked name without '@'.
+  const other = feedContentHtml({ author: "Martin Chang", author_url: "https://example.com/martin" });
+  assert.ok(other.includes('By <a href="https://example.com/martin">Martin Chang</a>'), "non-github url → linked name");
+  assert.ok(!other.includes("@"), "no @ for non-github profile");
+  console.log("✓ feedContentHtml: @handle only for github.com authors");
+}
+// ── feedDateTime tests ───────────────────────────────────────────────────────
+const feedDateTime = filters["feedDateTime"];
+assert(typeof feedDateTime === "function", "feedDateTime filter not registered");
+{
+  // Date-only input gets a synthesized descending time keyed to feed index, so
+  // earlier (newer) items sort above later ones on the same day.
+  const newer = feedDateTime("2026-05-08", 0);
+  const older = feedDateTime("2026-05-08", 5);
+  assert.strictEqual(newer, "2026-05-08T23:59:59Z", "index 0 → end of day");
+  assert.strictEqual(older, "2026-05-08T23:59:54Z", "index 5 → 5s earlier");
+  assert.ok(newer > older, "earlier feed index sorts later in time (newest-first preserved)");
+  // A value that already carries a time passes through untouched.
+  assert.strictEqual(feedDateTime("2026-06-29T07:46:11Z", 3), "2026-06-29T07:46:11Z", "full timestamp passthrough");
+  // Empty input is safe.
+  assert.strictEqual(feedDateTime("", 0), "1970-01-01T00:00:00Z", "empty → epoch");
+  console.log("✓ feedDateTime: deterministic intra-day ordering + passthrough");
+}
+// ── singleLine tests ─────────────────────────────────────────────────────────
+const singleLine = filters["singleLine"];
+assert(typeof singleLine === "function", "singleLine filter not registered");
+{
+  assert.strictEqual(singleLine("a\n\nb\n  c"), "a b c", "collapses newlines and runs of whitespace");
+  assert.strictEqual(singleLine("  trim me  "), "trim me", "trims ends");
+  assert.strictEqual(singleLine(undefined), "", "undefined → empty");
+  console.log("✓ singleLine: collapses whitespace to a single line");
 }
 
 console.log("\nAll eleventy filter tests passed ✓");

@@ -288,6 +288,10 @@ SYSTEM_PROMPT = (
     "changed and why it matters. Do not repeat the version number or project name. "
     "Do not use hype words like \"exciting\" or \"powerful\". Do not use bullet points."
 )
+# NOTE: the single-paragraph constraint above matters downstream — the release
+# Atom feed renders this text as a one-line <summary> (see src/feeds/releases.njk,
+# which also defensively collapses newlines via the `singleLine` filter). The
+# full text appears with paragraph breaks in the feed's <content> block.
 
 
 def call_summarization_model(repo: str, release_name: str, body: str, affiliation: str) -> str:

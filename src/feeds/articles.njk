@@ -11,13 +11,15 @@ eleventyExcludeFromCollections: true
   <link href="https://tenstorrent.github.io/tt-awesome/"/>
   <id>https://tenstorrent.github.io/tt-awesome/feeds/articles.xml</id>
   <author><name>Tenstorrent Community</name><uri>https://tenstorrent.github.io/tt-awesome/</uri></author>
-  <updated>{{ items[0].added_at + "T00:00:00Z" if (items.length and items[0].added_at and items[0].added_at != "1970-01-01") else "1970-01-01T00:00:00Z" }}</updated>
+  <updated>{{ items[0].added_at | feedDateTime(0) if (items.length and items[0].added_at and items[0].added_at != "1970-01-01") else "1970-01-01T00:00:00Z" }}</updated>
   {%- for item in items %}
   <entry>
     <id>{{ item.linkUrl }}</id>
     <title>{{ item.entryName }} — {{ item.linkLabel }}</title>
     <link href="{{ item.linkUrl }}"/>
-    <updated>{{ item.added_at + "T00:00:00Z" }}</updated>
+    {#- date-only added_at → deterministic descending time by feed position so
+        same-day items keep a stable order in date-sorting readers. #}
+    <updated>{{ item.added_at | feedDateTime(loop.index0) }}</updated>
     {#- type="html" + CDATA so inline markdown (e.g. `code`, **bold**) renders in
         readers without double-escaping markdown-it's already-entity-encoded output. #}
     <summary type="html"><![CDATA[{{ item.entryDesc | markdownInline | cdataSafe | safe }}]]></summary>

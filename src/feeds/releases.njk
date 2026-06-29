@@ -19,7 +19,9 @@ eleventyExcludeFromCollections: true
     <title>{{ rel.entryName }} {{ rel.tagName }}</title>
     <link href="{{ rel.url }}"/>
     <updated>{{ rel.publishedAt }}</updated>
-    <summary type="html"><![CDATA[{{ rel.summary | markdownInline | cdataSafe | safe }}]]></summary>
+    {#- singleLine collapses any newlines so the summary is always one clean
+        line (the full multi-paragraph text still appears in <content>). #}
+    <summary type="html"><![CDATA[{{ rel.summary | singleLine | markdownInline | cdataSafe | safe }}]]></summary>
     <content type="html"><![CDATA[{{ rel | feedContentHtml | cdataSafe | safe }}]]></content>
     <category term="{{ rel.affiliation }}"/>
     <category term="release"/>

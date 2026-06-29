@@ -11,7 +11,7 @@ eleventyExcludeFromCollections: true
   <id>https://tenstorrent.github.io/tt-awesome/feeds/new-entries.xml</id>
   <author><name>Tenstorrent Community</name><uri>https://tenstorrent.github.io/tt-awesome/</uri></author>
   {%- set sortedEntries = entries | sort(true, false, "added_at") %}
-  <updated>{{ sortedEntries[0].added_at + "T00:00:00Z" if (sortedEntries.length and sortedEntries[0].added_at) else "1970-01-01T00:00:00Z" }}</updated>
+  <updated>{{ sortedEntries[0].added_at | feedDateTime(0) if (sortedEntries.length and sortedEntries[0].added_at) else "1970-01-01T00:00:00Z" }}</updated>
   {%- for entry in sortedEntries %}
   {%- if loop.index <= 50 %}
   {%- set repoLink = entry.links | selectattr("type", "equalto", "repo") | first %}
@@ -19,7 +19,10 @@ eleventyExcludeFromCollections: true
     <id>{{ repoLink.url if repoLink else "https://tenstorrent.github.io/tt-awesome/#" + entry.id }}</id>
     <title>{{ entry.name }}</title>
     <link href="{{ repoLink.url if repoLink else "https://tenstorrent.github.io/tt-awesome/#" + entry.id }}"/>
-    <updated>{{ entry.added_at + "T00:00:00Z" if entry.added_at else "1970-01-01T00:00:00Z" }}</updated>
+    {#- added_at is date-only; feedDateTime synthesizes a deterministic
+        descending time from feed position so same-day entries keep a stable
+        order in date-sorting readers. #}
+    <updated>{{ entry.added_at | feedDateTime(loop.index0) if entry.added_at else "1970-01-01T00:00:00Z" }}</updated>
     {#- type="html" + CDATA so inline markdown renders in readers without
         double-escaping markdown-it's already-entity-encoded output. #}
     <summary type="html"><![CDATA[{{ entry.description | markdownInline | cdataSafe | safe }}]]></summary>

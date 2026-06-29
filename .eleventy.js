@@ -46,28 +46,42 @@ function buildFeedContentHtml(item) {
     (l) => l && l.url && /^https?:\/\//i.test(l.url)
   );
   if (links.length) {
-    const lis = links
+    // Render links inline, separated by " · ", rather than as a <ul>/<li> list.
+    // HTML readers show a tidy one-liner, and — crucially — clients that flatten
+    // HTML to plain text (Slack's RSS app, plain-text views) still get readable
+    // output: "<li>Repo</li><li>1.3.0</li>" flattens to "Repo1.3.0", but
+    // "<a>Repo</a> · <a>1.3.0</a>" flattens to "Repo · 1.3.0". (See deep feed
+    // review 2026-06-29.)
+    const anchors = links
       .map((l) => {
         const label = l.label
           ? escapeHtml(l.label)
           : l.type
           ? escapeHtml(l.type.charAt(0).toUpperCase() + l.type.slice(1))
           : escapeHtml(l.url);
-        return `<li><a href="${escapeHtml(l.url)}">${label}</a></li>`;
+        return `<a href="${escapeHtml(l.url)}">${label}</a>`;
       })
-      .join("");
-    parts.push(`<p><strong>Links:</strong></p>\n<ul>${lis}</ul>`);
+      .join(" · ");
+    parts.push(`<p><strong>Links:</strong> ${anchors}</p>`);
   }
 
-  // 3. Attribution — author (linked when we have a profile URL), affiliation,
-  //    date added, separated by middots.
+  // 3. Attribution — author, affiliation, date added, separated by middots.
   const attr = [];
   if (item.author) {
-    attr.push(
-      item.author_url
-        ? `By <a href="${escapeHtml(item.author_url)}">@${escapeHtml(item.author)}</a>`
-        : `By @${escapeHtml(item.author)}`
-    );
+    // Only treat the author as a GitHub @handle when author_url is a github.com
+    // profile (entries.js derives that URL from the repo owner login). For
+    // papers/talks/blogs the `author` field is a display name or author list
+    // ("Jenny Lynn Almerol, …"), so an "@" prefix would be misleading — render
+    // it as a plain name instead. (See deep feed review 2026-06-29.)
+    const isGitHubHandle =
+      item.author_url && /^https?:\/\/github\.com\//i.test(item.author_url);
+    if (isGitHubHandle) {
+      attr.push(`By <a href="${escapeHtml(item.author_url)}">@${escapeHtml(item.author)}</a>`);
+    } else if (item.author_url) {
+      attr.push(`By <a href="${escapeHtml(item.author_url)}">${escapeHtml(item.author)}</a>`);
+    } else {
+      attr.push(`By ${escapeHtml(item.author)}`);
+    }
   }
   if (item.affiliation) attr.push(escapeHtml(item.affiliation));
   if (item.added_at) attr.push(`added ${escapeHtml(item.added_at)}`);
@@ -80,6 +94,20 @@ function buildFeedContentHtml(item) {
   }
 
   return parts.join("\n");
+}
+
+// Build a feed timestamp from a date that may be date-only. See the feedDateTime
+// filter registration below for the full rationale. Shared as a module-scope
+// function so both the filter and jsonFeedItems produce identical timestamps.
+function feedDateTime(dateStr, index = 0) {
+  if (!dateStr) return "1970-01-01T00:00:00Z";
+  if (/T\d{2}:\d{2}/.test(dateStr)) return dateStr; // already a full timestamp
+  const i = Math.max(0, Math.min(86399, Number(index) || 0)); // clamp to 1 day
+  const secs = 86399 - i; // earlier in feed (newer) → later time that day
+  const hh = String(Math.floor(secs / 3600)).padStart(2, "0");
+  const mm = String(Math.floor((secs % 3600) / 60)).padStart(2, "0");
+  const ss = String(secs % 60).padStart(2, "0");
+  return `${dateStr}T${hh}:${mm}:${ss}Z`;
 }
 
 module.exports = function (eleventyConfig) {
@@ -104,6 +132,26 @@ module.exports = function (eleventyConfig) {
   // Render the full rich HTML content block for a feed item. Pair with
   // `| cdataSafe | safe` in Atom templates. See buildFeedContentHtml above.
   eleventyConfig.addFilter("feedContentHtml", (item) => buildFeedContentHtml(item));
+
+  // Build a feed timestamp from a date that may be date-only (entry `added_at`
+  // is "YYYY-MM-DD" with no time). Many entries share an `added_at`, so emitting
+  // a flat "T00:00:00Z" leaves readers that sort by <updated>/date_published
+  // unable to order same-day items. We synthesize a deterministic *descending*
+  // time-of-day from the item's position in the (newest-first) feed so that
+  // date-sorting in a reader reproduces our curated order. This is an ordering
+  // key, NOT a real timestamp — `added_at` carries no real time-of-day.
+  // Strings that already include a time (release `publishedAt`) pass through.
+  eleventyConfig.addFilter("feedDateTime", (dateStr, index = 0) =>
+    feedDateTime(dateStr, index)
+  );
+
+  // Collapse all runs of whitespace (including newlines) to single spaces.
+  // Used on the release feed <summary> so a multi-paragraph summary can never
+  // render as a run-on — the summary must be a single clean line, while the
+  // full text still appears (with paragraphs) in <content>.
+  eleventyConfig.addFilter("singleLine", (str) =>
+    (str || "").replace(/\s+/g, " ").trim()
+  );
 
   // Make a string safe to embed inside an XML CDATA section. A literal "]]>"
   // would close the section early and break the feed (or allow injection), so
@@ -282,10 +330,10 @@ module.exports = function (eleventyConfig) {
       const anyLink  = (entry.links || []).find((l) => l.url);
       const repoUrl  = repoLink ? repoLink.url : null;
 
-      // Date helper — ensure full ISO 8601 timestamp.
-      const entryDate = entry.added_at
-        ? `${entry.added_at}T00:00:00Z`
-        : "1970-01-01T00:00:00Z";
+      // Full ISO 8601 timestamp. added_at is date-only, so synthesize a
+      // deterministic descending time-of-day from the feed position (i) to give
+      // same-day items a stable order in date-sorting readers. See feedDateTime.
+      const entryDate = feedDateTime(entry.added_at, i);
 
       // 2a. One item for the entry itself.
       items.push({
@@ -307,7 +355,11 @@ module.exports = function (eleventyConfig) {
           id:             link.url,
           url:            link.url,
           title:          `${entry.name} — ${link.label || link.type}`,
-          content_html:   buildFeedContentHtml(entry),
+          // This item represents one specific link, so its content lists only
+          // that link — not the entry's whole link set (which the entry item
+          // above already carries). Avoids byte-identical duplicate content
+          // across the two items in the combined feed. (Deep feed review.)
+          content_html:   buildFeedContentHtml({ ...entry, links: [link] }),
           summary:        entry.description || "",
           date_published: entryDate,
           tags:           [
