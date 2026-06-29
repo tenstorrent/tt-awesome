@@ -607,6 +607,21 @@ assert(typeof feedContentHtml === "function", "feedContentHtml filter not regist
   assert.ok(evil.includes("By x"), "author rendered as plain text");
   console.log("✓ feedContentHtml: @handle only for github.com authors; author_url scheme-guarded");
 }
+// ── firstLinkOfType tests ────────────────────────────────────────────────────
+const firstLinkOfType = filters["firstLinkOfType"];
+assert(typeof firstLinkOfType === "function", "firstLinkOfType filter not registered");
+{
+  const links = [
+    { type: "article", url: "https://x/a" },
+    { type: "repo", url: "https://x/repo" },
+    { type: "repo", url: "https://x/repo2" },
+  ];
+  assert.strictEqual(firstLinkOfType(links, "repo").url, "https://x/repo", "returns first matching type");
+  assert.strictEqual(firstLinkOfType(links, "video"), null, "no match → null");
+  assert.strictEqual(firstLinkOfType(undefined, "repo"), null, "missing links → null");
+  assert.strictEqual(firstLinkOfType([{}, null], "repo"), null, "skips falsy/typeless entries");
+  console.log("✓ firstLinkOfType: selects first link of a type, null otherwise");
+}
 // ── feedDateTime tests ───────────────────────────────────────────────────────
 const feedDateTime = filters["feedDateTime"];
 assert(typeof feedDateTime === "function", "feedDateTime filter not registered");

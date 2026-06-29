@@ -45,10 +45,12 @@ Rule: `<summary>` = clean one-liner; `<content>` = full rich HTML block.
 
 Feed logic already lives in tested JS filters in `.eleventy.js`
 (`jsonFeedItems`, `articleFeedItems`) with thin Nunjucks templates. We extend
-that filter layer rather than pushing logic into Nunjucks, which the codebase
-already documents as unreliable for this kind of work (see comments in
-`entries.js` re: `selectattr` / loop-scope). Everything stays unit-testable
-through the existing `tests/test_eleventy_filters.js` harness.
+that filter layer rather than pushing logic into Nunjucks. In Eleventy's
+Nunjucks `selectattr` exists but filters unreliably (see the `planetCount`
+comment in `.eleventy.js`), and loop-scoped variables don't persist to the
+outer scope (see `entries.js`) — so link selection and similar logic belong in
+JS filters, where they're predictable and unit-testable through the existing
+`tests/test_eleventy_filters.js` harness.
 
 ### Component 1 — Rich release summaries in `recentReleases.js`
 

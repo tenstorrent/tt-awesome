@@ -14,7 +14,7 @@ eleventyExcludeFromCollections: true
   <updated>{{ sortedEntries[0].added_at | feedDateTime(0) if (sortedEntries.length and sortedEntries[0].added_at) else "1970-01-01T00:00:00Z" }}</updated>
   {%- for entry in sortedEntries %}
   {%- if loop.index <= 50 %}
-  {%- set repoLink = entry.links | selectattr("type", "equalto", "repo") | first %}
+  {%- set repoLink = entry.links | firstLinkOfType("repo") %}
   <entry>
     <id>{{ repoLink.url if repoLink else "https://tenstorrent.github.io/tt-awesome/#" + entry.id }}</id>
     <title>{{ entry.name }}</title>

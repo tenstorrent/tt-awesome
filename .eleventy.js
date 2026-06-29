@@ -138,6 +138,15 @@ module.exports = function (eleventyConfig) {
   // `| cdataSafe | safe` in Atom templates. See buildFeedContentHtml above.
   eleventyConfig.addFilter("feedContentHtml", (item) => buildFeedContentHtml(item));
 
+  // Return the first link of a given type (e.g. "repo") from a links array, or
+  // null. Templates use this instead of `links | selectattr("type","equalto",
+  // type) | first` — selectattr is unreliable in Eleventy's Nunjucks (see the
+  // planetCount note below), so we resolve link selection in JS where it's
+  // predictable and unit-testable.
+  eleventyConfig.addFilter("firstLinkOfType", (links, type) =>
+    (links || []).find((l) => l && l.type === type) || null
+  );
+
   // Build a feed timestamp from a date that may be date-only (entry `added_at`
   // is "YYYY-MM-DD" with no time). Many entries share an `added_at`, so emitting
   // a flat "T00:00:00Z" leaves readers that sort by <updated>/date_published

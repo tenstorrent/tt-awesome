@@ -16,7 +16,7 @@ eleventyExcludeFromCollections: true
 - [README](https://github.com/tenstorrent/tt-awesome/blob/main/README.md): human-readable directory.
 {% for cat in categories %}
 ## {{ cat.label | safe }}
-{% for entry in entries | sort(false, false, "name") %}{% if entry.categories and (cat.slug in entry.categories) %}{%- set repoLink = entry.links | selectattr("type", "equalto", "repo") | first %}{%- set anyLink = entry.links | first %}
+{% for entry in entries | sort(false, false, "name") %}{% if entry.categories and (cat.slug in entry.categories) %}{%- set repoLink = entry.links | firstLinkOfType("repo") %}{%- set anyLink = entry.links | first %}
 - [{{ entry.name | safe }}]({{ repoLink.url if repoLink else (anyLink.url if anyLink else "https://tenstorrent.github.io/tt-awesome/#" + entry.id) }}): {{ entry.description | striptags | replace("\n", " ") | safe }}
 {%- endif %}{% endfor %}
 {% endfor %}
