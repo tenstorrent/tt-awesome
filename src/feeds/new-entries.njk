@@ -23,6 +23,9 @@ eleventyExcludeFromCollections: true
     {#- type="html" + CDATA so inline markdown renders in readers without
         double-escaping markdown-it's already-entity-encoded output. #}
     <summary type="html"><![CDATA[{{ entry.description | markdownInline | cdataSafe | safe }}]]></summary>
+    {#- Full rich content block for feed readers; summary above stays a clean
+        one-liner so Slack's RSS app (which flattens HTML) still reads well. #}
+    <content type="html"><![CDATA[{{ entry | feedContentHtml | cdataSafe | safe }}]]></content>
     <category term="{{ entry.affiliation }}"/>
     {%- for cat in entry.categories %}
     <category term="{{ cat }}"/>

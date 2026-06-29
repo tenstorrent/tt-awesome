@@ -21,6 +21,7 @@ eleventyExcludeFromCollections: true
     {#- type="html" + CDATA so inline markdown (e.g. `code`, **bold**) renders in
         readers without double-escaping markdown-it's already-entity-encoded output. #}
     <summary type="html"><![CDATA[{{ item.entryDesc | markdownInline | cdataSafe | safe }}]]></summary>
+    <content type="html"><![CDATA[{{ item | feedContentHtml | cdataSafe | safe }}]]></content>
     <category term="{{ item.linkType }}"/>
     <category term="{{ item.affiliation }}"/>
     {%- for cat in item.categories %}
