@@ -140,9 +140,30 @@ function makeRelease(overrides) {
   console.log("✓ articleFeedItems: missing added_at falls back to 1970-01-01");
 }
 
+// Test 8: articleFeedItems carries fields needed by feedContentHtml.
+{
+  const entry = makeEntry({
+    author: "alice",
+    author_url: "https://github.com/alice",
+    tags: ["blackhole"],
+    links: [
+      { type: "repo", url: "https://github.com/test/repo" },
+      { type: "article", url: "https://example.com/article", label: "Read more" },
+    ],
+  });
+  const items = articleFeedItems([entry], 50);
+  const it = items[0];
+  assert.strictEqual(it.description, "A test entry.", "carries entry description");
+  assert.strictEqual(it.author, "alice", "carries author");
+  assert.strictEqual(it.author_url, "https://github.com/alice", "carries author_url");
+  assert.deepStrictEqual(it.tags, ["blackhole"], "carries tags");
+  assert.strictEqual(it.links.length, 2, "carries entry's full links array");
+  console.log("✓ articleFeedItems: carries feedContentHtml contract fields");
+}
+
 // ── jsonFeedItems tests ───────────────────────────────────────────────────────
 
-// Test 8: release items appear with correct shape
+// Test 9: release items appear with correct shape
 {
   const rel = makeRelease();
   const items = jsonFeedItems([], [rel]);
@@ -156,7 +177,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: release items have correct shape");
 }
 
-// Test 8b: release items use rel.summary as their summary text.
+// Test 9b: release items use rel.summary as their summary text.
 {
   const rel = makeRelease({ summary: "Rich release summary here." });
   const items = jsonFeedItems([], [rel]);
@@ -167,7 +188,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: release items use rel.summary");
 }
 
-// Test 8c: release with no rel.summary falls back to the one-liner string.
+// Test 9c: release with no rel.summary falls back to the one-liner string.
 {
   const rel = makeRelease(); // no summary field
   const items = jsonFeedItems([], [rel]);
@@ -179,7 +200,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: release summary falls back to one-liner");
 }
 
-// Test 9: entry items appear with correct shape
+// Test 10: entry items appear with correct shape
 {
   const entry = makeEntry({ links: [{ type: "repo", url: "https://github.com/test/repo" }] });
   const items = jsonFeedItems([entry], []);
@@ -191,7 +212,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: entry items have correct shape");
 }
 
-// Test 9b: items carry content_html (JSON Feed 1.1 requires content_html or
+// Test 10b: items carry content_html (JSON Feed 1.1 requires content_html or
 // content_text) — now a rich block with inline markdown rendered inside it; summary stays plain text.
 {
   const entry = makeEntry({
@@ -210,7 +231,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: items carry rendered content_html + plain summary");
 }
 
-// Test 10: article-type links produce article items
+// Test 11: article-type links produce article items
 {
   const entry = makeEntry();
   const items = jsonFeedItems([entry], []);
@@ -220,7 +241,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: article link items produced");
 }
 
-// Test 11: output is sorted newest-first by date_published
+// Test 12: output is sorted newest-first by date_published
 {
   const oldRel = makeRelease({ publishedAt: "2025-01-01T00:00:00Z", url: "https://github.com/test/repo/releases/tag/v0.1" });
   const newRel = makeRelease({ publishedAt: "2026-06-01T00:00:00Z", url: "https://github.com/test/repo/releases/tag/v2.0" });
@@ -237,7 +258,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: output sorted newest-first by date_published");
 }
 
-// Test 12: empty affiliation is filtered from tags
+// Test 13: empty affiliation is filtered from tags
 {
   const entry = makeEntry({ affiliation: "", links: [{ type: "repo", url: "https://github.com/test/repo" }] });
   const items = jsonFeedItems([entry], []);
@@ -246,7 +267,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: empty affiliation filtered from tags");
 }
 
-// Test 13: entries without repo link fall back to first available link URL
+// Test 14: entries without repo link fall back to first available link URL
 {
   const entry = makeEntry({ links: [{ type: "article", url: "https://example.com/article" }] });
   const items = jsonFeedItems([entry], []);
@@ -256,7 +277,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: no-repo entry falls back to first available link URL");
 }
 
-// Test 14: entries with no links at all fall back to anchor URL
+// Test 15: entries with no links at all fall back to anchor URL
 {
   const entry = makeEntry({ links: [] });
   const items = jsonFeedItems([entry], []);
@@ -275,7 +296,7 @@ assert(typeof planetItems  === "function", "planetItems filter not registered");
 assert(typeof monthLabel   === "function", "monthLabel filter not registered");
 assert(typeof monthKey     === "function", "monthKey filter not registered");
 
-// Test 15: article links appear in planet items
+// Test 16: article links appear in planet items
 {
   const entry = makeEntry({ links: [
     { type: "repo",    url: "https://github.com/test/repo" },
@@ -291,7 +312,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: article links included with correct shape");
 }
 
-// Test 16: releases appear with type "release"
+// Test 17: releases appear with type "release"
 {
   const rel = makeRelease();
   const items = planetItems([], [rel], []);
@@ -303,7 +324,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: releases included with correct shape");
 }
 
-// Test 17: output sorted newest-first
+// Test 18: output sorted newest-first
 {
   const old  = makeEntry({ id: "old",  added_at: "2025-01-01", links: [{ type: "article", url: "https://example.com/old" }] });
   const newE = makeEntry({ id: "newE", added_at: "2026-06-01", links: [{ type: "article", url: "https://example.com/new" }] });
@@ -313,7 +334,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: sorted newest-first");
 }
 
-// Test 18: deduplication by URL
+// Test 19: deduplication by URL
 {
   const e1 = makeEntry({ id: "e1", links: [{ type: "article", url: "https://example.com/same" }] });
   const e2 = makeEntry({ id: "e2", links: [{ type: "article", url: "https://example.com/same" }] });
@@ -322,7 +343,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: deduplicates by URL");
 }
 
-// Test 19: all six article types included
+// Test 20: all six article types included
 {
   const types = ["article", "lesson", "paper", "talk", "video", "demo"];
   const links = types.map((t) => ({ type: t, url: `https://example.com/${t}` }));
@@ -334,7 +355,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: all six article types included");
 }
 
-// Test 20: monthLabel converts correctly
+// Test 21: monthLabel converts correctly
 {
   assert.strictEqual(monthLabel("2026-05"),    "May 2026");
   assert.strictEqual(monthLabel("2026-05-01"), "May 2026");
@@ -344,7 +365,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ monthLabel: converts YYYY-MM and YYYY-MM-DD correctly");
 }
 
-// Test 21: monthKey slices YYYY-MM from date strings
+// Test 22: monthKey slices YYYY-MM from date strings
 {
   assert.strictEqual(monthKey("2026-05-01"), "2026-05");
   assert.strictEqual(monthKey("2026-12-31"), "2026-12");
@@ -354,14 +375,14 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ monthKey: slices YYYY-MM correctly");
 }
 
-// Test 22: monthLabel guards invalid month numbers
+// Test 23: monthLabel guards invalid month numbers
 {
   assert.strictEqual(monthLabel("2026-00-15"), "2026-00-15"); // month 0 → returns dateStr
   assert.strictEqual(monthLabel("2026-13-01"), "2026-13-01"); // month 13 → returns dateStr
   console.log("✓ monthLabel: guards out-of-range month numbers");
 }
 
-// Test 23: planetItems excludes dev releases (all known patterns)
+// Test 24: planetItems excludes dev releases (all known patterns)
 {
   const mkRel = (tagName, url) => ({
     entryId: "x", entryName: "X", affiliation: "official",
@@ -381,7 +402,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: excludes .dev, -dev, and -dev.<digits> release tags");
 }
 
-// Test 24: approved external items appear
+// Test 25: approved external items appear
 {
   const extApproved1 = {
     type: "video", source: "youtube", approved: true,

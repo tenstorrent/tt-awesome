@@ -220,6 +220,12 @@ module.exports = function (eleventyConfig) {
           linkUrl:    link.url,
           linkLabel:  link.label || (link.type.charAt(0).toUpperCase() + link.type.slice(1)),
           added_at:   entry.added_at || "1970-01-01",
+          // feedContentHtml contract fields:
+          description: entry.description || "",
+          links:      entry.links || [],
+          author:     entry.author || "",
+          author_url: entry.author_url || "",
+          tags:       entry.tags || [],
         });
         if (items.length >= limit) return items;
       }
