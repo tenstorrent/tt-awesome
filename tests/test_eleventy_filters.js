@@ -167,6 +167,18 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: release items use rel.summary");
 }
 
+// Test 8c: release with no rel.summary falls back to the one-liner string.
+{
+  const rel = makeRelease(); // no summary field
+  const items = jsonFeedItems([], [rel]);
+  assert.strictEqual(
+    items[0].summary,
+    "Test Entry released v1.0.0. Repository: https://github.com/test/repo",
+    "release summary falls back to one-liner when rel.summary absent"
+  );
+  console.log("✓ jsonFeedItems: release summary falls back to one-liner");
+}
+
 // Test 9: entry items appear with correct shape
 {
   const entry = makeEntry({ links: [{ type: "repo", url: "https://github.com/test/repo" }] });
@@ -180,7 +192,7 @@ function makeRelease(overrides) {
 }
 
 // Test 9b: items carry content_html (JSON Feed 1.1 requires content_html or
-// content_text) with inline markdown rendered; summary stays plain text.
+// content_text) — now a rich block with inline markdown rendered inside it; summary stays plain text.
 {
   const entry = makeEntry({
     description: "Uses `tt_metal` under the hood.",
