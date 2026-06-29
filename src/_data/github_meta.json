@@ -65,8 +65,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
-    "stars": 13,
-    "updatedAt": "2026-06-25T08:21:59Z"
+    "stars": 14,
+    "updatedAt": "2026-06-28T11:13:07Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 64,
@@ -78,8 +78,22 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 61,
-    "updatedAt": "2026-06-25T22:26:46Z",
+    "updatedAt": "2026-06-27T03:35:44Z",
     "releases": [
+      {
+        "tagName": "v0.17.0",
+        "name": "v0.17.0",
+        "publishedAt": "2026-06-26T19:29:31Z",
+        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.17.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "v0.17.0-release_artifacts.zip",
+            "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.17.0/v0.17.0-release_artifacts.zip",
+            "size": 102130236
+          }
+        ]
+      },
       {
         "tagName": "v0.16.0",
         "name": "v0.16.0",
@@ -133,20 +147,6 @@
             "name": "v0.13.0-release_artifacts.zip",
             "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.13.0/v0.13.0-release_artifacts.zip",
             "size": 541836
-          }
-        ]
-      },
-      {
-        "tagName": "v0.10.1",
-        "name": "v0.10.1",
-        "publishedAt": "2026-04-08T09:58:17Z",
-        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.10.1",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "v0.10.1-release_artifacts.zip",
-            "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.10.1/v0.10.1-release_artifacts.zip",
-            "size": 173894234
           }
         ]
       }
@@ -460,8 +460,8 @@
     ]
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2166,
-    "updatedAt": "2026-06-25T16:54:24Z",
+    "stars": 2168,
+    "updatedAt": "2026-06-28T06:39:50Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -506,8 +506,8 @@
     "updatedAt": "2026-05-26T08:35:57Z"
   },
   "https://github.com/Zaneham/BarraCUDA": {
-    "stars": 1701,
-    "updatedAt": "2026-06-26T04:33:06Z",
+    "stars": 1703,
+    "updatedAt": "2026-06-28T09:46:43Z",
     "releases": [
       {
         "tagName": "v0.5.0",
@@ -520,7 +520,7 @@
   },
   "https://github.com/kernelize-ai/triton-tenstorrent": {
     "stars": 11,
-    "updatedAt": "2026-06-25T15:16:41Z"
+    "updatedAt": "2026-06-27T22:08:55Z"
   },
   "https://github.com/tenstorrent/tt-buda": {
     "stars": 315,
@@ -680,58 +680,65 @@
   },
   "https://github.com/tenstorrent/tt-forge-onnx": {
     "stars": 64,
-    "updatedAt": "2026-06-26T05:28:24Z",
+    "updatedAt": "2026-06-27T11:01:56Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/src/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
+      {
+        "tagName": "1.3.0.dev20260629011339",
+        "name": "1.3.0.dev20260629011339",
+        "publishedAt": "2026-06-29T01:57:47Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0.dev20260629011339",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.3.0",
+        "name": "1.3.0",
+        "publishedAt": "2026-06-29T07:46:11Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.3.0.dev20260628011726",
+        "name": "1.3.0.dev20260628011726",
+        "publishedAt": "2026-06-28T01:51:32Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0.dev20260628011726",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.3.0.dev20260627013616",
+        "name": "1.3.0.dev20260627013616",
+        "publishedAt": "2026-06-27T01:54:46Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0.dev20260627013616",
+        "prerelease": false
+      },
       {
         "tagName": "1.3.0.dev20260626011729",
         "name": "1.3.0.dev20260626011729",
         "publishedAt": "2026-06-26T01:39:40Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0.dev20260626011729",
         "prerelease": false
-      },
-      {
-        "tagName": "1.3.0.dev20260625011241",
-        "name": "1.3.0.dev20260625011241",
-        "publishedAt": "2026-06-25T01:31:32Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0.dev20260625011241",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.3.0.dev20260624014431",
-        "name": "1.3.0.dev20260624014431",
-        "publishedAt": "2026-06-24T02:09:14Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0.dev20260624014431",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.3.0.dev20260623015557",
-        "name": "1.3.0.dev20260623015557",
-        "publishedAt": "2026-06-23T02:46:43Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0.dev20260623015557",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.3.0.dev20260622011935",
-        "name": "1.3.0.dev20260622011935",
-        "publishedAt": "2026-06-22T01:41:41Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0.dev20260622011935",
-        "prerelease": false
       }
-    ],
-    "latestStableRelease": {
-      "tagName": "1.2.0",
-      "name": "1.2.0",
-      "publishedAt": "2026-05-28T09:57:37Z",
-      "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.2.0",
-      "prerelease": false
-    }
+    ]
   },
   "https://github.com/tenstorrent/tt-forge": {
-    "stars": 307,
-    "updatedAt": "2026-06-26T02:26:24Z",
+    "stars": 310,
+    "updatedAt": "2026-06-28T20:11:35Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
+      {
+        "tagName": "1.3.0.dev20260629003203",
+        "name": "1.3.0.dev20260629003203",
+        "publishedAt": "2026-06-29T01:41:27Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.3.0.dev20260629003203",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.3.0.dev20260627003126",
+        "name": "1.3.0.dev20260627003126",
+        "publishedAt": "2026-06-27T01:21:09Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.3.0.dev20260627003126",
+        "prerelease": false
+      },
       {
         "tagName": "1.3.0.dev20260625003219",
         "name": "1.3.0.dev20260625003219",
@@ -752,20 +759,6 @@
         "publishedAt": "2026-06-23T01:10:05Z",
         "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.3.0.dev20260623003249",
         "prerelease": false
-      },
-      {
-        "tagName": "1.3.0.dev20260621003439",
-        "name": "1.3.0.dev20260621003439",
-        "publishedAt": "2026-06-21T01:19:47Z",
-        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.3.0.dev20260621003439",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.3.0.dev20260620003154",
-        "name": "1.3.0.dev20260620003154",
-        "publishedAt": "2026-06-20T01:44:50Z",
-        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.3.0.dev20260620003154",
-        "prerelease": false
       }
     ],
     "latestStableRelease": {
@@ -781,8 +774,8 @@
     "updatedAt": "2026-05-04T10:03:58Z"
   },
   "https://github.com/tenstorrent/tt-mlir": {
-    "stars": 286,
-    "updatedAt": "2026-06-26T07:10:55Z",
+    "stars": 288,
+    "updatedAt": "2026-06-28T08:42:42Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -952,8 +945,29 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 70,
-    "updatedAt": "2026-06-25T21:21:53Z",
+    "updatedAt": "2026-06-28T20:20:46Z",
     "releases": [
+      {
+        "tagName": "1.3.0.dev20260629003203",
+        "name": "1.3.0.dev20260629003203",
+        "publishedAt": "2026-06-29T01:32:14Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.3.0.dev20260629003203",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.3.0.dev20260628003030",
+        "name": "1.3.0.dev20260628003030",
+        "publishedAt": "2026-06-28T01:29:54Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.3.0.dev20260628003030",
+        "prerelease": false
+      },
+      {
+        "tagName": "1.3.0.dev20260627003126",
+        "name": "1.3.0.dev20260627003126",
+        "publishedAt": "2026-06-27T01:03:10Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.3.0.dev20260627003126",
+        "prerelease": false
+      },
       {
         "tagName": "1.3.0.dev20260626003333",
         "name": "1.3.0.dev20260626003333",
@@ -966,27 +980,6 @@
         "name": "1.3.0.dev20260625003219",
         "publishedAt": "2026-06-25T01:07:06Z",
         "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.3.0.dev20260625003219",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.3.0.dev20260624002726",
-        "name": "1.3.0.dev20260624002726",
-        "publishedAt": "2026-06-24T01:01:17Z",
-        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.3.0.dev20260624002726",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.3.0.dev20260623003249",
-        "name": "1.3.0.dev20260623003249",
-        "publishedAt": "2026-06-23T01:01:46Z",
-        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.3.0.dev20260623003249",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.3.0.dev20260622003500",
-        "name": "1.3.0.dev20260622003500",
-        "publishedAt": "2026-06-22T01:12:13Z",
-        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.3.0.dev20260622003500",
         "prerelease": false
       }
     ],
@@ -1003,8 +996,8 @@
     "updatedAt": "2026-06-04T14:15:02Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10775,
-    "updatedAt": "2026-06-26T01:05:55Z",
+    "stars": 10786,
+    "updatedAt": "2026-06-29T07:09:57Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1081,9 +1074,16 @@
   },
   "https://github.com/tsingletaryTT/tensix-viz": {
     "stars": 0,
-    "updatedAt": "2026-06-09T22:18:49Z",
+    "updatedAt": "2026-06-26T13:32:01Z",
     "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tensix-viz/main/docs/assets/chip.gif",
     "releases": [
+      {
+        "tagName": "v1.1.1",
+        "name": "v1.1.1 - better player behavior",
+        "publishedAt": "2026-06-26T13:32:52Z",
+        "url": "https://github.com/tsingletaryTT/tensix-viz/releases/tag/v1.1.1",
+        "prerelease": false
+      },
       {
         "tagName": "v1.1.0",
         "name": "v1.1.0 - maps",
@@ -1092,11 +1092,11 @@
         "prerelease": false
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to tensix-viz are documented here.\n\n## [1.1.0] - 2026-06-09\n\n### Fixed\n\n- **Heatmap: non-tensix cells no longer painted by heat overlay** (`src/chip.js` `_drawHeatmap`)\n  Commit 76dca80 added `coreType !== 'tensix'` guards to the pre-built artifacts but never to\n  the source. The guards are now in `src/chip.js` so the next build preserves them. Without this\n  fix, DRAM (col 5 on Wormhole), ETH (row 6 on Wormhole), and PCIe (col 8 on Blackhole) cells\n  were colored by the heatmap overlay and could inflate `maxVal`, compressing the visible range\n  for all tensix cells.\n\n- **Memory overlay: stale phase not rendered after `reset()` on `showMemory: true` instances**\n  (`src/chip.js` `reset()` and constructor)\n  After calling `viz.activate(mode)` followed by `viz.reset()` on a canvas created with\n  `showMemory: true`, `_memPhase` retained the frozen `_mem` object from the animation closure.\n  `reset()` calls `render()` at the end, which caused `_drawMemoryLayer()` to run with stale data,\n  producing a faint DRAM glow and L1 fill bars on an otherwise blank chip. `reset()` now sets\n  `this._memPhase = null`; the field is also explicitly initialized to `null` in the constructor.\n\n- **Canvas context: `getContext('2d')` moved to after canvas sizing**\n  (`src/chip.js` constructor)\n  The 2D context was obtained before `canvas.width`/`canvas.height` were assigned. Assigning to\n  `canvas.width` resets all context state per spec, making the early `getContext` call redundant\n  and inconsistent with the intent. `this.ctx` is now assigned after the sizing block so the\n  obtained context reflects the final dimensions.\n\n### Added\n\n- **Responsive canvas sizing** (`src/chip.js` constructor)\n  If `canvas.parentElement` exists and `clientWidth` is smaller than the canvas's intrinsic\n  `width` attribute, logical dimensions are capped to the container width and height is scaled\n  proportionally. Applies at construction time; re-create the instance for later resizes.\n\n- **Float label boundary clamping** (overridden `render()`)\n  The floating tooltip label is now clamped so its pill box never overflows any canvas edge.\n  `rawCx`/`rawCy` are constrained by `Math.max(w/2+margin, Math.min(logicalW-w/2-margin, raw*))`.\n\n## [1.0.0] - 2026-05-18\n\nInitial public release."
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to tensix-viz are documented here.\n\n## [1.1.1] - 2026-06-25\n\n### Fixed\n\n- **Animation player accepts both script schemas** (`src/chip.js` `_execStep`)\n  The player dispatched on `step.step` and read `step.cores` only, so scripts authored with the\n  alternate `{ action, coords }` schema ran zero steps \u2014 the Play button (and auto-play) appeared\n  dead. `_execStep` now dispatches on `step.step || step.action` and falls back `coords \u2192 cores`,\n  so blocks written in either schema animate.\n\n- **`autoInit()` is idempotent for `[data-viz]` elements** (`src/index.js`)\n  `autoInit()` can run more than once (the bundle's self-init plus an explicit call). For `card`\n  and `system` vizzes \u2014 which append their render into the host element \u2014 the second run appended\n  a duplicate set of chips. `autoInit()` now skips any element already initialized (`el._tensixViz`).\n\n## [1.1.0] - 2026-06-09\n\n### Fixed\n\n- **Heatmap: non-tensix cells no longer painted by heat overlay** (`src/chip.js` `_drawHeatmap`)\n  Commit 76dca80 added `coreType !== 'tensix'` guards to the pre-built artifacts but never to\n  the source. The guards are now in `src/chip.js` so the next build preserves them. Without this\n  fix, DRAM (col 5 on Wormhole), ETH (row 6 on Wormhole), and PCIe (col 8 on Blackhole) cells\n  were colored by the heatmap overlay and could inflate `maxVal`, compressing the visible range\n  for all tensix cells.\n\n- **Memory overlay: stale phase not rendered after `reset()` on `showMemory: true` instances**\n  (`src/chip.js` `reset()` and constructor)\n  After calling `viz.activate(mode)` followed by `viz.reset()` on a canvas created with\n  `showMemory: true`, `_memPhase` retained the frozen `_mem` object from the animation closure.\n  `reset()` calls `render()` at the end, which caused `_drawMemoryLayer()` to run with stale data,\n  producing a faint DRAM glow and L1 fill bars on an otherwise blank chip. `reset()` now sets\n  `this._memPhase = null`; the field is also explicitly initialized to `null` in the constructor.\n\n- **Canvas context: `getContext('2d')` moved to after canvas sizing**\n  (`src/chip.js` constructor)\n  The 2D context was obtained before `canvas.width`/`canvas.height` were assigned. Assigning to\n  `canvas.width` resets all context state per spec, making the early `getContext` call redundant\n  and inconsistent with the intent. `this.ctx` is now assigned after the sizing block so the\n  obtained context reflects the final dimensions.\n\n### Added\n\n- **Responsive canvas sizing** (`src/chip.js` constructor)\n  If `canvas.parentElement` exists and `clientWidth` is smaller than the canvas's intrinsic\n  `width` attribute, logical dimensions are capped to the container width and height is scaled\n  proportionally. Applies at construction time; re-create the instance for later resizes.\n\n- **Float label boundary clamping** (overridden `render()`)\n  The floating tooltip label is now clamped so its pill box never overflows any canvas edge.\n  `rawCx`/`"
   },
   "https://github.com/tenstorrent/tt-exalens": {
     "stars": 21,
-    "updatedAt": "2026-06-25T15:26:41Z",
+    "updatedAt": "2026-06-26T13:39:21Z",
     "releases": [
       {
         "tagName": "v0.3.24",
@@ -1329,8 +1329,8 @@
     "updatedAt": "2026-04-22T23:14:13Z"
   },
   "https://github.com/tenstorrent/tt-npe": {
-    "stars": 14,
-    "updatedAt": "2026-06-19T20:28:04Z",
+    "stars": 15,
+    "updatedAt": "2026-06-28T21:21:54Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-npe/main/img/npe_workload_diag.png"
   },
   "https://github.com/tsingletaryTT/tt-warp": {
@@ -1763,8 +1763,22 @@
   },
   "https://github.com/tenstorrent/tt-installer": {
     "stars": 23,
-    "updatedAt": "2026-06-01T17:38:56Z",
+    "updatedAt": "2026-06-26T18:15:03Z",
     "releases": [
+      {
+        "tagName": "v3.1.0",
+        "name": "v3.1.0",
+        "publishedAt": "2026-06-26T18:26:33Z",
+        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v3.1.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v3.0.0",
+        "name": "v3.0.0",
+        "publishedAt": "2026-06-26T16:39:33Z",
+        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v3.0.0",
+        "prerelease": true
+      },
       {
         "tagName": "v2.2.1",
         "name": "v2.2.1",
@@ -1785,26 +1799,12 @@
         "publishedAt": "2026-01-14T19:34:46Z",
         "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v2.1.0",
         "prerelease": false
-      },
-      {
-        "tagName": "v2.0.0",
-        "name": "v2.0.0",
-        "publishedAt": "2025-12-05T20:38:41Z",
-        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v2.0.0",
-        "prerelease": false
-      },
-      {
-        "tagName": "v1.11.0",
-        "name": "v1.11.0",
-        "publishedAt": "2025-12-02T20:02:43Z",
-        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v1.11.0",
-        "prerelease": false
       }
     ]
   },
   "https://github.com/tenstorrent/tt-kmd": {
-    "stars": 67,
-    "updatedAt": "2026-06-25T12:49:42Z",
+    "stars": 68,
+    "updatedAt": "2026-06-27T13:28:08Z",
     "releases": [
       {
         "tagName": "ttkmd-2.9.99-testing",
@@ -2000,9 +2000,38 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 41,
-    "updatedAt": "2026-06-25T22:20:57Z",
+    "updatedAt": "2026-06-27T17:13:59Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
+      {
+        "tagName": "v19.12.0-rc1",
+        "name": "v19.12.0-rc1",
+        "publishedAt": "2026-06-26T23:40:38Z",
+        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.12.0-rc1",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "fw-pack-v19.12.0-rc1-recovery.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.12.0-rc1/fw-pack-v19.12.0-rc1-recovery.tar.gz",
+            "size": 7741989
+          },
+          {
+            "name": "manufacturing-artifacts-v19.12.0-rc1.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.12.0-rc1/manufacturing-artifacts-v19.12.0-rc1.tar.gz",
+            "size": 555129
+          },
+          {
+            "name": "tt-firmware_19.12.0-rc1-ubuntu.1_all.deb",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.12.0-rc1/tt-firmware_19.12.0-rc1-ubuntu.1_all.deb",
+            "size": 4946670
+          },
+          {
+            "name": "tt-system-firmware-v19.12.0-rc1.zip",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.12.0-rc1/tt-system-firmware-v19.12.0-rc1.zip",
+            "size": 91349761
+          }
+        ]
+      },
       {
         "tagName": "v19.11.0",
         "name": "v19.11.0",
@@ -2118,41 +2147,12 @@
             "size": 86659632
           }
         ]
-      },
-      {
-        "tagName": "v19.10.0-rc1",
-        "name": "v19.10.0-rc1",
-        "publishedAt": "2026-05-08T19:27:36Z",
-        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.10.0-rc1",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "fw-pack-v19.10.0-rc1-recovery.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.10.0-rc1/fw-pack-v19.10.0-rc1-recovery.tar.gz",
-            "size": 7368963
-          },
-          {
-            "name": "manufacturing-artifacts-v19.10.0-rc1.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.10.0-rc1/manufacturing-artifacts-v19.10.0-rc1.tar.gz",
-            "size": 543541
-          },
-          {
-            "name": "tt-firmware_19.10.0-rc1-ubuntu.1_all.deb",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.10.0-rc1/tt-firmware_19.10.0-rc1-ubuntu.1_all.deb",
-            "size": 4757512
-          },
-          {
-            "name": "tt-system-firmware-v19.10.0-rc1.zip",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.10.0-rc1/tt-system-firmware-v19.10.0-rc1.zip",
-            "size": 86591206
-          }
-        ]
       }
     ]
   },
   "https://github.com/tenstorrent/tt-toplike": {
-    "stars": 4,
-    "updatedAt": "2026-06-23T20:16:59Z",
+    "stars": 5,
+    "updatedAt": "2026-06-28T23:57:48Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-toplike/main/assets/tt-toplike-arcade.gif",
     "releases": [
       {
@@ -2435,8 +2435,97 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 45,
-    "updatedAt": "2026-06-25T20:30:20Z",
+    "updatedAt": "2026-06-26T12:42:27Z",
     "releases": [
+      {
+        "tagName": "v0.9.7",
+        "name": "Release v0.9.7",
+        "publishedAt": "2026-06-26T12:53:11Z",
+        "url": "https://github.com/tenstorrent/tt-umd/releases/tag/v0.9.7",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "tt_umd-0.9.7-cp310-cp310-manylinux_2_28_aarch64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-cp310-cp310-manylinux_2_28_aarch64.whl",
+            "size": 2111376
+          },
+          {
+            "name": "tt_umd-0.9.7-cp310-cp310-manylinux_2_28_x86_64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-cp310-cp310-manylinux_2_28_x86_64.whl",
+            "size": 2387854
+          },
+          {
+            "name": "tt_umd-0.9.7-cp311-cp311-manylinux_2_28_aarch64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-cp311-cp311-manylinux_2_28_aarch64.whl",
+            "size": 2111834
+          },
+          {
+            "name": "tt_umd-0.9.7-cp311-cp311-manylinux_2_28_x86_64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-cp311-cp311-manylinux_2_28_x86_64.whl",
+            "size": 2387659
+          },
+          {
+            "name": "tt_umd-0.9.7-cp312-cp312-manylinux_2_28_aarch64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-cp312-cp312-manylinux_2_28_aarch64.whl",
+            "size": 2111020
+          },
+          {
+            "name": "tt_umd-0.9.7-cp312-cp312-manylinux_2_28_x86_64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-cp312-cp312-manylinux_2_28_x86_64.whl",
+            "size": 2387553
+          },
+          {
+            "name": "tt_umd-0.9.7-cp313-cp313-manylinux_2_28_aarch64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-cp313-cp313-manylinux_2_28_aarch64.whl",
+            "size": 2110687
+          },
+          {
+            "name": "tt_umd-0.9.7-cp313-cp313-manylinux_2_28_x86_64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-cp313-cp313-manylinux_2_28_x86_64.whl",
+            "size": 2387590
+          },
+          {
+            "name": "tt_umd-0.9.7-cp39-cp39-manylinux_2_28_aarch64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-cp39-cp39-manylinux_2_28_aarch64.whl",
+            "size": 2111578
+          },
+          {
+            "name": "tt_umd-0.9.7-cp39-cp39-manylinux_2_28_x86_64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-cp39-cp39-manylinux_2_28_x86_64.whl",
+            "size": 2387697
+          },
+          {
+            "name": "tt_umd-0.9.7-Linux-umd-dev.deb",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-Linux-umd-dev.deb",
+            "size": 111332
+          },
+          {
+            "name": "tt_umd-0.9.7-Linux-umd-dev.rpm",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-Linux-umd-dev.rpm",
+            "size": 112300
+          },
+          {
+            "name": "tt_umd-0.9.7-Linux-umd-python.deb",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-Linux-umd-python.deb",
+            "size": 237258
+          },
+          {
+            "name": "tt_umd-0.9.7-Linux-umd-python.rpm",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-Linux-umd-python.rpm",
+            "size": 206688
+          },
+          {
+            "name": "tt_umd-0.9.7-Linux-umd-runtime.deb",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-Linux-umd-runtime.deb",
+            "size": 1209108
+          },
+          {
+            "name": "tt_umd-0.9.7-Linux-umd-runtime.rpm",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.7/tt_umd-0.9.7-Linux-umd-runtime.rpm",
+            "size": 895260
+          }
+        ]
+      },
       {
         "tagName": "v0.9.6",
         "name": "Release v0.9.6",
@@ -2717,70 +2806,6 @@
             "size": 852652
           }
         ]
-      },
-      {
-        "tagName": "v0.9.1",
-        "name": "Release v0.9.1",
-        "publishedAt": "2026-01-23T22:54:19Z",
-        "url": "https://github.com/tenstorrent/tt-umd/releases/tag/v0.9.1",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "tt_umd-0.9.1-cp310-cp310-manylinux_2_28_x86_64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-cp310-cp310-manylinux_2_28_x86_64.whl",
-            "size": 2247971
-          },
-          {
-            "name": "tt_umd-0.9.1-cp311-cp311-manylinux_2_28_x86_64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-cp311-cp311-manylinux_2_28_x86_64.whl",
-            "size": 2248303
-          },
-          {
-            "name": "tt_umd-0.9.1-cp312-cp312-manylinux_2_28_x86_64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-cp312-cp312-manylinux_2_28_x86_64.whl",
-            "size": 2247787
-          },
-          {
-            "name": "tt_umd-0.9.1-cp313-cp313-manylinux_2_28_x86_64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-cp313-cp313-manylinux_2_28_x86_64.whl",
-            "size": 2247753
-          },
-          {
-            "name": "tt_umd-0.9.1-cp39-cp39-manylinux_2_28_x86_64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-cp39-cp39-manylinux_2_28_x86_64.whl",
-            "size": 2248347
-          },
-          {
-            "name": "tt_umd-0.9.1-Linux-umd-dev.deb",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-Linux-umd-dev.deb",
-            "size": 75714
-          },
-          {
-            "name": "tt_umd-0.9.1-Linux-umd-dev.rpm",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-Linux-umd-dev.rpm",
-            "size": 80736
-          },
-          {
-            "name": "tt_umd-0.9.1-Linux-umd-python.deb",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-Linux-umd-python.deb",
-            "size": 209040
-          },
-          {
-            "name": "tt_umd-0.9.1-Linux-umd-python.rpm",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-Linux-umd-python.rpm",
-            "size": 187438
-          },
-          {
-            "name": "tt_umd-0.9.1-Linux-umd-runtime.deb",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-Linux-umd-runtime.deb",
-            "size": 1117438
-          },
-          {
-            "name": "tt_umd-0.9.1-Linux-umd-runtime.rpm",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.1/tt_umd-0.9.1-Linux-umd-runtime.rpm",
-            "size": 833795
-          }
-        ]
       }
     ],
     "changelog_excerpt": "# Changelog\n\n## [0.9.5] - 2026-05-12\n\n### Changed\n\nHardware hang detection for NOC and PCIe.\nTracy profiler integration with instrumentation across TLB, PCIe and sysmem paths.\nDeviceProtocol ported to TTDevice, including DMA migration.\nSocDescriptor split into static (SocArchDescriptor) and runtime parts.\nLITERAL coordinate system in CoreCoord.\nMulticast to all TENSIX cores.\nSMN support.\nSWEmuleChip software emulation chip and Quasar simulation support (incl. 4GB TLB).\nUnified UmdException/UMD_ASSERT/UMD_THROW error handling across the codebase.\n\n## [0.9.4] - 2026-03-18\n\n### Changed\n\nTopologyDiscoveryOptions refactoring.\nTopologyDiscoveryOption to retrain ETH links on 6u.\nTLBs for TTsim.\nDRAM retrain support.\nDeviceProtocol changes.\nSimulator in TTDevice changes.\nETH heartbeat check.\n\n## [0.9.3] - 2026-02-24\n\n### Changed\n\nSigbus safe read write API.\nRemove 4U related code.\nImplement BH SPI as well, so full SPI support.\nP150 expects harvested cores.\nTT_VISIBLE_DEVICES uses logical IDs.\n\n## [0.9.2] - 2026-02-09\n\n### Changed\n\nSPI interface for Wormhole.\nPCI BDF based sorting and filtering.\nMulticast PCI DMA.\nSupport Blackhole loudbox.\nMany code fixes and test enhancements.\n\n## [0.9.1] - 2026-01-23\n\n### Changed\n\nStarted publishing to pypi.\n\n## [0.9.0] - 2026-01-23\n\n### Changed\n\nWarm reset notification and callback implementation.\n\n## [0.8.6] - 2026-01-20\n\n### Changed\n\nMake predicting ETH FW from CMFW optional in TopologyDiscovery.\n\n## [0.8.4] - 2026-01-16\n\n### Changed\n\nUse older manylinux image\n\n## [0.8.3] - 2026-01-15\n\n### Changed\n\nReverted remote discovery issue\n\n## [0.8.2] - 2026-01-15\n\n### Changed\n\nSupport warm reset without secondary bus reset.\nExpose subsystem vendor id.\n\n## [0.8.1] - 2026-01-15\n\n### Changed\n\nSupport dma functions on TTDevice layer\n\n## [0.8.0] - 2026-01-14\n\n### Changed\n\nMany functional fixes and minor changes.\nFinal fixes needed for integration into tt-smi.\nAlso contains adjustments needed for integration into exalens.\n\n## [0.7.0] - 2025-11-29\n\n### Changed\n\nChanged to a more generic arc_msg API.\n\n## [0.6.0] - 2025-11-24\n\n### Changed\n\nChange the usage of TLBs such that KMD is in control of TLB allocation instead of UMD.\nTLBs are now allocated using KMD's dedicated API.\n\n## [0.5.3] - 2025-11-14\n\n### Changed\n\nAdded generation of .deb and .rpm packages.\nAdded three separate packages (runtime, development and python).\n\n## [0.5.1] - 2025-11-12\n\n### Changed\n\nManylinux builds and Pypi test publishing.\nMany smaller fixes and improvements.\n\n## [0.4.0] - 2025-10-18\n\n### Changed\n\nRemoved old type names.\n\n## [0.3.0] - 2025-10-17\n\n### Changed\n\nMany smaller fixes and improvements.\nTTsim support improvements.\nJTAG support improvement.\nFixing CMake install path.\nFurther work on integrating new KMD TLBs.\n\n## [0.2.0] - 2025-09-15\n\n### Changed\n\nA couple of smaller fixes and improvements, including L2CPU harvesting, fixes for new FW. Better TTSim support. Further JTAG support.\nIntroduced new soft reset API.\nIntroduced lite fabric initial version."
@@ -2804,19 +2829,331 @@
   },
   "https://github.com/tenstorrent/tt-lang": {
     "stars": 54,
-    "updatedAt": "2026-06-25T05:15:03Z",
+    "updatedAt": "2026-06-26T09:40:40Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
   "https://github.com/tenstorrent/tt-llk": {
     "stars": 52,
-    "updatedAt": "2026-06-24T22:46:03Z"
+    "updatedAt": "2026-06-28T05:10:16Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1548,
-    "updatedAt": "2026-06-26T06:54:05Z",
+    "stars": 1552,
+    "updatedAt": "2026-06-29T07:10:39Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
+      {
+        "tagName": "v0.74.0-dev20260629",
+        "name": "v0.74.0-dev20260629",
+        "publishedAt": "2026-06-29T02:54:57Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.74.0-dev20260629",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "tt-metalium-dev_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium-dev_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "size": 1060634
+          },
+          {
+            "name": "tt-metalium-dev_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium-dev_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "size": 1059546
+          },
+          {
+            "name": "tt-metalium-examples_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium-examples_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "size": 65656
+          },
+          {
+            "name": "tt-metalium-examples_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium-examples_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "size": 65638
+          },
+          {
+            "name": "tt-metalium-jit_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium-jit_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "size": 134076814
+          },
+          {
+            "name": "tt-metalium-jit_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium-jit_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "size": 134077090
+          },
+          {
+            "name": "tt-metalium-validation_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium-validation_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "size": 3460050
+          },
+          {
+            "name": "tt-metalium-validation_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium-validation_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "size": 3276132
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium.tar.gz",
+            "size": 200317489
+          },
+          {
+            "name": "tt-metalium_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "size": 21339742
+          },
+          {
+            "name": "tt-metalium_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-metalium_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "size": 20944724
+          },
+          {
+            "name": "tt-nn-dev_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-nn-dev_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "size": 175352
+          },
+          {
+            "name": "tt-nn-dev_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-nn-dev_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "size": 175382
+          },
+          {
+            "name": "tt-nn-examples_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-nn-examples_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-examples_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-nn-examples_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-validation_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-nn-validation_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "size": 2877020
+          },
+          {
+            "name": "tt-nn-validation_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-nn-validation_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "size": 2763590
+          },
+          {
+            "name": "tt-nn_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-nn_0.74.0.dev20260629.ubuntu22.04_amd64.deb",
+            "size": 15632460
+          },
+          {
+            "name": "tt-nn_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260629/tt-nn_0.74.0.dev20260629.ubuntu24.04_amd64.deb",
+            "size": 14419954
+          }
+        ]
+      },
+      {
+        "tagName": "v0.74.0-dev20260628",
+        "name": "v0.74.0-dev20260628",
+        "publishedAt": "2026-06-28T02:32:00Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.74.0-dev20260628",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "tt-metalium-dev_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium-dev_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "size": 937470
+          },
+          {
+            "name": "tt-metalium-dev_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium-dev_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "size": 1059580
+          },
+          {
+            "name": "tt-metalium-examples_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium-examples_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "size": 65624
+          },
+          {
+            "name": "tt-metalium-examples_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium-examples_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "size": 65630
+          },
+          {
+            "name": "tt-metalium-jit_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium-jit_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "size": 134074978
+          },
+          {
+            "name": "tt-metalium-jit_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium-jit_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "size": 134075228
+          },
+          {
+            "name": "tt-metalium-validation_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium-validation_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "size": 3206098
+          },
+          {
+            "name": "tt-metalium-validation_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium-validation_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "size": 3275998
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium.tar.gz",
+            "size": 200125077
+          },
+          {
+            "name": "tt-metalium_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "size": 21330078
+          },
+          {
+            "name": "tt-metalium_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-metalium_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "size": 21256974
+          },
+          {
+            "name": "tt-nn-dev_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-nn-dev_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "size": 174312
+          },
+          {
+            "name": "tt-nn-dev_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-nn-dev_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "size": 174388
+          },
+          {
+            "name": "tt-nn-examples_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-nn-examples_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-examples_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-nn-examples_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-validation_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-nn-validation_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "size": 2689198
+          },
+          {
+            "name": "tt-nn-validation_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-nn-validation_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "size": 2763882
+          },
+          {
+            "name": "tt-nn_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-nn_0.74.0.dev20260628.ubuntu22.04_amd64.deb",
+            "size": 15197842
+          },
+          {
+            "name": "tt-nn_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260628/tt-nn_0.74.0.dev20260628.ubuntu24.04_amd64.deb",
+            "size": 14006304
+          }
+        ]
+      },
+      {
+        "tagName": "v0.74.0-dev20260627",
+        "name": "v0.74.0-dev20260627",
+        "publishedAt": "2026-06-27T03:30:19Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.74.0-dev20260627",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "tt-metalium-dev_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium-dev_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "size": 937022
+          },
+          {
+            "name": "tt-metalium-dev_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium-dev_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "size": 1059102
+          },
+          {
+            "name": "tt-metalium-examples_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium-examples_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "size": 65640
+          },
+          {
+            "name": "tt-metalium-examples_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium-examples_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "size": 65628
+          },
+          {
+            "name": "tt-metalium-jit_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium-jit_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "size": 134074462
+          },
+          {
+            "name": "tt-metalium-jit_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium-jit_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "size": 134075848
+          },
+          {
+            "name": "tt-metalium-validation_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium-validation_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "size": 3205914
+          },
+          {
+            "name": "tt-metalium-validation_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium-validation_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "size": 3532054
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium.tar.gz",
+            "size": 199953692
+          },
+          {
+            "name": "tt-metalium_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "size": 20936596
+          },
+          {
+            "name": "tt-metalium_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-metalium_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "size": 21282722
+          },
+          {
+            "name": "tt-nn-dev_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-nn-dev_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "size": 174342
+          },
+          {
+            "name": "tt-nn-dev_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-nn-dev_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "size": 174374
+          },
+          {
+            "name": "tt-nn-examples_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-nn-examples_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-examples_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-nn-examples_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-validation_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-nn-validation_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "size": 2689676
+          },
+          {
+            "name": "tt-nn-validation_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-nn-validation_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "size": 2952222
+          },
+          {
+            "name": "tt-nn_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-nn_0.74.0.dev20260627.ubuntu22.04_amd64.deb",
+            "size": 14089004
+          },
+          {
+            "name": "tt-nn_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260627/tt-nn_0.74.0.dev20260627.ubuntu24.04_amd64.deb",
+            "size": 15007084
+          }
+        ]
+      },
       {
         "tagName": "v0.74.0-dev20260626",
         "name": "v0.74.0-dev20260626",
@@ -2922,526 +3259,110 @@
         ]
       },
       {
-        "tagName": "v0.73.1-rc5",
-        "name": "v0.73.1-rc5",
-        "publishedAt": "2026-06-26T02:27:41Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.73.1-rc5",
-        "prerelease": true,
+        "tagName": "v0.73.1",
+        "name": "v0.73.1",
+        "publishedAt": "2026-06-26T10:19:12Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.73.1",
+        "prerelease": false,
         "assets": [
           {
-            "name": "tt-metalium-dev_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium-dev_0.73.1.rc5.ubuntu22.04_amd64.deb",
+            "name": "tt-metalium-dev_0.73.1.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium-dev_0.73.1.ubuntu22.04_amd64.deb",
             "size": 927814
           },
           {
-            "name": "tt-metalium-dev_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium-dev_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "size": 926882
+            "name": "tt-metalium-dev_0.73.1.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium-dev_0.73.1.ubuntu24.04_amd64.deb",
+            "size": 926876
           },
           {
-            "name": "tt-metalium-examples_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium-examples_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "size": 66980
+            "name": "tt-metalium-examples_0.73.1.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium-examples_0.73.1.ubuntu22.04_amd64.deb",
+            "size": 66996
           },
           {
-            "name": "tt-metalium-examples_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium-examples_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "size": 67010
+            "name": "tt-metalium-examples_0.73.1.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium-examples_0.73.1.ubuntu24.04_amd64.deb",
+            "size": 66990
           },
           {
-            "name": "tt-metalium-jit_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium-jit_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "size": 133908198
+            "name": "tt-metalium-jit_0.73.1.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium-jit_0.73.1.ubuntu22.04_amd64.deb",
+            "size": 133908864
           },
           {
-            "name": "tt-metalium-jit_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium-jit_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "size": 133908088
+            "name": "tt-metalium-jit_0.73.1.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium-jit_0.73.1.ubuntu24.04_amd64.deb",
+            "size": 133908028
           },
           {
-            "name": "tt-metalium-validation_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium-validation_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "size": 3108060
+            "name": "tt-metalium-validation_0.73.1.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium-validation_0.73.1.ubuntu22.04_amd64.deb",
+            "size": 3108136
           },
           {
-            "name": "tt-metalium-validation_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium-validation_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "size": 3177196
-          },
-          {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium.tar.gz",
-            "size": 198334859
-          },
-          {
-            "name": "tt-metalium_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "size": 20790410
-          },
-          {
-            "name": "tt-metalium_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-metalium_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "size": 21063228
-          },
-          {
-            "name": "tt-nn-dev_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-nn-dev_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "size": 161298
-          },
-          {
-            "name": "tt-nn-dev_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-nn-dev_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "size": 161394
-          },
-          {
-            "name": "tt-nn-examples_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-nn-examples_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "size": 1418
-          },
-          {
-            "name": "tt-nn-examples_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-nn-examples_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "size": 1412
-          },
-          {
-            "name": "tt-nn-validation_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-nn-validation_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "size": 3105578
-          },
-          {
-            "name": "tt-nn-validation_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-nn-validation_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "size": 3177928
-          },
-          {
-            "name": "tt-nn_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-nn_0.73.1.rc5.ubuntu22.04_amd64.deb",
-            "size": 11527530
-          },
-          {
-            "name": "tt-nn_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc5/tt-nn_0.73.1.rc5.ubuntu24.04_amd64.deb",
-            "size": 12377990
-          }
-        ]
-      },
-      {
-        "tagName": "v0.74.0-dev20260625",
-        "name": "v0.74.0-dev20260625",
-        "publishedAt": "2026-06-25T05:38:28Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.74.0-dev20260625",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "tt-metalium-dev_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium-dev_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "size": 1058574
-          },
-          {
-            "name": "tt-metalium-dev_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium-dev_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "size": 1057590
-          },
-          {
-            "name": "tt-metalium-examples_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium-examples_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "size": 65648
-          },
-          {
-            "name": "tt-metalium-examples_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium-examples_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "size": 65630
-          },
-          {
-            "name": "tt-metalium-jit_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium-jit_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "size": 133908222
-          },
-          {
-            "name": "tt-metalium-jit_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium-jit_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "size": 133907916
-          },
-          {
-            "name": "tt-metalium-validation_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium-validation_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "size": 3386492
-          },
-          {
-            "name": "tt-metalium-validation_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium-validation_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "size": 3455062
+            "name": "tt-metalium-validation_0.73.1.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium-validation_0.73.1.ubuntu24.04_amd64.deb",
+            "size": 3427876
           },
           {
             "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium.tar.gz",
-            "size": 199496324
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium.tar.gz",
+            "size": 198341372
           },
           {
-            "name": "tt-metalium_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "size": 21224188
+            "name": "tt-metalium_0.73.1.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium_0.73.1.ubuntu22.04_amd64.deb",
+            "size": 20791794
           },
           {
-            "name": "tt-metalium_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-metalium_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "size": 21203134
+            "name": "tt-metalium_0.73.1.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-metalium_0.73.1.ubuntu24.04_amd64.deb",
+            "size": 21062940
           },
           {
-            "name": "tt-nn-dev_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-nn-dev_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "size": 170260
+            "name": "tt-nn-dev_0.73.1.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-nn-dev_0.73.1.ubuntu22.04_amd64.deb",
+            "size": 161334
           },
           {
-            "name": "tt-nn-dev_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-nn-dev_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "size": 170232
+            "name": "tt-nn-dev_0.73.1.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-nn-dev_0.73.1.ubuntu24.04_amd64.deb",
+            "size": 161346
           },
           {
-            "name": "tt-nn-examples_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-nn-examples_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "size": 1414
-          },
-          {
-            "name": "tt-nn-examples_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-nn-examples_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "size": 1412
-          },
-          {
-            "name": "tt-nn-validation_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-nn-validation_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "size": 2871280
-          },
-          {
-            "name": "tt-nn-validation_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-nn-validation_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "size": 2945354
-          },
-          {
-            "name": "tt-nn_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-nn_0.74.0.dev20260625.ubuntu22.04_amd64.deb",
-            "size": 14736044
-          },
-          {
-            "name": "tt-nn_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260625/tt-nn_0.74.0.dev20260625.ubuntu24.04_amd64.deb",
-            "size": 14641638
-          }
-        ]
-      },
-      {
-        "tagName": "v0.73.1-rc4",
-        "name": "v0.73.1-rc4",
-        "publishedAt": "2026-06-26T00:45:03Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.73.1-rc4",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "tt-metalium-dev_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium-dev_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "size": 927778
-          },
-          {
-            "name": "tt-metalium-dev_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium-dev_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "size": 926848
-          },
-          {
-            "name": "tt-metalium-examples_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium-examples_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "size": 67012
-          },
-          {
-            "name": "tt-metalium-examples_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium-examples_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "size": 66974
-          },
-          {
-            "name": "tt-metalium-jit_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium-jit_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "size": 133907688
-          },
-          {
-            "name": "tt-metalium-jit_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium-jit_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "size": 133907424
-          },
-          {
-            "name": "tt-metalium-validation_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium-validation_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "size": 3108226
-          },
-          {
-            "name": "tt-metalium-validation_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium-validation_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "size": 3427856
-          },
-          {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium.tar.gz",
-            "size": 198337566
-          },
-          {
-            "name": "tt-metalium_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "size": 21117126
-          },
-          {
-            "name": "tt-metalium_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-metalium_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "size": 21062694
-          },
-          {
-            "name": "tt-nn-dev_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-nn-dev_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "size": 161282
-          },
-          {
-            "name": "tt-nn-dev_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-nn-dev_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "size": 161258
-          },
-          {
-            "name": "tt-nn-examples_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-nn-examples_0.73.1.rc4.ubuntu22.04_amd64.deb",
+            "name": "tt-nn-examples_0.73.1.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-nn-examples_0.73.1.ubuntu22.04_amd64.deb",
             "size": 1406
           },
           {
-            "name": "tt-nn-examples_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-nn-examples_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "size": 1412
-          },
-          {
-            "name": "tt-nn-validation_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-nn-validation_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "size": 3306004
-          },
-          {
-            "name": "tt-nn-validation_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-nn-validation_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "size": 3379840
-          },
-          {
-            "name": "tt-nn_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-nn_0.73.1.rc4.ubuntu22.04_amd64.deb",
-            "size": 12474344
-          },
-          {
-            "name": "tt-nn_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1-rc4/tt-nn_0.73.1.rc4.ubuntu24.04_amd64.deb",
-            "size": 12377622
-          }
-        ]
-      },
-      {
-        "tagName": "v0.74.0-dev20260624",
-        "name": "v0.74.0-dev20260624",
-        "publishedAt": "2026-06-24T06:20:06Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.74.0-dev20260624",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "tt-metalium-dev_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium-dev_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "size": 1057094
-          },
-          {
-            "name": "tt-metalium-dev_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium-dev_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "size": 1055998
-          },
-          {
-            "name": "tt-metalium-examples_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium-examples_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "size": 65674
-          },
-          {
-            "name": "tt-metalium-examples_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium-examples_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "size": 65654
-          },
-          {
-            "name": "tt-metalium-jit_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium-jit_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "size": 133907236
-          },
-          {
-            "name": "tt-metalium-jit_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium-jit_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "size": 133904874
-          },
-          {
-            "name": "tt-metalium-validation_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium-validation_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "size": 3122372
-          },
-          {
-            "name": "tt-metalium-validation_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium-validation_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "size": 3442464
-          },
-          {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium.tar.gz",
-            "size": 199287907
-          },
-          {
-            "name": "tt-metalium_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "size": 21213972
-          },
-          {
-            "name": "tt-metalium_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-metalium_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "size": 21165454
-          },
-          {
-            "name": "tt-nn-dev_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-nn-dev_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "size": 169112
-          },
-          {
-            "name": "tt-nn-dev_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-nn-dev_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "size": 169052
-          },
-          {
-            "name": "tt-nn-examples_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-nn-examples_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
+            "name": "tt-nn-examples_0.73.1.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-nn-examples_0.73.1.ubuntu24.04_amd64.deb",
             "size": 1414
           },
           {
-            "name": "tt-nn-examples_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-nn-examples_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "size": 1414
+            "name": "tt-nn-validation_0.73.1.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-nn-validation_0.73.1.ubuntu22.04_amd64.deb",
+            "size": 3105570
           },
           {
-            "name": "tt-nn-validation_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-nn-validation_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "size": 2588374
+            "name": "tt-nn-validation_0.73.1.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-nn-validation_0.73.1.ubuntu24.04_amd64.deb",
+            "size": 3379836
           },
           {
-            "name": "tt-nn-validation_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-nn-validation_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "size": 2844528
+            "name": "tt-nn_0.73.1.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-nn_0.73.1.ubuntu22.04_amd64.deb",
+            "size": 11527894
           },
           {
-            "name": "tt-nn_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-nn_0.74.0.dev20260624.ubuntu22.04_amd64.deb",
-            "size": 14646896
-          },
-          {
-            "name": "tt-nn_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.74.0-dev20260624/tt-nn_0.74.0.dev20260624.ubuntu24.04_amd64.deb",
-            "size": 14548278
+            "name": "tt-nn_0.73.1.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.73.1/tt-nn_0.73.1.ubuntu24.04_amd64.deb",
+            "size": 12377720
           }
         ]
       }
-    ],
-    "latestStableRelease": {
-      "tagName": "v0.72.0",
-      "name": "v0.72.0",
-      "publishedAt": "2026-06-09T01:30:48Z",
-      "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.72.0",
-      "prerelease": false,
-      "assets": [
-        {
-          "name": "tt-metalium-dev_0.72.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium-dev_0.72.0.ubuntu22.04_amd64.deb",
-          "size": 910380
-        },
-        {
-          "name": "tt-metalium-dev_0.72.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium-dev_0.72.0.ubuntu24.04_amd64.deb",
-          "size": 909668
-        },
-        {
-          "name": "tt-metalium-examples_0.72.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium-examples_0.72.0.ubuntu22.04_amd64.deb",
-          "size": 67490
-        },
-        {
-          "name": "tt-metalium-examples_0.72.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium-examples_0.72.0.ubuntu24.04_amd64.deb",
-          "size": 67480
-        },
-        {
-          "name": "tt-metalium-jit_0.72.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium-jit_0.72.0.ubuntu22.04_amd64.deb",
-          "size": 134039504
-        },
-        {
-          "name": "tt-metalium-jit_0.72.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium-jit_0.72.0.ubuntu24.04_amd64.deb",
-          "size": 134041528
-        },
-        {
-          "name": "tt-metalium-validation_0.72.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium-validation_0.72.0.ubuntu22.04_amd64.deb",
-          "size": 3175830
-        },
-        {
-          "name": "tt-metalium-validation_0.72.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium-validation_0.72.0.ubuntu24.04_amd64.deb",
-          "size": 3246372
-        },
-        {
-          "name": "tt-metalium.tar.gz",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium.tar.gz",
-          "size": 197075938
-        },
-        {
-          "name": "tt-metalium_0.72.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium_0.72.0.ubuntu22.04_amd64.deb",
-          "size": 20554572
-        },
-        {
-          "name": "tt-metalium_0.72.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-metalium_0.72.0.ubuntu24.04_amd64.deb",
-          "size": 20538542
-        },
-        {
-          "name": "tt-nn-dev_0.72.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-nn-dev_0.72.0.ubuntu22.04_amd64.deb",
-          "size": 155146
-        },
-        {
-          "name": "tt-nn-dev_0.72.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-nn-dev_0.72.0.ubuntu24.04_amd64.deb",
-          "size": 155202
-        },
-        {
-          "name": "tt-nn-examples_0.72.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-nn-examples_0.72.0.ubuntu22.04_amd64.deb",
-          "size": 1414
-        },
-        {
-          "name": "tt-nn-examples_0.72.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-nn-examples_0.72.0.ubuntu24.04_amd64.deb",
-          "size": 1416
-        },
-        {
-          "name": "tt-nn-validation_0.72.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-nn-validation_0.72.0.ubuntu22.04_amd64.deb",
-          "size": 3273252
-        },
-        {
-          "name": "tt-nn-validation_0.72.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-nn-validation_0.72.0.ubuntu24.04_amd64.deb",
-          "size": 3344618
-        },
-        {
-          "name": "tt-nn_0.72.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-nn_0.72.0.ubuntu22.04_amd64.deb",
-          "size": 12036072
-        },
-        {
-          "name": "tt-nn_0.72.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.72.0/tt-nn_0.72.0.ubuntu24.04_amd64.deb",
-          "size": 11947310
-        }
-      ]
-    }
+    ]
   },
   "https://github.com/geohot/tt-tiny": {
     "stars": 66,
@@ -3510,8 +3431,8 @@
     ]
   },
   "https://github.com/tenstorrent/riscv-ocelot": {
-    "stars": 255,
-    "updatedAt": "2026-06-15T10:22:15Z",
+    "stars": 256,
+    "updatedAt": "2026-06-28T12:01:50Z",
     "isFork": true,
     "forkParent": "riscv-boom/riscv-boom",
     "forkParentUrl": "https://github.com/riscv-boom/riscv-boom",
@@ -3522,8 +3443,8 @@
     "updatedAt": "2026-06-01T16:50:03Z"
   },
   "https://github.com/tenstorrent/tt-bh-linux": {
-    "stars": 56,
-    "updatedAt": "2026-06-23T21:33:27Z",
+    "stars": 57,
+    "updatedAt": "2026-06-27T22:48:28Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-bh-linux/main/misc/P150.jpg",
     "releases": [
       {
@@ -3644,9 +3565,16 @@
     "forkParentUrl": "https://github.com/qemu/qemu"
   },
   "https://github.com/tenstorrent/ttsim": {
-    "stars": 130,
-    "updatedAt": "2026-06-25T05:16:28Z",
+    "stars": 134,
+    "updatedAt": "2026-06-29T06:51:34Z",
     "releases": [
+      {
+        "tagName": "v1.9.2",
+        "name": "v1.9.2",
+        "publishedAt": "2026-06-26T22:11:00Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.9.2",
+        "prerelease": false
+      },
       {
         "tagName": "v1.9.1",
         "name": "v1.9.1",
@@ -3673,13 +3601,6 @@
         "name": "v1.8.4",
         "publishedAt": "2026-06-15T23:04:38Z",
         "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.8.4",
-        "prerelease": false
-      },
-      {
-        "tagName": "v1.8.3",
-        "name": "v1.8.3",
-        "publishedAt": "2026-06-13T17:31:51Z",
-        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.8.3",
         "prerelease": false
       }
     ]
