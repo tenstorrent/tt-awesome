@@ -20,6 +20,10 @@ const path = require("path");
  *     publishedAt: string   — ISO 8601 date string
  *     url:         string   — link to the GitHub release page
  *     repoUrl:     string   — link to the GitHub repo root
+ *     summary:     string   — human-quality release summary (LLM or fallback)
+ *     description: string   — same as summary; satisfies feedContentHtml contract
+ *     added_at:    string   — YYYY-MM-DD publish date
+ *     links:       array    — [{type,url,label}] repo + release links
  *   }
  *
  * Note: only entries that have a `latestStableRelease` (pre-computed in

@@ -65,8 +65,11 @@ const rel = {
 // Non-release feed items are ignored.
 {
   const feeds = [{ type: "article", url: rel.url, description: "Should be ignored." }];
-  assert.ok(resolveReleaseSummary(rel, feeds).startsWith("tt-forge-onnx released"),
-    "non-release items ignored");
+  assert.strictEqual(
+    resolveReleaseSummary(rel, feeds),
+    "tt-forge-onnx released 1.3.0. Repository: https://github.com/tenstorrent/tt-forge-onnx",
+    "non-release items ignored"
+  );
   console.log("✓ resolveReleaseSummary: ignores non-release feed items");
 }
 
