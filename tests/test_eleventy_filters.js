@@ -54,7 +54,7 @@ function makeEntry(overrides) {
 }
 
 function makeRelease(overrides) {
-  return {
+  const base = {
     entryId:     "test-entry",
     entryName:   "Test Entry",
     affiliation: "official",
@@ -64,6 +64,9 @@ function makeRelease(overrides) {
     repoUrl:     "https://github.com/test/repo",
     ...overrides,
   };
+  // Conform to feedContentHtml contract: description = summary
+  if (!base.description && base.summary) base.description = base.summary;
+  return base;
 }
 
 // ── articleFeedItems tests ────────────────────────────────────────────────────
@@ -153,6 +156,17 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: release items have correct shape");
 }
 
+// Test 8b: release items use rel.summary as their summary text.
+{
+  const rel = makeRelease({ summary: "Rich release summary here." });
+  const items = jsonFeedItems([], [rel]);
+  assert.strictEqual(items[0].summary, "Rich release summary here.",
+    "release summary comes from rel.summary");
+  assert.ok(items[0].content_html.includes("Rich release summary here."),
+    "release content_html renders the summary");
+  console.log("✓ jsonFeedItems: release items use rel.summary");
+}
+
 // Test 9: entry items appear with correct shape
 {
   const entry = makeEntry({ links: [{ type: "repo", url: "https://github.com/test/repo" }] });
@@ -174,8 +188,9 @@ function makeRelease(overrides) {
   });
   const items = jsonFeedItems([entry], []);
   const entryItem = items.find((i) => i.tags.includes("entry"));
-  assert.strictEqual(entryItem.content_html, "Uses <code>tt_metal</code> under the hood.",
-    "content_html renders inline markdown");
+  // content_html is now the rich block — it CONTAINS the rendered description.
+  assert.ok(entryItem.content_html.includes("<code>tt_metal</code>"),
+    "content_html renders the description as markdown");
   assert.strictEqual(entryItem.summary, "Uses `tt_metal` under the hood.",
     "summary stays plain text");
   assert.ok(items.every((i) => typeof i.content_html === "string"),

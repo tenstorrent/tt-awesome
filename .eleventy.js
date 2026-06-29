@@ -245,14 +245,13 @@ module.exports = function (eleventyConfig) {
 
     // 1. Release items — one per entry in recentReleases.
     for (const rel of recentReleases || []) {
-      const summary = `${rel.entryName} released ${rel.tagName}. Repository: ${rel.repoUrl}`;
+      const summary = rel.summary ||
+        `${rel.entryName} released ${rel.tagName}. Repository: ${rel.repoUrl}`;
       items.push({
         id:             rel.url,
         url:            rel.url,
         title:          `${rel.entryName} ${rel.tagName}`,
-        // content_html satisfies JSON Feed 1.1 (an item needs content_html or
-        // content_text) and renders any inline markdown; summary stays plain text.
-        content_html:   mdInline.renderInline(summary),
+        content_html:   buildFeedContentHtml(rel),
         summary:        summary,
         date_published: rel.publishedAt,
         tags:           [rel.affiliation, "release"].filter(Boolean),
@@ -287,7 +286,7 @@ module.exports = function (eleventyConfig) {
         id:             repoUrl || `https://tenstorrent.github.io/tt-awesome/#${entry.id}`,
         url:            repoUrl || (anyLink ? anyLink.url : `https://tenstorrent.github.io/tt-awesome/#${entry.id}`),
         title:          entry.name,
-        content_html:   mdInline.renderInline(entry.description || ""),
+        content_html:   buildFeedContentHtml(entry),
         summary:        entry.description || "",
         date_published: entryDate,
         tags:           [...(entry.categories || []), entry.affiliation, "entry"].filter(Boolean),
@@ -302,7 +301,7 @@ module.exports = function (eleventyConfig) {
           id:             link.url,
           url:            link.url,
           title:          `${entry.name} — ${link.label || link.type}`,
-          content_html:   mdInline.renderInline(entry.description || ""),
+          content_html:   buildFeedContentHtml(entry),
           summary:        entry.description || "",
           date_published: entryDate,
           tags:           [
