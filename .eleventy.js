@@ -39,7 +39,12 @@ function buildFeedContentHtml(item) {
 
   // 2. Links — every typed link as a labeled anchor. Label falls back to a
   //    title-cased link type (e.g. "article" → "Article").
-  const links = (item.links || []).filter((l) => l && l.url);
+  // Defense-in-depth: only render http(s) links. Entry/release URLs are
+  // https-validated upstream (entries.js isSafeHttpsUrl), but this builder is
+  // general — drop javascript:/data:/etc. so a bad URL can't become a live href.
+  const links = (item.links || []).filter(
+    (l) => l && l.url && /^https?:\/\//i.test(l.url)
+  );
   if (links.length) {
     const lis = links
       .map((l) => {

@@ -490,5 +490,18 @@ assert(typeof feedContentHtml === "function", "feedContentHtml filter not regist
   assert.strictEqual(feedContentHtml(undefined), "", "undefined input → empty string");
   console.log("✓ feedContentHtml: empty input safe");
 }
+{
+  // Defense-in-depth: non-http(s) link schemes must not become live hrefs.
+  const html = feedContentHtml({
+    description: "x",
+    links: [
+      { type: "repo", url: "javascript:alert(1)", label: "evil" },
+      { type: "repo", url: "https://github.com/ok/repo", label: "ok" },
+    ],
+  });
+  assert.ok(!html.includes("javascript:"), "javascript: scheme dropped");
+  assert.ok(html.includes("https://github.com/ok/repo"), "https link kept");
+  console.log("✓ feedContentHtml: drops non-http(s) link schemes");
+}
 
 console.log("\nAll eleventy filter tests passed ✓");
