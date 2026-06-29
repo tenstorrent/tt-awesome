@@ -433,4 +433,62 @@ assert(typeof cdataSafe === "function", "cdataSafe filter not registered");
   console.log("✓ cdataSafe: neutralizes ]]> sequences");
 }
 
+// ── feedContentHtml tests ────────────────────────────────────────────────────
+const feedContentHtml = filters["feedContentHtml"];
+assert(typeof feedContentHtml === "function", "feedContentHtml filter not registered");
+{
+  const html = feedContentHtml({
+    description: "Boltz-2 on **Blackhole**.",
+    links: [
+      { type: "repo", url: "https://github.com/test/repo", label: "GitHub" },
+      { type: "article", url: "https://example.com/post" },
+    ],
+    author: "moritztng",
+    author_url: "https://github.com/moritztng",
+    affiliation: "community",
+    tags: ["blackhole", "drug-discovery"],
+    categories: ["ai-models"],
+    added_at: "2026-05-13",
+  });
+  // description rendered as block markdown
+  assert.ok(html.includes("<strong>Blackhole</strong>"), "renders markdown emphasis");
+  // links list with both links; missing label falls back to title-cased type
+  assert.ok(html.includes('<a href="https://github.com/test/repo">GitHub</a>'), "labeled link");
+  assert.ok(html.includes('<a href="https://example.com/post">Article</a>'), "fallback label is title-cased type");
+  // attribution: linked author handle, affiliation, added date
+  assert.ok(html.includes('<a href="https://github.com/moritztng">@moritztng</a>'), "linked author handle");
+  assert.ok(html.includes("community"), "affiliation present");
+  assert.ok(html.includes("2026-05-13"), "added date present");
+  // tags + categories
+  assert.ok(html.includes("blackhole") && html.includes("ai-models"), "tags + categories present");
+  console.log("✓ feedContentHtml: renders description, links, attribution, tags");
+}
+{
+  // Missing sections are omitted, not rendered empty.
+  const html = feedContentHtml({ description: "Just a description." });
+  assert.ok(html.includes("Just a description."), "description present");
+  assert.ok(!html.includes("<ul>"), "no links list when no links");
+  assert.ok(!html.includes("Links:"), "no Links heading when no links");
+  console.log("✓ feedContentHtml: omits absent sections");
+}
+{
+  // Escapes HTML in text fields and never emits an <img>.
+  const html = feedContentHtml({
+    description: "![x](http://evil/pixel.gif)",
+    author: "a<b>c",
+    links: [{ type: "repo", url: "https://x/y", label: "<script>" }],
+    tags: ["t&g"],
+  });
+  assert.ok(!html.includes("<img"), "no img from image markdown");
+  assert.ok(!html.includes("<script>"), "label HTML escaped");
+  assert.ok(html.includes("a&lt;b&gt;c"), "author HTML escaped");
+  assert.ok(html.includes("t&amp;g"), "tag ampersand escaped");
+  console.log("✓ feedContentHtml: escapes text fields, blocks images");
+}
+{
+  assert.strictEqual(feedContentHtml(null), "", "null input → empty string");
+  assert.strictEqual(feedContentHtml(undefined), "", "undefined input → empty string");
+  console.log("✓ feedContentHtml: empty input safe");
+}
+
 console.log("\nAll eleventy filter tests passed ✓");

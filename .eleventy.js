@@ -18,6 +18,65 @@ const mdInline = new MarkdownIt({ html: false, linkify: false });
 // tracking pixels / unexpected network requests. We keep links/code/emphasis only.
 mdInline.disable("image");
 
+// Block-level markdown renderer for full feed <content> blocks. Same safety
+// posture as mdInline (no raw HTML, no auto-fetching images), but keeps block
+// wrappers so multi-paragraph release summaries render as real <p> tags.
+const mdBlock = new MarkdownIt({ html: false, linkify: false });
+mdBlock.disable("image");
+
+// Shared HTML escaper for text we interpolate directly into the content block.
+const escapeHtml = mdBlock.utils.escapeHtml;
+
+// Build the rich HTML <content> block shared by every feed (Atom <content
+// type="html"> and JSON Feed content_html). Sections whose data is absent are
+// omitted entirely. Accepts a single normalized object — see plan Task 1.
+function buildFeedContentHtml(item) {
+  if (!item) return "";
+  const parts = [];
+
+  // 1. Description / summary — block markdown (paragraphs preserved).
+  if (item.description) parts.push(mdBlock.render(item.description));
+
+  // 2. Links — every typed link as a labeled anchor. Label falls back to a
+  //    title-cased link type (e.g. "article" → "Article").
+  const links = (item.links || []).filter((l) => l && l.url);
+  if (links.length) {
+    const lis = links
+      .map((l) => {
+        const label = l.label
+          ? escapeHtml(l.label)
+          : l.type
+          ? escapeHtml(l.type.charAt(0).toUpperCase() + l.type.slice(1))
+          : escapeHtml(l.url);
+        return `<li><a href="${escapeHtml(l.url)}">${label}</a></li>`;
+      })
+      .join("");
+    parts.push(`<p><strong>Links:</strong></p>\n<ul>${lis}</ul>`);
+  }
+
+  // 3. Attribution — author (linked when we have a profile URL), affiliation,
+  //    date added, separated by middots.
+  const attr = [];
+  if (item.author) {
+    attr.push(
+      item.author_url
+        ? `By <a href="${escapeHtml(item.author_url)}">@${escapeHtml(item.author)}</a>`
+        : `By @${escapeHtml(item.author)}`
+    );
+  }
+  if (item.affiliation) attr.push(escapeHtml(item.affiliation));
+  if (item.added_at) attr.push(`added ${escapeHtml(item.added_at)}`);
+  if (attr.length) parts.push(`<p>${attr.join(" · ")}</p>`);
+
+  // 4. Tags + categories — comma-separated, emphasized.
+  const tagBits = [...(item.tags || []), ...(item.categories || [])];
+  if (tagBits.length) {
+    parts.push(`<p><em>${tagBits.map(escapeHtml).join(", ")}</em></p>`);
+  }
+
+  return parts.join("\n");
+}
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy({ ".nojekyll": ".nojekyll" });
@@ -36,6 +95,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("markdownInline", (str) =>
     str ? mdInline.renderInline(str) : ""
   );
+
+  // Render the full rich HTML content block for a feed item. Pair with
+  // `| cdataSafe | safe` in Atom templates. See buildFeedContentHtml above.
+  eleventyConfig.addFilter("feedContentHtml", (item) => buildFeedContentHtml(item));
 
   // Make a string safe to embed inside an XML CDATA section. A literal "]]>"
   // would close the section early and break the feed (or allow injection), so
