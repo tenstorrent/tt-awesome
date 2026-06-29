@@ -123,6 +123,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@jaebaek](https://github.com/jaebaek) — Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.
   [📦 repo](https://github.com/jaebaek/tenstorrent-tiny-examples)
 
+- **[tt-splat — matrix-native 3D Gaussian Splatting on Blackhole](https://github.com/kinginu/tt-splat)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@kinginu](https://github.com/kinginu) — 3D Gaussian Splatting rewritten to run on the matrix engine: a polynomial splat and order-independent weighted-sum blending replace exp and depth-sorted alpha, so the pipeline becomes GEMM → activation → GEMM. Renderer + trainer, trained device-resident on a Blackhole p150a.
+  [📦 repo](https://github.com/kinginu/tt-splat)
+
 - **[tt-twitch](https://github.com/geohot/tt-twitch)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@geohot](https://github.com/geohot) — A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.
   [📦 repo](https://github.com/geohot/tt-twitch)
@@ -474,6 +478,19 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.
   [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons) · [📖 RISC-V Programming Guide](https://docs.tenstorrent.com/tt-vscode-toolkit/riscv-guide/)
+
+## Feeds & Resources
+
+Subscribe to tt-awesome activity via Atom or JSON Feed:
+
+- **[New Entries (Atom)](https://tenstorrent.github.io/tt-awesome/feeds/new-entries.xml)** — newly added projects and resources.
+- **[Articles & Resources (Atom)](https://tenstorrent.github.io/tt-awesome/feeds/articles.xml)** — articles, papers, lessons, talks, and demos.
+- **[Recent Releases (Atom)](https://tenstorrent.github.io/tt-awesome/feeds/releases.xml)** — latest stable releases. Release items use LLM-generated summaries when available.
+- **[JSON Feed](https://tenstorrent.github.io/tt-awesome/feeds/feed.json)** — combined releases, entries, and articles (JSON Feed 1.1).
+- **[data.json](https://tenstorrent.github.io/tt-awesome/data.json)** — full machine-readable entry database.
+- **[llms.txt](https://tenstorrent.github.io/tt-awesome/llms.txt)** — curated plain-text index for LLM context and AI tooling.
+
+Each Atom and JSON Feed item carries both a short `<summary>` and a full rich `<content>` block containing the project description, all associated links, attribution, and tags — suitable for feed readers that render HTML content.
 
 ## Contributing
 
