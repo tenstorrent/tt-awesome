@@ -38,15 +38,19 @@ function resolveReleaseSummary(rel, planetFeeds) {
     if (item.type !== "release" || !item.description) continue;
     if (item.url === rel.url) return item.description;
   }
-  // 2. Same-repo release whose URL carries the same tag (handles html_url vs
-  //    tag-url shape differences between GitHub's API and the summarizer).
+  // 2. Same-repo release whose URL's final path segment is exactly this tag
+  //    (handles html_url vs tag-url shape differences between GitHub's API and
+  //    the summarizer). Match the tag as the trailing segment, NOT a substring:
+  //    a substring match would let tag "0.20.25" wrongly match a ".../0.20.25rc1"
+  //    release URL when both exist for the same repo.
   if (rel.repoUrl && rel.tagName) {
     const prefix = rel.repoUrl + "/releases/";
     for (const item of feeds) {
       if (item.type !== "release" || !item.description || !item.url) continue;
-      if (item.url.startsWith(prefix) && item.url.includes(rel.tagName)) {
-        return item.description;
-      }
+      if (!item.url.startsWith(prefix)) continue;
+      const norm = item.url.replace(/[?#].*$/, "").replace(/\/+$/, "");
+      const lastSegment = norm.slice(norm.lastIndexOf("/") + 1);
+      if (lastSegment === rel.tagName) return item.description;
     }
   }
   // 3. Fallback one-liner.

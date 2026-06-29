@@ -37,6 +37,31 @@ const rel = {
   console.log("✓ resolveReleaseSummary: same-repo + tag fallback match");
 }
 
+// Tag must match as the trailing URL segment, NOT a substring: a release whose
+// tag is a prefix of another tag (1.3.0 vs 1.3.0rc1) must not be mismatched.
+{
+  const relPrefix = {
+    entryName: "tt-forge-onnx",
+    tagName: "1.3.0",
+    repoUrl: "https://github.com/tenstorrent/tt-forge-onnx",
+    url: "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0",
+  };
+  // Only a pre-release whose tag *contains* "1.3.0" is present — must NOT match.
+  const feeds = [
+    {
+      type: "release",
+      url: "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.3.0rc1",
+      description: "Pre-release summary — should NOT be used for 1.3.0.",
+    },
+  ];
+  assert.strictEqual(
+    resolveReleaseSummary(relPrefix, feeds),
+    "tt-forge-onnx released 1.3.0. Repository: https://github.com/tenstorrent/tt-forge-onnx",
+    "prefix tag collision falls through to the one-liner, not the rc summary"
+  );
+  console.log("✓ resolveReleaseSummary: tag matched as trailing segment, not substring");
+}
+
 // No match → fallback string.
 {
   const feeds = [
