@@ -73,11 +73,16 @@ function buildFeedContentHtml(item) {
     // papers/talks/blogs the `author` field is a display name or author list
     // ("Jenny Lynn Almerol, …"), so an "@" prefix would be misleading — render
     // it as a plain name instead. (See deep feed review 2026-06-29.)
+    // Same defense-in-depth as the link list: only turn author_url into a live
+    // <a href> when it's an http(s) URL, so an unvalidated javascript:/data:
+    // author_url can't become an XSS vector; otherwise render the name plainly.
+    const httpAuthorUrl =
+      item.author_url && /^https?:\/\//i.test(item.author_url);
     const isGitHubHandle =
-      item.author_url && /^https?:\/\/github\.com\//i.test(item.author_url);
+      httpAuthorUrl && /^https?:\/\/github\.com\//i.test(item.author_url);
     if (isGitHubHandle) {
       attr.push(`By <a href="${escapeHtml(item.author_url)}">@${escapeHtml(item.author)}</a>`);
-    } else if (item.author_url) {
+    } else if (httpAuthorUrl) {
       attr.push(`By <a href="${escapeHtml(item.author_url)}">${escapeHtml(item.author)}</a>`);
     } else {
       attr.push(`By ${escapeHtml(item.author)}`);

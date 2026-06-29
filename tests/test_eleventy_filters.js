@@ -599,7 +599,13 @@ assert(typeof feedContentHtml === "function", "feedContentHtml filter not regist
   const other = feedContentHtml({ author: "Martin Chang", author_url: "https://example.com/martin" });
   assert.ok(other.includes('By <a href="https://example.com/martin">Martin Chang</a>'), "non-github url → linked name");
   assert.ok(!other.includes("@"), "no @ for non-github profile");
-  console.log("✓ feedContentHtml: @handle only for github.com authors");
+
+  // Defense-in-depth: a dangerous-scheme author_url must NOT become a live href.
+  const evil = feedContentHtml({ author: "x", author_url: "javascript:alert(1)" });
+  assert.ok(!evil.includes("javascript:"), "javascript: author_url dropped");
+  assert.ok(!evil.includes("<a "), "no anchor for non-http(s) author_url");
+  assert.ok(evil.includes("By x"), "author rendered as plain text");
+  console.log("✓ feedContentHtml: @handle only for github.com authors; author_url scheme-guarded");
 }
 // ── feedDateTime tests ───────────────────────────────────────────────────────
 const feedDateTime = filters["feedDateTime"];

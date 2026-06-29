@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
-const fs = require("fs");
-const path = require("path");
-
 /**
  * Eleventy data file: recentReleases
  *
@@ -30,18 +27,6 @@ const path = require("path");
  * entries.js) are included — pre-release-only and unreleased entries are
  * intentionally excluded.
  */
-
-// Load planet_feeds.json (the source of LLM-generated release summaries).
-// Returns [] when absent (first build before the nightly summarize job runs).
-function loadPlanetFeeds() {
-  const p = path.join(__dirname, "planet_feeds.json");
-  if (!fs.existsSync(p)) return [];
-  try {
-    return JSON.parse(fs.readFileSync(p, "utf8"));
-  } catch (_) {
-    return [];
-  }
-}
 
 // Resolve a human-quality summary for a release. Prefers the LLM-generated
 // description from planet_feeds.json (matched by exact release URL, then by
@@ -89,7 +74,10 @@ module.exports = function () {
     });
   }
 
-  const planetFeeds = loadPlanetFeeds();
+  // Reuse the planetFeeds loader so malformed planet_feeds.json fails the build
+  // with a clear error (its contract: [] when absent, throw when malformed) —
+  // rather than silently downgrading every release summary to the fallback.
+  const planetFeeds = require("./planetFeeds")();
   for (const rel of releases) {
     rel.summary = resolveReleaseSummary(rel, planetFeeds);
     // Conform to the feedContentHtml contract (see .eleventy.js Task 1):
