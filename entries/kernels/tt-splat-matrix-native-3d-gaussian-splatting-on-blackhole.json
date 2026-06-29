@@ -1,0 +1,30 @@
+{
+  "id": "tt-splat-matrix-native-3d-gaussian-splatting-on-blackhole",
+  "name": "tt-splat — matrix-native 3D Gaussian Splatting on Blackhole",
+  "description": "3D Gaussian Splatting rewritten to run on the matrix engine: a polynomial splat and order-independent weighted-sum blending replace exp and depth-sorted alpha, so the pipeline becomes GEMM → activation → GEMM. Renderer + trainer, trained device-resident on a Blackhole p150a.",
+  "affiliation": "community",
+  "categories": [
+    "kernels",
+    "research"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/kinginu/tt-splat"
+    }
+  ],
+  "tags": [
+    "3d-gaussian-splatting",
+    "3dgs",
+    "rendering",
+    "matrix-engine",
+    "weighted-sum-rendering"
+  ],
+  "hardware": [
+    "blackhole",
+    "ttsim"
+  ],
+  "author": "kinginu",
+  "language": "Python",
+  "license": "Apache-2.0"
+}
