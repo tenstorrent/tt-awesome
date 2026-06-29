@@ -123,6 +123,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@jaebaek](https://github.com/jaebaek) — Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.
   [📦 repo](https://github.com/jaebaek/tenstorrent-tiny-examples)
 
+- **[tt-splat — matrix-native 3D Gaussian Splatting on Blackhole](https://github.com/kinginu/tt-splat)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@kinginu](https://github.com/kinginu) — 3D Gaussian Splatting rewritten to run on the matrix engine: a polynomial splat and order-independent weighted-sum blending replace exp and depth-sorted alpha, so the pipeline becomes GEMM → activation → GEMM. Renderer + trainer, trained device-resident on a Blackhole p150a.
+  [📦 repo](https://github.com/kinginu/tt-splat)
+
 - **[tt-twitch](https://github.com/geohot/tt-twitch)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@geohot](https://github.com/geohot) — A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.
   [📦 repo](https://github.com/geohot/tt-twitch)
@@ -256,6 +260,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tenstorrent.nix](https://github.com/RossComputerGuy/tenstorrent.nix)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@RossComputerGuy](https://github.com/RossComputerGuy) — Nix flake packaging the Tenstorrent software stack for NixOS and Nix users. Reproducible, declarative installation of TT drivers and tools.
   [📦 repo](https://github.com/RossComputerGuy/tenstorrent.nix)
+
+- **[tetsuh/tt-metal-community-distro-matrix](https://github.com/tetsuh/tt-metal-community-distro-matrix)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@tetsuh](https://github.com/tetsuh) — A compatibility guardrail that continuously monitors whether [tt-metal](https://github.com/tenstorrent/tt-metal) and the official [tt-installer](https://github.com/tenstorrent/tt-installer) build successfully on community Linux distributions that are not part of Tenstorrent's official CI.
+  [📦 repo](https://github.com/tetsuh/tt-metal-community-distro-matrix)
 
 - **[tt-qb-lights](https://github.com/tsingletaryTT/tt-qb-lights)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Sync your Tenstorrent Quietbox's RGB lighting to accelerator utilization status. Visual feedback for hardware activity in real time.
