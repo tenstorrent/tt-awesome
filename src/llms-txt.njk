@@ -1,0 +1,22 @@
+---
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+# tt-awesome
+
+> A curated directory of projects, tools, models, and research for Tenstorrent hardware — contributed by the community and the Tenstorrent team. Generated from the entries in this repository.
+
+## Feeds & Data
+
+- [JSON Feed](https://tenstorrent.github.io/tt-awesome/feeds/feed.json): combined releases, entries, and articles (JSON Feed 1.1).
+- [New Entries (Atom)](https://tenstorrent.github.io/tt-awesome/feeds/new-entries.xml): newly added projects and resources.
+- [Articles & Resources (Atom)](https://tenstorrent.github.io/tt-awesome/feeds/articles.xml): articles, papers, lessons, talks, videos, demos.
+- [Recent Releases (Atom)](https://tenstorrent.github.io/tt-awesome/feeds/releases.xml): latest stable releases.
+- [data.json](https://tenstorrent.github.io/tt-awesome/data.json): the full machine-readable entry database.
+- [README](https://github.com/tenstorrent/tt-awesome/blob/main/README.md): human-readable directory.
+{% for cat in categories %}
+## {{ cat.label | safe }}
+{% for entry in entries | sort(false, false, "name") %}{% if entry.categories and (cat.slug in entry.categories) %}{%- set repoLink = entry.links | selectattr("type", "equalto", "repo") | first %}{%- set anyLink = entry.links | first %}
+- [{{ entry.name | safe }}]({{ repoLink.url if repoLink else (anyLink.url if anyLink else "https://tenstorrent.github.io/tt-awesome/#" + entry.id) }}): {{ entry.description | striptags | replace("\n", " ") | safe }}
+{%- endif %}{% endfor %}
+{% endfor %}
