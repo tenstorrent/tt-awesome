@@ -18,6 +18,103 @@ const mdInline = new MarkdownIt({ html: false, linkify: false });
 // tracking pixels / unexpected network requests. We keep links/code/emphasis only.
 mdInline.disable("image");
 
+// Block-level markdown renderer for full feed <content> blocks. Same safety
+// posture as mdInline (no raw HTML, no auto-fetching images), but keeps block
+// wrappers so multi-paragraph release summaries render as real <p> tags.
+const mdBlock = new MarkdownIt({ html: false, linkify: false });
+mdBlock.disable("image");
+
+// Shared HTML escaper for text we interpolate directly into the content block.
+const escapeHtml = mdBlock.utils.escapeHtml;
+
+// Build the rich HTML <content> block shared by every feed (Atom <content
+// type="html"> and JSON Feed content_html). Sections whose data is absent are
+// omitted entirely. Accepts a single normalized object — see plan Task 1.
+function buildFeedContentHtml(item) {
+  if (!item) return "";
+  const parts = [];
+
+  // 1. Description / summary — block markdown (paragraphs preserved).
+  if (item.description) parts.push(mdBlock.render(item.description));
+
+  // 2. Links — every typed link as a labeled anchor. Label falls back to a
+  //    title-cased link type (e.g. "article" → "Article").
+  // Defense-in-depth: only render http(s) links. Entry/release URLs are
+  // https-validated upstream (entries.js isSafeHttpsUrl), but this builder is
+  // general — drop javascript:/data:/etc. so a bad URL can't become a live href.
+  const links = (item.links || []).filter(
+    (l) => l && l.url && /^https?:\/\//i.test(l.url)
+  );
+  if (links.length) {
+    // Render links inline, separated by " · ", rather than as a <ul>/<li> list.
+    // HTML readers show a tidy one-liner, and — crucially — clients that flatten
+    // HTML to plain text (Slack's RSS app, plain-text views) still get readable
+    // output: "<li>Repo</li><li>1.3.0</li>" flattens to "Repo1.3.0", but
+    // "<a>Repo</a> · <a>1.3.0</a>" flattens to "Repo · 1.3.0". (See deep feed
+    // review 2026-06-29.)
+    const anchors = links
+      .map((l) => {
+        const label = l.label
+          ? escapeHtml(l.label)
+          : l.type
+          ? escapeHtml(l.type.charAt(0).toUpperCase() + l.type.slice(1))
+          : escapeHtml(l.url);
+        return `<a href="${escapeHtml(l.url)}">${label}</a>`;
+      })
+      .join(" · ");
+    parts.push(`<p><strong>Links:</strong> ${anchors}</p>`);
+  }
+
+  // 3. Attribution — author, affiliation, date added, separated by middots.
+  const attr = [];
+  if (item.author) {
+    // Only treat the author as a GitHub @handle when author_url is a github.com
+    // profile (entries.js derives that URL from the repo owner login). For
+    // papers/talks/blogs the `author` field is a display name or author list
+    // ("Jenny Lynn Almerol, …"), so an "@" prefix would be misleading — render
+    // it as a plain name instead. (See deep feed review 2026-06-29.)
+    // Same defense-in-depth as the link list: only turn author_url into a live
+    // <a href> when it's an http(s) URL, so an unvalidated javascript:/data:
+    // author_url can't become an XSS vector; otherwise render the name plainly.
+    const httpAuthorUrl =
+      item.author_url && /^https?:\/\//i.test(item.author_url);
+    const isGitHubHandle =
+      httpAuthorUrl && /^https?:\/\/github\.com\//i.test(item.author_url);
+    if (isGitHubHandle) {
+      attr.push(`By <a href="${escapeHtml(item.author_url)}">@${escapeHtml(item.author)}</a>`);
+    } else if (httpAuthorUrl) {
+      attr.push(`By <a href="${escapeHtml(item.author_url)}">${escapeHtml(item.author)}</a>`);
+    } else {
+      attr.push(`By ${escapeHtml(item.author)}`);
+    }
+  }
+  if (item.affiliation) attr.push(escapeHtml(item.affiliation));
+  if (item.added_at) attr.push(`added ${escapeHtml(item.added_at)}`);
+  if (attr.length) parts.push(`<p>${attr.join(" · ")}</p>`);
+
+  // 4. Tags + categories — comma-separated, emphasized.
+  const tagBits = [...(item.tags || []), ...(item.categories || [])];
+  if (tagBits.length) {
+    parts.push(`<p><em>${tagBits.map(escapeHtml).join(", ")}</em></p>`);
+  }
+
+  return parts.join("\n");
+}
+
+// Build a feed timestamp from a date that may be date-only. See the feedDateTime
+// filter registration below for the full rationale. Shared as a module-scope
+// function so both the filter and jsonFeedItems produce identical timestamps.
+function feedDateTime(dateStr, index = 0) {
+  if (!dateStr) return "1970-01-01T00:00:00Z";
+  if (/T\d{2}:\d{2}/.test(dateStr)) return dateStr; // already a full timestamp
+  const i = Math.max(0, Math.min(86399, Number(index) || 0)); // clamp to 1 day
+  const secs = 86399 - i; // earlier in feed (newer) → later time that day
+  const hh = String(Math.floor(secs / 3600)).padStart(2, "0");
+  const mm = String(Math.floor((secs % 3600) / 60)).padStart(2, "0");
+  const ss = String(secs % 60).padStart(2, "0");
+  return `${dateStr}T${hh}:${mm}:${ss}Z`;
+}
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy({ ".nojekyll": ".nojekyll" });
@@ -35,6 +132,39 @@ module.exports = function (eleventyConfig) {
   // Returns "" for falsy input so templates can pipe unconditionally.
   eleventyConfig.addFilter("markdownInline", (str) =>
     str ? mdInline.renderInline(str) : ""
+  );
+
+  // Render the full rich HTML content block for a feed item. Pair with
+  // `| cdataSafe | safe` in Atom templates. See buildFeedContentHtml above.
+  eleventyConfig.addFilter("feedContentHtml", (item) => buildFeedContentHtml(item));
+
+  // Return the first link of a given type (e.g. "repo") from a links array, or
+  // null. Templates use this instead of `links | selectattr("type","equalto",
+  // type) | first` — selectattr is unreliable in Eleventy's Nunjucks (see the
+  // planetCount note below), so we resolve link selection in JS where it's
+  // predictable and unit-testable.
+  eleventyConfig.addFilter("firstLinkOfType", (links, type) =>
+    (links || []).find((l) => l && l.type === type) || null
+  );
+
+  // Build a feed timestamp from a date that may be date-only (entry `added_at`
+  // is "YYYY-MM-DD" with no time). Many entries share an `added_at`, so emitting
+  // a flat "T00:00:00Z" leaves readers that sort by <updated>/date_published
+  // unable to order same-day items. We synthesize a deterministic *descending*
+  // time-of-day from the item's position in the (newest-first) feed so that
+  // date-sorting in a reader reproduces our curated order. This is an ordering
+  // key, NOT a real timestamp — `added_at` carries no real time-of-day.
+  // Strings that already include a time (release `publishedAt`) pass through.
+  eleventyConfig.addFilter("feedDateTime", (dateStr, index = 0) =>
+    feedDateTime(dateStr, index)
+  );
+
+  // Collapse all runs of whitespace (including newlines) to single spaces.
+  // Used on the release feed <summary> so a multi-paragraph summary can never
+  // render as a run-on — the summary must be a single clean line, while the
+  // full text still appears (with paragraphs) in <content>.
+  eleventyConfig.addFilter("singleLine", (str) =>
+    (str || "").replace(/\s+/g, " ").trim()
   );
 
   // Make a string safe to embed inside an XML CDATA section. A literal "]]>"
@@ -152,6 +282,12 @@ module.exports = function (eleventyConfig) {
           linkUrl:    link.url,
           linkLabel:  link.label || (link.type.charAt(0).toUpperCase() + link.type.slice(1)),
           added_at:   entry.added_at || "1970-01-01",
+          // feedContentHtml contract fields:
+          description: entry.description || "",
+          links:      entry.links || [],
+          author:     entry.author || "",
+          author_url: entry.author_url || "",
+          tags:       entry.tags || [],
         });
         if (items.length >= limit) return items;
       }
@@ -177,14 +313,13 @@ module.exports = function (eleventyConfig) {
 
     // 1. Release items — one per entry in recentReleases.
     for (const rel of recentReleases || []) {
-      const summary = `${rel.entryName} released ${rel.tagName}. Repository: ${rel.repoUrl}`;
+      const summary = rel.summary ||
+        `${rel.entryName} released ${rel.tagName}. Repository: ${rel.repoUrl}`;
       items.push({
         id:             rel.url,
         url:            rel.url,
         title:          `${rel.entryName} ${rel.tagName}`,
-        // content_html satisfies JSON Feed 1.1 (an item needs content_html or
-        // content_text) and renders any inline markdown; summary stays plain text.
-        content_html:   mdInline.renderInline(summary),
+        content_html:   buildFeedContentHtml(rel),
         summary:        summary,
         date_published: rel.publishedAt,
         tags:           [rel.affiliation, "release"].filter(Boolean),
@@ -209,17 +344,17 @@ module.exports = function (eleventyConfig) {
       const anyLink  = (entry.links || []).find((l) => l.url);
       const repoUrl  = repoLink ? repoLink.url : null;
 
-      // Date helper — ensure full ISO 8601 timestamp.
-      const entryDate = entry.added_at
-        ? `${entry.added_at}T00:00:00Z`
-        : "1970-01-01T00:00:00Z";
+      // Full ISO 8601 timestamp. added_at is date-only, so synthesize a
+      // deterministic descending time-of-day from the feed position (i) to give
+      // same-day items a stable order in date-sorting readers. See feedDateTime.
+      const entryDate = feedDateTime(entry.added_at, i);
 
       // 2a. One item for the entry itself.
       items.push({
         id:             repoUrl || `https://tenstorrent.github.io/tt-awesome/#${entry.id}`,
         url:            repoUrl || (anyLink ? anyLink.url : `https://tenstorrent.github.io/tt-awesome/#${entry.id}`),
         title:          entry.name,
-        content_html:   mdInline.renderInline(entry.description || ""),
+        content_html:   buildFeedContentHtml(entry),
         summary:        entry.description || "",
         date_published: entryDate,
         tags:           [...(entry.categories || []), entry.affiliation, "entry"].filter(Boolean),
@@ -234,7 +369,11 @@ module.exports = function (eleventyConfig) {
           id:             link.url,
           url:            link.url,
           title:          `${entry.name} — ${link.label || link.type}`,
-          content_html:   mdInline.renderInline(entry.description || ""),
+          // This item represents one specific link, so its content lists only
+          // that link — not the entry's whole link set (which the entry item
+          // above already carries). Avoids byte-identical duplicate content
+          // across the two items in the combined feed. (Deep feed review.)
+          content_html:   buildFeedContentHtml({ ...entry, links: [link] }),
           summary:        entry.description || "",
           date_published: entryDate,
           tags:           [

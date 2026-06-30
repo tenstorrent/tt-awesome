@@ -54,7 +54,7 @@ function makeEntry(overrides) {
 }
 
 function makeRelease(overrides) {
-  return {
+  const base = {
     entryId:     "test-entry",
     entryName:   "Test Entry",
     affiliation: "official",
@@ -64,6 +64,9 @@ function makeRelease(overrides) {
     repoUrl:     "https://github.com/test/repo",
     ...overrides,
   };
+  // Conform to feedContentHtml contract: description = summary
+  if (!base.description && base.summary) base.description = base.summary;
+  return base;
 }
 
 // ── articleFeedItems tests ────────────────────────────────────────────────────
@@ -137,9 +140,30 @@ function makeRelease(overrides) {
   console.log("✓ articleFeedItems: missing added_at falls back to 1970-01-01");
 }
 
+// Test 8: articleFeedItems carries fields needed by feedContentHtml.
+{
+  const entry = makeEntry({
+    author: "alice",
+    author_url: "https://github.com/alice",
+    tags: ["blackhole"],
+    links: [
+      { type: "repo", url: "https://github.com/test/repo" },
+      { type: "article", url: "https://example.com/article", label: "Read more" },
+    ],
+  });
+  const items = articleFeedItems([entry], 50);
+  const it = items[0];
+  assert.strictEqual(it.description, "A test entry.", "carries entry description");
+  assert.strictEqual(it.author, "alice", "carries author");
+  assert.strictEqual(it.author_url, "https://github.com/alice", "carries author_url");
+  assert.deepStrictEqual(it.tags, ["blackhole"], "carries tags");
+  assert.strictEqual(it.links.length, 2, "carries entry's full links array");
+  console.log("✓ articleFeedItems: carries feedContentHtml contract fields");
+}
+
 // ── jsonFeedItems tests ───────────────────────────────────────────────────────
 
-// Test 8: release items appear with correct shape
+// Test 9: release items appear with correct shape
 {
   const rel = makeRelease();
   const items = jsonFeedItems([], [rel]);
@@ -153,7 +177,30 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: release items have correct shape");
 }
 
-// Test 9: entry items appear with correct shape
+// Test 9b: release items use rel.summary as their summary text.
+{
+  const rel = makeRelease({ summary: "Rich release summary here." });
+  const items = jsonFeedItems([], [rel]);
+  assert.strictEqual(items[0].summary, "Rich release summary here.",
+    "release summary comes from rel.summary");
+  assert.ok(items[0].content_html.includes("Rich release summary here."),
+    "release content_html renders the summary");
+  console.log("✓ jsonFeedItems: release items use rel.summary");
+}
+
+// Test 9c: release with no rel.summary falls back to the one-liner string.
+{
+  const rel = makeRelease(); // no summary field
+  const items = jsonFeedItems([], [rel]);
+  assert.strictEqual(
+    items[0].summary,
+    "Test Entry released v1.0.0. Repository: https://github.com/test/repo",
+    "release summary falls back to one-liner when rel.summary absent"
+  );
+  console.log("✓ jsonFeedItems: release summary falls back to one-liner");
+}
+
+// Test 10: entry items appear with correct shape
 {
   const entry = makeEntry({ links: [{ type: "repo", url: "https://github.com/test/repo" }] });
   const items = jsonFeedItems([entry], []);
@@ -165,8 +212,8 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: entry items have correct shape");
 }
 
-// Test 9b: items carry content_html (JSON Feed 1.1 requires content_html or
-// content_text) with inline markdown rendered; summary stays plain text.
+// Test 10b: items carry content_html (JSON Feed 1.1 requires content_html or
+// content_text) — now a rich block with inline markdown rendered inside it; summary stays plain text.
 {
   const entry = makeEntry({
     description: "Uses `tt_metal` under the hood.",
@@ -174,8 +221,9 @@ function makeRelease(overrides) {
   });
   const items = jsonFeedItems([entry], []);
   const entryItem = items.find((i) => i.tags.includes("entry"));
-  assert.strictEqual(entryItem.content_html, "Uses <code>tt_metal</code> under the hood.",
-    "content_html renders inline markdown");
+  // content_html is now the rich block — it CONTAINS the rendered description.
+  assert.ok(entryItem.content_html.includes("<code>tt_metal</code>"),
+    "content_html renders the description as markdown");
   assert.strictEqual(entryItem.summary, "Uses `tt_metal` under the hood.",
     "summary stays plain text");
   assert.ok(items.every((i) => typeof i.content_html === "string"),
@@ -183,7 +231,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: items carry rendered content_html + plain summary");
 }
 
-// Test 10: article-type links produce article items
+// Test 11: article-type links produce article items
 {
   const entry = makeEntry();
   const items = jsonFeedItems([entry], []);
@@ -193,7 +241,26 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: article link items produced");
 }
 
-// Test 11: output is sorted newest-first by date_published
+// Test 11b: an article-link item's content lists ONLY its own link, not the
+// entry's whole link set (the entry item already carries all links). Avoids
+// byte-identical duplicate content across the two items.
+{
+  const entry = makeEntry(); // has a repo link + an article link
+  const items = jsonFeedItems([entry], []);
+  const entryItem   = items.find((i) => i.tags.includes("entry"));
+  const articleItem = items.find((i) => i.tags.includes("article"));
+  assert.ok(entryItem.content_html.includes("https://github.com/test/repo"),
+    "entry item content includes the repo link");
+  assert.ok(!articleItem.content_html.includes("https://github.com/test/repo"),
+    "article item content omits the repo link (focuses on its own link)");
+  assert.ok(articleItem.content_html.includes("https://example.com/article"),
+    "article item content includes its own link");
+  assert.notStrictEqual(entryItem.content_html, articleItem.content_html,
+    "entry and article item content are not byte-identical");
+  console.log("✓ jsonFeedItems: article item content focuses on its own link");
+}
+
+// Test 12: output is sorted newest-first by date_published
 {
   const oldRel = makeRelease({ publishedAt: "2025-01-01T00:00:00Z", url: "https://github.com/test/repo/releases/tag/v0.1" });
   const newRel = makeRelease({ publishedAt: "2026-06-01T00:00:00Z", url: "https://github.com/test/repo/releases/tag/v2.0" });
@@ -210,7 +277,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: output sorted newest-first by date_published");
 }
 
-// Test 12: empty affiliation is filtered from tags
+// Test 13: empty affiliation is filtered from tags
 {
   const entry = makeEntry({ affiliation: "", links: [{ type: "repo", url: "https://github.com/test/repo" }] });
   const items = jsonFeedItems([entry], []);
@@ -219,7 +286,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: empty affiliation filtered from tags");
 }
 
-// Test 13: entries without repo link fall back to first available link URL
+// Test 14: entries without repo link fall back to first available link URL
 {
   const entry = makeEntry({ links: [{ type: "article", url: "https://example.com/article" }] });
   const items = jsonFeedItems([entry], []);
@@ -229,7 +296,7 @@ function makeRelease(overrides) {
   console.log("✓ jsonFeedItems: no-repo entry falls back to first available link URL");
 }
 
-// Test 14: entries with no links at all fall back to anchor URL
+// Test 15: entries with no links at all fall back to anchor URL
 {
   const entry = makeEntry({ links: [] });
   const items = jsonFeedItems([entry], []);
@@ -248,7 +315,7 @@ assert(typeof planetItems  === "function", "planetItems filter not registered");
 assert(typeof monthLabel   === "function", "monthLabel filter not registered");
 assert(typeof monthKey     === "function", "monthKey filter not registered");
 
-// Test 15: article links appear in planet items
+// Test 16: article links appear in planet items
 {
   const entry = makeEntry({ links: [
     { type: "repo",    url: "https://github.com/test/repo" },
@@ -264,7 +331,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: article links included with correct shape");
 }
 
-// Test 16: releases appear with type "release"
+// Test 17: releases appear with type "release"
 {
   const rel = makeRelease();
   const items = planetItems([], [rel], []);
@@ -276,7 +343,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: releases included with correct shape");
 }
 
-// Test 17: output sorted newest-first
+// Test 18: output sorted newest-first
 {
   const old  = makeEntry({ id: "old",  added_at: "2025-01-01", links: [{ type: "article", url: "https://example.com/old" }] });
   const newE = makeEntry({ id: "newE", added_at: "2026-06-01", links: [{ type: "article", url: "https://example.com/new" }] });
@@ -286,7 +353,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: sorted newest-first");
 }
 
-// Test 18: deduplication by URL
+// Test 19: deduplication by URL
 {
   const e1 = makeEntry({ id: "e1", links: [{ type: "article", url: "https://example.com/same" }] });
   const e2 = makeEntry({ id: "e2", links: [{ type: "article", url: "https://example.com/same" }] });
@@ -295,7 +362,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: deduplicates by URL");
 }
 
-// Test 19: all six article types included
+// Test 20: all six article types included
 {
   const types = ["article", "lesson", "paper", "talk", "video", "demo"];
   const links = types.map((t) => ({ type: t, url: `https://example.com/${t}` }));
@@ -307,7 +374,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: all six article types included");
 }
 
-// Test 20: monthLabel converts correctly
+// Test 21: monthLabel converts correctly
 {
   assert.strictEqual(monthLabel("2026-05"),    "May 2026");
   assert.strictEqual(monthLabel("2026-05-01"), "May 2026");
@@ -317,7 +384,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ monthLabel: converts YYYY-MM and YYYY-MM-DD correctly");
 }
 
-// Test 21: monthKey slices YYYY-MM from date strings
+// Test 22: monthKey slices YYYY-MM from date strings
 {
   assert.strictEqual(monthKey("2026-05-01"), "2026-05");
   assert.strictEqual(monthKey("2026-12-31"), "2026-12");
@@ -327,14 +394,14 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ monthKey: slices YYYY-MM correctly");
 }
 
-// Test 22: monthLabel guards invalid month numbers
+// Test 23: monthLabel guards invalid month numbers
 {
   assert.strictEqual(monthLabel("2026-00-15"), "2026-00-15"); // month 0 → returns dateStr
   assert.strictEqual(monthLabel("2026-13-01"), "2026-13-01"); // month 13 → returns dateStr
   console.log("✓ monthLabel: guards out-of-range month numbers");
 }
 
-// Test 23: planetItems excludes dev releases (all known patterns)
+// Test 24: planetItems excludes dev releases (all known patterns)
 {
   const mkRel = (tagName, url) => ({
     entryId: "x", entryName: "X", affiliation: "official",
@@ -354,7 +421,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: excludes .dev, -dev, and -dev.<digits> release tags");
 }
 
-// Test 24: approved external items appear
+// Test 25: approved external items appear
 {
   const extApproved1 = {
     type: "video", source: "youtube", approved: true,
@@ -431,6 +498,155 @@ assert(typeof cdataSafe === "function", "cdataSafe filter not registered");
   assert.strictEqual(cdataSafe(""), "", "empty input safe");
   assert.strictEqual(cdataSafe(undefined), "", "undefined input safe");
   console.log("✓ cdataSafe: neutralizes ]]> sequences");
+}
+
+// ── feedContentHtml tests ────────────────────────────────────────────────────
+const feedContentHtml = filters["feedContentHtml"];
+assert(typeof feedContentHtml === "function", "feedContentHtml filter not registered");
+{
+  const html = feedContentHtml({
+    description: "Boltz-2 on **Blackhole**.",
+    links: [
+      { type: "repo", url: "https://github.com/test/repo", label: "GitHub" },
+      { type: "article", url: "https://example.com/post" },
+    ],
+    author: "moritztng",
+    author_url: "https://github.com/moritztng",
+    affiliation: "community",
+    tags: ["blackhole", "drug-discovery"],
+    categories: ["ai-models"],
+    added_at: "2026-05-13",
+  });
+  // description rendered as block markdown
+  assert.ok(html.includes("<strong>Blackhole</strong>"), "renders markdown emphasis");
+  // links list with both links; missing label falls back to title-cased type
+  assert.ok(html.includes('<a href="https://github.com/test/repo">GitHub</a>'), "labeled link");
+  assert.ok(html.includes('<a href="https://example.com/post">Article</a>'), "fallback label is title-cased type");
+  // attribution: linked author handle, affiliation, added date
+  assert.ok(html.includes('<a href="https://github.com/moritztng">@moritztng</a>'), "linked author handle");
+  assert.ok(html.includes("community"), "affiliation present");
+  assert.ok(html.includes("2026-05-13"), "added date present");
+  // tags + categories
+  assert.ok(html.includes("blackhole") && html.includes("ai-models"), "tags + categories present");
+  console.log("✓ feedContentHtml: renders description, links, attribution, tags");
+}
+{
+  // Missing sections are omitted, not rendered empty.
+  const html = feedContentHtml({ description: "Just a description." });
+  assert.ok(html.includes("Just a description."), "description present");
+  assert.ok(!html.includes("<ul>"), "no links list when no links");
+  assert.ok(!html.includes("Links:"), "no Links heading when no links");
+  console.log("✓ feedContentHtml: omits absent sections");
+}
+{
+  // Escapes HTML in text fields and never emits an <img>.
+  const html = feedContentHtml({
+    description: "![x](http://evil/pixel.gif)",
+    author: "a<b>c",
+    links: [{ type: "repo", url: "https://x/y", label: "<script>" }],
+    tags: ["t&g"],
+  });
+  assert.ok(!html.includes("<img"), "no img from image markdown");
+  assert.ok(!html.includes("<script>"), "label HTML escaped");
+  assert.ok(html.includes("a&lt;b&gt;c"), "author HTML escaped");
+  assert.ok(html.includes("t&amp;g"), "tag ampersand escaped");
+  console.log("✓ feedContentHtml: escapes text fields, blocks images");
+}
+{
+  assert.strictEqual(feedContentHtml(null), "", "null input → empty string");
+  assert.strictEqual(feedContentHtml(undefined), "", "undefined input → empty string");
+  console.log("✓ feedContentHtml: empty input safe");
+}
+{
+  // Defense-in-depth: non-http(s) link schemes must not become live hrefs.
+  const html = feedContentHtml({
+    description: "x",
+    links: [
+      { type: "repo", url: "javascript:alert(1)", label: "evil" },
+      { type: "repo", url: "https://github.com/ok/repo", label: "ok" },
+    ],
+  });
+  assert.ok(!html.includes("javascript:"), "javascript: scheme dropped");
+  assert.ok(html.includes("https://github.com/ok/repo"), "https link kept");
+  console.log("✓ feedContentHtml: drops non-http(s) link schemes");
+}
+{
+  // Links render inline with " · ", NOT as a <ul>/<li> list, so they stay
+  // readable when a client flattens the HTML to plain text (Slack RSS).
+  const html = feedContentHtml({
+    description: "x",
+    links: [
+      { type: "repo", url: "https://github.com/a/b", label: "Repo" },
+      { type: "release", url: "https://github.com/a/b/releases/tag/1.3.0", label: "1.3.0" },
+    ],
+  });
+  assert.ok(!html.includes("<ul>") && !html.includes("<li>"), "no list markup");
+  assert.ok(html.includes("</a> · <a"), "links joined by middot separator");
+  assert.ok(html.includes("<strong>Links:</strong> <a"), "inline Links label");
+  console.log("✓ feedContentHtml: links render inline with separator");
+}
+{
+  // Attribution: '@handle' only when author_url is a github.com profile.
+  const gh = feedContentHtml({ author: "geohot", author_url: "https://github.com/geohot" });
+  assert.ok(gh.includes('By <a href="https://github.com/geohot">@geohot</a>'), "github author → @handle linked");
+
+  // A display name / author list with NO url → plain "By Name", no '@'.
+  const name = feedContentHtml({ author: "Jenny Lynn Almerol, Mario Spera" });
+  assert.ok(name.includes("By Jenny Lynn Almerol, Mario Spera"), "plain name rendered");
+  assert.ok(!name.includes("@"), "no bogus @ prefix on a non-handle author");
+
+  // A non-github profile url → linked name without '@'.
+  const other = feedContentHtml({ author: "Martin Chang", author_url: "https://example.com/martin" });
+  assert.ok(other.includes('By <a href="https://example.com/martin">Martin Chang</a>'), "non-github url → linked name");
+  assert.ok(!other.includes("@"), "no @ for non-github profile");
+
+  // Defense-in-depth: a dangerous-scheme author_url must NOT become a live href.
+  const evil = feedContentHtml({ author: "x", author_url: "javascript:alert(1)" });
+  assert.ok(!evil.includes("javascript:"), "javascript: author_url dropped");
+  assert.ok(!evil.includes("<a "), "no anchor for non-http(s) author_url");
+  assert.ok(evil.includes("By x"), "author rendered as plain text");
+  console.log("✓ feedContentHtml: @handle only for github.com authors; author_url scheme-guarded");
+}
+// ── firstLinkOfType tests ────────────────────────────────────────────────────
+const firstLinkOfType = filters["firstLinkOfType"];
+assert(typeof firstLinkOfType === "function", "firstLinkOfType filter not registered");
+{
+  const links = [
+    { type: "article", url: "https://x/a" },
+    { type: "repo", url: "https://x/repo" },
+    { type: "repo", url: "https://x/repo2" },
+  ];
+  assert.strictEqual(firstLinkOfType(links, "repo").url, "https://x/repo", "returns first matching type");
+  assert.strictEqual(firstLinkOfType(links, "video"), null, "no match → null");
+  assert.strictEqual(firstLinkOfType(undefined, "repo"), null, "missing links → null");
+  assert.strictEqual(firstLinkOfType([{}, null], "repo"), null, "skips falsy/typeless entries");
+  console.log("✓ firstLinkOfType: selects first link of a type, null otherwise");
+}
+// ── feedDateTime tests ───────────────────────────────────────────────────────
+const feedDateTime = filters["feedDateTime"];
+assert(typeof feedDateTime === "function", "feedDateTime filter not registered");
+{
+  // Date-only input gets a synthesized descending time keyed to feed index, so
+  // earlier (newer) items sort above later ones on the same day.
+  const newer = feedDateTime("2026-05-08", 0);
+  const older = feedDateTime("2026-05-08", 5);
+  assert.strictEqual(newer, "2026-05-08T23:59:59Z", "index 0 → end of day");
+  assert.strictEqual(older, "2026-05-08T23:59:54Z", "index 5 → 5s earlier");
+  assert.ok(newer > older, "earlier feed index sorts later in time (newest-first preserved)");
+  // A value that already carries a time passes through untouched.
+  assert.strictEqual(feedDateTime("2026-06-29T07:46:11Z", 3), "2026-06-29T07:46:11Z", "full timestamp passthrough");
+  // Empty input is safe.
+  assert.strictEqual(feedDateTime("", 0), "1970-01-01T00:00:00Z", "empty → epoch");
+  console.log("✓ feedDateTime: deterministic intra-day ordering + passthrough");
+}
+// ── singleLine tests ─────────────────────────────────────────────────────────
+const singleLine = filters["singleLine"];
+assert(typeof singleLine === "function", "singleLine filter not registered");
+{
+  assert.strictEqual(singleLine("a\n\nb\n  c"), "a b c", "collapses newlines and runs of whitespace");
+  assert.strictEqual(singleLine("  trim me  "), "trim me", "trims ends");
+  assert.strictEqual(singleLine(undefined), "", "undefined → empty");
+  console.log("✓ singleLine: collapses whitespace to a single line");
 }
 
 console.log("\nAll eleventy filter tests passed ✓");

@@ -483,6 +483,19 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.
   [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons) · [📖 RISC-V Programming Guide](https://docs.tenstorrent.com/tt-vscode-toolkit/riscv-guide/)
 
+## Feeds & Resources
+
+Subscribe to tt-awesome activity via Atom or JSON Feed:
+
+- **[New Entries (Atom)](https://tenstorrent.github.io/tt-awesome/feeds/new-entries.xml)** — newly added projects and resources.
+- **[Articles & Resources (Atom)](https://tenstorrent.github.io/tt-awesome/feeds/articles.xml)** — articles, papers, lessons, talks, and demos.
+- **[Recent Releases (Atom)](https://tenstorrent.github.io/tt-awesome/feeds/releases.xml)** — latest stable releases. Release items use LLM-generated summaries when available.
+- **[JSON Feed](https://tenstorrent.github.io/tt-awesome/feeds/feed.json)** — combined releases, entries, and articles (JSON Feed 1.1).
+- **[data.json](https://tenstorrent.github.io/tt-awesome/data.json)** — full machine-readable entry database.
+- **[llms.txt](https://tenstorrent.github.io/tt-awesome/llms.txt)** — curated plain-text index for LLM context and AI tooling.
+
+Each Atom and JSON Feed item carries both a short `<summary>` and a full rich `<content>` block containing the project description, all associated links, attribution, and tags — suitable for feed readers that render HTML content.
+
 ## Contributing
 
 We welcome contributions from the community! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on submitting entries, bug reports, and pull requests.
