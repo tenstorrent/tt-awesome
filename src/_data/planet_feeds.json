@@ -1,5 +1,19 @@
 [
   {
+    "type": "lesson",
+    "source": "docs",
+    "approved": true,
+    "title": "TT-QuietBox 2 Guide",
+    "url": "https://docs.tenstorrent.com/tt-quietbox2-guide",
+    "description": "The official onboarding guide for the **TT-QuietBox 2** — a liquid-cooled desktop workstation with four Blackhole accelerators — is now live, organized into four hands-on learning paths: **Explore** (first look at the hardware and software, 6 chapters), **Run & build** (deploy pre-built models, 6 chapters), **Tinker** (dig into model architectures and the tt-metal / tt-inference-server stack, 6 chapters), and **Customize** (make the workstation your own, 5 chapters). It ships with Qwen3-32B pre-loaded and walks through running text models (Llama 3.x, Qwen3 4B–32B, Gemma 3, GPT-OSS), image generation (FLUX.1, SDXL), video (Mochi 1, Wan2.2), and speech (Whisper-large-v3, SpeechT5) — all served through tt-inference-server.",
+    "date": "2026-06-30",
+    "dateISO": "2026-06-30T00:00:00Z",
+    "label": "docs.tenstorrent.com",
+    "projectName": "TT-QuietBox 2 Guide",
+    "projectId": "tt-quietbox2-guide",
+    "affiliation": "official"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,

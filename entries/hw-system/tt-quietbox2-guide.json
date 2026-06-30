@@ -1,0 +1,35 @@
+{
+  "id": "tt-quietbox2-guide",
+  "name": "TT-QuietBox 2 Guide",
+  "description": "Official setup and onboarding guide for the TT-QuietBox 2 — a compact, liquid-cooled AI workstation with four Blackhole accelerators, an AMD Ryzen CPU, 256GB RAM, and 4TB NVMe. Covers hardware specs, first-boot setup, and hands-on learning paths for running pre-loaded models like Qwen3-32B and serving text, image, video, and speech models via tt-inference-server.",
+  "affiliation": "official",
+  "categories": [
+    "hw-system",
+    "guides",
+    "getting-started"
+  ],
+  "tags": [
+    "quietbox",
+    "blackhole",
+    "workstation",
+    "setup",
+    "getting-started",
+    "documentation"
+  ],
+  "links": [
+    {
+      "type": "website",
+      "url": "https://docs.tenstorrent.com/tt-quietbox2-guide",
+      "label": "TT-QuietBox 2 Guide"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "related": [
+    "tt-installer",
+    "tt-inference-server"
+  ],
+  "added_at": "2026-06-30"
+}
