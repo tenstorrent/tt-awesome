@@ -389,7 +389,10 @@ function _applyAuthorFilter(name) {
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   document.getElementById("list-title").textContent = name;
   _clearDetail();
-  applyFilters(document.getElementById("search").value.toLowerCase().trim());
+  // Drop any leftover cross-category search so the author view isn't narrowed
+  // by a stale query.
+  _clearSearchInputs();
+  applyFilters("");
   if (isMobile()) {
     panes.classList.remove("detail-active");
     panes.classList.add("list-active");
@@ -475,7 +478,10 @@ function _applyCategory(slug, el) {
   document.querySelectorAll(".sidebar-item").forEach((i) => i.classList.remove("active"));
   el.classList.add("active");
   document.getElementById("list-title").textContent = el.textContent.trim();
-  applyFilters(document.getElementById("search").value.toLowerCase().trim());
+  // Drop any leftover cross-category search so the category shows its full
+  // contents instead of being narrowed by a stale query.
+  _clearSearchInputs();
+  applyFilters("");
   _clearDetail();
   if (isMobile()) {
     panes.classList.remove("detail-active");
@@ -530,6 +536,19 @@ function _clearDetail() {
   document.querySelectorAll(".entry-row, .release-row").forEach((r) => r.classList.remove("active"));
 }
 
+/**
+ * Clear both search inputs (desktop + mobile-expanded) without re-filtering.
+ * Called when the user explicitly navigates to a category or author, so a
+ * leftover cross-category search query can't carry over and make the new view
+ * look empty (the "stuck filter" bug).
+ */
+function _clearSearchInputs() {
+  const desktop = document.getElementById("search");
+  if (desktop) desktop.value = "";
+  const mobile = document.getElementById("search-expanded");
+  if (mobile) mobile.value = "";
+}
+
 /* ── Filter chips ───────────────────────────────────────────────────────── */
 
 function toggleChip(chip) {
@@ -558,23 +577,72 @@ function applyFilters(query) {
   // a separate set of rows and the list pane is not visible.
   if (document.getElementById("panes").classList.contains("releases-active")) return;
   let visible = 0;
+  // Entries that belong to the current view (category/author) but are hidden by
+  // the *clearable* filters — affiliation chips and the search query. These are
+  // the ones the "Clear filters" button would bring back.
+  let hiddenByFilters = 0;
   const authorFilter = activeAuthorFilter ? activeAuthorFilter.toLowerCase() : null;
   document.querySelectorAll(".entry-row").forEach((row) => {
     const cats  = (row.dataset.categories || "").split(",");
     const aff   = row.dataset.affiliation;
     const text  = row.dataset.search || "";
-    const show  =
+    // The view scope (category + author) defines the list and is NOT cleared by
+    // the "Clear filters" button.
+    const inScope =
       (!activeCategory || cats.includes(activeCategory)) &&
-      activeFilters.has(aff) &&
-      (!query || text.includes(query)) &&
       (!authorFilter || (row.dataset.author || "") === authorFilter);
+    // Clearable filters layered on top of the scope.
+    const passesClearable =
+      activeFilters.has(aff) &&
+      (!query || text.includes(query));
+    const show = inScope && passesClearable;
     row.classList.toggle("hidden", !show);
     if (show) visible++;
+    else if (inScope) hiddenByFilters++;
   });
   document.getElementById("list-count").textContent = `${visible} entr${visible === 1 ? "y" : "ies"}`;
+  updateListEmptyState(visible, hiddenByFilters);
   // If the active entry is now filtered out, clear the detail panel
   if (activeEntryId) {
     const row = document.querySelector(`.entry-row[data-id="${activeEntryId}"]`);
     if (row && row.classList.contains("hidden")) _clearDetail();
   }
+}
+
+/**
+ * Show or hide the list empty-state. It appears only when the current view has
+ * zero visible entries but some are hidden by clearable filters — i.e. the
+ * "Clear filters" button would actually reveal something. A genuinely empty
+ * category (nothing hidden) shows no escape hatch.
+ */
+function updateListEmptyState(visible, hiddenByFilters) {
+  const empty = document.getElementById("list-empty");
+  if (!empty) return;
+  const show = visible === 0 && hiddenByFilters > 0;
+  empty.hidden = !show;
+  if (show) {
+    const countEl = document.getElementById("list-empty-count");
+    if (countEl) {
+      countEl.textContent =
+        `${hiddenByFilters} ${hiddenByFilters === 1 ? "entry is" : "entries are"} hidden by active filters.`;
+    }
+  }
+}
+
+/**
+ * Reset the clearable filters (affiliation chips → all on, search query → empty)
+ * while staying in the current category/author view, then re-filter so every
+ * in-scope entry becomes visible. Wired to the empty-state "Clear filters" button.
+ */
+function clearListFilters() {
+  activeFilters = new Set(["community", "affiliated", "official"]);
+  _clearSearchInputs();
+  // Mirror toggleChip()/syncMobileChips() exactly so the "All" chip state is
+  // computed the same way everywhere.
+  document.querySelectorAll(".chip").forEach((c) => {
+    const cf = c.dataset.filter;
+    c.classList.toggle("active", cf === "all" ? activeFilters.size === 3 : activeFilters.has(cf));
+  });
+  syncMobileChips();
+  applyFilters("");
 }

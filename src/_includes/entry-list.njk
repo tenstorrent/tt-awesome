@@ -44,5 +44,10 @@
       {%- endif %}
     </div>
     {%- endfor %}
+    <div class="list-empty" id="list-empty" hidden>
+      <p class="list-empty-msg">No entries match the current filters.</p>
+      <p class="list-empty-count" id="list-empty-count"></p>
+      <button type="button" class="list-empty-btn" onclick="clearListFilters()">Clear filters · show all</button>
+    </div>
   </div>
 </div>
