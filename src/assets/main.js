@@ -637,9 +637,11 @@ function updateListEmptyState(visible, hiddenByFilters) {
 function clearListFilters() {
   activeFilters = new Set(["community", "affiliated", "official"]);
   _clearSearchInputs();
+  // Mirror toggleChip()/syncMobileChips() exactly so the "All" chip state is
+  // computed the same way everywhere.
   document.querySelectorAll(".chip").forEach((c) => {
     const cf = c.dataset.filter;
-    c.classList.toggle("active", cf === "all" ? true : activeFilters.has(cf));
+    c.classList.toggle("active", cf === "all" ? activeFilters.size === 3 : activeFilters.has(cf));
   });
   syncMobileChips();
   applyFilters("");
