@@ -289,6 +289,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   Tenstorrent kernel module driver. The Linux kernel module required to interface with Tenstorrent PCIe accelerator cards.
   [📦 repo](https://github.com/tenstorrent/tt-kmd) · 🐧 `apt install ttkmd`
 
+- **TT-QuietBox 2 Guide** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Official setup and onboarding guide for the TT-QuietBox 2 — a compact, liquid-cooled AI workstation with four Blackhole accelerators, an AMD Ryzen CPU, 256GB RAM, and 4TB NVMe. Covers hardware specs, first-boot setup, and hands-on learning paths for running pre-loaded models like Qwen3-32B and serving text, image, video, and speech models via tt-inference-server.
+  [🌐 TT-QuietBox 2 Guide](https://docs.tenstorrent.com/tt-quietbox2-guide)
+
 - **[tt-smi](https://github.com/tenstorrent/tt-smi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.
   [📦 repo](https://github.com/tenstorrent/tt-smi) · [🐍 `pip install tt-smi`](https://pypi.org/project/tt-smi/)
