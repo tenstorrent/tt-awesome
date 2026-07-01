@@ -331,6 +331,14 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   Browser-based cloud console for exploring AI on Tenstorrent hardware. Run LLM inference, image and video generation, and browse the supported model catalog in-browser — backed by Tenstorrent accelerators. Cloud hardware access and advanced workflows (deployments, agents) available in staged rollout.
   [🌐 console.tenstorrent.com](https://console.tenstorrent.com)
 
+- **Cloud-Native Support** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Official documentation hub for running Tenstorrent accelerators on Kubernetes. Centers on tt-operator (the umbrella Helm chart) and covers Node Feature Discovery, kernel-mode driver (tt-kmd) management, firmware flashing, Prometheus telemetry, Fabric Manager topology resolution, Dynamic Resource Allocation, and multi-node scheduling via JobSet and PMIx.
+  [🌐 docs.tenstorrent.com](https://docs.tenstorrent.com/cloud-native-support/)
+
+- **[tt-operator](https://github.com/tenstorrent/tt-operator)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Kubernetes operator that automates installation and lifecycle management of the full software stack needed to run Tenstorrent workloads on a cluster. Distributed as an umbrella Helm chart coordinating driver (tt-kmd) management, Node Feature Discovery, firmware flashing, Prometheus telemetry, fabric/topology resolution, and device allocation with multi-node scheduling (JobSet/PMIx).
+  [📦 repo](https://github.com/tenstorrent/tt-operator) · [🌐 Cloud-Native Support docs](https://docs.tenstorrent.com/cloud-native-support/)
+
 ## 🔩 RISC-V & Architecture
 
 - **[bhx](https://github.com/olofj/bhx)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
