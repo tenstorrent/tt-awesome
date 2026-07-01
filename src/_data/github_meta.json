@@ -78,7 +78,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 62,
-    "updatedAt": "2026-07-01T15:45:44Z",
+    "updatedAt": "2026-07-01T18:33:55Z",
     "releases": [
       {
         "tagName": "v0.17.0",
@@ -983,8 +983,8 @@
     "updatedAt": "2026-06-04T14:15:02Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10796,
-    "updatedAt": "2026-07-01T16:05:00Z",
+    "stars": 10798,
+    "updatedAt": "2026-07-01T17:38:54Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1725,7 +1725,7 @@
   },
   "https://github.com/tenstorrent/tt-installer": {
     "stars": 23,
-    "updatedAt": "2026-06-29T19:27:27Z",
+    "updatedAt": "2026-07-01T18:02:05Z",
     "releases": [
       {
         "tagName": "v3.2.0",
@@ -1766,7 +1766,7 @@
   },
   "https://github.com/tenstorrent/tt-kmd": {
     "stars": 69,
-    "updatedAt": "2026-07-01T15:17:50Z",
+    "updatedAt": "2026-07-01T17:01:22Z",
     "releases": [
       {
         "tagName": "ttkmd-2.9.99-testing",
@@ -2114,9 +2114,43 @@
   },
   "https://github.com/tenstorrent/tt-toplike": {
     "stars": 5,
-    "updatedAt": "2026-06-28T23:57:48Z",
+    "updatedAt": "2026-07-01T18:04:04Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-toplike/main/assets/tt-toplike-arcade.gif",
     "releases": [
+      {
+        "tagName": "v0.7.0",
+        "name": "v0.7.0 - try it on your Mac",
+        "publishedAt": "2026-07-01T18:05:08Z",
+        "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.7.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt-toplike-app_0.7.0_amd64_jammy.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.0/tt-toplike-app_0.7.0_amd64_jammy.deb",
+            "size": 4171044
+          },
+          {
+            "name": "tt-toplike-app_0.7.0_amd64_noble.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.0/tt-toplike-app_0.7.0_amd64_noble.deb",
+            "size": 4146156
+          },
+          {
+            "name": "tt-toplike-tui-0.7.0-macos-universal.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.0/tt-toplike-tui-0.7.0-macos-universal.tar.gz",
+            "size": 2362321
+          },
+          {
+            "name": "tt-toplike_0.7.0_amd64_jammy.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.0/tt-toplike_0.7.0_amd64_jammy.deb",
+            "size": 1077918
+          },
+          {
+            "name": "tt-toplike_0.7.0_amd64_noble.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.0/tt-toplike_0.7.0_amd64_noble.deb",
+            "size": 1062056
+          }
+        ]
+      },
       {
         "tagName": "v0.6.3",
         "name": "v0.6.3 - consistency release",
@@ -2208,35 +2242,6 @@
             "name": "tt-toplike_0.5.0_amd64_noble.deb",
             "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.6.0/tt-toplike_0.5.0_amd64_noble.deb",
             "size": 969144
-          }
-        ]
-      },
-      {
-        "tagName": "v0.5.0",
-        "name": "v0.5.0",
-        "publishedAt": "2026-04-29T17:39:43Z",
-        "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.5.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt-toplike-app_0.5.0_amd64_jammy.deb",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.5.0/tt-toplike-app_0.5.0_amd64_jammy.deb",
-            "size": 4166730
-          },
-          {
-            "name": "tt-toplike-app_0.5.0_amd64_noble.deb",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.5.0/tt-toplike-app_0.5.0_amd64_noble.deb",
-            "size": 4149294
-          },
-          {
-            "name": "tt-toplike_0.5.0_amd64_jammy.deb",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.5.0/tt-toplike_0.5.0_amd64_jammy.deb",
-            "size": 790604
-          },
-          {
-            "name": "tt-toplike_0.5.0_amd64_noble.deb",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.5.0/tt-toplike_0.5.0_amd64_noble.deb",
-            "size": 780614
           }
         ]
       }
@@ -2397,7 +2402,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 45,
-    "updatedAt": "2026-07-01T15:57:38Z",
+    "updatedAt": "2026-07-01T18:45:15Z",
     "releases": [
       {
         "tagName": "v0.9.7",
@@ -2791,7 +2796,7 @@
   },
   "https://github.com/tenstorrent/tt-lang": {
     "stars": 55,
-    "updatedAt": "2026-07-01T15:50:00Z",
+    "updatedAt": "2026-07-01T18:10:20Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
@@ -2801,7 +2806,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1559,
-    "updatedAt": "2026-07-01T15:56:41Z",
+    "updatedAt": "2026-07-01T18:49:02Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
