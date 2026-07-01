@@ -66,7 +66,7 @@
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 14,
-    "updatedAt": "2026-06-30T18:44:07Z"
+    "updatedAt": "2026-06-30T20:00:52Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 64,
@@ -420,8 +420,15 @@
   },
   "https://github.com/tenstorrent/tt-studio": {
     "stars": 48,
-    "updatedAt": "2026-06-16T14:30:12Z",
+    "updatedAt": "2026-06-30T22:24:37Z",
     "releases": [
+      {
+        "tagName": "v2.8.0",
+        "name": "v2.8.0",
+        "publishedAt": "2026-06-30T22:36:25Z",
+        "url": "https://github.com/tenstorrent/tt-studio/releases/tag/v2.8.0",
+        "prerelease": false
+      },
       {
         "tagName": "v2.7.0",
         "name": "v2.7.0",
@@ -448,13 +455,6 @@
         "name": "v2.4.1",
         "publishedAt": "2026-03-24T15:09:57Z",
         "url": "https://github.com/tenstorrent/tt-studio/releases/tag/v2.4.1",
-        "prerelease": false
-      },
-      {
-        "tagName": "v2.1.0",
-        "name": "v2.1.0",
-        "publishedAt": "2025-10-04T01:33:59Z",
-        "url": "https://github.com/tenstorrent/tt-studio/releases/tag/v2.1.0",
         "prerelease": false
       }
     ]
@@ -675,8 +675,9 @@
   },
   "https://github.com/tsingletaryTT/tt-forge-compiletron": {
     "stars": 0,
-    "updatedAt": "2026-06-30T18:14:01Z",
-    "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tt-forge-compiletron/main/docs/demo.gif"
+    "updatedAt": "2026-06-30T22:30:28Z",
+    "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tt-forge-compiletron/main/docs/demo.gif",
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to tt-forge-compiletron are documented here.\n\n## [Unreleased]\n\n### Added\n- `docs/kv-cache-bench.md` \u2014 teaching companion for the StaticCache KV cache\n  benchmark, explaining the two-graph pattern and why static shapes matter\n\n---\n\n## [1.6.0] \u2014 2026-06-30\n\n### Added\n- **StaticCache KV cache decode benchmarking** \u2014 `bench_decode.py` now compiles\n  a second forge graph for the decode step using `transformers.StaticCache`.\n  The StaticCache is embedded in `KVDecodeWrapper` as a submodule so forge\n  traces K/V tensors as model state and emits `FillCache`/`UpdateCache` ops.\n  Falls back to full-recompute for models that don't support `cache_position`.\n- `_try_kv_decode()` function \u2014 detects model dtype to avoid bfloat16/float32\n  mismatches, resolves tokenizer from loader or AutoTokenizer, pre-fills cache\n  on CPU before forge compilation.\n- Bestiary `decode_note` field now records the method used per model\n  (\"StaticCache KV cache\" vs \"no KV cache \u2014 full recompute per step\").\n\n### Changed\n- Decode results updated for all 5 stages \u2014 GPT-2 2.30\u21925.52 tok/s, OPT\n  3.98\u21925.05 tok/s, Phi-2 1.48 tok/s (new), Falcon 3.30 tok/s (new),\n  LLaMA-LoRA 2.86 tok/s (new), Gemma-LoRA 2.40 tok/s (new), and more.\n\n---\n\n## [1.5.0] \u2014 2026-06-30\n\n### Added\n- **`scripts/bench_decode.py`** \u2014 dedicated LLM decode benchmark measuring\n  TTFT, prefill tok/s, and decode tok/s for all compiled causal LMs.\n  Subprocess isolation + tt-smi health check prevent hardware lockups.\n- **Leaderboard columns** \u2014 TTFT, Prefill tok/s, Decode tok/s, Params (M)\n  replace the old Infer p50 / Throughput columns in `docs/leaderboard.html`.\n- 5 benchmark stages: Stage 1 (GPT-2, OPT), Stage 2 (Phi-2, BLOOM, CodeGen),\n  Stage 3 (Falcon, Allam, LLaMA-LoRA, Gemma-LoRA), Stage 4 (Qwen 2.5,\n  Phi-1 LoRA), Stage 5 (DeepCogito, DeepSeek Coder, frontier models).\n- `params_m` field added to all benchmarked bestiary entries.\n- `hf:` loader prefix for frontier HuggingFace models loaded without a\n  tt-forge-models seed loader.\n\n### Changed\n- Bestiary `throughput_unit` relabeled from generic `tok/s` \u2192 `prefill_tok/s`\n  for all 54 causal LM entries to prevent confusion with decode throughput.\n\n---\n\n## [1.4.0] \u2014 2026-06-29\n\n### Added\n- **`scripts/install.sh`** \u2014 turn-key smart installer: hardware pre-check,\n  hugepages, disk space, forge venv, XLA venv, mesh descriptor probe,\n  tt-forge-models clone, stale-shm cleanup. Outputs color-coded summary table.\n- **RAM/DRAM budget calculator** \u2014 skips models whose weights exceed available\n  system RAM + per-chip DRAM; prevents OOM crashes at load time.\n- **`scripts/setup-venvs.sh`** \u2014 minimal venv setup script for clean Ubuntu\n  24.04 installs on Tenstorrent Blackhole hardware.\n- Self-contained patches directory \u2014 tt-forge-models fixes applied at\n  expedition startup without modifying upstream.\n- `--ephemeral` / `--evict-failures` flags \u2014 evict HF weight cache after\n  each model to reclaim disk space on small-storage machines.\n\n### Changed"
   },
   "https://github.com/tenstorrent/tt-forge-onnx": {
     "stars": 64,
@@ -768,7 +769,7 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 290,
-    "updatedAt": "2026-06-30T18:42:09Z",
+    "updatedAt": "2026-06-30T20:22:32Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -938,7 +939,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 71,
-    "updatedAt": "2026-06-30T17:57:07Z",
+    "updatedAt": "2026-06-30T22:02:24Z",
     "releases": [
       {
         "tagName": "1.3.0.dev20260630003121",
@@ -1328,7 +1329,7 @@
   },
   "https://github.com/tsingletaryTT/tt-warp": {
     "stars": 0,
-    "updatedAt": "2026-06-30T15:50:36Z"
+    "updatedAt": "2026-06-30T22:36:55Z"
   },
   "https://github.com/Zaneham/ttas": {
     "stars": 4,
@@ -1352,7 +1353,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 53,
-    "updatedAt": "2026-06-30T17:57:52Z",
+    "updatedAt": "2026-06-30T23:53:01Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -1509,8 +1510,15 @@
   },
   "https://github.com/tenstorrent/luwen": {
     "stars": 34,
-    "updatedAt": "2026-06-25T14:27:03Z",
+    "updatedAt": "2026-06-30T20:40:10Z",
     "releases": [
+      {
+        "tagName": "bh-mod-v1.0.0",
+        "name": "bh-mod-v1.0.0",
+        "publishedAt": "2026-06-30T20:39:53Z",
+        "url": "https://github.com/tenstorrent/luwen/releases/tag/bh-mod-v1.0.0",
+        "prerelease": false
+      },
       {
         "tagName": "v0.8.5",
         "name": "v0.8.5",
@@ -1568,50 +1576,6 @@
             "name": "python3-pyluwen_0.8.2_all-ubuntu-24.04.deb",
             "url": "https://github.com/tenstorrent/luwen/releases/download/v0.8.2/python3-pyluwen_0.8.2_all-ubuntu-24.04.deb",
             "size": 2755578
-          }
-        ]
-      },
-      {
-        "tagName": "v0.8.1",
-        "name": "v0.8.1",
-        "publishedAt": "2025-12-17T21:16:21Z",
-        "url": "https://github.com/tenstorrent/luwen/releases/tag/v0.8.1",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "pyluwen-0.8.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-            "url": "https://github.com/tenstorrent/luwen/releases/download/v0.8.1/pyluwen-0.8.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-            "size": 769785
-          },
-          {
-            "name": "pyluwen-0.8.1-cp311-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-            "url": "https://github.com/tenstorrent/luwen/releases/download/v0.8.1/pyluwen-0.8.1-cp311-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-            "size": 768645
-          },
-          {
-            "name": "pyluwen-0.8.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-            "url": "https://github.com/tenstorrent/luwen/releases/download/v0.8.1/pyluwen-0.8.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-            "size": 769865
-          },
-          {
-            "name": "pyluwen-0.8.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-            "url": "https://github.com/tenstorrent/luwen/releases/download/v0.8.1/pyluwen-0.8.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-            "size": 770016
-          },
-          {
-            "name": "python3-pyluwen_0.8.1_all-debian-13.deb",
-            "url": "https://github.com/tenstorrent/luwen/releases/download/v0.8.1/python3-pyluwen_0.8.1_all-debian-13.deb",
-            "size": 5932228
-          },
-          {
-            "name": "python3-pyluwen_0.8.1_all-ubuntu-22.04.deb",
-            "url": "https://github.com/tenstorrent/luwen/releases/download/v0.8.1/python3-pyluwen_0.8.1_all-ubuntu-22.04.deb",
-            "size": 7036568
-          },
-          {
-            "name": "python3-pyluwen_0.8.1_all-ubuntu-24.04.deb",
-            "url": "https://github.com/tenstorrent/luwen/releases/download/v0.8.1/python3-pyluwen_0.8.1_all-ubuntu-24.04.deb",
-            "size": 2757554
           }
         ]
       }
@@ -2433,7 +2397,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 45,
-    "updatedAt": "2026-06-30T17:03:40Z",
+    "updatedAt": "2026-06-30T19:51:53Z",
     "releases": [
       {
         "tagName": "v0.9.7",
@@ -2837,7 +2801,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1557,
-    "updatedAt": "2026-06-30T16:58:00Z",
+    "updatedAt": "2026-07-01T00:07:36Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
