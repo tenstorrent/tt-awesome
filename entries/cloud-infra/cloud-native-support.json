@@ -1,0 +1,33 @@
+{
+  "id": "cloud-native-support",
+  "name": "Cloud-Native Support",
+  "description": "Official documentation hub for running Tenstorrent accelerators on Kubernetes. Centers on tt-operator (the umbrella Helm chart) and covers Node Feature Discovery, kernel-mode driver (tt-kmd) management, firmware flashing, Prometheus telemetry, Fabric Manager topology resolution, Dynamic Resource Allocation, and multi-node scheduling via JobSet and PMIx.",
+  "affiliation": "official",
+  "categories": [
+    "cloud-infra",
+    "guides"
+  ],
+  "tags": [
+    "kubernetes",
+    "cloud-native",
+    "helm",
+    "tt-operator",
+    "orchestration",
+    "documentation"
+  ],
+  "links": [
+    {
+      "type": "website",
+      "url": "https://docs.tenstorrent.com/cloud-native-support/",
+      "label": "docs.tenstorrent.com"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "related": [
+    "tt-operator"
+  ],
+  "added_at": "2026-07-01"
+}
