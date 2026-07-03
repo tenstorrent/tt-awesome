@@ -123,6 +123,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@jaebaek](https://github.com/jaebaek) — Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.
   [📦 repo](https://github.com/jaebaek/tenstorrent-tiny-examples)
 
+- **[tt-rqm-kernels](https://github.com/RQM-Technologies-dev/tt-rqm-kernels)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@RQM-Technologies-dev](https://github.com/RQM-Technologies-dev) — Structured quaternion, rotor, and phase-aware tensor kernels — operations on 3D rotation and orientation data packed into ordinary `[N, 4]` float tensors — plus StructuredBench, a benchmark suite for these workloads. Provides CPU/PyTorch reference implementations and an optional TT-Lang simulator prototype for the quaternion multiply (`qmul`) kernel as a first step toward Tenstorrent hardware support.
+  [📦 repo](https://github.com/RQM-Technologies-dev/tt-rqm-kernels) · [🌐 StructuredBench specification](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md) · [🌐 TT-Lang qmul plan](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tt-lang-qmul-plan.md) · [🌐 TT-Lang simulator report](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_lang_qmul_sim.md) · [🌐 Tenstorrent RFC](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-rfc.md)
+
 - **[tt-splat — matrix-native 3D Gaussian Splatting on Blackhole](https://github.com/kinginu/tt-splat)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@kinginu](https://github.com/kinginu) — 3D Gaussian Splatting rewritten to run on the matrix engine: a polynomial splat and order-independent weighted-sum blending replace exp and depth-sorted alpha, so the pipeline becomes GEMM → activation → GEMM. Renderer + trainer, trained device-resident on a Blackhole p150a.
   [📦 repo](https://github.com/kinginu/tt-splat)
