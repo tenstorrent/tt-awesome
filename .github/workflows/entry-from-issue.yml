@@ -14,9 +14,16 @@ permissions:
 
 jobs:
   create-entry-pr:
-    # Guard: only run when a maintainer approves a submission issue
+    # Guard: run once the issue carries BOTH 'submission' and 'approved'.
+    #
+    # We key off the issue's *current* label set (from the event payload) rather
+    # than which single label triggered this event, so the maintainer can add the
+    # two labels in either order. We still require the label just added to be one
+    # of the two, so the job fires exactly on the transition to "both present"
+    # (the second label to be added) and not on unrelated labeling events.
     if: >
-      github.event.label.name == 'approved' &&
+      (github.event.label.name == 'approved' || github.event.label.name == 'submission') &&
+      contains(toJson(github.event.issue.labels), '"approved"') &&
       contains(toJson(github.event.issue.labels), '"submission"')
 
     runs-on: ubuntu-latest
