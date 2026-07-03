@@ -1,0 +1,52 @@
+{
+  "id": "tt-rqm-kernels",
+  "name": "tt-rqm-kernels",
+  "description": "Structured quaternion, rotor, and phase-aware tensor kernels plus StructuredBench, a benchmark suite for `[N, 4]` structured floating-point values. Provides CPU/PyTorch references and a TT-Lang simulator `qmul` proof point for evaluating custom kernel paths below applications and above scalar elementwise math.",
+  "affiliation": "community",
+  "categories": [
+    "kernels",
+    "research"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md",
+      "label": "StructuredBench specification"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tt-lang-qmul-plan.md",
+      "label": "TT-Lang qmul plan"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_lang_qmul_sim.md",
+      "label": "TT-Lang simulator report"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-rfc.md",
+      "label": "Tenstorrent RFC"
+    }
+  ],
+  "tags": [
+    "structured-tensors",
+    "quaternion",
+    "rotor",
+    "tt-lang",
+    "simulator",
+    "benchmarks",
+    "pytorch",
+    "custom-kernels"
+  ],
+  "hardware": [
+    "ttsim"
+  ],
+  "author": "RQM-Technologies-dev",
+  "language": "Python",
+  "license": "MIT"
+}
