@@ -1,7 +1,7 @@
 {
   "id": "tt-rqm-kernels",
   "name": "tt-rqm-kernels",
-  "description": "Structured quaternion, rotor, and phase-aware tensor kernels plus StructuredBench, a benchmark suite for `[N, 4]` structured floating-point values. Provides CPU/PyTorch references and a TT-Lang simulator `qmul` proof point for evaluating custom kernel paths below applications and above scalar elementwise math.",
+  "description": "Structured quaternion, rotor, and phase-aware tensor kernels — operations on 3D rotation and orientation data packed into ordinary `[N, 4]` float tensors — plus StructuredBench, a benchmark suite for these workloads. Provides CPU/PyTorch reference implementations and an optional TT-Lang simulator prototype for the quaternion multiply (`qmul`) kernel as a first step toward Tenstorrent hardware support.",
   "affiliation": "community",
   "categories": [
     "kernels",
