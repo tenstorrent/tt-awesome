@@ -23,13 +23,13 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 ## 🤖 AI & Models
 
-- **[tt-bio](https://github.com/tenstorrent/tt-bio)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@moritztng](https://github.com/moritztng) — Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.
-  [📦 repo](https://github.com/tenstorrent/tt-bio) · [🎤 FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware](https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/)
-
 - **[gsplat_tt](https://github.com/Kovelja009/gsplat_tt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@Kovelja009](https://github.com/Kovelja009) — Port of Gaussian Splatting (3D scene reconstruction from 2D images) to Tenstorrent hardware.
   [📦 repo](https://github.com/Kovelja009/gsplat_tt)
+
+- **[tt-bio](https://github.com/moritztng/tt-bio)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by [@moritztng](https://github.com/moritztng) — Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.
+  [📦 repo](https://github.com/moritztng/tt-bio) · [🎤 FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware](https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/)
 
 - **Video Generation on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Three lesson-projects covering on-device video synthesis: frame-by-frame diffusion with tt-local-generator, native AnimateDiff video animation, and video generation on QuietBox 2. All run entirely on TT hardware with no cloud dependency.
@@ -115,10 +115,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@seansiddens](https://github.com/seansiddens) — High-level parallel programming framework for Tenstorrent accelerators, abstracting TT-Metal into a research-oriented programming model for parallel computation.
   [📦 repo](https://github.com/seansiddens/current)
 
-- **[grayskull-attention](https://github.com/moritztng/grayskull-attention)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@moritztng](https://github.com/moritztng) — FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
-  [📦 repo](https://github.com/moritztng/grayskull-attention)
-
 - **[tenstorrent-tiny-examples](https://github.com/jaebaek/tenstorrent-tiny-examples)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@jaebaek](https://github.com/jaebaek) — Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.
   [📦 repo](https://github.com/jaebaek/tenstorrent-tiny-examples)
@@ -142,6 +138,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[ttVecAdd](https://github.com/marty1885/ttVecAdd)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@marty1885](https://github.com/marty1885) — Minimal vector-addition example on Tenstorrent devices using TT-Metalium. A clean hello-world for the TT-Metal kernel programming model in C++.
   [📦 repo](https://github.com/marty1885/ttVecAdd)
+
+- **[grayskull-attention](https://github.com/moritztng/grayskull-attention)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by [@moritztng](https://github.com/moritztng) — FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
+  [📦 repo](https://github.com/moritztng/grayskull-attention)
 
 - **Tenstorrent Cookbook: Core Recipes** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Three hands-on TT-Metalium kernel recipes: a Mandelbrot fractal explorer, real-time audio signal processing pipeline, and custom image filter stack. Each recipe is a complete kernel project with full source in the lesson.
@@ -172,6 +172,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-iree](https://github.com/swote-git/tt-iree)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@swote-git](https://github.com/swote-git) — IREE (Intermediate Representation Execution Environment) ML compiler ported to Tenstorrent AI accelerators. Brings the IREE compiler ecosystem to TT hardware.
   [📦 repo](https://github.com/swote-git/tt-iree)
+
+- **[zyx](https://github.com/zk4x/zyx)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@zk4x](https://github.com/zk4x) — A complete ML library and compiler in Rust — "from assembly to neural networks" — with a native Tenstorrent backend (src/backend/tenstorrent), autograd, custom kernels, multi-backend support, and Python bindings.
+  [📦 repo](https://github.com/zk4x/zyx) · [🌐 website](https://docs.rs/zyx)
 
 - **[tt-forge-compiletron](https://github.com/tsingletaryTT/tt-forge-compiletron)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Compile more than 100 models on tt-forge in a display format suitable for demos. Comprehensive showcase of tt-forge model compatibility.

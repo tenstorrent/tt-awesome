@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generated": "2026-06-16T17:12:48Z",
+    "generated": "2026-07-03T21:36:52Z",
     "schema_version": "1",
-    "total_entries": 108,
+    "total_entries": 115,
     "categories": [
       "getting-started",
       "ai-models",
@@ -21,7 +21,7 @@
   "categories": {
     "getting-started": {
       "label": "Getting Started",
-      "count": 6,
+      "count": 8,
       "entries": [
         {
           "id": "tt-inference-server",
@@ -212,6 +212,92 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "tt-quietbox2-guide",
+          "name": "TT-QuietBox 2 Guide",
+          "description": "Official setup and onboarding guide for the TT-QuietBox 2 — a compact, liquid-cooled AI workstation with four Blackhole accelerators, an AMD Ryzen CPU, 256GB RAM, and 4TB NVMe. Covers hardware specs, first-boot setup, and hands-on learning paths for running pre-loaded models like Qwen3-32B and serving text, image, video, and speech models via tt-inference-server.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "guides",
+            "getting-started"
+          ],
+          "tags": [
+            "quietbox",
+            "blackhole",
+            "workstation",
+            "setup",
+            "getting-started",
+            "documentation"
+          ],
+          "links": [
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-quietbox2-guide",
+              "label": "TT-QuietBox 2 Guide"
+            }
+          ],
+          "hardware": [
+            "blackhole",
+            "quietbox"
+          ],
+          "related": [
+            "tt-installer",
+            "tt-inference-server"
+          ],
+          "added_at": "2026-06-30"
+        },
+        {
+          "id": "tt-lang",
+          "name": "tt-lang",
+          "description": "Python-based DSL that sits between TT-NN and TT-Metalium — expresses custom fused kernels with progressive disclosure, compiling directly to Tensix. Ships an integrated functional simulator (no hardware needed), line-by-line performance metrics, and AI-agent-friendly tooling. Two packages: tt-lang (compiler + hardware, requires ttnn) and tt-lang-sim (simulator only, works on Linux/macOS without Tenstorrent hardware).",
+          "affiliation": "official",
+          "categories": [
+            "kernels",
+            "getting-started"
+          ],
+          "tags": [
+            "dsl",
+            "python",
+            "kernels",
+            "tt-lang",
+            "simulator",
+            "kernel-fusion"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-lang"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-lang/"
+            },
+            {
+              "type": "lesson",
+              "url": "https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/tt-lang-intro/",
+              "label": "Introduction to tt-lang"
+            }
+          ],
+          "packages": [
+            {
+              "type": "pypi",
+              "name": "tt-lang"
+            },
+            {
+              "type": "pypi",
+              "name": "tt-lang-sim"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "ttsim"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-05-08"
+        },
+        {
           "id": "tt-metal",
           "name": "tt-metal",
           "description": "TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.",
@@ -254,45 +340,6 @@
       "label": "AI & Models",
       "count": 24,
       "entries": [
-        {
-          "id": "tt-bio",
-          "name": "tt-bio",
-          "description": "Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.",
-          "affiliation": "community",
-          "categories": [
-            "ai-models",
-            "research"
-          ],
-          "tags": [
-            "drug-discovery",
-            "blackhole",
-            "inference",
-            "biology",
-            "multi-card"
-          ],
-          "links": [
-            {
-              "type": "repo",
-              "url": "https://github.com/tenstorrent/tt-bio"
-            },
-            {
-              "type": "talk",
-              "url": "https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/",
-              "label": "FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware"
-            }
-          ],
-          "hardware": [
-            "blackhole",
-            "quietbox",
-            "galaxy"
-          ],
-          "featured": true,
-          "author": "moritztng",
-          "language": "Python",
-          "license": "MIT",
-          "added_at": "2026-05-08",
-          "date": "2026-01-31"
-        },
         {
           "id": "gsplat-tt",
           "name": "gsplat_tt",
@@ -351,36 +398,6 @@
           "added_at": "2026-05-08"
         },
         {
-          "id": "grayskull-attention",
-          "name": "grayskull-attention",
-          "description": "FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.",
-          "affiliation": "community",
-          "categories": [
-            "kernels",
-            "ai-models"
-          ],
-          "tags": [
-            "attention",
-            "grayskull",
-            "metalium",
-            "sram",
-            "kernel"
-          ],
-          "links": [
-            {
-              "type": "repo",
-              "url": "https://github.com/moritztng/grayskull-attention"
-            }
-          ],
-          "hardware": [
-            "grayskull"
-          ],
-          "author": "moritztng",
-          "language": "TeX",
-          "license": "MIT",
-          "added_at": "2026-05-08"
-        },
-        {
           "id": "paper-tts-lightning",
           "name": "Rewriting TTS Inference Economics: Lightning V2 on Tenstorrent vs. NVIDIA L40S",
           "description": "Shows that Text-to-Speech inference on Tenstorrent Lightning V2 achieves 4× lower cost than NVIDIA L40S. Applies BlockFloat8 (BFP8) and low-fidelity (LoFi) precision strategies to TTS despite their greater numerical fragility compared to LLMs.",
@@ -411,6 +428,45 @@
           "author": "Ranjith M. S., Akshat Mandloi, Sudarshan Kamath",
           "date": "2026-03-24",
           "added_at": "2026-05-13"
+        },
+        {
+          "id": "tt-bio",
+          "name": "tt-bio",
+          "description": "Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models",
+            "research"
+          ],
+          "tags": [
+            "drug-discovery",
+            "blackhole",
+            "inference",
+            "biology",
+            "multi-card"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/moritztng/tt-bio"
+            },
+            {
+              "type": "talk",
+              "url": "https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/",
+              "label": "FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware"
+            }
+          ],
+          "hardware": [
+            "blackhole",
+            "quietbox",
+            "galaxy"
+          ],
+          "featured": true,
+          "author": "moritztng",
+          "language": "Python",
+          "license": "MIT",
+          "added_at": "2026-05-08",
+          "date": "2026-01-31"
         },
         {
           "id": "ttvt-video-generation",
@@ -773,6 +829,36 @@
             "blackhole"
           ],
           "author": "tsingletaryTT",
+          "added_at": "2026-05-08"
+        },
+        {
+          "id": "grayskull-attention",
+          "name": "grayskull-attention",
+          "description": "FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.",
+          "affiliation": "affiliated",
+          "categories": [
+            "kernels",
+            "ai-models"
+          ],
+          "tags": [
+            "attention",
+            "grayskull",
+            "metalium",
+            "sram",
+            "kernel"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/moritztng/grayskull-attention"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "moritztng",
+          "language": "TeX",
+          "license": "MIT",
           "added_at": "2026-05-08"
         },
         {
@@ -1176,7 +1262,7 @@
     },
     "kernels": {
       "label": "Custom Kernels & Low-Level",
-      "count": 22,
+      "count": 24,
       "entries": [
         {
           "id": "triton-tenstorrent",
@@ -1409,36 +1495,6 @@
           "added_at": "2026-05-08"
         },
         {
-          "id": "grayskull-attention",
-          "name": "grayskull-attention",
-          "description": "FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.",
-          "affiliation": "community",
-          "categories": [
-            "kernels",
-            "ai-models"
-          ],
-          "tags": [
-            "attention",
-            "grayskull",
-            "metalium",
-            "sram",
-            "kernel"
-          ],
-          "links": [
-            {
-              "type": "repo",
-              "url": "https://github.com/moritztng/grayskull-attention"
-            }
-          ],
-          "hardware": [
-            "grayskull"
-          ],
-          "author": "moritztng",
-          "language": "TeX",
-          "license": "MIT",
-          "added_at": "2026-05-08"
-        },
-        {
           "id": "tenstorrent-tiny-examples",
           "name": "tenstorrent-tiny-examples",
           "description": "Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.",
@@ -1465,6 +1521,90 @@
           "author": "jaebaek",
           "language": "C++",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "tt-rqm-kernels",
+          "name": "tt-rqm-kernels",
+          "description": "Structured quaternion, rotor, and phase-aware tensor kernels — operations on 3D rotation and orientation data packed into ordinary `[N, 4]` float tensors — plus StructuredBench, a benchmark suite for these workloads. Provides CPU/PyTorch reference implementations and an optional TT-Lang simulator prototype for the quaternion multiply (`qmul`) kernel as a first step toward Tenstorrent hardware support.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "research"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md",
+              "label": "StructuredBench specification"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tt-lang-qmul-plan.md",
+              "label": "TT-Lang qmul plan"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_lang_qmul_sim.md",
+              "label": "TT-Lang simulator report"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-rfc.md",
+              "label": "Tenstorrent RFC"
+            }
+          ],
+          "tags": [
+            "structured-tensors",
+            "quaternion",
+            "rotor",
+            "tt-lang",
+            "simulator",
+            "benchmarks",
+            "pytorch",
+            "custom-kernels"
+          ],
+          "hardware": [
+            "ttsim"
+          ],
+          "author": "RQM-Technologies-dev",
+          "language": "Python",
+          "license": "MIT",
+          "added_at": "2026-07-03"
+        },
+        {
+          "id": "tt-splat-matrix-native-3d-gaussian-splatting-on-blackhole",
+          "name": "tt-splat — matrix-native 3D Gaussian Splatting on Blackhole",
+          "description": "3D Gaussian Splatting rewritten to run on the matrix engine: a polynomial splat and order-independent weighted-sum blending replace exp and depth-sorted alpha, so the pipeline becomes GEMM → activation → GEMM. Renderer + trainer, trained device-resident on a Blackhole p150a.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "research"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/kinginu/tt-splat"
+            }
+          ],
+          "tags": [
+            "3d-gaussian-splatting",
+            "3dgs",
+            "rendering",
+            "matrix-engine",
+            "weighted-sum-rendering"
+          ],
+          "hardware": [
+            "blackhole",
+            "ttsim"
+          ],
+          "author": "kinginu",
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-06-29"
         },
         {
           "id": "tt-twitch",
@@ -1733,6 +1873,36 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "grayskull-attention",
+          "name": "grayskull-attention",
+          "description": "FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.",
+          "affiliation": "affiliated",
+          "categories": [
+            "kernels",
+            "ai-models"
+          ],
+          "tags": [
+            "attention",
+            "grayskull",
+            "metalium",
+            "sram",
+            "kernel"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/moritztng/grayskull-attention"
+            }
+          ],
+          "hardware": [
+            "grayskull"
+          ],
+          "author": "moritztng",
+          "language": "TeX",
+          "license": "MIT",
+          "added_at": "2026-05-08"
+        },
+        {
           "id": "ttvt-cookbook-recipes",
           "name": "Tenstorrent Cookbook: Core Recipes",
           "description": "Three hands-on TT-Metalium kernel recipes: a Mandelbrot fractal explorer, real-time audio signal processing pipeline, and custom image filter stack. Each recipe is a complete kernel project with full source in the lesson.",
@@ -1784,7 +1954,8 @@
           "description": "Python-based DSL that sits between TT-NN and TT-Metalium — expresses custom fused kernels with progressive disclosure, compiling directly to Tensix. Ships an integrated functional simulator (no hardware needed), line-by-line performance metrics, and AI-agent-friendly tooling. Two packages: tt-lang (compiler + hardware, requires ttnn) and tt-lang-sim (simulator only, works on Linux/macOS without Tenstorrent hardware).",
           "affiliation": "official",
           "categories": [
-            "kernels"
+            "kernels",
+            "getting-started"
           ],
           "tags": [
             "dsl",
@@ -1909,7 +2080,7 @@
     },
     "compilers": {
       "label": "Compilers & Frontends",
-      "count": 14,
+      "count": 15,
       "entries": [
         {
           "id": "barracuda",
@@ -1998,6 +2169,38 @@
           "language": "C++",
           "license": "Apache-2.0",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "zyx",
+          "name": "zyx",
+          "description": "A complete ML library and compiler in Rust — \"from assembly to neural networks\" — with a native Tenstorrent backend (src/backend/tenstorrent), autograd, custom kernels, multi-backend support, and Python bindings.",
+          "affiliation": "community",
+          "categories": [
+            "compilers",
+            "dev-tools"
+          ],
+          "tags": [
+            "rust",
+            "ml-compiler",
+            "tensor-library",
+            "autograd",
+            "backend"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zk4x/zyx"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.rs/zyx"
+            }
+          ],
+          "author": "zk4x",
+          "language": "Rust",
+          "license": "LGPL-3.0",
+          "added_at": "2026-07-03",
+          "date": "2022-09-25"
         },
         {
           "id": "paper-tileloom",
@@ -2366,7 +2569,7 @@
     },
     "dev-tools": {
       "label": "Dev Tools & Debugging",
-      "count": 19,
+      "count": 20,
       "entries": [
         {
           "id": "nvtop",
@@ -2425,6 +2628,38 @@
           "author": "mesham",
           "language": "Python",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "zyx",
+          "name": "zyx",
+          "description": "A complete ML library and compiler in Rust — \"from assembly to neural networks\" — with a native Tenstorrent backend (src/backend/tenstorrent), autograd, custom kernels, multi-backend support, and Python bindings.",
+          "affiliation": "community",
+          "categories": [
+            "compilers",
+            "dev-tools"
+          ],
+          "tags": [
+            "rust",
+            "ml-compiler",
+            "tensor-library",
+            "autograd",
+            "backend"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/zk4x/zyx"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.rs/zyx"
+            }
+          ],
+          "author": "zk4x",
+          "language": "Rust",
+          "license": "LGPL-3.0",
+          "added_at": "2026-07-03",
+          "date": "2022-09-25"
         },
         {
           "id": "libtt-metal-cxx",
@@ -2979,7 +3214,7 @@
     },
     "hw-system": {
       "label": "Hardware & System",
-      "count": 17,
+      "count": 20,
       "entries": [
         {
           "id": "nvtop",
@@ -3095,6 +3330,25 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "tetsuhtt-metal-community-distro-matrix",
+          "name": "tetsuh/tt-metal-community-distro-matrix",
+          "description": "A compatibility guardrail that continuously monitors whether [tt-metal](https://github.com/tenstorrent/tt-metal) and the official [tt-installer](https://github.com/tenstorrent/tt-installer) build successfully on community Linux distributions that are not part of Tenstorrent's official CI.",
+          "affiliation": "community",
+          "categories": [
+            "hw-system"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tetsuh/tt-metal-community-distro-matrix"
+            }
+          ],
+          "author": "tetsuh",
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-06-29"
+        },
+        {
           "id": "paper-swiftnpu",
           "name": "SwiftNPU: Scalable Shape-Flexible Allocation for Inter-Core Connected NPUs",
           "description": "Makes multi-tenant NPU sharing practical for Blackhole-class hardware using polynomial-time allocation algorithms. Delivers up to 1.37× higher utilization and 1.14× faster workload completion. Up to 890,000× faster than NP-hard baselines.",
@@ -3150,6 +3404,45 @@
           "author": "tsingletaryTT",
           "language": "Rust",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "tt-operator",
+          "name": "tt-operator",
+          "description": "Kubernetes operator that automates installation and lifecycle management of the full software stack needed to run Tenstorrent workloads on a cluster. Distributed as an umbrella Helm chart coordinating driver (tt-kmd) management, Node Feature Discovery, firmware flashing, Prometheus telemetry, fabric/topology resolution, and device allocation with multi-node scheduling (JobSet/PMIx).",
+          "affiliation": "official",
+          "categories": [
+            "cloud-infra",
+            "hw-system"
+          ],
+          "tags": [
+            "kubernetes",
+            "helm",
+            "operator",
+            "orchestration",
+            "cloud-native",
+            "tt-kmd",
+            "device-plugin"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-operator"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/cloud-native-support/",
+              "label": "Cloud-Native Support docs"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "related": [
+            "cloud-native-support"
+          ],
+          "added_at": "2026-07-01"
         },
         {
           "id": "luwen",
@@ -3323,6 +3616,41 @@
             }
           ],
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "tt-quietbox2-guide",
+          "name": "TT-QuietBox 2 Guide",
+          "description": "Official setup and onboarding guide for the TT-QuietBox 2 — a compact, liquid-cooled AI workstation with four Blackhole accelerators, an AMD Ryzen CPU, 256GB RAM, and 4TB NVMe. Covers hardware specs, first-boot setup, and hands-on learning paths for running pre-loaded models like Qwen3-32B and serving text, image, video, and speech models via tt-inference-server.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "guides",
+            "getting-started"
+          ],
+          "tags": [
+            "quietbox",
+            "blackhole",
+            "workstation",
+            "setup",
+            "getting-started",
+            "documentation"
+          ],
+          "links": [
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-quietbox2-guide",
+              "label": "TT-QuietBox 2 Guide"
+            }
+          ],
+          "hardware": [
+            "blackhole",
+            "quietbox"
+          ],
+          "related": [
+            "tt-installer",
+            "tt-inference-server"
+          ],
+          "added_at": "2026-06-30"
         },
         {
           "id": "tt-smi",
@@ -3516,7 +3844,7 @@
     },
     "cloud-infra": {
       "label": "Cloud & Orchestration",
-      "count": 5,
+      "count": 7,
       "entries": [
         {
           "id": "dstack",
@@ -3648,6 +3976,78 @@
           "language": "Python",
           "license": "Apache-2.0",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "cloud-native-support",
+          "name": "Cloud-Native Support",
+          "description": "Official documentation hub for running Tenstorrent accelerators on Kubernetes. Centers on tt-operator (the umbrella Helm chart) and covers Node Feature Discovery, kernel-mode driver (tt-kmd) management, firmware flashing, Prometheus telemetry, Fabric Manager topology resolution, Dynamic Resource Allocation, and multi-node scheduling via JobSet and PMIx.",
+          "affiliation": "official",
+          "categories": [
+            "cloud-infra",
+            "guides"
+          ],
+          "tags": [
+            "kubernetes",
+            "cloud-native",
+            "helm",
+            "tt-operator",
+            "orchestration",
+            "documentation"
+          ],
+          "links": [
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/cloud-native-support/",
+              "label": "docs.tenstorrent.com"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "related": [
+            "tt-operator"
+          ],
+          "added_at": "2026-07-01"
+        },
+        {
+          "id": "tt-operator",
+          "name": "tt-operator",
+          "description": "Kubernetes operator that automates installation and lifecycle management of the full software stack needed to run Tenstorrent workloads on a cluster. Distributed as an umbrella Helm chart coordinating driver (tt-kmd) management, Node Feature Discovery, firmware flashing, Prometheus telemetry, fabric/topology resolution, and device allocation with multi-node scheduling (JobSet/PMIx).",
+          "affiliation": "official",
+          "categories": [
+            "cloud-infra",
+            "hw-system"
+          ],
+          "tags": [
+            "kubernetes",
+            "helm",
+            "operator",
+            "orchestration",
+            "cloud-native",
+            "tt-kmd",
+            "device-plugin"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-operator"
+            },
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/cloud-native-support/",
+              "label": "Cloud-Native Support docs"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "related": [
+            "cloud-native-support"
+          ],
+          "added_at": "2026-07-01"
         },
         {
           "id": "tt-topology",
@@ -4195,47 +4595,8 @@
     },
     "research": {
       "label": "Research & Papers",
-      "count": 14,
+      "count": 16,
       "entries": [
-        {
-          "id": "tt-bio",
-          "name": "tt-bio",
-          "description": "Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.",
-          "affiliation": "community",
-          "categories": [
-            "ai-models",
-            "research"
-          ],
-          "tags": [
-            "drug-discovery",
-            "blackhole",
-            "inference",
-            "biology",
-            "multi-card"
-          ],
-          "links": [
-            {
-              "type": "repo",
-              "url": "https://github.com/tenstorrent/tt-bio"
-            },
-            {
-              "type": "talk",
-              "url": "https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/",
-              "label": "FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware"
-            }
-          ],
-          "hardware": [
-            "blackhole",
-            "quietbox",
-            "galaxy"
-          ],
-          "featured": true,
-          "author": "moritztng",
-          "language": "Python",
-          "license": "MIT",
-          "added_at": "2026-05-08",
-          "date": "2026-01-31"
-        },
         {
           "id": "tt-tutorial-hpc",
           "name": "tt-tutorial (HPC)",
@@ -4265,6 +4626,90 @@
           "language": "C++",
           "license": "BSD-3-Clause",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "tt-rqm-kernels",
+          "name": "tt-rqm-kernels",
+          "description": "Structured quaternion, rotor, and phase-aware tensor kernels — operations on 3D rotation and orientation data packed into ordinary `[N, 4]` float tensors — plus StructuredBench, a benchmark suite for these workloads. Provides CPU/PyTorch reference implementations and an optional TT-Lang simulator prototype for the quaternion multiply (`qmul`) kernel as a first step toward Tenstorrent hardware support.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "research"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md",
+              "label": "StructuredBench specification"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tt-lang-qmul-plan.md",
+              "label": "TT-Lang qmul plan"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_lang_qmul_sim.md",
+              "label": "TT-Lang simulator report"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-rfc.md",
+              "label": "Tenstorrent RFC"
+            }
+          ],
+          "tags": [
+            "structured-tensors",
+            "quaternion",
+            "rotor",
+            "tt-lang",
+            "simulator",
+            "benchmarks",
+            "pytorch",
+            "custom-kernels"
+          ],
+          "hardware": [
+            "ttsim"
+          ],
+          "author": "RQM-Technologies-dev",
+          "language": "Python",
+          "license": "MIT",
+          "added_at": "2026-07-03"
+        },
+        {
+          "id": "tt-splat-matrix-native-3d-gaussian-splatting-on-blackhole",
+          "name": "tt-splat — matrix-native 3D Gaussian Splatting on Blackhole",
+          "description": "3D Gaussian Splatting rewritten to run on the matrix engine: a polynomial splat and order-independent weighted-sum blending replace exp and depth-sorted alpha, so the pipeline becomes GEMM → activation → GEMM. Renderer + trainer, trained device-resident on a Blackhole p150a.",
+          "affiliation": "community",
+          "categories": [
+            "kernels",
+            "research"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/kinginu/tt-splat"
+            }
+          ],
+          "tags": [
+            "3d-gaussian-splatting",
+            "3dgs",
+            "rendering",
+            "matrix-engine",
+            "weighted-sum-rendering"
+          ],
+          "hardware": [
+            "blackhole",
+            "ttsim"
+          ],
+          "author": "kinginu",
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-06-29"
         },
         {
           "id": "paper-attention-grayskull",
@@ -4632,6 +5077,45 @@
           "author": "Ranjith M. S., Akshat Mandloi, Sudarshan Kamath",
           "date": "2026-03-24",
           "added_at": "2026-05-13"
+        },
+        {
+          "id": "tt-bio",
+          "name": "tt-bio",
+          "description": "Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models",
+            "research"
+          ],
+          "tags": [
+            "drug-discovery",
+            "blackhole",
+            "inference",
+            "biology",
+            "multi-card"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/moritztng/tt-bio"
+            },
+            {
+              "type": "talk",
+              "url": "https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/",
+              "label": "FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware"
+            }
+          ],
+          "hardware": [
+            "blackhole",
+            "quietbox",
+            "galaxy"
+          ],
+          "featured": true,
+          "author": "moritztng",
+          "language": "Python",
+          "license": "MIT",
+          "added_at": "2026-05-08",
+          "date": "2026-01-31"
         }
       ]
     },
@@ -4964,7 +5448,7 @@
     },
     "guides": {
       "label": "Guides, Tutorials & Education",
-      "count": 16,
+      "count": 18,
       "entries": [
         {
           "id": "blog-martin-chang-programming",
@@ -5469,6 +5953,39 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "cloud-native-support",
+          "name": "Cloud-Native Support",
+          "description": "Official documentation hub for running Tenstorrent accelerators on Kubernetes. Centers on tt-operator (the umbrella Helm chart) and covers Node Feature Discovery, kernel-mode driver (tt-kmd) management, firmware flashing, Prometheus telemetry, Fabric Manager topology resolution, Dynamic Resource Allocation, and multi-node scheduling via JobSet and PMIx.",
+          "affiliation": "official",
+          "categories": [
+            "cloud-infra",
+            "guides"
+          ],
+          "tags": [
+            "kubernetes",
+            "cloud-native",
+            "helm",
+            "tt-operator",
+            "orchestration",
+            "documentation"
+          ],
+          "links": [
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/cloud-native-support/",
+              "label": "docs.tenstorrent.com"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "related": [
+            "tt-operator"
+          ],
+          "added_at": "2026-07-01"
+        },
+        {
           "id": "tt-vscode-toolkit",
           "name": "tt-vscode-toolkit",
           "description": "48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.",
@@ -5546,6 +6063,41 @@
           "language": "Shell",
           "license": "Apache-2.0",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "tt-quietbox2-guide",
+          "name": "TT-QuietBox 2 Guide",
+          "description": "Official setup and onboarding guide for the TT-QuietBox 2 — a compact, liquid-cooled AI workstation with four Blackhole accelerators, an AMD Ryzen CPU, 256GB RAM, and 4TB NVMe. Covers hardware specs, first-boot setup, and hands-on learning paths for running pre-loaded models like Qwen3-32B and serving text, image, video, and speech models via tt-inference-server.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "guides",
+            "getting-started"
+          ],
+          "tags": [
+            "quietbox",
+            "blackhole",
+            "workstation",
+            "setup",
+            "getting-started",
+            "documentation"
+          ],
+          "links": [
+            {
+              "type": "website",
+              "url": "https://docs.tenstorrent.com/tt-quietbox2-guide",
+              "label": "TT-QuietBox 2 Guide"
+            }
+          ],
+          "hardware": [
+            "blackhole",
+            "quietbox"
+          ],
+          "related": [
+            "tt-installer",
+            "tt-inference-server"
+          ],
+          "added_at": "2026-06-30"
         }
       ]
     }
