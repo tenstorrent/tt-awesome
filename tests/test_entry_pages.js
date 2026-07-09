@@ -64,4 +64,18 @@ for (const entry of entries) {
   );
 }
 
-console.log(`ok — ${entries.length} static entry pages verified`);
+// ── sitemap.xml lists the root, planet, and every entry page ────────────────
+const sitemapPath = path.join(outDir, "sitemap.xml");
+assert(fs.existsSync(sitemapPath), "sitemap.xml missing from build output");
+const sitemap = fs.readFileSync(sitemapPath, "utf-8");
+assert(sitemap.startsWith("<?xml"), "sitemap.xml must start with an XML declaration");
+assert(sitemap.includes(`<loc>${site.baseUrl}</loc>`), "sitemap missing site root");
+assert(sitemap.includes(`<loc>${site.baseUrl}planet/</loc>`), "sitemap missing /planet/");
+for (const entry of entries) {
+  assert(
+    sitemap.includes(`<loc>${site.baseUrl}entry/${entry.id}/</loc>`),
+    `sitemap missing entry/${entry.id}/`
+  );
+}
+
+console.log(`ok — ${entries.length} static entry pages + sitemap verified`);
