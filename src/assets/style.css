@@ -546,3 +546,8 @@ body.entry-page { display: block; overflow: auto; }
 .entry-page-main .detail-card { position: static; }
 .entry-page-footer { margin-top: 32px; font-size: 0.85rem; opacity: 0.75; }
 .entry-page-footer a { color: var(--teal); }
+
+/* Row-name anchors exist for crawlers and no-JS users; visually identical
+   to the plain text they replaced. Plain clicks are intercepted and handled
+   by the row's SPA onclick, so no underline/color shift on hover either. */
+.row-name-link { color: inherit; text-decoration: none; }

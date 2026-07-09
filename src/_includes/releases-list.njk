@@ -20,7 +20,7 @@
          data-affiliation="{{ rel.affiliation }}"
          onclick="selectEntry(this.dataset.id, this)">
       <div class="row-top">
-        <span class="row-name">{{ rel.entryName }}</span>
+        <span class="row-name"><a class="row-name-link" href="{{ ("/entry/" ~ rel.entryId ~ "/") | url }}" onclick="if (event.ctrlKey || event.metaKey) { event.stopPropagation(); } else { event.preventDefault(); }">{{ rel.entryName }}</a></span>
         <span class="badge badge--{{ rel.affiliation }}">{{ rel.affiliation }}</span>
         <span class="rel-tag">{{ rel.tagName }}</span>
       </div>

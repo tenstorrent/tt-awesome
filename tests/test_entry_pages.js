@@ -78,4 +78,13 @@ for (const entry of entries) {
   );
 }
 
+// ── The SPA page links to every entry's static page (crawl discovery) ───────
+const indexHtml = fs.readFileSync(path.join(outDir, "index.html"), "utf-8");
+for (const entry of entries) {
+  assert(
+    indexHtml.includes(`href="/tt-awesome/entry/${entry.id}/"`),
+    `index.html has no anchor to entry/${entry.id}/`
+  );
+}
+
 console.log(`ok — ${entries.length} static entry pages + sitemap verified`);
