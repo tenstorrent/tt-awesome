@@ -1,0 +1,83 @@
+---
+pagination:
+  data: entries
+  size: 1
+  alias: entry
+permalink: "entry/{{ entry.id }}/index.html"
+eleventyExcludeFromCollections: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>{{ entry.name }} — tt-awesome</title>
+  <meta name="description" content="{{ entry.description | truncate(300) }}">
+  <link rel="canonical" href="{{ site.baseUrl }}entry/{{ entry.id }}/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="tt-awesome">
+  <meta property="og:title" content="{{ entry.name }} — tt-awesome">
+  <meta property="og:description" content="{{ entry.description | truncate(300) }}">
+  <meta property="og:url" content="{{ site.baseUrl }}entry/{{ entry.id }}/">
+  <meta property="og:image" content="{{ site.baseUrl }}assets/og-card.svg">
+
+  <style>{% inlineFile "src/assets/style.css" %}</style>
+  {%- include "analytics.njk" %}
+</head>
+<body class="entry-page">
+  <header class="topbar entry-page-topbar">
+    <a class="logo entry-page-logo" href="{{ '/' | url }}">⚡ tt-awesome</a>
+    <a class="entry-open-app" href="{{ '/' | url }}?entry={{ entry.id }}">Open in tt-awesome →</a>
+  </header>
+  <main class="entry-page-main">
+    <article id="entry-content" class="detail-card visible">
+{%- include "entry-card-body.njk" %}
+    </article>
+    <footer class="entry-page-footer">
+      <p>Part of <a href="{{ '/' | url }}">tt-awesome</a>, a curated directory of
+      projects, tools, models, and research for Tenstorrent hardware.
+      <a href="{{ '/' | url }}?entry={{ entry.id }}">Open this entry in the app →</a></p>
+    </footer>
+  </main>
+  <script>
+    // The shared card partial (entry-card-body.njk) references three SPA
+    // functions from main.js. Static pages don't load main.js, so define
+    // static-page equivalents: related chips navigate to sibling static
+    // pages, author filters deep-link into the SPA, copy buttons still copy.
+    function navigateToEntry(id) {
+      location.href = "../" + encodeURIComponent(id) + "/";
+    }
+    function filterByAuthor(name) {
+      location.href = "{{ '/' | url }}?author=" + encodeURIComponent(name);
+    }
+    function copyPkgCmd(btn) {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        btn.textContent = "n/a";
+        setTimeout(() => { btn.textContent = "copy"; }, 1800);
+        return;
+      }
+      navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+        btn.textContent = "copied!";
+        btn.classList.add("copied");
+        setTimeout(() => { btn.textContent = "copy"; btn.classList.remove("copied"); }, 1800);
+      }).catch(() => {
+        btn.textContent = "failed";
+        setTimeout(() => { btn.textContent = "copy"; }, 1800);
+      });
+    }
+    // Progressive enhancement only: humanize timestamps. Without JS the raw
+    // ISO date remains visible, so no content is lost.
+    document.querySelectorAll("[data-ts]").forEach((el) => {
+      if (!el.dataset.ts) return;
+      const d = new Date(el.dataset.ts);
+      if (!isNaN(d)) {
+        el.textContent = d.toLocaleDateString("en-US",
+          { year: "numeric", month: "short", day: "numeric" });
+      }
+    });
+  </script>
+</body>
+</html>

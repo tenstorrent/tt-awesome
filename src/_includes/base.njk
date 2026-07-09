@@ -49,30 +49,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tsingletaryTT/tensix-viz@v2/tensix-viz.css">
   {%- endif %}
 
-  <!-- PostHog analytics (same key as docs.tenstorrent.com sites) -->
-  <script>
-    (function (t, e) {
-      var o, n, p, r;
-      if (!e.__SV) {
-        window.posthog = e; e._i = []; e.init = function (i, s, a) {
-          function g(t, e) { var o = e.split("."); if (o.length === 2) { t = t[o[0]]; e = o[1]; } t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))); }; }
-          p = t.createElement("script"); p.type = "text/javascript"; p.crossOrigin = "anonymous"; p.async = true;
-          p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js";
-          r = t.getElementsByTagName("script")[0]; r.parentNode.insertBefore(p, r);
-          var u = e; if (a !== undefined) { u = e[a] = []; } else { a = "posthog"; }
-          u.people = u.people || []; u.toString = function (t) { var e = "posthog"; if (a !== "posthog") { e += "." + a; } if (!t) { e += " (stub)"; } return e; };
-          u.people.toString = function () { return u.toString(1) + ".people (stub)"; };
-          var methods = ("init capture identify setPersonProperties reset get_distinct_id getGroups get_session_id alias set_config startSessionRecording stopSessionRecording opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug").split(" ");
-          for (n = 0; n < methods.length; n++) { g(u, methods[n]); } e._i.push([i, s, a]);
-        }; e.__SV = 1;
-      }
-    })(document, window.posthog || []);
-    posthog.init("phc_9LMRmHrCFvQNvDkPDjYBP5dZ6WchZ5bcM6T4Qj6tb0U", {
-      api_host: "https://us.i.posthog.com",
-      defaults: "2025-05-24",
-      person_profiles: "identified_only"
-    });
-  </script>
+  {%- include "analytics.njk" %}
 </head>
 <body>
   {{ content | safe }}

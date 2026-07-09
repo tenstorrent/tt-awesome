@@ -528,3 +528,21 @@ body.drawer-open .drawer-backdrop {
     .cat-grid { grid-template-columns: 1fr; }
   }
 }
+
+/* ── Static entry pages (/entry/<id>/) ─────────────────────────────────────
+   Standalone crawler-and-human-readable page per entry. Reuses the SPA's
+   .detail-card styling; these rules only provide the page frame around it. */
+body.entry-page { display: block; overflow: auto; }
+.entry-page-topbar { justify-content: space-between; }
+.entry-page-logo { text-decoration: none; }
+.entry-open-app {
+  color: var(--teal);
+  text-decoration: none;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.entry-open-app:hover { text-decoration: underline; text-underline-offset: 2px; }
+.entry-page-main { max-width: 780px; margin: 0 auto; padding: 24px 20px 64px; }
+.entry-page-main .detail-card { position: static; }
+.entry-page-footer { margin-top: 32px; font-size: 0.85rem; opacity: 0.75; }
+.entry-page-footer a { color: var(--teal); }
