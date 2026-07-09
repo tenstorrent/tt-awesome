@@ -97,6 +97,20 @@ assert(
   "index.html release rows lack row-name-link anchors"
 );
 
+// ── Legacy ?entry= routes still map: restoreFromUrl() in main.js resolves a
+//    deep link by finding `.entry-row[data-id="<id>"]` and showing the card
+//    `#detail-<id>`, so both hooks must exist in index.html for every entry ──
+for (const entry of entries) {
+  assert(
+    indexHtml.includes(`data-id="${entry.id}"`),
+    `index.html lacks the entry-row data-id hook for ${entry.id} (breaks ?entry= deep links)`
+  );
+  assert(
+    indexHtml.includes(`id="detail-${entry.id}"`),
+    `index.html lacks the detail card #detail-${entry.id} (breaks ?entry= deep links)`
+  );
+}
+
 // ── AGENTS.md ships with the site ───────────────────────────────────────────
 assert(
   fs.existsSync(path.join(outDir, "AGENTS.md")),
