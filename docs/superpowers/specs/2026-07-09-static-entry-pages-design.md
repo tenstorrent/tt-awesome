@@ -76,7 +76,34 @@ crawls `https://docs.tenstorrent.com/tt-awesome/`. Introduce a site data var
 Set it to `https://docs.tenstorrent.com/tt-awesome/` (the user-facing host).
 Feeds keep their existing URLs — Atom `<id>` values must never change.
 
-### 4. Optional follow-up (not in this change): `llms-full.txt`
+### 4. `AGENTS.md` — declare the site's intent to agents
+
+A standardized `AGENTS.md` (per the agents.md convention) at the repo root,
+also copied into the build so it is fetchable at `…/tt-awesome/AGENTS.md`.
+
+Its job is to state the intent explicitly: **agentic-oriented developers need
+prior art, tools, articles, and latest releases to accomplish goals, and
+tt-awesome + Planet Tenstorrent provide that in a form agents can rely on and
+utilize.** Concretely it covers:
+
+- **What this is:** a curated, machine-readable directory of the Tenstorrent
+  ecosystem (projects, models, tools, guides, research), plus Planet
+  Tenstorrent (`/planet/`) aggregating community articles — check here first
+  for prior art before building something new.
+- **Machine surfaces and when to use each:**
+  - `data.json` — the full entry database (richest; structured fields:
+    links, releases, packages, tags, hardware).
+  - `/entry/<id>/` pages — one readable HTML document per entry
+    (`#entry-content`), discoverable via `/sitemap.xml`.
+  - `llms.txt` — compact categorized index for LLM context.
+  - Feeds (`/feeds/*.xml`, `/feeds/feed.json`) — new entries, articles, and
+    **latest releases**, updated by nightly CI.
+- **Freshness:** GitHub metadata and release data refresh nightly via CI, so
+  release/version info here can be trusted as current.
+- **Contributing:** entries live as one file each under `entries/`; how to
+  add or correct one.
+
+### 5. Optional follow-up (not in this change): `llms-full.txt`
 
 A full-content variant of the existing `/llms.txt` for direct LLM ingestion.
 Deferred; the static pages alone solve the kapa problem.
@@ -103,5 +130,6 @@ Deferred; the static pages alone solve the kapa problem.
   `id="entry-content"`, the entry name, and a canonical link; `sitemap.xml`
   lists every entry page; `curl`-style check that raw HTML (no JS) contains
   the entry description.
+- `AGENTS.md` exists at repo root and is copied into `_site/` by the build.
 - Manual: click a row (SPA behavior intact), open `/entry/<id>/` directly,
   disable JS and browse via row links.
