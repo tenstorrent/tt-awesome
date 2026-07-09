@@ -87,4 +87,10 @@ for (const entry of entries) {
   );
 }
 
+// ── AGENTS.md ships with the site ───────────────────────────────────────────
+assert(
+  fs.existsSync(path.join(outDir, "AGENTS.md")),
+  "AGENTS.md missing from build output"
+);
+
 console.log(`ok — ${entries.length} static entry pages + sitemap verified`);
