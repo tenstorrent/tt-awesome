@@ -48,7 +48,7 @@ eleventyExcludeFromCollections: true
     // static-page equivalents: related chips navigate to sibling static
     // pages, author filters deep-link into the SPA, copy buttons still copy.
     function navigateToEntry(id) {
-      location.href = "../" + encodeURIComponent(id) + "/";
+      location.href = "{{ '/entry/' | url }}" + encodeURIComponent(id) + "/";
     }
     function filterByAuthor(name) {
       location.href = "{{ '/' | url }}?author=" + encodeURIComponent(name);

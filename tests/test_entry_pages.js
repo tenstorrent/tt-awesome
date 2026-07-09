@@ -87,6 +87,16 @@ for (const entry of entries) {
   );
 }
 
+// ── Release rows (releases-list.njk) independently get row-name-link
+//    anchors — the entry-row loop above would pass even if release rows
+//    regressed, since every entry id already appears via its entry row. ─────
+assert(
+  /class="release-row"[\s\S]{0,600}?class="row-name-link" href="\/tt-awesome\/entry\//.test(
+    indexHtml
+  ),
+  "index.html release rows lack row-name-link anchors"
+);
+
 // ── AGENTS.md ships with the site ───────────────────────────────────────────
 assert(
   fs.existsSync(path.join(outDir, "AGENTS.md")),

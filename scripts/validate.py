@@ -29,6 +29,9 @@ def validate_entry(path: Path, data: dict) -> list:
     for field in ("id", "name", "description", "affiliation"):
         if not data.get(field) or not isinstance(data[field], str):
             errors.append(f"missing or invalid required field: {field}")
+    entry_id = data.get("id")
+    if entry_id and isinstance(entry_id, str) and not re.match(r'^[a-z0-9][a-z0-9\-]*$', entry_id):
+        errors.append(f"id must be a lowercase slug, got '{entry_id}'")
     if data.get("affiliation") and data.get("affiliation") not in VALID_AFFILIATIONS:
         errors.append(f"affiliation must be one of {sorted(VALID_AFFILIATIONS)}, got '{data.get('affiliation')}'")
     cats = data.get("categories")
