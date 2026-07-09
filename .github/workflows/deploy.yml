@@ -33,6 +33,7 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+      - run: node tests/test_entry_pages.js
 
       - uses: actions/upload-pages-artifact@v3
         with:
