@@ -62,6 +62,16 @@ for (const entry of entries) {
     html.includes(`?entry=${entry.id}`),
     `entry/${entry.id}/ lacks an "Open in tt-awesome" link into the SPA`
   );
+  assert(
+    html.includes(`<title>${esc(entry.name)} — tt-awesome</title>`),
+    `entry/${entry.id}/ <title> must contain the entry name`
+  );
+  assert(
+    html.includes(
+      `<meta property="og:url" content="${site.baseUrl}entry/${entry.id}/">`
+    ),
+    `entry/${entry.id}/ og:url must match its canonical URL`
+  );
 }
 
 // ── sitemap.xml lists the root, planet, and every entry page ────────────────
@@ -111,10 +121,92 @@ for (const entry of entries) {
   );
 }
 
+// ── Raw entry files (hidden entries included — entries.js filters them out
+//    of the `entries` global, so these checks must read the source JSON) ─────
+const entriesDir = path.join(__dirname, "..", "entries");
+const rawEntryFiles = [];
+(function walk(dir) {
+  for (const f of fs.readdirSync(dir)) {
+    const full = path.join(dir, f);
+    if (fs.statSync(full).isDirectory()) walk(full);
+    else if (f.endsWith(".json")) rawEntryFiles.push(full);
+  }
+})(entriesDir);
+const rawEntries = rawEntryFiles.map((f) =>
+  JSON.parse(fs.readFileSync(f, "utf-8"))
+);
+
+// ── Hidden entries stay hidden: no static page, no sitemap listing ──────────
+for (const entry of rawEntries.filter((e) => e.hidden === true)) {
+  assert(
+    !fs.existsSync(path.join(outDir, "entry", entry.id)),
+    `hidden entry ${entry.id} must not get a static page`
+  );
+  assert(
+    !sitemap.includes(`<loc>${site.baseUrl}entry/${entry.id}/</loc>`),
+    `hidden entry ${entry.id} must not appear in the sitemap`
+  );
+}
+
+// ── Entry ids are globally unique: two files sharing an id would paginate
+//    to the same entry/<id>/index.html and silently overwrite each other ─────
+const seenIds = new Map();
+rawEntryFiles.forEach((f, i) => {
+  const id = rawEntries[i].id;
+  assert(
+    !seenIds.has(id),
+    `duplicate entry id "${id}" in ${f} and ${seenIds.get(id)} — static pages would collide`
+  );
+  seenIds.set(id, f);
+});
+
+// ── Feed identity is immutable: Atom <id> / JSON Feed item ids must never
+//    move to the canonical host. Changing an id re-delivers every item as
+//    new to existing subscribers, so the original (github.io / external
+//    repo) URLs are frozen even though the rest of the site uses baseUrl ─────
+for (const feedFile of [
+  "feeds/new-entries.xml",
+  "feeds/releases.xml",
+  "feeds/articles.xml",
+]) {
+  const xml = fs.readFileSync(path.join(outDir, feedFile), "utf-8");
+  const ids = [...xml.matchAll(/<id>([^<]*)<\/id>/g)].map((m) => m[1]);
+  assert(ids.length > 0, `${feedFile} has no <id> elements — parse failure?`);
+  for (const idVal of ids) {
+    assert(
+      !idVal.startsWith(site.baseUrl),
+      `${feedFile} <id> "${idVal}" uses the canonical host — Atom ids are immutable`
+    );
+  }
+}
+const feedJson = JSON.parse(
+  fs.readFileSync(path.join(outDir, "feeds", "feed.json"), "utf-8")
+);
+assert((feedJson.items || []).length > 0, "feed.json has no items — parse failure?");
+for (const item of feedJson.items) {
+  assert(
+    !(typeof item.id === "string" && item.id.startsWith(site.baseUrl)),
+    `feed.json item id "${item.id}" uses the canonical host — feed ids are immutable`
+  );
+}
+
+// ── Root page metadata speaks the canonical host (guards the base.njk swap
+//    away from hardcoded tenstorrent.github.io URLs) ──────────────────────────
+assert(
+  indexHtml.includes(`<meta property="og:url" content="${site.baseUrl}">`),
+  "index.html og:url must be the canonical site.baseUrl"
+);
+assert(
+  indexHtml.includes(`"url": "${site.baseUrl}"`),
+  "index.html JSON-LD url must be the canonical site.baseUrl"
+);
+
 // ── AGENTS.md ships with the site ───────────────────────────────────────────
 assert(
   fs.existsSync(path.join(outDir, "AGENTS.md")),
   "AGENTS.md missing from build output"
 );
 
-console.log(`ok — ${entries.length} static entry pages + sitemap verified`);
+console.log(
+  `ok — ${entries.length} static entry pages + sitemap + metadata + feed-id guards verified`
+);
