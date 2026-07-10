@@ -12,31 +12,33 @@
   <meta property="og:site_name" content="tt-awesome">
   <meta property="og:title" content="tt-awesome — A curated list of Tenstorrent awesomeness">
   <meta property="og:description" content="Discover {{ entries | length }} projects across {{ categories | length }} categories — tools, AI models, kernels, compilers, and more for Tenstorrent hardware.">
-  <meta property="og:url" content="https://tenstorrent.github.io/tt-awesome/">
+  <meta property="og:url" content="{{ site.baseUrl }}">
   <!-- og:image is an SVG. Twitter/X and Facebook require PNG/JPEG — upgrade to
        summary_large_image once og-card.png is generated at build time. -->
-  <meta property="og:image" content="https://tenstorrent.github.io/tt-awesome/assets/og-card.svg">
+  <meta property="og:image" content="{{ site.baseUrl }}assets/og-card.svg">
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@tenstorrent">
   <meta name="twitter:title" content="tt-awesome — A curated list of Tenstorrent awesomeness">
   <meta name="twitter:description" content="Discover {{ entries | length }} projects across {{ categories | length }} categories — tools, AI models, kernels, compilers, and more for Tenstorrent hardware.">
-  <!-- Feed autodiscovery -->
-  <link rel="alternate" type="application/atom+xml" title="tt-awesome — Recent Releases" href="https://tenstorrent.github.io/tt-awesome/feeds/releases.xml">
-  <link rel="alternate" type="application/atom+xml" title="tt-awesome — New Entries" href="https://tenstorrent.github.io/tt-awesome/feeds/new-entries.xml">
-  <link rel="alternate" type="application/atom+xml" title="tt-awesome — Articles &amp; Resources" href="https://tenstorrent.github.io/tt-awesome/feeds/articles.xml">
-  <link rel="alternate" type="application/feed+json" title="tt-awesome — JSON Feed" href="https://tenstorrent.github.io/tt-awesome/feeds/feed.json">
+  <!-- Feed autodiscovery — hrefs follow the canonical host (site.baseUrl).
+       Only the Atom <id> values inside the feed XML are immutable; those stay
+       on the original github.io host and are untouched by this. -->
+  <link rel="alternate" type="application/atom+xml" title="tt-awesome — Recent Releases" href="{{ site.baseUrl }}feeds/releases.xml">
+  <link rel="alternate" type="application/atom+xml" title="tt-awesome — New Entries" href="{{ site.baseUrl }}feeds/new-entries.xml">
+  <link rel="alternate" type="application/atom+xml" title="tt-awesome — Articles &amp; Resources" href="{{ site.baseUrl }}feeds/articles.xml">
+  <link rel="alternate" type="application/feed+json" title="tt-awesome — JSON Feed" href="{{ site.baseUrl }}feeds/feed.json">
   <!-- Structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "tt-awesome",
-    "url": "https://tenstorrent.github.io/tt-awesome/",
+    "url": "{{ site.baseUrl }}",
     "description": "Discover {{ entries | length }} projects across {{ categories | length }} categories — tools, AI models, kernels, compilers, and more for Tenstorrent hardware.",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://tenstorrent.github.io/tt-awesome/?q={search_term_string}",
+      "target": "{{ site.baseUrl }}?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }
@@ -49,30 +51,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tsingletaryTT/tensix-viz@v2/tensix-viz.css">
   {%- endif %}
 
-  <!-- PostHog analytics (same key as docs.tenstorrent.com sites) -->
-  <script>
-    (function (t, e) {
-      var o, n, p, r;
-      if (!e.__SV) {
-        window.posthog = e; e._i = []; e.init = function (i, s, a) {
-          function g(t, e) { var o = e.split("."); if (o.length === 2) { t = t[o[0]]; e = o[1]; } t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))); }; }
-          p = t.createElement("script"); p.type = "text/javascript"; p.crossOrigin = "anonymous"; p.async = true;
-          p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js";
-          r = t.getElementsByTagName("script")[0]; r.parentNode.insertBefore(p, r);
-          var u = e; if (a !== undefined) { u = e[a] = []; } else { a = "posthog"; }
-          u.people = u.people || []; u.toString = function (t) { var e = "posthog"; if (a !== "posthog") { e += "." + a; } if (!t) { e += " (stub)"; } return e; };
-          u.people.toString = function () { return u.toString(1) + ".people (stub)"; };
-          var methods = ("init capture identify setPersonProperties reset get_distinct_id getGroups get_session_id alias set_config startSessionRecording stopSessionRecording opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug").split(" ");
-          for (n = 0; n < methods.length; n++) { g(u, methods[n]); } e._i.push([i, s, a]);
-        }; e.__SV = 1;
-      }
-    })(document, window.posthog || []);
-    posthog.init("phc_9LMRmHrCFvQNvDkPDjYBP5dZ6WchZ5bcM6T4Qj6tb0U", {
-      api_host: "https://us.i.posthog.com",
-      defaults: "2025-05-24",
-      person_profiles: "identified_only"
-    });
-  </script>
+  {%- include "analytics.njk" %}
 </head>
 <body>
   {{ content | safe }}

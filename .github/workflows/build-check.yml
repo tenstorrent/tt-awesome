@@ -1,0 +1,39 @@
+name: Build check
+# Pre-merge parity with the deploy gate: build the site and run the
+# build-output assertions (static entry pages, sitemap, crawl anchors,
+# metadata, feed-id immutability) plus the data-layer unit suites, so a
+# template/data regression is caught on the PR instead of turning main red
+# after merge.
+#
+# The nightly and planet-feeds automations open PRs from `chore/nightly-*`
+# branches that touch src/_data/*.json (matching the paths below). We skip
+# those deterministically with the job-level head_ref guard rather than
+# relying on commit-message skip tokens — this keeps automation PRs off the
+# gate regardless of how GitHub treats "[skip ci]" for pull_request events.
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "entries/**"
+      - "tests/**"
+      - "AGENTS.md"
+      - ".eleventy.js"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/build-check.yml"
+jobs:
+  build-check:
+    # Skip the nightly/planet-feeds automation PRs (chore/nightly-github-metadata,
+    # chore/nightly-planet-feeds); they only refresh data files.
+    if: ${{ !startsWith(github.head_ref, 'chore/nightly-') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: "npm" }
+      - run: npm ci
+      - run: npm run build
+      - run: node tests/test_entry_pages.js
+      - run: node tests/test_data_files.js
+      - run: node tests/test_eleventy_filters.js
+      - run: node tests/test_recent_releases.js

@@ -21,7 +21,7 @@
          data-search="{{ entry.name | lower }} {{ entry.description | lower }} {{ entry.tags | join(' ') | lower if entry.tags else '' }} {{ entry.author | lower if entry.author else '' }}"
          onclick="selectEntry('{{ entry.id }}', this)">
       <div class="row-top">
-        <span class="row-name">{{ entry.name }}</span>
+        <span class="row-name"><a class="row-name-link" href="{{ ("/entry/" ~ entry.id ~ "/") | url }}" onclick="if (event.ctrlKey || event.metaKey || event.shiftKey || event.detail === 0) { event.stopPropagation(); } else { event.preventDefault(); }">{{ entry.name }}</a></span>
         <span class="badge badge--{{ entry.affiliation }}">{{ entry.affiliation }}</span>
         <span class="row-pkgs">
           {%- for pkg in entry.packages %}

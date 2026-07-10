@@ -1,0 +1,31 @@
+{
+  "id": "tt-atom",
+  "name": "tt-atom",
+  "description": "Meta's UMA interatomic potential running on Tenstorrent Blackhole — energy, forces, and stress for molecules and periodic materials behind an ASE calculator. Its per-edge Wigner rotation runs as a custom tt-metal kernel for a highest-performance uma-s build.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "molecular-dynamics",
+    "interatomic-potential",
+    "mlip",
+    "uma",
+    "ase",
+    "inference",
+    "custom-kernel"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/moritztng/tt-atom"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "moritztng",
+  "language": "Python",
+  "license": "MIT",
+  "added_at": "2026-07-10"
+}
