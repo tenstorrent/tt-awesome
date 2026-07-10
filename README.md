@@ -55,6 +55,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@zoecarver](https://github.com/zoecarver) — tt-lang inference script for Oasis 500M — an interactive video world model running on Tenstorrent hardware via the tt-lang DSL.
   [📦 repo](https://github.com/zoecarver/open-oasis)
 
+- **[tt-atom](https://github.com/moritztng/tt-atom)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by [@moritztng](https://github.com/moritztng) — Meta's UMA interatomic potential running on Tenstorrent Blackhole — energy, forces, and stress for molecules and periodic materials behind an ASE calculator. Its per-edge Wigner rotation runs as a custom tt-metal kernel for a highest-performance uma-s build.
+  [📦 repo](https://github.com/moritztng/tt-atom)
+
 - **[tt-lang-models](https://github.com/zoecarver/tt-lang-models)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@zoecarver](https://github.com/zoecarver) — A growing collection of models that use tt-lang for some or all of their implementation. Reference implementations for bringing modern models to the tt-lang DSL.
   [📦 repo](https://github.com/zoecarver/tt-lang-models)
@@ -78,6 +82,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-example-apps](https://github.com/tenstorrent/tt-example-apps)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   End-to-end AI applications running on Tenstorrent AI accelerators. Complete application examples from retrieval-augmented generation to image generation pipelines.
   [📦 repo](https://github.com/tenstorrent/tt-example-apps)
+
+- **[tt-forge-models](https://github.com/tenstorrent/tt-forge-models)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  A shared repository of model implementations used across TT-Forge frontends — a single source of truth for the models used in testing and benchmarking, rather than duplicating them across frontend repos.
+  [📦 repo](https://github.com/tenstorrent/tt-forge-models)
 
 - **[tt-inference-server](https://github.com/tenstorrent/tt-inference-server)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Production-ready model serving for Tenstorrent hardware with OpenAI-compatible REST API. Supports continuous batching, multiple models, and all TT hardware configurations.
@@ -247,6 +255,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Interactive browser-based visualizer of the Tenstorrent Tensix grid architecture. Explore the NoC, core layout, and dataflow patterns without hardware — a great companion for learning kernel programming.
   [🚀 Tensix Grid Playground (interactive)](https://docs.tenstorrent.com/tt-vscode-toolkit/tensix-playground/)
 
+- **[tt-emule](https://github.com/tenstorrent/tt-emule)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  A C++ software emulator of the Tenstorrent device-level kernel and host APIs. Run tt-metal kernel and host code on a standard x86-64 Linux machine — no Tenstorrent hardware required.
+  [📦 repo](https://github.com/tenstorrent/tt-emule)
+
 - **[tt-exalens](https://github.com/tenstorrent/tt-exalens)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Low-level hardware debugger for Tenstorrent devices. Inspect register state, memory contents, and kernel execution at the hardware level.
   [📦 repo](https://github.com/tenstorrent/tt-exalens) · [🐍 `pip install tt-exalens`](https://pypi.org/project/tt-exalens/)
@@ -254,6 +266,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-npe](https://github.com/tenstorrent/tt-npe)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Network-on-chip Performance Estimator for Tenstorrent Tensix-based devices. Model and estimate NoC utilization before running kernels on hardware.
   [📦 repo](https://github.com/tenstorrent/tt-npe)
+
+- **[tt-perf-report](https://github.com/tenstorrent/tt-perf-report)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Performance report analysis tool for Tenstorrent Metal operations — analyzes perf traces to surface throughput, bottlenecks, and optimization opportunities.
+  [📦 repo](https://github.com/tenstorrent/tt-perf-report)
 
 - **[ttnn-visualizer](https://github.com/tenstorrent/ttnn-visualizer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Comprehensive tool for visualizing and analyzing model execution on Tenstorrent hardware. Interactive graphs, memory plots, tensor details, buffer overviews, operation flow graphs, and multi-instance support.
@@ -369,6 +385,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   RISC-V Directed Test Framework and Compliance Suite. Comprehensive test infrastructure for verifying RISC-V processor implementations against the specification.
   [📦 repo](https://github.com/tenstorrent/riescue) · [🌐 website](https://docs.tenstorrent.com/riescue/)
 
+- **[riscv_arch_tests](https://github.com/tenstorrent/riscv_arch_tests)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  RISC-V architectural self-checking directed tests — randomly-generated register operands and data with low-level OS code for test scheduling and self-checking, runnable on a RISC-V design or an ISS such as Whisper or Spike. Generated by an internal Tenstorrent tool from the official RISC-V ISA spec.
+  [📦 repo](https://github.com/tenstorrent/riscv_arch_tests)
+
 - **[riscv-ocelot](https://github.com/tenstorrent/riscv-ocelot)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   The Berkeley Out-of-Order Machine with V-EXT (RISC-V Vector Extension) support. Tenstorrent's research-grade out-of-order RISC-V core with vector extension.
   [📦 repo](https://github.com/tenstorrent/riscv-ocelot)
@@ -438,6 +458,14 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **Rewriting TTS Inference Economics: Lightning V2 on Tenstorrent vs. NVIDIA L40S** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Ranjith M. S., Akshat Mandloi, Sudarshan Kamath — Shows that Text-to-Speech inference on Tenstorrent Lightning V2 achieves 4× lower cost than NVIDIA L40S. Applies BlockFloat8 (BFP8) and low-fidelity (LoFi) precision strategies to TTS despite their greater numerical fragility compared to LLMs.
   [📄 arXiv:2604.03279](https://arxiv.org/abs/2604.03279)
+
+- **[polaris](https://github.com/tenstorrent/polaris)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  A high-level AI simulator from Tenstorrent for modeling and exploring AI accelerator and workload performance.
+  [📦 repo](https://github.com/tenstorrent/polaris)
+
+- **[tt-isa-documentation](https://github.com/tenstorrent/tt-isa-documentation)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Low-level ISA and microarchitecture documentation for Tenstorrent AI architectures (Grayskull, Wormhole, Blackhole) — the authoritative hardware reference beneath the tt-forge / tt-metal software stack.
+  [📦 repo](https://github.com/tenstorrent/tt-isa-documentation)
 
 ## 🎮 Games & Demos
 
