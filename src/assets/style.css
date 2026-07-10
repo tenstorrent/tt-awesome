@@ -531,8 +531,12 @@ body.drawer-open .drawer-backdrop {
 
 /* ── Static entry pages (/entry/<id>/) ─────────────────────────────────────
    Standalone crawler-and-human-readable page per entry. Reuses the SPA's
-   .detail-card styling; these rules only provide the page frame around it. */
-body.entry-page { display: block; overflow: auto; }
+   .detail-card styling; these rules only provide the page frame around it.
+   The SPA locks scrolling with `html, body { height:100%; overflow:hidden }`
+   above; entry pages restore normal document flow on both elements so the
+   viewport scrolls like a regular page. */
+html.entry-page-root, body.entry-page { height: auto; overflow: auto; }
+body.entry-page { display: block; }
 .entry-page-topbar { justify-content: space-between; }
 .entry-page-logo { text-decoration: none; }
 .entry-open-app {

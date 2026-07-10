@@ -4,6 +4,9 @@
   </div>
   {%- for entry in entries %}
   <div class="detail-card" id="detail-{{ entry.id }}">
+{# Deliberately untrimmed: this include form pairs with entry-card-body.njk's
+   missing trailing newline to keep the SPA's built output byte-stable across
+   the shared-partial refactor. Don't "fix" the whitespace. #}
 {% include "entry-card-body.njk" %}
   </div>
   {%- endfor %}
