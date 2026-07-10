@@ -64,9 +64,36 @@
       }
     ]
   },
+  "https://github.com/moritztng/tt-atom": {
+    "stars": 17,
+    "updatedAt": "2026-07-10T22:32:45Z",
+    "preview_image": "https://raw.githubusercontent.com/moritztng/tt-atom/master/assets/caffeine_md.gif",
+    "releases": [
+      {
+        "tagName": "v0.1.0",
+        "name": "v0.1.0",
+        "publishedAt": "2026-07-08T19:08:02Z",
+        "url": "https://github.com/moritztng/tt-atom/releases/tag/v0.1.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt_atom-0.1.0-py3-none-any.whl",
+            "url": "https://github.com/moritztng/tt-atom/releases/download/v0.1.0/tt_atom-0.1.0-py3-none-any.whl",
+            "size": 83024
+          },
+          {
+            "name": "tt_atom-0.1.0.tar.gz",
+            "url": "https://github.com/moritztng/tt-atom/releases/download/v0.1.0/tt_atom-0.1.0.tar.gz",
+            "size": 89976
+          }
+        ]
+      }
+    ],
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Atom are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut only from a commit that has passed the on-hardware release gate \u2014 accuracy\nparity, no OOM across the supported size range, and no perf regression (see `RELEASING.md`).\n\n## [0.1.0] - 2026-07-08\n\nInitial release. The **custom-kernel-only, highest-performance build for `uma-s`** \u2014 the per-edge\nWigner rotation runs as a custom tt-metal kernel, so `ttnn` comes from a source tt-metal build\nthat includes the op (see README \"Install\"); there is no slow fallback path.\n\n### Added\n- Tenstorrent inference for Meta **UMA** (eSEN / eSCN-MD) equivariant ML interatomic potentials:\n  energy, conservative analytic forces, and stress for molecules and periodic materials, behind an\n  **ASE** calculator that mirrors fairchem's (moving off fairchem is a one-line change). Validated\n  against the released `uma-s-1`.\n- Device-resident trace loop for MD / relaxation; multi-card data-parallel throughput path.\n- `tt-atom verify` device round-trip check and a one-command checkpoint converter.\n\n### Performance (uma-s-1, Blackhole p150a)\n- Fused-rotation kernel: **4.3\u00d7** vs the addcmul MAC in isolation (7.01 \u2192 1.62 ms, PCC 0.999995);\n  **1.4\u20131.68\u00d7 faster end-to-end** traced MD/relax across N=54\u20132662, no regression at any size.\n- Accuracy (vs fairchem reference): energy rel-error \u2264 5.4e-4, force PCC \u2265 0.9996 across\n  molecular / periodic / slab; traced == eager (PCC 1.0). pytest 51 passed / 1 skipped.\n\n### Scope\n- `uma-s` (lmax=mmax=2) is the supported target. Other checkpoints (e.g. `uma-m`) raise a clear\n  error rather than silently falling back. `ttnn` is not a pip dependency (source build required)."
+  },
   "https://github.com/moritztng/tt-bio": {
-    "stars": 108,
-    "updatedAt": "2026-07-10T07:00:59Z",
+    "stars": 110,
+    "updatedAt": "2026-07-10T20:20:40Z",
     "releases": [
       {
         "tagName": "v0.2.4",
@@ -164,11 +191,11 @@
         ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n## [0.2.4] - 2026-07-10\n\nDevice-resident trunk for `tt-bio gen` (BoltzGen) \u2014 no structure-model code changed for\nBoltz-2/ESMFold2/Protenix-v2 (the new `TokenDistanceRecycle`/`TrunkModule` params default to\noff/`None`, purely additive).\n\n**Release gate** (`scripts/release_gate.py`, `examples/prot.yaml`, 200 steps / 5 samples, seed 0):\n\n| model | CA-RMSD | TM | floor | result |\n|---|---|---|---|---|\n| Boltz-2 | 1.43 \u00c5 | 0.944 | \u22643.0 \u00c5 / \u22650.75 | PASS |\n| ESMFold2 | 2.76 \u00c5 | 0.798 | \u22644.0 \u00c5 / \u22650.65 | PASS |\n| ESMFold2-fast | 1.74 \u00c5 | 0.907 | \u22644.5 \u00c5 / \u22650.60 | PASS |\n| Protenix-v2 | 3.87 \u00c5 | 0.706 | \u22646.0 \u00c5 / \u22650.50 | PASS |\n\nNo regression vs 0.2.3 (within TT diffusion's seed-to-seed variance band).\n\n**BoltzGen designability** \u2014 n=8 fixed-length-100 designs, `examples/binder.yaml`: scRMSD\nmedian 0.84 \u00c5 (resident) vs 0.91 \u00c5 (host), 7/8 designs \u22642 \u00c5 strict pass (comparable to host's\n8/8) \u2014 no regression. Wall-clock (design + refold + confidence + analysis + filtering) **697 s\n\u2192 479 s, ~31% faster**. See `docs/boltzgen-resident-trunk.md`.\n\n### Added\n- **BoltzGen device-resident trunk** \u2014 `TokenDistanceRecycle` (mirrors `TemplateRecycle`) keeps\n  the per-iteration token-distance injection fully on-device, collapsing 4 host\u2194device\n  crossings/iteration to 2 (only the template sub-module still round-trips). `Boltz.__init__`\n  takes `use_resident_trunk: bool = True`; set `false` to fall back to the original host path.\n\n### Changed\n- Promoted Protenix-v2's diffusion denoiser-unit and `AttentionPairBias(has_s=True)` ad-hoc\n  checks to proper pytest cases (test-coverage only, no functional change).\n\n## [0.2.3] - 2026-07-09\n\nMulti-card fanout parity for `predict`, a designability (scRMSD) verify script for `tt-bio gen`,\nand `tt-bio embed` input/UX polish. No structure-model code changed vs 0.2.2 (`tt_bio/boltz2.py`,\n`protenix.py`, `esmfold2.py`, `tenstorrent.py` are byte-identical) \u2014 only `esmc.py` and the CLI\n(`main.py`) changed, so the release gate below is a confirmation run, not a re-verification.\n\n**Release gate** (`scripts/release_gate.py`, `examples/prot.yaml`, 200 steps / 5 samples, seed 0):\n\n| model | CA-RMSD | TM | floor | result |\n|---|---|---|---|---|\n| Boltz-2 | 1.60 \u00c5 | 0.931 | \u22643.0 \u00c5 / \u22650.75 | PASS |\n| ESMFold2 | 2.28 \u00c5 | 0.832 | \u22644.0 \u00c5 / \u22650.65 | PASS |\n| ESMFold2-fast | 1.74 \u00c5 | 0.907 | \u22644.5 \u00c5 / \u22650.60 | PASS |\n| Protenix-v2 | 3.87 \u00c5 | 0.706 | \u22646.0 \u00c5 / \u22650.50 | PASS |\n\nFull test suite: 71 passed, 46 skipped (missing optional reference checkpoints/packages, same\ngap as prior releases), 0 failed. No OOM: `examples/615.yaml` and `examples/1303.yaml`\n(Boltz-2 `--fast`) completed cleanly; the full supported range up to `examples/3233.yaml`\n(4-chain multimer + ligand) was already verified OOM-free on this same unchanged model code\n(`docs/bolt"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Added\n\n- `tt-bio embed --controller URL`: dispatch to a persistent `tt-bio controller`/`worker`\n  pool instead of spawning per-call subprocesses. A worker's ESMC model stays resident\n  across calls, so the weight reload that dominates `--devices` wall-clock for\n  `esmc-6b` (see `docs/esmc-multicard-scaling.md`) becomes a one-time cost per worker\n  lifetime instead of a per-invocation tax (measured: esmc-6b N=48 50.0s cold -> 9.1s\n  warm on 1 card, 261s cold -> 13.4s warm on 2 cards; bit-exact vs single-shot). Reuses\n  the existing predict/design scheduler/lease machinery (`tt_bio/distributed.py`,\n  `tt_bio/worker.py`) \u2014 no new dispatch mechanism. `--devices` (per-call subprocess\n  fanout) is unchanged and still the right choice for one-off invocations with no\n  standing controller.\n\n### Fixed\n- ESMC-6B `--devices` fanout regression past 2 cards, root-caused to two independent\n  host-side bottlenecks (both fixed, verified bit-exact, end-to-end scaling now\n  monotonic to 4 cards \u2014 see `docs/esmc-multicard-scaling.md`):\n  - **Redundant weight loading**: the N data-parallel workers now share one host-tiled\n    copy of the 24 GB checkpoint via a `/dev/shm` cache (`esmc.load_esmc6b_shared` +\n    `tenstorrent.weight_cache`) instead of each independently reading+tiling it.\n    Per-worker load drops from ~10\u201316 s (\u221dN, bandwidth-contended) to ~2.2 s.\n  - **Host CPU thread-pool oversubscription**: each shard subprocess's torch/OMP/BLAS\n    pools defaulted to *all* host cores, so N co-resident shards oversubscribed the\n    host (~21 loadavg on a 16-core host at N=4). `esmc._thread_cap_env` caps them to\n    `cores // n_workers`, mirroring the existing `main._cap_worker_threads` fix for\n    the fleet worker pool.\n  - Net: esmc-6b/N=256 on qb2 goes from 0.66x@4-cards (regression) to **1.49x@4-cards**\n    (monotonic 1.00x \u2192 1.33x \u2192 1.43x \u2192 1.49x). Bit-exact vs single-card\n    (`scripts/esmc6b_shared_cache_parity.py`, `scripts/esmc_multicard_parity.py`,\n    max|\u0394|=0); all other models and the single-card path are unchanged.\n\n### Measured\n- Re-measured `esmc-300m`/`esmc-600m` `--devices` wall-clock scaling on qb2 post\n  thread-cap fix (N=48/256/4096, see `docs/esmc-multicard-scaling.md`): the original\n  table's `esmc-600m/N=256` 3-card 0.62x cliff does not reproduce (now a 0.87x dip,\n  within run-to-run noise) \u2014 no regression for either model at any previously-fine\n  config. New finding: both models scale far more modestly on qb2 (~1.1x@4cards for\n  N=4096) than the original table's qb1 numbers (~2x), most likely because `embed\n  --devices` pays an extra per-shard mesh-topology setup cost on qb2 that `esmc-6b`'s\n  large weight load absorbs but these smaller models don't \u2014 also surfaced that\n  `embed --devices` with >1 device currently TT_FATALs"
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 14,
-    "updatedAt": "2026-07-09T07:51:23Z"
+    "updatedAt": "2026-07-10T10:10:41Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 64,
@@ -178,10 +205,28 @@
     "stars": 13,
     "updatedAt": "2026-05-19T23:09:33Z"
   },
+  "https://github.com/tenstorrent/tt-forge-models": {
+    "stars": 12,
+    "updatedAt": "2026-07-10T14:54:12Z"
+  },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 65,
-    "updatedAt": "2026-07-10T05:57:24Z",
+    "updatedAt": "2026-07-10T19:06:33Z",
     "releases": [
+      {
+        "tagName": "v0.18.0",
+        "name": "v0.18.0",
+        "publishedAt": "2026-07-10T15:21:25Z",
+        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.18.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "v0.18.0-release_artifacts.zip",
+            "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.18.0/v0.18.0-release_artifacts.zip",
+            "size": 87957624
+          }
+        ]
+      },
       {
         "tagName": "v0.17.0",
         "name": "v0.17.0",
@@ -237,20 +282,6 @@
             "size": 4133680
           }
         ]
-      },
-      {
-        "tagName": "v0.13.0",
-        "name": "v0.13.0",
-        "publishedAt": "2026-04-24T20:21:26Z",
-        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.13.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "v0.13.0-release_artifacts.zip",
-            "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.13.0/v0.13.0-release_artifacts.zip",
-            "size": 541836
-          }
-        ]
       }
     ]
   },
@@ -265,9 +296,73 @@
   },
   "https://github.com/tenstorrent/tt-local-generator": {
     "stars": 1,
-    "updatedAt": "2026-06-23T20:11:36Z",
+    "updatedAt": "2026-07-10T16:48:10Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-local-generator/main/assets/tt-local-generator-main.png",
     "releases": [
+      {
+        "tagName": "v0.11.0",
+        "name": "v0.11.0 - l33t code art, tt-inference-server bump, more models, concurrency",
+        "publishedAt": "2026-07-10T16:47:57Z",
+        "url": "https://github.com/tenstorrent/tt-local-generator/releases/tag/v0.11.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt-local-generator-models-all_0.11.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-local-generator-models-all_0.11.0_all.deb",
+            "size": 13762
+          },
+          {
+            "name": "tt-local-generator_0.11.0_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-local-generator_0.11.0_amd64.deb",
+            "size": 4647358
+          },
+          {
+            "name": "tt-model-animate_0.11.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-model-animate_0.11.0_all.deb",
+            "size": 15418
+          },
+          {
+            "name": "tt-model-flux_0.11.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-model-flux_0.11.0_all.deb",
+            "size": 15732
+          },
+          {
+            "name": "tt-model-mochi_0.11.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-model-mochi_0.11.0_all.deb",
+            "size": 15378
+          },
+          {
+            "name": "tt-model-motif_0.11.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-model-motif_0.11.0_all.deb",
+            "size": 15184
+          },
+          {
+            "name": "tt-model-qwen3_0.11.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-model-qwen3_0.11.0_all.deb",
+            "size": 15692
+          },
+          {
+            "name": "tt-model-skyreels-i2v_0.11.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-model-skyreels-i2v_0.11.0_all.deb",
+            "size": 15394
+          },
+          {
+            "name": "tt-model-skyreels-t2v_0.11.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-model-skyreels-t2v_0.11.0_all.deb",
+            "size": 15266
+          },
+          {
+            "name": "tt-model-wan2-t2v_0.11.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-model-wan2-t2v_0.11.0_all.deb",
+            "size": 16016
+          },
+          {
+            "name": "tt-model-z-image_0.11.0_all.deb",
+            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.11.0/tt-model-z-image_0.11.0_all.deb",
+            "size": 15228
+          }
+        ]
+      },
       {
         "tagName": "v0.8.0",
         "name": "v0.8.0 - smart install, tt-animatediff upgrade",
@@ -483,40 +578,6 @@
             "size": 10124
           }
         ]
-      },
-      {
-        "tagName": "v0.2.6",
-        "name": "Generative art flows",
-        "publishedAt": "2026-05-07T18:20:34Z",
-        "url": "https://github.com/tenstorrent/tt-local-generator/releases/tag/v0.2.6",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt-local-generator_0.2.6_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.2.6/tt-local-generator_0.2.6_amd64.deb",
-            "size": 4470990
-          },
-          {
-            "name": "tt-model-flux_0.2.6_all.deb",
-            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.2.6/tt-model-flux_0.2.6_all.deb",
-            "size": 6682
-          },
-          {
-            "name": "tt-model-mochi_0.2.6_all.deb",
-            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.2.6/tt-model-mochi_0.2.6_all.deb",
-            "size": 6336
-          },
-          {
-            "name": "tt-model-qwen3_0.2.6_all.deb",
-            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.2.6/tt-model-qwen3_0.2.6_all.deb",
-            "size": 6648
-          },
-          {
-            "name": "tt-model-wan2-t2v_0.2.6_all.deb",
-            "url": "https://github.com/tenstorrent/tt-local-generator/releases/download/v0.2.6/tt-model-wan2-t2v_0.2.6_all.deb",
-            "size": 6964
-          }
-        ]
       }
     ]
   },
@@ -562,8 +623,8 @@
     ]
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2171,
-    "updatedAt": "2026-07-09T17:27:40Z",
+    "stars": 2172,
+    "updatedAt": "2026-07-10T11:26:18Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -622,7 +683,7 @@
   },
   "https://github.com/kernelize-ai/triton-tenstorrent": {
     "stars": 11,
-    "updatedAt": "2026-07-09T20:43:29Z"
+    "updatedAt": "2026-07-10T12:56:53Z"
   },
   "https://github.com/tenstorrent/tt-buda": {
     "stars": 315,
@@ -832,7 +893,7 @@
   },
   "https://github.com/tenstorrent/tt-forge": {
     "stars": 321,
-    "updatedAt": "2026-07-08T12:44:29Z",
+    "updatedAt": "2026-07-10T13:40:26Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
       {
@@ -885,7 +946,7 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 292,
-    "updatedAt": "2026-07-10T06:25:26Z",
+    "updatedAt": "2026-07-10T22:26:42Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1055,7 +1116,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 72,
-    "updatedAt": "2026-07-10T06:52:03Z",
+    "updatedAt": "2026-07-10T18:40:22Z",
     "releases": [
       {
         "tagName": "1.4.0.dev20260710002330",
@@ -1103,7 +1164,7 @@
   },
   "https://github.com/zk4x/zyx": {
     "stars": 61,
-    "updatedAt": "2026-07-10T06:14:48Z",
+    "updatedAt": "2026-07-10T18:36:01Z",
     "preview_image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
     "releases": [
       {
@@ -1148,8 +1209,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10820,
-    "updatedAt": "2026-07-10T03:14:06Z",
+    "stars": 10823,
+    "updatedAt": "2026-07-10T19:47:49Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1252,6 +1313,10 @@
       }
     ],
     "changelog_excerpt": "# Changelog\n\nAll notable changes to tensix-viz are documented here.\n\n## [1.1.2] - 2026-06-29\n\n### Fixed\n\n- **`TensixViz.autoInit()` is idempotent for `.tensix-viz-container` elements** (`src/chip.js`)\n  1.1.1 made the `[data-viz]` path idempotent but left the legacy single-chip path unguarded. When\n  `autoInit()` ran twice (the bundle's self-init plus an explicit host-page call), each\n  `.tensix-viz-container` canvas received a second `TensixViz` instance \u2014 two animation loops drawing\n  on one canvas, which renders as a doubled/overlapping grid. `TensixViz.autoInit()` now skips any\n  container already initialized (`container._tensixViz`) and records the instance on it.\n\n### Added\n\n- **Responsive multi-chip canvas** (`tensix-viz.css`)\n  `.tv-chip-wrapper canvas { max-width: 100%; height: auto; }` \u2014 card/system canvases (created\n  without the `.tensix-viz-canvas` class) now scale to fit a narrow column instead of being clipped\n  by `.tv-card`'s overflow. Previously this rule had to be patched in by downstream consumers.\n\n## [1.1.1] - 2026-06-25\n\n### Fixed\n\n- **Animation player accepts both script schemas** (`src/chip.js` `_execStep`)\n  The player dispatched on `step.step` and read `step.cores` only, so scripts authored with the\n  alternate `{ action, coords }` schema ran zero steps \u2014 the Play button (and auto-play) appeared\n  dead. `_execStep` now dispatches on `step.step || step.action` and falls back `coords \u2192 cores`,\n  so blocks written in either schema animate.\n\n- **`autoInit()` is idempotent for `[data-viz]` elements** (`src/index.js`)\n  `autoInit()` can run more than once (the bundle's self-init plus an explicit call). For `card`\n  and `system` vizzes \u2014 which append their render into the host element \u2014 the second run appended\n  a duplicate set of chips. `autoInit()` now skips any element already initialized (`el._tensixViz`).\n\n## [1.1.0] - 2026-06-09\n\n### Fixed\n\n- **Heatmap: non-tensix cells no longer painted by heat overlay** (`src/chip.js` `_drawHeatmap`)\n  Commit 76dca80 added `coreType !== 'tensix'` guards to the pre-built artifacts but never to\n  the source. The guards are now in `src/chip.js` so the next build preserves them. Without this\n  fix, DRAM (col 5 on Wormhole), ETH (row 6 on Wormhole), and PCIe (col 8 on Blackhole) cells\n  were colored by the heatmap overlay and could inflate `maxVal`, compressing the visible range\n  for all tensix cells.\n\n- **Memory overlay: stale phase not rendered after `reset()` on `showMemory: true` instances**\n  (`src/chip.js` `reset()` and constructor)\n  After calling `viz.activate(mode)` followed by `viz.reset()` on a canvas created with\n  `showMemory: true`, `_memPhase` retained the frozen `_mem` object from the animation closure.\n  `reset()` calls `render()` at the end, which caused `_drawMemoryLayer()` to run with stale data,\n  producing a faint DRAM glow and L1 fill bars on an otherwise blank chip. `reset()` now sets\n  `this._memPhase = null`; the field is also explicitly initialized to `null` in t"
+  },
+  "https://github.com/tenstorrent/tt-emule": {
+    "stars": 4,
+    "updatedAt": "2026-07-10T13:15:42Z"
   },
   "https://github.com/tenstorrent/tt-exalens": {
     "stars": 21,
@@ -1527,6 +1592,11 @@
     "updatedAt": "2026-06-28T21:21:54Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-npe/main/img/npe_workload_diag.png"
   },
+  "https://github.com/tenstorrent/tt-perf-report": {
+    "stars": 11,
+    "updatedAt": "2026-07-03T16:03:17Z",
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-perf-report/main/images/example_perf_report.png"
+  },
   "https://github.com/tsingletaryTT/tt-warp": {
     "stars": 0,
     "updatedAt": "2026-06-30T22:36:55Z"
@@ -1553,7 +1623,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 53,
-    "updatedAt": "2026-07-08T16:24:59Z",
+    "updatedAt": "2026-07-10T20:32:27Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -1966,8 +2036,27 @@
   },
   "https://github.com/tenstorrent/tt-kmd": {
     "stars": 70,
-    "updatedAt": "2026-07-09T23:47:33Z",
+    "updatedAt": "2026-07-10T19:50:56Z",
     "releases": [
+      {
+        "tagName": "ttkmd-2.10.0-rc2",
+        "name": "ttkmd-2.10.0-rc2",
+        "publishedAt": "2026-07-10T19:55:51Z",
+        "url": "https://github.com/tenstorrent/tt-kmd/releases/tag/ttkmd-2.10.0-rc2",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "tenstorrent-dkms-2.10.0.rc2-1.noarch.rpm",
+            "url": "https://github.com/tenstorrent/tt-kmd/releases/download/ttkmd-2.10.0-rc2/tenstorrent-dkms-2.10.0.rc2-1.noarch.rpm",
+            "size": 85192
+          },
+          {
+            "name": "tenstorrent-dkms_2.10.0.rc2_all.deb",
+            "url": "https://github.com/tenstorrent/tt-kmd/releases/download/ttkmd-2.10.0-rc2/tenstorrent-dkms_2.10.0.rc2_all.deb",
+            "size": 59986
+          }
+        ]
+      },
       {
         "tagName": "ttkmd-2.10.0-rc1",
         "name": "ttkmd-2.10.0-rc1",
@@ -2041,35 +2130,6 @@
             "name": "tenstorrent-dkms_2.9.0.rc1_all.deb",
             "url": "https://github.com/tenstorrent/tt-kmd/releases/download/ttkmd-2.9.0-rc1/tenstorrent-dkms_2.9.0.rc1_all.deb",
             "size": 54656
-          }
-        ]
-      },
-      {
-        "tagName": "ttkmd-2.8.0",
-        "name": "ttkmd-2.8.0",
-        "publishedAt": "2026-04-06T18:58:39Z",
-        "url": "https://github.com/tenstorrent/tt-kmd/releases/tag/ttkmd-2.8.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tenstorrent-dkms-2.8.0-1.el10.noarch-almalinux-10.rpm",
-            "url": "https://github.com/tenstorrent/tt-kmd/releases/download/ttkmd-2.8.0/tenstorrent-dkms-2.8.0-1.el10.noarch-almalinux-10.rpm",
-            "size": 105696
-          },
-          {
-            "name": "tenstorrent-dkms-2.8.0-1.fc41.noarch-fedora-41.rpm",
-            "url": "https://github.com/tenstorrent/tt-kmd/releases/download/ttkmd-2.8.0/tenstorrent-dkms-2.8.0-1.fc41.noarch-fedora-41.rpm",
-            "size": 105606
-          },
-          {
-            "name": "tenstorrent-dkms-2.8.0-1.fc42.noarch-fedora-42.rpm",
-            "url": "https://github.com/tenstorrent/tt-kmd/releases/download/ttkmd-2.8.0/tenstorrent-dkms-2.8.0-1.fc42.noarch-fedora-42.rpm",
-            "size": 105606
-          },
-          {
-            "name": "tenstorrent-dkms_2.8.0_all.deb",
-            "url": "https://github.com/tenstorrent/tt-kmd/releases/download/ttkmd-2.8.0/tenstorrent-dkms_2.8.0_all.deb",
-            "size": 52938
           }
         ]
       }
@@ -2159,9 +2219,38 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 41,
-    "updatedAt": "2026-07-09T16:49:40Z",
+    "updatedAt": "2026-07-10T15:19:29Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
+      {
+        "tagName": "v19.12.0-rc2",
+        "name": "v19.12.0-rc2",
+        "publishedAt": "2026-07-10T20:43:32Z",
+        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.12.0-rc2",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "fw-pack-v19.12.0-rc2-recovery.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.12.0-rc2/fw-pack-v19.12.0-rc2-recovery.tar.gz",
+            "size": 7740281
+          },
+          {
+            "name": "manufacturing-artifacts-v19.12.0-rc2.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.12.0-rc2/manufacturing-artifacts-v19.12.0-rc2.tar.gz",
+            "size": 555047
+          },
+          {
+            "name": "tt-firmware_19.12.0-rc2-ubuntu.1_all.deb",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.12.0-rc2/tt-firmware_19.12.0-rc2-ubuntu.1_all.deb",
+            "size": 4953610
+          },
+          {
+            "name": "tt-system-firmware-v19.12.0-rc2.zip",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.12.0-rc2/tt-system-firmware-v19.12.0-rc2.zip",
+            "size": 91343832
+          }
+        ]
+      },
       {
         "tagName": "v19.12.0-rc1",
         "name": "v19.12.0-rc1",
@@ -2275,35 +2364,6 @@
             "name": "tt-system-firmware-v19.10.0.zip",
             "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.10.0/tt-system-firmware-v19.10.0.zip",
             "size": 86657122
-          }
-        ]
-      },
-      {
-        "tagName": "v19.10.0-rc2",
-        "name": "v19.10.0-rc2",
-        "publishedAt": "2026-05-27T12:36:30Z",
-        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.10.0-rc2",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "fw-pack-v19.10.0-rc2-recovery.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.10.0-rc2/fw-pack-v19.10.0-rc2-recovery.tar.gz",
-            "size": 7376234
-          },
-          {
-            "name": "manufacturing-artifacts-v19.10.0-rc2.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.10.0-rc2/manufacturing-artifacts-v19.10.0-rc2.tar.gz",
-            "size": 544242
-          },
-          {
-            "name": "tt-firmware_19.10.0-rc2-ubuntu.1_all.deb",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.10.0-rc2/tt-firmware_19.10.0-rc2-ubuntu.1_all.deb",
-            "size": 4646876
-          },
-          {
-            "name": "tt-system-firmware-v19.10.0-rc2.zip",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.10.0-rc2/tt-system-firmware-v19.10.0-rc2.zip",
-            "size": 86659632
           }
         ]
       }
@@ -2610,7 +2670,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 45,
-    "updatedAt": "2026-07-09T19:49:04Z",
+    "updatedAt": "2026-07-10T16:29:51Z",
     "releases": [
       {
         "tagName": "v0.9.9",
@@ -3063,8 +3123,8 @@
     "updatedAt": "2026-07-02T14:10:31Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1577,
-    "updatedAt": "2026-07-10T06:08:19Z",
+    "stars": 1579,
+    "updatedAt": "2026-07-10T21:42:21Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -3722,6 +3782,23 @@
     "stars": 4,
     "updatedAt": "2025-11-01T12:16:06Z"
   },
+  "https://github.com/tenstorrent/polaris": {
+    "stars": 39,
+    "updatedAt": "2026-07-08T08:17:40Z",
+    "releases": [
+      {
+        "tagName": "pre_perfmodel_merge",
+        "name": "Stable before Tensix Neo Perf Model Merge",
+        "publishedAt": "2025-09-19T18:16:27Z",
+        "url": "https://github.com/tenstorrent/polaris/releases/tag/pre_perfmodel_merge",
+        "prerelease": true
+      }
+    ]
+  },
+  "https://github.com/tenstorrent/tt-isa-documentation": {
+    "stars": 121,
+    "updatedAt": "2026-07-10T12:30:09Z"
+  },
   "https://github.com/olofj/bhx": {
     "stars": 4,
     "updatedAt": "2026-05-19T00:44:49Z",
@@ -3765,6 +3842,54 @@
         "publishedAt": "2025-07-10T00:59:12Z",
         "url": "https://github.com/tenstorrent/riescue/releases/tag/v0.2.5",
         "prerelease": false
+      }
+    ]
+  },
+  "https://github.com/tenstorrent/riscv_arch_tests": {
+    "stars": 124,
+    "updatedAt": "2026-06-11T11:15:08Z",
+    "releases": [
+      {
+        "tagName": "v0.2.0+aligned-access",
+        "name": "v0.2.0+aligned-access",
+        "publishedAt": "2025-01-23T17:16:16Z",
+        "url": "https://github.com/tenstorrent/riscv_arch_tests/releases/tag/v0.2.0%2Baligned-access",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "release.tar.zip",
+            "url": "https://github.com/tenstorrent/riscv_arch_tests/releases/download/v0.2.0%2Baligned-access/release.tar.zip",
+            "size": 169787994
+          }
+        ]
+      },
+      {
+        "tagName": "v0.2.0",
+        "name": "v0.2.0",
+        "publishedAt": "2024-10-03T22:08:11Z",
+        "url": "https://github.com/tenstorrent/riscv_arch_tests/releases/tag/v0.2.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "release.tar.zip",
+            "url": "https://github.com/tenstorrent/riscv_arch_tests/releases/download/v0.2.0/release.tar.zip",
+            "size": 165517482
+          }
+        ]
+      },
+      {
+        "tagName": "v0.1.1",
+        "name": "v0.1.1",
+        "publishedAt": "2024-09-28T03:35:57Z",
+        "url": "https://github.com/tenstorrent/riscv_arch_tests/releases/tag/v0.1.1",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "release.tar.zip",
+            "url": "https://github.com/tenstorrent/riscv_arch_tests/releases/download/v0.1.1/release.tar.zip",
+            "size": 160945889
+          }
+        ]
       }
     ]
   },
@@ -3904,8 +4029,15 @@
   },
   "https://github.com/tenstorrent/ttsim": {
     "stars": 138,
-    "updatedAt": "2026-07-09T22:22:35Z",
+    "updatedAt": "2026-07-10T22:32:11Z",
     "releases": [
+      {
+        "tagName": "v1.9.5",
+        "name": "v1.9.5",
+        "publishedAt": "2026-07-10T22:33:57Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.9.5",
+        "prerelease": false
+      },
       {
         "tagName": "v1.9.4",
         "name": "v1.9.4",
@@ -3933,19 +4065,12 @@
         "publishedAt": "2026-06-20T20:19:05Z",
         "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.9.1",
         "prerelease": false
-      },
-      {
-        "tagName": "v1.9.0",
-        "name": "v1.9.0",
-        "publishedAt": "2026-06-18T23:03:25Z",
-        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.9.0",
-        "prerelease": false
       }
     ]
   },
   "https://github.com/tenstorrent/whisper": {
-    "stars": 91,
-    "updatedAt": "2026-07-09T14:58:44Z",
+    "stars": 92,
+    "updatedAt": "2026-07-10T20:25:08Z",
     "isFork": true,
     "forkParent": "chipsalliance/VeeR-ISS",
     "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS",
