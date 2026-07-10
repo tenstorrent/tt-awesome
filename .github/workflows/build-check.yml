@@ -5,22 +5,27 @@ name: Build check
 # template/data regression is caught on the PR instead of turning main red
 # after merge.
 #
-# Note on the nightly/planet-feeds bots: their PRs touch src/_data/*.json
-# (which matches the paths below) but commit with "[skip ci]", which GitHub
-# honors for pull_request events — so this job does not run on those bot PRs,
-# matching the pre-existing posture where they run no checks.
+# The nightly and planet-feeds automations open PRs from `chore/nightly-*`
+# branches that touch src/_data/*.json (matching the paths below). We skip
+# those deterministically with the job-level head_ref guard rather than
+# relying on commit-message skip tokens — this keeps automation PRs off the
+# gate regardless of how GitHub treats "[skip ci]" for pull_request events.
 on:
   pull_request:
     paths:
       - "src/**"
       - "entries/**"
       - "tests/**"
+      - "AGENTS.md"
       - ".eleventy.js"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/build-check.yml"
 jobs:
   build-check:
+    # Skip the nightly/planet-feeds automation PRs (chore/nightly-github-metadata,
+    # chore/nightly-planet-feeds); they only refresh data files.
+    if: ${{ !startsWith(github.head_ref, 'chore/nightly-') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
