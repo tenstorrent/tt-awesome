@@ -1,0 +1,34 @@
+name: Build check
+# Pre-merge parity with the deploy gate: build the site and run the
+# build-output assertions (static entry pages, sitemap, crawl anchors,
+# metadata, feed-id immutability) plus the data-layer unit suites, so a
+# template/data regression is caught on the PR instead of turning main red
+# after merge.
+#
+# Note on the nightly/planet-feeds bots: their PRs touch src/_data/*.json
+# (which matches the paths below) but commit with "[skip ci]", which GitHub
+# honors for pull_request events — so this job does not run on those bot PRs,
+# matching the pre-existing posture where they run no checks.
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "entries/**"
+      - "tests/**"
+      - ".eleventy.js"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/build-check.yml"
+jobs:
+  build-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: "npm" }
+      - run: npm ci
+      - run: npm run build
+      - run: node tests/test_entry_pages.js
+      - run: node tests/test_data_files.js
+      - run: node tests/test_eleventy_filters.js
+      - run: node tests/test_recent_releases.js
