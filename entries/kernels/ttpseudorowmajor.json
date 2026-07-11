@@ -1,0 +1,26 @@
+{
+  "id": "ttpseudorowmajor",
+  "name": "ttPseudoRowMajor",
+  "description": "A small TTNN-facing C++ library (ttprm) for running view-shaped tensor work without first materializing the view in DRAM. Targets Tenstorrent TILE tensors and uses cached device operations to gather/scatter through layout views.",
+  "affiliation": "community",
+  "categories": [
+    "kernels"
+  ],
+  "tags": [
+    "ttnn",
+    "tensor",
+    "tile",
+    "layout",
+    "cpp"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/marty1885/ttPseudoRowMajor"
+    }
+  ],
+  "author": "Martin Chang",
+  "language": "C++",
+  "license": "Apache-2.0",
+  "added_at": "2026-07-10"
+}
