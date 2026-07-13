@@ -143,6 +143,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@marty1885](https://github.com/marty1885) — Minimal working example of using Tenstorrent TTNN in C++. The simplest possible starting point for C++ developers targeting TT hardware with TTNN.
   [📦 repo](https://github.com/marty1885/ttnn-helloworld-cpp)
 
+- **[ttPseudoRowMajor](https://github.com/marty1885/ttPseudoRowMajor)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Martin Chang — A small TTNN-facing C++ library (ttprm) for running view-shaped tensor work without first materializing the view in DRAM. Targets Tenstorrent TILE tensors and uses cached device operations to gather/scatter through layout views.
+  [📦 repo](https://github.com/marty1885/ttPseudoRowMajor)
+
 - **[ttVecAdd](https://github.com/marty1885/ttVecAdd)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@marty1885](https://github.com/marty1885) — Minimal vector-addition example on Tenstorrent devices using TT-Metalium. A clean hello-world for the TT-Metal kernel programming model in C++.
   [📦 repo](https://github.com/marty1885/ttVecAdd)
@@ -180,6 +184,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-iree](https://github.com/swote-git/tt-iree)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@swote-git](https://github.com/swote-git) — IREE (Intermediate Representation Execution Environment) ML compiler ported to Tenstorrent AI accelerators. Brings the IREE compiler ecosystem to TT hardware.
   [📦 repo](https://github.com/swote-git/tt-iree)
+
+- **[libtt](https://github.com/pcmoritz/libtt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Philipp Moritz — A Bazel-built PJRT plugin (libtt.so) providing an XLA backend for Tenstorrent devices. Bundles the tt-xla PJRT implementation with tt-mlir and tt-metal into a single shared object so JAX code runs on Tenstorrent hardware, with patches so sglang-jax works out of the box.
+  [📦 repo](https://github.com/pcmoritz/libtt)
 
 - **[zyx](https://github.com/zk4x/zyx)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@zk4x](https://github.com/zk4x) — A complete ML library and compiler in Rust — "from assembly to neural networks" — with a native Tenstorrent backend (src/backend/tenstorrent), autograd, custom kernels, multi-backend support, and Python bindings.
