@@ -1,0 +1,24 @@
+{
+  "id": "libtt",
+  "name": "libtt",
+  "description": "A Bazel-built PJRT plugin (libtt.so) providing an XLA backend for Tenstorrent devices. Bundles the tt-xla PJRT implementation with tt-mlir and tt-metal into a single shared object so JAX code runs on Tenstorrent hardware, with patches so sglang-jax works out of the box.",
+  "affiliation": "community",
+  "categories": [
+    "compilers"
+  ],
+  "tags": [
+    "xla",
+    "pjrt",
+    "jax",
+    "bazel",
+    "sglang"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/pcmoritz/libtt"
+    }
+  ],
+  "author": "Philipp Moritz",
+  "added_at": "2026-07-10"
+}
