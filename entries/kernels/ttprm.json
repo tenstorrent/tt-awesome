@@ -1,5 +1,5 @@
 {
-  "id": "ttpseudorowmajor",
+  "id": "ttprm",
   "name": "ttPseudoRowMajor",
   "description": "A small TTNN-facing C++ library (ttprm) for running view-shaped tensor work without first materializing the view in DRAM. Targets Tenstorrent TILE tensors and uses cached device operations to gather/scatter through layout views.",
   "affiliation": "community",
