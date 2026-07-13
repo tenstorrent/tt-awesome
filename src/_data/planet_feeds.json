@@ -19,7 +19,7 @@
     "approved": true,
     "title": "tt-vscode-toolkit v0.1.17",
     "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.1.17",
-    "description": "The v0.1.17 update tackles integration reliability across the toolkit, addressing how the `install-tt-train` command resolves Python site-packages in virtualenvs and ensuring the `ttml` module imports correctly regardless of build directory layout. Several parsing and path-handling issues in the web builder and training scaffolding have been resolved, including more robust function boundary detection in generated code and removal of hardcoded user paths so scripts run out of the box for any developer. Documentation has been synchronized with the latest release state, and validation confirms the custom training track is now functional on Blackhole p300c hardware.",
+    "description": "This release brings the new LLM-from-scratch lesson track as well as improvements to the existing model training material. Learn how to build and train models right on your TT-QuietBox 2.",
     "date": "2026-07-13",
     "dateISO": "2026-07-13T15:57:03Z",
     "label": "tenstorrent/tt-vscode-toolkit",
