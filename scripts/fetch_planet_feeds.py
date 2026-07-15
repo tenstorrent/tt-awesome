@@ -9,6 +9,7 @@ Sources:
   - arXiv papers mentioning Tenstorrent (trusted — auto-approved, skips entries already curated)
   - r/tenstorrent subreddit (reviewed — auto-approved)
   - Community blogs (reviewed — auto-approved)
+  - Connpass events — Tenstorrent Japan Tech Talk series (trusted — auto-approved)
 
 Items are appended to src/_data/planet_feeds.json. All items (new and
 existing) are written with approved=True so they appear on the Planet
@@ -42,6 +43,9 @@ COMMUNITY_FEEDS = [
     {"name": "clehaxze.tw",    "url": "https://clehaxze.tw/gemlog/atom.xml",      "affiliation": "community", "trusted": True},
     {"name": "jasondavies.com","url": "https://www.jasondavies.com/atom.xml",      "affiliation": "community", "trusted": True},
     {"name": "anuraagw.me",    "url": "https://anuraagw.me/atom.xml",              "affiliation": "community", "trusted": True},
+]
+CONNPASS_FEEDS = [
+    {"name": "Tenstorrent Japan", "url": "https://tenstorrent.connpass.com/feed.atom", "affiliation": "official", "trusted": True},
 ]
 
 USER_AGENT = "tt-awesome-planet/1.0 (github.com/tenstorrent/tt-awesome)"
@@ -284,6 +288,48 @@ def fetch_community_feed(feed: dict, known_urls: set) -> list:
     return items
 
 
+def fetch_connpass(known_urls: set) -> list:
+    items = []
+    for feed in CONNPASS_FEEDS:
+        try:
+            root = ET.fromstring(_get(feed["url"]))
+        except Exception as e:
+            print(f"  WARN {feed['name']}: {e}", file=sys.stderr)
+            continue
+
+        for entry in root.findall(f"{{{NS_ATOM}}}entry"):
+            title     = (entry.findtext(f"{{{NS_ATOM}}}title") or "").strip()
+            published = (entry.findtext(f"{{{NS_ATOM}}}published") or
+                         entry.findtext(f"{{{NS_ATOM}}}updated") or "")
+            link_el   = entry.find(f"{{{NS_ATOM}}}link")
+            url       = ""
+            if link_el is not None:
+                url = link_el.get("href") or link_el.text or ""
+            url = url.strip()
+            if not url or url in known_urls:
+                continue
+            summary_el = (entry.find(f"{{{NS_ATOM}}}summary") or
+                          entry.find(f"{{{NS_ATOM}}}content"))
+            raw  = summary_el.text if summary_el is not None else ""
+            desc = truncate(strip_html(raw))
+            date_str = iso_to_date(published)
+            items.append({
+                "type":        "talk",
+                "source":      "connpass",
+                "approved":    True,
+                "title":       title,
+                "url":         url,
+                "description": desc,
+                "date":        date_str,
+                "dateISO":     published or f"{date_str}T00:00:00Z",
+                "label":       f"{feed['name']} — connpass",
+                "projectName": feed["name"],
+                "projectId":   None,
+                "affiliation": feed.get("affiliation", "official"),
+            })
+    return items
+
+
 def main():
     dry_run = "--dry-run" in sys.argv
 
@@ -326,6 +372,12 @@ def main():
         print(f"  {len(cf)} items")
         new_items += cf
         known_urls.update(i["url"] for i in cf)
+
+    print(f"Fetching Connpass ({len(CONNPASS_FEEDS)} feed(s))…")
+    cp = fetch_connpass(known_urls)
+    print(f"  {len(cp)} new events")
+    new_items += cp
+    known_urls.update(i["url"] for i in cp)
 
     # Merge: all existing items remain approved; new items use source defaults
     all_items = list(existing.values()) + new_items
