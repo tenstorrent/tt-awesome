@@ -301,7 +301,10 @@ def fetch_connpass(known_urls: set) -> list:
             title     = (entry.findtext(f"{{{NS_ATOM}}}title") or "").strip()
             published = (entry.findtext(f"{{{NS_ATOM}}}published") or
                          entry.findtext(f"{{{NS_ATOM}}}updated") or "")
-            link_el   = entry.find(f"{{{NS_ATOM}}}link")
+            link_el = (entry.find(f"{{{NS_ATOM}}}link[@rel='alternate'][@type='text/html']")
+                       or entry.find(f"{{{NS_ATOM}}}link[@rel='alternate']")
+                       or entry.find(f"{{{NS_ATOM}}}link[@type='text/html']")
+                       or entry.find(f"{{{NS_ATOM}}}link"))
             url       = ""
             if link_el is not None:
                 url = link_el.get("href") or link_el.text or ""
