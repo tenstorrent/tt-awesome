@@ -308,6 +308,7 @@ def fetch_connpass(known_urls: set) -> list:
             url = url.strip()
             if not url or url in known_urls:
                 continue
+            known_urls.add(url)
             summary_el = (entry.find(f"{{{NS_ATOM}}}summary") or
                           entry.find(f"{{{NS_ATOM}}}content"))
             raw  = summary_el.text if summary_el is not None else ""
