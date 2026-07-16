@@ -316,7 +316,7 @@ def fetch_connpass(known_urls: set) -> list:
             items.append({
                 "type":        "talk",
                 "source":      "connpass",
-                "approved":    True,
+                "approved":    feed.get("trusted", False),
                 "title":       title,
                 "url":         url,
                 "description": desc,
