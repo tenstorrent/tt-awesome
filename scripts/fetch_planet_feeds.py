@@ -336,8 +336,12 @@ def bilingual_description(text: str) -> str:
         en = str(parts.get("en", "")).strip()
         ja = str(parts.get("ja", "")).strip()
         if en and ja:
-            return f"{en} — {ja}"
+            # Hard-clamp to the promised 200 chars per language — the prompt
+            # asks for it, but the contract shouldn't depend on model behavior.
+            return f"{truncate(en, 200)} — {truncate(ja, 200)}"
         print("  WARN bilingual_description: model reply missing en/ja", file=sys.stderr)
+    except urllib.error.HTTPError as e:
+        print(f"  WARN bilingual_description: HTTP {e.code}", file=sys.stderr)
     except Exception as e:
         print(f"  WARN bilingual_description: {e}", file=sys.stderr)
     return ""
@@ -356,10 +360,17 @@ def fetch_connpass(known_urls: set) -> list:
             title     = (entry.findtext(f"{{{NS_ATOM}}}title") or "").strip()
             published = (entry.findtext(f"{{{NS_ATOM}}}published") or
                          entry.findtext(f"{{{NS_ATOM}}}updated") or "")
-            link_el = (entry.find(f"{{{NS_ATOM}}}link[@rel='alternate'][@type='text/html']")
-                       or entry.find(f"{{{NS_ATOM}}}link[@rel='alternate']")
-                       or entry.find(f"{{{NS_ATOM}}}link[@type='text/html']")
-                       or entry.find(f"{{{NS_ATOM}}}link"))
+            # NB: pick the first non-None match explicitly — `or`-chaining
+            # Elements doesn't work (childless ones are falsy), which would
+            # defeat this preference order and always take the last fallback.
+            link_el = None
+            for path in (f"{{{NS_ATOM}}}link[@rel='alternate'][@type='text/html']",
+                         f"{{{NS_ATOM}}}link[@rel='alternate']",
+                         f"{{{NS_ATOM}}}link[@type='text/html']",
+                         f"{{{NS_ATOM}}}link"):
+                link_el = entry.find(path)
+                if link_el is not None:
+                    break
             url       = ""
             if link_el is not None:
                 url = link_el.get("href") or link_el.text or ""
