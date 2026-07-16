@@ -9,7 +9,9 @@ Sources:
   - arXiv papers mentioning Tenstorrent (trusted — auto-approved, skips entries already curated)
   - r/tenstorrent subreddit (reviewed — auto-approved)
   - Community blogs (reviewed — auto-approved)
-  - Connpass events — Tenstorrent Japan Tech Talk series (trusted — auto-approved)
+  - Connpass events — Tenstorrent Japan Tech Talk series (trusted — auto-approved).
+    Descriptions are condensed into a bilingual EN + JA summary (~200 chars each)
+    via the Anthropic API when ANTHROPIC_API_KEY is set; Japanese-only otherwise.
 
 Items are appended to src/_data/planet_feeds.json. All items (new and
 existing) are written with approved=True so they appear on the Planet
@@ -20,8 +22,10 @@ Usage:
 """
 
 import json
+import os
 import re
 import sys
+import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -45,10 +49,29 @@ COMMUNITY_FEEDS = [
     {"name": "anuraagw.me",    "url": "https://anuraagw.me/atom.xml",              "affiliation": "community", "trusted": True},
 ]
 CONNPASS_FEEDS = [
-    {"name": "Tenstorrent Japan", "url": "https://tenstorrent.connpass.com/feed.atom", "affiliation": "official", "trusted": True},
+    # Connpass serves group feeds at /ja.atom (there is no /feed.atom — it 404s).
+    {"name": "Tenstorrent Japan", "url": "https://tenstorrent.connpass.com/ja.atom", "affiliation": "official", "trusted": True},
 ]
 
 USER_AGENT = "tt-awesome-planet/1.0 (github.com/tenstorrent/tt-awesome)"
+
+# Anthropic Messages API — condenses Japanese connpass event descriptions into
+# a short bilingual (EN + JA) summary. Optional: when ANTHROPIC_API_KEY is
+# unset (e.g. local runs, forks) the fetcher keeps the plain Japanese text.
+INFERENCE_URL     = "https://api.anthropic.com/v1/messages"
+ANTHROPIC_VERSION = "2023-06-01"
+TRANSLATE_MODEL   = "claude-haiku-4-5-20251001"
+ANTHROPIC_KEY     = os.environ.get("ANTHROPIC_API_KEY", "")
+
+TRANSLATE_SYSTEM_PROMPT = (
+    "You summarize Japanese tech-event descriptions for Planet Tenstorrent, an "
+    "English-first aggregator that also has Japanese-speaking readers. Reply "
+    "with a JSON object only — no code fences, no commentary — of the form "
+    '{"en": "...", "ja": "..."}. Each value is a summary of the event in that '
+    "language, at most 200 characters, covering the topic and (when present) "
+    "the date, format (online/offline/hybrid), and venue. Plain text only — "
+    "no markdown, no URLs."
+)
 
 NS_ATOM  = "http://www.w3.org/2005/Atom"
 NS_MEDIA = "http://search.yahoo.com/mrss/"
@@ -288,6 +311,42 @@ def fetch_community_feed(feed: dict, known_urls: set) -> list:
     return items
 
 
+def bilingual_description(text: str) -> str:
+    """Condense a Japanese event description into "≤200-char EN — ≤200-char JA".
+
+    Returns "" when ANTHROPIC_API_KEY is unset or the call fails, so callers
+    can fall back to the untranslated text.
+    """
+    if not (ANTHROPIC_KEY and text):
+        return ""
+    payload = json.dumps({
+        "model": TRANSLATE_MODEL,
+        "max_tokens": 500,
+        "system": TRANSLATE_SYSTEM_PROMPT,
+        "messages": [{"role": "user", "content": text}],
+    }).encode()
+    req = urllib.request.Request(INFERENCE_URL, data=payload, method="POST")
+    req.add_header("Content-Type", "application/json")
+    req.add_header("x-api-key", ANTHROPIC_KEY)
+    req.add_header("anthropic-version", ANTHROPIC_VERSION)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            reply = json.loads(r.read())["content"][0]["text"].strip()
+        parts = json.loads(reply)
+        en = str(parts.get("en", "")).strip()
+        ja = str(parts.get("ja", "")).strip()
+        if en and ja:
+            # Hard-clamp to the promised 200 chars per language — the prompt
+            # asks for it, but the contract shouldn't depend on model behavior.
+            return f"{truncate(en, 200)} — {truncate(ja, 200)}"
+        print("  WARN bilingual_description: model reply missing en/ja", file=sys.stderr)
+    except urllib.error.HTTPError as e:
+        print(f"  WARN bilingual_description: HTTP {e.code}", file=sys.stderr)
+    except Exception as e:
+        print(f"  WARN bilingual_description: {e}", file=sys.stderr)
+    return ""
+
+
 def fetch_connpass(known_urls: set) -> list:
     items = []
     for feed in CONNPASS_FEEDS:
@@ -301,21 +360,40 @@ def fetch_connpass(known_urls: set) -> list:
             title     = (entry.findtext(f"{{{NS_ATOM}}}title") or "").strip()
             published = (entry.findtext(f"{{{NS_ATOM}}}published") or
                          entry.findtext(f"{{{NS_ATOM}}}updated") or "")
-            link_el = (entry.find(f"{{{NS_ATOM}}}link[@rel='alternate'][@type='text/html']")
-                       or entry.find(f"{{{NS_ATOM}}}link[@rel='alternate']")
-                       or entry.find(f"{{{NS_ATOM}}}link[@type='text/html']")
-                       or entry.find(f"{{{NS_ATOM}}}link"))
+            # NB: pick the first non-None match explicitly — `or`-chaining
+            # Elements doesn't work (childless ones are falsy), which would
+            # defeat this preference order and always take the last fallback.
+            link_el = None
+            for path in (f"{{{NS_ATOM}}}link[@rel='alternate'][@type='text/html']",
+                         f"{{{NS_ATOM}}}link[@rel='alternate']",
+                         f"{{{NS_ATOM}}}link[@type='text/html']",
+                         f"{{{NS_ATOM}}}link"):
+                link_el = entry.find(path)
+                if link_el is not None:
+                    break
             url       = ""
             if link_el is not None:
                 url = link_el.get("href") or link_el.text or ""
             url = url.strip()
+            # The feed appends utm_* tracking params to every event link;
+            # drop them so stored URLs are clean and dedup stays stable.
+            if "?" in url:
+                base, _, query = url.partition("?")
+                kept = [p for p in query.split("&") if p and not p.startswith("utm_")]
+                url = base + ("?" + "&".join(kept) if kept else "")
             if not url or url in known_urls:
                 continue
             known_urls.add(url)
-            summary_el = (entry.find(f"{{{NS_ATOM}}}summary") or
-                          entry.find(f"{{{NS_ATOM}}}content"))
+            # NB: use `is None`, not `or` — ElementTree Elements with no
+            # children are falsy even when they carry text.
+            summary_el = entry.find(f"{{{NS_ATOM}}}summary")
+            if summary_el is None:
+                summary_el = entry.find(f"{{{NS_ATOM}}}content")
             raw  = summary_el.text if summary_el is not None else ""
             desc = truncate(strip_html(raw))
+            # Connpass descriptions are Japanese; offer readers a bilingual
+            # summary when the API key is available (JA-only fallback otherwise).
+            desc = bilingual_description(desc) or desc
             date_str = iso_to_date(published)
             items.append({
                 "type":        "talk",
