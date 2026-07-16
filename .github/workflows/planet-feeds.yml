@@ -23,7 +23,11 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           add-paths: src/_data/planet_feeds.json
-          commit-message: "chore: update planet feeds [skip ci]"
+          # No [skip ci]: single-commit PRs squash-merge with this message as
+          # the commit title, and it must not suppress the Pages deploy on main.
+          # (The bot's own branch pushes use GITHUB_TOKEN, which never triggers
+          # workflows, so [skip ci] added nothing there.)
+          commit-message: "chore: update planet feeds"
           branch: "chore/nightly-planet-feeds"
           delete-branch: true
           title: "chore: update planet feeds"
