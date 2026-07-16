@@ -11,8 +11,8 @@
     "forkParentUrl": "https://github.com/z-lab/dflash"
   },
   "https://github.com/zoecarver/diamond": {
-    "stars": 0,
-    "updatedAt": "2026-03-31T18:37:55Z",
+    "stars": 1,
+    "updatedAt": "2026-07-16T15:13:38Z",
     "isFork": true,
     "forkParent": "eloialonso/diamond",
     "forkParentUrl": "https://github.com/eloialonso/diamond",
@@ -112,7 +112,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 113,
-    "updatedAt": "2026-07-16T05:10:34Z",
+    "updatedAt": "2026-07-16T17:30:44Z",
     "releases": [
       {
         "tagName": "v0.2.5",
@@ -214,7 +214,7 @@
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 14,
-    "updatedAt": "2026-07-16T07:11:39Z"
+    "updatedAt": "2026-07-16T15:10:00Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 64,
@@ -230,7 +230,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 65,
-    "updatedAt": "2026-07-16T14:48:23Z",
+    "updatedAt": "2026-07-16T17:35:17Z",
     "releases": [
       {
         "tagName": "v0.18.0",
@@ -642,10 +642,17 @@
     ]
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2181,
-    "updatedAt": "2026-07-16T12:23:23Z",
+    "stars": 2182,
+    "updatedAt": "2026-07-16T18:27:22Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
+      {
+        "tagName": "0.20.28",
+        "name": "0.20.28",
+        "publishedAt": "2026-07-16T14:58:47Z",
+        "url": "https://github.com/dstackai/dstack/releases/tag/0.20.28",
+        "prerelease": false
+      },
       {
         "tagName": "0.20.27",
         "name": "0.20.27",
@@ -673,13 +680,6 @@
         "publishedAt": "2026-06-12T15:38:06Z",
         "url": "https://github.com/dstackai/dstack/releases/tag/0.20.25rc1",
         "prerelease": true
-      },
-      {
-        "tagName": "0.20.24",
-        "name": "0.20.24",
-        "publishedAt": "2026-06-11T13:55:33Z",
-        "url": "https://github.com/dstackai/dstack/releases/tag/0.20.24",
-        "prerelease": false
       }
     ]
   },
@@ -976,7 +976,7 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 293,
-    "updatedAt": "2026-07-16T09:59:33Z",
+    "updatedAt": "2026-07-16T15:40:01Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1146,7 +1146,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 72,
-    "updatedAt": "2026-07-16T13:20:52Z",
+    "updatedAt": "2026-07-16T15:42:31Z",
     "releases": [
       {
         "tagName": "1.4.0.dev20260716001804",
@@ -1194,7 +1194,7 @@
   },
   "https://github.com/zk4x/zyx": {
     "stars": 61,
-    "updatedAt": "2026-07-15T15:54:44Z",
+    "updatedAt": "2026-07-16T16:19:11Z",
     "preview_image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
     "releases": [
       {
@@ -1624,7 +1624,7 @@
   },
   "https://github.com/tenstorrent/tt-perf-report": {
     "stars": 11,
-    "updatedAt": "2026-07-03T16:03:17Z",
+    "updatedAt": "2026-07-16T16:54:25Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-perf-report/main/images/example_perf_report.png"
   },
   "https://github.com/tsingletaryTT/tt-warp": {
@@ -1653,7 +1653,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 53,
-    "updatedAt": "2026-07-15T19:52:00Z",
+    "updatedAt": "2026-07-16T15:17:09Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -1763,7 +1763,7 @@
   },
   "https://github.com/tenstorrent/tt-vscode-toolkit": {
     "stars": 7,
-    "updatedAt": "2026-07-13T15:54:59Z",
+    "updatedAt": "2026-07-16T16:10:06Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-vscode-toolkit/main/assets/img/screenshot.png",
     "releases": [
       {
@@ -1802,7 +1802,7 @@
         "prerelease": false
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to the TT-VSCode-Toolkit will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n---\n\n## [0.1.17] - 2026-07-10\n### Fixed\n- **Addressed PR #43 review feedback:**\n  - `install-tt-train` command \u2014 resolve site-packages via `sysconfig.get_paths()['purelib']` (works in virtualenvs where `site.getsitepackages()` may not) and add the actual `build_Release/tt-train/sources/ttml` build-output path to the generated `.pth` (alongside the `build/` symlink path), so `ttml` imports regardless of build-dir layout.\n  - `build-web.js` \u2014 the command-parser body scan now also stops at `export function` / `export async function` declarations (e.g. `export async function activate`), closing a remaining cross-function bleed-through path in the issue #42 fix.\n  - `train_nano_from_scratch.py` \u2014 default `TT_METAL_HOME` to `~/tt-metal` (current user's home) instead of a hardcoded `/home/ttuser/tt-metal`, so the scaffolded script runs out of the box for any user.\n  - `lfs-05` \u2014 removed a stale \"the Custom Training track is currently blocked\" aside; the track is re-authored and `ct4`/`ct8` are validated on Blackhole p300c.\n  - README \"Latest Release\" section aligned with `package.json` / `CHANGELOG`.\n\n## [0.1.16] - 2026-07-10\n### Fixed\n- **Vale (prose linter) cleanup on the training-track articles** \u2014 ran `vale` against the eight lessons changed this cycle and fixed the issues that were introduced this cycle plus pure wins: backticked bare `tt-metal` repo references in the new build-prerequisite callouts (ct1, lfs-00, build-tt-metal), removed unnecessary `-ly` adverb hyphens (\"freshly initialized\", \"newly built\", \"monotonically decreasing\", \"correctly wired\" in lfs-05), and lowercased hardware IDs in prose (p100/p150 in lfs-00 and lfs-05). Remaining Vale findings are pre-existing bare-`tt-metal`-in-prose repo references in older lesson sections \u2014 a house-style backticking pass tracked separately.\n\n## [0.1.15] - 2026-07-10\n### Fixed\n- **CS-Fundamentals no longer renders a stray game-of-life command under \"Open Kernel Source\" (issue #42).** The static docs-site generator (`build-web.js`) parsed `extension.ts` with a regex whose body scan crossed function boundaries and whose key capture excluded digits, so `openRiscvKernel` \u2014 a file-opener with no terminal command \u2014 inherited a later function's `RUN_GAME_OF_LIFE` template, and digit-keyed commands (e.g. `START_TT_INFERENCE_SERVER_N150`, `DOWNLOAD_WAN22_MODEL`) bled to the wrong command too. Tightened both regexes: the function-body scan now stops at the next top-level `function`, and command keys may contain digits. \"Open Kernel Source\" now renders as a neutral badge (it is a VS Code file-open with no shell equivalent), and nine digit-keyed commands resolve to their correct shell command. Appears on docs.tenstorrent.com after the next docs-site reg"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to the TT-VSCode-Toolkit will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n---\n\n## [0.1.18] - 2026-07-13\n### Fixed\n- **PRD-246 \u2014 Jeremy's QB2 testing feedback on the first-inference lesson flow:**\n  - `download-model` \u2014 fixed the broken \"Step 3: Download the Model\" skip link. The anchor pointed to `#step-3-download-qwen3-0-6b`, but the \"Step 3: Download Qwen3-0.6B\" heading slugs to `#step-3-download-qwen3-06b` (the `.` in `0.6B` is dropped, not turned into a hyphen).\n  - `download-model` \u2014 consolidated the repeated, scattered Hugging Face auth flow. Removed the standalone \"Already Authenticated?\" pre-check and folded the `hf auth whoami` check into Step 2, so authentication reads as a single sequence (set token \u2192 check \u2192 log in) instead of appearing in multiple places.\n  - `hardware-detection` \u2014 marked \"Check 4: Device Reset\" as optional; it is a recovery action, not part of normal detection, and a healthy device never needs it.\n  - `tt-installer` \u2014 removed the redundant `tt-smi` hardware-detection step from \"Step 4: Verify Installation\" (it duplicated the dedicated Hardware Detection lesson) and linked out to that lesson instead.\n  - `tt-installer` / `TEST_METALIUM_CONTAINER` \u2014 simplified the \"Test TT-Metalium\" button to the documented `tt-metalium \"python3 -c 'import ttnn; print(ttnn.__version__)'\"` form, dropping the fragile nested-quote/emoji f-string that could error. Added a TT-QuietBox 2 caveat noting the container test requires Podman plus the `tt-metalium` wrapper, which pre-built QB2 images may not include (verify TT-NN directly in that case).\n### Changed\n- **PR #43 post-release follow-ups (jzheng's non-blocking review notes):**\n  - `train_nano_from_scratch.py` \u2014 the docstring run example now uses `~/tt-metal/...` to match the code's `~/tt-metal` default. The code default was corrected in 0.1.17; the example in the header comment had lagged behind.\n  - Added regression coverage for the docs-site command-map parser (issue #42). Extracted the parser out of `build-web.js` into `scripts/lib/command-map-parser.js` as a pure function of two source strings, and added `test/lesson-tests/command-map-parser.test.ts`. The tests assert the function-boundary guard (a keyless file-opener must not inherit the next handler's command), plus single/double/backtick/multi-line template extraction and digit-bearing keys.\n\n## [0.1.17] - 2026-07-10\n### Fixed\n- **Addressed PR #43 review feedback:**\n  - `install-tt-train` command \u2014 resolve site-packages via `sysconfig.get_paths()['purelib']` (works in virtualenvs where `site.getsitepackages()` may not) and add the actual `build_Release/tt-train/sources/ttml` build-output path to the generated `.pth` (alongside the `build/` symlink path), so `ttml` imports regardless of build-dir layout.\n  - `build-web.js` \u2014 the command-parser b"
   },
   "https://github.com/boopdotpng/blackhole-py": {
     "stars": 16,
@@ -3176,7 +3176,7 @@
   },
   "https://github.com/tenstorrent/tt-lang": {
     "stars": 55,
-    "updatedAt": "2026-07-13T18:36:05Z",
+    "updatedAt": "2026-07-16T18:41:31Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
@@ -3186,7 +3186,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1584,
-    "updatedAt": "2026-07-16T14:12:39Z",
+    "updatedAt": "2026-07-16T18:13:59Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -3713,7 +3713,7 @@
   },
   "https://github.com/RQM-Technologies-dev/tt-rqm-kernels": {
     "stars": 0,
-    "updatedAt": "2026-07-16T14:44:30Z"
+    "updatedAt": "2026-07-16T17:46:10Z"
   },
   "https://github.com/kinginu/tt-splat": {
     "stars": 1,
@@ -4032,7 +4032,7 @@
   },
   "https://github.com/tenstorrent/whisper": {
     "stars": 92,
-    "updatedAt": "2026-07-13T20:27:53Z",
+    "updatedAt": "2026-07-16T15:19:08Z",
     "isFork": true,
     "forkParent": "chipsalliance/VeeR-ISS",
     "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS",
