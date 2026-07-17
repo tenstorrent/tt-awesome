@@ -257,9 +257,11 @@ module.exports = function (eleventyConfig) {
         if (e.home_pinned === true && !used.has(e.id)) take(e);
       }
       // Pass 1 — affiliation mix: the best unused, non-deprioritized candidate
-      // from each tier, so cards showcase official AND community work together.
+      // from each tier NOT already represented (a pinned pick satisfies its
+      // tier), so cards showcase official AND community work together.
       for (const aff of ["official", "affiliated", "community"]) {
         if (picks.length >= perCategory) break;
+        if (picks.some((p) => p.affiliation === aff)) continue;
         take(candidates.find(
           (e) => e.affiliation === aff && !used.has(e.id) && !isDeprioritized(e)
         ));
@@ -275,9 +277,11 @@ module.exports = function (eleventyConfig) {
         if (!used.has(e.id)) take(e);
       }
 
-      // Present each card official → affiliated → community, best-ranked first
-      // within a tier, mirroring the main list's default ordering. Deprioritized
-      // (BUDA / Grayskull-only) fillers stay at the bottom regardless of tier.
+      // Present each card official → affiliated → community (the main list's
+      // tier order); within a tier, showcase rank applies — featured first,
+      // then stars — unlike the main list, which is purely stars within a
+      // tier. Deprioritized (BUDA / Grayskull-only) fillers stay at the
+      // bottom regardless of tier.
       picks.sort((a, b) => {
         const dp = (isDeprioritized(a) ? 1 : 0) - (isDeprioritized(b) ? 1 : 0);
         if (dp !== 0) return dp;

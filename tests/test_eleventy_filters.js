@@ -737,6 +737,24 @@ assert(typeof diversifiedFeatured === "function", "diversifiedFeatured filter no
   );
   assert.strictEqual(pinned.length, 3, "card still capped at three picks");
   console.log("✓ diversifiedFeatured: home_pinned guarantees a slot");
+
+  // A pinned pick satisfies its affiliation tier — the mix pass must not
+  // grab a second entry from that tier while other tiers go unrepresented.
+  const pinnedMix = diversifiedFeatured(
+    [
+      mk("pinned-off", "official", 1, { home_pinned: true }),
+      mk("big-off", "official", 1000),
+      mk("aff", "affiliated", 50),
+      mk("com", "community", 30),
+    ],
+    cats
+  )["tools"];
+  assert.deepStrictEqual(
+    pinnedMix.map((e) => e.id),
+    ["pinned-off", "aff", "com"],
+    "pinned official covers the official slot; affiliated + community still shown"
+  );
+  console.log("✓ diversifiedFeatured: pinned pick satisfies its tier in the mix pass");
 }
 
 console.log("\nAll eleventy filter tests passed ✓");
