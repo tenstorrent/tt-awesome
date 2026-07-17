@@ -12,10 +12,13 @@
         <span class="home-stat-n">{{ categories | length }}</span>
         <span class="home-stat-l">Categories</span>
       </div>
-      <div class="home-stat">
+      {#- Easter egg: this stat is secretly a button — it reveals the
+          "About this site" section (also reachable via the #about hash). #}
+      <button type="button" class="home-stat home-stat--egg" onclick="toggleAboutSite()"
+              aria-expanded="false" aria-controls="home-about">
         <span class="home-stat-n">Open</span>
         <span class="home-stat-l">Source</span>
-      </div>
+      </button>
     </div>
   </div>
 
@@ -64,5 +67,81 @@
       {%- endfor %}
     </div>
     <a class="home-planet-more" href="{{ '/planet/' | url }}">🪐 Explore Planet Tenstorrent →</a>
+  </div>
+
+  {#- ── Easter egg: About this site ─────────────────────────────────────
+      Hidden until the visitor clicks the "Open Source" hero stat (or lands
+      on #about). A little love letter to the prior art this site stands on. #}
+  <div class="home-about" id="home-about" hidden>
+    <div class="home-section-label">About this site · you found it</div>
+    <div class="home-about-body">
+      <p>
+        This site is two old traditions wearing one trench coat: an
+        <em>awesome list</em> and a <em>planet</em>. Both are gifts from
+        decades of open source culture, and both deserve their flowers.
+      </p>
+
+      <h3>🕶 The awesome list</h3>
+      <p>
+        Humans curating links for other humans is the oldest genre on the web —
+        Yahoo! began life in 1994 as <em>"Jerry and David's Guide to the World
+        Wide Web"</em>, and the volunteer-run
+        <a href="https://en.wikipedia.org/wiki/DMOZ" target="_blank" rel="noopener noreferrer">DMOZ / Open Directory Project</a>
+        kept hand-sorted order for two decades. In 2014, Sindre Sorhus distilled
+        that instinct into a GitHub-native microformat with
+        <a href="https://github.com/sindresorhus/awesome" target="_blank" rel="noopener noreferrer">sindresorhus/awesome</a>:
+        one README, a ruthless curation bar ("only awesome things"), and pull
+        requests as the editorial process. The
+        <a href="https://github.com/sindresorhus/awesome/blob/main/awesome.md" target="_blank" rel="noopener noreferrer">awesome manifesto</a>
+        turned list-making into a commons — thousands of lists,
+        <a href="https://github.com/bayandin/awesome-awesomeness" target="_blank" rel="noopener noreferrer">lists of lists</a>,
+        and giants like
+        <a href="https://github.com/vinta/awesome-python" target="_blank" rel="noopener noreferrer">awesome-python</a>,
+        <a href="https://github.com/awesome-selfhosted/awesome-selfhosted" target="_blank" rel="noopener noreferrer">awesome-selfhosted</a>, and
+        <a href="https://github.com/avelino/awesome-go" target="_blank" rel="noopener noreferrer">awesome-go</a>.
+        Synth heads are gloriously covered too:
+        <a href="https://github.com/olilarkin/awesome-musicdsp" target="_blank" rel="noopener noreferrer">awesome-musicdsp</a>,
+        <a href="https://github.com/BillyDM/awesome-audio-dsp" target="_blank" rel="noopener noreferrer">awesome-audio-dsp</a>,
+        <a href="https://github.com/notthetup/awesome-webaudio" target="_blank" rel="noopener noreferrer">awesome-webaudio</a>, and
+        <a href="https://github.com/madskjeldgaard/awesome-supercollider" target="_blank" rel="noopener noreferrer">awesome-supercollider</a>.
+        Because the format is halfway to being a database, people have long
+        rendered lists into websites — tt-awesome just commits to the bit:
+        every entry is a JSON file, and the README, this site,
+        <code>data.json</code>, and the feeds are all built from the same source.
+      </p>
+
+      <h3>🪐 The planet</h3>
+      <p>
+        In the early 2000s, Jeff Waugh and Scott James Remnant wrote
+        <a href="https://en.wikipedia.org/wiki/Planet_(software)" target="_blank" rel="noopener noreferrer">Planet</a>,
+        a little Python feed aggregator that river-merged a community's blogs
+        into one page — and free software communities never looked back.
+        <a href="https://planet.gnome.org/" target="_blank" rel="noopener noreferrer">Planet GNOME</a>,
+        <a href="https://planet.kde.org/" target="_blank" rel="noopener noreferrer">Planet KDE</a>,
+        <a href="https://planet.debian.org/" target="_blank" rel="noopener noreferrer">Planet Debian</a>,
+        <a href="https://planet.gentoo.org/" target="_blank" rel="noopener noreferrer">Planet Gentoo</a>,
+        <a href="https://planet.ubuntu.com/" target="_blank" rel="noopener noreferrer">Planet Ubuntu</a>,
+        <a href="https://fedoraplanet.org/" target="_blank" rel="noopener noreferrer">Planet Fedora</a> (the Red Hat family), and
+        <a href="https://planet.mozilla.org/" target="_blank" rel="noopener noreferrer">Planet Mozilla</a>
+        are all still ticking decades later, many having passed through Sam
+        Ruby's <em>Planet Venus</em> rewrite along the way. The lineage runs
+        deeper still: before planets there were blogrolls, and before blogrolls,
+        <a href="https://en.wikipedia.org/wiki/Webring" target="_blank" rel="noopener noreferrer">web rings</a> —
+        WebRing was built in 1995 by a teenaged Sage Weil, who grew up to create
+        Ceph, which is about as open-source-full-circle as a story gets.
+        <a href="{{ '/planet/' | url }}">Planet Tenstorrent</a> carries that
+        torch for this ecosystem.
+      </p>
+
+      <h3>⚡ Why we bother</h3>
+      <p>
+        Curated commons like these only exist because communities keep them
+        alive in the open. That's not nostalgia to us — it's the plan.
+        <a href="https://openfuture.tenstorrent.com/" target="_blank" rel="noopener noreferrer"><strong>Open
+        source is our past, present, and future.</strong></a>
+      </p>
+
+      <button type="button" class="home-about-close" onclick="toggleAboutSite(false)">tuck this away ✕</button>
+    </div>
   </div>
 </div>

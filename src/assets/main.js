@@ -175,12 +175,30 @@ function randomizeHomeFeatures() {
   });
 }
 
+/**
+ * Easter egg: toggle the hidden "About this site" section. Triggered by
+ * clicking the "Open Source" hero stat, or by landing on the #about hash.
+ * Pass true/false to force a state; no argument toggles.
+ */
+function toggleAboutSite(force) {
+  const about = document.getElementById("home-about");
+  if (!about) return;
+  const show = force !== undefined ? force : about.hidden;
+  about.hidden = !show;
+  const egg = document.querySelector(".home-stat--egg");
+  if (egg) egg.setAttribute("aria-expanded", String(show));
+  if (show) about.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // Restore view from query string (?cat=…&entry=…) before first paint,
   // so direct links and browser history both land in the right place.
   restoreFromUrl();
 
   randomizeHomeFeatures();
+
+  // Shareable path into the easter egg.
+  if (location.hash === "#about") toggleAboutSite(true);
 
   const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
   document.querySelectorAll("[data-ts]").forEach(el => {
