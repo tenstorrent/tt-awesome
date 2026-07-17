@@ -367,13 +367,16 @@ def main(argv: list | None = None):
                 continue
             name = release.get("name") or tag
 
-            # Skip pre-release builds — dev/nightly, RC, and QA tags add noise.
-            # dev:  "1.3.0.dev20260609", "v0.73.0-dev20260610"
-            # RC:   "v0.72.0-rc4", "ttkmd-2.9.0-rc1"
-            # QA:   "v1.0.0-qa1"
+            # Skip pre-release builds — dev/nightly, RC, QA, alpha/beta tags
+            # add noise. Keep in sync with PRE_RELEASE_TAG in entries.js and
+            # fetch_github_meta.py.
+            # dev:   "1.3.0.dev20260609", "v0.73.0-dev20260610"
+            # RC:    "v0.72.0-rc4", "ttkmd-2.9.0-rc1"
+            # QA:    "v1.0.0-qa1"
+            # alpha/beta: "v0.17.0-alpha" (tt-buda)
             # CI experiment tags: "7.67.0-strength-49763" (version + branch
             # word + run number) — non-prerelease on GitHub, noise regardless.
-            if re.search(r"[.\-]dev[.\d]|[-.]rc\d|[-.]qa[\d.]|\d-[a-z]+-\d+$", tag, re.IGNORECASE):
+            if re.search(r"[.\-]dev[.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+-\d+$", tag, re.IGNORECASE):
                 print(f"  SKIP {repo}@{tag}: pre-release build")
                 continue
 

@@ -412,13 +412,16 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
     mkRel("1.2.0.dev20260530"),          // forge pattern: .dev<digits>
     mkRel("v0.72.0-dev20260529"),         // tt-metal pattern: -dev<digits>
     mkRel("v0.9.5-dev.260424"),           // tt-metal pattern: -dev.<digits>
+    mkRel("v0.17.0-alpha"),               // tt-buda pattern: -alpha
+    mkRel("v1.0.0-beta2"),                // -beta<digits>
+    mkRel("7.67.0-strength-49763"),       // sfpi CI experiment tag
   ];
   const stableRel = mkRel("v1.0.0");
   const items = planetItems([], [...devRels, stableRel], []);
   const releaseItems = items.filter((i) => i.type === "release");
   assert.strictEqual(releaseItems.length, 1, "only stable release should appear");
   assert.strictEqual(releaseItems[0].label, "v1.0.0");
-  console.log("✓ planetItems: excludes .dev, -dev, and -dev.<digits> release tags");
+  console.log("✓ planetItems: excludes dev/rc/qa/alpha/beta/CI-experiment release tags");
 }
 
 // Test 25: approved external items appear
