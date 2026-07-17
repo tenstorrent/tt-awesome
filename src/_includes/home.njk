@@ -49,4 +49,33 @@
     </div>
     {%- endfor %}
   </div>
+
+  <div class="home-section-label">Fresh from Planet Tenstorrent</div>
+  <div class="home-planet">
+    <p class="home-planet-blurb">
+      <strong>Planet Tenstorrent</strong> is the ecosystem's live feed — new releases,
+      articles, papers, talks, and community posts from across the Tenstorrent world,
+      gathered in one place and updated daily. The latest five:
+    </p>
+    {%- set planetPreview = entries | planetItems(recentReleases, planetFeeds) %}
+    <div class="home-planet-items">
+      {%- for item in planetPreview.slice(0, 5) %}
+      <a class="home-planet-item" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
+        <span class="home-planet-type home-planet-type--{{ item.type }}">
+          {%- if item.type == "paper" %}📄 paper
+          {%- elif item.type == "article" %}📝 article
+          {%- elif item.type == "lesson" %}📖 lesson
+          {%- elif item.type == "video" %}🎥 video
+          {%- elif item.type == "talk" %}🎤 talk
+          {%- elif item.type == "demo" %}🚀 demo
+          {%- else %}🏷 release
+          {%- endif %}
+        </span>
+        <span class="home-planet-title">{{ item.title }}</span>
+        <span class="home-planet-date">{{ item.date | prettyDate }}</span>
+      </a>
+      {%- endfor %}
+    </div>
+    <a class="home-planet-more" href="{{ '/planet/' | url }}">🪐 Explore Planet Tenstorrent →</a>
+  </div>
 </div>
