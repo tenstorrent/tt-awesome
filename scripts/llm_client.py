@@ -70,7 +70,13 @@ def missing_credential(anthropic_api_key: str = "", github_token: str = "") -> s
 def load_prompt(name: str) -> dict:
     """Load prompts/<name>.prompt.yml. Raises on a missing or malformed file —
     a broken prompt should fail the CI step loudly, not degrade silently."""
-    import yaml  # lazy: PyYAML is only required when a prompt is actually used
+    try:
+        import yaml  # lazy: PyYAML is only required when a prompt is actually used
+    except ModuleNotFoundError as e:
+        raise ModuleNotFoundError(
+            "PyYAML is required to load prompts/*.prompt.yml — install it with "
+            "`pip install pyyaml` (CI workflows do this in their setup step)."
+        ) from e
 
     path = PROMPTS_DIR / f"{name}.prompt.yml"
     data = yaml.safe_load(path.read_text())
