@@ -265,16 +265,21 @@ a.pkg-dot:hover { filter: brightness(1.3); }
 .cat-card-name { font-size: 14px; font-weight: 700; color: var(--text); }
 .cat-card-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
 
-/* Featured entry previews inside the card — up to 3 stacked rows mixing
-   official / affiliated / community picks. */
-.cat-card-features { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+/* Featured entry preview inside the card. The HTML carries a pool of up to 3
+   candidates (a mix of official / affiliated / community picks) but only ONE
+   is visible: main.js picks a random one per pageview (.is-randomized +
+   .is-shown); until it runs — or without JS — the first candidate shows. */
+.cat-card-features { display: flex; flex-direction: column; flex: 1; }
+.cat-card-features .cat-card-feature { display: none; }
+.cat-card-features .cat-card-feature.is-shown,
+.cat-card-features:not(.is-randomized) .cat-card-feature:first-child { display: block; flex: 1; }
 .cat-card-feature { background: var(--bg0); border: 1px solid rgba(79,209,197,0.1);
-                    border-radius: 6px; padding: 8px 10px; }
+                    border-radius: 6px; padding: 10px 12px; }
 .cat-card-feature-name { font-size: 12px; font-weight: 600; color: var(--teal-lt);
-                         margin-bottom: 2px; display: flex; align-items: center;
+                         margin-bottom: 4px; display: flex; align-items: center;
                          gap: 6px; }
 .cat-card-feature-desc { font-size: 11px; color: var(--muted); line-height: 1.45;
-                         display: -webkit-box; -webkit-line-clamp: 1;
+                         display: -webkit-box; -webkit-line-clamp: 2;
                          -webkit-box-orient: vertical; overflow: hidden; }
 
 /* Card footer */

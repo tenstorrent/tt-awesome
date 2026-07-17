@@ -158,10 +158,29 @@ function relativeTime(iso) {
   return `${years} year${years !== 1 ? "s" : ""} ago`;
 }
 
+/**
+ * Show one random featured entry per home category card. Each card ships with
+ * a small pool of candidates in the HTML (a mix of official / affiliated /
+ * community picks — see the diversifiedFeatured filter in .eleventy.js); CSS
+ * shows only the first until this runs, so no-JS visitors and crawlers still
+ * get a sensible card. Re-rolls on every pageview.
+ */
+function randomizeHomeFeatures() {
+  document.querySelectorAll(".cat-card-features").forEach((pool) => {
+    const candidates = pool.querySelectorAll(".cat-card-feature");
+    if (candidates.length < 2) return;
+    const pick = candidates[Math.floor(Math.random() * candidates.length)];
+    pool.classList.add("is-randomized");
+    candidates.forEach((c) => c.classList.toggle("is-shown", c === pick));
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // Restore view from query string (?cat=…&entry=…) before first paint,
   // so direct links and browser history both land in the right place.
   restoreFromUrl();
+
+  randomizeHomeFeatures();
 
   const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
   document.querySelectorAll("[data-ts]").forEach(el => {
