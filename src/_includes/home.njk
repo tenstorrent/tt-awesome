@@ -23,17 +23,23 @@
   {%- set featuredMap = entries | diversifiedFeatured(categories) %}
   <div class="cat-grid">
     {%- for cat in categories %}
-    {%- set topEntry = featuredMap[cat.slug] %}
+    {%- set topEntries = featuredMap[cat.slug] %}
     {%- set count = entries | countForCategory(cat.slug) %}
     <div class="cat-card" onclick="selectCategoryBySlug('{{ cat.slug }}')">
       <div class="cat-card-top">
         <div class="cat-card-name">{{ cat.label }}</div>
         <div class="cat-card-desc">{{ cat.description }}</div>
       </div>
-      {%- if topEntry %}
-      <div class="cat-card-feature">
-        <div class="cat-card-feature-name">{{ topEntry.name }}</div>
-        <div class="cat-card-feature-desc">{{ topEntry.description | truncate(100) }}</div>
+      {%- if topEntries and topEntries.length %}
+      <div class="cat-card-features">
+        {%- for topEntry in topEntries %}
+        <div class="cat-card-feature">
+          <div class="cat-card-feature-name">{{ topEntry.name }}
+            <span class="badge badge--{{ topEntry.affiliation }}">{{ topEntry.affiliation }}</span>
+          </div>
+          <div class="cat-card-feature-desc">{{ topEntry.description | truncate(100) }}</div>
+        </div>
+        {%- endfor %}
       </div>
       {%- endif %}
       <div class="cat-card-footer">

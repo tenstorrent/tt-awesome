@@ -159,6 +159,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Three hands-on TT-Metalium kernel recipes: a Mandelbrot fractal explorer, real-time audio signal processing pipeline, and custom image filter stack. Each recipe is a complete kernel project with full source in the lesson.
   [📖 Tenstorrent Cookbook Overview](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-overview/) · [📖 Recipe 3: Mandelbrot Fractal Explorer](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-mandelbrot/) · [📖 Recipe 2: Audio Signal Processing](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-audio-processor/) · [📖 Recipe 4: Custom Image Filters](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-image-filters/)
 
+- **[SFPI](https://github.com/tenstorrent/sfpi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Tenstorrent SFPU programming interface — TT-enhanced RISC-V GCC and binutils plus header files for programming the Tensix SFPU (vector engine) from kernel code. The compiler toolchain underneath TT-Metalium's SFPU ops.
+  [📦 repo](https://github.com/tenstorrent/sfpi) · 🐧 `apt install sfpi`
+
 - **[tt-lang](https://github.com/tenstorrent/tt-lang)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Python-based DSL that sits between TT-NN and TT-Metalium — expresses custom fused kernels with progressive disclosure, compiling directly to Tensix. Ships an integrated functional simulator (no hardware needed), line-by-line performance metrics, and AI-agent-friendly tooling. Two packages: tt-lang (compiler + hardware, requires ttnn) and tt-lang-sim (simulator only, works on Linux/macOS without Tenstorrent hardware).
   [📦 repo](https://github.com/tenstorrent/tt-lang) · [🌐 website](https://docs.tenstorrent.com/tt-lang/) · [📖 Introduction to tt-lang](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/tt-lang-intro/) · [🐍 `pip install tt-lang`](https://pypi.org/project/tt-lang/) · [🐍 `pip install tt-lang-sim`](https://pypi.org/project/tt-lang-sim/)
@@ -169,7 +173,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[tt-metal](https://github.com/tenstorrent/tt-metal)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.
-  [📦 repo](https://github.com/tenstorrent/tt-metal) · [🌐 website](https://docs.tenstorrent.com/tt-metal/latest/ttnn/)
+  [📦 repo](https://github.com/tenstorrent/tt-metal) · [🌐 website](https://docs.tenstorrent.com/tt-metal/latest/ttnn/) · 🐧 `apt install tt-metalium` · 🐧 `apt install tt-nn`
 
 ## 🔨 Compilers & Frontends
 
@@ -303,15 +307,19 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[luwen](https://github.com/tenstorrent/luwen)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent system interface library written in Rust. Low-level Rust bindings for communicating with and managing TT hardware.
-  [📦 repo](https://github.com/tenstorrent/luwen) · [🦀 `cargo add luwen`](https://crates.io/crates/luwen)
+  [📦 repo](https://github.com/tenstorrent/luwen) · [🦀 `cargo add luwen`](https://crates.io/crates/luwen) · 🐧 `apt install python3-pyluwen`
+
+- **[tt-burnin](https://github.com/tenstorrent/tt-burnin)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Command-line utility that runs a high power-consumption workload on Tenstorrent devices — used for chip testing, burn-in, and validating a system's power delivery and cooling under sustained load.
+  [📦 repo](https://github.com/tenstorrent/tt-burnin) · [🐍 `pip install tt-burnin`](https://pypi.org/project/tt-burnin/) · 🐧 `apt install tt-burnin`
 
 - **[tt-firmware](https://github.com/tenstorrent/tt-firmware)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent firmware repository. Board management and control firmware for Tenstorrent accelerator cards.
-  [📦 repo](https://github.com/tenstorrent/tt-firmware) · 🐧 `apt install tt-firmware`
+  [📦 repo](https://github.com/tenstorrent/tt-firmware)
 
 - **[tt-flash](https://github.com/tenstorrent/tt-flash)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent firmware update utility. Flash new firmware onto Tenstorrent accelerator cards from the command line.
-  [📦 repo](https://github.com/tenstorrent/tt-flash) · [🐍 `pip install tt-flash`](https://pypi.org/project/tt-flash/)
+  [📦 repo](https://github.com/tenstorrent/tt-flash) · [🐍 `pip install tt-flash`](https://pypi.org/project/tt-flash/) · 🐧 `apt install tt-flash`
 
 - **[tt-installer](https://github.com/tenstorrent/tt-installer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.
@@ -319,27 +327,35 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[tt-kmd](https://github.com/tenstorrent/tt-kmd)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent kernel module driver. The Linux kernel module required to interface with Tenstorrent PCIe accelerator cards.
-  [📦 repo](https://github.com/tenstorrent/tt-kmd) · 🐧 `apt install ttkmd`
+  [📦 repo](https://github.com/tenstorrent/tt-kmd) · 🐧 `apt install tenstorrent-dkms`
 
-- **TT-QuietBox 2 Guide** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+- **[TT-QuietBox 2 Guide](https://github.com/tenstorrent/tt-quietbox2-guide)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Official setup and onboarding guide for the TT-QuietBox 2 — a compact, liquid-cooled AI workstation with four Blackhole accelerators, an AMD Ryzen CPU, 256GB RAM, and 4TB NVMe. Covers hardware specs, first-boot setup, and hands-on learning paths for running pre-loaded models like Qwen3-32B and serving text, image, video, and speech models via tt-inference-server.
-  [🌐 TT-QuietBox 2 Guide](https://docs.tenstorrent.com/tt-quietbox2-guide)
+  [📦 repo](https://github.com/tenstorrent/tt-quietbox2-guide) · [🌐 TT-QuietBox 2 Guide](https://docs.tenstorrent.com/tt-quietbox2-guide)
 
 - **[tt-smi](https://github.com/tenstorrent/tt-smi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.
-  [📦 repo](https://github.com/tenstorrent/tt-smi) · [🐍 `pip install tt-smi`](https://pypi.org/project/tt-smi/)
+  [📦 repo](https://github.com/tenstorrent/tt-smi) · [🐍 `pip install tt-smi`](https://pypi.org/project/tt-smi/) · 🐧 `apt install tt-smi`
 
 - **[tt-system-firmware](https://github.com/tenstorrent/tt-system-firmware)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   System firmware for Tenstorrent hardware. Low-level system initialization and control firmware that runs on-device.
   [📦 repo](https://github.com/tenstorrent/tt-system-firmware) · [🌐 website](https://tenstorrent.com)
 
+- **[tt-system-tools](https://github.com/tenstorrent/tt-system-tools)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  System setup and support utilities for Tenstorrent hardware — hugepages-setup configures the 1GB hugepages TT ASICs need, and tt-oops collects diagnostic data for troubleshooting. Ships as the tenstorrent-tools deb/rpm.
+  [📦 repo](https://github.com/tenstorrent/tt-system-tools) · 🐧 `apt install tenstorrent-tools`
+
+- **[tt-tools-common](https://github.com/tenstorrent/tt-tools-common)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Shared helper library of common utilities used across Tenstorrent system tools such as tt-smi, tt-flash, and tt-topology. A dependency rather than a standalone tool.
+  [📦 repo](https://github.com/tenstorrent/tt-tools-common) · [🐍 `pip install tt-tools-common`](https://pypi.org/project/tt-tools-common/) · 🐧 `apt install python3-tt-tools-common`
+
 - **[tt-toplike](https://github.com/tenstorrent/tt-toplike)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.
-  [📦 repo](https://github.com/tenstorrent/tt-toplike) · [🌐 website](https://docs.tenstorrent.com/tt-toplike/)
+  [📦 repo](https://github.com/tenstorrent/tt-toplike) · [🌐 website](https://docs.tenstorrent.com/tt-toplike/) · 🐧 `apt install tt-toplike` · 🐧 `apt install tt-toplike-app`
 
 - **[tt-topology](https://github.com/tenstorrent/tt-topology)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Configure Ethernet routing on multi-card Tenstorrent systems. Flash NB cards to use specific ETH routing configurations for scale-out deployments.
-  [📦 repo](https://github.com/tenstorrent/tt-topology) · [🐍 `pip install tt-topology`](https://pypi.org/project/tt-topology/)
+  [📦 repo](https://github.com/tenstorrent/tt-topology) · [🐍 `pip install tt-topology`](https://pypi.org/project/tt-topology/) · 🐧 `apt install tt-topology`
 
 - **[tt-umd](https://github.com/tenstorrent/tt-umd)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   User-mode driver for Tenstorrent hardware. The userspace layer that sits between the kernel module and higher-level SDKs.

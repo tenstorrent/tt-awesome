@@ -284,9 +284,27 @@ SYSTEM_PROMPT = (
     "You write brief, engaging release summaries for Planet Tenstorrent, an aggregator "
     "read by developers and researchers following the Tenstorrent ecosystem. Your tone "
     "is warm and technically literate — like a knowledgeable colleague sharing what's "
-    "new, not a press release. Write one paragraph of 2–4 sentences. Focus on what "
-    "changed and why it matters. Do not repeat the version number or project name. "
-    "Do not use hype words like \"exciting\" or \"powerful\". Do not use bullet points."
+    "new, not a press release.\n"
+    "\n"
+    "Write one paragraph of 2–5 sentences. Lead with the single most interesting or "
+    "consequential change and say why it matters to someone building on Tenstorrent "
+    "hardware — a fixed crash, a new capability, a performance win, hardware newly "
+    "supported. Fold lesser changes into a closing clause or drop them; never inventory "
+    "the whole changelog.\n"
+    "\n"
+    "Vary your copy: don't open with \"This release\" or the same stock phrasing every "
+    "time, and let the release's own character come through — a giant feature drop reads "
+    "differently than a focused bugfix. Use `code` spans for flags, functions, and "
+    "package names where natural.\n"
+    "\n"
+    "Weave in 1–3 inline markdown links ([text](url)) when the notes give you something "
+    "worth linking — a PR, an issue, docs, or a guide. Only link URLs that appear in the "
+    "release notes, or build https://github.com/<repo>/issues/<N> for bare #N references "
+    "using the repo name you were given. Never fabricate any other URL.\n"
+    "\n"
+    "Do not repeat the version number or project name — the item title already carries "
+    "both. Do not use hype words like \"exciting\" or \"powerful\". Do not use bullet "
+    "points or headings; plain prose only."
 )
 # NOTE: the single-paragraph constraint above matters downstream — the release
 # Atom feed renders this text as a one-line <summary> (see src/feeds/releases.njk,
@@ -396,7 +414,9 @@ def main(argv: list | None = None):
             # dev:  "1.3.0.dev20260609", "v0.73.0-dev20260610"
             # RC:   "v0.72.0-rc4", "ttkmd-2.9.0-rc1"
             # QA:   "v1.0.0-qa1"
-            if re.search(r"[.\-]dev[.\d]|[-.]rc\d|[-.]qa[\d.]", tag, re.IGNORECASE):
+            # CI experiment tags: "7.67.0-strength-49763" (version + branch
+            # word + run number) — non-prerelease on GitHub, noise regardless.
+            if re.search(r"[.\-]dev[.\d]|[-.]rc\d|[-.]qa[\d.]|\d-[a-z]+-\d+$", tag, re.IGNORECASE):
                 print(f"  SKIP {repo}@{tag}: pre-release build")
                 continue
 

@@ -204,13 +204,19 @@ module.exports = function (eleventyConfig) {
     ).length
   );
 
-  // Assign one unique featured entry per category for the home page showcase.
-  // Each entry is used at most once (first category it best fits wins).
-  // Within a category, candidates are ranked: featured first, then by stars.
+  // Assign up to `perCategory` unique featured entries per category for the
+  // home page showcase. Each entry is used at most once across the whole page
+  // (first category it best fits wins). `home_pinned: true` entries are
+  // guaranteed a slot. Within a category we aim for an affiliation mix — one
+  // official, one affiliated, one community pick where available — then top up
+  // with the best remaining candidates by rank (featured first, then stars).
   // Grayskull-only and BUDA entries are deprioritized to last resort.
-  eleventyConfig.addFilter("diversifiedFeatured", (entries, categories) => {
+  eleventyConfig.addFilter("diversifiedFeatured", (entries, categories, perCategory = 3) => {
     const used = new Set();
     const result = {};
+
+    // Display order for affiliation tiers — matches the site's default sort.
+    const AFFILIATION_ORDER = { official: 0, affiliated: 1, community: 2 };
 
     // Deprioritize entries that are Grayskull-only or BUDA-related.
     const isDeprioritized = (e) => {
@@ -236,14 +242,53 @@ module.exports = function (eleventyConfig) {
         .slice()
         .sort(showcaseSort);
 
-      // Prefer: not yet used AND not deprioritized.
-      const preferred = candidates.filter((e) => !used.has(e.id) && !isDeprioritized(e));
-      // Fallback: not yet used (even if deprioritized).
-      const fallback  = candidates.filter((e) => !used.has(e.id));
+      const picks = [];
+      const take = (e) => {
+        if (e) {
+          picks.push(e);
+          used.add(e.id);
+        }
+      };
 
-      const pick = preferred[0] || fallback[0] || null;
-      if (pick) used.add(pick.id);
-      result[cat.slug] = pick;
+      // Pass 0 — pinned: entries flagged `home_pinned` get a guaranteed slot in
+      // the first category card (in categories.js order) they belong to.
+      for (const e of candidates) {
+        if (picks.length >= perCategory) break;
+        if (e.home_pinned === true && !used.has(e.id)) take(e);
+      }
+      // Pass 1 — affiliation mix: the best unused, non-deprioritized candidate
+      // from each tier, so cards showcase official AND community work together.
+      for (const aff of ["official", "affiliated", "community"]) {
+        if (picks.length >= perCategory) break;
+        take(candidates.find(
+          (e) => e.affiliation === aff && !used.has(e.id) && !isDeprioritized(e)
+        ));
+      }
+      // Pass 2 — top up with the best unused candidates of any affiliation.
+      for (const e of candidates) {
+        if (picks.length >= perCategory) break;
+        if (!used.has(e.id) && !isDeprioritized(e)) take(e);
+      }
+      // Pass 3 — last resort: deprioritized entries, rather than an empty slot.
+      for (const e of candidates) {
+        if (picks.length >= perCategory) break;
+        if (!used.has(e.id)) take(e);
+      }
+
+      // Present each card official → affiliated → community, best-ranked first
+      // within a tier, mirroring the main list's default ordering. Deprioritized
+      // (BUDA / Grayskull-only) fillers stay at the bottom regardless of tier.
+      picks.sort((a, b) => {
+        const dp = (isDeprioritized(a) ? 1 : 0) - (isDeprioritized(b) ? 1 : 0);
+        if (dp !== 0) return dp;
+        const tierDiff =
+          (AFFILIATION_ORDER[a.affiliation] ?? 2) -
+          (AFFILIATION_ORDER[b.affiliation] ?? 2);
+        if (tierDiff !== 0) return tierDiff;
+        return showcaseSort(a, b);
+      });
+
+      result[cat.slug] = picks;
     }
 
     return result;
@@ -458,8 +503,9 @@ module.exports = function (eleventyConfig) {
     // Stable releases from recentReleases — skip pre-release builds and any release
     // already covered by a summarized item in externalFeeds (seenUrls handles dedup).
     // dev: "1.2.0.dev20260530", "v0.72.0-dev20260529"  RC: "v0.72.0-rc4"  QA: "v1.0-qa1"
+    // CI experiment tags: "7.67.0-strength-49763" (version-branchword-runnumber)
     for (const rel of recentReleases || []) {
-      if (/[\.\-]dev[\.\d]|[-.]rc\d|[-.]qa[\d.]/i.test(rel.tagName || "")) continue;
+      if (/[\.\-]dev[\.\d]|[-.]rc\d|[-.]qa[\d.]|\d-[a-z]+-\d+$/i.test(rel.tagName || "")) continue;
       if (seenUrls.has(rel.url)) continue;
       seenUrls.add(rel.url);
       const dateStr = rel.publishedAt ? rel.publishedAt.slice(0, 10) : "1970-01-01";

@@ -265,13 +265,16 @@ a.pkg-dot:hover { filter: brightness(1.3); }
 .cat-card-name { font-size: 14px; font-weight: 700; color: var(--text); }
 .cat-card-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
 
-/* Featured entry preview inside the card */
+/* Featured entry previews inside the card — up to 3 stacked rows mixing
+   official / affiliated / community picks. */
+.cat-card-features { display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .cat-card-feature { background: var(--bg0); border: 1px solid rgba(79,209,197,0.1);
-                    border-radius: 6px; padding: 10px 12px; flex: 1; }
+                    border-radius: 6px; padding: 8px 10px; }
 .cat-card-feature-name { font-size: 12px; font-weight: 600; color: var(--teal-lt);
-                         margin-bottom: 4px; }
+                         margin-bottom: 2px; display: flex; align-items: center;
+                         gap: 6px; }
 .cat-card-feature-desc { font-size: 11px; color: var(--muted); line-height: 1.45;
-                         display: -webkit-box; -webkit-line-clamp: 2;
+                         display: -webkit-box; -webkit-line-clamp: 1;
                          -webkit-box-orient: vertical; overflow: hidden; }
 
 /* Card footer */
@@ -522,7 +525,7 @@ body.drawer-open .drawer-backdrop {
 
   /* ── Smallest screens ────────────────────────────────────────────────── */
   @media (max-width: 480px) {
-    .cat-card-feature { display: none; }
+    .cat-card-features { display: none; }
   }
   @media (max-width: 400px) {
     .cat-grid { grid-template-columns: 1fr; }

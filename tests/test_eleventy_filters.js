@@ -649,4 +649,91 @@ assert(typeof singleLine === "function", "singleLine filter not registered");
   console.log("✓ singleLine: collapses whitespace to a single line");
 }
 
+// ── diversifiedFeatured tests ────────────────────────────────────────────────
+const diversifiedFeatured = filters["diversifiedFeatured"];
+assert(typeof diversifiedFeatured === "function", "diversifiedFeatured filter not registered");
+{
+  const mk = (id, affiliation, stars, extra = {}) => ({
+    id, name: id, affiliation, stars, categories: ["tools"], ...extra,
+  });
+  const cats = [{ slug: "tools" }];
+
+  // Picks up to 3 per category with one entry from each affiliation tier,
+  // presented official → affiliated → community.
+  const mixed = diversifiedFeatured(
+    [
+      mk("com-big", "community", 900),
+      mk("com-small", "community", 10),
+      mk("aff", "affiliated", 50),
+      mk("off", "official", 5),
+    ],
+    cats
+  )["tools"];
+  assert.strictEqual(mixed.length, 3, "three picks when candidates allow");
+  assert.deepStrictEqual(
+    mixed.map((e) => e.id),
+    ["off", "aff", "com-big"],
+    "one pick per tier, ordered official → affiliated → community"
+  );
+  console.log("✓ diversifiedFeatured: mixes affiliations, official first");
+
+  // When a tier is missing, remaining slots fill with the best leftover
+  // candidates by rank (featured first, then stars).
+  const topped = diversifiedFeatured(
+    [
+      mk("com-1", "community", 300),
+      mk("com-2", "community", 200),
+      mk("com-feat", "community", 1, { featured: true }),
+      mk("off", "official", 5),
+    ],
+    cats
+  )["tools"];
+  assert.deepStrictEqual(
+    topped.map((e) => e.id),
+    ["off", "com-feat", "com-1"],
+    "missing tier tops up by rank; featured beats stars within a tier"
+  );
+  console.log("✓ diversifiedFeatured: tops up missing tiers by rank");
+
+  // Each entry appears at most once across the whole home page.
+  const twoCats = [{ slug: "a" }, { slug: "b" }];
+  const shared = [
+    { id: "only", name: "only", affiliation: "official", stars: 9, categories: ["a", "b"] },
+  ];
+  const perCat = diversifiedFeatured(shared, twoCats);
+  assert.strictEqual(perCat["a"].length, 1, "first category takes the entry");
+  assert.strictEqual(perCat["b"].length, 0, "entry is not reused in a later category");
+  console.log("✓ diversifiedFeatured: entries unique across categories");
+
+  // Grayskull-only / BUDA entries stay last-resort.
+  const depri = diversifiedFeatured(
+    [
+      mk("buda-thing", "official", 999),
+      mk("gs-only", "community", 500, { hardware: ["grayskull"] }),
+      mk("fresh", "community", 5),
+    ],
+    cats
+  )["tools"];
+  assert.strictEqual(depri[0].id, "fresh", "non-deprioritized entry leads");
+  assert.strictEqual(depri.length, 3, "deprioritized entries still fill empty slots");
+  console.log("✓ diversifiedFeatured: deprioritizes BUDA/Grayskull-only to last resort");
+
+  // home_pinned entries always get a slot, even when outgunned on stars.
+  const pinned = diversifiedFeatured(
+    [
+      mk("big-1", "official", 1000),
+      mk("big-2", "official", 900),
+      mk("big-3", "official", 800),
+      mk("tiny-pinned", "official", 1, { home_pinned: true }),
+    ],
+    cats
+  )["tools"];
+  assert.ok(
+    pinned.some((e) => e.id === "tiny-pinned"),
+    "pinned entry claims a showcase slot despite low stars"
+  );
+  assert.strictEqual(pinned.length, 3, "card still capped at three picks");
+  console.log("✓ diversifiedFeatured: home_pinned guarantees a slot");
+}
+
 console.log("\nAll eleventy filter tests passed ✓");

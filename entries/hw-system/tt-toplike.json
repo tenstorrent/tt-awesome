@@ -29,5 +29,17 @@
   ],
   "language": "Rust",
   "license": "Apache-2.0",
+  "packages": [
+    {
+      "type": "apt",
+      "name": "tt-toplike",
+      "url": "https://ppa.tenstorrent.com/"
+    },
+    {
+      "type": "apt",
+      "name": "tt-toplike-app",
+      "url": "https://ppa.tenstorrent.com/"
+    }
+  ],
   "added_at": "2026-05-08"
 }

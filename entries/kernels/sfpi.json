@@ -1,0 +1,36 @@
+{
+  "id": "sfpi",
+  "name": "SFPI",
+  "description": "Tenstorrent SFPU programming interface — TT-enhanced RISC-V GCC and binutils plus header files for programming the Tensix SFPU (vector engine) from kernel code. The compiler toolchain underneath TT-Metalium's SFPU ops.",
+  "affiliation": "official",
+  "categories": [
+    "kernels",
+    "dev-tools"
+  ],
+  "tags": [
+    "sfpu",
+    "compiler-toolchain",
+    "gcc",
+    "riscv"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/sfpi"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "language": "C++",
+  "license": "Apache-2.0",
+  "packages": [
+    {
+      "type": "apt",
+      "name": "sfpi",
+      "url": "https://ppa.tenstorrent.com/"
+    }
+  ],
+  "added_at": "2026-07-17"
+}

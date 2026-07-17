@@ -1,0 +1,34 @@
+{
+  "id": "tt-tools-common",
+  "name": "tt-tools-common",
+  "description": "Shared helper library of common utilities used across Tenstorrent system tools such as tt-smi, tt-flash, and tt-topology. A dependency rather than a standalone tool.",
+  "affiliation": "official",
+  "categories": [
+    "hw-system"
+  ],
+  "tags": [
+    "library",
+    "tooling",
+    "shared-utilities"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-tools-common"
+    }
+  ],
+  "language": "Python",
+  "license": "Apache-2.0",
+  "packages": [
+    {
+      "type": "pypi",
+      "name": "tt-tools-common"
+    },
+    {
+      "type": "apt",
+      "name": "python3-tt-tools-common",
+      "url": "https://ppa.tenstorrent.com/"
+    }
+  ],
+  "added_at": "2026-07-17"
+}
