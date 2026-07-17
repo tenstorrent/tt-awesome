@@ -33,5 +33,17 @@
   ],
   "language": "C++",
   "license": "Apache-2.0",
+  "packages": [
+    {
+      "type": "apt",
+      "name": "tt-metalium",
+      "url": "https://ppa.tenstorrent.com/"
+    },
+    {
+      "type": "apt",
+      "name": "tt-nn",
+      "url": "https://ppa.tenstorrent.com/"
+    }
+  ],
   "added_at": "2026-05-08"
 }

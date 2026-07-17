@@ -1,0 +1,39 @@
+{
+  "id": "tt-burnin",
+  "name": "tt-burnin",
+  "description": "Command-line utility that runs a high power-consumption workload on Tenstorrent devices — used for chip testing, burn-in, and validating a system's power delivery and cooling under sustained load.",
+  "affiliation": "official",
+  "categories": [
+    "hw-system"
+  ],
+  "tags": [
+    "burn-in",
+    "stress-test",
+    "power",
+    "hardware-validation"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-burnin"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "language": "Python",
+  "license": "Apache-2.0",
+  "packages": [
+    {
+      "type": "pypi",
+      "name": "tt-burnin"
+    },
+    {
+      "type": "apt",
+      "name": "tt-burnin",
+      "url": "https://ppa.tenstorrent.com/"
+    }
+  ],
+  "added_at": "2026-07-17"
+}

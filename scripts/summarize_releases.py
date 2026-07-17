@@ -7,7 +7,8 @@
 For each release URL in github_meta.json not already in planet_feeds.json:
   - Fetches the release body from the GitHub API
   - Skips if body is empty or under 120 characters
-  - Calls the Anthropic Messages API to generate a one-paragraph human summary
+  - Runs prompts/summarize-release.prompt.yml through llm_client (Anthropic by
+    default; set SUMMARY_PROVIDER=github to use GitHub Models instead)
   - Appends a type:"release" item (approved:true) to planet_feeds.json
 
 Usage:
@@ -28,16 +29,16 @@ ENTRIES_DIR = ROOT / "entries"
 META_IN = ROOT / "src" / "_data" / "github_meta.json"
 FEEDS_OUT = ROOT / "src" / "_data" / "planet_feeds.json"
 
-INFERENCE_URL = "https://api.anthropic.com/v1/messages"
-ANTHROPIC_VERSION = "2023-06-01"
-MODEL = "claude-haiku-4-5-20251001"
+import llm_client
+
+MODEL = "claude-haiku-4-5-20251001"  # Anthropic-path default; see llm_client
 SPARSE_LIMIT = 120  # characters; bodies shorter than this are skipped.
 # Set to 120 (down from 150) so terse-but-substantive notes — a few real
 # bullet points, e.g. ttsim v1.8.4's ~134-char changelog — still get
 # summarized, while one-liners like "Bug fixes." remain filtered out.
 
-TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")    # gates the step; used for LLM calls
-GH_TOKEN = os.environ.get("GITHUB_TOKEN", "")      # used only for GitHub REST API calls
+TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")    # LLM calls when SUMMARY_PROVIDER=anthropic (default)
+GH_TOKEN = os.environ.get("GITHUB_TOKEN", "")      # GitHub REST API; also LLM calls when SUMMARY_PROVIDER=github
 
 REPO_RE = re.compile(r"https://github\.com/([^/?#]+/[^/?#]+?)(?:\.git)?$")
 
@@ -280,55 +281,28 @@ def fetch_changelog_section(repo: str, tag: str, date: str | None = None) -> str
     return None
 
 
-SYSTEM_PROMPT = (
-    "You write brief, engaging release summaries for Planet Tenstorrent, an aggregator "
-    "read by developers and researchers following the Tenstorrent ecosystem. Your tone "
-    "is warm and technically literate — like a knowledgeable colleague sharing what's "
-    "new, not a press release. Write one paragraph of 2–4 sentences. Focus on what "
-    "changed and why it matters. Do not repeat the version number or project name. "
-    "Do not use hype words like \"exciting\" or \"powerful\". Do not use bullet points."
-)
-# NOTE: the single-paragraph constraint above matters downstream — the release
-# Atom feed renders this text as a one-line <summary> (see src/feeds/releases.njk,
+# The prompt (system + user template) lives in prompts/summarize-release.prompt.yml
+# — the single source of truth shared with the GitHub Models playground/evals.
+# Its single-paragraph constraint matters downstream: the release Atom feed
+# renders the summary as a one-line <summary> (see src/feeds/releases.njk,
 # which also defensively collapses newlines via the `singleLine` filter). The
 # full text appears with paragraph breaks in the feed's <content> block.
 
 
 def call_summarization_model(repo: str, release_name: str, body: str, affiliation: str) -> str:
-    """Call the Anthropic Messages API and return the summary string, or '' on error."""
-    user_message = (
-        f"Summarize this release for Planet Tenstorrent readers.\n\n"
-        f"Project: {repo} ({affiliation})\n"
-        f"Release: {release_name}\n\n"
-        f"Release notes:\n{body}"
+    """Run the release-summary prompt on the active provider. '' on error."""
+    return llm_client.complete(
+        "summarize-release",
+        {
+            "repo": repo,
+            "affiliation": affiliation,
+            "release_name": release_name,
+            "notes": body,
+        },
+        anthropic_model=MODEL,
+        anthropic_api_key=TOKEN,
+        github_token=GH_TOKEN,
     )
-    payload = json.dumps({
-        "model": MODEL,
-        "max_tokens": 300,
-        "system": SYSTEM_PROMPT,
-        "messages": [
-            {"role": "user", "content": user_message},
-        ],
-    }).encode()
-
-    req = urllib.request.Request(
-        INFERENCE_URL,
-        data=payload,
-        method="POST",
-    )
-    req.add_header("Content-Type", "application/json")
-    req.add_header("x-api-key", TOKEN)
-    req.add_header("anthropic-version", ANTHROPIC_VERSION)
-
-    try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            data = json.loads(r.read())
-            return data["content"][0]["text"].strip()
-    except urllib.error.HTTPError as e:
-        print(f"  WARN call_summarization_model {repo}: HTTP {e.code}", file=sys.stderr)
-    except Exception as e:
-        print(f"  WARN call_summarization_model {repo}: {e}", file=sys.stderr)
-    return ""
 
 
 def main(argv: list | None = None):
@@ -343,8 +317,9 @@ def main(argv: list | None = None):
         argv = sys.argv[1:]
     dry_run = "--dry-run" in argv
 
-    if not TOKEN:
-        print("ERROR: ANTHROPIC_API_KEY not set", file=sys.stderr)
+    missing = llm_client.missing_credential(anthropic_api_key=TOKEN, github_token=GH_TOKEN)
+    if missing:
+        print(f"ERROR: {missing} not set", file=sys.stderr)
         sys.exit(1)
 
     # ── Load input data ──────────────────────────────────────────────────────
@@ -392,11 +367,16 @@ def main(argv: list | None = None):
                 continue
             name = release.get("name") or tag
 
-            # Skip pre-release builds — dev/nightly, RC, and QA tags add noise.
-            # dev:  "1.3.0.dev20260609", "v0.73.0-dev20260610"
-            # RC:   "v0.72.0-rc4", "ttkmd-2.9.0-rc1"
-            # QA:   "v1.0.0-qa1"
-            if re.search(r"[.\-]dev[.\d]|[-.]rc\d|[-.]qa[\d.]", tag, re.IGNORECASE):
+            # Skip pre-release builds — dev/nightly, RC, QA, alpha/beta tags
+            # add noise. Keep in sync with PRE_RELEASE_TAG in entries.js and
+            # fetch_github_meta.py.
+            # dev:   "1.3.0.dev20260609", "v0.73.0-dev20260610"
+            # RC:    "v0.72.0-rc4", "ttkmd-2.9.0-rc1"
+            # QA:    "v1.0.0-qa1"
+            # alpha/beta: "v0.17.0-alpha" (tt-buda)
+            # CI experiment tags: "7.67.0-strength-49763" (version + branch
+            # word + run number) — non-prerelease on GitHub, noise regardless.
+            if re.search(r"[.\-]dev[.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+-\d+$", tag, re.IGNORECASE):
                 print(f"  SKIP {repo}@{tag}: pre-release build")
                 continue
 

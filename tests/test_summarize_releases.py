@@ -139,6 +139,8 @@ def test_main_skips_prerelease_tags(tmp_path, monkeypatch):
     # dev: "1.3.0.dev20260609002802", "v0.73.0-dev20260610"
     # RC:  "v0.72.0-rc4", "ttkmd-2.9.0-rc1"
     # QA:  "v1.0.0-qa1"
+    # alpha/beta: "v0.17.0-alpha" (tt-buda), "v1.0.0-beta2"
+    # CI experiment tags: "7.67.0-strength-49763" (sfpi)
     prerelease_tags = [
         "1.3.0.dev20260609002802",
         "v0.73.0-dev20260610",
@@ -146,6 +148,9 @@ def test_main_skips_prerelease_tags(tmp_path, monkeypatch):
         "v0.72.0-rc4",
         "ttkmd-2.9.0-rc1",
         "v1.0.0-qa1",
+        "v0.17.0-alpha",
+        "v1.0.0-beta2",
+        "7.67.0-strength-49763",
     ]
     releases = [
         {"tagName": t, "name": t, "publishedAt": "2026-06-01T00:00:00Z",

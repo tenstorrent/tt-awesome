@@ -10,7 +10,9 @@ for (const [url, data] of Object.entries(meta)) {
   metaByUrl[url] = data;
 }
 
-const AFFILIATION_ORDER = { community: 0, affiliated: 1, official: 2 };
+// Default site ordering: Tenstorrent-org (official) entries first, then
+// affiliated, then community — each tier sorted by stars (see sort below).
+const AFFILIATION_ORDER = { official: 0, affiliated: 1, community: 2 };
 
 /** Returns true only for well-formed https URLs with a non-empty hostname. */
 function isSafeHttpsUrl(url) {
@@ -77,7 +79,10 @@ module.exports = function () {
     //      fetched from /releases/latest (may lie beyond the 5-release window).
     //   3. If recent releases have clean version tags but GitHub mis-labels them
     //      prerelease, use the most recent clean-tagged one as effective stable.
-    const PRE_RELEASE_TAG = /[.\-]dev[.\d]|[-.]rc\d+|[-.]alpha|[-.]beta|[-.]qa[\d.]/i;
+    // The trailing alternative catches CI experiment tags like sfpi's
+    // "7.67.0-strength-49763" (version + branch word + run number) — GitHub
+    // marks these non-prerelease, so only the tag shape identifies them.
+    const PRE_RELEASE_TAG = /[.\-]dev[.\d]|[-.]rc\d+|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+-\d+$/i;
 
     if (Array.isArray(entry.releases) && entry.releases.length) {
       // Check both GitHub's prerelease flag AND the tag name — GitHub sometimes
@@ -118,13 +123,13 @@ module.exports = function () {
   const visibleEntries = entries.filter((e) => e.hidden !== true);
 
   return visibleEntries.sort((a, b) => {
-    // Unknown affiliation falls back to rank 2 (official tier); validate.py enforces valid values.
+    // Unknown affiliation falls back to rank 2 (community tier); validate.py enforces valid values.
     const tierDiff =
       (AFFILIATION_ORDER[a.affiliation] ?? 2) -
       (AFFILIATION_ORDER[b.affiliation] ?? 2);
     if (tierDiff !== 0) return tierDiff;
-    const featDiff = (a.featured ? 0 : 1) - (b.featured ? 0 : 1);
-    if (featDiff !== 0) return featDiff;
+    // Within a tier, order purely by stars. (`featured` no longer jumps the
+    // list queue — it still boosts entries in the home-page showcase filter.)
     return (b.stars || 0) - (a.stars || 0);
   });
 };

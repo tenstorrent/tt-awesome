@@ -1,0 +1,69 @@
+{#-
+  One Planet Tenstorrent feed item card. Expects `item` in context (shape from
+  the planetItems filter in .eleventy.js). Styled by assets/planet-item.css,
+  which is inlined by BOTH base templates — this include renders on the planet
+  page and in the home-page "Fresh from Planet Tenstorrent" teaser.
+-#}
+<article class="planet-item" data-type="{{ item.type }}">
+  <div class="planet-item-meta">
+    <!-- Type badge — colour-coded via .planet-type-badge--<type> in CSS -->
+    <span class="planet-type-badge planet-type-badge--{{ item.type }}">
+      {%- if item.type == "paper" %}📄 paper
+      {%- elif item.type == "article" %}📝 article
+      {%- elif item.type == "lesson" %}📖 lesson
+      {%- elif item.type == "video" %}🎥 video
+      {%- elif item.type == "talk" %}🎤 talk
+      {%- elif item.type == "demo" %}🚀 demo
+      {%- else %}🏷 release
+      {%- endif %}
+    </span>
+    {%- if item.affiliation %}
+    <span class="planet-affil-badge planet-affil-badge--{{ item.affiliation }}">{{ item.affiliation }}</span>
+    {%- endif %}
+    <span class="planet-item-date">{{ item.date | prettyDate }}</span>
+  </div>
+
+  {%- if item.type == "release" and item.projectId %}
+  <a class="planet-item-title" href="{{ '/' | url }}?entry={{ item.projectId }}">{{ item.title }}</a>
+  {%- else %}
+  <a class="planet-item-title" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+  {%- endif %}
+
+  {%- if item.label %}
+  <div class="planet-item-source">{{ item.label }}</div>
+  {%- endif %}
+
+  {%- if item.source == "youtube" and item.url %}
+  {%- set ytId = item.url | replace("https://www.youtube.com/watch?v=", "") %}
+  <div class="planet-embed">
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/{{ ytId }}"
+      title="{{ item.title }}"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+  {%- endif %}
+
+  {%- if item.description %}
+  <p class="planet-item-desc">{{ item.description | markdownInline | safe }}</p>
+  {%- endif %}
+
+  <div class="planet-item-footer">
+    <!-- Link back to the tt-awesome entry for this project -->
+    {%- if item.projectId %}
+    <a class="planet-item-project" href="{{ '/' | url }}?entry={{ item.projectId }}">{{ item.projectName }}</a>
+    {%- else %}
+    <span class="planet-item-project-plain">{{ item.projectName }}</span>
+    {%- endif %}
+    <!-- Primary CTA — label varies by type -->
+    <a class="planet-item-read" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
+      {%- if item.type == "release" %}View release ↗
+      {%- elif item.type == "video" %}Watch ↗
+      {%- elif item.type == "paper" %}Read paper ↗
+      {%- else %}Read ↗
+      {%- endif %}
+    </a>
+  </div>
+</article>

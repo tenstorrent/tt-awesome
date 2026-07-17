@@ -1,0 +1,35 @@
+{
+  "id": "tt-system-tools",
+  "name": "tt-system-tools",
+  "description": "System setup and support utilities for Tenstorrent hardware — hugepages-setup configures the 1GB hugepages TT ASICs need, and tt-oops collects diagnostic data for troubleshooting. Ships as the tenstorrent-tools deb/rpm.",
+  "affiliation": "official",
+  "categories": [
+    "hw-system"
+  ],
+  "tags": [
+    "hugepages",
+    "system-setup",
+    "diagnostics"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-system-tools"
+    }
+  ],
+  "hardware": [
+    "grayskull",
+    "wormhole",
+    "blackhole"
+  ],
+  "language": "Shell",
+  "license": "Apache-2.0",
+  "packages": [
+    {
+      "type": "apt",
+      "name": "tenstorrent-tools",
+      "url": "https://ppa.tenstorrent.com/"
+    }
+  ],
+  "added_at": "2026-07-17"
+}
