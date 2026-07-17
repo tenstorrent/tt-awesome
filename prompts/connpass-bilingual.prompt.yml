@@ -1,0 +1,27 @@
+# GitHub Models prompt file — editable/runnable in this repo's Models tab and
+# consumed by scripts/fetch_planet_feeds.py via scripts/llm_client.py, so the
+# playground and the planet-feeds CI job always use the same prompt.
+#
+# The reply must be a bare JSON object ({"en": ..., "ja": ...}); the caller
+# parses it and hard-clamps each value to 200 characters. The `model` below is
+# used when SUMMARY_PROVIDER=github; the Anthropic path keeps its own default
+# model in scripts/fetch_planet_feeds.py.
+name: Connpass bilingual event summary
+description: >-
+  Condenses a Japanese connpass tech-event description into short English and
+  Japanese summaries, returned as JSON. Run by scripts/fetch_planet_feeds.py.
+model: openai/gpt-4.1-mini
+modelParameters:
+  maxTokens: 500
+messages:
+  - role: system
+    content: |-
+      You summarize Japanese tech-event descriptions for Planet Tenstorrent,
+      an English-first aggregator that also has Japanese-speaking readers.
+      Reply with a JSON object only — no code fences, no commentary — of the
+      form {"en": "...", "ja": "..."}. Each value is a summary of the event in
+      that language, at most 200 characters, covering the topic and (when
+      present) the date, format (online/offline/hybrid), and venue. Plain text
+      only — no markdown, no URLs.
+  - role: user
+    content: '{{event_text}}'

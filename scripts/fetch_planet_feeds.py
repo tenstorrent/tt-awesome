@@ -55,23 +55,16 @@ CONNPASS_FEEDS = [
 
 USER_AGENT = "tt-awesome-planet/1.0 (github.com/tenstorrent/tt-awesome)"
 
-# Anthropic Messages API — condenses Japanese connpass event descriptions into
-# a short bilingual (EN + JA) summary. Optional: when ANTHROPIC_API_KEY is
-# unset (e.g. local runs, forks) the fetcher keeps the plain Japanese text.
-INFERENCE_URL     = "https://api.anthropic.com/v1/messages"
-ANTHROPIC_VERSION = "2023-06-01"
-TRANSLATE_MODEL   = "claude-haiku-4-5-20251001"
-ANTHROPIC_KEY     = os.environ.get("ANTHROPIC_API_KEY", "")
+# LLM summarization — condenses Japanese connpass event descriptions into a
+# short bilingual (EN + JA) summary. Optional: when the active provider's
+# credential is unset (e.g. local runs, forks) the fetcher keeps the plain
+# Japanese text. The prompt lives in prompts/connpass-bilingual.prompt.yml;
+# the provider flips via SUMMARY_PROVIDER (see scripts/llm_client.py).
+import llm_client
 
-TRANSLATE_SYSTEM_PROMPT = (
-    "You summarize Japanese tech-event descriptions for Planet Tenstorrent, an "
-    "English-first aggregator that also has Japanese-speaking readers. Reply "
-    "with a JSON object only — no code fences, no commentary — of the form "
-    '{"en": "...", "ja": "..."}. Each value is a summary of the event in that '
-    "language, at most 200 characters, covering the topic and (when present) "
-    "the date, format (online/offline/hybrid), and venue. Plain text only — "
-    "no markdown, no URLs."
-)
+TRANSLATE_MODEL = "claude-haiku-4-5-20251001"  # Anthropic-path default
+ANTHROPIC_KEY   = os.environ.get("ANTHROPIC_API_KEY", "")
+GH_TOKEN        = os.environ.get("GITHUB_TOKEN", "")
 
 NS_ATOM  = "http://www.w3.org/2005/Atom"
 NS_MEDIA = "http://search.yahoo.com/mrss/"
@@ -314,24 +307,23 @@ def fetch_community_feed(feed: dict, known_urls: set) -> list:
 def bilingual_description(text: str) -> str:
     """Condense a Japanese event description into "≤200-char EN — ≤200-char JA".
 
-    Returns "" when ANTHROPIC_API_KEY is unset or the call fails, so callers
-    can fall back to the untranslated text.
+    Returns "" when the active provider's credential is unset or the call
+    fails, so callers can fall back to the untranslated text.
     """
-    if not (ANTHROPIC_KEY and text):
+    if not text:
         return ""
-    payload = json.dumps({
-        "model": TRANSLATE_MODEL,
-        "max_tokens": 500,
-        "system": TRANSLATE_SYSTEM_PROMPT,
-        "messages": [{"role": "user", "content": text}],
-    }).encode()
-    req = urllib.request.Request(INFERENCE_URL, data=payload, method="POST")
-    req.add_header("Content-Type", "application/json")
-    req.add_header("x-api-key", ANTHROPIC_KEY)
-    req.add_header("anthropic-version", ANTHROPIC_VERSION)
+    if llm_client.missing_credential(anthropic_api_key=ANTHROPIC_KEY, github_token=GH_TOKEN):
+        return ""
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            reply = json.loads(r.read())["content"][0]["text"].strip()
+        reply = llm_client.complete(
+            "connpass-bilingual",
+            {"event_text": text},
+            anthropic_model=TRANSLATE_MODEL,
+            anthropic_api_key=ANTHROPIC_KEY,
+            github_token=GH_TOKEN,
+        )
+        if not reply:
+            return ""
         parts = json.loads(reply)
         en = str(parts.get("en", "")).strip()
         ja = str(parts.get("ja", "")).strip()
@@ -340,9 +332,9 @@ def bilingual_description(text: str) -> str:
             # asks for it, but the contract shouldn't depend on model behavior.
             return f"{truncate(en, 200)} — {truncate(ja, 200)}"
         print("  WARN bilingual_description: model reply missing en/ja", file=sys.stderr)
-    except urllib.error.HTTPError as e:
-        print(f"  WARN bilingual_description: HTTP {e.code}", file=sys.stderr)
     except Exception as e:
+        # llm_client returns "" on API errors; anything caught here is a
+        # malformed reply (e.g. non-JSON text) rather than a transport failure.
         print(f"  WARN bilingual_description: {e}", file=sys.stderr)
     return ""
 

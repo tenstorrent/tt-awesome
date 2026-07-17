@@ -6,6 +6,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  models: read  # lets GITHUB_TOKEN call GitHub Models when SUMMARY_PROVIDER=github
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -13,11 +14,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
+      - run: pip install pyyaml  # prompts/*.prompt.yml parsing (scripts/llm_client.py)
       - name: Fetch planet feeds
         env:
           # Optional — used to render connpass event descriptions as bilingual
-          # EN + JA summaries. The fetcher degrades to Japanese-only without it.
+          # EN + JA summaries. The fetcher degrades to Japanese-only when the
+          # active provider's credential is absent.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Flip the summarization backend with repository Variables (see
+          # scripts/llm_client.py): "anthropic" (default when unset) | "github".
+          SUMMARY_PROVIDER: ${{ vars.SUMMARY_PROVIDER }}
+          SUMMARY_MODEL: ${{ vars.SUMMARY_MODEL }}
         run: python3 scripts/fetch_planet_feeds.py
       - name: Create pull request if changed
         uses: peter-evans/create-pull-request@v7
