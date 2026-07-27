@@ -3,14 +3,6 @@
     "type": "release",
     "source": "github",
     "approved": true,
-    "title": "How Tenstorrent Scales AI Beyond Traditional Limits",
-    "url": "https://www.youtube.com/watch?v=N2bgMWY1lZk",
-    "description": "AI performance isn't just about faster chips, it's about scaling efficiently. Many systems can benchmark high throughput, but few can serve users at those rates economically. Learn how Tenstorrent's networked architecture delivers 400+ tokens/sec/user while scaling efficiently for enterprise and cloud AI inference.",
-    "date": "2026-07-24",
-    "dateISO": "2026-07-24T18:00:35+00:00",
-    "label": "Tenstorrent — YouTube",
-    "projectName": "Tenstorrent",
-
     "title": "tt-bio parity-fixtures-latest",
     "url": "https://github.com/moritztng/tt-bio/releases/tag/parity-fixtures-latest",
     "description": "This release externalizes reference fixtures for the 8-leg envelope structure across major protein folding workloads—Boltz2, ProteNix, and OpenDDE—making parity validation more reproducible and easier to version control alongside code changes. The fixtures (ref_fp32/ref_bf16 CIFs) are now restored via `scripts/fetch_parity_fixtures.sh` and were regenerated after [fixing a meta.json-clobbering bug](https://github.com/moritztng/tt-bio/commit/1e053791a) in the regen_envelope_refs script, so you can trust the baselines for your own comparative benchmarks against these standard structures.",
@@ -34,6 +26,20 @@
     "projectName": "tt-bio",
     "projectId": null,
     "affiliation": "affiliated"
+  },
+  {
+    "type": "video",
+    "source": "youtube",
+    "approved": true,
+    "title": "How Tenstorrent Scales AI Beyond Traditional Limits",
+    "url": "https://www.youtube.com/watch?v=N2bgMWY1lZk",
+    "description": "AI performance isn't just about faster chips, it's about scaling efficiently. Many systems can benchmark high throughput, but few can serve users at those rates economically. Learn how Tenstorrent's networked architecture delivers 400+ tokens/sec/user while scaling efficiently for enterprise and cloud AI inference.",
+    "date": "2026-07-24",
+    "dateISO": "2026-07-24T18:00:35+00:00",
+    "label": "Tenstorrent — YouTube",
+    "projectName": "Tenstorrent",
+    "projectId": null,
+    "affiliation": "official"
   },
   {
     "type": "release",
@@ -116,7 +122,6 @@
     "dateISO": "2026-07-22T19:41:33Z",
     "label": "tenstorrent/ttnn-visualizer",
     "projectName": "ttnn-visualizer",
-
     "projectId": null,
     "affiliation": "official"
   },
