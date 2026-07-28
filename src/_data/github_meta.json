@@ -701,27 +701,6 @@
     "stars": 19,
     "updatedAt": "2026-07-13T13:42:22Z"
   },
-  "https://github.com/Zaneham/BarraCUDA": {
-    "stars": 1719,
-    "updatedAt": "2026-07-28T02:49:39Z",
-    "releases": [
-      {
-        "tagName": "v5.01",
-        "name": "Booth 5.01",
-        "publishedAt": "2026-07-14T08:02:45Z",
-        "url": "https://github.com/Zaneham/Booth/releases/tag/v5.01",
-        "prerelease": false
-      },
-      {
-        "tagName": "v0.5.0",
-        "name": "BarraCUDA 0.5",
-        "publishedAt": "2026-05-29T04:30:28Z",
-        "url": "https://github.com/Zaneham/Booth/releases/tag/v0.5.0",
-        "prerelease": false
-      }
-    ],
-    "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Unreleased\n\n### Frontend\n\n- #142: parse function pointer declarators, and constructors and destructors\n  (Zane Hambly, 2026-07-27)\n\n- #144: move the Triton errors into the shared error catalogue\n  (Zane Hambly, 2026-07-28)\n\n- keep block comment state across lines, so a macro quoted in prose is no\n  longer expanded\n  (Zane Hambly, 2026-07-22)\n\n- stop dereferencing anonymous-struct name sentinels as source offsets\n  (Zane Hambly, 2026-07-22)\n\n### Triton\n\n- let `--cpu` and `--rv64` through the mode gate, and fail with a nonzero\n  status rather than a silent zero\n  (Zane Hambly, 2026-07-16)\n\n### HIP\n\n- #137: support bare convergent warp and lane intrinsics\n  (Maou, 2026-07-27)\n\n### Backends\n\n- #138: real high-half multiply on x86-64 and RV64, and an honest refusal\n  where it cannot be done\n  (Zane Hambly, 2026-07-26)\n\n- a divergent return masks lanes instead of ending the wave, so AMD kernels\n  no longer lose the lanes that did not take the branch\n  (Zane Hambly, 2026-07-25)\n\n### Tensix\n\n- `--tt-chip` selects wormhole or blackhole, so L1 and text limits follow the\n  target part instead of being fixed\n  (Zane Hambly, 2026-07-23)\n\n- refuse i64 arithmetic instead of silently truncating it to 32-bit\n  (Zane Hambly, 2026-07-22)\n\n- the RV32 backend gains control flow, calls, GEP and shared memory, and emits\n  an ELF that tt-metal can load\n  (Zane Hambly, 2026-07-22)\n\n- reserve a 64K `__shared__` slab at the top of L1\n  (Zane Hambly, 2026-07-22)\n\n### Runtime\n\n- #141: run LFortran `do concurrent` kernels on Booth, NVIDIA and AMD\n  (Zane Hambly, 2026-07-26)\n\n### Driver\n\n- collapse the C99 mode gates into one cascade\n  (Zane Hambly, 2026-07-23)\n\n- let `--tdf` and `--tdf-fission` through the mode gates\n  (Zane Hambly, 2026-07-23)\n\n### Build\n\n- track header dependencies with `-MMD`, so a header edit no longer leaves\n  stale objects linked in\n  (Zane Hambly, 2026-07-22)\n\n- compile `nv_rt` and `bc_runtime`, platform-gated\n  (Zane Hambly, 2026-07-16)\n\n- #146: give each host its own object directory under `build/`, so a Git Bash\n  build and a WSL build in one checkout stop overwriting each other and handing\n  the linker a mix of COFF and ELF\n  (Zane Hambly, 2026-07-28)\n\n### CI and tests\n\n- #140: numeric regression against SLATEC known-good values, across cpu,\n  rdna3 and rdna4\n  (Zane Hambly, 2026-07-26)\n\n- #143: add srot and srotm to the numeric suite, and size the emulator kernarg\n  block from the kernel rather than a fixed 64 bytes\n  (Zane Hambly, 2026-07-27)\n\n- validate Tensix ELFs against tt-metal's loader and run RV64 under QEMU\n  (Zane Hambly, 2026-07-23)\n\n- guard the divergent-return lowering against regressing to `s_endpgm`\n  (Zane Hambly, 2026-07-26)\n\n### Documentation\n\n- drop the LLVM requirement from the usage documentation\n  (Zane Hambly, 2026-07-27)\n\n- clarify the compiler requirements in the README\n  (Zane Hambly, 2026-07-23)\n\n- move the changelog to `CHANGELOG.md` and log changes per PR under Unreleased,\n  with"
-  },
   "https://github.com/pcmoritz/libtt": {
     "stars": 1,
     "updatedAt": "2026-07-28T00:53:15Z"
