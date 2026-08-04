@@ -1,5 +1,19 @@
 [
   {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "ttsim v1.9.9",
+    "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.9.9",
+    "description": "The simulator now correctly reports BH Galaxy board and ASIC identifiers, fixing a longstanding reporting gap that could confuse device enumeration in multi-accelerator setups. We've also corrected BH active-erisc SRAM addressing and disabled WH Galaxy routing firmware state initialization by default—a safer starting point for most workflows—while adding support for QSR tile counter remapper register writes to match real hardware behavior more closely.",
+    "date": "2026-08-04",
+    "dateISO": "2026-08-04T19:24:26Z",
+    "label": "tenstorrent/ttsim",
+    "projectName": "ttsim",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
     "type": "article",
     "source": "x",
     "approved": true,
@@ -14,34 +28,6 @@
     "affiliation": "community"
   },
   {
-    "type": "article",
-    "source": "medium",
-    "approved": true,
-    "title": "First Pass at World Model on Tenstorrent Hardware",
-    "url": "https://medium.com/@arnis.us/first-pass-at-an-open-world-model-on-tenstorrent-hardware-b1d4d57f0d45",
-    "description": "A hands-on account of bringing V-JEPA 2.1 ViT-L — the 300M-parameter world model distilled from Meta's billion-parameter ViT-g — up on a TT-QuietBox with four Blackhole p150 cards, written directly against Metalium and TT-LLK rather than a high-level framework. The encoder is split across roughly a dozen hand-written programs, with PyTorch kept as the reference specification for verification, and the write-up walks through what had to move between each card's 180 MB of SRAM and its 32 GB of GDDR6 to keep the tiles busy. Single-card throughput went from 23.9 to 48.9 images/sec after occupancy and residency work, reaching 142.68 images/sec across all four cards. Explicitly a first pass: the encoder is done, the predictor is next, and no GPU baseline was measured.",
-    "date": "2026-08-03",
-    "dateISO": "2026-08-03T18:32:00Z",
-    "label": "medium.com/@arnis.us",
-    "projectName": "Arni Steingrimsson",
-    "projectId": null,
-    "affiliation": "community"
-  },
-  {
-    "type": "video",
-    "source": "youtube",
-    "approved": true,
-    "title": "New Generation of AI Computers | Stan Sokorac | DSC EUROPE 25",
-    "url": "https://www.youtube.com/watch?v=sxVJIsHQaQ0",
-    "description": "Stan Sokorac, Senior Fellow of AI Hardware & Software at Tenstorrent, on how Tenstorrent is building AI computers that scale from edge devices to the data center. The talk covers the architectural choices that set the product portfolio apart from traditional accelerators and why they matter for developers building on it. Recorded at DSC Europe 2025 in Belgrade on November 20th; published to the Data Science Conference channel in July 2026.",
-    "date": "2026-07-29",
-    "dateISO": "2026-07-29T12:55:03Z",
-    "label": "Data Science Conference — YouTube",
-    "projectName": "Tenstorrent",
-    "projectId": null,
-    "affiliation": "official"
-  },
-  {
     "type": "video",
     "source": "youtube",
     "approved": true,
@@ -54,6 +40,20 @@
     "projectName": "Tenstorrent",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "article",
+    "source": "medium",
+    "approved": true,
+    "title": "First Pass at World Model on Tenstorrent Hardware",
+    "url": "https://medium.com/@arnis.us/first-pass-at-an-open-world-model-on-tenstorrent-hardware-b1d4d57f0d45",
+    "description": "A hands-on account of bringing V-JEPA 2.1 ViT-L — the 300M-parameter world model distilled from Meta's billion-parameter ViT-g — up on a TT-QuietBox with four Blackhole p150 cards, written directly against Metalium and TT-LLK rather than a high-level framework. The encoder is split across roughly a dozen hand-written programs, with PyTorch kept as the reference specification for verification, and the write-up walks through what had to move between each card's 180 MB of SRAM and its 32 GB of GDDR6 to keep the tiles busy. Single-card throughput went from 23.9 to 48.9 images/sec after occupancy and residency work, reaching 142.68 images/sec across all four cards. Explicitly a first pass: the encoder is done, the predictor is next, and no GPU baseline was measured.",
+    "date": "2026-08-03",
+    "dateISO": "2026-08-03T18:32:00Z",
+    "label": "medium.com/@arnis.us",
+    "projectName": "Arni Steingrimsson",
+    "projectId": null,
+    "affiliation": "community"
   },
   {
     "type": "release",
@@ -178,6 +178,20 @@
     "dateISO": "2026-07-29T21:50:25Z",
     "label": "tenstorrent/ttnn-visualizer",
     "projectName": "ttnn-visualizer",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
+    "type": "video",
+    "source": "youtube",
+    "approved": true,
+    "title": "New Generation of AI Computers | Stan Sokorac | DSC EUROPE 25",
+    "url": "https://www.youtube.com/watch?v=sxVJIsHQaQ0",
+    "description": "Stan Sokorac, Senior Fellow of AI Hardware & Software at Tenstorrent, on how Tenstorrent is building AI computers that scale from edge devices to the data center. The talk covers the architectural choices that set the product portfolio apart from traditional accelerators and why they matter for developers building on it. Recorded at DSC Europe 2025 in Belgrade on November 20th; published to the Data Science Conference channel in July 2026.",
+    "date": "2026-07-29",
+    "dateISO": "2026-07-29T12:55:03Z",
+    "label": "Data Science Conference — YouTube",
+    "projectName": "Tenstorrent",
     "projectId": null,
     "affiliation": "official"
   },
