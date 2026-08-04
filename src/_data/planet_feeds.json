@@ -1,5 +1,47 @@
 [
   {
+    "type": "article",
+    "source": "x",
+    "approved": true,
+    "title": "DreamcatcherAI's Cluster — 192 Blackhole p150 cards",
+    "url": "https://x.com/0xCodyS/status/2084399383139713100",
+    "description": "Cody Steinmetz writes up the AI cluster he and cofounder Dylan Norquist spent six months assembling out of 192 Tenstorrent p150 Blackhole cards — 16 servers of 8 cards each, cabled in a dragonfly topology (8-card rings, all-to-all between the 16 groups) to keep MoE dispatch/combine hops short. The 128-card scale-up domain lands at 4 TB VRAM, 64 TB/s of memory bandwidth, 410 Tb/s of network bandwidth and ~100 PFLOPs FP8, drawing up to 60 kW off residential 2-phase power, with all 192 12VHPWR connectors hand-crimped over 100+ hours. The interesting part is the software: the $30 ex-crypto-mining hosts are too weak for cluster-scale MPI and cards drop off the PCIe bus, so the cluster bootstraps itself over the Ethernet fabric — a kernel sent card-to-card recursively — then transitions into stock fabric and dispatch firmware, which he credits to the Tenstorrent stack being open and documented down to the ISA. Posted as an X article; Dreamcatcher AI is building on it toward low-cost inference for large open models.",
+    "date": "2026-08-03",
+    "dateISO": "2026-08-03T22:01:53Z",
+    "label": "x.com/@0xCodyS",
+    "projectName": "Dreamcatcher AI",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "article",
+    "source": "medium",
+    "approved": true,
+    "title": "First Pass at World Model on Tenstorrent Hardware",
+    "url": "https://medium.com/@arnis.us/first-pass-at-an-open-world-model-on-tenstorrent-hardware-b1d4d57f0d45",
+    "description": "A hands-on account of bringing V-JEPA 2.1 ViT-L — the 300M-parameter world model distilled from Meta's billion-parameter ViT-g — up on a TT-QuietBox with four Blackhole p150 cards, written directly against Metalium and TT-LLK rather than a high-level framework. The encoder is split across roughly a dozen hand-written programs, with PyTorch kept as the reference specification for verification, and the write-up walks through what had to move between each card's 180 MB of SRAM and its 32 GB of GDDR6 to keep the tiles busy. Single-card throughput went from 23.9 to 48.9 images/sec after occupancy and residency work, reaching 142.68 images/sec across all four cards. Explicitly a first pass: the encoder is done, the predictor is next, and no GPU baseline was measured.",
+    "date": "2026-08-03",
+    "dateISO": "2026-08-03T18:32:00Z",
+    "label": "medium.com/@arnis.us",
+    "projectName": "Arni Steingrimsson",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "video",
+    "source": "youtube",
+    "approved": true,
+    "title": "New Generation of AI Computers | Stan Sokorac | DSC EUROPE 25",
+    "url": "https://www.youtube.com/watch?v=sxVJIsHQaQ0",
+    "description": "Stan Sokorac, Senior Fellow of AI Hardware & Software at Tenstorrent, on how Tenstorrent is building AI computers that scale from edge devices to the data center. The talk covers the architectural choices that set the product portfolio apart from traditional accelerators and why they matter for developers building on it. Recorded at DSC Europe 2025 in Belgrade on November 20th; published to the Data Science Conference channel in July 2026.",
+    "date": "2026-07-29",
+    "dateISO": "2026-07-29T12:55:03Z",
+    "label": "Data Science Conference — YouTube",
+    "projectName": "Tenstorrent",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
     "type": "video",
     "source": "youtube",
     "approved": true,
