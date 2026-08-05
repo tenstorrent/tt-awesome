@@ -1,7 +1,7 @@
 {
   "id": "tt-rqm-kernels",
   "name": "tt-rqm-kernels",
-  "description": "Structured quaternion, rotor, and phase-aware tensor kernels — operations on 3D rotation and orientation data packed into ordinary `[N, 4]` float tensors — plus StructuredBench, a benchmark suite for these workloads. Provides CPU/PyTorch reference implementations and an optional TT-Lang simulator prototype for the quaternion multiply (`qmul`) kernel as a first step toward Tenstorrent hardware support.",
+  "description": "Structured quaternion, rotor, and phase-aware tensor kernels on ordinary floating-point tensors, plus StructuredBench. Includes CPU/PyTorch references, simulator and emulator paths, and reproducible Wormhole/N300 evidence for quaternion multiply (`qmul`), fused SU(2) composition, and H2A Hamiltonian lowering.",
   "affiliation": "community",
   "categories": [
     "kernels",
@@ -19,23 +19,33 @@
     },
     {
       "type": "website",
+      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul.md",
+      "label": "Wormhole qmul benchmark"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul-hardware-evidence.md",
+      "label": "Wormhole qmul hardware evidence"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/su2-compose-bench.md",
+      "label": "SU2ComposeBench"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/hamiltonian-lowering-h2a.md",
+      "label": "H2A silicon conformance"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/upstream/current-main-qmul-port.md",
+      "label": "Current-main qmul port"
+    },
+    {
+      "type": "website",
       "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md",
       "label": "StructuredBench specification"
-    },
-    {
-      "type": "website",
-      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_emule_qmul_candidate.md",
-      "label": "tt-emule qmul candidate report"
-    },
-    {
-      "type": "website",
-      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tt-lang-qmul-plan.md",
-      "label": "TT-Lang qmul plan"
-    },
-    {
-      "type": "website",
-      "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_lang_qmul_sim.md",
-      "label": "TT-Lang simulator report"
     },
     {
       "type": "website",
@@ -47,13 +57,17 @@
     "structured-tensors",
     "quaternion",
     "rotor",
+    "tt-metalium",
     "tt-lang",
     "simulator",
+    "wormhole",
+    "n300",
     "benchmarks",
     "pytorch",
     "custom-kernels"
   ],
   "hardware": [
+    "wormhole",
     "ttsim"
   ],
   "author": "RQM-Technologies-dev",
