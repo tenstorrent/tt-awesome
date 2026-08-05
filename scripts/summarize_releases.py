@@ -7,8 +7,9 @@
 For each release URL in github_meta.json not already in planet_feeds.json:
   - Fetches the release body from the GitHub API
   - Skips if body is empty or under 120 characters
-  - Runs prompts/summarize-release.prompt.yml through llm_client (Anthropic by
-    default; set SUMMARY_PROVIDER=github to use GitHub Models instead)
+  - Runs prompts/summarize-release.prompt.yml through llm_client (GitHub
+    Copilot by default; SUMMARY_PROVIDER=anthropic switches backends. The
+    former `github` GitHub Models path was retired 2026-07-30.)
   - Appends a type:"release" item (approved:true) to planet_feeds.json
 
 Usage:
@@ -37,8 +38,13 @@ SPARSE_LIMIT = 120  # characters; bodies shorter than this are skipped.
 # bullet points, e.g. ttsim v1.8.4's ~134-char changelog — still get
 # summarized, while one-liners like "Bug fixes." remain filtered out.
 
-TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")    # LLM calls when SUMMARY_PROVIDER=anthropic (default)
-GH_TOKEN = os.environ.get("GITHUB_TOKEN", "")      # GitHub REST API; also LLM calls when SUMMARY_PROVIDER=github
+TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")    # LLM calls when SUMMARY_PROVIDER=anthropic
+GH_TOKEN = os.environ.get("GITHUB_TOKEN", "")      # GitHub REST API (release bodies, changelogs)
+# LLM calls on the default copilot provider. Must belong to an account with a
+# Copilot seat — the Actions GITHUB_TOKEN does not have one — so CI passes a
+# PAT. Falls back to GITHUB_TOKEN only to keep local runs convenient for anyone
+# whose gh CLI token already carries a seat.
+COPILOT_TOKEN = os.environ.get("COPILOT_TOKEN", "") or GH_TOKEN
 
 REPO_RE = re.compile(r"https://github\.com/([^/?#]+/[^/?#]+?)(?:\.git)?$")
 
@@ -302,6 +308,7 @@ def call_summarization_model(repo: str, release_name: str, body: str, affiliatio
         anthropic_model=MODEL,
         anthropic_api_key=TOKEN,
         github_token=GH_TOKEN,
+        copilot_token=COPILOT_TOKEN,
     )
 
 
@@ -317,7 +324,9 @@ def main(argv: list | None = None):
         argv = sys.argv[1:]
     dry_run = "--dry-run" in argv
 
-    missing = llm_client.missing_credential(anthropic_api_key=TOKEN, github_token=GH_TOKEN)
+    missing = llm_client.missing_credential(
+        anthropic_api_key=TOKEN, github_token=GH_TOKEN, copilot_token=COPILOT_TOKEN
+    )
     if missing:
         print(f"ERROR: {missing} not set", file=sys.stderr)
         sys.exit(1)
@@ -346,6 +355,11 @@ def main(argv: list | None = None):
     affiliation_map = build_affiliation_map([ENTRIES_DIR])
 
     new_items = []
+    # Counts provider calls that came back empty. A summarization backend that
+    # is entirely down (retired endpoint, token without a Copilot seat, revoked
+    # key) otherwise looks exactly like "nothing new to summarize" — every
+    # release logs a SKIP line and the job stays green. See the exit below.
+    failures = 0
 
     # ── Iterate over every repo and its releases ─────────────────────────────
     for repo_url, repo_data in meta.items():
@@ -409,6 +423,7 @@ def main(argv: list | None = None):
 
             summary = call_summarization_model(repo, name, content, affiliation)
             if not summary:
+                failures += 1
                 print(f"  SKIP {repo}@{tag}: summarization failed")
                 continue
 
@@ -440,6 +455,22 @@ def main(argv: list | None = None):
                 print(f"  ADDED {repo}@{tag}")
             # Accumulate in both modes so the dry-run summary count is accurate.
             new_items.append(item)
+
+    # ── Fail loudly when the provider is down ────────────────────────────────
+    # Every call failing and none succeeding means the backend is unreachable,
+    # not that the releases were unremarkable. Exit non-zero so CI goes red
+    # instead of opening a PR that silently summarized nothing.
+    if failures and not new_items:
+        print(
+            f"\nERROR: all {failures} summarization call(s) failed on provider "
+            f"'{llm_client.active_provider()}' — check the WARN lines above for the "
+            "HTTP status, and verify SUMMARY_PROVIDER and its credential.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    if failures:
+        print(f"\nWARN: {failures} summarization call(s) failed; {len(new_items)} succeeded.",
+              file=sys.stderr)
 
     # ── Dry-run: report and exit without touching the filesystem ─────────────
     if dry_run:

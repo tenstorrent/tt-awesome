@@ -11,20 +11,31 @@ prompt in Python.
 
 Provider selection (flip via a repository Variable, no code change):
 
-    SUMMARY_PROVIDER = anthropic  (default) — Anthropic Messages API;
+    SUMMARY_PROVIDER = copilot    (default) — GitHub Copilot inference;
+                                   needs COPILOT_TOKEN (see below)
+                       anthropic  — Anthropic Messages API;
                                    needs ANTHROPIC_API_KEY
-                       github     — GitHub Models (models.github.ai);
-                                   needs GITHUB_TOKEN with `models: read`
-    SUMMARY_MODEL    = optional model override for either provider
-                       (e.g. "claude-haiku-4-5-20251001" or "openai/gpt-4.1")
+                       github     — GitHub Models. RETIRED, see below.
+    SUMMARY_MODEL    = optional model override for any provider
+                       (e.g. "gpt-4o-mini" or "claude-haiku-4-5-20251001")
 
-When SUMMARY_PROVIDER=github the model defaults to the prompt file's `model`
-field; the Anthropic path keeps each caller's model default, since Anthropic
-models are not in the GitHub Models catalog (and vice versa).
+⚠️ The `github` provider no longer works. GitHub Models was fully retired on
+2026-07-30 — the playground, catalog, and inference API are gone for every
+customer, and models.github.ai now answers every request with HTTP 410
+`github_models_retirement_brownout`. The path is kept only so an unconverted
+SUMMARY_PROVIDER=github fails with an explanatory message instead of a bare
+HTTP code. See https://github.blog/changelog/2026-07-30-github-models-is-now-retired/
 
-Free-tier GitHub Models caps requests at 8k input / 4k output tokens — well
-above what these prompts need — and the built-in Actions GITHUB_TOKEN works
-as the bearer token when the workflow grants `models: read`.
+The `copilot` provider is the GitHub-native replacement: an OpenAI-compatible
+chat-completions endpoint whose catalog spans OpenAI, Anthropic, and Google
+models. It authenticates with a token belonging to an account that holds a
+Copilot seat — the Actions-issued GITHUB_TOKEN does NOT have one, so CI must
+supply a PAT via the COPILOT_TOKEN secret. Note that only models exposing the
+chat-completions API work here; newer responses-API-only ids (gpt-5.x) return
+`unsupported_api_for_model`. GitHub's own supported route for Actions is the
+Copilot CLI (`actions/ai-inference` with `provider: copilot`), which shells out
+per invocation; this client calls the same service directly because these
+scripts summarize in a Python loop, one call per release.
 """
 
 import json
@@ -41,28 +52,41 @@ PROMPTS_DIR = ROOT / "prompts"
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 ANTHROPIC_VERSION = "2023-06-01"
 GITHUB_MODELS_URL = "https://models.github.ai/inference/chat/completions"
+COPILOT_URL = "https://api.githubcopilot.com/chat/completions"
 
-VALID_PROVIDERS = ("anthropic", "github")
+# The Copilot endpoint rejects requests without an integration id (HTTP 400).
+COPILOT_INTEGRATION_ID = "vscode-chat"
+# Default Copilot model. Chat-completions-capable and strong at the short,
+# voice-sensitive prose these prompts ask for; override with SUMMARY_MODEL.
+COPILOT_DEFAULT_MODEL = "claude-sonnet-4.5"
+
+VALID_PROVIDERS = ("anthropic", "github", "copilot")
+DEFAULT_PROVIDER = "copilot"
 
 # {{variable}} placeholders, GitHub Models prompt-file style.
 _VAR_RE = re.compile(r"\{\{\s*([A-Za-z0-9_]+)\s*\}\}")
 
 
 def active_provider() -> str:
-    """Return the provider selected by SUMMARY_PROVIDER (default: anthropic)."""
-    provider = (os.environ.get("SUMMARY_PROVIDER") or "anthropic").strip().lower()
+    """Return the provider selected by SUMMARY_PROVIDER (default: copilot)."""
+    provider = (os.environ.get("SUMMARY_PROVIDER") or DEFAULT_PROVIDER).strip().lower()
     if provider not in VALID_PROVIDERS:
         print(
-            f"  WARN llm_client: unknown SUMMARY_PROVIDER '{provider}', using 'anthropic'",
+            f"  WARN llm_client: unknown SUMMARY_PROVIDER '{provider}', using '{DEFAULT_PROVIDER}'",
             file=sys.stderr,
         )
-        return "anthropic"
+        return DEFAULT_PROVIDER
     return provider
 
 
-def missing_credential(anthropic_api_key: str = "", github_token: str = "") -> str | None:
+def missing_credential(
+    anthropic_api_key: str = "", github_token: str = "", copilot_token: str = ""
+) -> str | None:
     """Return the name of the credential the active provider needs but lacks, or None."""
-    if active_provider() == "github":
+    provider = active_provider()
+    if provider == "copilot":
+        return None if copilot_token else "COPILOT_TOKEN"
+    if provider == "github":
         return None if github_token else "GITHUB_TOKEN"
     return None if anthropic_api_key else "ANTHROPIC_API_KEY"
 
@@ -104,6 +128,7 @@ def complete(
     anthropic_model: str,
     anthropic_api_key: str = "",
     github_token: str = "",
+    copilot_token: str = "",
     timeout: int = 30,
 ) -> str:
     """Render a prompt file and run it on the active provider.
@@ -118,7 +143,15 @@ def complete(
     max_tokens = int((prompt.get("modelParameters") or {}).get("maxTokens") or 400)
     model_override = (os.environ.get("SUMMARY_MODEL") or "").strip()
 
-    if active_provider() == "github":
+    provider = active_provider()
+
+    if provider == "copilot":
+        # The prompt file's `model` field is a GitHub Models id (vendor-prefixed)
+        # and means nothing to Copilot, so this path carries its own default.
+        model = model_override or COPILOT_DEFAULT_MODEL
+        return _call_copilot(model, messages, max_tokens, copilot_token, timeout)
+
+    if provider == "github":
         model = model_override or prompt.get("model") or "openai/gpt-4.1-mini"
         return _call_github_models(model, messages, max_tokens, github_token, timeout)
 
@@ -148,6 +181,31 @@ def _call_anthropic(model, messages, max_tokens, api_key, timeout) -> str:
     return ""
 
 
+def _call_copilot(model, messages, max_tokens, token, timeout) -> str:
+    """Call the GitHub Copilot chat-completions endpoint (OpenAI-compatible)."""
+    payload = {"model": model, "messages": messages, "max_tokens": max_tokens}
+
+    req = urllib.request.Request(COPILOT_URL, data=json.dumps(payload).encode(), method="POST")
+    req.add_header("Content-Type", "application/json")
+    req.add_header("Authorization", f"Bearer {token}")
+    req.add_header("Copilot-Integration-Id", COPILOT_INTEGRATION_ID)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return json.loads(r.read())["choices"][0]["message"]["content"].strip()
+    except urllib.error.HTTPError as e:
+        # 401/403: the token has no Copilot seat (an Actions GITHUB_TOKEN never
+        # does). 400 `unsupported_api_for_model`: the id is responses-API only.
+        detail = ""
+        try:
+            detail = json.loads(e.read()).get("error", {}).get("message", "")
+        except Exception:
+            pass
+        print(f"  WARN llm_client copilot {model}: HTTP {e.code} {detail}".rstrip(), file=sys.stderr)
+    except Exception as e:
+        print(f"  WARN llm_client copilot {model}: {e}", file=sys.stderr)
+    return ""
+
+
 def _call_github_models(model, messages, max_tokens, token, timeout) -> str:
     # OpenAI-compatible chat completions; system prompts ride along as messages.
     payload = {"model": model, "messages": messages, "max_tokens": max_tokens}
@@ -159,9 +217,16 @@ def _call_github_models(model, messages, max_tokens, token, timeout) -> str:
         with urllib.request.urlopen(req, timeout=timeout) as r:
             return json.loads(r.read())["choices"][0]["message"]["content"].strip()
     except urllib.error.HTTPError as e:
-        # 401/403 usually means GitHub Models isn't enabled for the org or the
-        # workflow lacks `models: read`; 404 an unknown/retired model id.
-        print(f"  WARN llm_client github {model}: HTTP {e.code}", file=sys.stderr)
+        # 410 is now the only realistic outcome: GitHub Models was retired on
+        # 2026-07-30 and the endpoint answers every request with it.
+        if e.code == 410:
+            print(
+                "  WARN llm_client github: GitHub Models was retired on 2026-07-30 and no "
+                "longer serves any request — set SUMMARY_PROVIDER=copilot",
+                file=sys.stderr,
+            )
+        else:
+            print(f"  WARN llm_client github {model}: HTTP {e.code}", file=sys.stderr)
     except Exception as e:
         print(f"  WARN llm_client github {model}: {e}", file=sys.stderr)
     return ""

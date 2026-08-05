@@ -1,12 +1,16 @@
-# GitHub Models prompt file — editable/runnable in this repo's Models tab
-# (github.com/tenstorrent/tt-awesome → Models → Prompts) and consumed by
-# scripts/summarize_releases.py via scripts/llm_client.py, so the playground
-# and the nightly CI job always use the same prompt.
+# Prompt file in GitHub Models format, consumed by
+# scripts/summarize_releases.py via scripts/llm_client.py.
+#
+# NOTE: the repo's Models tab that used to run this file is gone — GitHub
+# Models was retired 2026-07-30. The format is kept because it is a decent
+# provider-neutral container and the scripts already parse it; the `model`
+# field below is now only read by the retired `github` provider path. The
+# live copilot provider uses COPILOT_DEFAULT_MODEL in scripts/llm_client.py
+# (override per-run with the SUMMARY_MODEL repository Variable).
 #
 # NOTE: the single-paragraph constraint matters downstream — the release Atom
 # feed renders this text as a one-line <summary> (src/feeds/releases.njk).
-# The `model` below is used when SUMMARY_PROVIDER=github; the Anthropic path
-# keeps its own default model in scripts/summarize_releases.py.
+# Each provider carries its own default model; see scripts/llm_client.py.
 name: Planet Tenstorrent release summarizer
 description: >-
   Summarizes a GitHub release into one engaging paragraph with inline markdown

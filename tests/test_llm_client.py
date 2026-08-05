@@ -2,13 +2,14 @@
 # SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
 """Tests for scripts/llm_client.py — prompt-file loading, {{var}} rendering,
-and Anthropic ↔ GitHub Models provider dispatch.
+and Copilot ↔ Anthropic ↔ GitHub Models provider dispatch.
 
 Run with: pytest tests/test_llm_client.py
 """
 import io
 import json
 import sys
+import urllib.error
 from pathlib import Path
 from unittest.mock import patch
 
@@ -73,15 +74,21 @@ def test_render_messages_substitutes_and_preserves_unknown():
 
 def test_active_provider_default_and_override(monkeypatch):
     monkeypatch.delenv("SUMMARY_PROVIDER", raising=False)
+    assert lc.active_provider() == "copilot"
+    monkeypatch.setenv("SUMMARY_PROVIDER", "Anthropic")
     assert lc.active_provider() == "anthropic"
     monkeypatch.setenv("SUMMARY_PROVIDER", "GitHub")
     assert lc.active_provider() == "github"
     monkeypatch.setenv("SUMMARY_PROVIDER", "gemini")
-    assert lc.active_provider() == "anthropic"  # unknown → warn + default
+    assert lc.active_provider() == "copilot"  # unknown → warn + default
 
 
 def test_missing_credential(monkeypatch):
+    # Default provider: copilot needs its own token, not the Anthropic key.
     monkeypatch.delenv("SUMMARY_PROVIDER", raising=False)
+    assert lc.missing_credential(anthropic_api_key="k", copilot_token="") == "COPILOT_TOKEN"
+    assert lc.missing_credential(copilot_token="t") is None
+    monkeypatch.setenv("SUMMARY_PROVIDER", "anthropic")
     assert lc.missing_credential(anthropic_api_key="", github_token="x") == "ANTHROPIC_API_KEY"
     assert lc.missing_credential(anthropic_api_key="k") is None
     monkeypatch.setenv("SUMMARY_PROVIDER", "github")
@@ -92,7 +99,7 @@ def test_missing_credential(monkeypatch):
 # ── Dispatch ──────────────────────────────────────────────────────────────────
 
 def test_complete_anthropic_path(monkeypatch):
-    monkeypatch.delenv("SUMMARY_PROVIDER", raising=False)
+    monkeypatch.setenv("SUMMARY_PROVIDER", "anthropic")
     monkeypatch.delenv("SUMMARY_MODEL", raising=False)
     captured = {}
 
@@ -179,3 +186,69 @@ def test_complete_returns_empty_on_http_error(monkeypatch):
             github_token="t",
         )
     assert out == ""
+
+
+# ── Copilot provider ──────────────────────────────────────────────────────────
+
+def test_complete_copilot_path_is_default(monkeypatch):
+    """Unset SUMMARY_PROVIDER routes to Copilot with its own default model."""
+    monkeypatch.delenv("SUMMARY_PROVIDER", raising=False)
+    monkeypatch.delenv("SUMMARY_MODEL", raising=False)
+    captured = {}
+
+    def fake_urlopen(req, timeout=None):
+        captured["url"] = req.full_url
+        captured["payload"] = json.loads(req.data)
+        captured["headers"] = dict(req.header_items())
+        return _mock_urlopen({"choices": [{"message": {"content": "A summary."}}]})
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        out = lc.complete(
+            "summarize-release",
+            {"repo": "t/r", "affiliation": "official", "release_name": "v1", "notes": "n"},
+            anthropic_model="claude-test-model",
+            copilot_token="copilot-pat",
+        )
+    assert out == "A summary."
+    assert captured["url"] == lc.COPILOT_URL
+    # The prompt file's GitHub Models id must not leak into a Copilot request.
+    assert captured["payload"]["model"] == lc.COPILOT_DEFAULT_MODEL
+    assert captured["payload"]["messages"][0]["role"] == "system"
+    assert captured["headers"].get("Authorization") == "Bearer copilot-pat"
+    assert captured["headers"].get("Copilot-integration-id") == lc.COPILOT_INTEGRATION_ID
+
+
+def test_complete_copilot_summary_model_override(monkeypatch):
+    monkeypatch.setenv("SUMMARY_PROVIDER", "copilot")
+    monkeypatch.setenv("SUMMARY_MODEL", "gpt-4o-mini")
+    captured = {}
+
+    def fake_urlopen(req, timeout=None):
+        captured["payload"] = json.loads(req.data)
+        return _mock_urlopen({"choices": [{"message": {"content": "ok"}}]})
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        lc.complete(
+            "summarize-release",
+            {"repo": "t/r", "affiliation": "official", "release_name": "v1", "notes": "n"},
+            anthropic_model="claude-test-model",
+            copilot_token="t",
+        )
+    assert captured["payload"]["model"] == "gpt-4o-mini"
+
+
+def test_complete_copilot_returns_empty_on_http_error(monkeypatch, capsys):
+    """A seatless token (401) degrades to '' so the caller can count the failure."""
+    monkeypatch.setenv("SUMMARY_PROVIDER", "copilot")
+    monkeypatch.delenv("SUMMARY_MODEL", raising=False)
+    err = urllib.error.HTTPError(lc.COPILOT_URL, 401, "Unauthorized", {}, None)
+
+    with patch("urllib.request.urlopen", side_effect=err):
+        out = lc.complete(
+            "summarize-release",
+            {"repo": "t/r", "affiliation": "official", "release_name": "v1", "notes": "n"},
+            anthropic_model="m",
+            copilot_token="seatless",
+        )
+    assert out == ""
+    assert "HTTP 401" in capsys.readouterr().err
