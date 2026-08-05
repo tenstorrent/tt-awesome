@@ -7,9 +7,9 @@
 For each release URL in github_meta.json not already in planet_feeds.json:
   - Fetches the release body from the GitHub API
   - Skips if body is empty or under 120 characters
-  - Runs prompts/summarize-release.prompt.yml through llm_client (GitHub
-    Copilot by default; SUMMARY_PROVIDER=anthropic switches backends. The
-    former `github` GitHub Models path was retired 2026-07-30.)
+  - Runs prompts/summarize-release.prompt.yml through llm_client (Claude on
+    Microsoft Foundry by default; SUMMARY_PROVIDER=anthropic calls Anthropic
+    direct. The former `github` GitHub Models path was retired 2026-07-30.)
   - Appends a type:"release" item (approved:true) to planet_feeds.json
 
 Usage:
@@ -32,19 +32,15 @@ FEEDS_OUT = ROOT / "src" / "_data" / "planet_feeds.json"
 
 import llm_client
 
-MODEL = "claude-haiku-4-5-20251001"  # Anthropic-path default; see llm_client
+MODEL = "claude-haiku-4-5-20251001"  # Anthropic-direct default; see llm_client
 SPARSE_LIMIT = 120  # characters; bodies shorter than this are skipped.
 # Set to 120 (down from 150) so terse-but-substantive notes — a few real
 # bullet points, e.g. ttsim v1.8.4's ~134-char changelog — still get
 # summarized, while one-liners like "Bug fixes." remain filtered out.
 
-TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")    # LLM calls when SUMMARY_PROVIDER=anthropic
-GH_TOKEN = os.environ.get("GITHUB_TOKEN", "")      # GitHub REST API (release bodies, changelogs)
-# LLM calls on the default copilot provider. Must belong to an account with a
-# Copilot seat — the Actions GITHUB_TOKEN does not have one — so CI passes a
-# PAT. Falls back to GITHUB_TOKEN only to keep local runs convenient for anyone
-# whose gh CLI token already carries a seat.
-COPILOT_TOKEN = os.environ.get("COPILOT_TOKEN", "") or GH_TOKEN
+TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")     # LLM calls when SUMMARY_PROVIDER=anthropic
+GH_TOKEN = os.environ.get("GITHUB_TOKEN", "")       # GitHub REST API (release bodies, changelogs)
+FOUNDRY_KEY = os.environ.get("FOUNDRY_API_KEY", "")  # LLM calls on the default foundry provider
 
 REPO_RE = re.compile(r"https://github\.com/([^/?#]+/[^/?#]+?)(?:\.git)?$")
 
@@ -308,7 +304,7 @@ def call_summarization_model(repo: str, release_name: str, body: str, affiliatio
         anthropic_model=MODEL,
         anthropic_api_key=TOKEN,
         github_token=GH_TOKEN,
-        copilot_token=COPILOT_TOKEN,
+        foundry_api_key=FOUNDRY_KEY,
     )
 
 
@@ -325,7 +321,7 @@ def main(argv: list | None = None):
     dry_run = "--dry-run" in argv
 
     missing = llm_client.missing_credential(
-        anthropic_api_key=TOKEN, github_token=GH_TOKEN, copilot_token=COPILOT_TOKEN
+        anthropic_api_key=TOKEN, github_token=GH_TOKEN, foundry_api_key=FOUNDRY_KEY
     )
     if missing:
         print(f"ERROR: {missing} not set", file=sys.stderr)

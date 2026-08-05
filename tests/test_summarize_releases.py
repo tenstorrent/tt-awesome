@@ -172,7 +172,7 @@ def test_main_skips_prerelease_tags(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
     monkeypatch.setattr(sr, "TOKEN",         "fake-token")
-    monkeypatch.setattr(sr, "COPILOT_TOKEN", "fake-copilot-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body") as mock_body:
         sr.main([])
@@ -237,7 +237,7 @@ def test_main_appends_new_release_item(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
     monkeypatch.setattr(sr, "TOKEN",         "fake-token")
-    monkeypatch.setattr(sr, "COPILOT_TOKEN", "fake-copilot-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_summarization_model",  return_value="A great summary."):
@@ -278,7 +278,7 @@ def test_main_skips_sparse_body(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
     monkeypatch.setattr(sr, "TOKEN",         "fake-token")
-    monkeypatch.setattr(sr, "COPILOT_TOKEN", "fake-copilot-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="Bug fixes."):
         sr.main([])
@@ -311,7 +311,7 @@ def test_main_dry_run_does_not_write(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
     monkeypatch.setattr(sr, "TOKEN",         "fake-token")
-    monkeypatch.setattr(sr, "COPILOT_TOKEN", "fake-copilot-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_summarization_model",  return_value="A summary."):
@@ -342,7 +342,7 @@ def test_main_skips_already_known_url(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
     monkeypatch.setattr(sr, "TOKEN",         "fake-token")
-    monkeypatch.setattr(sr, "COPILOT_TOKEN", "fake-copilot-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body") as mock_body:
         sr.main([])
@@ -373,7 +373,7 @@ def test_main_skips_release_with_null_published_at(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
     monkeypatch.setattr(sr, "TOKEN",         "fake-token")
-    monkeypatch.setattr(sr, "COPILOT_TOKEN", "fake-copilot-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_summarization_model",  return_value="A summary."):
@@ -588,7 +588,7 @@ def test_main_summarizes_changelog_when_body_defers(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
     monkeypatch.setattr(sr, "TOKEN",         "fake-token")
-    monkeypatch.setattr(sr, "COPILOT_TOKEN", "fake-copilot-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value=BOILERPLATE_BODY), \
          patch.object(sr, "fetch_changelog_section", return_value=(
@@ -629,7 +629,7 @@ def test_main_dry_run_counts_items(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
     monkeypatch.setattr(sr, "TOKEN",         "fake-token")
-    monkeypatch.setattr(sr, "COPILOT_TOKEN", "fake-copilot-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_summarization_model",  return_value="A summary."), \
@@ -678,7 +678,7 @@ def test_main_exits_nonzero_when_every_summarization_fails(tmp_path, monkeypatch
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
     monkeypatch.setattr(sr, "TOKEN",         "fake-token")
-    monkeypatch.setattr(sr, "COPILOT_TOKEN", "fake-copilot-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_summarization_model", return_value=""):

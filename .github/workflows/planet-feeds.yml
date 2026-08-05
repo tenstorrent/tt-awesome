@@ -6,7 +6,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  copilot-requests: write  # entitles GITHUB_TOKEN for Copilot inference
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -19,13 +18,14 @@ jobs:
         env:
           # Optional — used to render connpass event descriptions as bilingual
           # EN + JA summaries. The fetcher degrades to Japanese-only when the
-          # active provider's credential is absent. Prefers the COPILOT_TOKEN
-          # secret (fine-grained, user-owned PAT with the Copilot Requests
-          # account permission); falls back to the entitled built-in token.
-          COPILOT_TOKEN: ${{ secrets.COPILOT_TOKEN || github.token }}
+          # active provider's credential is absent.
+          FOUNDRY_API_KEY: ${{ secrets.FOUNDRY_API_KEY }}
+          FOUNDRY_ENDPOINT: ${{ vars.FOUNDRY_ENDPOINT }}
+          # Unused unless SUMMARY_PROVIDER=anthropic; keeps that switch working.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Flip the summarization backend with repository Variables (see
-          # scripts/llm_client.py): "copilot" (default when unset) | "anthropic".
+          # scripts/llm_client.py): "foundry" (default when unset) | "anthropic".
           SUMMARY_PROVIDER: ${{ vars.SUMMARY_PROVIDER }}
           SUMMARY_MODEL: ${{ vars.SUMMARY_MODEL }}
         run: python3 scripts/fetch_planet_feeds.py

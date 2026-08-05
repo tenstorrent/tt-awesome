@@ -80,6 +80,8 @@ Every entry must be valid against this schema:
 
 Every pull request touching `entries/` runs `scripts/validate.py` automatically. The PR will not merge if validation fails.
 
+Maintainers: the scheduled workflows, the summarization backend and its secrets, and how to debug a failed nightly run are documented in [`.github/CI.md`](.github/CI.md).
+
 ## Star counts
 
 `stars` and `updatedAt` are not in the entry JSON. They are fetched nightly by a GitHub Action and stored in `src/_data/github_meta.json`. Do not add them to your entry file.

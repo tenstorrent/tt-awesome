@@ -63,12 +63,10 @@ USER_AGENT = "tt-awesome-planet/1.0 (github.com/tenstorrent/tt-awesome)"
 # the provider flips via SUMMARY_PROVIDER (see scripts/llm_client.py).
 import llm_client
 
-TRANSLATE_MODEL = "claude-haiku-4-5-20251001"  # Anthropic-path default
+TRANSLATE_MODEL = "claude-haiku-4-5-20251001"  # Anthropic-direct default
 ANTHROPIC_KEY   = os.environ.get("ANTHROPIC_API_KEY", "")
 GH_TOKEN        = os.environ.get("GITHUB_TOKEN", "")
-# Copilot inference token (the default provider). Needs a Copilot seat, which
-# the Actions GITHUB_TOKEN lacks — see scripts/llm_client.py.
-COPILOT_TOKEN   = os.environ.get("COPILOT_TOKEN", "") or GH_TOKEN
+FOUNDRY_KEY     = os.environ.get("FOUNDRY_API_KEY", "")  # default foundry provider
 
 NS_ATOM  = "http://www.w3.org/2005/Atom"
 NS_MEDIA = "http://search.yahoo.com/mrss/"
@@ -317,7 +315,7 @@ def bilingual_description(text: str) -> str:
     if not text:
         return ""
     if llm_client.missing_credential(
-        anthropic_api_key=ANTHROPIC_KEY, github_token=GH_TOKEN, copilot_token=COPILOT_TOKEN
+        anthropic_api_key=ANTHROPIC_KEY, github_token=GH_TOKEN, foundry_api_key=FOUNDRY_KEY
     ):
         return ""
     try:
@@ -327,7 +325,7 @@ def bilingual_description(text: str) -> str:
             anthropic_model=TRANSLATE_MODEL,
             anthropic_api_key=ANTHROPIC_KEY,
             github_token=GH_TOKEN,
-            copilot_token=COPILOT_TOKEN,
+            foundry_api_key=FOUNDRY_KEY,
         )
         if not reply:
             return ""

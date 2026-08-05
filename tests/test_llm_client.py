@@ -10,6 +10,7 @@ import io
 import json
 import sys
 import urllib.error
+import urllib.error
 from pathlib import Path
 from unittest.mock import patch
 
@@ -74,20 +75,20 @@ def test_render_messages_substitutes_and_preserves_unknown():
 
 def test_active_provider_default_and_override(monkeypatch):
     monkeypatch.delenv("SUMMARY_PROVIDER", raising=False)
-    assert lc.active_provider() == "copilot"
+    assert lc.active_provider() == "foundry"
     monkeypatch.setenv("SUMMARY_PROVIDER", "Anthropic")
     assert lc.active_provider() == "anthropic"
     monkeypatch.setenv("SUMMARY_PROVIDER", "GitHub")
     assert lc.active_provider() == "github"
     monkeypatch.setenv("SUMMARY_PROVIDER", "gemini")
-    assert lc.active_provider() == "copilot"  # unknown → warn + default
+    assert lc.active_provider() == "foundry"  # unknown → warn + default
 
 
 def test_missing_credential(monkeypatch):
-    # Default provider: copilot needs its own token, not the Anthropic key.
+    # Default provider: foundry needs its own key, not the Anthropic one.
     monkeypatch.delenv("SUMMARY_PROVIDER", raising=False)
-    assert lc.missing_credential(anthropic_api_key="k", copilot_token="") == "COPILOT_TOKEN"
-    assert lc.missing_credential(copilot_token="t") is None
+    assert lc.missing_credential(anthropic_api_key="k", foundry_api_key="") == "FOUNDRY_API_KEY"
+    assert lc.missing_credential(foundry_api_key="fk") is None
     monkeypatch.setenv("SUMMARY_PROVIDER", "anthropic")
     assert lc.missing_credential(anthropic_api_key="", github_token="x") == "ANTHROPIC_API_KEY"
     assert lc.missing_credential(anthropic_api_key="k") is None
@@ -188,10 +189,10 @@ def test_complete_returns_empty_on_http_error(monkeypatch):
     assert out == ""
 
 
-# ── Copilot provider ──────────────────────────────────────────────────────────
+# ── Foundry provider ──────────────────────────────────────────────────────────
 
-def test_complete_copilot_path_is_default(monkeypatch):
-    """Unset SUMMARY_PROVIDER routes to Copilot with its own default model."""
+def test_complete_foundry_is_default_and_anthropic_shaped(monkeypatch):
+    """Unset SUMMARY_PROVIDER hits Foundry with an Anthropic-shaped request."""
     monkeypatch.delenv("SUMMARY_PROVIDER", raising=False)
     monkeypatch.delenv("SUMMARY_MODEL", raising=False)
     captured = {}
@@ -200,55 +201,75 @@ def test_complete_copilot_path_is_default(monkeypatch):
         captured["url"] = req.full_url
         captured["payload"] = json.loads(req.data)
         captured["headers"] = dict(req.header_items())
-        return _mock_urlopen({"choices": [{"message": {"content": "A summary."}}]})
+        return _mock_urlopen({"content": [{"type": "text", "text": "A summary."}]})
 
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         out = lc.complete(
             "summarize-release",
             {"repo": "t/r", "affiliation": "official", "release_name": "v1", "notes": "n"},
             anthropic_model="claude-test-model",
-            copilot_token="copilot-pat",
+            foundry_api_key="foundry-key",
         )
     assert out == "A summary."
-    assert captured["url"] == lc.COPILOT_URL
-    # The prompt file's GitHub Models id must not leak into a Copilot request.
-    assert captured["payload"]["model"] == lc.COPILOT_DEFAULT_MODEL
-    assert captured["payload"]["messages"][0]["role"] == "system"
-    assert captured["headers"].get("Authorization") == "Bearer copilot-pat"
-    assert captured["headers"].get("Copilot-integration-id") == lc.COPILOT_INTEGRATION_ID
+    assert captured["url"] == lc.FOUNDRY_URL
+    assert "/anthropic/v1/messages" in captured["url"]
+    # Foundry's default model id, not the caller's Anthropic-direct one.
+    assert captured["payload"]["model"] == lc.FOUNDRY_DEFAULT_MODEL
+    # Anthropic contract: system text is top-level, not a message.
+    assert captured["payload"]["system"]
+    assert captured["payload"]["messages"][0]["role"] == "user"
+    assert captured["headers"].get("X-api-key") == "foundry-key"
+    assert captured["headers"].get("Anthropic-version") == lc.ANTHROPIC_VERSION
 
 
-def test_complete_copilot_summary_model_override(monkeypatch):
-    monkeypatch.setenv("SUMMARY_PROVIDER", "copilot")
-    monkeypatch.setenv("SUMMARY_MODEL", "gpt-4o-mini")
+def test_complete_foundry_endpoint_and_model_overrides(monkeypatch):
+    """A different resource or model must not need a code change."""
+    monkeypatch.setenv("SUMMARY_PROVIDER", "foundry")
+    monkeypatch.setenv("SUMMARY_MODEL", "claude-sonnet-4-5")
+    monkeypatch.setattr(lc, "FOUNDRY_URL", "https://other.services.ai.azure.com/anthropic/v1/messages")
     captured = {}
 
     def fake_urlopen(req, timeout=None):
+        captured["url"] = req.full_url
         captured["payload"] = json.loads(req.data)
-        return _mock_urlopen({"choices": [{"message": {"content": "ok"}}]})
+        return _mock_urlopen({"content": [{"type": "text", "text": "ok"}]})
 
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         lc.complete(
             "summarize-release",
             {"repo": "t/r", "affiliation": "official", "release_name": "v1", "notes": "n"},
             anthropic_model="claude-test-model",
-            copilot_token="t",
+            foundry_api_key="k",
         )
-    assert captured["payload"]["model"] == "gpt-4o-mini"
+    assert captured["url"].startswith("https://other.services.ai.azure.com")
+    assert captured["payload"]["model"] == "claude-sonnet-4-5"
 
 
-def test_complete_copilot_returns_empty_on_http_error(monkeypatch, capsys):
-    """A seatless token (401) degrades to '' so the caller can count the failure."""
-    monkeypatch.setenv("SUMMARY_PROVIDER", "copilot")
+def test_complete_foundry_surfaces_error_body(monkeypatch, capsys):
+    """A 404 on Foundry usually means the model is not deployed — say so."""
+    monkeypatch.setenv("SUMMARY_PROVIDER", "foundry")
     monkeypatch.delenv("SUMMARY_MODEL", raising=False)
-    err = urllib.error.HTTPError(lc.COPILOT_URL, 401, "Unauthorized", {}, None)
+    body = b'{"error":{"message":"Deployment not found for model claude-haiku-4-5"}}'
+    err = urllib.error.HTTPError(lc.FOUNDRY_URL, 404, "Not Found", {}, io.BytesIO(body))
 
     with patch("urllib.request.urlopen", side_effect=err):
         out = lc.complete(
             "summarize-release",
             {"repo": "t/r", "affiliation": "official", "release_name": "v1", "notes": "n"},
             anthropic_model="m",
-            copilot_token="seatless",
+            foundry_api_key="k",
         )
     assert out == ""
-    assert "HTTP 401" in capsys.readouterr().err
+    captured = capsys.readouterr().err
+    assert "HTTP 404" in captured and "Deployment not found" in captured
+
+
+def test_error_detail_handles_every_shape():
+    """_error_detail must never raise — a bad body must not mask the status code."""
+    def err(body):
+        return urllib.error.HTTPError("u", 400, "Bad", {}, io.BytesIO(body))
+
+    assert "not deployed" in lc._error_detail(err(b'{"error":{"message":"model not deployed"}}'))
+    assert lc._error_detail(err(b'{"error":"flat string"}')) == "flat string"
+    assert lc._error_detail(err(b"not json at all")) == "not json at all"
+    assert lc._error_detail(err(b"")) == ""
