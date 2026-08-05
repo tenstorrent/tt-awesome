@@ -1,0 +1,31 @@
+{
+  "id": "vllm-tt-plugin",
+  "name": "vllm-tt-plugin",
+  "description": "Tenstorrent backend for vLLM, built on vLLM's standard plugin mechanism — install it alongside vLLM and TT hardware registers itself as a platform whenever `ttnn` is importable. Self-contained: model registration, platform detection, scheduling, worker execution, model loading, async decode, and data-parallel/multi-lane execution all live in the plugin, so nothing Tenstorrent-specific has to land in vLLM core.",
+  "affiliation": "official",
+  "categories": [
+    "ai-models",
+    "cloud-infra"
+  ],
+  "tags": [
+    "vllm",
+    "serving",
+    "inference",
+    "llm",
+    "openai-compatible",
+    "plugin"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/vllm-tt-plugin"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-08-05"
+}

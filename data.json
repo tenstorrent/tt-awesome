@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generated": "2026-08-05T16:57:36Z",
+    "generated": "2026-08-05T17:18:43Z",
     "schema_version": "1",
-    "total_entries": 127,
+    "total_entries": 133,
     "categories": [
       "getting-started",
       "ai-models",
@@ -355,7 +355,7 @@
     },
     "ai-models": {
       "label": "AI & Models",
-      "count": 26,
+      "count": 28,
       "entries": [
         {
           "id": "koyeb-tenstorrent-examples",
@@ -1192,6 +1192,69 @@
           "language": "TypeScript",
           "license": "Apache-2.0",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "vllm-tt-plugin",
+          "name": "vllm-tt-plugin",
+          "description": "Tenstorrent backend for vLLM, built on vLLM's standard plugin mechanism — install it alongside vLLM and TT hardware registers itself as a platform whenever `ttnn` is importable. Self-contained: model registration, platform detection, scheduling, worker execution, model loading, async decode, and data-parallel/multi-lane execution all live in the plugin, so nothing Tenstorrent-specific has to land in vLLM core.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models",
+            "cloud-infra"
+          ],
+          "tags": [
+            "vllm",
+            "serving",
+            "inference",
+            "llm",
+            "openai-compatible",
+            "plugin"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/vllm-tt-plugin"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
+        },
+        {
+          "id": "tt-kernel-package-manager",
+          "name": "tt-kernel",
+          "description": "Distributes models over the Hugging Face Hub and serves them on Tenstorrent hardware — `tt-kernel serve <namespace>/<model>` pulls a bundle, registers it with the Tenstorrent vLLM plugin, and launches an OpenAI-compatible server. A vLLM bundle ships only adapter code and metadata (weights stay referenced by HF repo id), while legacy kernel-cache bundles package precompiled tt-metal kernel binaries so a model's first run is a cache hit instead of a slow JIT recompile. Explicitly experimental — the bundle format and APIs may change without notice.",
+          "affiliation": "official",
+          "categories": [
+            "dev-tools",
+            "kernels",
+            "ai-models"
+          ],
+          "tags": [
+            "kernel-cache",
+            "huggingface",
+            "package-manager",
+            "vllm",
+            "tt-metal",
+            "serving"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-kernel-package-manager"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
         }
       ]
     },
@@ -1335,7 +1398,7 @@
     },
     "kernels": {
       "label": "Custom Kernels & Low-Level",
-      "count": 26,
+      "count": 28,
       "entries": [
         {
           "id": "triton-tenstorrent",
@@ -2072,6 +2135,67 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "tt-kernel-package-manager",
+          "name": "tt-kernel",
+          "description": "Distributes models over the Hugging Face Hub and serves them on Tenstorrent hardware — `tt-kernel serve <namespace>/<model>` pulls a bundle, registers it with the Tenstorrent vLLM plugin, and launches an OpenAI-compatible server. A vLLM bundle ships only adapter code and metadata (weights stay referenced by HF repo id), while legacy kernel-cache bundles package precompiled tt-metal kernel binaries so a model's first run is a cache hit instead of a slow JIT recompile. Explicitly experimental — the bundle format and APIs may change without notice.",
+          "affiliation": "official",
+          "categories": [
+            "dev-tools",
+            "kernels",
+            "ai-models"
+          ],
+          "tags": [
+            "kernel-cache",
+            "huggingface",
+            "package-manager",
+            "vllm",
+            "tt-metal",
+            "serving"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-kernel-package-manager"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
+        },
+        {
+          "id": "tt-low-level-documentation",
+          "name": "tt-low-level-documentation",
+          "description": "Documentation for the low-level layer of tt-metal: compute LLK APIs and data movement APIs. The data movement side covers the NOC and overlay on Wormhole and Blackhole; the compute side covers Tensix hardware and expected usage of the LLK APIs. Aimed at op and model writers who need to know what the APIs do and how the hardware behaves underneath them.",
+          "affiliation": "official",
+          "categories": [
+            "guides",
+            "kernels"
+          ],
+          "tags": [
+            "llk",
+            "data-movement",
+            "noc",
+            "tensix",
+            "tt-metal",
+            "documentation"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-low-level-documentation"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "added_at": "2026-08-05"
+        },
+        {
           "id": "sfpi",
           "name": "SFPI",
           "description": "Tenstorrent SFPU programming interface — TT-enhanced RISC-V GCC and binutils plus header files for programming the Tensix SFPU (vector engine) from kernel code. The compiler toolchain underneath TT-Metalium's SFPU ops.",
@@ -2776,7 +2900,7 @@
     },
     "dev-tools": {
       "label": "Dev Tools & Debugging",
-      "count": 24,
+      "count": 27,
       "entries": [
         {
           "id": "nvtop",
@@ -3104,6 +3228,36 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "tt-cli",
+          "name": "tt-cli",
+          "description": "Single entry point to the Tenstorrent software stack: `tt update` converges a machine onto the CI-tested \"golden\" version set, `tt device` covers status/info/reset, and `tt model`/`tt serve` pull weights and bring up tt-inference-server. Commands either run natively or delegate to tt-smi, tt-flash, and tt-installer behind a stable interface, with `--json` output and documented exit codes on every command. Early prototype — the README labels it an internal prototype and several subcommands are still stubs.",
+          "affiliation": "official",
+          "categories": [
+            "dev-tools",
+            "hw-system"
+          ],
+          "tags": [
+            "cli",
+            "device-management",
+            "model-serving",
+            "tt-smi",
+            "prototype"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-cli"
+            }
+          ],
+          "hardware": [
+            "blackhole",
+            "quietbox"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
+        },
+        {
           "id": "tt-emule",
           "name": "tt-emule",
           "description": "A C++ software emulator of the Tenstorrent device-level kernel and host APIs. Run tt-metal kernel and host code on a standard x86-64 Linux machine — no Tenstorrent hardware required.",
@@ -3161,6 +3315,38 @@
               "name": "tt-exalens"
             }
           ]
+        },
+        {
+          "id": "tt-kernel-package-manager",
+          "name": "tt-kernel",
+          "description": "Distributes models over the Hugging Face Hub and serves them on Tenstorrent hardware — `tt-kernel serve <namespace>/<model>` pulls a bundle, registers it with the Tenstorrent vLLM plugin, and launches an OpenAI-compatible server. A vLLM bundle ships only adapter code and metadata (weights stay referenced by HF repo id), while legacy kernel-cache bundles package precompiled tt-metal kernel binaries so a model's first run is a cache hit instead of a slow JIT recompile. Explicitly experimental — the bundle format and APIs may change without notice.",
+          "affiliation": "official",
+          "categories": [
+            "dev-tools",
+            "kernels",
+            "ai-models"
+          ],
+          "tags": [
+            "kernel-cache",
+            "huggingface",
+            "package-manager",
+            "vllm",
+            "tt-metal",
+            "serving"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-kernel-package-manager"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
         },
         {
           "id": "tt-npe",
@@ -3475,6 +3661,33 @@
           ]
         },
         {
+          "id": "tt-rpm",
+          "name": "tt-rpm",
+          "description": "Cycle-level, execution-driven RISC-V CPU performance model built on Sparta (MAP) with Whisper supplying functional execution, so it runs real ELF binaries — CoreMark, Dhrystone — to completion. The pipeline is YAML-configurable across in-order/out-of-order execution, issue policy, execute granularity, write-port arbitration, and bypass paths, with a modeled L1 I$/D$ plus optional unified L2, per-unit logging, stats reports, and Konata pipeline visualization.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch",
+            "dev-tools"
+          ],
+          "tags": [
+            "risc-v",
+            "performance-model",
+            "simulation",
+            "sparta",
+            "whisper",
+            "microarchitecture"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-rpm"
+            }
+          ],
+          "language": "C++",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
+        },
+        {
           "id": "ttsim-qemu",
           "name": "ttsim-qemu",
           "description": "Tenstorrent's fork of QEMU that provides the full-system emulation layer behind ttsim. Models the RISC-V cores and system devices of Wormhole and Blackhole so TT-Metalium workloads can boot and run without physical silicon.",
@@ -3550,7 +3763,7 @@
     },
     "hw-system": {
       "label": "Hardware & System",
-      "count": 22,
+      "count": 24,
       "entries": [
         {
           "id": "nvtop",
@@ -3742,6 +3955,36 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "tt-cli",
+          "name": "tt-cli",
+          "description": "Single entry point to the Tenstorrent software stack: `tt update` converges a machine onto the CI-tested \"golden\" version set, `tt device` covers status/info/reset, and `tt model`/`tt serve` pull weights and bring up tt-inference-server. Commands either run natively or delegate to tt-smi, tt-flash, and tt-installer behind a stable interface, with `--json` output and documented exit codes on every command. Early prototype — the README labels it an internal prototype and several subcommands are still stubs.",
+          "affiliation": "official",
+          "categories": [
+            "dev-tools",
+            "hw-system"
+          ],
+          "tags": [
+            "cli",
+            "device-management",
+            "model-serving",
+            "tt-smi",
+            "prototype"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-cli"
+            }
+          ],
+          "hardware": [
+            "blackhole",
+            "quietbox"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
+        },
+        {
           "id": "luwen",
           "name": "luwen",
           "description": "Tenstorrent system interface library written in Rust. Low-level Rust bindings for communicating with and managing TT hardware.",
@@ -3819,6 +4062,37 @@
             }
           ],
           "added_at": "2026-07-17"
+        },
+        {
+          "id": "tt-cablegen",
+          "name": "tt-CableGen",
+          "description": "Network cabling visualizer for Tenstorrent scale-out deployments: describe a target topology and it generates and renders how to physically cable multiple Wormhole or Blackhole systems together. Works in a physical-deployment mode with racking information and a logical-hierarchy mode for clustering/pod groupings, with topology import/export and a Docker deployment path.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "cloud-infra"
+          ],
+          "tags": [
+            "cabling",
+            "scale-out",
+            "topology",
+            "multi-host",
+            "visualization"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-CableGen"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "galaxy"
+          ],
+          "language": "JavaScript",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
         },
         {
           "id": "tt-firmware",
@@ -4278,7 +4552,7 @@
     },
     "cloud-infra": {
       "label": "Cloud & Orchestration",
-      "count": 6,
+      "count": 8,
       "entries": [
         {
           "id": "dstack",
@@ -4412,6 +4686,37 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "vllm-tt-plugin",
+          "name": "vllm-tt-plugin",
+          "description": "Tenstorrent backend for vLLM, built on vLLM's standard plugin mechanism — install it alongside vLLM and TT hardware registers itself as a platform whenever `ttnn` is importable. Self-contained: model registration, platform detection, scheduling, worker execution, model loading, async decode, and data-parallel/multi-lane execution all live in the plugin, so nothing Tenstorrent-specific has to land in vLLM core.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models",
+            "cloud-infra"
+          ],
+          "tags": [
+            "vllm",
+            "serving",
+            "inference",
+            "llm",
+            "openai-compatible",
+            "plugin"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/vllm-tt-plugin"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
+        },
+        {
           "id": "cloud-native-support",
           "name": "Cloud-Native Support",
           "description": "Official documentation hub for running Tenstorrent accelerators on Kubernetes. Centers on tt-operator (the umbrella Helm chart) and covers Node Feature Discovery, kernel-mode driver (tt-kmd) management, firmware flashing, Prometheus telemetry, Fabric Manager topology resolution, Dynamic Resource Allocation, and multi-node scheduling via JobSet and PMIx.",
@@ -4440,6 +4745,37 @@
             "blackhole"
           ],
           "added_at": "2026-07-01"
+        },
+        {
+          "id": "tt-cablegen",
+          "name": "tt-CableGen",
+          "description": "Network cabling visualizer for Tenstorrent scale-out deployments: describe a target topology and it generates and renders how to physically cable multiple Wormhole or Blackhole systems together. Works in a physical-deployment mode with racking information and a logical-hierarchy mode for clustering/pod groupings, with topology import/export and a Docker deployment path.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system",
+            "cloud-infra"
+          ],
+          "tags": [
+            "cabling",
+            "scale-out",
+            "topology",
+            "multi-host",
+            "visualization"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-CableGen"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole",
+            "galaxy"
+          ],
+          "language": "JavaScript",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
         },
         {
           "id": "tt-topology",
@@ -4485,7 +4821,7 @@
     },
     "riscv-arch": {
       "label": "RISC-V & Architecture",
-      "count": 16,
+      "count": 17,
       "entries": [
         {
           "id": "blog-martin-chang-programming",
@@ -4916,6 +5252,33 @@
             "ttsim",
             "ttsim-qemu"
           ]
+        },
+        {
+          "id": "tt-rpm",
+          "name": "tt-rpm",
+          "description": "Cycle-level, execution-driven RISC-V CPU performance model built on Sparta (MAP) with Whisper supplying functional execution, so it runs real ELF binaries — CoreMark, Dhrystone — to completion. The pipeline is YAML-configurable across in-order/out-of-order execution, issue policy, execute granularity, write-port arbitration, and bypass paths, with a modeled L1 I$/D$ plus optional unified L2, per-unit logging, stats reports, and Konata pipeline visualization.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch",
+            "dev-tools"
+          ],
+          "tags": [
+            "risc-v",
+            "performance-model",
+            "simulation",
+            "sparta",
+            "whisper",
+            "microarchitecture"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-rpm"
+            }
+          ],
+          "language": "C++",
+          "license": "Apache-2.0",
+          "added_at": "2026-08-05"
         },
         {
           "id": "ttsim-qemu",
@@ -5948,7 +6311,7 @@
     },
     "guides": {
       "label": "Guides, Tutorials & Education",
-      "count": 19,
+      "count": 20,
       "entries": [
         {
           "id": "blog-martin-chang-programming",
@@ -6481,6 +6844,35 @@
             "blackhole"
           ],
           "added_at": "2026-07-01"
+        },
+        {
+          "id": "tt-low-level-documentation",
+          "name": "tt-low-level-documentation",
+          "description": "Documentation for the low-level layer of tt-metal: compute LLK APIs and data movement APIs. The data movement side covers the NOC and overlay on Wormhole and Blackhole; the compute side covers Tensix hardware and expected usage of the LLK APIs. Aimed at op and model writers who need to know what the APIs do and how the hardware behaves underneath them.",
+          "affiliation": "official",
+          "categories": [
+            "guides",
+            "kernels"
+          ],
+          "tags": [
+            "llk",
+            "data-movement",
+            "noc",
+            "tensix",
+            "tt-metal",
+            "documentation"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-low-level-documentation"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "added_at": "2026-08-05"
         },
         {
           "id": "tt-vscode-toolkit",

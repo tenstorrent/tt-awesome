@@ -1,0 +1,31 @@
+{
+  "id": "tt-cablegen",
+  "name": "tt-CableGen",
+  "description": "Network cabling visualizer for Tenstorrent scale-out deployments: describe a target topology and it generates and renders how to physically cable multiple Wormhole or Blackhole systems together. Works in a physical-deployment mode with racking information and a logical-hierarchy mode for clustering/pod groupings, with topology import/export and a Docker deployment path.",
+  "affiliation": "official",
+  "categories": [
+    "hw-system",
+    "cloud-infra"
+  ],
+  "tags": [
+    "cabling",
+    "scale-out",
+    "topology",
+    "multi-host",
+    "visualization"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-CableGen"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "galaxy"
+  ],
+  "language": "JavaScript",
+  "license": "Apache-2.0",
+  "added_at": "2026-08-05"
+}
