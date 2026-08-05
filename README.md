@@ -23,10 +23,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 ## 🤖 AI & Models
 
-- **[gsplat_tt](https://github.com/Kovelja009/gsplat_tt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@Kovelja009](https://github.com/Kovelja009) — Port of Gaussian Splatting (3D scene reconstruction from 2D images) to Tenstorrent hardware.
-  [📦 repo](https://github.com/Kovelja009/gsplat_tt)
-
 - **[tt-bio](https://github.com/moritztng/tt-bio)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@moritztng](https://github.com/moritztng) — Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.
   [📦 repo](https://github.com/moritztng/tt-bio) · [🎤 FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware](https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/)
@@ -50,6 +46,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[gemma4](https://github.com/zoecarver/gemma4)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@zoecarver](https://github.com/zoecarver) — Gemma 4 language model implemented in tt-lang (e4b variant) for direct execution on Tenstorrent hardware.
   [📦 repo](https://github.com/zoecarver/gemma4)
+
+- **[gsplat_tt](https://github.com/smartonTT/gsplat_tt)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by [@smartonTT](https://github.com/smartonTT) — Port of Gaussian Splatting (3D scene reconstruction from 2D images) to Tenstorrent hardware.
+  [📦 repo](https://github.com/smartonTT/gsplat_tt)
 
 - **[open-oasis](https://github.com/zoecarver/open-oasis)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@zoecarver](https://github.com/zoecarver) — tt-lang inference script for Oasis 500M — an interactive video world model running on Tenstorrent hardware via the tt-lang DSL.
@@ -128,8 +128,8 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   [📦 repo](https://github.com/jaebaek/tenstorrent-tiny-examples)
 
 - **[tt-rqm-kernels](https://github.com/RQM-Technologies-dev/tt-rqm-kernels)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@RQM-Technologies-dev](https://github.com/RQM-Technologies-dev) — Structured quaternion, rotor, and phase-aware tensor kernels — operations on 3D rotation and orientation data packed into ordinary `[N, 4]` float tensors — plus StructuredBench, a benchmark suite for these workloads. Provides CPU/PyTorch reference implementations and an optional TT-Lang simulator prototype for the quaternion multiply (`qmul`) kernel as a first step toward Tenstorrent hardware support.
-  [📦 repo](https://github.com/RQM-Technologies-dev/tt-rqm-kernels) · [🌐 Tenstorrent landing page](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-landing.md) · [🌐 StructuredBench specification](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md) · [🌐 tt-emule qmul candidate report](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_emule_qmul_candidate.md) · [🌐 TT-Lang qmul plan](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tt-lang-qmul-plan.md) · [🌐 TT-Lang simulator report](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_lang_qmul_sim.md) · [🌐 Tenstorrent RFC](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-rfc.md)
+  by [@RQM-Technologies-dev](https://github.com/RQM-Technologies-dev) — Structured quaternion, rotor, and phase-aware tensor kernels on ordinary floating-point tensors, plus StructuredBench. Includes CPU/PyTorch references, simulator and emulator paths, and reproducible Wormhole/N300 evidence for quaternion multiply (`qmul`), fused SU(2) composition, and H2A Hamiltonian lowering.
+  [📦 repo](https://github.com/RQM-Technologies-dev/tt-rqm-kernels) · [🌐 Tenstorrent landing page](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-landing.md) · [🌐 Wormhole qmul benchmark](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul.md) · [🌐 Wormhole qmul hardware evidence](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul-hardware-evidence.md) · [🌐 SU2ComposeBench](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/su2-compose-bench.md) · [🌐 H2A silicon conformance](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/hamiltonian-lowering-h2a.md) · [🌐 Current-main qmul port](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/upstream/current-main-qmul-port.md) · [🌐 StructuredBench specification](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md) · [🌐 Tenstorrent RFC](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-rfc.md)
 
 - **[tt-splat — matrix-native 3D Gaussian Splatting on Blackhole](https://github.com/kinginu/tt-splat)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@kinginu](https://github.com/kinginu) — 3D Gaussian Splatting rewritten to run on the matrix engine: a polynomial splat and order-independent weighted-sum blending replace exp and depth-sorted alpha, so the pipeline becomes GEMM → activation → GEMM. Renderer + trainer, trained device-resident on a Blackhole p150a.
@@ -382,10 +382,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **Cloud-Native Support** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Official documentation hub for running Tenstorrent accelerators on Kubernetes. Centers on tt-operator (the umbrella Helm chart) and covers Node Feature Discovery, kernel-mode driver (tt-kmd) management, firmware flashing, Prometheus telemetry, Fabric Manager topology resolution, Dynamic Resource Allocation, and multi-node scheduling via JobSet and PMIx.
   [🌐 docs.tenstorrent.com](https://docs.tenstorrent.com/cloud-native-support/)
-
-- **[tt-operator](https://github.com/tenstorrent/tt-operator)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  Kubernetes operator that automates installation and lifecycle management of the full software stack needed to run Tenstorrent workloads on a cluster. Distributed as an umbrella Helm chart coordinating driver (tt-kmd) management, Node Feature Discovery, firmware flashing, Prometheus telemetry, fabric/topology resolution, and device allocation with multi-node scheduling (JobSet/PMIx).
-  [📦 repo](https://github.com/tenstorrent/tt-operator) · [🌐 Cloud-Native Support docs](https://docs.tenstorrent.com/cloud-native-support/)
 
 ## 🔩 RISC-V & Architecture
 

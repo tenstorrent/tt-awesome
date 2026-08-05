@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generated": "2026-07-03T21:36:52Z",
+    "generated": "2026-08-05T16:57:36Z",
     "schema_version": "1",
-    "total_entries": 115,
+    "total_entries": 127,
     "categories": [
       "getting-started",
       "ai-models",
@@ -137,6 +137,7 @@
           "name": "tt-vscode-toolkit",
           "description": "48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.",
           "affiliation": "official",
+          "home_pinned": true,
           "categories": [
             "guides",
             "dev-tools",
@@ -230,6 +231,10 @@
             "documentation"
           ],
           "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-quietbox2-guide"
+            },
             {
               "type": "website",
               "url": "https://docs.tenstorrent.com/tt-quietbox2-guide",
@@ -332,41 +337,26 @@
           ],
           "language": "C++",
           "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "apt",
+              "name": "tt-metalium",
+              "url": "https://ppa.tenstorrent.com/"
+            },
+            {
+              "type": "apt",
+              "name": "tt-nn",
+              "url": "https://ppa.tenstorrent.com/"
+            }
+          ],
           "added_at": "2026-05-08"
         }
       ]
     },
     "ai-models": {
       "label": "AI & Models",
-      "count": 24,
+      "count": 26,
       "entries": [
-        {
-          "id": "gsplat-tt",
-          "name": "gsplat_tt",
-          "description": "Port of Gaussian Splatting (3D scene reconstruction from 2D images) to Tenstorrent hardware.",
-          "affiliation": "community",
-          "categories": [
-            "ai-models"
-          ],
-          "tags": [
-            "gaussian-splatting",
-            "computer-vision",
-            "3d-reconstruction",
-            "blackhole"
-          ],
-          "links": [
-            {
-              "type": "repo",
-              "url": "https://github.com/Kovelja009/gsplat_tt"
-            }
-          ],
-          "hardware": [
-            "blackhole"
-          ],
-          "author": "Kovelja009",
-          "language": "Python",
-          "added_at": "2026-05-08"
-        },
         {
           "id": "koyeb-tenstorrent-examples",
           "name": "koyeb/tenstorrent-examples",
@@ -623,6 +613,33 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "gsplat-tt",
+          "name": "gsplat_tt",
+          "description": "Port of Gaussian Splatting (3D scene reconstruction from 2D images) to Tenstorrent hardware.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "gaussian-splatting",
+            "computer-vision",
+            "3d-reconstruction",
+            "blackhole"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/smartonTT/gsplat_tt"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "author": "smartonTT",
+          "language": "Python",
+          "added_at": "2026-05-08"
+        },
+        {
           "id": "open-oasis",
           "name": "open-oasis",
           "description": "tt-lang inference script for Oasis 500M — an interactive video world model running on Tenstorrent hardware via the tt-lang DSL.",
@@ -649,6 +666,37 @@
           "author": "zoecarver",
           "language": "Python",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "tt-atom",
+          "name": "tt-atom",
+          "description": "Meta's UMA interatomic potential running on Tenstorrent Blackhole — energy, forces, and stress for molecules and periodic materials behind an ASE calculator. Its per-edge Wigner rotation runs as a custom tt-metal kernel for a highest-performance uma-s build.",
+          "affiliation": "affiliated",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "molecular-dynamics",
+            "interatomic-potential",
+            "mlip",
+            "uma",
+            "ase",
+            "inference",
+            "custom-kernel"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/moritztng/tt-atom"
+            }
+          ],
+          "hardware": [
+            "blackhole"
+          ],
+          "author": "moritztng",
+          "language": "Python",
+          "license": "MIT",
+          "added_at": "2026-07-10"
         },
         {
           "id": "tt-lang-models",
@@ -1021,6 +1069,31 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "tt-forge-models",
+          "name": "tt-forge-models",
+          "description": "A shared repository of model implementations used across TT-Forge frontends — a single source of truth for the models used in testing and benchmarking, rather than duplicating them across frontend repos.",
+          "affiliation": "official",
+          "categories": [
+            "ai-models"
+          ],
+          "tags": [
+            "tt-forge",
+            "models",
+            "benchmarking",
+            "testing",
+            "inference"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-forge-models"
+            }
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-07-10"
+        },
+        {
           "id": "tt-inference-server",
           "name": "tt-inference-server",
           "description": "Production-ready model serving for Tenstorrent hardware with OpenAI-compatible REST API. Supports continuous batching, multiple models, and all TT hardware configurations.",
@@ -1262,7 +1335,7 @@
     },
     "kernels": {
       "label": "Custom Kernels & Low-Level",
-      "count": 24,
+      "count": 26,
       "entries": [
         {
           "id": "triton-tenstorrent",
@@ -1525,7 +1598,7 @@
         {
           "id": "tt-rqm-kernels",
           "name": "tt-rqm-kernels",
-          "description": "Structured quaternion, rotor, and phase-aware tensor kernels — operations on 3D rotation and orientation data packed into ordinary `[N, 4]` float tensors — plus StructuredBench, a benchmark suite for these workloads. Provides CPU/PyTorch reference implementations and an optional TT-Lang simulator prototype for the quaternion multiply (`qmul`) kernel as a first step toward Tenstorrent hardware support.",
+          "description": "Structured quaternion, rotor, and phase-aware tensor kernels on ordinary floating-point tensors, plus StructuredBench. Includes CPU/PyTorch references, simulator and emulator paths, and reproducible Wormhole/N300 evidence for quaternion multiply (`qmul`), fused SU(2) composition, and H2A Hamiltonian lowering.",
           "affiliation": "community",
           "categories": [
             "kernels",
@@ -1538,18 +1611,38 @@
             },
             {
               "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-landing.md",
+              "label": "Tenstorrent landing page"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul.md",
+              "label": "Wormhole qmul benchmark"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul-hardware-evidence.md",
+              "label": "Wormhole qmul hardware evidence"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/su2-compose-bench.md",
+              "label": "SU2ComposeBench"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/hamiltonian-lowering-h2a.md",
+              "label": "H2A silicon conformance"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/upstream/current-main-qmul-port.md",
+              "label": "Current-main qmul port"
+            },
+            {
+              "type": "website",
               "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md",
               "label": "StructuredBench specification"
-            },
-            {
-              "type": "website",
-              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tt-lang-qmul-plan.md",
-              "label": "TT-Lang qmul plan"
-            },
-            {
-              "type": "website",
-              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_lang_qmul_sim.md",
-              "label": "TT-Lang simulator report"
             },
             {
               "type": "website",
@@ -1561,18 +1654,22 @@
             "structured-tensors",
             "quaternion",
             "rotor",
+            "tt-metalium",
             "tt-lang",
             "simulator",
+            "wormhole",
+            "n300",
             "benchmarks",
             "pytorch",
             "custom-kernels"
           ],
           "hardware": [
+            "wormhole",
             "ttsim"
           ],
           "author": "RQM-Technologies-dev",
           "language": "Python",
-          "license": "MIT",
+          "license": "Apache-2.0",
           "added_at": "2026-07-03"
         },
         {
@@ -1662,6 +1759,32 @@
           "author": "marty1885",
           "language": "C++",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "ttprm",
+          "name": "ttPseudoRowMajor",
+          "description": "A small TTNN-facing C++ library (ttprm) for running view-shaped tensor work without first materializing the view in DRAM. Targets Tenstorrent TILE tensors and uses cached device operations to gather/scatter through layout views.",
+          "affiliation": "community",
+          "categories": [
+            "kernels"
+          ],
+          "tags": [
+            "ttnn",
+            "tensor",
+            "tile",
+            "layout",
+            "cpp"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/marty1885/ttPseudoRowMajor"
+            }
+          ],
+          "author": "Martin Chang",
+          "language": "C++",
+          "license": "Apache-2.0",
+          "added_at": "2026-07-10"
         },
         {
           "id": "ttvecadd",
@@ -1949,6 +2072,42 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "sfpi",
+          "name": "SFPI",
+          "description": "Tenstorrent SFPU programming interface — TT-enhanced RISC-V GCC and binutils plus header files for programming the Tensix SFPU (vector engine) from kernel code. The compiler toolchain underneath TT-Metalium's SFPU ops.",
+          "affiliation": "official",
+          "categories": [
+            "kernels",
+            "dev-tools"
+          ],
+          "tags": [
+            "sfpu",
+            "compiler-toolchain",
+            "gcc",
+            "riscv"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/sfpi"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "apt",
+              "name": "sfpi",
+              "url": "https://ppa.tenstorrent.com/"
+            }
+          ],
+          "added_at": "2026-07-17"
+        },
+        {
           "id": "tt-lang",
           "name": "tt-lang",
           "description": "Python-based DSL that sits between TT-NN and TT-Metalium — expresses custom fused kernels with progressive disclosure, compiling directly to Tensix. Ships an integrated functional simulator (no hardware needed), line-by-line performance metrics, and AI-agent-friendly tooling. Two packages: tt-lang (compiler + hardware, requires ttnn) and tt-lang-sim (simulator only, works on Linux/macOS without Tenstorrent hardware).",
@@ -2074,13 +2233,25 @@
           ],
           "language": "C++",
           "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "apt",
+              "name": "tt-metalium",
+              "url": "https://ppa.tenstorrent.com/"
+            },
+            {
+              "type": "apt",
+              "name": "tt-nn",
+              "url": "https://ppa.tenstorrent.com/"
+            }
+          ],
           "added_at": "2026-05-08"
         }
       ]
     },
     "compilers": {
       "label": "Compilers & Frontends",
-      "count": 15,
+      "count": 16,
       "entries": [
         {
           "id": "barracuda",
@@ -2169,6 +2340,30 @@
           "language": "C++",
           "license": "Apache-2.0",
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "libtt",
+          "name": "libtt",
+          "description": "A Bazel-built PJRT plugin (libtt.so) providing an XLA backend for Tenstorrent devices. Bundles the tt-xla PJRT implementation with tt-mlir and tt-metal into a single shared object so JAX code runs on Tenstorrent hardware, with patches so sglang-jax works out of the box.",
+          "affiliation": "community",
+          "categories": [
+            "compilers"
+          ],
+          "tags": [
+            "xla",
+            "pjrt",
+            "jax",
+            "bazel",
+            "sglang"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/pcmoritz/libtt"
+            }
+          ],
+          "author": "Philipp Moritz",
+          "added_at": "2026-07-10"
         },
         {
           "id": "zyx",
@@ -2563,13 +2758,25 @@
           ],
           "language": "C++",
           "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "apt",
+              "name": "tt-metalium",
+              "url": "https://ppa.tenstorrent.com/"
+            },
+            {
+              "type": "apt",
+              "name": "tt-nn",
+              "url": "https://ppa.tenstorrent.com/"
+            }
+          ],
           "added_at": "2026-05-08"
         }
       ]
     },
     "dev-tools": {
       "label": "Dev Tools & Debugging",
-      "count": 20,
+      "count": 24,
       "entries": [
         {
           "id": "nvtop",
@@ -2897,6 +3104,31 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "tt-emule",
+          "name": "tt-emule",
+          "description": "A C++ software emulator of the Tenstorrent device-level kernel and host APIs. Run tt-metal kernel and host code on a standard x86-64 Linux machine — no Tenstorrent hardware required.",
+          "affiliation": "official",
+          "categories": [
+            "dev-tools"
+          ],
+          "tags": [
+            "emulator",
+            "tt-metal",
+            "no-hardware",
+            "testing",
+            "kernels"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-emule"
+            }
+          ],
+          "language": "C++",
+          "license": "Apache-2.0",
+          "added_at": "2026-07-10"
+        },
+        {
           "id": "tt-exalens",
           "name": "tt-exalens",
           "description": "Low-level hardware debugger for Tenstorrent devices. Inspect register state, memory contents, and kernel execution at the hardware level.",
@@ -2959,6 +3191,31 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "tt-perf-report",
+          "name": "tt-perf-report",
+          "description": "Performance report analysis tool for Tenstorrent Metal operations — analyzes perf traces to surface throughput, bottlenecks, and optimization opportunities.",
+          "affiliation": "official",
+          "categories": [
+            "dev-tools"
+          ],
+          "tags": [
+            "performance",
+            "profiling",
+            "tt-metal",
+            "analysis",
+            "optimization"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-perf-report"
+            }
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-07-10"
+        },
+        {
           "id": "ttnn-visualizer",
           "name": "ttnn-visualizer",
           "description": "Comprehensive tool for visualizing and analyzing model execution on Tenstorrent hardware. Interactive graphs, memory plots, tensor details, buffer overviews, operation flow graphs, and multi-instance support.",
@@ -2998,6 +3255,7 @@
           "name": "tt-vscode-toolkit",
           "description": "48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.",
           "affiliation": "official",
+          "home_pinned": true,
           "categories": [
             "guides",
             "dev-tools",
@@ -3069,6 +3327,11 @@
             {
               "type": "pypi",
               "name": "tt-smi"
+            },
+            {
+              "type": "apt",
+              "name": "tt-smi",
+              "url": "https://ppa.tenstorrent.com/"
             }
           ],
           "added_at": "2026-05-08"
@@ -3104,7 +3367,80 @@
           ],
           "language": "Rust",
           "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "apt",
+              "name": "tt-toplike",
+              "url": "https://ppa.tenstorrent.com/"
+            },
+            {
+              "type": "apt",
+              "name": "tt-toplike-app",
+              "url": "https://ppa.tenstorrent.com/"
+            }
+          ],
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "sfpi",
+          "name": "SFPI",
+          "description": "Tenstorrent SFPU programming interface — TT-enhanced RISC-V GCC and binutils plus header files for programming the Tensix SFPU (vector engine) from kernel code. The compiler toolchain underneath TT-Metalium's SFPU ops.",
+          "affiliation": "official",
+          "categories": [
+            "kernels",
+            "dev-tools"
+          ],
+          "tags": [
+            "sfpu",
+            "compiler-toolchain",
+            "gcc",
+            "riscv"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/sfpi"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "C++",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "apt",
+              "name": "sfpi",
+              "url": "https://ppa.tenstorrent.com/"
+            }
+          ],
+          "added_at": "2026-07-17"
+        },
+        {
+          "id": "polaris",
+          "name": "polaris",
+          "description": "A high-level AI simulator from Tenstorrent for modeling and exploring AI accelerator and workload performance.",
+          "affiliation": "official",
+          "categories": [
+            "research",
+            "dev-tools"
+          ],
+          "tags": [
+            "simulator",
+            "performance",
+            "modeling",
+            "architecture"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/polaris"
+            }
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-07-10"
         },
         {
           "id": "tensix-isa-simulator",
@@ -3214,7 +3550,7 @@
     },
     "hw-system": {
       "label": "Hardware & System",
-      "count": 20,
+      "count": 22,
       "entries": [
         {
           "id": "nvtop",
@@ -3406,45 +3742,6 @@
           "added_at": "2026-05-08"
         },
         {
-          "id": "tt-operator",
-          "name": "tt-operator",
-          "description": "Kubernetes operator that automates installation and lifecycle management of the full software stack needed to run Tenstorrent workloads on a cluster. Distributed as an umbrella Helm chart coordinating driver (tt-kmd) management, Node Feature Discovery, firmware flashing, Prometheus telemetry, fabric/topology resolution, and device allocation with multi-node scheduling (JobSet/PMIx).",
-          "affiliation": "official",
-          "categories": [
-            "cloud-infra",
-            "hw-system"
-          ],
-          "tags": [
-            "kubernetes",
-            "helm",
-            "operator",
-            "orchestration",
-            "cloud-native",
-            "tt-kmd",
-            "device-plugin"
-          ],
-          "links": [
-            {
-              "type": "repo",
-              "url": "https://github.com/tenstorrent/tt-operator"
-            },
-            {
-              "type": "website",
-              "url": "https://docs.tenstorrent.com/cloud-native-support/",
-              "label": "Cloud-Native Support docs"
-            }
-          ],
-          "hardware": [
-            "wormhole",
-            "blackhole"
-          ],
-          "language": "Python",
-          "related": [
-            "cloud-native-support"
-          ],
-          "added_at": "2026-07-01"
-        },
-        {
           "id": "luwen",
           "name": "luwen",
           "description": "Tenstorrent system interface library written in Rust. Low-level Rust bindings for communicating with and managing TT hardware.",
@@ -3475,9 +3772,53 @@
             {
               "type": "cargo",
               "name": "luwen"
+            },
+            {
+              "type": "apt",
+              "name": "python3-pyluwen",
+              "url": "https://ppa.tenstorrent.com/"
             }
           ],
           "added_at": "2026-05-08"
+        },
+        {
+          "id": "tt-burnin",
+          "name": "tt-burnin",
+          "description": "Command-line utility that runs a high power-consumption workload on Tenstorrent devices — used for chip testing, burn-in, and validating a system's power delivery and cooling under sustained load.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "burn-in",
+            "stress-test",
+            "power",
+            "hardware-validation"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-burnin"
+            }
+          ],
+          "hardware": [
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "pypi",
+              "name": "tt-burnin"
+            },
+            {
+              "type": "apt",
+              "name": "tt-burnin",
+              "url": "https://ppa.tenstorrent.com/"
+            }
+          ],
+          "added_at": "2026-07-17"
         },
         {
           "id": "tt-firmware",
@@ -3503,13 +3844,6 @@
             "blackhole"
           ],
           "license": "Apache-2.0",
-          "packages": [
-            {
-              "type": "apt",
-              "name": "tt-firmware",
-              "url": "https://ppa.tenstorrent.com/"
-            }
-          ],
           "added_at": "2026-05-08"
         },
         {
@@ -3542,6 +3876,11 @@
             {
               "type": "pypi",
               "name": "tt-flash"
+            },
+            {
+              "type": "apt",
+              "name": "tt-flash",
+              "url": "https://ppa.tenstorrent.com/"
             }
           ],
           "added_at": "2026-05-08"
@@ -3611,7 +3950,7 @@
           "packages": [
             {
               "type": "apt",
-              "name": "ttkmd",
+              "name": "tenstorrent-dkms",
               "url": "https://ppa.tenstorrent.com/"
             }
           ],
@@ -3636,6 +3975,10 @@
             "documentation"
           ],
           "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-quietbox2-guide"
+            },
             {
               "type": "website",
               "url": "https://docs.tenstorrent.com/tt-quietbox2-guide",
@@ -3684,6 +4027,11 @@
             {
               "type": "pypi",
               "name": "tt-smi"
+            },
+            {
+              "type": "apt",
+              "name": "tt-smi",
+              "url": "https://ppa.tenstorrent.com/"
             }
           ],
           "added_at": "2026-05-08"
@@ -3720,6 +4068,75 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "tt-system-tools",
+          "name": "tt-system-tools",
+          "description": "System setup and support utilities for Tenstorrent hardware — hugepages-setup configures the 1GB hugepages TT ASICs need, and tt-oops collects diagnostic data for troubleshooting. Ships as the tenstorrent-tools deb/rpm.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "hugepages",
+            "system-setup",
+            "diagnostics"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-system-tools"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "language": "Shell",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "apt",
+              "name": "tenstorrent-tools",
+              "url": "https://ppa.tenstorrent.com/"
+            }
+          ],
+          "added_at": "2026-07-17"
+        },
+        {
+          "id": "tt-tools-common",
+          "name": "tt-tools-common",
+          "description": "Shared helper library of common utilities used across Tenstorrent system tools such as tt-smi, tt-flash, and tt-topology. A dependency rather than a standalone tool.",
+          "affiliation": "official",
+          "categories": [
+            "hw-system"
+          ],
+          "tags": [
+            "library",
+            "tooling",
+            "shared-utilities"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-tools-common"
+            }
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "pypi",
+              "name": "tt-tools-common"
+            },
+            {
+              "type": "apt",
+              "name": "python3-tt-tools-common",
+              "url": "https://ppa.tenstorrent.com/"
+            }
+          ],
+          "added_at": "2026-07-17"
+        },
+        {
           "id": "tt-toplike",
           "name": "tt-toplike",
           "description": "A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.",
@@ -3750,6 +4167,18 @@
           ],
           "language": "Rust",
           "license": "Apache-2.0",
+          "packages": [
+            {
+              "type": "apt",
+              "name": "tt-toplike",
+              "url": "https://ppa.tenstorrent.com/"
+            },
+            {
+              "type": "apt",
+              "name": "tt-toplike-app",
+              "url": "https://ppa.tenstorrent.com/"
+            }
+          ],
           "added_at": "2026-05-08"
         },
         {
@@ -3783,6 +4212,11 @@
             {
               "type": "pypi",
               "name": "tt-topology"
+            },
+            {
+              "type": "apt",
+              "name": "tt-topology",
+              "url": "https://ppa.tenstorrent.com/"
             }
           ],
           "added_at": "2026-05-08"
@@ -3844,7 +4278,7 @@
     },
     "cloud-infra": {
       "label": "Cloud & Orchestration",
-      "count": 7,
+      "count": 6,
       "entries": [
         {
           "id": "dstack",
@@ -4005,48 +4439,6 @@
             "wormhole",
             "blackhole"
           ],
-          "related": [
-            "tt-operator"
-          ],
-          "added_at": "2026-07-01"
-        },
-        {
-          "id": "tt-operator",
-          "name": "tt-operator",
-          "description": "Kubernetes operator that automates installation and lifecycle management of the full software stack needed to run Tenstorrent workloads on a cluster. Distributed as an umbrella Helm chart coordinating driver (tt-kmd) management, Node Feature Discovery, firmware flashing, Prometheus telemetry, fabric/topology resolution, and device allocation with multi-node scheduling (JobSet/PMIx).",
-          "affiliation": "official",
-          "categories": [
-            "cloud-infra",
-            "hw-system"
-          ],
-          "tags": [
-            "kubernetes",
-            "helm",
-            "operator",
-            "orchestration",
-            "cloud-native",
-            "tt-kmd",
-            "device-plugin"
-          ],
-          "links": [
-            {
-              "type": "repo",
-              "url": "https://github.com/tenstorrent/tt-operator"
-            },
-            {
-              "type": "website",
-              "url": "https://docs.tenstorrent.com/cloud-native-support/",
-              "label": "Cloud-Native Support docs"
-            }
-          ],
-          "hardware": [
-            "wormhole",
-            "blackhole"
-          ],
-          "language": "Python",
-          "related": [
-            "cloud-native-support"
-          ],
           "added_at": "2026-07-01"
         },
         {
@@ -4080,6 +4472,11 @@
             {
               "type": "pypi",
               "name": "tt-topology"
+            },
+            {
+              "type": "apt",
+              "name": "tt-topology",
+              "url": "https://ppa.tenstorrent.com/"
             }
           ],
           "added_at": "2026-05-08"
@@ -4088,7 +4485,7 @@
     },
     "riscv-arch": {
       "label": "RISC-V & Architecture",
-      "count": 15,
+      "count": 16,
       "entries": [
         {
           "id": "blog-martin-chang-programming",
@@ -4440,6 +4837,31 @@
           "added_at": "2026-05-08"
         },
         {
+          "id": "riscv-arch-tests",
+          "name": "riscv_arch_tests",
+          "description": "RISC-V architectural self-checking directed tests — randomly-generated register operands and data with low-level OS code for test scheduling and self-checking, runnable on a RISC-V design or an ISS such as Whisper or Spike. Generated by an internal Tenstorrent tool from the official RISC-V ISA spec.",
+          "affiliation": "official",
+          "categories": [
+            "riscv-arch"
+          ],
+          "tags": [
+            "riscv",
+            "testing",
+            "verification",
+            "isa",
+            "architecture"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/riscv_arch_tests"
+            }
+          ],
+          "language": "Assembly",
+          "license": "Apache-2.0",
+          "added_at": "2026-07-10"
+        },
+        {
           "id": "riscv-ocelot",
           "name": "riscv-ocelot",
           "description": "The Berkeley Out-of-Order Machine with V-EXT (RISC-V Vector Extension) support. Tenstorrent's research-grade out-of-order RISC-V core with vector extension.",
@@ -4595,7 +5017,7 @@
     },
     "research": {
       "label": "Research & Papers",
-      "count": 16,
+      "count": 18,
       "entries": [
         {
           "id": "tt-tutorial-hpc",
@@ -4630,7 +5052,7 @@
         {
           "id": "tt-rqm-kernels",
           "name": "tt-rqm-kernels",
-          "description": "Structured quaternion, rotor, and phase-aware tensor kernels — operations on 3D rotation and orientation data packed into ordinary `[N, 4]` float tensors — plus StructuredBench, a benchmark suite for these workloads. Provides CPU/PyTorch reference implementations and an optional TT-Lang simulator prototype for the quaternion multiply (`qmul`) kernel as a first step toward Tenstorrent hardware support.",
+          "description": "Structured quaternion, rotor, and phase-aware tensor kernels on ordinary floating-point tensors, plus StructuredBench. Includes CPU/PyTorch references, simulator and emulator paths, and reproducible Wormhole/N300 evidence for quaternion multiply (`qmul`), fused SU(2) composition, and H2A Hamiltonian lowering.",
           "affiliation": "community",
           "categories": [
             "kernels",
@@ -4643,18 +5065,38 @@
             },
             {
               "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-landing.md",
+              "label": "Tenstorrent landing page"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul.md",
+              "label": "Wormhole qmul benchmark"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul-hardware-evidence.md",
+              "label": "Wormhole qmul hardware evidence"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/su2-compose-bench.md",
+              "label": "SU2ComposeBench"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/hamiltonian-lowering-h2a.md",
+              "label": "H2A silicon conformance"
+            },
+            {
+              "type": "website",
+              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/upstream/current-main-qmul-port.md",
+              "label": "Current-main qmul port"
+            },
+            {
+              "type": "website",
               "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md",
               "label": "StructuredBench specification"
-            },
-            {
-              "type": "website",
-              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tt-lang-qmul-plan.md",
-              "label": "TT-Lang qmul plan"
-            },
-            {
-              "type": "website",
-              "url": "https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_lang_qmul_sim.md",
-              "label": "TT-Lang simulator report"
             },
             {
               "type": "website",
@@ -4666,18 +5108,22 @@
             "structured-tensors",
             "quaternion",
             "rotor",
+            "tt-metalium",
             "tt-lang",
             "simulator",
+            "wormhole",
+            "n300",
             "benchmarks",
             "pytorch",
             "custom-kernels"
           ],
           "hardware": [
+            "wormhole",
             "ttsim"
           ],
           "author": "RQM-Technologies-dev",
           "language": "Python",
-          "license": "MIT",
+          "license": "Apache-2.0",
           "added_at": "2026-07-03"
         },
         {
@@ -5116,6 +5562,60 @@
           "license": "MIT",
           "added_at": "2026-05-08",
           "date": "2026-01-31"
+        },
+        {
+          "id": "polaris",
+          "name": "polaris",
+          "description": "A high-level AI simulator from Tenstorrent for modeling and exploring AI accelerator and workload performance.",
+          "affiliation": "official",
+          "categories": [
+            "research",
+            "dev-tools"
+          ],
+          "tags": [
+            "simulator",
+            "performance",
+            "modeling",
+            "architecture"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/polaris"
+            }
+          ],
+          "language": "Python",
+          "license": "Apache-2.0",
+          "added_at": "2026-07-10"
+        },
+        {
+          "id": "tt-isa-documentation",
+          "name": "tt-isa-documentation",
+          "description": "Low-level ISA and microarchitecture documentation for Tenstorrent AI architectures (Grayskull, Wormhole, Blackhole) — the authoritative hardware reference beneath the tt-forge / tt-metal software stack.",
+          "affiliation": "official",
+          "categories": [
+            "research",
+            "guides"
+          ],
+          "tags": [
+            "isa",
+            "architecture",
+            "documentation",
+            "tensix",
+            "low-level"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-isa-documentation"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "added_at": "2026-07-10"
         }
       ]
     },
@@ -5448,7 +5948,7 @@
     },
     "guides": {
       "label": "Guides, Tutorials & Education",
-      "count": 18,
+      "count": 19,
       "entries": [
         {
           "id": "blog-martin-chang-programming",
@@ -5980,9 +6480,6 @@
             "wormhole",
             "blackhole"
           ],
-          "related": [
-            "tt-operator"
-          ],
           "added_at": "2026-07-01"
         },
         {
@@ -5990,6 +6487,7 @@
           "name": "tt-vscode-toolkit",
           "description": "48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.",
           "affiliation": "official",
+          "home_pinned": true,
           "categories": [
             "guides",
             "dev-tools",
@@ -6084,6 +6582,10 @@
           ],
           "links": [
             {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-quietbox2-guide"
+            },
+            {
               "type": "website",
               "url": "https://docs.tenstorrent.com/tt-quietbox2-guide",
               "label": "TT-QuietBox 2 Guide"
@@ -6098,6 +6600,35 @@
             "tt-inference-server"
           ],
           "added_at": "2026-06-30"
+        },
+        {
+          "id": "tt-isa-documentation",
+          "name": "tt-isa-documentation",
+          "description": "Low-level ISA and microarchitecture documentation for Tenstorrent AI architectures (Grayskull, Wormhole, Blackhole) — the authoritative hardware reference beneath the tt-forge / tt-metal software stack.",
+          "affiliation": "official",
+          "categories": [
+            "research",
+            "guides"
+          ],
+          "tags": [
+            "isa",
+            "architecture",
+            "documentation",
+            "tensix",
+            "low-level"
+          ],
+          "links": [
+            {
+              "type": "repo",
+              "url": "https://github.com/tenstorrent/tt-isa-documentation"
+            }
+          ],
+          "hardware": [
+            "grayskull",
+            "wormhole",
+            "blackhole"
+          ],
+          "added_at": "2026-07-10"
         }
       ]
     }
