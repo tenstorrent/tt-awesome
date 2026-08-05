@@ -11,7 +11,8 @@ Sources:
   - Community blogs (reviewed — auto-approved)
   - Connpass events — Tenstorrent Japan Tech Talk series (trusted — auto-approved).
     Descriptions are condensed into a bilingual EN + JA summary (~200 chars each)
-    via the Anthropic API when ANTHROPIC_API_KEY is set; Japanese-only otherwise.
+    via the active summarization provider (GitHub Copilot by default, see
+    scripts/llm_client.py); Japanese-only when its credential is absent.
 
 Items are appended to src/_data/planet_feeds.json. All items (new and
 existing) are written with approved=True so they appear on the Planet
@@ -62,9 +63,10 @@ USER_AGENT = "tt-awesome-planet/1.0 (github.com/tenstorrent/tt-awesome)"
 # the provider flips via SUMMARY_PROVIDER (see scripts/llm_client.py).
 import llm_client
 
-TRANSLATE_MODEL = "claude-haiku-4-5-20251001"  # Anthropic-path default
+TRANSLATE_MODEL = "claude-haiku-4-5-20251001"  # Anthropic-direct default
 ANTHROPIC_KEY   = os.environ.get("ANTHROPIC_API_KEY", "")
 GH_TOKEN        = os.environ.get("GITHUB_TOKEN", "")
+FOUNDRY_KEY     = os.environ.get("FOUNDRY_API_KEY", "")  # default foundry provider
 
 NS_ATOM  = "http://www.w3.org/2005/Atom"
 NS_MEDIA = "http://search.yahoo.com/mrss/"
@@ -312,7 +314,9 @@ def bilingual_description(text: str) -> str:
     """
     if not text:
         return ""
-    if llm_client.missing_credential(anthropic_api_key=ANTHROPIC_KEY, github_token=GH_TOKEN):
+    if llm_client.missing_credential(
+        anthropic_api_key=ANTHROPIC_KEY, github_token=GH_TOKEN, foundry_api_key=FOUNDRY_KEY
+    ):
         return ""
     try:
         reply = llm_client.complete(
@@ -321,6 +325,7 @@ def bilingual_description(text: str) -> str:
             anthropic_model=TRANSLATE_MODEL,
             anthropic_api_key=ANTHROPIC_KEY,
             github_token=GH_TOKEN,
+            foundry_api_key=FOUNDRY_KEY,
         )
         if not reply:
             return ""

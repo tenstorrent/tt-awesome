@@ -6,7 +6,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  models: read  # lets GITHUB_TOKEN call GitHub Models when SUMMARY_PROVIDER=github
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -20,10 +19,13 @@ jobs:
           # Optional — used to render connpass event descriptions as bilingual
           # EN + JA summaries. The fetcher degrades to Japanese-only when the
           # active provider's credential is absent.
+          FOUNDRY_API_KEY: ${{ secrets.FOUNDRY_API_KEY }}
+          FOUNDRY_ENDPOINT: ${{ vars.FOUNDRY_ENDPOINT }}
+          # Unused unless SUMMARY_PROVIDER=anthropic; keeps that switch working.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Flip the summarization backend with repository Variables (see
-          # scripts/llm_client.py): "anthropic" (default when unset) | "github".
+          # scripts/llm_client.py): "foundry" (default when unset) | "anthropic".
           SUMMARY_PROVIDER: ${{ vars.SUMMARY_PROVIDER }}
           SUMMARY_MODEL: ${{ vars.SUMMARY_MODEL }}
         run: python3 scripts/fetch_planet_feeds.py

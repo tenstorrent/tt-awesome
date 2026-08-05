@@ -1,0 +1,29 @@
+{
+  "id": "tt-low-level-documentation",
+  "name": "tt-low-level-documentation",
+  "description": "Documentation for the low-level layer of tt-metal: compute LLK APIs and data movement APIs. The data movement side covers the NOC and overlay on Wormhole and Blackhole; the compute side covers Tensix hardware and expected usage of the LLK APIs. Aimed at op and model writers who need to know what the APIs do and how the hardware behaves underneath them.",
+  "affiliation": "official",
+  "categories": [
+    "guides",
+    "kernels"
+  ],
+  "tags": [
+    "llk",
+    "data-movement",
+    "noc",
+    "tensix",
+    "tt-metal",
+    "documentation"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-low-level-documentation"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "added_at": "2026-08-05"
+}

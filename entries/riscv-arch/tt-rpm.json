@@ -1,0 +1,27 @@
+{
+  "id": "tt-rpm",
+  "name": "tt-rpm",
+  "description": "Cycle-level, execution-driven RISC-V CPU performance model built on Sparta (MAP) with Whisper supplying functional execution, so it runs real ELF binaries — CoreMark, Dhrystone — to completion. The pipeline is YAML-configurable across in-order/out-of-order execution, issue policy, execute granularity, write-port arbitration, and bypass paths, with a modeled L1 I$/D$ plus optional unified L2, per-unit logging, stats reports, and Konata pipeline visualization.",
+  "affiliation": "official",
+  "categories": [
+    "riscv-arch",
+    "dev-tools"
+  ],
+  "tags": [
+    "risc-v",
+    "performance-model",
+    "simulation",
+    "sparta",
+    "whisper",
+    "microarchitecture"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-rpm"
+    }
+  ],
+  "language": "C++",
+  "license": "Apache-2.0",
+  "added_at": "2026-08-05"
+}

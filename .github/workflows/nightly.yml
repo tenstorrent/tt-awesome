@@ -11,7 +11,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  models: read  # lets GITHUB_TOKEN call GitHub Models when SUMMARY_PROVIDER=github
 concurrency:
   group: nightly-github-meta
   cancel-in-progress: true
@@ -19,12 +18,19 @@ jobs:
   fetch:
     runs-on: ubuntu-latest
     env:
+      # Summarization runs on Claude via Microsoft Foundry (scripts/llm_client.py).
+      FOUNDRY_API_KEY: ${{ secrets.FOUNDRY_API_KEY }}
+      # Optional: point at a different Foundry resource without a code change.
+      FOUNDRY_ENDPOINT: ${{ vars.FOUNDRY_ENDPOINT }}
+      # Unused unless SUMMARY_PROVIDER=anthropic. Exported so that switch is a
+      # working escape hatch rather than an immediate "ANTHROPIC_API_KEY not
+      # set" exit; nothing reads it on the default foundry path.
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      # Flip the summarization backend with repository Variables — no code
-      # change: SUMMARY_PROVIDER = "anthropic" (default when unset) or
-      # "github" (GitHub Models via GITHUB_TOKEN; catalog at
-      # https://github.com/marketplace/models). SUMMARY_MODEL optionally
-      # overrides the model for either provider.
+      # Flip the backend with repository Variables, no code change:
+      # SUMMARY_PROVIDER = "foundry" (default when unset) or "anthropic".
+      # The old "github" (GitHub Models) value no longer works — that service
+      # was retired 2026-07-30 and now answers every request with HTTP 410.
+      # SUMMARY_MODEL optionally overrides the model for either provider.
       SUMMARY_PROVIDER: ${{ vars.SUMMARY_PROVIDER }}
       SUMMARY_MODEL: ${{ vars.SUMMARY_MODEL }}
     steps:
@@ -41,9 +47,11 @@ jobs:
         run: python3 scripts/fetch_github_meta.py
 
       - name: Summarize new releases
-        # Runs when the active provider has a credential: the github provider
-        # always has GITHUB_TOKEN; the anthropic default needs the API key.
-        if: ${{ vars.SUMMARY_PROVIDER == 'github' || env.ANTHROPIC_API_KEY != '' }}
+        # Skipped entirely when no Foundry credential is configured. When one is
+        # present the script exits non-zero if every summarization call fails,
+        # so a dead backend turns the run red instead of quietly opening a PR
+        # that summarized nothing.
+        if: ${{ env.FOUNDRY_API_KEY != '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

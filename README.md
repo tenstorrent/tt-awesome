@@ -23,10 +23,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 ## 🤖 AI & Models
 
-- **[gsplat_tt](https://github.com/Kovelja009/gsplat_tt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@Kovelja009](https://github.com/Kovelja009) — Port of Gaussian Splatting (3D scene reconstruction from 2D images) to Tenstorrent hardware.
-  [📦 repo](https://github.com/Kovelja009/gsplat_tt)
-
 - **[tt-bio](https://github.com/moritztng/tt-bio)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@moritztng](https://github.com/moritztng) — Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.
   [📦 repo](https://github.com/moritztng/tt-bio) · [🎤 FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware](https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/)
@@ -50,6 +46,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[gemma4](https://github.com/zoecarver/gemma4)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@zoecarver](https://github.com/zoecarver) — Gemma 4 language model implemented in tt-lang (e4b variant) for direct execution on Tenstorrent hardware.
   [📦 repo](https://github.com/zoecarver/gemma4)
+
+- **[gsplat_tt](https://github.com/smartonTT/gsplat_tt)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by [@smartonTT](https://github.com/smartonTT) — Port of Gaussian Splatting (3D scene reconstruction from 2D images) to Tenstorrent hardware.
+  [📦 repo](https://github.com/smartonTT/gsplat_tt)
 
 - **[open-oasis](https://github.com/zoecarver/open-oasis)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@zoecarver](https://github.com/zoecarver) — tt-lang inference script for Oasis 500M — an interactive video world model running on Tenstorrent hardware via the tt-lang DSL.
@@ -99,6 +99,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.
   [📦 repo](https://github.com/tenstorrent/tt-studio)
 
+- **[vllm-tt-plugin](https://github.com/tenstorrent/vllm-tt-plugin)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Tenstorrent backend for vLLM, built on vLLM's standard plugin mechanism — install it alongside vLLM and TT hardware registers itself as a platform whenever `ttnn` is importable. Self-contained: model registration, platform detection, scheduling, worker execution, model loading, async decode, and data-parallel/multi-lane execution all live in the plugin, so nothing Tenstorrent-specific has to land in vLLM core.
+  [📦 repo](https://github.com/tenstorrent/vllm-tt-plugin)
+
 ## 🕵️ AI Agents
 
 - **Local AI Agents on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
@@ -128,8 +132,8 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   [📦 repo](https://github.com/jaebaek/tenstorrent-tiny-examples)
 
 - **[tt-rqm-kernels](https://github.com/RQM-Technologies-dev/tt-rqm-kernels)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@RQM-Technologies-dev](https://github.com/RQM-Technologies-dev) — Structured quaternion, rotor, and phase-aware tensor kernels — operations on 3D rotation and orientation data packed into ordinary `[N, 4]` float tensors — plus StructuredBench, a benchmark suite for these workloads. Provides CPU/PyTorch reference implementations and an optional TT-Lang simulator prototype for the quaternion multiply (`qmul`) kernel as a first step toward Tenstorrent hardware support.
-  [📦 repo](https://github.com/RQM-Technologies-dev/tt-rqm-kernels) · [🌐 Tenstorrent landing page](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-landing.md) · [🌐 StructuredBench specification](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md) · [🌐 tt-emule qmul candidate report](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_emule_qmul_candidate.md) · [🌐 TT-Lang qmul plan](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tt-lang-qmul-plan.md) · [🌐 TT-Lang simulator report](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/reports/tt_lang_qmul_sim.md) · [🌐 Tenstorrent RFC](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-rfc.md)
+  by [@RQM-Technologies-dev](https://github.com/RQM-Technologies-dev) — Structured quaternion, rotor, and phase-aware tensor kernels on ordinary floating-point tensors, plus StructuredBench. Includes CPU/PyTorch references, simulator and emulator paths, and reproducible Wormhole/N300 evidence for quaternion multiply (`qmul`), fused SU(2) composition, and H2A Hamiltonian lowering.
+  [📦 repo](https://github.com/RQM-Technologies-dev/tt-rqm-kernels) · [🌐 Tenstorrent landing page](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-landing.md) · [🌐 Wormhole qmul benchmark](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul.md) · [🌐 Wormhole qmul hardware evidence](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul-hardware-evidence.md) · [🌐 SU2ComposeBench](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/su2-compose-bench.md) · [🌐 H2A silicon conformance](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/hamiltonian-lowering-h2a.md) · [🌐 Current-main qmul port](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/upstream/current-main-qmul-port.md) · [🌐 StructuredBench specification](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md) · [🌐 Tenstorrent RFC](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-rfc.md)
 
 - **[tt-splat — matrix-native 3D Gaussian Splatting on Blackhole](https://github.com/kinginu/tt-splat)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@kinginu](https://github.com/kinginu) — 3D Gaussian Splatting rewritten to run on the matrix engine: a polynomial splat and order-independent weighted-sum blending replace exp and depth-sorted alpha, so the pipeline becomes GEMM → activation → GEMM. Renderer + trainer, trained device-resident on a Blackhole p150a.
@@ -267,6 +271,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Interactive browser-based visualizer of the Tenstorrent Tensix grid architecture. Explore the NoC, core layout, and dataflow patterns without hardware — a great companion for learning kernel programming.
   [🚀 Tensix Grid Playground (interactive)](https://docs.tenstorrent.com/tt-vscode-toolkit/tensix-playground/)
 
+- **[tt-cli](https://github.com/tenstorrent/tt-cli)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Single entry point to the Tenstorrent software stack: `tt update` converges a machine onto the CI-tested "golden" version set, `tt device` covers status/info/reset, and `tt model`/`tt serve` pull weights and bring up tt-inference-server. Commands either run natively or delegate to tt-smi, tt-flash, and tt-installer behind a stable interface, with `--json` output and documented exit codes on every command. Early prototype — the README labels it an internal prototype and several subcommands are still stubs.
+  [📦 repo](https://github.com/tenstorrent/tt-cli)
+
 - **[tt-emule](https://github.com/tenstorrent/tt-emule)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   A C++ software emulator of the Tenstorrent device-level kernel and host APIs. Run tt-metal kernel and host code on a standard x86-64 Linux machine — no Tenstorrent hardware required.
   [📦 repo](https://github.com/tenstorrent/tt-emule)
@@ -274,6 +282,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-exalens](https://github.com/tenstorrent/tt-exalens)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Low-level hardware debugger for Tenstorrent devices. Inspect register state, memory contents, and kernel execution at the hardware level.
   [📦 repo](https://github.com/tenstorrent/tt-exalens) · [🐍 `pip install tt-exalens`](https://pypi.org/project/tt-exalens/)
+
+- **[tt-kernel](https://github.com/tenstorrent/tt-kernel-package-manager)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Distributes models over the Hugging Face Hub and serves them on Tenstorrent hardware — `tt-kernel serve <namespace>/<model>` pulls a bundle, registers it with the Tenstorrent vLLM plugin, and launches an OpenAI-compatible server. A vLLM bundle ships only adapter code and metadata (weights stay referenced by HF repo id), while legacy kernel-cache bundles package precompiled tt-metal kernel binaries so a model's first run is a cache hit instead of a slow JIT recompile. Explicitly experimental — the bundle format and APIs may change without notice.
+  [📦 repo](https://github.com/tenstorrent/tt-kernel-package-manager)
 
 - **[tt-npe](https://github.com/tenstorrent/tt-npe)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Network-on-chip Performance Estimator for Tenstorrent Tensix-based devices. Model and estimate NoC utilization before running kernels on hardware.
@@ -312,6 +324,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-burnin](https://github.com/tenstorrent/tt-burnin)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Command-line utility that runs a high power-consumption workload on Tenstorrent devices — used for chip testing, burn-in, and validating a system's power delivery and cooling under sustained load.
   [📦 repo](https://github.com/tenstorrent/tt-burnin) · [🐍 `pip install tt-burnin`](https://pypi.org/project/tt-burnin/) · 🐧 `apt install tt-burnin`
+
+- **[tt-CableGen](https://github.com/tenstorrent/tt-CableGen)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Network cabling visualizer for Tenstorrent scale-out deployments: describe a target topology and it generates and renders how to physically cable multiple Wormhole or Blackhole systems together. Works in a physical-deployment mode with racking information and a logical-hierarchy mode for clustering/pod groupings, with topology import/export and a Docker deployment path.
+  [📦 repo](https://github.com/tenstorrent/tt-CableGen)
 
 - **[tt-firmware](https://github.com/tenstorrent/tt-firmware)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent firmware repository. Board management and control firmware for Tenstorrent accelerator cards.
@@ -383,10 +399,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   Official documentation hub for running Tenstorrent accelerators on Kubernetes. Centers on tt-operator (the umbrella Helm chart) and covers Node Feature Discovery, kernel-mode driver (tt-kmd) management, firmware flashing, Prometheus telemetry, Fabric Manager topology resolution, Dynamic Resource Allocation, and multi-node scheduling via JobSet and PMIx.
   [🌐 docs.tenstorrent.com](https://docs.tenstorrent.com/cloud-native-support/)
 
-- **[tt-operator](https://github.com/tenstorrent/tt-operator)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  Kubernetes operator that automates installation and lifecycle management of the full software stack needed to run Tenstorrent workloads on a cluster. Distributed as an umbrella Helm chart coordinating driver (tt-kmd) management, Node Feature Discovery, firmware flashing, Prometheus telemetry, fabric/topology resolution, and device allocation with multi-node scheduling (JobSet/PMIx).
-  [📦 repo](https://github.com/tenstorrent/tt-operator) · [🌐 Cloud-Native Support docs](https://docs.tenstorrent.com/cloud-native-support/)
-
 ## 🔩 RISC-V & Architecture
 
 - **[bhx](https://github.com/olofj/bhx)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
@@ -420,6 +432,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tensix-isa-simulator](https://github.com/tenstorrent/tensix-isa-simulator)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   ISA-level simulator for the Tensix compute engine. Simulates the matrix, vector, and scalar units inside each Tensix core.
   [📦 repo](https://github.com/tenstorrent/tensix-isa-simulator)
+
+- **[tt-rpm](https://github.com/tenstorrent/tt-rpm)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Cycle-level, execution-driven RISC-V CPU performance model built on Sparta (MAP) with Whisper supplying functional execution, so it runs real ELF binaries — CoreMark, Dhrystone — to completion. The pipeline is YAML-configurable across in-order/out-of-order execution, issue policy, execute granularity, write-port arbitration, and bypass paths, with a modeled L1 I$/D$ plus optional unified L2, per-unit logging, stats reports, and Konata pipeline visualization.
+  [📦 repo](https://github.com/tenstorrent/tt-rpm)
 
 - **[ttsim-qemu](https://github.com/tenstorrent/ttsim-qemu)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent's fork of QEMU that provides the full-system emulation layer behind ttsim. Models the RISC-V cores and system devices of Wormhole and Blackhole so TT-Metalium workloads can boot and run without physical silicon.
@@ -550,6 +566,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **Custom Model Training on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Eight-lesson series covering the full custom training workflow on TT hardware: dataset fundamentals, configuration patterns, fine-tuning, multi-device distributed training, experiment tracking, model architecture basics, and training from scratch.
   [📖 Understanding Custom Training](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct1-understanding-training/) · [📖 Dataset Fundamentals](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct2-dataset-fundamentals/) · [📖 Configuration Patterns](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct3-configuration-patterns/) · [📖 Fine-tuning Basics](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct4-finetuning-basics/) · [📖 Multi-Device Training](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct5-multi-device-training/) · [📖 Experiment Tracking](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct6-experiment-tracking/) · [📖 Model Architecture Basics](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct7-architecture-basics/) · [📖 Training from Scratch](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/ct8-training-from-scratch/)
+
+- **[tt-low-level-documentation](https://github.com/tenstorrent/tt-low-level-documentation)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Documentation for the low-level layer of tt-metal: compute LLK APIs and data movement APIs. The data movement side covers the NOC and overlay on Wormhole and Blackhole; the compute side covers Tensix hardware and expected usage of the LLK APIs. Aimed at op and model writers who need to know what the APIs do and how the hardware behaves underneath them.
+  [📦 repo](https://github.com/tenstorrent/tt-low-level-documentation)
 
 - **[tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.

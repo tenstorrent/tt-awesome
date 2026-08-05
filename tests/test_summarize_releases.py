@@ -5,6 +5,8 @@
 import base64
 import json
 import sys
+
+import pytest
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 
@@ -169,7 +171,8 @@ def test_main_skips_prerelease_tags(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
-    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+    monkeypatch.setattr(sr, "TOKEN",         "fake-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body") as mock_body:
         sr.main([])
@@ -178,7 +181,8 @@ def test_main_skips_prerelease_tags(tmp_path, monkeypatch):
     assert json.loads(feeds_file.read_text()) == []
 
 
-def test_call_summarization_model_returns_summary():
+def test_call_summarization_model_returns_summary(monkeypatch):
+    monkeypatch.setenv("SUMMARY_PROVIDER", "anthropic")
     api_response = {
         "content": [{"type": "text", "text": "This release adds multi-chip support."}]
     }
@@ -232,7 +236,8 @@ def test_main_appends_new_release_item(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
-    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+    monkeypatch.setattr(sr, "TOKEN",         "fake-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_summarization_model",  return_value="A great summary."):
@@ -272,7 +277,8 @@ def test_main_skips_sparse_body(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
-    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+    monkeypatch.setattr(sr, "TOKEN",         "fake-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="Bug fixes."):
         sr.main([])
@@ -304,7 +310,8 @@ def test_main_dry_run_does_not_write(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
-    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+    monkeypatch.setattr(sr, "TOKEN",         "fake-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_summarization_model",  return_value="A summary."):
@@ -334,7 +341,8 @@ def test_main_skips_already_known_url(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
-    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+    monkeypatch.setattr(sr, "TOKEN",         "fake-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body") as mock_body:
         sr.main([])
@@ -364,7 +372,8 @@ def test_main_skips_release_with_null_published_at(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
-    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+    monkeypatch.setattr(sr, "TOKEN",         "fake-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_summarization_model",  return_value="A summary."):
@@ -578,7 +587,8 @@ def test_main_summarizes_changelog_when_body_defers(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
-    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+    monkeypatch.setattr(sr, "TOKEN",         "fake-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value=BOILERPLATE_BODY), \
          patch.object(sr, "fetch_changelog_section", return_value=(
@@ -618,7 +628,8 @@ def test_main_dry_run_counts_items(tmp_path, monkeypatch):
     monkeypatch.setattr(sr, "META_IN",     meta_file)
     monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
     monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
-    monkeypatch.setattr(sr, "TOKEN",       "fake-token")
+    monkeypatch.setattr(sr, "TOKEN",         "fake-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
 
     with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
          patch.object(sr, "call_summarization_model",  return_value="A summary."), \
@@ -630,3 +641,51 @@ def test_main_dry_run_counts_items(tmp_path, monkeypatch):
         "1 item would be added" in str(call.args)
         for call in mock_print.call_args_list
     )
+
+
+def test_main_exits_nonzero_when_every_summarization_fails(tmp_path, monkeypatch, capsys):
+    """A dead provider must go red, not masquerade as 'nothing new to summarize'.
+
+    Regression test for the GitHub Models retirement: SUMMARY_PROVIDER=github
+    kept passing the credential preflight (GITHUB_TOKEN is always present in
+    Actions) while every inference call returned '', so the nightly job logged
+    a SKIP per release and exited 0 with an empty PR.
+    """
+    meta = {
+        "https://github.com/tenstorrent/tt-metal": {
+            "releases": [{
+                "tagName": "v1.0.0",
+                "name": "v1.0.0",
+                "publishedAt": "2026-06-01T12:00:00Z",
+                "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v1.0.0",
+                "prerelease": False,
+            }]
+        }
+    }
+    meta_file  = tmp_path / "github_meta.json"
+    feeds_file = tmp_path / "planet_feeds.json"
+    meta_file.write_text(json.dumps(meta))
+    feeds_file.write_text(json.dumps([]))
+
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+    (entry_dir / "tt-metal.json").write_text(json.dumps({
+        "affiliation": "official",
+        "links": [{"type": "repo", "url": "https://github.com/tenstorrent/tt-metal"}],
+    }))
+
+    monkeypatch.setattr(sr, "META_IN",     meta_file)
+    monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
+    monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+    monkeypatch.setattr(sr, "TOKEN",         "fake-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
+
+    with patch.object(sr, "fetch_release_body", return_value="x" * 200), \
+         patch.object(sr, "call_summarization_model", return_value=""):
+        with pytest.raises(SystemExit) as excinfo:
+            sr.main([])
+
+    assert excinfo.value.code == 1
+    assert "all 1 summarization call(s) failed" in capsys.readouterr().err
+    # The feed file must be left untouched when nothing could be summarized.
+    assert json.loads(feeds_file.read_text()) == []

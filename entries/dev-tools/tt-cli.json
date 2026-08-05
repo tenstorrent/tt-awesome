@@ -1,0 +1,30 @@
+{
+  "id": "tt-cli",
+  "name": "tt-cli",
+  "description": "Single entry point to the Tenstorrent software stack: `tt update` converges a machine onto the CI-tested \"golden\" version set, `tt device` covers status/info/reset, and `tt model`/`tt serve` pull weights and bring up tt-inference-server. Commands either run natively or delegate to tt-smi, tt-flash, and tt-installer behind a stable interface, with `--json` output and documented exit codes on every command. Early prototype — the README labels it an internal prototype and several subcommands are still stubs.",
+  "affiliation": "official",
+  "categories": [
+    "dev-tools",
+    "hw-system"
+  ],
+  "tags": [
+    "cli",
+    "device-management",
+    "model-serving",
+    "tt-smi",
+    "prototype"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-cli"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-08-05"
+}
