@@ -11,6 +11,11 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  # Entitles the built-in GITHUB_TOKEN to make Copilot inference requests,
+  # billed to the org (github.blog/changelog/2026-07-02-copilot-cli-no-longer-
+  # needs-a-personal-access-token-in-github-actions). Requires the org's
+  # "Allow use of Copilot CLI billed to the organization" policy to be on.
+  copilot-requests: write
 concurrency:
   group: nightly-github-meta
   cancel-in-progress: true
@@ -19,9 +24,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Summarization runs on GitHub Copilot inference (scripts/llm_client.py).
-      # COPILOT_TOKEN must be a PAT from an account holding a Copilot seat —
-      # the Actions-issued GITHUB_TOKEN does not have one and will 401.
-      COPILOT_TOKEN: ${{ secrets.COPILOT_TOKEN }}
+      # Prefers a COPILOT_TOKEN secret — a *fine-grained*, user-owned PAT with
+      # the Copilot Requests account permission (classic PATs are not accepted)
+      # — and falls back to the built-in token, which the copilot-requests
+      # permission above entitles. The fallback is documented for the Copilot
+      # CLI; these scripts call the same service directly over HTTP, so if it
+      # turns out not to carry over, the run fails loudly and the secret is the
+      # fix.
+      COPILOT_TOKEN: ${{ secrets.COPILOT_TOKEN || github.token }}
       # Flip the backend with repository Variables, no code change:
       # SUMMARY_PROVIDER = "copilot" (default when unset) or "anthropic".
       # The old "github" (GitHub Models) value no longer works — that service
