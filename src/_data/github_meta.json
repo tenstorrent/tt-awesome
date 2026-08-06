@@ -69,8 +69,8 @@
     ]
   },
   "https://github.com/moritztng/tt-atom": {
-    "stars": 24,
-    "updatedAt": "2026-08-02T19:02:01Z",
+    "stars": 25,
+    "updatedAt": "2026-08-06T02:55:26Z",
     "preview_image": "https://raw.githubusercontent.com/moritztng/tt-atom/master/assets/caffeine_md.gif",
     "releases": [
       {
@@ -244,11 +244,11 @@
   },
   "https://github.com/tenstorrent/tt-forge-models": {
     "stars": 13,
-    "updatedAt": "2026-08-05T07:23:54Z"
+    "updatedAt": "2026-08-06T02:46:47Z"
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 67,
-    "updatedAt": "2026-08-05T20:09:14Z",
+    "updatedAt": "2026-08-06T04:40:35Z",
     "releases": [
       {
         "tagName": "v0.19.0",
@@ -711,7 +711,7 @@
   },
   "https://github.com/Zaneham/BarraCUDA": {
     "stars": 1724,
-    "updatedAt": "2026-08-04T13:25:05Z",
+    "updatedAt": "2026-08-06T03:14:47Z",
     "releases": [
       {
         "tagName": "v5.01",
@@ -728,11 +728,11 @@
         "prerelease": false
       }
     ],
-    "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Unreleased\n\n### Frontend\n\n- #142: parse function pointer declarators, and constructors and destructors\n  (Zane Hambly, 2026-07-27)\n\n- #144: move the Triton errors into the shared error catalogue\n  (Zane Hambly, 2026-07-28)\n\n- keep block comment state across lines, so a macro quoted in prose is no\n  longer expanded\n  (Zane Hambly, 2026-07-22)\n\n- stop dereferencing anonymous-struct name sentinels as source offsets\n  (Zane Hambly, 2026-07-22)\n\n### Triton\n\n- let `--cpu` and `--rv64` through the mode gate, and fail with a nonzero\n  status rather than a silent zero\n  (Zane Hambly, 2026-07-16)\n\n### HIP\n\n- #137: support bare convergent warp and lane intrinsics\n  (Maou, 2026-07-27)\n\n### Backends\n\n- seed atomic RMW as divergent in the AMD divergence analysis, so a GEP off\n  an `atomicAdd` result no longer takes the scalar path and emits\n  `s_add_u32` with a VGPR source; unblocks per-thread SYSPRINT on AMD\n  (Zane Hambly, 2026-08-01)\n\n- #138: real high-half multiply on x86-64 and RV64, and an honest refusal\n  where it cannot be done\n  (Zane Hambly, 2026-07-26)\n\n- a divergent return masks lanes instead of ending the wave, so AMD kernels\n  no longer lose the lanes that did not take the branch\n  (Zane Hambly, 2026-07-25)\n\n### Tensix\n\n- `--tt-chip` selects wormhole or blackhole, so L1 and text limits follow the\n  target part instead of being fixed\n  (Zane Hambly, 2026-07-23)\n\n- refuse i64 arithmetic instead of silently truncating it to 32-bit\n  (Zane Hambly, 2026-07-22)\n\n- the RV32 backend gains control flow, calls, GEP and shared memory, and emits\n  an ELF that tt-metal can load\n  (Zane Hambly, 2026-07-22)\n\n- reserve a 64K `__shared__` slab at the top of L1\n  (Zane Hambly, 2026-07-22)\n\n### Runtime\n\n- ABEND dump renders the captured kernarg block as a mainframe-style SNAP\n  section (offset gutter, four 4-byte hex groups, ASCII on the right), so\n  the arg bytes the launcher handed off are visible on every backend that\n  calls `ab_snag`, not just AMD\n  (Zane Hambly, 2026-08-02)\n\n- ABEND arms the CPU backend too: `ab_arm_cpu` hooks POSIX\n  SIGSEGV/SIGILL/SIGFPE/SIGBUS or the Windows unhandled-exception filter and\n  maps them onto the G0Cx taxonomy, so a `--cpu` kernel that faults gets\n  the same dump an AMD kernel would\n  (Zane Hambly, 2026-08-01)\n\n- #141: run LFortran `do concurrent` kernels on Booth, NVIDIA and AMD\n  (Zane Hambly, 2026-07-26)\n\n### Driver\n\n- collapse the C99 mode gates into one cascade\n  (Zane Hambly, 2026-07-23)\n\n- let `--tdf` and `--tdf-fission` through the mode gates\n  (Zane Hambly, 2026-07-23)\n\n### Build\n\n- track header dependencies with `-MMD`, so a header edit no longer leaves\n  stale objects linked in\n  (Zane Hambly, 2026-07-22)\n\n- compile `nv_rt` and `bc_runtime`, platform-gated\n  (Zane Hambly, 2026-07-16)\n\n- #146: give each host its own object directory under `build/`, so a Git Bash\n  build and a WSL build in one checkout stop overwriting each other and handing\n  the linker a mix of COFF and ELF"
+    "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Unreleased\n\n### Frontend\n\n- #142: parse function pointer declarators, and constructors and destructors\n  (Zane Hambly, 2026-07-27)\n\n- #144: move the Triton errors into the shared error catalogue\n  (Zane Hambly, 2026-07-28)\n\n- keep block comment state across lines, so a macro quoted in prose is no\n  longer expanded\n  (Zane Hambly, 2026-07-22)\n\n- stop dereferencing anonymous-struct name sentinels as source offsets\n  (Zane Hambly, 2026-07-22)\n\n### Triton\n\n- let `--cpu` and `--rv64` through the mode gate, and fail with a nonzero\n  status rather than a silent zero\n  (Zane Hambly, 2026-07-16)\n\n### HIP\n\n- #137: support bare convergent warp and lane intrinsics\n  (Maou, 2026-07-27)\n\n### Backends\n\n- seed atomic RMW as divergent in the AMD divergence analysis, so a GEP off\n  an `atomicAdd` result no longer takes the scalar path and emits\n  `s_add_u32` with a VGPR source; unblocks per-thread SYSPRINT on AMD\n  (Zane Hambly, 2026-08-01)\n\n- #138: real high-half multiply on x86-64 and RV64, and an honest refusal\n  where it cannot be done\n  (Zane Hambly, 2026-07-26)\n\n- a divergent return masks lanes instead of ending the wave, so AMD kernels\n  no longer lose the lanes that did not take the branch\n  (Zane Hambly, 2026-07-25)\n\n- `--amdgpu` honours `-o`, and the register-plan line goes to stderr rather\n  than into the middle of the assembly on stdout, where it stopped the result\n  assembling\n  (Zane Hambly, 2026-08-06)\n\n### Tensix\n\n- `--tt-chip` selects wormhole or blackhole, so L1 and text limits follow the\n  target part instead of being fixed\n  (Zane Hambly, 2026-07-23)\n\n- refuse i64 arithmetic instead of silently truncating it to 32-bit\n  (Zane Hambly, 2026-07-22)\n\n- the RV32 backend gains control flow, calls, GEP and shared memory, and emits\n  an ELF that tt-metal can load\n  (Zane Hambly, 2026-07-22)\n\n- reserve a 64K `__shared__` slab at the top of L1\n  (Zane Hambly, 2026-07-22)\n\n### Runtime\n\n- ABEND dump renders the captured kernarg block as a mainframe-style SNAP\n  section (offset gutter, four 4-byte hex groups, ASCII on the right), so\n  the arg bytes the launcher handed off are visible on every backend that\n  calls `ab_snag`, not just AMD\n  (Zane Hambly, 2026-08-02)\n\n- ABEND arms the CPU backend too: `ab_arm_cpu` hooks POSIX\n  SIGSEGV/SIGILL/SIGFPE/SIGBUS or the Windows unhandled-exception filter and\n  maps them onto the G0Cx taxonomy, so a `--cpu` kernel that faults gets\n  the same dump an AMD kernel would\n  (Zane Hambly, 2026-08-01)\n\n- #141: run LFortran `do concurrent` kernels on Booth, NVIDIA and AMD\n  (Zane Hambly, 2026-07-26)\n\n### Driver\n\n- collapse the C99 mode gates into one cascade\n  (Zane Hambly, 2026-07-23)\n\n- let `--tdf` and `--tdf-fission` through the mode gates\n  (Zane Hambly, 2026-07-23)\n\n### Build\n\n- track header dependencies with `-MMD`, so a header edit no longer leaves\n  stale objects linked in\n  (Zane Hambly, 2026-07-22)\n\n- compile `nv_rt` and `bc_runtime`, platform-gated\n  (Zane Hambly, 2026-07-16)"
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 1,
-    "updatedAt": "2026-08-05T03:00:20Z"
+    "updatedAt": "2026-08-06T07:03:23Z"
   },
   "https://github.com/kernelize-ai/triton-tenstorrent": {
     "stars": 12,
@@ -901,6 +901,13 @@
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
+        "tagName": "1.5.0.dev20260806010502",
+        "name": "1.5.0.dev20260806010502",
+        "publishedAt": "2026-08-06T01:30:02Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260806010502",
+        "prerelease": false
+      },
+      {
         "tagName": "1.5.0.dev20260805010215",
         "name": "1.5.0.dev20260805010215",
         "publishedAt": "2026-08-05T01:22:24Z",
@@ -927,13 +934,6 @@
         "publishedAt": "2026-08-02T01:17:54Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260802005828",
         "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20260801010737",
-        "name": "1.5.0.dev20260801010737",
-        "publishedAt": "2026-08-01T01:30:22Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260801010737",
-        "prerelease": false
       }
     ],
     "latestStableRelease": {
@@ -945,10 +945,17 @@
     }
   },
   "https://github.com/tenstorrent/tt-forge": {
-    "stars": 339,
-    "updatedAt": "2026-08-05T20:34:15Z",
+    "stars": 340,
+    "updatedAt": "2026-08-06T02:48:49Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
+      {
+        "tagName": "1.5.0.dev20260806001813",
+        "name": "1.5.0.dev20260806001813",
+        "publishedAt": "2026-08-06T01:19:06Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.5.0.dev20260806001813",
+        "prerelease": false
+      },
       {
         "tagName": "1.5.0.dev20260805004653",
         "name": "1.5.0.dev20260805004653",
@@ -976,13 +983,6 @@
         "publishedAt": "2026-08-03T06:36:34Z",
         "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.5.0.dev20260802001805",
         "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20260801001900",
-        "name": "1.5.0.dev20260801001900",
-        "publishedAt": "2026-08-01T00:58:52Z",
-        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.5.0.dev20260801001900",
-        "prerelease": false
       }
     ],
     "latestStableRelease": {
@@ -999,7 +999,7 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 295,
-    "updatedAt": "2026-08-04T14:52:47Z",
+    "updatedAt": "2026-08-06T04:55:51Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1169,8 +1169,15 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 74,
-    "updatedAt": "2026-08-05T19:34:30Z",
+    "updatedAt": "2026-08-06T04:09:32Z",
     "releases": [
+      {
+        "tagName": "1.5.0.dev20260806001813",
+        "name": "1.5.0.dev20260806001813",
+        "publishedAt": "2026-08-06T01:10:56Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.5.0.dev20260806001813",
+        "prerelease": false
+      },
       {
         "tagName": "1.5.0.dev20260805004653",
         "name": "1.5.0.dev20260805004653",
@@ -1197,13 +1204,6 @@
         "name": "1.5.0.dev20260802001805",
         "publishedAt": "2026-08-02T00:48:26Z",
         "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.5.0.dev20260802001805",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20260801001900",
-        "name": "1.5.0.dev20260801001900",
-        "publishedAt": "2026-08-01T00:50:00Z",
-        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.5.0.dev20260801001900",
         "prerelease": false
       }
     ],
@@ -1262,8 +1262,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10887,
-    "updatedAt": "2026-08-05T14:44:52Z",
+    "stars": 10888,
+    "updatedAt": "2026-08-06T05:05:56Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -3702,7 +3702,7 @@
   },
   "https://github.com/tenstorrent/tt-lang": {
     "stars": 59,
-    "updatedAt": "2026-08-05T18:50:20Z",
+    "updatedAt": "2026-08-06T06:02:32Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
@@ -3712,7 +3712,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1616,
-    "updatedAt": "2026-08-05T21:43:21Z",
+    "updatedAt": "2026-08-06T07:02:47Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
