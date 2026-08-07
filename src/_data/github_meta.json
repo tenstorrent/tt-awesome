@@ -69,8 +69,8 @@
     ]
   },
   "https://github.com/moritztng/tt-atom": {
-    "stars": 25,
-    "updatedAt": "2026-08-06T02:55:26Z",
+    "stars": 26,
+    "updatedAt": "2026-08-06T17:39:35Z",
     "preview_image": "https://raw.githubusercontent.com/moritztng/tt-atom/master/assets/caffeine_md.gif",
     "releases": [
       {
@@ -131,12 +131,31 @@
         ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Atom are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut only from a commit that has passed the on-hardware release gate \u2014 accuracy\nparity, no OOM across the supported size range, no perf or UX regression, and a clean install\nsmoke (see `RELEASING.md`).\n\n## Unreleased\n\n### Added\n- **Multi-card data-parallel fan-out for `tt-atom run`**: pass several structure files with\n  `--devices 0,1,...` and each card runs a full `Calculator` + relax/MD loop (or the\n  single-point energy default) for its shard of structures \u2014 the high-throughput\n  virtual-screening path. Per-structure results come back in input order, bit-exact vs the\n  single-card path (`scripts/_multicard_sim_parity.py`); without `--devices`, multiple\n  structures run one after another on one card. `--out` is a directory in batch mode and each\n  written geometry carries its energy and forces. The new `tt_atom.batch.MultiCardSim` pool\n  backs the CLI and is usable directly; `scripts/multicard_sim_scaling.py` measures the\n  throughput scaling.\n- Orb's batched path (`evaluate_batch`) now applies ZBL pair repulsion union-wide through one\n  autograd pass, matching the per-system path at short contact.\n\n### Fixed\n- Built wheels now include both weight exporters, so automatic UMA and Orb cache misses work\n  outside a source checkout.\n- Fresh UMA and Orb cache misses can download their checkpoints again; explicit\n  `HF_HUB_OFFLINE=1` still enforces offline use. Concurrent exports now use separate sidecars.\n- Release mode now blocks every missing fixture, baseline, required op, and model-family OOM row.\n  `--allow-gaps` remains available for development diagnostics.\n- Release and UX subprocesses always open logical device 0 after `TT_VISIBLE_DEVICES` selects the\n  physical card.\n- Custom-op validation now rejects invalid gate modes and shapes, and program-cache keys include\n  every operand layout that affects compiled accessors.\n- The silicon-melt example now checks the exact-cutoff neighbour graph every step and recaptures\n  only when it changes. The earlier trajectory is withdrawn because its skin policy could reuse\n  stale edges.\n- Orb stress now includes ZBL pair repulsion, matching upstream conservative and direct\n  checkpoints at short contact. Both traced MD examples also include total ZBL energy and forces.\n- Explicit UMA checkpoint paths now participate in the bundle-cache identity, preventing weights\n  exported from one checkpoint from being silently reused for another.\n\n### Changed\n- Accuracy coverage now includes all periodic UMA tasks, both families' batch-vs-separate parity,\n  Orb's bf8 fast mode, and short-contact ZBL stress.\n- Performance baselines now cover UMA and record the `ttnn` version that produced them.\n- p150a performance baselines are refreshed for the `ttnn` 0.68.0 wheel\n  (`docs/perf_baselines.json`); a protocol-mismatch guard refuses stale comparisons.\n- The clean-install gate builds the candidate wheel, i"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Atom are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut only from a commit that has passed the on-hardware release gate \u2014 accuracy\nparity, no OOM across the supported size range, no perf or UX regression, and a clean install\nsmoke (see `RELEASING.md`).\n\n## Unreleased\n\n### Added\n- **Multi-card data-parallel fan-out for `tt-atom run`**: pass several structure files with\n  `--devices 0,1,...` and each card runs a full `Calculator` + relax/MD loop (or the\n  single-point energy default) for its shard of structures \u2014 the high-throughput\n  virtual-screening path. Per-structure results come back in input order, bit-exact vs the\n  single-card path (`scripts/_multicard_sim_parity.py`); without `--devices`, multiple\n  structures run one after another on one card. `--out` is a directory in batch mode and each\n  written geometry carries its energy and forces. The new `tt_atom.batch.MultiCardSim` pool\n  backs the CLI and is usable directly; `scripts/multicard_sim_scaling.py` measures the\n  throughput scaling.\n- Orb's batched path (`evaluate_batch`) now applies ZBL pair repulsion union-wide through one\n  autograd pass, matching the per-system path at short contact.\n\n### Fixed\n- `tt-atom run a.xyz b.xyz --relax --devices 0` with two **different-composition** structures no\n  longer crashes the worker. The multicard worker builds one UMA `Calculator` per reduced\n  composition and used to call `open_device` once per `Calculator`, so a second composition opened\n  the same card a second time in one process (`TT_FATAL: No MetalContext instance for context_id N`).\n  The worker now opens its device once and reuses it across every `Calculator` it builds; the\n  `Calculator.close()` it owns never closes a device it didn't open.\n- `tt-atom run` (multicard) now exits non-zero when any structure fails. The worker has always\n  caught per-structure errors and returned the other structures' results, but the CLI used to\n  exit 0 regardless, so a failed structure silently dropped its output. It now reports which\n  structures failed and exits non-zero while still writing the ones that succeeded.\n- Built wheels now include both weight exporters, so automatic UMA and Orb cache misses work\n  outside a source checkout.\n- Fresh UMA and Orb cache misses can download their checkpoints again; explicit\n  `HF_HUB_OFFLINE=1` still enforces offline use. Concurrent exports now use separate sidecars.\n- Release mode now blocks every missing fixture, baseline, required op, and model-family OOM row.\n  `--allow-gaps` remains available for development diagnostics.\n- Release and UX subprocesses always open logical device 0 after `TT_VISIBLE_DEVICES` selects the\n  physical card.\n- Custom-op validation now rejects invalid gate modes and shapes, and program-cache keys include\n  every operand layout that affects compiled accessors.\n- The silicon-melt example now checks the exact-cutoff neighbour graph every step and recaptures\n  only when"
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 118,
-    "updatedAt": "2026-08-05T14:04:17Z",
+    "updatedAt": "2026-08-07T00:31:55Z",
     "releases": [
+      {
+        "tagName": "v0.6.1",
+        "name": "v0.6.1",
+        "publishedAt": "2026-08-07T00:28:29Z",
+        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.6.1",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt_bio-0.6.1-py3-none-any.whl",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.6.1/tt_bio-0.6.1-py3-none-any.whl",
+            "size": 922025
+          },
+          {
+            "name": "tt_bio-0.6.1.tar.gz",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.6.1/tt_bio-0.6.1.tar.gz",
+            "size": 939646
+          }
+        ]
+      },
       {
         "tagName": "v0.6.0",
         "name": "v0.6.0",
@@ -207,32 +226,13 @@
             "size": 8537510
           }
         ]
-      },
-      {
-        "tagName": "v0.3.4",
-        "name": "v0.3.4",
-        "publishedAt": "2026-07-22T19:26:58Z",
-        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.3.4",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt_bio-0.3.4-py3-none-any.whl",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.3.4/tt_bio-0.3.4-py3-none-any.whl",
-            "size": 778994
-          },
-          {
-            "name": "tt_bio-0.3.4.tar.gz",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.3.4/tt_bio-0.3.4.tar.gz",
-            "size": 785961
-          }
-        ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Changed\n- **Unified design CLI** \u2014 `tt-bio design INPUT --model boltzgen|rfd3` is now the single design\n  command, mirroring `tt-bio predict --model ...`. BoltzGen's pipeline options (`--steps`,\n  `--config STEP key=val`, `--num_designs`, `--budget`, `--devices`, `--out_dir`) moved onto the\n  shared command as boltzgen-scoped flags (`boltzgen` is the default model, so existing\n  single-model invocations need only swap the verb). The RFD3 checkpoint flag is renamed\n  `--golden_dir` \u2192 `--checkpoint` (the old spelling stays as a hidden deprecated alias for one\n  release). The RFD3 engine modules moved from flat `tt_bio/rfd3*.py` files into a self-contained\n  `tt_bio/rfd3/` package mirroring `tt_bio/boltzgen/`; `import tt_bio.rfd3` resolves to the\n  package. Numerics are bit-identical \u2014 this is a CLI, layout, and docs change only. BoltzGen's\n  user documentation moved from the README to `docs/boltzgen-design.md`; the README now has one\n  Design section covering both models.\n\n### Deprecated\n- **`tt-bio gen`** \u2014 hidden from `--help` and prints a deprecation warning on stderr, then\n  forwards every argument to BoltzGen unchanged. It will be removed in a future release; use\n  `tt-bio design INPUT --model boltzgen` instead (`gen run X --output out` becomes\n  `design X --model boltzgen --out_dir out`).\n\n## [0.5.0] - 2026-07-27\n\nMulti-sample folds are about 3x faster on Protenix-v2 and OpenDDE, which now draw every sample\nfrom one batched device trajectory instead of looping one sample at a time. The parity reference\nfixtures a clean checkout needs are published for the first time, so\n`scripts/fetch_parity_fixtures.sh` works and the eight structure legs 0.4.0 had to skip are back\nin the gate. RFdiffusion3 gains the parity, performance, and UX gate coverage it shipped without,\nand a few percent of throughput.\n\n**Release gate** (Blackhole P150a on `pc`, tt-bio 0.5.0): host suite 114 passed / 49 skipped;\npackaging guard 15/15 data files and 31/31 declared dependencies present in the wheel and sdist;\nUX gate PASS on every shipped surface, now including `tt-bio design`.\n\n**Parity gate** (`scripts/full_parity_gate.py`, 22 legs): **20 PASS, 2 GAP**, both GAPs\nreproducing a committed `GAP-evidenced` verdict rather than drifting. The eight envelope structure\nlegs score for the first time since they were externalized, because the fixture asset they read is\nfinally published: Boltz-2 trp-cage 0.074 \u00c5 against a 0.145 \u00c5 envelope (ratio 0.51), Boltz-2 HSA\n0.92 vs 1.33 (0.69), Protenix-v2 7ROA 0.049 vs 0.042 (1.16), Protenix-v2 HSA 0.050 vs 0.052 (0.96).\nESMFold2 (4 targets), ESMC-300m/600m, SaProt-35m/650m, OpenDDE-abag, BoltzGen (scRMSD pass-rate\n100%, median 0.68 \u00c5) and the RFD3 featurizer (43/43 keys bit-exact) all reproduce their recorded\nverdicts"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n## [0.6.1] - 2026-08-07\n\nDesign gets one verb: `tt-bio design INPUT --model boltzgen|rfd3`, mirroring `tt-bio predict\n--model ...`. `tt-bio gen` still works unchanged and is now a hidden deprecated alias for\n`tt-bio design --model boltzgen`. ESMC-300M/600M single-sequence embedding is trace-captured,\nand RFD3 multi-card design no longer strangles itself on host threads: four cards aggregated\n0.68x of a single card before, 3.48x after. `--devices N` is honoured on the single-card embed\nand RFD3 design paths, where it had been ignored, and `predict` now says so out loud when a run\nfinishes on fewer cards than you asked for instead of quietly returning a slower result.\n\nThis release also merges back the v0.6.0 release commits, which were tagged but never landed on\n`main`. For five days `main` reported version 0.5.0, shipped no 0.6.0 changelog entry, and\ncarried a `tests/` file that aborted pytest collection so the host suite never ran.\n\n### Changed\n\n- **Unified design CLI** \u2014 `tt-bio design INPUT --model boltzgen|rfd3` is now the single design\n  command, mirroring `tt-bio predict --model ...`. BoltzGen pipeline options (`--steps`,\n  `--config STEP key=val`, `--num_designs`, `--budget`, `--devices`, `--out_dir`) moved onto the\n  shared command as boltzgen-scoped flags (`boltzgen` is the default model, so existing\n  single-model invocations need only swap the verb). The RFD3 checkpoint flag is renamed\n  `--golden_dir` to `--checkpoint`, with the old spelling kept as a hidden deprecated alias for\n  one release. The RFD3 engine modules moved from flat `tt_bio/rfd3*.py` files into a\n  self-contained `tt_bio/rfd3/` package mirroring `tt_bio/boltzgen/`; `import tt_bio.rfd3`\n  resolves to the package. Numerics are bit-identical: this is a CLI, layout and docs change\n  only. BoltzGen user documentation moved from the README to `docs/boltzgen-design.md`, and the\n  README now has one Design section covering both models. (`26cf293a`)\n- `fa77e884` predict: warn loudly when a run completes on fewer cards than requested, rather\n  than silently returning the slower result.\n- `7bee7292` embed and `ef0265ef` rfd3: honour `--devices N` on the single-card path.\n\n### Deprecated\n\n- **`tt-bio gen`** \u2014 hidden from `--help` and prints a deprecation warning on stderr, then\n  forwards every argument to BoltzGen unchanged. It still works; it will be removed in a future\n  release. Use `tt-bio design INPUT --model boltzgen` instead (`gen run X --output out` becomes\n  `design X --model boltzgen --out_dir out`).\n\n### Fixed\n\n- `280de387` tenstorrent: restore the bf16 construction defaults in fast mode. This was the root\n  cause of ESMFold2 returning NaN confidence.\n- `a657a636` boltz2: use one sample-chunk width for the whole diffusion trajectory and pad the\n  short"
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 16,
-    "updatedAt": "2026-08-05T09:17:43Z"
+    "updatedAt": "2026-08-06T08:27:43Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 64,
@@ -248,7 +248,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 67,
-    "updatedAt": "2026-08-06T04:40:35Z",
+    "updatedAt": "2026-08-06T11:37:44Z",
     "releases": [
       {
         "tagName": "v0.19.0",
@@ -620,7 +620,7 @@
   },
   "https://github.com/tenstorrent/tt-studio": {
     "stars": 49,
-    "updatedAt": "2026-07-31T18:09:43Z",
+    "updatedAt": "2026-08-06T20:26:43Z",
     "releases": [
       {
         "tagName": "rc-v2.9.0",
@@ -664,10 +664,17 @@
     "updatedAt": "2026-08-04T06:04:27Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2204,
-    "updatedAt": "2026-08-05T16:15:40Z",
+    "stars": 2207,
+    "updatedAt": "2026-08-06T21:19:17Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
+      {
+        "tagName": "0.21.0",
+        "name": "0.21.0",
+        "publishedAt": "2026-08-06T13:31:14Z",
+        "url": "https://github.com/dstackai/dstack/releases/tag/0.21.0",
+        "prerelease": false
+      },
       {
         "tagName": "0.20.29",
         "name": "0.20.29",
@@ -695,13 +702,6 @@
         "publishedAt": "2026-06-25T19:29:18Z",
         "url": "https://github.com/dstackai/dstack/releases/tag/0.20.26",
         "prerelease": false
-      },
-      {
-        "tagName": "0.20.25",
-        "name": "0.20.25",
-        "publishedAt": "2026-06-18T11:12:02Z",
-        "url": "https://github.com/dstackai/dstack/releases/tag/0.20.25",
-        "prerelease": false
       }
     ]
   },
@@ -710,8 +710,8 @@
     "updatedAt": "2026-07-13T13:42:22Z"
   },
   "https://github.com/Zaneham/BarraCUDA": {
-    "stars": 1724,
-    "updatedAt": "2026-08-06T03:14:47Z",
+    "stars": 1728,
+    "updatedAt": "2026-08-07T05:11:20Z",
     "releases": [
       {
         "tagName": "v5.01",
@@ -728,7 +728,7 @@
         "prerelease": false
       }
     ],
-    "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Unreleased\n\n### Frontend\n\n- #142: parse function pointer declarators, and constructors and destructors\n  (Zane Hambly, 2026-07-27)\n\n- #144: move the Triton errors into the shared error catalogue\n  (Zane Hambly, 2026-07-28)\n\n- keep block comment state across lines, so a macro quoted in prose is no\n  longer expanded\n  (Zane Hambly, 2026-07-22)\n\n- stop dereferencing anonymous-struct name sentinels as source offsets\n  (Zane Hambly, 2026-07-22)\n\n### Triton\n\n- let `--cpu` and `--rv64` through the mode gate, and fail with a nonzero\n  status rather than a silent zero\n  (Zane Hambly, 2026-07-16)\n\n### HIP\n\n- #137: support bare convergent warp and lane intrinsics\n  (Maou, 2026-07-27)\n\n### Backends\n\n- seed atomic RMW as divergent in the AMD divergence analysis, so a GEP off\n  an `atomicAdd` result no longer takes the scalar path and emits\n  `s_add_u32` with a VGPR source; unblocks per-thread SYSPRINT on AMD\n  (Zane Hambly, 2026-08-01)\n\n- #138: real high-half multiply on x86-64 and RV64, and an honest refusal\n  where it cannot be done\n  (Zane Hambly, 2026-07-26)\n\n- a divergent return masks lanes instead of ending the wave, so AMD kernels\n  no longer lose the lanes that did not take the branch\n  (Zane Hambly, 2026-07-25)\n\n- `--amdgpu` honours `-o`, and the register-plan line goes to stderr rather\n  than into the middle of the assembly on stdout, where it stopped the result\n  assembling\n  (Zane Hambly, 2026-08-06)\n\n### Tensix\n\n- `--tt-chip` selects wormhole or blackhole, so L1 and text limits follow the\n  target part instead of being fixed\n  (Zane Hambly, 2026-07-23)\n\n- refuse i64 arithmetic instead of silently truncating it to 32-bit\n  (Zane Hambly, 2026-07-22)\n\n- the RV32 backend gains control flow, calls, GEP and shared memory, and emits\n  an ELF that tt-metal can load\n  (Zane Hambly, 2026-07-22)\n\n- reserve a 64K `__shared__` slab at the top of L1\n  (Zane Hambly, 2026-07-22)\n\n### Runtime\n\n- ABEND dump renders the captured kernarg block as a mainframe-style SNAP\n  section (offset gutter, four 4-byte hex groups, ASCII on the right), so\n  the arg bytes the launcher handed off are visible on every backend that\n  calls `ab_snag`, not just AMD\n  (Zane Hambly, 2026-08-02)\n\n- ABEND arms the CPU backend too: `ab_arm_cpu` hooks POSIX\n  SIGSEGV/SIGILL/SIGFPE/SIGBUS or the Windows unhandled-exception filter and\n  maps them onto the G0Cx taxonomy, so a `--cpu` kernel that faults gets\n  the same dump an AMD kernel would\n  (Zane Hambly, 2026-08-01)\n\n- #141: run LFortran `do concurrent` kernels on Booth, NVIDIA and AMD\n  (Zane Hambly, 2026-07-26)\n\n### Driver\n\n- collapse the C99 mode gates into one cascade\n  (Zane Hambly, 2026-07-23)\n\n- let `--tdf` and `--tdf-fission` through the mode gates\n  (Zane Hambly, 2026-07-23)\n\n### Build\n\n- track header dependencies with `-MMD`, so a header edit no longer leaves\n  stale objects linked in\n  (Zane Hambly, 2026-07-22)\n\n- compile `nv_rt` and `bc_runtime`, platform-gated\n  (Zane Hambly, 2026-07-16)"
+    "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Unreleased\n\n### Frontend\n\n- double-precision `fmax`, `fmin` and `fmod`. The ocean kernels in\n  [Jorge Galvez](https://github.com/JorgeG94)'s do-concurrent benchmarks call\n  them, and only the `f`-suffixed single-precision forms were recognised\n  (Zane Hambly, 2026-08-06)\n\n- raise the cap on arguments in one call to 64, and say so when a call goes\n  past it. Sema stopped counting at 16 and then reported an arity mismatch\n  against the count it had stopped at, so a correct 23-argument call in the\n  same ocean benchmarks was rejected and told the wrong number\n  (Zane Hambly, 2026-08-06)\n\n- #142: parse function pointer declarators, and constructors and destructors\n  (Zane Hambly, 2026-07-27)\n\n- #144: move the Triton errors into the shared error catalogue\n  (Zane Hambly, 2026-07-28)\n\n- keep block comment state across lines, so a macro quoted in prose is no\n  longer expanded\n  (Zane Hambly, 2026-07-22)\n\n- stop dereferencing anonymous-struct name sentinels as source offsets\n  (Zane Hambly, 2026-07-22)\n\n### Triton\n\n- let `--cpu` and `--rv64` through the mode gate, and fail with a nonzero\n  status rather than a silent zero\n  (Zane Hambly, 2026-07-16)\n\n### HIP\n\n- #137: support bare convergent warp and lane intrinsics\n  (Maou, 2026-07-27)\n\n### Architecture\n\n- one target per run. Several backends at once all wrote to the same\n  `-o` path, so you got whichever came last in the registry under the\n  name you asked for, and a zero exit\n\n- backend contract (`be_desc_t`) with static registration; every\n  existing backend sits behind the same shape and the driver iterates\n  `be_list` instead of the copy-pasted if-chain. A backend also owns its\n  own command line now, so adding a target means one file and one line in\n  the list rather than editing a shared config struct and the driver's\n  argument loop. Skeleton in `src/backend/skeleton/` and\n  `docs/backends.md` for anyone adding a target\n  (Zane Hambly, 2026-08-02)\n\n### Backends\n\n- seed atomic RMW as divergent in the AMD divergence analysis, so a GEP off\n  an `atomicAdd` result no longer takes the scalar path and emits\n  `s_add_u32` with a VGPR source; unblocks per-thread SYSPRINT on AMD\n  (Zane Hambly, 2026-08-01)\n\n- #138: real high-half multiply on x86-64 and RV64, and an honest refusal\n  where it cannot be done\n  (Zane Hambly, 2026-07-26)\n\n- metal: refuse a kernel that uses `double` rather than narrowing it to\n  `float`. Apple GPUs have no fp64, and quietly halving the precision the\n  source asked for is worse than saying so\n  (Zane Hambly, 2026-08-06)\n\n- a divergent return masks lanes instead of ending the wave, so AMD kernels\n  no longer lose the lanes that did not take the branch\n  (Zane Hambly, 2026-07-25)\n\n- `--amdgpu` honours `-o`, and the register-plan line goes to stderr rather\n  than into the middle of the assembly on stdout, where it stopped the result\n  assembling\n  (Zane Hambly, 2026-08-06)\n\n### Tensix\n\n- `--tt-chip` selects wormhole or blackhole, so L1 and te"
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 1,
@@ -897,9 +897,16 @@
   },
   "https://github.com/tenstorrent/tt-forge-onnx": {
     "stars": 65,
-    "updatedAt": "2026-08-04T15:32:26Z",
+    "updatedAt": "2026-08-06T10:16:41Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
+      {
+        "tagName": "1.5.0.dev20260807014027",
+        "name": "1.5.0.dev20260807014027",
+        "publishedAt": "2026-08-07T02:01:08Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260807014027",
+        "prerelease": false
+      },
       {
         "tagName": "1.5.0.dev20260806010502",
         "name": "1.5.0.dev20260806010502",
@@ -927,13 +934,6 @@
         "publishedAt": "2026-08-03T01:22:30Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260803010251",
         "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20260802005828",
-        "name": "1.5.0.dev20260802005828",
-        "publishedAt": "2026-08-02T01:17:54Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260802005828",
-        "prerelease": false
       }
     ],
     "latestStableRelease": {
@@ -949,6 +949,13 @@
     "updatedAt": "2026-08-06T02:48:49Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
+      {
+        "tagName": "1.5.0.dev20260807012312",
+        "name": "1.5.0.dev20260807012312",
+        "publishedAt": "2026-08-07T02:03:28Z",
+        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.5.0.dev20260807012312",
+        "prerelease": false
+      },
       {
         "tagName": "1.5.0.dev20260806001813",
         "name": "1.5.0.dev20260806001813",
@@ -976,13 +983,6 @@
         "publishedAt": "2026-08-04T06:46:00Z",
         "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.5.0.dev20260803002037",
         "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20260802001805",
-        "name": "1.5.0.dev20260802001805",
-        "publishedAt": "2026-08-03T06:36:34Z",
-        "url": "https://github.com/tenstorrent/tt-forge/releases/tag/1.5.0.dev20260802001805",
-        "prerelease": false
       }
     ],
     "latestStableRelease": {
@@ -999,7 +999,7 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 295,
-    "updatedAt": "2026-08-06T04:55:51Z",
+    "updatedAt": "2026-08-06T15:36:32Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1169,8 +1169,15 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 74,
-    "updatedAt": "2026-08-06T04:09:32Z",
+    "updatedAt": "2026-08-07T04:57:43Z",
     "releases": [
+      {
+        "tagName": "1.5.0.dev20260807012312",
+        "name": "1.5.0.dev20260807012312",
+        "publishedAt": "2026-08-07T01:54:05Z",
+        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.5.0.dev20260807012312",
+        "prerelease": false
+      },
       {
         "tagName": "1.5.0.dev20260806001813",
         "name": "1.5.0.dev20260806001813",
@@ -1198,13 +1205,6 @@
         "publishedAt": "2026-08-03T00:53:41Z",
         "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.5.0.dev20260803002037",
         "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20260802001805",
-        "name": "1.5.0.dev20260802001805",
-        "publishedAt": "2026-08-02T00:48:26Z",
-        "url": "https://github.com/tenstorrent/tt-xla/releases/tag/1.5.0.dev20260802001805",
-        "prerelease": false
       }
     ],
     "latestStableRelease": {
@@ -1217,7 +1217,7 @@
   },
   "https://github.com/zk4x/zyx": {
     "stars": 63,
-    "updatedAt": "2026-08-05T12:17:03Z",
+    "updatedAt": "2026-08-06T16:30:53Z",
     "preview_image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
     "releases": [
       {
@@ -1262,8 +1262,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10888,
-    "updatedAt": "2026-08-06T05:05:56Z",
+    "stars": 10892,
+    "updatedAt": "2026-08-07T04:01:31Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1848,7 +1848,7 @@
   },
   "https://github.com/tenstorrent/luwen": {
     "stars": 34,
-    "updatedAt": "2026-08-04T20:02:35Z",
+    "updatedAt": "2026-08-06T18:49:05Z",
     "releases": [
       {
         "tagName": "bh-mod-v1.1.0",
@@ -2188,7 +2188,7 @@
   },
   "https://github.com/tenstorrent/tt-installer": {
     "stars": 24,
-    "updatedAt": "2026-08-05T19:06:38Z",
+    "updatedAt": "2026-08-06T16:59:48Z",
     "releases": [
       {
         "tagName": "v3.5.2",
@@ -2228,8 +2228,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-kmd": {
-    "stars": 70,
-    "updatedAt": "2026-07-29T20:31:55Z",
+    "stars": 71,
+    "updatedAt": "2026-08-06T12:47:06Z",
     "releases": [
       {
         "tagName": "ttkmd-2.10.0",
@@ -2334,7 +2334,7 @@
   },
   "https://github.com/tenstorrent/tt-quietbox2-guide": {
     "stars": 0,
-    "updatedAt": "2026-07-16T17:46:21Z"
+    "updatedAt": "2026-08-06T17:24:41Z"
   },
   "https://github.com/tenstorrent/tt-smi": {
     "stars": 62,
@@ -2416,7 +2416,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 41,
-    "updatedAt": "2026-08-05T19:25:41Z",
+    "updatedAt": "2026-08-07T02:23:55Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -3157,7 +3157,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 45,
-    "updatedAt": "2026-08-05T11:08:46Z",
+    "updatedAt": "2026-08-06T14:07:01Z",
     "releases": [
       {
         "tagName": "v0.9.9",
@@ -3597,8 +3597,27 @@
   },
   "https://github.com/tenstorrent/sfpi": {
     "stars": 14,
-    "updatedAt": "2026-07-17T12:21:20Z",
+    "updatedAt": "2026-08-07T02:37:35Z",
     "releases": [
+      {
+        "tagName": "7.67.0-syntharg",
+        "name": "7.67.0-syntharg",
+        "publishedAt": "2026-08-06T14:32:14Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.67.0-syntharg",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.67.0-syntharg_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.67.0-syntharg/sfpi_7.67.0-syntharg_x86_64_debian.deb",
+            "size": 134580112
+          },
+          {
+            "name": "sfpi_7.67.0-syntharg_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.67.0-syntharg/sfpi_7.67.0-syntharg_x86_64_fedora.rpm",
+            "size": 134130927
+          }
+        ]
+      },
       {
         "tagName": "7.67.0-replay-52208",
         "name": "7.67.0-replay-52208",
@@ -3647,12 +3666,12 @@
           {
             "name": "sfpi_7.67.0-checking_x86_64_debian.deb",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.67.0-checking/sfpi_7.67.0-checking_x86_64_debian.deb",
-            "size": 134588486
+            "size": 156949754
           },
           {
             "name": "sfpi_7.67.0-checking_x86_64_fedora.rpm",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.67.0-checking/sfpi_7.67.0-checking_x86_64_fedora.rpm",
-            "size": 134131191
+            "size": 155686323
           }
         ]
       },
@@ -3674,25 +3693,6 @@
             "size": 134132559
           }
         ]
-      },
-      {
-        "tagName": "7.67.0-combine-49822",
-        "name": "7.67.0-combine-49822",
-        "publishedAt": "2026-07-15T15:25:44Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.67.0-combine-49822",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.67.0-combine-49822_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.67.0-combine-49822/sfpi_7.67.0-combine-49822_x86_64_debian.deb",
-            "size": 134572744
-          },
-          {
-            "name": "sfpi_7.67.0-combine-49822_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.67.0-combine-49822/sfpi_7.67.0-combine-49822_x86_64_fedora.rpm",
-            "size": 134130342
-          }
-        ]
       }
     ]
   },
@@ -3702,17 +3702,17 @@
   },
   "https://github.com/tenstorrent/tt-lang": {
     "stars": 59,
-    "updatedAt": "2026-08-06T06:02:32Z",
+    "updatedAt": "2026-08-07T03:49:27Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
   "https://github.com/tenstorrent/tt-llk": {
     "stars": 54,
-    "updatedAt": "2026-08-01T10:12:48Z"
+    "updatedAt": "2026-08-06T15:38:10Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1616,
-    "updatedAt": "2026-08-06T07:02:47Z",
+    "stars": 1618,
+    "updatedAt": "2026-08-07T06:05:41Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -4376,7 +4376,7 @@
   },
   "https://github.com/tenstorrent/polaris": {
     "stars": 39,
-    "updatedAt": "2026-08-05T10:08:14Z",
+    "updatedAt": "2026-08-07T06:03:40Z",
     "releases": [
       {
         "tagName": "pre_perfmodel_merge",
