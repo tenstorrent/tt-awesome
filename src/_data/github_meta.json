@@ -135,7 +135,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 118,
-    "updatedAt": "2026-08-10T06:35:18Z",
+    "updatedAt": "2026-08-10T17:07:14Z",
     "releases": [
       {
         "tagName": "v0.6.2",
@@ -666,11 +666,11 @@
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 4,
-    "updatedAt": "2026-08-04T06:04:27Z"
+    "updatedAt": "2026-08-10T11:18:32Z"
   },
   "https://github.com/dstackai/dstack": {
     "stars": 2209,
-    "updatedAt": "2026-08-08T18:44:18Z",
+    "updatedAt": "2026-08-10T11:10:02Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -715,8 +715,8 @@
     "updatedAt": "2026-07-13T13:42:22Z"
   },
   "https://github.com/Zaneham/BarraCUDA": {
-    "stars": 1727,
-    "updatedAt": "2026-08-09T20:40:15Z",
+    "stars": 1726,
+    "updatedAt": "2026-08-10T16:15:07Z",
     "releases": [
       {
         "tagName": "v0.5.2",
@@ -757,11 +757,11 @@
         "prerelease": false
       }
     ],
-    "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Unreleased\n\n### Architecture\n\n- #160: DCE and mem2reg move instructions without moving `inst_lines[]`\n  with them, so every line number past the first deleted instruction\n  pointed at the wrong source. Four sites fixed\n  (Zane Hambly, 2026-08-09)\n\n### Build\n\n- #160: vendor Kauri (MIT) as `src/kauri.h`, included from `barracuda.h`,\n  so `KA_GUARD`, `KA_CHK` and `KA_PNEW` are available tree-wide\n  (Zane Hambly, 2026-08-09)\n\n### CI and tests\n\n- #160: `make repro` compiles every test file twice under `--amdgpu`,\n  `--nvidia-ptx` and `--ir` and compares the bytes, so the deterministic\n  layout `bir.h` claims is checked rather than assumed\n  (Zane Hambly, 2026-08-09)\n\n## 2026-08-07\n\nVersion 0.5.2.\n\nFirst, a correction. The last release went out tagged v5.01, which was\nmeant to be 0.5.1 and wasn't, and it left Booth looking four major\nversions further along than it actually is. It isn't. This release puts\nthe numbering back where it belongs, and sorry to anyone who pinned the\nold one or took the version at face value. The tag stays where it is so\nnothing breaks underneath you, but the compiler now reports what it is.\n\nThe theme this cycle, without meaning to be, was the compiler telling\nthe truth. Semantic errors used to be printed and then ignored by every\nmode except `--sema`, so the backend ran on source that had already been\nrejected, wrote an output file and exited zero. Asking for several\nbackends at once wrote all of them over the same `-o` path and left you\nwhichever finished last, under the name you chose, again exiting zero.\nMetal quietly narrowed a double-precision kernel to float and said\nnothing, which is a real problem if you were counting on the precision.\n`--amdgpu` ignored `-o` entirely and mixed a diagnostic into the\nassembly on stdout. All four are fixed, and all four had been sitting\nthere being cheerfully wrong for a while.\n\nThe structural change is the backend contract. Every target now sits\nbehind a `be_desc_t` and registers itself in one list, and a backend\nowns its own command line rather than reaching into a shared config\nstruct and the driver's argument loop. Adding a target used to mean\nreading 420 KB of AMD backend to work out what was expected; now it\nmeans reading one header and copying the skeleton. `main.c` lost about\na third of its length in the process, and the frontend stopped needing\nto know what an AMD target enum is.\n\nBooth also installs now. `make install` puts `kath`, the message\ncatalogues and a CMake package config into a prefix, so a downstream\nproject can `find_package(Booth)` and compile kernels as part of its own\nbuild with `booth_add_kernel()`. There is a worked example under\n`examples/cmake/` and CI builds it against a staged install on every\npush, along with a check that the target list in the package config\nhasn't drifted from what the backends actually accept.\n\nGetting Booth no longer requires being able to build it. Every release\nnow carries prebuilt binaries fo"
+    "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Unreleased\n\n### Architecture\n\n- #160: DCE and mem2reg move instructions without moving `inst_lines[]`\n  with them, so every line number past the first deleted instruction\n  pointed at the wrong source. Four sites fixed\n  (Zane Hambly, 2026-08-09)\n\n### Build\n\n- #160: vendor Kauri (MIT) as `src/kauri.h`, included from `barracuda.h`,\n  so `KA_GUARD`, `KA_CHK` and `KA_PNEW` are available tree-wide\n  (Zane Hambly, 2026-08-09)\n\n### CI and tests\n\n- #160: `make repro` compiles every test file twice under `--amdgpu`,\n  `--nvidia-ptx` and `--ir` and compares the bytes, so the deterministic\n  layout `bir.h` claims is checked rather than assumed\n  (Zane Hambly, 2026-08-09)\n\n- tests are named for their family and position, `rvi01` and `tdf39` rather\n  than `rv_isel_max_frame_slots_in_range`, after z390's `TESTDCB1`. The family\n  is the file stem, the old descriptive name became a description the runner\n  prints, and `fam_order` in `tests/tmain.c` is the one place a family is\n  declared (Zane Hambly, 2026-08-10)\n\n- the runner refuses to start if a test registers an unknown family, a name\n  that disagrees with its number, or a number already taken. 278 of the 380\n  tests were registering under families `cat_order` did not list, so they ran\n  unheaded in link order, `--list` showed 102 of them and `--cat rv_enc` ran\n  none of them while exiting 0 (Zane Hambly, 2026-08-10)\n\n- `--fam` replaces `--cat`, which still works, and `--families` lists the\n  families with their files and counts (Zane Hambly, 2026-08-10)\n\n- the keyword table `lookup_keyword` binary searches is checked for ordering,\n  and every keyword is checked to still lex as a keyword. A misfiled entry lexed\n  as an identifier and surfaced as a parse error somewhere else entirely\n  (Zane Hambly, 2026-08-10)\n\n- `make repro` reads a sidecar `tests/NAME.opt` per fixture instead of counting\n  every refusal as a silent skip. Eight refusals were being hidden, one of them\n  a live `v_mfma` verifier failure, and an `xfail` that starts passing is now\n  reported too (Zane Hambly, 2026-08-10)\n\n- `tests/trpi.c` collects regressions for bugs that shipped, seeded with #160's\n  line-number corruption, which had four sites fixed and no test\n  (Zane Hambly, 2026-08-10)\n\n## 2026-08-07\n\nVersion 0.5.2.\n\nFirst, a correction. The last release went out tagged v5.01, which was\nmeant to be 0.5.1 and wasn't, and it left Booth looking four major\nversions further along than it actually is. It isn't. This release puts\nthe numbering back where it belongs, and sorry to anyone who pinned the\nold one or took the version at face value. The tag stays where it is so\nnothing breaks underneath you, but the compiler now reports what it is.\n\nThe theme this cycle, without meaning to be, was the compiler telling\nthe truth. Semantic errors used to be printed and then ignored by every\nmode except `--sema`, so the backend ran on source that had already been\nrejected, wrote an output file and exited zero. Aski"
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 1,
-    "updatedAt": "2026-08-10T05:12:37Z"
+    "updatedAt": "2026-08-10T08:12:21Z"
   },
   "https://github.com/kernelize-ai/triton-tenstorrent": {
     "stars": 12,
@@ -926,7 +926,7 @@
   },
   "https://github.com/tenstorrent/tt-forge-onnx": {
     "stars": 65,
-    "updatedAt": "2026-08-09T05:35:53Z",
+    "updatedAt": "2026-08-10T14:42:26Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
@@ -1028,7 +1028,7 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 296,
-    "updatedAt": "2026-08-09T18:12:58Z",
+    "updatedAt": "2026-08-10T14:35:29Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1198,7 +1198,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 74,
-    "updatedAt": "2026-08-10T01:03:58Z",
+    "updatedAt": "2026-08-10T15:32:53Z",
     "releases": [
       {
         "tagName": "1.5.0.dev20260810000801",
@@ -1246,7 +1246,7 @@
   },
   "https://github.com/zk4x/zyx": {
     "stars": 63,
-    "updatedAt": "2026-08-09T13:14:00Z",
+    "updatedAt": "2026-08-10T10:35:48Z",
     "preview_image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
     "releases": [
       {
@@ -1291,8 +1291,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10900,
-    "updatedAt": "2026-08-09T22:57:41Z",
+    "stars": 10901,
+    "updatedAt": "2026-08-10T15:04:29Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1674,7 +1674,7 @@
   },
   "https://github.com/tenstorrent/tt-kernel-package-manager": {
     "stars": 3,
-    "updatedAt": "2026-07-20T14:09:55Z"
+    "updatedAt": "2026-08-10T18:23:18Z"
   },
   "https://github.com/tsingletaryTT/tt-model-runner": {
     "stars": 1,
@@ -1716,7 +1716,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 54,
-    "updatedAt": "2026-08-07T20:50:19Z",
+    "updatedAt": "2026-08-10T15:51:57Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -2258,7 +2258,7 @@
   },
   "https://github.com/tenstorrent/tt-kmd": {
     "stars": 71,
-    "updatedAt": "2026-08-06T12:47:06Z",
+    "updatedAt": "2026-08-10T16:35:08Z",
     "releases": [
       {
         "tagName": "ttkmd-2.10.0",
@@ -2445,7 +2445,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 41,
-    "updatedAt": "2026-08-07T18:57:54Z",
+    "updatedAt": "2026-08-10T17:58:16Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -3186,7 +3186,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 45,
-    "updatedAt": "2026-08-07T16:30:24Z",
+    "updatedAt": "2026-08-10T16:34:25Z",
     "releases": [
       {
         "tagName": "v0.9.9",
@@ -3638,12 +3638,12 @@
           {
             "name": "sfpi_7.68.0-clean-43896_x86_64_debian.deb",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.68.0-clean-43896/sfpi_7.68.0-clean-43896_x86_64_debian.deb",
-            "size": 134581414
+            "size": 134571292
           },
           {
             "name": "sfpi_7.68.0-clean-43896_x86_64_fedora.rpm",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.68.0-clean-43896/sfpi_7.68.0-clean-43896_x86_64_fedora.rpm",
-            "size": 134129561
+            "size": 134129750
           }
         ]
       },
@@ -3760,8 +3760,8 @@
     "updatedAt": "2026-08-06T15:38:10Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1620,
-    "updatedAt": "2026-08-09T20:38:41Z",
+    "stars": 1621,
+    "updatedAt": "2026-08-10T18:15:08Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -4425,7 +4425,7 @@
   },
   "https://github.com/tenstorrent/polaris": {
     "stars": 39,
-    "updatedAt": "2026-08-10T06:20:17Z",
+    "updatedAt": "2026-08-10T11:23:26Z",
     "releases": [
       {
         "tagName": "pre_perfmodel_merge",
@@ -4438,7 +4438,7 @@
   },
   "https://github.com/tenstorrent/tt-isa-documentation": {
     "stars": 124,
-    "updatedAt": "2026-08-03T08:57:26Z"
+    "updatedAt": "2026-08-10T17:35:54Z"
   },
   "https://github.com/olofj/bhx": {
     "stars": 5,
@@ -4714,8 +4714,8 @@
     ]
   },
   "https://github.com/tenstorrent/whisper": {
-    "stars": 94,
-    "updatedAt": "2026-08-01T00:23:40Z",
+    "stars": 95,
+    "updatedAt": "2026-08-10T13:24:43Z",
     "isFork": true,
     "forkParent": "chipsalliance/VeeR-ISS",
     "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS",
