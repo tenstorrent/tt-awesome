@@ -105,6 +105,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 ## 🕵️ AI Agents
 
+- **[Tenstorrent Console Skill](https://github.com/aldegad/tenstorrent)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@aldegad](https://github.com/aldegad) — An agent skill (SKILL.md) that teaches Claude Code, Codex, and the Agent SDK how to drive the console.tenstorrent.com inference API: OpenAI-compatible chat with DeepSeek-R1 and Qwen3, async image jobs, and Wan 2.2 text-to-video. Ships runnable curl examples and a mock-curl test harness; documentation is bilingual Korean/English.
+  [📦 repo](https://github.com/aldegad/tenstorrent)
+
 - **Local AI Agents on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Three agentic projects running fully on-device: local AI agents on QuietBox 2, a coding assistant powered by Aider against a local inference server, and the OpenClaw AI assistant on QuietBox 2. No cloud APIs — all inference runs on TT hardware.
   [📖 Local AI Agents on QuietBox 2](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-local-agents/) · [📖 Coding Assistant with Aider](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/coding-assistant/)
@@ -155,6 +159,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@marty1885](https://github.com/marty1885) — Minimal vector-addition example on Tenstorrent devices using TT-Metalium. A clean hello-world for the TT-Metal kernel programming model in C++.
   [📦 repo](https://github.com/marty1885/ttVecAdd)
 
+- **[ttWKV7](https://github.com/marty1885/ttWKV7)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Martin Chang — A standalone tt-metal demo and test bench for the RWKV-7 (WKV7) state recurrence on Wormhole, built with a GGML backend in mind. Two compute kernels cover the domain: a chunked-parallel DPLR matmul path for any sequence length with on-chip chunk carry, and a sequential per-token decode path for L <= 32 that is faster for large-batch token generation. The host runner validates both against a CPU oracle by PCC/NMSE and benchmarks them over a sequence/batch grid.
+  [📦 repo](https://github.com/marty1885/ttWKV7)
+
 - **[grayskull-attention](https://github.com/moritztng/grayskull-attention)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@moritztng](https://github.com/moritztng) — FlashAttention-style attention kernel implemented entirely in on-chip SRAM on the Tenstorrent Grayskull chip using TT-Metalium. Pioneering work in low-level attention on TT hardware.
   [📦 repo](https://github.com/moritztng/grayskull-attention)
@@ -196,6 +204,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[libtt](https://github.com/pcmoritz/libtt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Philipp Moritz — A Bazel-built PJRT plugin (libtt.so) providing an XLA backend for Tenstorrent devices. Bundles the tt-xla PJRT implementation with tt-mlir and tt-metal into a single shared object so JAX code runs on Tenstorrent hardware, with patches so sglang-jax works out of the box.
   [📦 repo](https://github.com/pcmoritz/libtt)
+
+- **[tt-tinygrad](https://github.com/Gogopex/tt-tinygrad)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@Gogopex](https://github.com/Gogopex) — A Tenstorrent backend for tinygrad that targets TT-Lang rather than raw tt-metal: a Renderer classifies each UOp kernel graph as matmul, reduce, or elementwise and emits ttl.math.* Python source, and a Compiled device parses the rendered kernel's contract, materializes ttnn tensors from host buffers, and calls it in-process. Proof of concept — 110 pass / 13 xfail across 125 cases on a QuietBox, covering fused matmul, reductions, softmax, layernorm, and attention chains, on top of a three-line patch to upstream tinygrad.
+  [📦 repo](https://github.com/Gogopex/tt-tinygrad)
 
 - **[zyx](https://github.com/zk4x/zyx)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@zk4x](https://github.com/zk4x) — A complete ML library and compiler in Rust — "from assembly to neural networks" — with a native Tenstorrent backend (src/backend/tenstorrent), autograd, custom kernels, multi-backend support, and Python bindings.
@@ -246,6 +258,14 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[libtt-metal-cxx](https://github.com/Knight-Ops/libtt-metal-cxx)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@Knight-Ops](https://github.com/Knight-Ops) — Rust crate that exposes the TT-Metal host API through a C++ bridge via cxx.rs — covering device management, program/kernel creation (from source file or inline string), circular buffers, semaphores, runtime arguments, sharded buffers, and MeshDevice workflows, with hardware-backed integration tests.
   [📦 repo](https://github.com/Knight-Ops/libtt-metal-cxx)
+
+- **[tenstorrent-cli](https://github.com/aldegad/tenstorrent-cli)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@aldegad](https://github.com/aldegad) — A TypeScript/Bun terminal client for console.tenstorrent.com. Opens a chat REPL across DeepSeek-R1, Qwen3-32B, Qwen3-VL, and Gemma, with slash commands that submit image, Wan 2.2 video, TTS, and STT jobs, poll them, and save the results under ./output. Reads its API key only from the TENSTORRENT_KEY environment variable — never from disk.
+  [📦 repo](https://github.com/aldegad/tenstorrent-cli)
+
+- **[tt-monitor](https://github.com/antonibertel/tt-monitor)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@antonibertel](https://github.com/antonibertel) — A translucent, undecorated desktop widget showing live per-chip telemetry for Tenstorrent accelerators: temperature and power sparklines against the card's thermal and TDP limits, AI clock, voltage, current, DRAM channel training and ECC error counts, PCIe link generation/width, and board identity. Reads hardware directly through luwen over /dev/tenstorrent — no Python, no tt-smi subprocess, and no root.
+  [📦 repo](https://github.com/antonibertel/tt-monitor)
 
 - **[ttas](https://github.com/Zaneham/ttas)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@Zaneham](https://github.com/Zaneham) — ttas is a hacker-friendly assembler/disassembler for Tensix on Wormhole. It turns assembly into the exact 32-bit words the hardware runs, and turns binaries back into readable instructions using the same shared instruction table.
@@ -413,9 +433,9 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@mesham](https://github.com/mesham) — Community-built Tenstorrent architecture simulator written in Python. Runs without hardware — useful for researchers and developers exploring the Tensix architecture offline.
   [📦 repo](https://github.com/mesham/tt-sim)
 
-- **[tt-bh-linux](https://github.com/tenstorrent/tt-bh-linux)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+- **[tt-bh-linux](https://github.com/tenstorrent-riscv-software/tt-bh-linux)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Linux demo for the Tenstorrent Blackhole P100/P150 card RISC-V cores. Boot a real Linux kernel on the 16 high-performance RISC-V cores built into the Blackhole chip.
-  [📦 repo](https://github.com/tenstorrent/tt-bh-linux) · [🌐 website](https://tenstorrent.com/hardware/blackhole)
+  [📦 repo](https://github.com/tenstorrent-riscv-software/tt-bh-linux) · [🌐 website](https://tenstorrent.com/hardware/blackhole)
 
 - **[RiESCUE](https://github.com/tenstorrent/riescue)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   RISC-V Directed Test Framework and Compliance Suite. Comprehensive test infrastructure for verifying RISC-V processor implementations against the specification.
@@ -547,6 +567,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by Yifan & GPU / William & Mary — Lecture 20 from William & Mary's graduate Computer Architecture course. Frames Tenstorrent in the landscape between GPUs and TPUs, draws comparisons to Cerebras and SambaNova, then dives deep into the Wormhole chip and Tensix core: the 5 RISC-V core design, SFPU, NoC, and dataflow execution model.
   [🎥 Lecture 20 — Tenstorrent Architecture (YouTube)](https://www.youtube.com/watch?v=CixEFPc8oxg)
 
+- **[Tensix Field Guide](https://github.com/OrangeTangy/tensix-field-guide)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Tanay Anand — A ten-chapter, plain-English tour of Tenstorrent's Tensix architecture written for someone who knows what a CPU and a GPU are and nothing else: the chip-level grid and NoC, the five RISC-V baby cores, the matrix engine and its LoFi/HiFi fidelity trade-off, the SFPU, L1 and circular buffers, and why everything is 32x32 tile-shaped. The goal is to get a newcomer to the point of reading tt-metal kernel code in one sitting. Self-described draft; every claim traces back to tt-metal tech reports, tt-llk docs, or METALIUM_GUIDE.
+  [📦 repo](https://github.com/OrangeTangy/tensix-field-guide)
+
 - **[TT-Metal Mini Template](https://github.com/JushBJJ/TT-Metal-Mini-Template)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@JushBJJ](https://github.com/JushBJJ) — Minimal working CMake project template for starting a new TT-Metal project from scratch. Good starting point for community kernel development.
   [📦 repo](https://github.com/JushBJJ/TT-Metal-Mini-Template)
@@ -562,6 +586,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **CS Fundamentals on Tenstorrent Hardware** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Seven-module computer science curriculum taught on real Tenstorrent hardware. Covers RISC-V architecture, memory hierarchy, parallel computing, networks and NoC, synchronization, abstraction layers, and computational complexity — all grounded in what is physically happening on the chip.
   [📖 Module 1: RISC-V & Computer Architecture](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-01-computer/) · [📖 Module 2: The Memory Hierarchy](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-02-memory/) · [📖 Module 3: Parallel Computing](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-03-parallelism/) · [📖 Module 4: Networks and Communication](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-04-networks/) · [📖 Module 5: Synchronization](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-05-synchronization/) · [📖 Module 6: Abstraction Layers](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-06-abstraction/) · [📖 Module 7: Computational Complexity in Practice](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cs-fundamentals-07-complexity/)
+
+- **[tt-sim Lab](https://github.com/prag79/tt-sim-lab)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by Pragnajit Datta Roy — A university teaching lab for TT-Metalium kernel programming on a virtual Tenstorrent chip — one-click GitHub Codespace, no silicon and nothing installed locally. The primary track (labs 00-06) points tt-metal straight at libttsim via TT_METAL_SIMULATOR and walks from elementwise add through NoC multicast to multi-core and multicast matmul, backed by a source-level matmul guide. An optional advanced track (labs 10-16) boots an Ubuntu guest under ttsim-qemu, loads tt-kmd, surfaces /dev/tenstorrent/0, and runs tt-metal through the full PCIe path.
+  [📦 repo](https://github.com/prag79/tt-sim-lab) · [📖 Student handout](https://github.com/prag79/tt-sim-lab/blob/main/HANDOUT.md) · [📖 Matmul source walkthrough](https://github.com/prag79/tt-sim-lab/blob/main/labs/MATMUL_GUIDE.md)
 
 - **Custom Model Training on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Eight-lesson series covering the full custom training workflow on TT hardware: dataset fundamentals, configuration patterns, fine-tuning, multi-device distributed training, experiment tracking, model architecture basics, and training from scratch.
