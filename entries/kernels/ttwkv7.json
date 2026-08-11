@@ -1,0 +1,30 @@
+{
+  "id": "ttwkv7",
+  "name": "ttWKV7",
+  "description": "A standalone tt-metal demo and test bench for the RWKV-7 (WKV7) state recurrence on Wormhole, built with a GGML backend in mind. Two compute kernels cover the domain: a chunked-parallel DPLR matmul path for any sequence length with on-chip chunk carry, and a sequential per-token decode path for L <= 32 that is faster for large-batch token generation. The host runner validates both against a CPU oracle by PCC/NMSE and benchmarks them over a sequence/batch grid.",
+  "affiliation": "community",
+  "categories": [
+    "kernels"
+  ],
+  "tags": [
+    "rwkv",
+    "wkv7",
+    "operator",
+    "tt-metal",
+    "ggml",
+    "recurrent",
+    "cpp"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/marty1885/ttWKV7"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "Martin Chang",
+  "language": "C++",
+  "added_at": "2026-08-10"
+}

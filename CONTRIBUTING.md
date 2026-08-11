@@ -54,8 +54,23 @@ Every entry must be valid against this schema:
 | Value | Who qualifies |
 |---|---|
 | `community` | Anyone not employed by Tenstorrent |
-| `affiliated` | Tenstorrent employees contributing in a personal capacity (e.g. personal GitHub repos, not under the tenstorrent org) |
-| `official` | Repositories in the `tenstorrent` GitHub org |
+| `affiliated` | Tenstorrent employees contributing in a personal capacity (e.g. personal GitHub repos, not under a Tenstorrent-owned org) |
+| `official` | Repositories in any Tenstorrent-owned GitHub org |
+
+### Tenstorrent-owned orgs
+
+`official` is not limited to the `tenstorrent` org. Tenstorrent publishes code from
+several orgs, and a repo in any of them qualifies:
+
+| Org | What lives there |
+|---|---|
+| [`tenstorrent`](https://github.com/tenstorrent) | The main org — tt-metal, tt-forge, tt-kmd, and most of the stack |
+| [`tenstorrent-riscv-software`](https://github.com/tenstorrent-riscv-software) | RISC-V software work, e.g. `tt-bh-linux` |
+| [`tenstorrent-metal`](https://github.com/tenstorrent-metal) | Older Metal-era repos |
+| [`tenstorrent-forks`](https://github.com/tenstorrent-forks) | Tenstorrent's public forks of upstream projects |
+
+If you hit a Tenstorrent-owned org that isn't listed here, it still counts as
+`official` — please add it to this table in the same PR.
 
 **Community entries are shown first** in every category. This is intentional — the goal is to surface what the community has built, not to be an index of official repos.
 

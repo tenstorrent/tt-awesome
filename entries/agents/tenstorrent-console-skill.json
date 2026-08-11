@@ -1,0 +1,34 @@
+{
+  "id": "tenstorrent-console-skill",
+  "name": "Tenstorrent Console Skill",
+  "description": "An agent skill (SKILL.md) that teaches Claude Code, Codex, and the Agent SDK how to drive the console.tenstorrent.com inference API: OpenAI-compatible chat with DeepSeek-R1 and Qwen3, async image jobs, and Wan 2.2 text-to-video. Ships runnable curl examples and a mock-curl test harness; documentation is bilingual Korean/English.",
+  "affiliation": "community",
+  "categories": [
+    "agents",
+    "dev-tools"
+  ],
+  "tags": [
+    "agent-skill",
+    "claude-code",
+    "codex",
+    "agent-sdk",
+    "tenstorrent-console",
+    "inference-api",
+    "text-to-video",
+    "wan2-2",
+    "korean"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/aldegad/tenstorrent"
+    }
+  ],
+  "related": [
+    "tenstorrent-cli"
+  ],
+  "author": "aldegad",
+  "language": "Shell",
+  "license": "MIT",
+  "added_at": "2026-08-10"
+}

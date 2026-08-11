@@ -58,7 +58,14 @@ For each optional field, ask only once — if the user says "skip", "none", or l
 5. **Affiliation** (required)
    - `community` — not a Tenstorrent employee
    - `affiliated` — Tenstorrent employee, personal capacity
-   - `official` — lives under the `tenstorrent` GitHub org
+   - `official` — lives under any Tenstorrent-owned GitHub org. Known ones, as
+     examples rather than an exhaustive list: `tenstorrent`,
+     `tenstorrent-riscv-software`, `tenstorrent-metal`, `tenstorrent-forks`.
+     - If the repo owner is one of these, infer `official` from the URL instead
+       of asking.
+     - If the owner is some *other* Tenstorrent-owned org, that is still
+       `official` — use it, and tell the user to add that org to the
+       Tenstorrent-owned orgs table in `CONTRIBUTING.md`.
 
 6. **Hardware tested** (optional)
    - Ask: "Which Tenstorrent hardware has this been tested on? (skip if unsure)"
