@@ -1,0 +1,53 @@
+{
+  "id": "tt-sim-lab",
+  "name": "tt-sim Lab",
+  "description": "A university teaching lab for TT-Metalium kernel programming on a virtual Tenstorrent chip — one-click GitHub Codespace, no silicon and nothing installed locally. The primary track (labs 00-06) points tt-metal straight at libttsim via TT_METAL_SIMULATOR and walks from elementwise add through NoC multicast to multi-core and multicast matmul, backed by a source-level matmul guide. An optional advanced track (labs 10-16) boots an Ubuntu guest under ttsim-qemu, loads tt-kmd, surfaces /dev/tenstorrent/0, and runs tt-metal through the full PCIe path.",
+  "affiliation": "affiliated",
+  "categories": [
+    "guides",
+    "kernels",
+    "getting-started"
+  ],
+  "tags": [
+    "ttsim",
+    "simulator",
+    "qemu",
+    "codespaces",
+    "metalium",
+    "matmul",
+    "labs",
+    "curriculum",
+    "academia",
+    "education"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/prag79/tt-sim-lab"
+    },
+    {
+      "type": "lesson",
+      "url": "https://github.com/prag79/tt-sim-lab/blob/main/HANDOUT.md",
+      "label": "Student handout"
+    },
+    {
+      "type": "lesson",
+      "url": "https://github.com/prag79/tt-sim-lab/blob/main/labs/MATMUL_GUIDE.md",
+      "label": "Matmul source walkthrough"
+    }
+  ],
+  "hardware": [
+    "ttsim",
+    "wormhole",
+    "blackhole"
+  ],
+  "related": [
+    "ttsim",
+    "ttsim-qemu",
+    "tt-kmd"
+  ],
+  "author": "Pragnajit Datta Roy",
+  "author_url": "https://github.com/prag79",
+  "language": "Shell",
+  "added_at": "2026-08-10"
+}

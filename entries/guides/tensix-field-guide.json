@@ -1,0 +1,35 @@
+{
+  "id": "tensix-field-guide",
+  "name": "Tensix Field Guide",
+  "description": "A ten-chapter, plain-English tour of Tenstorrent's Tensix architecture written for someone who knows what a CPU and a GPU are and nothing else: the chip-level grid and NoC, the five RISC-V baby cores, the matrix engine and its LoFi/HiFi fidelity trade-off, the SFPU, L1 and circular buffers, and why everything is 32x32 tile-shaped. The goal is to get a newcomer to the point of reading tt-metal kernel code in one sitting. Self-described draft; every claim traces back to tt-metal tech reports, tt-llk docs, or METALIUM_GUIDE.",
+  "affiliation": "community",
+  "categories": [
+    "guides",
+    "riscv-arch"
+  ],
+  "tags": [
+    "tensix",
+    "architecture",
+    "sfpu",
+    "noc",
+    "circular-buffers",
+    "tile-format",
+    "risc-v",
+    "education",
+    "book"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/OrangeTangy/tensix-field-guide"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "author": "Tanay Anand",
+  "author_url": "https://github.com/OrangeTangy",
+  "license": "CC-BY-4.0",
+  "added_at": "2026-08-10"
+}

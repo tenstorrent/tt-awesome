@@ -1,0 +1,34 @@
+{
+  "id": "tt-tinygrad",
+  "name": "tt-tinygrad",
+  "description": "A Tenstorrent backend for tinygrad that targets TT-Lang rather than raw tt-metal: a Renderer classifies each UOp kernel graph as matmul, reduce, or elementwise and emits ttl.math.* Python source, and a Compiled device parses the rendered kernel's contract, materializes ttnn tensors from host buffers, and calls it in-process. Proof of concept — 110 pass / 13 xfail across 125 cases on a QuietBox, covering fused matmul, reductions, softmax, layernorm, and attention chains, on top of a three-line patch to upstream tinygrad.",
+  "affiliation": "community",
+  "categories": [
+    "compilers"
+  ],
+  "tags": [
+    "tinygrad",
+    "tt-lang",
+    "ttnn",
+    "backend",
+    "codegen",
+    "renderer",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Gogopex/tt-tinygrad"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "quietbox"
+  ],
+  "related": [
+    "tt-lang"
+  ],
+  "author": "Gogopex",
+  "language": "Python",
+  "added_at": "2026-08-10"
+}

@@ -58,7 +58,9 @@ For each optional field, ask only once — if the user says "skip", "none", or l
 5. **Affiliation** (required)
    - `community` — not a Tenstorrent employee
    - `affiliated` — Tenstorrent employee, personal capacity
-   - `official` — lives under the `tenstorrent` GitHub org
+   - `official` — lives under a Tenstorrent-owned GitHub org: `tenstorrent`,
+     `tenstorrent-riscv-software`, `tenstorrent-metal`, or `tenstorrent-forks`
+     (infer this from the repo URL rather than asking, when the owner matches)
 
 6. **Hardware tested** (optional)
    - Ask: "Which Tenstorrent hardware has this been tested on? (skip if unsure)"

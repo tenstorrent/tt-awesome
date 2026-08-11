@@ -1,0 +1,31 @@
+{
+  "id": "tenstorrent-cli",
+  "name": "tenstorrent-cli",
+  "description": "A TypeScript/Bun terminal client for console.tenstorrent.com. Opens a chat REPL across DeepSeek-R1, Qwen3-32B, Qwen3-VL, and Gemma, with slash commands that submit image, Wan 2.2 video, TTS, and STT jobs, poll them, and save the results under ./output. Reads its API key only from the TENSTORRENT_KEY environment variable — never from disk.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools"
+  ],
+  "tags": [
+    "cli",
+    "repl",
+    "typescript",
+    "bun",
+    "tenstorrent-console",
+    "inference-api",
+    "text-to-video"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/aldegad/tenstorrent-cli"
+    }
+  ],
+  "related": [
+    "tenstorrent-console-skill"
+  ],
+  "author": "aldegad",
+  "language": "TypeScript",
+  "license": "MIT",
+  "added_at": "2026-08-10"
+}

@@ -38,7 +38,8 @@ body:
       description: >
         `community` = not employed by Tenstorrent.
         `affiliated` = Tenstorrent employee, personal capacity.
-        `official` = lives under the `tenstorrent` GitHub org.
+        `official` = lives under a Tenstorrent-owned GitHub org (`tenstorrent`,
+        `tenstorrent-riscv-software`, `tenstorrent-metal`, `tenstorrent-forks`).
       options:
         - community
         - affiliated

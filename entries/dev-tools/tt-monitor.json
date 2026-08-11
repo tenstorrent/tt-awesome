@@ -1,0 +1,38 @@
+{
+  "id": "tt-monitor",
+  "name": "tt-monitor",
+  "description": "A translucent, undecorated desktop widget showing live per-chip telemetry for Tenstorrent accelerators: temperature and power sparklines against the card's thermal and TDP limits, AI clock, voltage, current, DRAM channel training and ECC error counts, PCIe link generation/width, and board identity. Reads hardware directly through luwen over /dev/tenstorrent — no Python, no tt-smi subprocess, and no root.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools",
+    "hw-system"
+  ],
+  "tags": [
+    "telemetry",
+    "monitoring",
+    "widget",
+    "luwen",
+    "gtk4",
+    "rust",
+    "ecc",
+    "desktop"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/antonibertel/tt-monitor"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "related": [
+    "luwen",
+    "tt-smi"
+  ],
+  "author": "antonibertel",
+  "language": "Rust",
+  "license": "MIT",
+  "added_at": "2026-08-10"
+}
