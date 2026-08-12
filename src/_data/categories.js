@@ -14,4 +14,5 @@ module.exports = [
   { slug: "research",    label: "🔬 Research & Papers",               description: "Academic papers, theses, and HPC experiments" },
   { slug: "games-demos", label: "🎮 Games & Demos",                  description: "Creative, playful, and proof-of-concept projects" },
   { slug: "guides",      label: "📚 Guides, Tutorials & Education",  sidebarLabel: "📚 Guides & Tutorials", description: "Getting-started content, blog posts, lessons, courses" },
+  { slug: "blogs",       label: "✍️ Blogs",                           description: "Community and affiliated blogs covering Tenstorrent hardware, software, and AI" },
 ];
