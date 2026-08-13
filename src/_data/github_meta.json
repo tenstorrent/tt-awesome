@@ -139,7 +139,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 118,
-    "updatedAt": "2026-08-12T02:05:01Z",
+    "updatedAt": "2026-08-13T06:21:48Z",
     "releases": [
       {
         "tagName": "v0.6.2",
@@ -241,7 +241,7 @@
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 16,
-    "updatedAt": "2026-08-11T07:50:15Z"
+    "updatedAt": "2026-08-12T15:57:20Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 64,
@@ -257,7 +257,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 68,
-    "updatedAt": "2026-08-12T03:42:05Z",
+    "updatedAt": "2026-08-12T15:55:28Z",
     "releases": [
       {
         "tagName": "v0.19.0",
@@ -629,7 +629,7 @@
   },
   "https://github.com/tenstorrent/tt-studio": {
     "stars": 49,
-    "updatedAt": "2026-08-11T23:46:13Z",
+    "updatedAt": "2026-08-12T17:44:26Z",
     "releases": [
       {
         "tagName": "rc-v2.9.0",
@@ -670,11 +670,11 @@
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 5,
-    "updatedAt": "2026-08-10T19:16:49Z"
+    "updatedAt": "2026-08-12T13:14:22Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2210,
-    "updatedAt": "2026-08-11T16:18:31Z",
+    "stars": 2211,
+    "updatedAt": "2026-08-12T21:38:08Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -719,8 +719,8 @@
     "updatedAt": "2026-07-13T13:42:22Z"
   },
   "https://github.com/Zaneham/BarraCUDA": {
-    "stars": 1729,
-    "updatedAt": "2026-08-11T20:13:34Z",
+    "stars": 1730,
+    "updatedAt": "2026-08-12T17:27:30Z",
     "releases": [
       {
         "tagName": "v0.5.2",
@@ -761,11 +761,11 @@
         "prerelease": false
       }
     ],
-    "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Unreleased\n\n### Architecture\n\n- #160: DCE and mem2reg move instructions without moving `inst_lines[]`\n  with them, so every line number past the first deleted instruction\n  pointed at the wrong source. Four sites fixed\n  (Zane Hambly, 2026-08-09)\n\n### Build\n\n- #160: vendor Kauri (MIT) as `src/kauri.h`, included from `barracuda.h`,\n  so `KA_GUARD`, `KA_CHK` and `KA_PNEW` are available tree-wide\n  (Zane Hambly, 2026-08-09)\n\n### CI and tests\n\n- #160: `make repro` compiles every test file twice under `--amdgpu`,\n  `--nvidia-ptx` and `--ir` and compares the bytes, so the deterministic\n  layout `bir.h` claims is checked rather than assumed\n  (Zane Hambly, 2026-08-09)\n\n- tests are named for their family and position, `rvi01` and `tdf39` rather\n  than `rv_isel_max_frame_slots_in_range`, after z390's `TESTDCB1`. The family\n  is the file stem, the old descriptive name became a description the runner\n  prints, and `fam_order` in `tests/tmain.c` is the one place a family is\n  declared (Zane Hambly, 2026-08-10)\n\n- the runner refuses to start if a test registers an unknown family, a name\n  that disagrees with its number, or a number already taken. 278 of the 380\n  tests were registering under families `cat_order` did not list, so they ran\n  unheaded in link order, `--list` showed 102 of them and `--cat rv_enc` ran\n  none of them while exiting 0 (Zane Hambly, 2026-08-10)\n\n- `--fam` replaces `--cat`, which still works, and `--families` lists the\n  families with their files and counts (Zane Hambly, 2026-08-10)\n\n- the keyword table `lookup_keyword` binary searches is checked for ordering,\n  and every keyword is checked to still lex as a keyword. A misfiled entry lexed\n  as an identifier and surfaced as a parse error somewhere else entirely\n  (Zane Hambly, 2026-08-10)\n\n- `make repro` reads a sidecar `tests/NAME.opt` per fixture instead of counting\n  every refusal as a silent skip. Eight refusals were being hidden, one of them\n  a live `v_mfma` verifier failure, and an `xfail` that starts passing is now\n  reported too (Zane Hambly, 2026-08-10)\n\n- `tests/trpi.c` collects regressions for bugs that shipped, seeded with #160's\n  line-number corruption, which had four sites fixed and no test\n  (Zane Hambly, 2026-08-10)\n\n## 2026-08-07\n\nVersion 0.5.2.\n\nFirst, a correction. The last release went out tagged v5.01, which was\nmeant to be 0.5.1 and wasn't, and it left Booth looking four major\nversions further along than it actually is. It isn't. This release puts\nthe numbering back where it belongs, and sorry to anyone who pinned the\nold one or took the version at face value. The tag stays where it is so\nnothing breaks underneath you, but the compiler now reports what it is.\n\nThe theme this cycle, without meaning to be, was the compiler telling\nthe truth. Semantic errors used to be printed and then ignored by every\nmode except `--sema`, so the backend ran on source that had already been\nrejected, wrote an output file and exited zero. Aski"
+    "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Unreleased\n\n### Frontend\n\n- `kath --mlir` reads MLIR text, no LLVM in the path. \u010cert\u00edk's pure-C\n  reader vendored under `src/mlir/vendor` (mlir 826b69c9, corec a160199d),\n  reached only through `src/mlir/mlir_fe.c` (Zane Hambly, 2026-08-11)\n\n- `src/mlir/lower.c` walks the parsed module into BIR: `func.func`, `return`,\n  `arith.constant` and every arith binop, compare and conversion the reader\n  classifies. From there it is the pipeline CUDA and Triton already use, and\n  MLIR reaches all four backends. `--mlir --pp` reprints instead\n  (Zane Hambly, 2026-08-11)\n\n- an op outside the subset stops the lowering and names itself. Skipping it\n  would leave a function that compiles and computes something else\n  (Zane Hambly, 2026-08-11)\n\n- five fixes to the vendored reader, all worth upstreaming, and four of them\n  are `func.func` being unfinished where `tt.func` is not: `parser_init`\n  renamed off Booth's own, `parser_error`'s `exit(1)` replaced by a\n  `mlir_parse_fail()` the linker supplies, `func.func` binding its arguments\n  before parsing the body rather than after, `func.func` accepting the\n  `attributes` clause where MLIR actually writes it, and `arith.xori`,\n  `shli` and `shrsi` added to `op_string_to_type`, which the printer could\n  already write but the parser could not read back\n  (Zane Hambly, 2026-08-11)\n\n- `ml_parse` resets the reader's process-wide type interning, which upstream\n  assumes one context per process. Without it a closed context left the next\n  parse in freed memory (Zane Hambly, 2026-08-11)\n\n- the Triton lowering records pool overflow through `bir_pfull`, which the C99\n  one already did and it never has. It answered a full block pool with index 0,\n  a live block, so `bir_pchk` could not see a Triton arena exhaustion at all\n  (Zane Hambly, 2026-08-11)\n\n- Triton blocks are named. String offset 0 is a live string, so a nameless\n  block printed as whatever went into the table first, and all four blocks of\n  a loop kernel were labelled with the kernel's own name\n  (Zane Hambly, 2026-08-11)\n\n### Architecture\n\n- BIR arena writers record a `pool_full` bit rather than returning index 0,\n  which is a live entry and not a sentinel. A full pool emitted wrong\n  immediates under exit 0; `bir_pchk` now refuses (Zane Hambly, 2026-08-11)\n\n- #160: DCE and mem2reg move instructions without moving `inst_lines[]`\n  with them, so every line number past the first deleted instruction\n  pointed at the wrong source. Four sites fixed\n  (Zane Hambly, 2026-08-09)\n\n### Build\n\n- #160: vendor Kauri (MIT) as `src/kauri.h`, included from `barracuda.h`,\n  so `KA_GUARD`, `KA_CHK` and `KA_PNEW` are available tree-wide\n  (Zane Hambly, 2026-08-09)\n\n### CI and tests\n\n- `make mutate` bends one line of Booth at a time in a scratch copy and checks\n  the suite notices, from a table in `tests/mutants.tbl`. Ported from Kahu's\n  (Zane Hambly, 2026-08-12)\n\n- six tests that were not testing what they looked like they were. The `cfd`\n  f"
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 1,
-    "updatedAt": "2026-08-12T01:28:16Z"
+    "updatedAt": "2026-08-13T05:15:51Z"
   },
   "https://github.com/kernelize-ai/triton-tenstorrent": {
     "stars": 12,
@@ -930,9 +930,16 @@
   },
   "https://github.com/tenstorrent/tt-forge-onnx": {
     "stars": 65,
-    "updatedAt": "2026-08-11T02:45:41Z",
+    "updatedAt": "2026-08-12T09:44:49Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
+      {
+        "tagName": "1.5.0.dev20260813004712",
+        "name": "1.5.0.dev20260813004712",
+        "publishedAt": "2026-08-13T01:07:20Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260813004712",
+        "prerelease": false
+      },
       {
         "tagName": "1.5.0.dev20260812005318",
         "name": "1.5.0.dev20260812005318",
@@ -959,13 +966,6 @@
         "name": "1.5.0.dev20260809004215",
         "publishedAt": "2026-08-09T01:01:22Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260809004215",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20260808004411",
-        "name": "1.5.0.dev20260808004411",
-        "publishedAt": "2026-08-08T01:04:01Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260808004411",
         "prerelease": false
       }
     ],
@@ -1032,7 +1032,7 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 296,
-    "updatedAt": "2026-08-11T15:33:07Z",
+    "updatedAt": "2026-08-12T18:32:24Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1206,7 +1206,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 74,
-    "updatedAt": "2026-08-11T22:40:37Z",
+    "updatedAt": "2026-08-13T05:00:31Z",
     "releases": [
       {
         "tagName": "1.5.0.dev20260812001218",
@@ -1254,7 +1254,7 @@
   },
   "https://github.com/zk4x/zyx": {
     "stars": 63,
-    "updatedAt": "2026-08-11T18:52:32Z",
+    "updatedAt": "2026-08-12T18:31:40Z",
     "preview_image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
     "releases": [
       {
@@ -1299,8 +1299,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10904,
-    "updatedAt": "2026-08-11T18:52:42Z",
+    "stars": 10907,
+    "updatedAt": "2026-08-13T01:40:55Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1417,7 +1417,7 @@
   },
   "https://github.com/tenstorrent/tt-emule": {
     "stars": 4,
-    "updatedAt": "2026-07-22T21:11:58Z"
+    "updatedAt": "2026-08-12T17:50:58Z"
   },
   "https://github.com/tenstorrent/tt-exalens": {
     "stars": 21,
@@ -1709,7 +1709,7 @@
   },
   "https://github.com/tsingletaryTT/tt-warp": {
     "stars": 0,
-    "updatedAt": "2026-07-17T22:50:05Z"
+    "updatedAt": "2026-08-13T00:01:22Z"
   },
   "https://github.com/Zaneham/ttas": {
     "stars": 4,
@@ -1733,9 +1733,23 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 54,
-    "updatedAt": "2026-08-11T17:26:13Z",
+    "updatedAt": "2026-08-12T21:17:37Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
+      {
+        "tagName": "v0.98.0",
+        "name": "v0.98.0",
+        "publishedAt": "2026-08-12T21:18:05Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.98.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "ttnn_visualizer-0.98.0-py3-none-any.whl",
+            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.98.0/ttnn_visualizer-0.98.0-py3-none-any.whl",
+            "size": 2874562
+          }
+        ]
+      },
       {
         "tagName": "v0.97.0",
         "name": "v0.97.0",
@@ -1789,20 +1803,6 @@
             "name": "ttnn_visualizer-0.95.0-py3-none-any.whl",
             "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.95.0/ttnn_visualizer-0.95.0-py3-none-any.whl",
             "size": 2765050
-          }
-        ]
-      },
-      {
-        "tagName": "v0.94.0",
-        "name": "v0.94.0",
-        "publishedAt": "2026-07-15T19:52:17Z",
-        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.94.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "ttnn_visualizer-0.94.0-py3-none-any.whl",
-            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.94.0/ttnn_visualizer-0.94.0-py3-none-any.whl",
-            "size": 2753473
           }
         ]
       }
@@ -1897,13 +1897,20 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to the TT-VSCode-Toolkit will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n---\n\n## [0.1.19] - 2026-07-16\n### Added\n- **New advanced lesson \"Monkeypatching TT-NN\"** (order 16, after \"Exploring TT-Metalium\") \u2014 upgrade-safe, smallest-trace patching of TT-NN / TT-Metalium organized by developer goal (observe; fix a bug early; change a default; add something new; and a last-resort source-diff escape hatch), for the TT-QuietBox 2 case where `ttnn` is an installed package with no `~/tt-metal` source tree. Covers the env + import-order rule, the \"patch to change behavior, wrap to add behavior\" principle (citing Martin Chang's non-invasive `ttPseudoRowMajor` and upstream-first ggml backend), and an AI-agent verification recipe. Validated on p300c \u2014 all 19 lesson patterns exercised against real `ttnn` on a TT-QuietBox 2.\n- **New reusable template `content/templates/monkeypatch/tt_patches.py`** \u2014 a dependency-free patch harness (save/restore `wrap` and `set_default`, `patched` context manager, `version_at_most` guard that zero-pads unequal-length versions, and a `verify` probe helper) with fail-loud missing-target detection, shipped with a self-contained hardware-free `test_tt_patches.py` and a usage README. The lesson embeds the full harness source in a collapsible section for transparency.\n- **`tenstorrent.monkeypatch.copyHarness` command** \u2014 copies the harness folder into `~/tt-scratchpad/monkeypatch/`, replacing any prior copy (with confirmation) so it mirrors the shipped template, and offers an \"Open tt_patches.py\" follow-up. Wired into the lesson as a click-to-copy button.\n- **`check:monkeypatch-drift` script** (wired into the pre-commit hook) fails if the `tt_patches.py` source embedded in the lesson diverges from the template file.\n\n### Changed\n- Excluded `.superpowers/` from the packaged `.vsix` via `.vscodeignore` (was shipping ~1.9 MB of session artifacts).\n\n## [0.1.18] - 2026-07-13\n### Fixed\n- **PRD-246 \u2014 Jeremy's QB2 testing feedback on the first-inference lesson flow:**\n  - `download-model` \u2014 fixed the broken \"Step 3: Download the Model\" skip link. The anchor pointed to `#step-3-download-qwen3-0-6b`, but the \"Step 3: Download Qwen3-0.6B\" heading slugs to `#step-3-download-qwen3-06b` (the `.` in `0.6B` is dropped, not turned into a hyphen).\n  - `download-model` \u2014 consolidated the repeated, scattered Hugging Face auth flow. Removed the standalone \"Already Authenticated?\" pre-check and folded the `hf auth whoami` check into Step 2, so authentication reads as a single sequence (set token \u2192 check \u2192 log in) instead of appearing in multiple places.\n  - `hardware-detection` \u2014 marked \"Check 4: Device Reset\" as optional; it is a recovery action, not part of normal detection, and a healthy device never needs it.\n  - `tt-installer` \u2014 removed the redundant `tt-smi` hardwar"
   },
   "https://github.com/boopdotpng/blackhole-py": {
-    "stars": 16,
-    "updatedAt": "2026-08-11T03:06:11Z"
+    "stars": 17,
+    "updatedAt": "2026-08-12T17:45:50Z"
   },
   "https://github.com/tenstorrent/luwen": {
     "stars": 34,
-    "updatedAt": "2026-08-07T14:08:30Z",
+    "updatedAt": "2026-08-12T14:59:04Z",
     "releases": [
+      {
+        "tagName": "v0.9.0",
+        "name": "v0.9.0",
+        "publishedAt": "2026-08-12T14:56:20Z",
+        "url": "https://github.com/tenstorrent/luwen/releases/tag/v0.9.0",
+        "prerelease": false
+      },
       {
         "tagName": "bh-mod-v2.0.0",
         "name": "bh-mod-v2.0.0",
@@ -1930,13 +1937,6 @@
         "name": "v0.8.5",
         "publishedAt": "2026-03-30T21:03:56Z",
         "url": "https://github.com/tenstorrent/luwen/releases/tag/v0.8.5",
-        "prerelease": false
-      },
-      {
-        "tagName": "v0.8.4",
-        "name": "v0.8.4",
-        "publishedAt": "2026-03-26T19:34:59Z",
-        "url": "https://github.com/tenstorrent/luwen/releases/tag/v0.8.4",
         "prerelease": false
       }
     ]
@@ -2150,7 +2150,7 @@
   },
   "https://github.com/tenstorrent/tt-flash": {
     "stars": 14,
-    "updatedAt": "2026-06-23T19:59:54Z",
+    "updatedAt": "2026-08-12T20:18:27Z",
     "releases": [
       {
         "tagName": "v3.10.0",
@@ -2283,7 +2283,7 @@
   },
   "https://github.com/tenstorrent/tt-kmd": {
     "stars": 71,
-    "updatedAt": "2026-08-11T16:22:22Z",
+    "updatedAt": "2026-08-12T16:16:27Z",
     "releases": [
       {
         "tagName": "ttkmd-2.11.0-rc1",
@@ -2470,7 +2470,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 42,
-    "updatedAt": "2026-08-11T21:21:15Z",
+    "updatedAt": "2026-08-12T21:28:47Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -3221,7 +3221,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 45,
-    "updatedAt": "2026-08-11T21:06:48Z",
+    "updatedAt": "2026-08-12T19:01:53Z",
     "releases": [
       {
         "tagName": "v0.9.9",
@@ -3661,8 +3661,32 @@
   },
   "https://github.com/tenstorrent/sfpi": {
     "stars": 14,
-    "updatedAt": "2026-08-11T12:39:42Z",
+    "updatedAt": "2026-08-12T19:13:37Z",
     "releases": [
+      {
+        "tagName": "7.69.0",
+        "name": "Compiler update",
+        "publishedAt": "2026-08-12T21:12:00Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.69.0",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "sfpi_7.69.0_aarch64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.69.0/sfpi_7.69.0_aarch64_debian.deb",
+            "size": 129523170
+          },
+          {
+            "name": "sfpi_7.69.0_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.69.0/sfpi_7.69.0_x86_64_debian.deb",
+            "size": 134565648
+          },
+          {
+            "name": "sfpi_7.69.0_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.69.0/sfpi_7.69.0_x86_64_fedora.rpm",
+            "size": 134119332
+          }
+        ]
+      },
       {
         "tagName": "7.68.0-expand-43896",
         "name": "7.68.0-expand-43896",
@@ -3692,12 +3716,12 @@
           {
             "name": "sfpi_7.68.0-clean-43896_x86_64_debian.deb",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.68.0-clean-43896/sfpi_7.68.0-clean-43896_x86_64_debian.deb",
-            "size": 134571292
+            "size": 134578780
           },
           {
             "name": "sfpi_7.68.0-clean-43896_x86_64_fedora.rpm",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.68.0-clean-43896/sfpi_7.68.0-clean-43896_x86_64_fedora.rpm",
-            "size": 134129750
+            "size": 134128388
           }
         ]
       },
@@ -3748,30 +3772,6 @@
             "size": 134121549
           }
         ]
-      },
-      {
-        "tagName": "7.66.0",
-        "name": "SFPI Update",
-        "publishedAt": "2026-07-07T19:10:40Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.66.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.66.0_aarch64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.66.0/sfpi_7.66.0_aarch64_debian.deb",
-            "size": 129467820
-          },
-          {
-            "name": "sfpi_7.66.0_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.66.0/sfpi_7.66.0_x86_64_debian.deb",
-            "size": 134568184
-          },
-          {
-            "name": "sfpi_7.66.0_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.66.0/sfpi_7.66.0_x86_64_fedora.rpm",
-            "size": 134118717
-          }
-        ]
       }
     ]
   },
@@ -3781,7 +3781,7 @@
   },
   "https://github.com/tenstorrent/tt-lang": {
     "stars": 59,
-    "updatedAt": "2026-08-11T17:52:27Z",
+    "updatedAt": "2026-08-13T05:01:29Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
@@ -3790,10 +3790,114 @@
     "updatedAt": "2026-08-11T22:12:30Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1622,
-    "updatedAt": "2026-08-12T05:57:41Z",
+    "stars": 1623,
+    "updatedAt": "2026-08-13T04:20:26Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
+      {
+        "tagName": "v0.77.0-dev20260813",
+        "name": "v0.77.0-dev20260813",
+        "publishedAt": "2026-08-13T02:05:49Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.77.0-dev20260813",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "tt-metalium-dev_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium-dev_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "size": 1100044
+          },
+          {
+            "name": "tt-metalium-dev_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium-dev_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "size": 1099010
+          },
+          {
+            "name": "tt-metalium-examples_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium-examples_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "size": 65822
+          },
+          {
+            "name": "tt-metalium-examples_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium-examples_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "size": 65824
+          },
+          {
+            "name": "tt-metalium-jit_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium-jit_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "size": 134101228
+          },
+          {
+            "name": "tt-metalium-jit_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium-jit_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "size": 134101270
+          },
+          {
+            "name": "tt-metalium-validation_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium-validation_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "size": 3806474
+          },
+          {
+            "name": "tt-metalium-validation_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium-validation_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "size": 4157044
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium.tar.gz",
+            "size": 206948813
+          },
+          {
+            "name": "tt-metalium_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "size": 22941228
+          },
+          {
+            "name": "tt-metalium_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-metalium_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "size": 23248048
+          },
+          {
+            "name": "tt-nn-dev_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-nn-dev_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "size": 204790
+          },
+          {
+            "name": "tt-nn-dev_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-nn-dev_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "size": 204814
+          },
+          {
+            "name": "tt-nn-examples_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-nn-examples_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-examples_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-nn-examples_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-validation_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-nn-validation_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "size": 2689010
+          },
+          {
+            "name": "tt-nn-validation_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-nn-validation_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "size": 2937452
+          },
+          {
+            "name": "tt-nn_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-nn_0.77.0.dev20260813.ubuntu22.04_amd64.deb",
+            "size": 16461104
+          },
+          {
+            "name": "tt-nn_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260813/tt-nn_0.77.0.dev20260813.ubuntu24.04_amd64.deb",
+            "size": 17464978
+          }
+        ]
+      },
       {
         "tagName": "v0.77.0-dev20260812",
         "name": "v0.77.0-dev20260812",
@@ -4007,7 +4111,7 @@
         "name": "v0.76.0",
         "publishedAt": "2026-08-11T04:10:19Z",
         "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.76.0",
-        "prerelease": true,
+        "prerelease": false,
         "assets": [
           {
             "name": "tt-metalium-dev_0.76.0.ubuntu22.04_amd64.deb",
@@ -4209,216 +4313,8 @@
             "size": 17176046
           }
         ]
-      },
-      {
-        "tagName": "v0.77.0-dev20260809",
-        "name": "v0.77.0-dev20260809",
-        "publishedAt": "2026-08-09T01:36:52Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.77.0-dev20260809",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "tt-metalium-dev_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium-dev_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "size": 1100150
-          },
-          {
-            "name": "tt-metalium-dev_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium-dev_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "size": 1099176
-          },
-          {
-            "name": "tt-metalium-examples_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium-examples_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "size": 65816
-          },
-          {
-            "name": "tt-metalium-examples_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium-examples_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "size": 65822
-          },
-          {
-            "name": "tt-metalium-jit_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium-jit_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "size": 134097682
-          },
-          {
-            "name": "tt-metalium-jit_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium-jit_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "size": 134101904
-          },
-          {
-            "name": "tt-metalium-validation_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium-validation_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "size": 4033094
-          },
-          {
-            "name": "tt-metalium-validation_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium-validation_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "size": 3823242
-          },
-          {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium.tar.gz",
-            "size": 206360069
-          },
-          {
-            "name": "tt-metalium_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "size": 23340100
-          },
-          {
-            "name": "tt-metalium_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-metalium_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "size": 23290434
-          },
-          {
-            "name": "tt-nn-dev_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-nn-dev_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "size": 199310
-          },
-          {
-            "name": "tt-nn-dev_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-nn-dev_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "size": 199366
-          },
-          {
-            "name": "tt-nn-examples_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-nn-examples_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "size": 1414
-          },
-          {
-            "name": "tt-nn-examples_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-nn-examples_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "size": 1412
-          },
-          {
-            "name": "tt-nn-validation_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-nn-validation_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "size": 2857102
-          },
-          {
-            "name": "tt-nn-validation_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-nn-validation_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "size": 2750638
-          },
-          {
-            "name": "tt-nn_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-nn_0.77.0.dev20260809.ubuntu22.04_amd64.deb",
-            "size": 17382140
-          },
-          {
-            "name": "tt-nn_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.77.0-dev20260809/tt-nn_0.77.0.dev20260809.ubuntu24.04_amd64.deb",
-            "size": 17176810
-          }
-        ]
       }
-    ],
-    "latestStableRelease": {
-      "tagName": "v0.75.0",
-      "name": "v0.75.0",
-      "publishedAt": "2026-07-30T21:54:28Z",
-      "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.75.0",
-      "prerelease": false,
-      "assets": [
-        {
-          "name": "tt-metalium-dev_0.75.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium-dev_0.75.0.ubuntu22.04_amd64.deb",
-          "size": 1077426
-        },
-        {
-          "name": "tt-metalium-dev_0.75.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium-dev_0.75.0.ubuntu24.04_amd64.deb",
-          "size": 1076278
-        },
-        {
-          "name": "tt-metalium-examples_0.75.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium-examples_0.75.0.ubuntu22.04_amd64.deb",
-          "size": 65660
-        },
-        {
-          "name": "tt-metalium-examples_0.75.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium-examples_0.75.0.ubuntu24.04_amd64.deb",
-          "size": 65658
-        },
-        {
-          "name": "tt-metalium-jit_0.75.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium-jit_0.75.0.ubuntu22.04_amd64.deb",
-          "size": 134099038
-        },
-        {
-          "name": "tt-metalium-jit_0.75.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium-jit_0.75.0.ubuntu24.04_amd64.deb",
-          "size": 134099144
-        },
-        {
-          "name": "tt-metalium-validation_0.75.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium-validation_0.75.0.ubuntu22.04_amd64.deb",
-          "size": 3798010
-        },
-        {
-          "name": "tt-metalium-validation_0.75.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium-validation_0.75.0.ubuntu24.04_amd64.deb",
-          "size": 3865174
-        },
-        {
-          "name": "tt-metalium.tar.gz",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium.tar.gz",
-          "size": 202871036
-        },
-        {
-          "name": "tt-metalium_0.75.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium_0.75.0.ubuntu22.04_amd64.deb",
-          "size": 25030964
-        },
-        {
-          "name": "tt-metalium_0.75.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-metalium_0.75.0.ubuntu24.04_amd64.deb",
-          "size": 24897420
-        },
-        {
-          "name": "tt-nn-dev_0.75.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-nn-dev_0.75.0.ubuntu22.04_amd64.deb",
-          "size": 182616
-        },
-        {
-          "name": "tt-nn-dev_0.75.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-nn-dev_0.75.0.ubuntu24.04_amd64.deb",
-          "size": 182606
-        },
-        {
-          "name": "tt-nn-examples_0.75.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-nn-examples_0.75.0.ubuntu22.04_amd64.deb",
-          "size": 1400
-        },
-        {
-          "name": "tt-nn-examples_0.75.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-nn-examples_0.75.0.ubuntu24.04_amd64.deb",
-          "size": 1404
-        },
-        {
-          "name": "tt-nn-validation_0.75.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-nn-validation_0.75.0.ubuntu22.04_amd64.deb",
-          "size": 2874742
-        },
-        {
-          "name": "tt-nn-validation_0.75.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-nn-validation_0.75.0.ubuntu24.04_amd64.deb",
-          "size": 2949470
-        },
-        {
-          "name": "tt-nn_0.75.0.ubuntu22.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-nn_0.75.0.ubuntu22.04_amd64.deb",
-          "size": 15896058
-        },
-        {
-          "name": "tt-nn_0.75.0.ubuntu24.04_amd64.deb",
-          "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.75.0/tt-nn_0.75.0.ubuntu24.04_amd64.deb",
-          "size": 15761492
-        }
-      ]
-    }
+    ]
   },
   "https://github.com/RQM-Technologies-dev/tt-rqm-kernels": {
     "stars": 0,
@@ -4459,7 +4355,7 @@
   },
   "https://github.com/tenstorrent/polaris": {
     "stars": 39,
-    "updatedAt": "2026-08-10T11:23:26Z",
+    "updatedAt": "2026-08-13T04:36:02Z",
     "releases": [
       {
         "tagName": "pre_perfmodel_merge",
@@ -4521,8 +4417,8 @@
     ]
   },
   "https://github.com/tenstorrent/riscv_arch_tests": {
-    "stars": 125,
-    "updatedAt": "2026-07-17T13:31:29Z",
+    "stars": 124,
+    "updatedAt": "2026-08-12T08:50:46Z",
     "releases": [
       {
         "tagName": "v0.2.0+aligned-access",
@@ -4582,7 +4478,7 @@
   },
   "https://github.com/tenstorrent-riscv-software/tt-bh-linux": {
     "stars": 59,
-    "updatedAt": "2026-08-08T09:19:43Z",
+    "updatedAt": "2026-08-13T02:00:28Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent-riscv-software/tt-bh-linux/main/misc/P150.jpg",
     "releases": [
       {
