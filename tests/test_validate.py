@@ -102,3 +102,58 @@ def test_multiple_valid_categories_and_links():
         ],
     })
     assert validate_entry(p(), e) == []
+
+
+# ── affiliation vs repo owner ────────────────────────────────────────────────
+
+def test_tt_org_repo_must_be_official():
+    """The tt-bh-linux class of bug: a repo in a TT-owned org labeled community."""
+    e = valid({"affiliation": "community",
+               "links": [{"type": "repo",
+                          "url": "https://github.com/tenstorrent-riscv-software/tt-bh-linux"}]})
+    errors = validate_entry(p(), e)
+    assert any("must be 'official'" in x for x in errors)
+
+
+def test_satellite_org_marked_official_is_valid():
+    e = valid({"affiliation": "official",
+               "links": [{"type": "repo", "url": "https://github.com/tenstorrent-metal/foo"}]})
+    assert validate_entry(p(), e) == []
+
+
+def test_official_with_non_tt_owner_is_flagged():
+    e = valid({"affiliation": "official",
+               "links": [{"type": "repo", "url": "https://github.com/someone/tt-thing"}]})
+    errors = validate_entry(p(), e)
+    assert any("not a known Tenstorrent-owned org" in x for x in errors)
+
+
+def test_only_the_canonical_repo_link_is_checked():
+    """An article entry citing a Tenstorrent repo must not be forced official."""
+    e = valid({"affiliation": "community",
+               "links": [{"type": "repo", "url": "https://github.com/marty1885/x"},
+                         {"type": "article", "url": "https://github.com/tenstorrent/tt-metal"}]})
+    assert validate_entry(p(), e) == []
+
+
+def test_official_without_repo_link_is_valid():
+    e = valid({"affiliation": "official",
+               "links": [{"type": "website", "url": "https://docs.tenstorrent.com/x"}]})
+    assert validate_entry(p(), e) == []
+
+
+def test_non_github_repo_host_is_skipped():
+    e = valid({"affiliation": "official",
+               "links": [{"type": "repo", "url": "https://gitlab.com/tt/x"}]})
+    assert validate_entry(p(), e) == []
+
+
+def test_blank_conda_channel_is_rejected():
+    e = valid({"packages": [{"type": "conda", "name": "pkg", "channel": "   "}]})
+    errors = validate_entry(p(), e)
+    assert any("channel must be a non-empty string" in x for x in errors)
+
+
+def test_omitted_conda_channel_is_fine():
+    e = valid({"packages": [{"type": "conda", "name": "pkg"}]})
+    assert validate_entry(p(), e) == []

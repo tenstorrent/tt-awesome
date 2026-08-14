@@ -1,0 +1,31 @@
+{
+  "id": "tengemm",
+  "name": "TenGEMM",
+  "description": "Tensix GEMM performance estimator and visualizer. A React app that models matrix-multiplication workloads on a Tensix core, estimates the resulting performance, and shows how the work maps onto the hardware — useful for reasoning about a matmul's shape and fidelity choices before writing the kernel.",
+  "affiliation": "official",
+  "categories": [
+    "dev-tools",
+    "kernels"
+  ],
+  "tags": [
+    "matmul",
+    "gemm",
+    "visualization",
+    "performance",
+    "estimator",
+    "tensix",
+    "react"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/TenGEMM"
+    }
+  ],
+  "related": [
+    "tensix-viz"
+  ],
+  "language": "TypeScript",
+  "license": "MIT",
+  "added_at": "2026-08-14"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "tt-model-bringup",
+  "name": "tt-model-bringup",
+  "description": "Direct TT-Metal bringup of modern open-weight LLMs on Blackhole P150 — hand-written compute graphs with no PJRT and no JAX. Covers Qwen3.6-27B, Qwen3.6-35B-A3B MoE, Gemma 4 12B, and Nemotron-3 Nano 30B-A3B, plus a zoo of single-chip Llama / Qwen2.5 / SmolLM ports, backed by custom fused `owned_*` kernels, a continuous-batching engine, an OpenAI-compatible HTTP server, and a wiki documenting each design decision.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "kernels",
+    "guides"
+  ],
+  "tags": [
+    "llm",
+    "model-bringup",
+    "qwen",
+    "gemma",
+    "nemotron",
+    "moe",
+    "continuous-batching",
+    "openai-compatible",
+    "custom-kernels"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/aweditya/tt-model-bringup"
+    },
+    {
+      "type": "lesson",
+      "url": "https://github.com/aweditya/tt-model-bringup/blob/main/HANDOFF.md",
+      "label": "HANDOFF.md — current perf and production paths"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "author": "aweditya",
+  "added_at": "2026-08-14"
+}

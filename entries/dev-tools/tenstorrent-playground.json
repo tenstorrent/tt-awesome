@@ -1,0 +1,39 @@
+{
+  "id": "tenstorrent-playground",
+  "name": "Tenstorrent Simulator Playground",
+  "description": "A web playground that runs real TTNN operations on the ttsim hardware simulator — no card required. Switch between Wormhole and Blackhole, run elementwise/activation/matmul ops or a small MLP, draw a digit and classify it with a trained MNIST net, then sweep parameters in 1D or 2D and read latency, throughput, and memory back as line charts, 3D surfaces, and heatmaps.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools",
+    "getting-started"
+  ],
+  "tags": [
+    "ttsim",
+    "simulator",
+    "playground",
+    "ttnn",
+    "visualization",
+    "mnist",
+    "parameter-sweep",
+    "react"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/thatdspguy/tenstorrent_playground"
+    }
+  ],
+  "hardware": [
+    "ttsim",
+    "wormhole",
+    "blackhole"
+  ],
+  "related": [
+    "ttsim",
+    "tt-sim-lab"
+  ],
+  "author": "thatdspguy",
+  "language": "TypeScript",
+  "license": "MIT",
+  "added_at": "2026-08-14"
+}

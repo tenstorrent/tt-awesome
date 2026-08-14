@@ -48,6 +48,27 @@ Every entry must be valid against this schema:
 | `author` | string | no | GitHub username or "Firstname Lastname" |
 | `language` | string | no | Primary language |
 | `license` | string | no | SPDX identifier |
+| `packages` | object[] | no | Published packages — see below |
+
+### Packages
+
+If the project is installable from a package registry, list it in `packages` so the
+entry renders an install badge. Each object takes a `type`, a `name`, and any
+registry-specific field:
+
+| `type` | Install shown | Registry-specific field | Link built |
+|---|---|---|---|
+| `pypi` | `pip install <name>` | — | `pypi.org/project/<name>/` |
+| `cargo` | `cargo add <name>` | — | `crates.io/crates/<name>` |
+| `conda` | `conda install -c <channel> <name>` | `channel` (optional, defaults to `conda-forge`) | `anaconda.org/<channel>/<name>` |
+| `apt` | `apt install <name>` | `ppa` or `url` (a PPA is required to install) | Launchpad, or the `url` as given |
+
+The conda command is rendered with `-c <channel>` on purpose: the packages we link
+live on conda-forge rather than in conda's `defaults` channel, so a bare
+`conda install <name>` fails for anyone on a stock Anaconda setup.
+
+Do not list a package you have not confirmed is actually published — the badge is an
+install promise.
 
 ## Affiliation policy
 
@@ -70,7 +91,17 @@ several orgs, and a repo in any of them qualifies:
 | [`tenstorrent-forks`](https://github.com/tenstorrent-forks) | Tenstorrent's public forks of upstream projects |
 
 If you hit a Tenstorrent-owned org that isn't listed here, it still counts as
-`official` — please add it to this table in the same PR.
+`official` — please add it to this table in the same PR, **and** to
+`TENSTORRENT_ORGS` in `scripts/validate.py`.
+
+`validate.py` cross-checks the two directions of this rule against your entry's
+first `repo` link, so a mislabeled affiliation fails CI:
+
+- repo in a Tenstorrent-owned org but affiliation isn't `official` → error
+- affiliation is `official` but the repo owner isn't a known Tenstorrent org → error
+
+Entries with no `repo` link, or whose repo is hosted somewhere other than GitHub,
+are skipped rather than guessed at.
 
 **Community entries are shown first** in every category. This is intentional — the goal is to surface what the community has built, not to be an index of official repos.
 

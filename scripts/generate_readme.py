@@ -37,8 +37,26 @@ LINK_ICONS = {
 }
 
 # Icons and install commands for package registry types
-PKG_ICONS = {"pypi": "🐍", "apt": "🐧", "cargo": "🦀"}
-PKG_INSTALL = {"pypi": "pip install", "apt": "apt install", "cargo": "cargo add"}
+PKG_ICONS = {"pypi": "🐍", "apt": "🐧", "cargo": "🦀", "conda": "⚗️"}
+PKG_INSTALL = {"pypi": "pip install", "apt": "apt install", "cargo": "cargo add",
+               "conda": "conda install"}
+# Channel assumed when a conda package omits an explicit one.
+DEFAULT_CONDA_CHANNEL = "conda-forge"
+
+
+def pkg_install_cmd(pkg):
+    """The command a reader should actually run to install this package.
+
+    conda needs `-c <channel>` spelled out: the packages we link live on
+    conda-forge, not in the `defaults` channel, so a bare `conda install <name>`
+    fails with PackagesNotFoundError for anyone on a stock Anaconda setup.
+    """
+    t = pkg.get("type", "")
+    name = pkg.get("name", "")
+    if t == "conda":
+        channel = (pkg.get("channel") or DEFAULT_CONDA_CHANNEL).strip()
+        return f"conda install -c {channel} {name}"
+    return f"{PKG_INSTALL.get(t, 'install')} {name}"
 
 
 def pkg_url(pkg):
@@ -49,6 +67,9 @@ def pkg_url(pkg):
         return f"https://pypi.org/project/{name}/"
     if t == "cargo":
         return f"https://crates.io/crates/{name}"
+    if t == "conda":
+        channel = pkg.get("channel") or DEFAULT_CONDA_CHANNEL
+        return f"https://anaconda.org/{channel}/{name}"
     if t == "apt":
         ppa = pkg.get("ppa", "")
         if ppa.startswith("ppa:"):
@@ -57,6 +78,11 @@ def pkg_url(pkg):
             owner, _, ppa_name = rest.partition("/")
             if ppa_name:
                 return f"https://launchpad.net/~{owner}/+archive/ubuntu/{ppa_name}"
+        # Archives that aren't Launchpad PPAs (ppa.tenstorrent.com, for one)
+        # carry a plain `url` instead. Every apt entry in the list currently
+        # uses this form, so without it the README linked none of them.
+        if pkg.get("url"):
+            return pkg["url"]
     return None
 
 # Shields.io badges for each affiliation tier
@@ -133,7 +159,7 @@ def render_entry(e):
     pkg_parts = []
     for pkg in e.get("packages", []):
         icon = PKG_ICONS.get(pkg.get("type", ""), "📦")
-        cmd = f"{PKG_INSTALL.get(pkg.get('type', ''), 'install')} {pkg.get('name', '')}"
+        cmd = pkg_install_cmd(pkg)
         url = pkg_url(pkg)
         pkg_parts.append(f"[{icon} `{cmd}`]({url})" if url else f"{icon} `{cmd}`")
 

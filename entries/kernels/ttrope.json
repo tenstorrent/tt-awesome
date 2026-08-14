@@ -1,0 +1,33 @@
+{
+  "id": "ttrope",
+  "name": "ttRoPE",
+  "description": "A GGML-formatted rotary positional embedding (RoPE) implementation for Tenstorrent hardware — one of the operator building blocks behind the community effort to give llama.cpp a Metalium backend.",
+  "affiliation": "community",
+  "categories": [
+    "kernels"
+  ],
+  "tags": [
+    "rope",
+    "operator",
+    "ggml",
+    "llama-cpp",
+    "tt-metal",
+    "cpp"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/marty1885/ttRoPE"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "related": [
+    "ttwkv7"
+  ],
+  "author": "Martin Chang",
+  "language": "C++",
+  "license": "0BSD",
+  "added_at": "2026-08-14"
+}

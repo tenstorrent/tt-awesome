@@ -115,6 +115,12 @@ Every file in `entries/` must be valid against this schema:
 
 ### Affiliation Definitions
 
+> **Superseded 2026-08-11.** `official` now covers a repo in *any*
+> Tenstorrent-owned GitHub org, not just `tenstorrent`. See the affiliation
+> policy in `CONTRIBUTING.md` for the current rule and the list of orgs;
+> `scripts/validate.py` enforces it. The definitions below are the original
+> 2026-05-08 text, kept as the design record.
+
 - **`official`** — lives in the `tenstorrent` GitHub org
 - **`affiliated`** — authored by a Tenstorrent employee or close contributor working in a personal capacity (e.g. `tsingletaryTT`, `zoecarver`, `moritztng`)
 - **`community`** — everyone else; shown first in every category

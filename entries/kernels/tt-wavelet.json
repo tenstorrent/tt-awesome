@@ -1,0 +1,31 @@
+{
+  "id": "tt-wavelet",
+  "name": "tt-wavelet",
+  "description": "One-level FP32 lifting wavelet transforms (LWT) on Wormhole and Blackhole, shipped as a TTNN-linked op library plus standalone `lwt`, `ilwt`, `lwt_2d`, and `ilwt_2d` binaries and a benchmark harness. Builds the whole local stack — TT-Metal, the TTNN Python bindings, and ttnn-wavelet — against the TT-Metal revision pinned in its submodule.",
+  "affiliation": "community",
+  "categories": [
+    "kernels"
+  ],
+  "tags": [
+    "wavelet",
+    "lifting-transform",
+    "signal-processing",
+    "ttnn",
+    "tt-metal",
+    "cpp"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/ke1rro/tt-wavelet"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "author": "ke1rro",
+  "language": "C++",
+  "license": "MIT",
+  "added_at": "2026-08-14"
+}

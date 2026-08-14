@@ -6,7 +6,8 @@ from pathlib import Path
 import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
-from generate_readme import sort_entries, render_entry, AFFILIATION_ORDER
+from generate_readme import (sort_entries, render_entry, AFFILIATION_ORDER,
+                             pkg_url, pkg_install_cmd)
 
 COMM = {
     "id": "cool-proj", "name": "cool-proj",
@@ -65,3 +66,67 @@ def test_render_entry_no_repo_link():
     md = render_entry(entry)
     assert "cool-proj" in md
     assert "arxiv.org" in md
+
+
+# ── pkg_url ──────────────────────────────────────────────────────────────────
+
+def test_pkg_url_pypi_and_cargo():
+    assert pkg_url({"type": "pypi", "name": "ttperf"}) == "https://pypi.org/project/ttperf/"
+    assert pkg_url({"type": "cargo", "name": "luwen"}) == "https://crates.io/crates/luwen"
+
+
+def test_pkg_url_conda_defaults_to_conda_forge():
+    assert (pkg_url({"type": "conda", "name": "tt-metalium"})
+            == "https://anaconda.org/conda-forge/tt-metalium")
+
+
+def test_pkg_url_conda_honors_explicit_channel():
+    assert (pkg_url({"type": "conda", "name": "pkg", "channel": "my-chan"})
+            == "https://anaconda.org/my-chan/pkg")
+
+
+def test_pkg_url_apt_launchpad_ppa():
+    assert (pkg_url({"type": "apt", "name": "foo", "ppa": "ppa:owner/archive"})
+            == "https://launchpad.net/~owner/+archive/ubuntu/archive")
+
+
+def test_pkg_url_apt_plain_url():
+    """Every apt entry in the list uses `url`, not a launchpad ppa: spec."""
+    assert (pkg_url({"type": "apt", "name": "tt-smi", "url": "https://ppa.tenstorrent.com/"})
+            == "https://ppa.tenstorrent.com/")
+
+
+def test_pkg_url_apt_prefers_launchpad_over_url():
+    pkg = {"type": "apt", "name": "foo", "ppa": "ppa:owner/archive", "url": "https://example.com/"}
+    assert pkg_url(pkg) == "https://launchpad.net/~owner/+archive/ubuntu/archive"
+
+
+def test_pkg_url_unknown_type_is_none():
+    assert pkg_url({"type": "brew", "name": "foo"}) is None
+    assert pkg_url({"type": "apt", "name": "foo"}) is None
+
+
+# ── pkg_install_cmd ──────────────────────────────────────────────────────────
+
+def test_install_cmd_conda_names_the_channel():
+    """A bare `conda install <name>` fails for conda-forge-only packages."""
+    assert (pkg_install_cmd({"type": "conda", "name": "tt-metalium"})
+            == "conda install -c conda-forge tt-metalium")
+
+
+def test_install_cmd_conda_honors_explicit_channel():
+    assert (pkg_install_cmd({"type": "conda", "name": "pkg", "channel": "my-chan"})
+            == "conda install -c my-chan pkg")
+
+
+def test_install_cmd_other_types_unchanged():
+    assert pkg_install_cmd({"type": "pypi", "name": "ttperf"}) == "pip install ttperf"
+    assert pkg_install_cmd({"type": "cargo", "name": "luwen"}) == "cargo add luwen"
+    assert pkg_install_cmd({"type": "apt", "name": "tt-smi"}) == "apt install tt-smi"
+
+
+def test_install_cmd_and_url_agree_on_channel():
+    """The command must not point somewhere other than the badge link."""
+    pkg = {"type": "conda", "name": "pkg", "channel": "bioconda"}
+    assert "bioconda" in pkg_install_cmd(pkg)
+    assert "bioconda" in pkg_url(pkg)

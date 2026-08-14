@@ -1,0 +1,36 @@
+{
+  "id": "blackhole-docs-unofficial",
+  "name": "Unofficial Blackhole Documentation",
+  "description": "Unofficial documentation for the Blackhole P100A / P150, assembled from reverse-engineering, disassembly, and hands-on experiment. Walks from a self-contained intro through chip architecture (NoC, Tensix tiles, RISC-V cores, L1, memory map), the 3-kernel matmul model, SFPI kernel writing, circular-buffer dataflow, the JIT build and dispatch pipeline, firmware boot sequence, and multi-host scaling. The author notes most pages were drafted by coding agents, with a `human/` folder that is explicitly hand-written.",
+  "affiliation": "community",
+  "categories": [
+    "guides",
+    "riscv-arch"
+  ],
+  "tags": [
+    "documentation",
+    "blackhole",
+    "reverse-engineering",
+    "noc",
+    "sfpi",
+    "circular-buffers",
+    "dispatch",
+    "firmware"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/boopdotpng/tenstorrent-docs"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "related": [
+    "blackhole-py"
+  ],
+  "author": "boopdotpng",
+  "language": "Python",
+  "license": "MIT",
+  "added_at": "2026-08-14"
+}
