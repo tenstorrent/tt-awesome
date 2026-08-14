@@ -1,5 +1,8 @@
 {
   "id": "booth",
+  "previous_ids": [
+    "barracuda"
+  ],
   "name": "Booth",
   "description": "An open-source CUDA, HIP, and Triton compiler with no LLVM anywhere in the path. Takes the same sources you would hand to nvcc, ROCm, or Triton's JIT and emits AMD RDNA 2/3/4 binaries, NVIDIA PTX, Tenstorrent Metalium C++, native RV32IM, or plain x86-64 — so a Triton matmul can run on a laptop that has never seen a GPU. Also reads a deliberate subset of MLIR (`func.func` plus the `arith` dialect) and Fortran `do concurrent` kernels via LFortran. Formerly BarraCUDA; renamed to honour Kathleen Booth.",
   "affiliation": "community",

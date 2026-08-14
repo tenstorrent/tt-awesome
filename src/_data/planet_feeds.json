@@ -2579,7 +2579,7 @@
     "type": "release",
     "source": "github",
     "approved": true,
-    "title": "BarraCUDA v0.5.0",
+    "title": "Booth v0.5.0",
     "url": "https://github.com/Zaneham/Booth/releases/tag/v0.5.0",
     "description": "BarraCUDA's first tagged release brings a CPU backend that lets you compile and run full Triton kernels—matmul included—on x86-64 without a GPU, alongside new RISC-V support and a cross-backend differential testing suite that treats CPU as ground truth. The project now targets AMD, NVIDIA, Tenstorrent, and experimental Intel/Apple backends, with validated kernels running on real MI300X and RTX hardware; the Triton frontend gained scalar math intrinsics, constexpr parameter folding, and better CUDA compatibility, while the runtime layer added HSA support with no compile-time ROCm dependency and creative debugging tools like ABEND dumps and bilingual error messages.",
     "date": "2026-05-29",

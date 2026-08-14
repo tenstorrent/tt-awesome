@@ -498,15 +498,20 @@ def main(argv: list | None = None):
                 "affiliation": affiliation,
             }
 
+            # Claim this release in both modes. These are in-memory sets, not
+            # files, so a dry run stays read-only while still behaving like the
+            # real thing. Updating them only in the real branch meant a release
+            # reachable twice in one run — two entries pointing at the same
+            # repo, one via its old name, say — got summarized twice under
+            # --dry-run only, so the preview diverged from the actual run.
+            known_urls.add(url)
+            known_release_keys.add(rkey)
+
             if dry_run:
                 # In dry-run mode we print the summary but never mutate any file.
                 print(f"\n--- DRY RUN: {repo}@{tag} ---")
                 print(summary)
             else:
-                # Track the URL immediately so later iterations in the same run
-                # don't re-process the same release (e.g. if it appears twice).
-                known_urls.add(url)
-                known_release_keys.add(rkey)
                 print(f"  ADDED {repo}@{tag}")
             # Accumulate in both modes so the dry-run summary count is accurate.
             new_items.append(item)

@@ -453,26 +453,52 @@ module.exports = function (eleventyConfig) {
     const items = [];
     const seenUrls = new Set();
 
-    // Article-type links from all entries
+    // Article-type links from all entries — ONE card per entry, not per link.
+    // A talk, its recording, and its companion write-up are one thing that
+    // happened, and every link on an entry shares that entry's added_at date,
+    // so per-link cards only ever rendered as a clump of near-identical
+    // duplicates (same title, same description, differing only in the small
+    // grey source line).
+    //
+    // The lead link sets the card's badge and call-to-action, richest medium
+    // first: video, then an image, then prose, then a bare statement. Whatever
+    // is left rides along on the same card as extra links.
+    const LEAD_PRIORITY = ["video", "talk", "demo", "paper", "article", "lesson"];
     for (const entry of entries || []) {
-      for (const link of entry.links || []) {
-        if (!ARTICLE_TYPES.has(link.type)) continue;
-        if (seenUrls.has(link.url)) continue;
-        seenUrls.add(link.url);
-        const dateStr = entry.added_at || "1970-01-01";
-        items.push({
-          type:        link.type,
-          title:       entry.name,
-          url:         link.url,
-          description: entry.description || "",
-          date:        dateStr,
-          dateISO:     dateStr + "T00:00:00Z",
-          projectName: entry.name,
-          projectId:   entry.id,
-          affiliation: entry.affiliation || "",
-          label:       link.label || "",
-        });
-      }
+      const artLinks = (entry.links || []).filter(l => ARTICLE_TYPES.has(l.type));
+      if (!artLinks.length) continue;
+
+      // Claim every one of this entry's URLs, including the ones that end up as
+      // extra links, so an external feed item for the same page cannot add a
+      // second card for something already shown here.
+      const unseen = artLinks.filter(l => !seenUrls.has(l.url));
+      for (const l of artLinks) seenUrls.add(l.url);
+      if (!unseen.length) continue;
+
+      // Stable sort: equal-priority links keep their order in the entry, so an
+      // all-lesson entry leads with the lesson the author listed first.
+      const [lead, ...extras] = [...unseen].sort(
+        (a, b) => LEAD_PRIORITY.indexOf(a.type) - LEAD_PRIORITY.indexOf(b.type));
+
+      const dateStr = entry.added_at || "1970-01-01";
+      items.push({
+        type:         lead.type,
+        title:        entry.name,
+        url:          lead.url,
+        description:  entry.description || "",
+        date:         dateStr,
+        dateISO:      dateStr + "T00:00:00Z",
+        projectName:  entry.name,
+        projectId:    entry.id,
+        affiliation:  entry.affiliation || "",
+        label:        lead.label || "",
+        previewImage: entry.preview_image || "",
+        extraLinks:   extras.map(l => ({
+          url:   l.url,
+          label: l.label || l.type,
+          type:  l.type,
+        })),
+      });
     }
 
     // Build a repo-URL → entry lookup for backfilling missing projectIds below.
