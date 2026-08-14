@@ -736,3 +736,32 @@ def test_distinct_tags_are_not_collapsed(tmp_path):
     known_keys = sr.load_known_release_keys(p)
     assert sr.release_key("tt-bh-linux v0.12") not in known_keys
     assert sr.release_key("other-proj v0.11") not in known_keys
+
+
+def test_one_malformed_item_does_not_wipe_the_dedup_set(tmp_path, capsys):
+    """A single bad record must not silently disable rename dedup entirely."""
+    feeds = [
+        {"type": "release", "title": "good-proj v1.0", "url": "https://x/1"},
+        {"type": "release", "title": 123, "url": "https://x/2"},     # non-string
+        {"type": "release", "title": "   ", "url": "https://x/3"},   # blank
+        "not-even-a-dict",
+        {"type": "release", "title": "other-proj v2.0", "url": "https://x/4"},
+    ]
+    p = tmp_path / "planet_feeds.json"
+    p.write_text(json.dumps(feeds))
+
+    keys = sr.load_known_release_keys(p)
+    assert keys == {"good-proj v1.0", "other-proj v2.0"}
+
+    # ...and the skipped ones are reported rather than swallowed.
+    err = capsys.readouterr().err
+    assert err.count("WARN") == 2
+    assert "https://x/2" in err and "https://x/3" in err
+
+
+def test_unreadable_file_does_not_double_warn(tmp_path, capsys):
+    """load_known_urls already reports a malformed file; don't warn twice."""
+    p = tmp_path / "planet_feeds.json"
+    p.write_text("{not json")
+    assert sr.load_known_release_keys(p) == set()
+    assert "WARN" not in capsys.readouterr().err

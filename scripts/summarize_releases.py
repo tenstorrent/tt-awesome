@@ -73,15 +73,34 @@ def release_key(title: str) -> str:
 
 
 def load_known_release_keys(feeds_path: Path) -> set:
-    """Identities of the release items already in planet_feeds.json."""
+    """Identities of the release items already in planet_feeds.json.
+
+    Skips and reports individual malformed items rather than giving up on the
+    whole set: returning an empty set here silently disables rename dedup and
+    re-publishes every renamed repo's releases, so one bad record must not cost
+    us the other few hundred good ones.
+    """
     if not feeds_path.exists():
         return set()
     try:
         items = json.loads(feeds_path.read_text())
-        return {release_key(i.get("title", "")) for i in items
-                if i.get("type") == "release" and i.get("title")}
     except Exception:
-        return set()      # load_known_urls already warned about a bad file
+        # An unreadable/malformed file is already reported by load_known_urls,
+        # which main() calls first — don't warn twice about the same thing.
+        return set()
+
+    keys = set()
+    for i in items:
+        if not isinstance(i, dict) or i.get("type") != "release":
+            continue
+        title = i.get("title")
+        if isinstance(title, str) and title.strip():
+            keys.add(release_key(title))
+        else:
+            print(f"  WARN: release item has no usable title ({title!r}); it cannot "
+                  f"be matched against a renamed repo — url={i.get('url')!r}",
+                  file=sys.stderr)
+    return keys
 
 
 def build_affiliation_map(entry_dirs: list) -> dict:
