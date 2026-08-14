@@ -87,7 +87,17 @@ several orgs, and a repo in any of them qualifies:
 | [`tenstorrent-forks`](https://github.com/tenstorrent-forks) | Tenstorrent's public forks of upstream projects |
 
 If you hit a Tenstorrent-owned org that isn't listed here, it still counts as
-`official` — please add it to this table in the same PR.
+`official` — please add it to this table in the same PR, **and** to
+`TENSTORRENT_ORGS` in `scripts/validate.py`.
+
+`validate.py` cross-checks the two directions of this rule against your entry's
+first `repo` link, so a mislabeled affiliation fails CI:
+
+- repo in a Tenstorrent-owned org but affiliation isn't `official` → error
+- affiliation is `official` but the repo owner isn't a known Tenstorrent org → error
+
+Entries with no `repo` link, or whose repo is hosted somewhere other than GitHub,
+are skipped rather than guessed at.
 
 **Community entries are shown first** in every category. This is intentional — the goal is to surface what the community has built, not to be an index of official repos.
 

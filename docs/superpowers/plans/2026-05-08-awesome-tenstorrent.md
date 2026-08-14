@@ -2610,6 +2610,11 @@ python3 scripts/validate.py
 
 ## Affiliation policy
 
+> **Superseded 2026-08-11.** `official` now covers a repo in *any*
+> Tenstorrent-owned GitHub org, not just `tenstorrent`, and `scripts/validate.py`
+> enforces the rule. `CONTRIBUTING.md` is the live policy — follow that, not the
+> table below, which is kept as the original plan text.
+
 | Value | When to use |
 |---|---|
 | `community` | Your project — you're not a Tenstorrent employee |

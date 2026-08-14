@@ -17,8 +17,50 @@ VALID_CATEGORY_SLUGS = {
 VALID_LINK_TYPES = {"repo", "article", "talk", "video", "website", "demo", "lesson", "paper"}
 VALID_HARDWARE = {"grayskull", "wormhole", "blackhole", "quietbox", "galaxy", "ttsim"}
 VALID_PACKAGE_TYPES = {"pypi", "apt", "cargo", "conda"}
+# GitHub orgs owned by Tenstorrent. A repo in any of them is `official` — see the
+# affiliation policy in CONTRIBUTING.md. Keep this in sync with the org table
+# there; adding an org in one place without the other will trip the check below.
+TENSTORRENT_ORGS = {
+    "tenstorrent",
+    "tenstorrent-riscv-software",
+    "tenstorrent-metal",
+    "tenstorrent-forks",
+    "tenstorrent-software",
+    "tenstorrent-digital",
+}
 URL_RE  = re.compile(r"^https://.+")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# Owner segment of a github.com repo URL.
+GH_OWNER_RE = re.compile(r"^https://(?:www\.)?github\.com/([^/#?]+)/", re.I)
+
+
+def check_affiliation_matches_owner(data: dict) -> list:
+    """Cross-check `affiliation` against who owns the canonical repo.
+
+    Affiliation is recorded by hand, so a repo that moves between orgs (or an
+    entry copied from another) can silently end up mislabeled — that is how
+    tt-bh-linux sat pointing at `tenstorrent/` while actually living in
+    `tenstorrent-riscv-software/`. Only the first `repo`-type link is
+    considered, so an article entry that happens to cite a Tenstorrent repo is
+    not affected, and non-GitHub hosts are skipped rather than guessed at.
+    """
+    repo_url = next((l.get("url", "") for l in data.get("links", [])
+                     if isinstance(l, dict) and l.get("type") == "repo"), "")
+    if not repo_url:
+        return []          # e.g. official docs sites with no public repo
+    m = GH_OWNER_RE.match(repo_url)
+    if not m:
+        return []          # GitLab and friends: no org list to check against
+    owner = m.group(1).lower()
+    affiliation = data.get("affiliation")
+    if owner in TENSTORRENT_ORGS and affiliation != "official":
+        return [f"repo is in the Tenstorrent-owned org '{owner}', so affiliation "
+                f"must be 'official', got '{affiliation}'"]
+    if affiliation == "official" and owner not in TENSTORRENT_ORGS:
+        return [f"affiliation is 'official' but the repo owner '{owner}' is not a "
+                f"known Tenstorrent-owned org — fix the URL, or add the org to "
+                f"TENSTORRENT_ORGS and the CONTRIBUTING.md table"]
+    return []
 
 
 def validate_entry(path: Path, data: dict) -> list:
@@ -51,6 +93,7 @@ def validate_entry(path: Path, data: dict) -> list:
             url = link.get("url", "")
             if not URL_RE.match(url):
                 errors.append(f"links[{i}].url must be a valid https:// URL, got '{url}'")
+        errors += check_affiliation_matches_owner(data)
     hw = data.get("hardware")
     if hw is not None:
         if not isinstance(hw, list):
