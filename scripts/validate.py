@@ -133,6 +133,19 @@ def validate_entry(path: Path, data: dict) -> list:
     if author_url is not None:
         if not isinstance(author_url, str) or not URL_RE.match(author_url):
             errors.append(f"author_url must be a valid https:// URL, got '{author_url}'")
+    # previous_ids: retired ids this entry used to be published under. Each one
+    # gets a redirect stub at entry/<old-id>/ so renaming an entry does not 404
+    # every existing link to it.
+    prev = data.get("previous_ids")
+    if prev is not None:
+        if not isinstance(prev, list):
+            errors.append("previous_ids must be a list")
+        else:
+            for i, pid in enumerate(prev):
+                if not isinstance(pid, str) or not re.match(r'^[a-z0-9][a-z0-9\-]*$', pid):
+                    errors.append(f"previous_ids[{i}] must be a lowercase slug, got {pid!r}")
+                elif pid == data.get("id"):
+                    errors.append(f"previous_ids[{i}] '{pid}' is this entry's current id")
     related = data.get("related")
     if related is not None:
         if not isinstance(related, list):
@@ -180,7 +193,7 @@ def main():
     if not json_files:
         print("No entries found — nothing to validate.")
         sys.exit(0)
-    all_ids, total_errors, total_warnings = [], 0, 0
+    all_ids, all_prev_ids, total_errors, total_warnings = [], [], 0, 0
     for fpath in json_files:
         try:
             data = json.loads(fpath.read_text())
@@ -191,6 +204,9 @@ def main():
         errors = validate_entry(fpath, data)
         warnings = validate_entry_warnings(fpath, data)
         all_ids.append(data.get("id"))
+        for pid in (data.get("previous_ids") or []):
+            if isinstance(pid, str):
+                all_prev_ids.append((pid, fpath.name))
         if errors:
             print(f"FAIL {fpath.name}:")
             for e in errors:
@@ -211,6 +227,19 @@ def main():
             print(f"FAIL: duplicate id '{eid}'")
             total_errors += 1
         seen.add(eid)
+    # An alias page is published at entry/<previous-id>/, so a previous_id that
+    # collides with a live entry id would shadow that entry's real page with a
+    # redirect stub. Two entries claiming the same previous_id is also ambiguous.
+    claimed = {}
+    for pid, fname in all_prev_ids:
+        if pid in seen:
+            print(f"FAIL {fname}: previous_ids '{pid}' is a live entry id — "
+                  f"its alias page would shadow that entry")
+            total_errors += 1
+        if pid in claimed:
+            print(f"FAIL {fname}: previous_ids '{pid}' already claimed by {claimed[pid]}")
+            total_errors += 1
+        claimed[pid] = fname
     if total_errors:
         print(f"\n{total_errors} error(s) found.")
         sys.exit(1)

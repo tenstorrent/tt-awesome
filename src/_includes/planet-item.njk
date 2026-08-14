@@ -44,10 +44,35 @@
       allowfullscreen>
     </iframe>
   </div>
+  {#- No embed available, but the entry ships a preview image: richest medium
+      we can show for this item (video > image > prose > bare statement). -#}
+  {%- elif item.previewImage %}
+  <div class="planet-item-image">
+    <img src="{{ item.previewImage }}" alt="{{ item.title }}" loading="lazy" />
+  </div>
   {%- endif %}
 
   {%- if item.description %}
   <p class="planet-item-desc">{{ item.description | markdownInline | safe }}</p>
+  {%- endif %}
+
+  {#- Other ways into the same item — a recording alongside a session page, a
+      journal copy alongside the preprint, the rest of a lesson series. These
+      used to each get their own near-identical card. -#}
+  {%- if item.extraLinks and item.extraLinks.length %}
+  <div class="planet-item-links">
+    {%- for extra in item.extraLinks %}
+    <a class="planet-item-extra" href="{{ extra.url }}" target="_blank" rel="noopener noreferrer">
+      {%- if extra.type == "video" %}🎥
+      {%- elif extra.type == "talk" %}🎤
+      {%- elif extra.type == "paper" %}📄
+      {%- elif extra.type == "lesson" %}📖
+      {%- elif extra.type == "demo" %}🚀
+      {%- else %}📝
+      {%- endif %}
+      {{ extra.label }} ↗</a>
+    {%- endfor %}
+  </div>
   {%- endif %}
 
   <div class="planet-item-footer">

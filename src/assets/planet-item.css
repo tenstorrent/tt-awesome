@@ -62,6 +62,38 @@
   white-space: nowrap;
 }
 
+/* Preview image — the "image" tier when there is no embeddable video */
+.planet-item-image {
+  margin: 10px 0 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg3);
+}
+.planet-item-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Extra ways into the same item (recording, journal copy, rest of a series) */
+.planet-item-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 8px 0 2px;
+}
+.planet-item-extra {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.planet-item-extra:hover {
+  color: var(--teal);
+  border-bottom-color: var(--teal);
+}
+
 /* Inline YouTube embed */
 .planet-embed {
   position: relative;

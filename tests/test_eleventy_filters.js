@@ -362,16 +362,65 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: deduplicates by URL");
 }
 
-// Test 20: all six article types included
+// Test 20: an entry becomes ONE card, whatever its article-type links
+// (every link shares the entry's added_at, so per-link cards only ever rendered
+// as a clump of near-identical duplicates — see the planetItems comment).
 {
   const types = ["article", "lesson", "paper", "talk", "video", "demo"];
   const links = types.map((t) => ({ type: t, url: `https://example.com/${t}` }));
   const entry = makeEntry({ links });
   const items = planetItems([entry], [], []);
-  assert.strictEqual(items.length, types.length);
-  const gotTypes = items.map((i) => i.type).sort();
-  assert.deepStrictEqual(gotTypes, types.slice().sort());
-  console.log("✓ planetItems: all six article types included");
+  assert.strictEqual(items.length, 1, "one card per entry, not per link");
+
+  // Richest medium leads: video outranks talk/demo/paper/article/lesson.
+  assert.strictEqual(items[0].type, "video");
+  assert.strictEqual(items[0].url, "https://example.com/video");
+
+  // Nothing is lost — the other five ride along on the same card.
+  assert.strictEqual(items[0].extraLinks.length, types.length - 1);
+  const reachable = [items[0].url, ...items[0].extraLinks.map((l) => l.url)].sort();
+  assert.deepStrictEqual(reachable, links.map((l) => l.url).sort(),
+    "every article-type link is still reachable from the card");
+  console.log("✓ planetItems: one card per entry, richest medium leads");
+}
+
+// Test 20b: lead priority falls through when there is no video
+{
+  const entry = makeEntry({ links: [
+    { type: "lesson",  url: "https://example.com/lesson" },
+    { type: "paper",   url: "https://example.com/paper" },
+    { type: "article", url: "https://example.com/article" },
+  ]});
+  const items = planetItems([entry], [], []);
+  assert.strictEqual(items[0].type, "paper", "paper outranks article and lesson");
+  console.log("✓ planetItems: lead priority falls through to paper");
+}
+
+// Test 20c: equal-priority links keep the author's order
+{
+  const entry = makeEntry({ links: [
+    { type: "lesson", url: "https://example.com/one",   label: "One" },
+    { type: "lesson", url: "https://example.com/two",   label: "Two" },
+    { type: "lesson", url: "https://example.com/three", label: "Three" },
+  ]});
+  const items = planetItems([entry], [], []);
+  assert.strictEqual(items[0].url, "https://example.com/one", "first listed leads");
+  assert.deepStrictEqual(items[0].extraLinks.map((l) => l.label), ["Two", "Three"]);
+  console.log("✓ planetItems: equal-priority links keep entry order");
+}
+
+// Test 20d: extra-link URLs are claimed too, so an external feed item covering
+// the same page cannot add a second card for it.
+{
+  const entry = makeEntry({ links: [
+    { type: "talk",  url: "https://example.com/session" },
+    { type: "video", url: "https://example.com/recording" },
+  ]});
+  const feed = [{ approved: true, type: "talk", title: "Dup",
+                  url: "https://example.com/session", date: "2026-03-02" }];
+  const items = planetItems([entry], [], feed);
+  assert.strictEqual(items.length, 1, "feed item for an extra link is deduped");
+  console.log("✓ planetItems: extra-link URLs are claimed for dedup");
 }
 
 // Test 21: monthLabel converts correctly

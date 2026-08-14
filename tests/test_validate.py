@@ -157,3 +157,25 @@ def test_blank_conda_channel_is_rejected():
 def test_omitted_conda_channel_is_fine():
     e = valid({"packages": [{"type": "conda", "name": "pkg"}]})
     assert validate_entry(p(), e) == []
+
+
+# ── previous_ids (rename aliases) ────────────────────────────────────────────
+
+def test_previous_ids_accepts_slugs():
+    e = valid({"previous_ids": ["barracuda", "old-name-2"]})
+    assert validate_entry(p(), e) == []
+
+
+def test_previous_ids_rejects_non_slug():
+    e = valid({"previous_ids": ["Not A Slug"]})
+    assert any("lowercase slug" in x for x in validate_entry(p(), e))
+
+
+def test_previous_ids_rejects_own_id():
+    e = valid({"id": "test-entry", "previous_ids": ["test-entry"]})
+    assert any("current id" in x for x in validate_entry(p(), e))
+
+
+def test_previous_ids_must_be_a_list():
+    e = valid({"previous_ids": "barracuda"})
+    assert any("previous_ids must be a list" in x for x in validate_entry(p(), e))

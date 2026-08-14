@@ -1,0 +1,30 @@
+---
+pagination:
+  data: entryAliases
+  size: 1
+  alias: alias
+permalink: "entry/{{ alias.oldId }}/index.html"
+eleventyExcludeFromCollections: true
+---
+{#-
+  Redirect stub for an entry that used to live at a different id. GitHub Pages
+  has no server-side redirects, so this is the static equivalent: a canonical
+  link pointing at the real page, a meta refresh for browsers, and a visible
+  link for anything that ignores both. Generated from `previous_ids` — see
+  src/_data/entryAliases.js.
+-#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ alias.name }} moved — tt-awesome</title>
+  <link rel="canonical" href="{{ site.baseUrl }}entry/{{ alias.id }}/">
+  <meta http-equiv="refresh" content="0; url={{ site.baseUrl }}entry/{{ alias.id }}/">
+  <meta name="robots" content="noindex, follow">
+</head>
+<body>
+  <p>This entry now lives at
+    <a href="{{ site.baseUrl }}entry/{{ alias.id }}/">{{ alias.name }}</a>.</p>
+</body>
+</html>
