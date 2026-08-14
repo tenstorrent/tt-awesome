@@ -37,8 +37,11 @@ LINK_ICONS = {
 }
 
 # Icons and install commands for package registry types
-PKG_ICONS = {"pypi": "🐍", "apt": "🐧", "cargo": "🦀"}
-PKG_INSTALL = {"pypi": "pip install", "apt": "apt install", "cargo": "cargo add"}
+PKG_ICONS = {"pypi": "🐍", "apt": "🐧", "cargo": "🦀", "conda": "⚗️"}
+PKG_INSTALL = {"pypi": "pip install", "apt": "apt install", "cargo": "cargo add",
+               "conda": "conda install"}
+# Channel assumed when a conda package omits an explicit one.
+DEFAULT_CONDA_CHANNEL = "conda-forge"
 
 
 def pkg_url(pkg):
@@ -49,6 +52,9 @@ def pkg_url(pkg):
         return f"https://pypi.org/project/{name}/"
     if t == "cargo":
         return f"https://crates.io/crates/{name}"
+    if t == "conda":
+        channel = pkg.get("channel") or DEFAULT_CONDA_CHANNEL
+        return f"https://anaconda.org/{channel}/{name}"
     if t == "apt":
         ppa = pkg.get("ppa", "")
         if ppa.startswith("ppa:"):

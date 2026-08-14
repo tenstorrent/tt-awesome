@@ -16,7 +16,7 @@ VALID_CATEGORY_SLUGS = {
 }
 VALID_LINK_TYPES = {"repo", "article", "talk", "video", "website", "demo", "lesson", "paper"}
 VALID_HARDWARE = {"grayskull", "wormhole", "blackhole", "quietbox", "galaxy", "ttsim"}
-VALID_PACKAGE_TYPES = {"pypi", "apt", "cargo"}
+VALID_PACKAGE_TYPES = {"pypi", "apt", "cargo", "conda"}
 URL_RE  = re.compile(r"^https://.+")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
@@ -74,6 +74,10 @@ def validate_entry(path: Path, data: dict) -> list:
                     errors.append(f"packages[{i}].name must be a non-empty string")
                 if "ppa" in pkg and not isinstance(pkg["ppa"], str):
                     errors.append(f"packages[{i}].ppa must be a string")
+                # conda packages live in a channel the way apt packages live in
+                # a PPA; omit it and consumers assume conda-forge.
+                if "channel" in pkg and not isinstance(pkg["channel"], str):
+                    errors.append(f"packages[{i}].channel must be a string")
                 if "url" in pkg:
                     if not isinstance(pkg["url"], str) or not URL_RE.match(pkg["url"]):
                         errors.append(f"packages[{i}].url must be a valid https:// URL, got '{pkg.get('url')}'")

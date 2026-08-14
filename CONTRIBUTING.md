@@ -48,6 +48,23 @@ Every entry must be valid against this schema:
 | `author` | string | no | GitHub username or "Firstname Lastname" |
 | `language` | string | no | Primary language |
 | `license` | string | no | SPDX identifier |
+| `packages` | object[] | no | Published packages — see below |
+
+### Packages
+
+If the project is installable from a package registry, list it in `packages` so the
+entry renders an install badge. Each object takes a `type`, a `name`, and any
+registry-specific field:
+
+| `type` | Install shown | Registry-specific field | Link built |
+|---|---|---|---|
+| `pypi` | `pip install <name>` | — | `pypi.org/project/<name>/` |
+| `cargo` | `cargo add <name>` | — | `crates.io/crates/<name>` |
+| `conda` | `conda install <name>` | `channel` (optional, defaults to `conda-forge`) | `anaconda.org/<channel>/<name>` |
+| `apt` | `apt install <name>` | `ppa` or `url` (a PPA is required to install) | Launchpad, or the `url` as given |
+
+Do not list a package you have not confirmed is actually published — the badge is an
+install promise.
 
 ## Affiliation policy
 

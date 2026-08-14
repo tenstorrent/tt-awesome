@@ -1,0 +1,39 @@
+{
+  "id": "fosdem-2026-all-in-riscv",
+  "name": "All in RISC-V, RISC-V All in AI — FOSDEM 2026",
+  "description": "Martin Chang and Danfeng Zhang on solving real AI compute problems with open hardware, spanning AI PC / edge devices and AI servers: pairing high-performance RISC-V CPUs with NPUs, and Tenstorrent's RISC-V cores and scalable mesh for AI workloads. The speaker's companion write-up covers the Tensix programming model in depth — the five RISC-V cores per tile, Dst register double-buffering, and the macro-recording hardware that lets control cores run ahead of the math engine.",
+  "affiliation": "community",
+  "categories": [
+    "riscv-arch",
+    "guides"
+  ],
+  "tags": [
+    "fosdem",
+    "talk",
+    "risc-v",
+    "tensix",
+    "deepcomputing",
+    "edge",
+    "programming-model"
+  ],
+  "links": [
+    {
+      "type": "talk",
+      "url": "https://fosdem.org/2026/schedule/event/799WTL-all_in_risc-v_risc-v_all_in_ai_solving_real_ai_compute_challenges_with_deepcompu/",
+      "label": "FOSDEM 2026 — session page"
+    },
+    {
+      "type": "video",
+      "url": "https://video.fosdem.org/2026/ud2120/799WTL-all_in_risc-v_risc-v_all_in_ai_solving_real_ai_compute_challenges_with_deepcompu.mp4",
+      "label": "Recording (MP4)"
+    },
+    {
+      "type": "article",
+      "url": "https://clehaxze.tw/gemlog/2026/01-22-the-real-tenstorrent-tensix-programming-model.gmi",
+      "label": "The Real Tenstorrent Tensix Programming Model — companion write-up"
+    }
+  ],
+  "author": "Martin Chang",
+  "added_at": "2026-08-14",
+  "date": "2026-01-31"
+}

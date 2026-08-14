@@ -130,6 +130,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 .pkg-dot--pypi  { background: rgba(75,139,190,0.18); color: #7ab3d4; }
 .pkg-dot--apt   { background: rgba(232,115,44,0.15); color: #e07040; }
 .pkg-dot--cargo { background: rgba(220,80,50,0.15);  color: #d46a50; }
+/* Gold, not conda's own green — the apt badge already owns --green (#27AE60). */
+.pkg-dot--conda { background: rgba(244,196,113,0.15); color: var(--gold); }
 a.pkg-dot       { text-decoration: none; cursor: pointer; }
 a.pkg-dot:hover { filter: brightness(1.3); }
 .pkg-setup-note { font-size: 10px; color: var(--muted); margin: 2px 0 4px 2px; }
@@ -204,6 +206,7 @@ a.pkg-dot:hover { filter: brightness(1.3); }
 .pkg-badge--pypi   { background: var(--bg1); color: #4B9CD3; border-color: #4B9CD3; }
 .pkg-badge--apt    { background: var(--bg1); color: var(--green); border-color: var(--green); }
 .pkg-badge--cargo  { background: var(--bg1); color: #CE4A25; border-color: #CE4A25; }
+.pkg-badge--conda  { background: var(--bg1); color: var(--gold); border-color: var(--gold); }
 .pkg-badge:hover   { filter: brightness(1.2); }
 
 /* ── Editorial embeds ────────────────────────────────────────────────────── */

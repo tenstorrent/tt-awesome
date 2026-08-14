@@ -1,0 +1,38 @@
+{
+  "id": "ttperf",
+  "name": "ttperf",
+  "description": "A CLI wrapper that turns TT-Metal performance profiling into one command. Runs a pytest target under Tenstorrent's profiler, streams progress live, then parses the resulting CSV and reports total device kernel duration. Supports profiling by operation name (`ttperf add`) as well as by test path, and installs from PyPI.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools"
+  ],
+  "tags": [
+    "profiling",
+    "performance",
+    "cli",
+    "tt-metal",
+    "pytest",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Aswincloud/ttperf"
+    },
+    {
+      "type": "website",
+      "url": "https://ttperf.aswincloud.com",
+      "label": "ttperf.aswincloud.com"
+    }
+  ],
+  "packages": [
+    {
+      "type": "pypi",
+      "name": "ttperf"
+    }
+  ],
+  "author": "Aswincloud",
+  "language": "Python",
+  "license": "MIT",
+  "added_at": "2026-08-14"
+}

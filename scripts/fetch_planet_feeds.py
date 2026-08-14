@@ -44,10 +44,19 @@ ARXIV_URL  = ("https://export.arxiv.org/api/query"
               "?search_query=all:tenstorrent"
               "&sortBy=submittedDate&sortOrder=descending&max_results=20")
 
+# NOTE: fetch_community_feed() does no topic filtering — every item in these
+# feeds becomes a planet item. Only list feeds whose whole output is on-topic,
+# and set trusted=False for anything broader so items land unapproved and get
+# reviewed before publishing.
 COMMUNITY_FEEDS = [
-    {"name": "clehaxze.tw",    "url": "https://clehaxze.tw/gemlog/atom.xml",      "affiliation": "community", "trusted": True},
+    # /gemlog/atom.xml started 404ing; only the site-wide feed remains. That feed
+    # is much broader than the old gemlog subset (Arch/ROCm/search-engine posts
+    # alongside the Tenstorrent ones), so items land unapproved for review.
+    {"name": "clehaxze.tw",    "url": "https://clehaxze.tw/atom.xml",             "affiliation": "community", "trusted": False},
     {"name": "jasondavies.com","url": "https://www.jasondavies.com/atom.xml",      "affiliation": "community", "trusted": True},
     {"name": "anuraagw.me",    "url": "https://anuraagw.me/atom.xml",              "affiliation": "community", "trusted": True},
+    # Eric Zietlow (DevRel) — dev.to serves per-author RSS at /feed/<user>.
+    {"name": "dev.to/mando222","url": "https://dev.to/feed/mando222",              "affiliation": "affiliated", "trusted": True},
 ]
 CONNPASS_FEEDS = [
     # Connpass serves group feeds at /ja.atom (there is no /feed.atom — it 404s).

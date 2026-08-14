@@ -88,6 +88,8 @@
         <a class="pkg-badge pkg-badge--pypi" href="https://pypi.org/project/{{ pkg.name }}/" target="_blank" rel="noopener noreferrer">🐍 pip install {{ pkg.name }}</a>
         {%- elif pkg.type == "cargo" %}
         <a class="pkg-badge pkg-badge--cargo" href="https://crates.io/crates/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">🦀 cargo add {{ pkg.name }}</a>
+        {%- elif pkg.type == "conda" %}
+        <a class="pkg-badge pkg-badge--conda" href="https://anaconda.org/{{ pkg.channel | default('conda-forge', true) }}/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">⚗️ conda install {{ pkg.name }}</a>
         {%- elif pkg.type == "apt" and pkg.url %}
         <div class="pkg-apt-row">
           <a class="pkg-badge pkg-badge--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
@@ -151,6 +153,8 @@
       <a class="pkg-badge pkg-badge--pypi" href="https://pypi.org/project/{{ pkg.name }}/" target="_blank" rel="noopener noreferrer">🐍 pip install {{ pkg.name }}</a>
       {%- elif pkg.type == "cargo" %}
       <a class="pkg-badge pkg-badge--cargo" href="https://crates.io/crates/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">🦀 cargo add {{ pkg.name }}</a>
+      {%- elif pkg.type == "conda" %}
+      <a class="pkg-badge pkg-badge--conda" href="https://anaconda.org/{{ pkg.channel | default('conda-forge', true) }}/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">⚗️ conda install {{ pkg.name }}</a>
       {%- elif pkg.type == "apt" and pkg.url %}
       <div class="pkg-apt-row">
         <a class="pkg-badge pkg-badge--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>

@@ -29,6 +29,7 @@
             {%- elif pkg.type == "apt" and pkg.url %}<a class="pkg-dot pkg-dot--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer" title="apt install {{ pkg.name }} — requires PPA setup" onclick="event.stopPropagation()">apt*</a>
             {%- elif pkg.type == "apt" %}<span class="pkg-dot pkg-dot--apt" title="apt install {{ pkg.name }}">apt</span>
             {%- elif pkg.type == "cargo" %}<span class="pkg-dot pkg-dot--cargo" title="cargo add {{ pkg.name }}">cargo</span>
+            {%- elif pkg.type == "conda" %}<span class="pkg-dot pkg-dot--conda" title="conda install {{ pkg.name }}">conda</span>
             {%- endif %}
           {%- endfor %}
         </span>
