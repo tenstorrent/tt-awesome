@@ -6,7 +6,8 @@ from pathlib import Path
 import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
-from generate_readme import sort_entries, render_entry, AFFILIATION_ORDER, pkg_url
+from generate_readme import (sort_entries, render_entry, AFFILIATION_ORDER,
+                             pkg_url, pkg_install_cmd)
 
 COMM = {
     "id": "cool-proj", "name": "cool-proj",
@@ -103,3 +104,29 @@ def test_pkg_url_apt_prefers_launchpad_over_url():
 def test_pkg_url_unknown_type_is_none():
     assert pkg_url({"type": "brew", "name": "foo"}) is None
     assert pkg_url({"type": "apt", "name": "foo"}) is None
+
+
+# ── pkg_install_cmd ──────────────────────────────────────────────────────────
+
+def test_install_cmd_conda_names_the_channel():
+    """A bare `conda install <name>` fails for conda-forge-only packages."""
+    assert (pkg_install_cmd({"type": "conda", "name": "tt-metalium"})
+            == "conda install -c conda-forge tt-metalium")
+
+
+def test_install_cmd_conda_honors_explicit_channel():
+    assert (pkg_install_cmd({"type": "conda", "name": "pkg", "channel": "my-chan"})
+            == "conda install -c my-chan pkg")
+
+
+def test_install_cmd_other_types_unchanged():
+    assert pkg_install_cmd({"type": "pypi", "name": "ttperf"}) == "pip install ttperf"
+    assert pkg_install_cmd({"type": "cargo", "name": "luwen"}) == "cargo add luwen"
+    assert pkg_install_cmd({"type": "apt", "name": "tt-smi"}) == "apt install tt-smi"
+
+
+def test_install_cmd_and_url_agree_on_channel():
+    """The command must not point somewhere other than the badge link."""
+    pkg = {"type": "conda", "name": "pkg", "channel": "bioconda"}
+    assert "bioconda" in pkg_install_cmd(pkg)
+    assert "bioconda" in pkg_url(pkg)

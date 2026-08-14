@@ -60,8 +60,12 @@ registry-specific field:
 |---|---|---|---|
 | `pypi` | `pip install <name>` | — | `pypi.org/project/<name>/` |
 | `cargo` | `cargo add <name>` | — | `crates.io/crates/<name>` |
-| `conda` | `conda install <name>` | `channel` (optional, defaults to `conda-forge`) | `anaconda.org/<channel>/<name>` |
+| `conda` | `conda install -c <channel> <name>` | `channel` (optional, defaults to `conda-forge`) | `anaconda.org/<channel>/<name>` |
 | `apt` | `apt install <name>` | `ppa` or `url` (a PPA is required to install) | Launchpad, or the `url` as given |
+
+The conda command is rendered with `-c <channel>` on purpose: the packages we link
+live on conda-forge rather than in conda's `defaults` channel, so a bare
+`conda install <name>` fails for anyone on a stock Anaconda setup.
 
 Do not list a package you have not confirmed is actually published — the badge is an
 install promise.

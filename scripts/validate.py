@@ -118,9 +118,14 @@ def validate_entry(path: Path, data: dict) -> list:
                 if "ppa" in pkg and not isinstance(pkg["ppa"], str):
                     errors.append(f"packages[{i}].ppa must be a string")
                 # conda packages live in a channel the way apt packages live in
-                # a PPA; omit it and consumers assume conda-forge.
-                if "channel" in pkg and not isinstance(pkg["channel"], str):
-                    errors.append(f"packages[{i}].channel must be a string")
+                # a PPA; omit it and consumers assume conda-forge. It has to be
+                # non-blank when present — a whitespace-only channel would build
+                # a broken anaconda.org URL and an unrunnable install command.
+                if "channel" in pkg:
+                    channel = pkg["channel"]
+                    if not isinstance(channel, str) or not channel.strip():
+                        errors.append(f"packages[{i}].channel must be a non-empty string, "
+                                      f"got {channel!r}")
                 if "url" in pkg:
                     if not isinstance(pkg["url"], str) or not URL_RE.match(pkg["url"]):
                         errors.append(f"packages[{i}].url must be a valid https:// URL, got '{pkg.get('url')}'")

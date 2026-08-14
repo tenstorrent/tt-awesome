@@ -146,3 +146,14 @@ def test_non_github_repo_host_is_skipped():
     e = valid({"affiliation": "official",
                "links": [{"type": "repo", "url": "https://gitlab.com/tt/x"}]})
     assert validate_entry(p(), e) == []
+
+
+def test_blank_conda_channel_is_rejected():
+    e = valid({"packages": [{"type": "conda", "name": "pkg", "channel": "   "}]})
+    errors = validate_entry(p(), e)
+    assert any("channel must be a non-empty string" in x for x in errors)
+
+
+def test_omitted_conda_channel_is_fine():
+    e = valid({"packages": [{"type": "conda", "name": "pkg"}]})
+    assert validate_entry(p(), e) == []

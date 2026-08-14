@@ -44,6 +44,21 @@ PKG_INSTALL = {"pypi": "pip install", "apt": "apt install", "cargo": "cargo add"
 DEFAULT_CONDA_CHANNEL = "conda-forge"
 
 
+def pkg_install_cmd(pkg):
+    """The command a reader should actually run to install this package.
+
+    conda needs `-c <channel>` spelled out: the packages we link live on
+    conda-forge, not in the `defaults` channel, so a bare `conda install <name>`
+    fails with PackagesNotFoundError for anyone on a stock Anaconda setup.
+    """
+    t = pkg.get("type", "")
+    name = pkg.get("name", "")
+    if t == "conda":
+        channel = (pkg.get("channel") or DEFAULT_CONDA_CHANNEL).strip()
+        return f"conda install -c {channel} {name}"
+    return f"{PKG_INSTALL.get(t, 'install')} {name}"
+
+
 def pkg_url(pkg):
     """Derive a registry URL for a package entry."""
     t = pkg.get("type")
@@ -144,7 +159,7 @@ def render_entry(e):
     pkg_parts = []
     for pkg in e.get("packages", []):
         icon = PKG_ICONS.get(pkg.get("type", ""), "📦")
-        cmd = f"{PKG_INSTALL.get(pkg.get('type', ''), 'install')} {pkg.get('name', '')}"
+        cmd = pkg_install_cmd(pkg)
         url = pkg_url(pkg)
         pkg_parts.append(f"[{icon} `{cmd}`]({url})" if url else f"{icon} `{cmd}`")
 
