@@ -57,6 +57,33 @@ def load_known_urls(feeds_path: Path) -> set:
         return set()
 
 
+def release_key(title: str) -> str:
+    """Rename-proof identity for a release item.
+
+    URLs are not stable: GitHub reports the *current* owner/name for a release,
+    so when a repo is renamed or moved between orgs the same release starts
+    arriving under a new URL and slips past the URL check, publishing twice.
+    That is how "tt-bh-linux v0.11" (tenstorrent → tenstorrent-riscv-software)
+    and "BarraCUDA v0.5.0" (BarraCUDA → Booth) both landed on the planet twice.
+
+    The title is "<repo basename from the entry> <tag>", derived from the entry
+    rather than from the API response, so it survives a rename on GitHub's side.
+    """
+    return " ".join((title or "").lower().split())
+
+
+def load_known_release_keys(feeds_path: Path) -> set:
+    """Identities of the release items already in planet_feeds.json."""
+    if not feeds_path.exists():
+        return set()
+    try:
+        items = json.loads(feeds_path.read_text())
+        return {release_key(i.get("title", "")) for i in items
+                if i.get("type") == "release" and i.get("title")}
+    except Exception:
+        return set()      # load_known_urls already warned about a bad file
+
+
 def build_affiliation_map(entry_dirs: list) -> dict:
     """Scan all entry JSONs once and return a repo_url -> affiliation mapping."""
     mapping = {}
@@ -338,6 +365,9 @@ def main(argv: list | None = None):
 
     # URLs already in planet_feeds.json — we skip these to avoid duplicates.
     known_urls = load_known_urls(FEEDS_OUT)
+    # Second line of defence for repos that were renamed or moved orgs; see
+    # release_key() for why the URL alone is not enough.
+    known_release_keys = load_known_release_keys(FEEDS_OUT)
 
     # The current contents of planet_feeds.json (used when writing back merged output).
     existing_feeds = []
@@ -388,6 +418,15 @@ def main(argv: list | None = None):
             # word + run number) — non-prerelease on GitHub, noise regardless.
             if re.search(r"[.\-]dev[.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+-\d+$", tag, re.IGNORECASE):
                 print(f"  SKIP {repo}@{tag}: pre-release build")
+                continue
+
+            # Same release arriving under a new URL because the repo was
+            # renamed or moved orgs. Checked before summarizing so a rename
+            # does not burn an LLM call on a duplicate.
+            rkey = release_key(f"{repo_name} {tag}")
+            if rkey in known_release_keys:
+                print(f"  SKIP {repo}@{tag}: already published as '{repo_name} {tag}' "
+                      f"(repo likely renamed/moved)")
                 continue
 
             # Fetch the release body — this is what we summarize by default.
@@ -448,6 +487,7 @@ def main(argv: list | None = None):
                 # Track the URL immediately so later iterations in the same run
                 # don't re-process the same release (e.g. if it appears twice).
                 known_urls.add(url)
+                known_release_keys.add(rkey)
                 print(f"  ADDED {repo}@{tag}")
             # Accumulate in both modes so the dry-run summary count is accurate.
             new_items.append(item)

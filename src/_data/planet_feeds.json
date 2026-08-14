@@ -2607,20 +2607,6 @@
     "type": "release",
     "source": "github",
     "approved": true,
-    "title": "BarraCUDA v0.5.0",
-    "url": "https://github.com/Zaneham/BarraCUDA/releases/tag/v0.5.0",
-    "description": "The first tagged release of BarraCUDA introduces CPU and RISC-V backends for Triton kernels — you can now compile a tl.dot matmul and run it natively on x86-64 or under QEMU with no GPU required. Cross-backend differential testing is included from the start, using the CPU backend as an oracle to verify correctness across compilation targets.",
-    "date": "2026-05-29",
-    "dateISO": "2026-05-29T00:00:00Z",
-    "label": "Zaneham/BarraCUDA",
-    "projectName": "BarraCUDA",
-    "projectId": null,
-    "affiliation": "community"
-  },
-  {
-    "type": "release",
-    "source": "github",
-    "approved": true,
     "title": "tt-vscode-toolkit v0.0.453",
     "url": "https://github.com/tenstorrent/tt-vscode-toolkit/releases/tag/v0.0.453",
     "description": "The AnimateDiff example gets a round of correctness and portability fixes. Cleanup now calls close_mesh_device to match the MeshDevice it actually creates, and the ttnn import was made lazy so the module loads on CPU-only machines like CI runners. Several docstrings and comments were corrected to reflect that frames are denoised sequentially and that the Phase 3 path still bounces tensors to CPU, and stale setup.py metadata was cleaned up. New hardware-free PyTorch tests cover the cross-frame attention helper, and CI now runs the full test suite rather than a single file.",
@@ -3399,20 +3385,6 @@
     "label": "tenstorrent/tt-bh-linux",
     "projectName": "tt-bh-linux",
     "projectId": null,
-    "affiliation": "official"
-  },
-  {
-    "type": "release",
-    "source": "github",
-    "approved": true,
-    "title": "tt-bh-linux v0.11",
-    "url": "https://github.com/tenstorrent/tt-bh-linux/releases/tag/v0.11",
-    "description": "tt-bh-linux v0.11 updates to Kernel 7.0 and adds device tree nodes for Linux performance monitoring, enabling perf tooling on Blackhole hardware. A kernel patch eliminates swiotlb initialization errors that appeared on boot, and the console tool and Makefile receive miscellaneous fixes.",
-    "date": "2026-04-13",
-    "dateISO": "2026-04-13T00:00:00Z",
-    "label": "tenstorrent/tt-bh-linux",
-    "projectName": "tt-bh-linux",
-    "projectId": "tt-bh-linux",
     "affiliation": "official"
   },
   {

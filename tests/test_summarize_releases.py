@@ -689,3 +689,50 @@ def test_main_exits_nonzero_when_every_summarization_fails(tmp_path, monkeypatch
     assert "all 1 summarization call(s) failed" in capsys.readouterr().err
     # The feed file must be left untouched when nothing could be summarized.
     assert json.loads(feeds_file.read_text()) == []
+
+
+# ── rename-proof release dedup ───────────────────────────────────────────────
+
+def test_release_key_normalizes_case_and_spacing():
+    assert sr.release_key("  tt-bh-linux   v0.11 ") == sr.release_key("TT-BH-Linux v0.11")
+
+
+def test_load_known_release_keys_only_covers_releases(tmp_path):
+    feeds = [
+        {"type": "release", "title": "tt-bh-linux v0.11",
+         "url": "https://github.com/tenstorrent/tt-bh-linux/releases/tag/v0.11"},
+        {"type": "video", "title": "Some Talk", "url": "https://youtube.com/watch?v=abc"},
+        {"type": "release", "url": "https://example.com/no-title"},
+    ]
+    p = tmp_path / "planet_feeds.json"
+    p.write_text(json.dumps(feeds))
+    assert sr.load_known_release_keys(p) == {"tt-bh-linux v0.11"}
+
+
+def test_renamed_repo_release_is_recognized_as_known(tmp_path):
+    """The real bug: GitHub reports the new owner, so the URL check misses it.
+
+    tt-bh-linux moved tenstorrent -> tenstorrent-riscv-software and BarraCUDA
+    was renamed to Booth; both published twice on the planet.
+    """
+    feeds = [{"type": "release", "title": "tt-bh-linux v0.11",
+              "url": "https://github.com/tenstorrent/tt-bh-linux/releases/tag/v0.11"}]
+    p = tmp_path / "planet_feeds.json"
+    p.write_text(json.dumps(feeds))
+
+    known_urls = sr.load_known_urls(p)
+    known_keys = sr.load_known_release_keys(p)
+
+    # Same release, new canonical URL after the move.
+    new_url = "https://github.com/tenstorrent-riscv-software/tt-bh-linux/releases/tag/v0.11"
+    assert new_url not in known_urls               # URL check alone lets it through
+    assert sr.release_key("tt-bh-linux v0.11") in known_keys   # identity check catches it
+
+
+def test_distinct_tags_are_not_collapsed(tmp_path):
+    feeds = [{"type": "release", "title": "tt-bh-linux v0.11", "url": "https://x/v0.11"}]
+    p = tmp_path / "planet_feeds.json"
+    p.write_text(json.dumps(feeds))
+    known_keys = sr.load_known_release_keys(p)
+    assert sr.release_key("tt-bh-linux v0.12") not in known_keys
+    assert sr.release_key("other-proj v0.11") not in known_keys
