@@ -98,6 +98,20 @@
     "affiliation": "official"
   },
   {
+    "type": "article",
+    "source": "dev.to/mando222",
+    "approved": true,
+    "title": "Squeezing a 744B Model Onto Two Tenstorrent Cards... Kinda",
+    "url": "https://dev.to/mando222/squeezing-a-744b-model-onto-two-tenstorrent-cards-kinda-49h9",
+    "description": "I did a mad science thing recently and I need to tell you about it. This one didn't touch the whole home lab, just one small piece of it: the master node from the swarm cluster I described back in my first post (the box I called the swarm host there), running just two p150a cards linked together with a cable was the entire lab for this experiment. Here's what I was chasing, and what actually happened. Quick disclosure, same as always: I work at Tenstorrent and I'll flag what didn't work just as readily as what did. The Big Question The question I set out to answer was easy to ask and hard to answer: can you run a genuinely frontier sized model, in this case GLM-5.2, a 744 billion parameter mixture of experts model, on a small two card box? Not a shrunk down version. The real thing. The…",
+    "date": "2026-08-10",
+    "dateISO": "2026-08-10T00:00:00Z",
+    "label": "dev.to/mando222",
+    "projectName": "dev.to/mando222",
+    "projectId": null,
+    "affiliation": "affiliated"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
@@ -292,6 +306,20 @@
     "projectName": "Arni Steingrimsson",
     "projectId": null,
     "affiliation": "community"
+  },
+  {
+    "type": "article",
+    "source": "dev.to/mando222",
+    "approved": true,
+    "title": "Hands-On With the Tenstorrent QuietBox 2",
+    "url": "https://dev.to/mando222/hands-on-with-the-tenstorrent-quietbox-2-1n02",
+    "description": "Quick Disclosure: I want to disclose that I work for the company that built this box. I'm going to do my best to give an unbiased opinion here: the good, the bad, and the ugly. It Begins My first hands-on experience with the QuietBox 2 was pretty cool. It arrived later in the day, so I didn't have to wait until I got off work to start playing with it. The first thing I noticed was the heft of the box itself. This felt a lot more like server equipment than a simple PC tower. Upon opening it, I was greeted by an obviously custom case with two gigantic fans and some pretty cool cosmetic touches. The box itself isn't obtrusive or gaudy. It just looks like it would fit neatly on someone's desk, and it would be just as comfortable pretending to be a gaming rig as it would be the sleeper AI…",
+    "date": "2026-08-03",
+    "dateISO": "2026-08-03T00:00:00Z",
+    "label": "dev.to/mando222",
+    "projectName": "dev.to/mando222",
+    "projectId": null,
+    "affiliation": "affiliated"
   },
   {
     "type": "release",
@@ -710,6 +738,20 @@
     "dateISO": "2026-07-20T03:01:53Z",
     "label": "moritztng/tt-bio",
     "projectName": "tt-bio",
+    "projectId": null,
+    "affiliation": "affiliated"
+  },
+  {
+    "type": "article",
+    "source": "dev.to/mando222",
+    "approved": true,
+    "title": "My Tenstorrent Journey, Part 1: Why I'm Building This Thing",
+    "url": "https://dev.to/mando222/my-tenstorrent-journey-part-1-why-im-building-this-thing-47pn",
+    "description": "I want to take you all on a journey with me through the Tenstorrent ecosystem. Before I get going, I'd love to share a little bit about myself. I've been homelabbing for the better part of a decade, mostly on whatever hardware I can cobble together from used gaming rigs and the odd piece here or there. When the AI boom hit a few years back, I jumped on the train and was an early user of Ollama, among many other tools. Eventually I upgraded from an RTX 3080 to a RTX 3090 that I'm pretty sure had spent years running in some crypto mining rig. The card still ran well, and it had enough VRAM to run significantly bigger models. That setup worked fine for a number of years, as long as I stuck to light tasks and workloads that didn't put much strain on it. I could generate images or chat with an…",
+    "date": "2026-07-20",
+    "dateISO": "2026-07-20T00:00:00Z",
+    "label": "dev.to/mando222",
+    "projectName": "dev.to/mando222",
     "projectId": null,
     "affiliation": "affiliated"
   },

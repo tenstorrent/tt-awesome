@@ -63,6 +63,11 @@ def pkg_url(pkg):
             owner, _, ppa_name = rest.partition("/")
             if ppa_name:
                 return f"https://launchpad.net/~{owner}/+archive/ubuntu/{ppa_name}"
+        # Archives that aren't Launchpad PPAs (ppa.tenstorrent.com, for one)
+        # carry a plain `url` instead. Every apt entry in the list currently
+        # uses this form, so without it the README linked none of them.
+        if pkg.get("url"):
+            return pkg["url"]
     return None
 
 # Shields.io badges for each affiliation tier

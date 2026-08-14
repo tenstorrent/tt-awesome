@@ -53,8 +53,11 @@ COMMUNITY_FEEDS = [
     # is much broader than the old gemlog subset (Arch/ROCm/search-engine posts
     # alongside the Tenstorrent ones), so items land unapproved for review.
     {"name": "clehaxze.tw",    "url": "https://clehaxze.tw/atom.xml",             "affiliation": "community", "trusted": False},
-    {"name": "jasondavies.com","url": "https://www.jasondavies.com/atom.xml",      "affiliation": "community", "trusted": True},
-    {"name": "anuraagw.me",    "url": "https://anuraagw.me/atom.xml",              "affiliation": "community", "trusted": True},
+    # jasondavies.com and anuraagw.me were listed here but 404'd on every run —
+    # both are hand-built sites that publish no feed at any path and advertise
+    # none via autodiscovery. Their Tenstorrent posts are curated by hand
+    # instead (see the jasondavies-tt-series and blog-anuraagw-blackhole-arch
+    # entries). Re-add them here only if they ever ship a real feed.
     # Eric Zietlow (DevRel) — dev.to serves per-author RSS at /feed/<user>.
     {"name": "dev.to/mando222","url": "https://dev.to/feed/mando222",              "affiliation": "affiliated", "trusted": True},
 ]
