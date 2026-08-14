@@ -23,6 +23,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 ## 🤖 AI & Models
 
+- **[tt-model-bringup](https://github.com/aweditya/tt-model-bringup)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@aweditya](https://github.com/aweditya) — Direct TT-Metal bringup of modern open-weight LLMs on Blackhole P150 — hand-written compute graphs with no PJRT and no JAX. Covers Qwen3.6-27B, Qwen3.6-35B-A3B MoE, Gemma 4 12B, and Nemotron-3 Nano 30B-A3B, plus a zoo of single-chip Llama / Qwen2.5 / SmolLM ports, backed by custom fused `owned_*` kernels, a continuous-batching engine, an OpenAI-compatible HTTP server, and a wiki documenting each design decision.
+  [📦 repo](https://github.com/aweditya/tt-model-bringup) · [📖 HANDOFF.md — current perf and production paths](https://github.com/aweditya/tt-model-bringup/blob/main/HANDOFF.md)
+
 - **[tt-bio](https://github.com/moritztng/tt-bio)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@moritztng](https://github.com/moritztng) — Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.
   [📦 repo](https://github.com/moritztng/tt-bio) · [🎤 FOSDEM 2026 — Drug Discovery on Tenstorrent Hardware](https://fosdem.org/2026/schedule/event/AJLNVH-tt-boltz/)
@@ -147,6 +151,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@geohot](https://github.com/geohot) — A Tenstorrent Grayskull kernel written live on Twitch by George Hotz. 120-core grid demonstration of live kernel programming.
   [📦 repo](https://github.com/geohot/tt-twitch)
 
+- **[tt-wavelet](https://github.com/ke1rro/tt-wavelet)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@ke1rro](https://github.com/ke1rro) — One-level FP32 lifting wavelet transforms (LWT) on Wormhole and Blackhole, shipped as a TTNN-linked op library plus standalone `lwt`, `ilwt`, `lwt_2d`, and `ilwt_2d` binaries and a benchmark harness. Builds the whole local stack — TT-Metal, the TTNN Python bindings, and ttnn-wavelet — against the TT-Metal revision pinned in its submodule.
+  [📦 repo](https://github.com/ke1rro/tt-wavelet)
+
 - **[ttnn-helloworld-cpp](https://github.com/marty1885/ttnn-helloworld-cpp)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@marty1885](https://github.com/marty1885) — Minimal working example of using Tenstorrent TTNN in C++. The simplest possible starting point for C++ developers targeting TT hardware with TTNN.
   [📦 repo](https://github.com/marty1885/ttnn-helloworld-cpp)
@@ -154,6 +162,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[ttPseudoRowMajor](https://github.com/marty1885/ttPseudoRowMajor)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Martin Chang — A small TTNN-facing C++ library (ttprm) for running view-shaped tensor work without first materializing the view in DRAM. Targets Tenstorrent TILE tensors and uses cached device operations to gather/scatter through layout views.
   [📦 repo](https://github.com/marty1885/ttPseudoRowMajor)
+
+- **[ttRoPE](https://github.com/marty1885/ttRoPE)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Martin Chang — A GGML-formatted rotary positional embedding (RoPE) implementation for Tenstorrent hardware — one of the operator building blocks behind the community effort to give llama.cpp a Metalium backend.
+  [📦 repo](https://github.com/marty1885/ttRoPE)
 
 - **[ttVecAdd](https://github.com/marty1885/ttVecAdd)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@marty1885](https://github.com/marty1885) — Minimal vector-addition example on Tenstorrent devices using TT-Metalium. A clean hello-world for the TT-Metal kernel programming model in C++.
@@ -173,7 +185,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[SFPI](https://github.com/tenstorrent/sfpi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent SFPU programming interface — TT-enhanced RISC-V GCC and binutils plus header files for programming the Tensix SFPU (vector engine) from kernel code. The compiler toolchain underneath TT-Metalium's SFPU ops.
-  [📦 repo](https://github.com/tenstorrent/sfpi) · 🐧 `apt install sfpi`
+  [📦 repo](https://github.com/tenstorrent/sfpi) · [🐧 `apt install sfpi`](https://ppa.tenstorrent.com/)
 
 - **[tt-lang](https://github.com/tenstorrent/tt-lang)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Python-based DSL that sits between TT-NN and TT-Metalium — expresses custom fused kernels with progressive disclosure, compiling directly to Tensix. Ships an integrated functional simulator (no hardware needed), line-by-line performance metrics, and AI-agent-friendly tooling. Two packages: tt-lang (compiler + hardware, requires ttnn) and tt-lang-sim (simulator only, works on Linux/macOS without Tenstorrent hardware).
@@ -185,7 +197,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[tt-metal](https://github.com/tenstorrent/tt-metal)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   TT-NN operator library and TT-Metalium low-level kernel programming model. The primary SDK for developing on Tenstorrent hardware — from high-level tensor ops to bare-metal RISC-V kernels.
-  [📦 repo](https://github.com/tenstorrent/tt-metal) · [🌐 website](https://docs.tenstorrent.com/tt-metal/latest/ttnn/) · 🐧 `apt install tt-metalium` · 🐧 `apt install tt-nn`
+  [📦 repo](https://github.com/tenstorrent/tt-metal) · [🌐 website](https://docs.tenstorrent.com/tt-metal/latest/ttnn/) · [🐧 `apt install tt-metalium`](https://ppa.tenstorrent.com/) · [🐧 `apt install tt-nn`](https://ppa.tenstorrent.com/) · [⚗️ `conda install -c conda-forge tt-metalium`](https://anaconda.org/conda-forge/tt-metalium)
 
 ## 🔨 Compilers & Frontends
 
@@ -263,6 +275,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@aldegad](https://github.com/aldegad) — A TypeScript/Bun terminal client for console.tenstorrent.com. Opens a chat REPL across DeepSeek-R1, Qwen3-32B, Qwen3-VL, and Gemma, with slash commands that submit image, Wan 2.2 video, TTS, and STT jobs, poll them, and save the results under ./output. Reads its API key only from the TENSTORRENT_KEY environment variable — never from disk.
   [📦 repo](https://github.com/aldegad/tenstorrent-cli)
 
+- **[Tenstorrent Simulator Playground](https://github.com/thatdspguy/tenstorrent_playground)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@thatdspguy](https://github.com/thatdspguy) — A web playground that runs real TTNN operations on the ttsim hardware simulator — no card required. Switch between Wormhole and Blackhole, run elementwise/activation/matmul ops or a small MLP, draw a digit and classify it with a trained MNIST net, then sweep parameters in 1D or 2D and read latency, throughput, and memory back as line charts, 3D surfaces, and heatmaps.
+  [📦 repo](https://github.com/thatdspguy/tenstorrent_playground)
+
 - **[tt-monitor](https://github.com/antonibertel/tt-monitor)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@antonibertel](https://github.com/antonibertel) — A translucent, undecorated desktop widget showing live per-chip telemetry for Tenstorrent accelerators: temperature and power sparklines against the card's thermal and TDP limits, AI clock, voltage, current, DRAM channel training and ECC error counts, PCIe link generation/width, and board identity. Reads hardware directly through luwen over /dev/tenstorrent — no Python, no tt-smi subprocess, and no root.
   [📦 repo](https://github.com/antonibertel/tt-monitor)
@@ -274,6 +290,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[ttPEAK](https://github.com/TT-Bounty-Hunters/ttPEAK)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@TT-Bounty-Hunters](https://github.com/TT-Bounty-Hunters) — clpeak-style peak-performance benchmark for Tenstorrent devices using TT-Metalium. Measures theoretical peak throughput across operations — useful for hardware characterization.
   [📦 repo](https://github.com/TT-Bounty-Hunters/ttPEAK)
+
+- **[ttperf](https://github.com/Aswincloud/ttperf)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@Aswincloud](https://github.com/Aswincloud) — A CLI wrapper that turns TT-Metal performance profiling into one command. Runs a pytest target under Tenstorrent's profiler, streams progress live, then parses the resulting CSV and reports total device kernel duration. Supports profiling by operation name (`ttperf add`) as well as by test path, and installs from PyPI.
+  [📦 repo](https://github.com/Aswincloud/ttperf) · [🌐 ttperf.aswincloud.com](https://ttperf.aswincloud.com) · [🐍 `pip install ttperf`](https://pypi.org/project/ttperf/)
 
 - **[tensix-viz](https://github.com/tsingletaryTT/tensix-viz)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Hardware topology visualizer for Tenstorrent chips — from individual chip to full cluster. Interactive JavaScript visualization of Tensix core layout and NoC connections.
@@ -290,6 +310,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **Tensix Grid Playground** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Interactive browser-based visualizer of the Tenstorrent Tensix grid architecture. Explore the NoC, core layout, and dataflow patterns without hardware — a great companion for learning kernel programming.
   [🚀 Tensix Grid Playground (interactive)](https://docs.tenstorrent.com/tt-vscode-toolkit/tensix-playground/)
+
+- **[TenGEMM](https://github.com/tenstorrent/TenGEMM)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Tensix GEMM performance estimator and visualizer. A React app that models matrix-multiplication workloads on a Tensix core, estimates the resulting performance, and shows how the work maps onto the hardware — useful for reasoning about a matmul's shape and fidelity choices before writing the kernel.
+  [📦 repo](https://github.com/tenstorrent/TenGEMM)
 
 - **[tt-cli](https://github.com/tenstorrent/tt-cli)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Single entry point to the Tenstorrent software stack: `tt update` converges a machine onto the CI-tested "golden" version set, `tt device` covers status/info/reset, and `tt model`/`tt serve` pull weights and bring up tt-inference-server. Commands either run natively or delegate to tt-smi, tt-flash, and tt-installer behind a stable interface, with `--json` output and documented exit codes on every command. Early prototype — the README labels it an internal prototype and several subcommands are still stubs.
@@ -339,11 +363,11 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[luwen](https://github.com/tenstorrent/luwen)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent system interface library written in Rust. Low-level Rust bindings for communicating with and managing TT hardware.
-  [📦 repo](https://github.com/tenstorrent/luwen) · [🦀 `cargo add luwen`](https://crates.io/crates/luwen) · 🐧 `apt install python3-pyluwen`
+  [📦 repo](https://github.com/tenstorrent/luwen) · [🦀 `cargo add luwen`](https://crates.io/crates/luwen) · [🐧 `apt install python3-pyluwen`](https://ppa.tenstorrent.com/)
 
 - **[tt-burnin](https://github.com/tenstorrent/tt-burnin)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Command-line utility that runs a high power-consumption workload on Tenstorrent devices — used for chip testing, burn-in, and validating a system's power delivery and cooling under sustained load.
-  [📦 repo](https://github.com/tenstorrent/tt-burnin) · [🐍 `pip install tt-burnin`](https://pypi.org/project/tt-burnin/) · 🐧 `apt install tt-burnin`
+  [📦 repo](https://github.com/tenstorrent/tt-burnin) · [🐍 `pip install tt-burnin`](https://pypi.org/project/tt-burnin/) · [🐧 `apt install tt-burnin`](https://ppa.tenstorrent.com/)
 
 - **[tt-CableGen](https://github.com/tenstorrent/tt-CableGen)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Network cabling visualizer for Tenstorrent scale-out deployments: describe a target topology and it generates and renders how to physically cable multiple Wormhole or Blackhole systems together. Works in a physical-deployment mode with racking information and a logical-hierarchy mode for clustering/pod groupings, with topology import/export and a Docker deployment path.
@@ -355,7 +379,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[tt-flash](https://github.com/tenstorrent/tt-flash)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent firmware update utility. Flash new firmware onto Tenstorrent accelerator cards from the command line.
-  [📦 repo](https://github.com/tenstorrent/tt-flash) · [🐍 `pip install tt-flash`](https://pypi.org/project/tt-flash/) · 🐧 `apt install tt-flash`
+  [📦 repo](https://github.com/tenstorrent/tt-flash) · [🐍 `pip install tt-flash`](https://pypi.org/project/tt-flash/) · [🐧 `apt install tt-flash`](https://ppa.tenstorrent.com/)
 
 - **[tt-installer](https://github.com/tenstorrent/tt-installer)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Install the complete Tenstorrent software stack with one command. Handles drivers, firmware, Python environment, and SDK setup automatically.
@@ -363,7 +387,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[tt-kmd](https://github.com/tenstorrent/tt-kmd)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent kernel module driver. The Linux kernel module required to interface with Tenstorrent PCIe accelerator cards.
-  [📦 repo](https://github.com/tenstorrent/tt-kmd) · 🐧 `apt install tenstorrent-dkms`
+  [📦 repo](https://github.com/tenstorrent/tt-kmd) · [🐧 `apt install tenstorrent-dkms`](https://ppa.tenstorrent.com/)
 
 - **[TT-QuietBox 2 Guide](https://github.com/tenstorrent/tt-quietbox2-guide)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Official setup and onboarding guide for the TT-QuietBox 2 — a compact, liquid-cooled AI workstation with four Blackhole accelerators, an AMD Ryzen CPU, 256GB RAM, and 4TB NVMe. Covers hardware specs, first-boot setup, and hands-on learning paths for running pre-loaded models like Qwen3-32B and serving text, image, video, and speech models via tt-inference-server.
@@ -371,7 +395,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[tt-smi](https://github.com/tenstorrent/tt-smi)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent System Management Interface — monitor device telemetry, issue board-level resets, and inspect hardware health. The nvidia-smi equivalent for Tenstorrent hardware.
-  [📦 repo](https://github.com/tenstorrent/tt-smi) · [🐍 `pip install tt-smi`](https://pypi.org/project/tt-smi/) · 🐧 `apt install tt-smi`
+  [📦 repo](https://github.com/tenstorrent/tt-smi) · [🐍 `pip install tt-smi`](https://pypi.org/project/tt-smi/) · [🐧 `apt install tt-smi`](https://ppa.tenstorrent.com/)
 
 - **[tt-system-firmware](https://github.com/tenstorrent/tt-system-firmware)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   System firmware for Tenstorrent hardware. Low-level system initialization and control firmware that runs on-device.
@@ -379,19 +403,19 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[tt-system-tools](https://github.com/tenstorrent/tt-system-tools)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   System setup and support utilities for Tenstorrent hardware — hugepages-setup configures the 1GB hugepages TT ASICs need, and tt-oops collects diagnostic data for troubleshooting. Ships as the tenstorrent-tools deb/rpm.
-  [📦 repo](https://github.com/tenstorrent/tt-system-tools) · 🐧 `apt install tenstorrent-tools`
+  [📦 repo](https://github.com/tenstorrent/tt-system-tools) · [🐧 `apt install tenstorrent-tools`](https://ppa.tenstorrent.com/)
 
 - **[tt-tools-common](https://github.com/tenstorrent/tt-tools-common)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Shared helper library of common utilities used across Tenstorrent system tools such as tt-smi, tt-flash, and tt-topology. A dependency rather than a standalone tool.
-  [📦 repo](https://github.com/tenstorrent/tt-tools-common) · [🐍 `pip install tt-tools-common`](https://pypi.org/project/tt-tools-common/) · 🐧 `apt install python3-tt-tools-common`
+  [📦 repo](https://github.com/tenstorrent/tt-tools-common) · [🐍 `pip install tt-tools-common`](https://pypi.org/project/tt-tools-common/) · [🐧 `apt install python3-tt-tools-common`](https://ppa.tenstorrent.com/)
 
 - **[tt-toplike](https://github.com/tenstorrent/tt-toplike)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   A vibrant htop-style visualizer for Tenstorrent hardware written in Rust. Real-time process and utilization view for TT accelerators.
-  [📦 repo](https://github.com/tenstorrent/tt-toplike) · [🌐 website](https://docs.tenstorrent.com/tt-toplike/) · 🐧 `apt install tt-toplike` · 🐧 `apt install tt-toplike-app`
+  [📦 repo](https://github.com/tenstorrent/tt-toplike) · [🌐 website](https://docs.tenstorrent.com/tt-toplike/) · [🐧 `apt install tt-toplike`](https://ppa.tenstorrent.com/) · [🐧 `apt install tt-toplike-app`](https://ppa.tenstorrent.com/)
 
 - **[tt-topology](https://github.com/tenstorrent/tt-topology)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Configure Ethernet routing on multi-card Tenstorrent systems. Flash NB cards to use specific ETH routing configurations for scale-out deployments.
-  [📦 repo](https://github.com/tenstorrent/tt-topology) · [🐍 `pip install tt-topology`](https://pypi.org/project/tt-topology/) · 🐧 `apt install tt-topology`
+  [📦 repo](https://github.com/tenstorrent/tt-topology) · [🐍 `pip install tt-topology`](https://pypi.org/project/tt-topology/) · [🐧 `apt install tt-topology`](https://ppa.tenstorrent.com/)
 
 - **[tt-umd](https://github.com/tenstorrent/tt-umd)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   User-mode driver for Tenstorrent hardware. The userspace layer that sits between the kernel module and higher-level SDKs.
@@ -432,6 +456,14 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-sim](https://github.com/mesham/tt-sim)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@mesham](https://github.com/mesham) — Community-built Tenstorrent architecture simulator written in Python. Runs without hardware — useful for researchers and developers exploring the Tensix architecture offline.
   [📦 repo](https://github.com/mesham/tt-sim)
+
+- **All in RISC-V, RISC-V All in AI — FOSDEM 2026** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Martin Chang — Martin Chang and Danfeng Zhang on solving real AI compute problems with open hardware, spanning AI PC / edge devices and AI servers: pairing high-performance RISC-V CPUs with NPUs, and Tenstorrent's RISC-V cores and scalable mesh for AI workloads. The speaker's companion write-up covers the Tensix programming model in depth — the five RISC-V cores per tile, Dst register double-buffering, and the macro-recording hardware that lets control cores run ahead of the math engine.
+  [🎤 FOSDEM 2026 — session page](https://fosdem.org/2026/schedule/event/799WTL-all_in_risc-v_risc-v_all_in_ai_solving_real_ai_compute_challenges_with_deepcompu/) · [🎥 Recording (MP4)](https://video.fosdem.org/2026/ud2120/799WTL-all_in_risc-v_risc-v_all_in_ai_solving_real_ai_compute_challenges_with_deepcompu.mp4) · [📝 The Real Tenstorrent Tensix Programming Model — companion write-up](https://clehaxze.tw/gemlog/2026/01-22-the-real-tenstorrent-tensix-programming-model.gmi)
+
+- **WebNN and WebLLM on RISC-V — FOSDEM 2026** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Yuning Liang, Petr Penzin — Yuning Liang and Petr Penzin on closing the AI acceleration gap in the browser on RISC-V: how WebNN and WebLLM can reach efficient on-device inference using the RVV 1.0 variable-length vector ISA and Tenstorrent hardware underneath.
+  [🎤 FOSDEM 2026 — session page](https://fosdem.org/2026/schedule/event/E7WQQX-webnn_and_webllm_on_risc-v_closing_the_ai_acceleration_gap_with_rvv_and_tenstorr/) · [🎥 Recording (MP4)](https://video.fosdem.org/2026/ud2120/E7WQQX-webnn_and_webllm_on_risc-v_closing_the_ai_acceleration_gap_with_rvv_and_tenstorr.mp4)
 
 - **[tt-bh-linux](https://github.com/tenstorrent-riscv-software/tt-bh-linux)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Linux demo for the Tenstorrent Blackhole P100/P150 card RISC-V cores. Boot a real Linux kernel on the 16 high-performance RISC-V cores built into the Blackhole chip.
@@ -554,6 +586,14 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **Programming Tenstorrent Processors** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Martin Chang — Deep-dive into the Tenstorrent architecture and Metalium programming model — circular buffers, kernel synchronization, NoC routing, and where the footguns are. The honest guide to thinking in Tensix.
   [📝 clehaxze.tw — April 2025](https://clehaxze.tw/gemlog/2025/04-21-programming-tensotrrent-processors.gmi)
+
+- **[Unofficial Blackhole Documentation](https://github.com/boopdotpng/tenstorrent-docs)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@boopdotpng](https://github.com/boopdotpng) — Unofficial documentation for the Blackhole P100A / P150, assembled from reverse-engineering, disassembly, and hands-on experiment. Walks from a self-contained intro through chip architecture (NoC, Tensix tiles, RISC-V cores, L1, memory map), the 3-kernel matmul model, SFPI kernel writing, circular-buffer dataflow, the JIT build and dispatch pipeline, firmware boot sequence, and multi-host scaling. The author notes most pages were drafted by coding agents, with a `human/` folder that is explicitly hand-written.
+  [📦 repo](https://github.com/boopdotpng/tenstorrent-docs)
+
+- **Inside the Tenstorrent Chips: Grayskull, Wormhole, Blackhole, and Galaxy** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@Yashwanth](https://github.com/Yashwanth) — A long third-party walkthrough of the Tenstorrent lineup — core architecture, per-product specs and pricing, and what the published benchmarks against NVIDIA and AMD actually support. Notable for its candour: it states plainly that independent third-party benchmarks remain sparse and flags firmware changes that reduced earlier performance claims. Part 4 of a six-part series on inference hardware.
+  [📝 blog.gpu.net — June 2026](https://blog.gpu.net/posts/2026/june/new-blog-june11/)
 
 - **A Gentle Guide: Tenstorrent Card on Arch Linux with Metalium** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Martin Chang — Step-by-step guide to getting a Tenstorrent card running on Arch Linux with the full Metalium stack. Practical troubleshooting from someone who did it the hard way first.
