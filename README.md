@@ -201,9 +201,9 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 ## 🔨 Compilers & Frontends
 
-- **[BarraCUDA](https://github.com/Zaneham/BarraCUDA)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@Zaneham](https://github.com/Zaneham) — Open-source CUDA compiler targeting multiple GPU architectures including Tenstorrent. Compiles .cu files to run on AMD and Tenstorrent hardware without modification.
-  [📦 repo](https://github.com/Zaneham/BarraCUDA)
+- **[Booth](https://github.com/Zaneham/Booth)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@Zaneham](https://github.com/Zaneham) — An open-source CUDA, HIP, and Triton compiler with no LLVM anywhere in the path. Takes the same sources you would hand to nvcc, ROCm, or Triton's JIT and emits AMD RDNA 2/3/4 binaries, NVIDIA PTX, Tenstorrent Metalium C++, native RV32IM, or plain x86-64 — so a Triton matmul can run on a laptop that has never seen a GPU. Also reads a deliberate subset of MLIR (`func.func` plus the `arith` dialect) and Fortran `do concurrent` kernels via LFortran. Formerly BarraCUDA; renamed to honour Kathleen Booth.
+  [📦 repo](https://github.com/Zaneham/Booth)
 
 - **[triton-tenstorrent](https://github.com/kernelize-ai/triton-tenstorrent)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@kernelize-ai](https://github.com/kernelize-ai) — OpenAI Triton compiler plugin for Tenstorrent hardware. Write Triton kernels and target Tensix cores — brings the Triton ML kernel ecosystem to TT devices.
