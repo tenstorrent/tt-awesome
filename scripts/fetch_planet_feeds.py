@@ -14,9 +14,15 @@ Sources:
     via the active summarization provider (GitHub Copilot by default, see
     scripts/llm_client.py); Japanese-only when its credential is absent.
 
-Items are appended to src/_data/planet_feeds.json. All items (new and
-existing) are written with approved=True so they appear on the Planet
-feed immediately.
+Items are appended to src/_data/planet_feeds.json. New items carry their
+source's default approval (trusted sources land approved=True and publish
+immediately; untrusted ones land approved=False for review). Existing items
+keep whatever approval a maintainer last stored — this script never
+re-approves an item it has already written.
+
+Posts a maintainer has seen and decided against live in
+src/_data/planet_declined.json (see scripts/decline_planet_item.py). Their
+URLs are treated as already-known, so no source re-proposes them.
 
 Usage:
     python3 scripts/fetch_planet_feeds.py [--dry-run]
@@ -34,6 +40,7 @@ from pathlib import Path
 ROOT     = Path(__file__).parent.parent
 ENTRIES  = ROOT / "entries"
 OUT      = ROOT / "src" / "_data" / "planet_feeds.json"
+DECLINED = ROOT / "src" / "_data" / "planet_declined.json"
 
 YOUTUBE_CHANNELS = [
     {"id": "UC7041p6DlAh0r4_Fnlk10pQ", "name": "Tenstorrent",  "affiliation": "official"},
@@ -421,22 +428,68 @@ def fetch_connpass(known_urls: set) -> list:
     return items
 
 
+def load_existing(path: Path) -> dict:
+    """Load the current feed file as {url: item}, preserving every field.
+
+    Notably `approved` is left exactly as stored. An earlier version forced
+    it to True here, which quietly republished items a maintainer had
+    reviewed and left unapproved — the approval flag is a human decision,
+    not something this script gets to redecide on each run.
+    """
+    existing: dict = {}
+    if not path.exists():
+        return existing
+    try:
+        for item in json.loads(path.read_text()):
+            if item.get("url"):
+                existing[item["url"]] = item
+    except Exception as e:
+        print(f"  WARN: could not read {path}: {e}", file=sys.stderr)
+    return existing
+
+
+def load_declined_urls(path: Path) -> set:
+    """URLs a maintainer has seen and decided not to publish.
+
+    Seeded into `known_urls` before any fetch runs, so every source treats
+    them as already-known and never re-proposes them. Feeds serve their old
+    entries indefinitely, so without this a decline would be undone by the
+    next nightly run.
+    """
+    if not path.exists():
+        return set()
+    try:
+        return {d["url"] for d in json.loads(path.read_text()) if d.get("url")}
+    except Exception as e:
+        print(f"  WARN: could not read {path}: {e}", file=sys.stderr)
+        return set()
+
+
+def merge_items(existing: dict, new_items: list, declined_urls: set) -> list:
+    """Combine kept + newly fetched items into one newest-first list.
+
+    A URL present in both the feed file and the declined list is a stale row
+    left behind by a decline that didn't clean up; the decline wins.
+    """
+    kept = [i for url, i in existing.items() if url not in declined_urls]
+    dropped = len(existing) - len(kept)
+    if dropped:
+        print(f"  NOTE: dropped {dropped} feed item(s) now on the declined list",
+              file=sys.stderr)
+    all_items = kept + new_items
+    all_items.sort(key=lambda x: x.get("dateISO", ""), reverse=True)
+    return all_items
+
+
 def main():
     dry_run = "--dry-run" in sys.argv
 
-    # Load existing items — force approved=True on all (auto-approve policy)
-    existing: dict = {}
-    if OUT.exists():
-        try:
-            for item in json.loads(OUT.read_text()):
-                if item.get("url"):
-                    item["approved"] = True
-                    existing[item["url"]] = item
-        except Exception as e:
-            print(f"  WARN: could not read {OUT}: {e}", file=sys.stderr)
+    existing      = load_existing(OUT)
+    declined_urls = load_declined_urls(DECLINED)
 
     known_arxiv = load_known_arxiv_ids()
-    known_urls  = set(existing.keys())
+    # Declined URLs count as known so no source re-proposes them.
+    known_urls  = set(existing.keys()) | declined_urls
 
     # known_urls grows as each source is fetched to prevent cross-source dupes
     print(f"Fetching YouTube ({len(YOUTUBE_CHANNELS)} channels)…")
@@ -470,9 +523,8 @@ def main():
     new_items += cp
     known_urls.update(i["url"] for i in cp)
 
-    # Merge: all existing items remain approved; new items use source defaults
-    all_items = list(existing.values()) + new_items
-    all_items.sort(key=lambda x: x.get("dateISO", ""), reverse=True)
+    # Merge: stored approval flags are preserved; new items use source defaults
+    all_items = merge_items(existing, new_items, declined_urls)
 
     if dry_run:
         print(f"\nDRY RUN: would write {len(all_items)} items ({len(new_items)} new)")
