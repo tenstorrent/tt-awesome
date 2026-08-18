@@ -33,10 +33,29 @@ DECLINED = ROOT / "src" / "_data" / "planet_declined.json"
 
 
 def _read(path: Path) -> list:
-    """Read a JSON array, treating a missing file as empty."""
+    """Read a JSON array, treating a missing file as empty.
+
+    Both files are read before anything is written, so exiting here keeps the
+    all-or-nothing promise — a corrupt file stops the move with a readable
+    message instead of a traceback, and leaves both files untouched.
+    """
     if not path.exists():
         return []
-    return json.loads(path.read_text())
+    try:
+        data = json.loads(path.read_text())
+    except Exception as e:
+        print(f"ERROR: {path} is not valid JSON ({e}) — fix or restore it first.",
+              file=sys.stderr)
+        sys.exit(1)
+    if not isinstance(data, list):
+        print(f"ERROR: {path} should hold a JSON array, got {type(data).__name__}.",
+              file=sys.stderr)
+        sys.exit(1)
+    rows = [r for r in data if isinstance(r, dict)]
+    if len(rows) != len(data):
+        print(f"WARN: skipped {len(data) - len(rows)} malformed row(s) in {path}",
+              file=sys.stderr)
+    return rows
 
 
 def _write(path: Path, data: list) -> None:

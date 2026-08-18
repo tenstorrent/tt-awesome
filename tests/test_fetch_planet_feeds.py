@@ -18,6 +18,8 @@ import json
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 import fetch_planet_feeds as fpf
 
@@ -54,11 +56,28 @@ def test_load_existing_returns_empty_dict_when_file_missing(tmp_path):
     assert fpf.load_existing(tmp_path / "nope.json") == {}
 
 
-def test_load_existing_returns_empty_dict_on_malformed_json(tmp_path):
+def test_load_existing_skips_a_malformed_row_and_keeps_the_rest(tmp_path):
+    """One bad row must not truncate the load — main() would rewrite the file
+    with only the rows that came before it."""
+    f = tmp_path / "planet_feeds.json"
+    f.write_text(json.dumps([
+        {"url": "https://example.com/a", "approved": True},
+        "a stray string where an object should be",
+        {"url": "https://example.com/b", "approved": False},
+    ]))
+
+    existing = fpf.load_existing(f)
+
+    assert set(existing) == {"https://example.com/a", "https://example.com/b"}
+
+
+def test_load_existing_aborts_on_an_unparseable_file(tmp_path):
+    """Returning {} here would make main() rewrite the feed from scratch."""
     f = tmp_path / "planet_feeds.json"
     f.write_text("{not json")
 
-    assert fpf.load_existing(f) == {}
+    with pytest.raises(SystemExit):
+        fpf.load_existing(f)
 
 
 # ── load_declined_urls: the "we saw it, we said no" record ──────────────────
@@ -82,11 +101,29 @@ def test_load_declined_urls_returns_empty_set_when_file_missing(tmp_path):
     assert fpf.load_declined_urls(tmp_path / "nope.json") == set()
 
 
-def test_load_declined_urls_returns_empty_set_on_malformed_json(tmp_path):
+def test_load_declined_urls_skips_a_malformed_row_and_keeps_the_rest(tmp_path):
+    f = tmp_path / "planet_declined.json"
+    f.write_text(json.dumps([
+        {"url": "https://clehaxze.tw/gemlog/off-topic", "reason": "off-topic"},
+        None,
+        {"no_url_key": True},
+        {"url": "https://clehaxze.tw/gemlog/also-off", "reason": "off-topic"},
+    ]))
+
+    assert fpf.load_declined_urls(f) == {
+        "https://clehaxze.tw/gemlog/off-topic",
+        "https://clehaxze.tw/gemlog/also-off",
+    }
+
+
+def test_load_declined_urls_aborts_on_an_unparseable_file(tmp_path):
+    """Returning an empty set would forget every decline and re-propose them
+    on the next run — the exact failure this list exists to prevent."""
     f = tmp_path / "planet_declined.json"
     f.write_text("[{oops")
 
-    assert fpf.load_declined_urls(f) == set()
+    with pytest.raises(SystemExit):
+        fpf.load_declined_urls(f)
 
 
 # ── merge_items: declined wins over anything still sitting in the feed ──────

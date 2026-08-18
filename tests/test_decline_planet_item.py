@@ -120,6 +120,36 @@ def test_decline_writes_nothing_when_any_url_is_unknown(tmp_path):
     assert not declined.exists()
 
 
+def test_decline_tolerates_a_malformed_row_in_either_file(tmp_path):
+    """A stray non-object row must not crash the move."""
+    feed = tmp_path / "planet_feeds.json"
+    declined = tmp_path / "planet_declined.json"
+    feed.write_text(json.dumps([ITEM_OFF, "stray string"]))
+    declined.write_text(json.dumps([None, {"url": "https://clehaxze.tw/gemlog/earlier",
+                                           "title": "Earlier", "date": "2025-01-01",
+                                           "source": "clehaxze.tw", "reason": "off-topic"}]))
+
+    dpi.decline(feed, declined, [ITEM_OFF["url"]], "off-topic")
+
+    urls = {d["url"] for d in json.loads(declined.read_text())}
+    assert urls == {"https://clehaxze.tw/gemlog/earlier", ITEM_OFF["url"]}
+
+
+def test_decline_exits_cleanly_when_a_file_is_unreadable(tmp_path, capsys):
+    """A maintainer-facing CLI should say what's wrong, not dump a traceback."""
+    feed = tmp_path / "planet_feeds.json"
+    declined = tmp_path / "planet_declined.json"
+    feed.write_text(json.dumps(_feed(ITEM_OFF)))
+    declined.write_text("[{oops")
+
+    with pytest.raises(SystemExit):
+        dpi.decline(feed, declined, [ITEM_OFF["url"]], "off-topic")
+
+    assert "not valid JSON" in capsys.readouterr().err
+    # Nothing written — the feed still holds the item.
+    assert len(json.loads(feed.read_text())) == 1
+
+
 def test_declined_list_is_sorted_newest_first(tmp_path):
     feed = tmp_path / "planet_feeds.json"
     declined = tmp_path / "planet_declined.json"

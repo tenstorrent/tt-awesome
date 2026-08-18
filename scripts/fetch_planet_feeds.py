@@ -428,6 +428,39 @@ def fetch_connpass(known_urls: set) -> list:
     return items
 
 
+def _read_rows(path: Path) -> list:
+    """Read a JSON array of objects, skipping rows that aren't objects.
+
+    Three cases, deliberately handled differently:
+
+      - missing file    → empty list. Normal on a first run.
+      - malformed row   → skipped with a warning. One bad row must not
+        truncate the load; a partial read of planet_feeds.json would make
+        main() rewrite the file without everything after that row.
+      - unparseable file → abort. Both callers feed a file this script then
+        overwrites, so degrading to "empty" would either wipe the feed or
+        forget every decline. A corrupt machine-written file wants a human,
+        not a best-effort run.
+    """
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text())
+    except Exception as e:
+        print(f"ERROR: {path} is not valid JSON ({e}) — fix or restore it before\n"
+              f"running; refusing to overwrite it from a partial read.", file=sys.stderr)
+        sys.exit(1)
+    if not isinstance(data, list):
+        print(f"ERROR: {path} should hold a JSON array, got {type(data).__name__}.",
+              file=sys.stderr)
+        sys.exit(1)
+    rows = [r for r in data if isinstance(r, dict)]
+    if len(rows) != len(data):
+        print(f"  WARN: skipped {len(data) - len(rows)} malformed row(s) in {path}",
+              file=sys.stderr)
+    return rows
+
+
 def load_existing(path: Path) -> dict:
     """Load the current feed file as {url: item}, preserving every field.
 
@@ -437,14 +470,9 @@ def load_existing(path: Path) -> dict:
     not something this script gets to redecide on each run.
     """
     existing: dict = {}
-    if not path.exists():
-        return existing
-    try:
-        for item in json.loads(path.read_text()):
-            if item.get("url"):
-                existing[item["url"]] = item
-    except Exception as e:
-        print(f"  WARN: could not read {path}: {e}", file=sys.stderr)
+    for item in _read_rows(path):
+        if item.get("url"):
+            existing[item["url"]] = item
     return existing
 
 
@@ -456,13 +484,7 @@ def load_declined_urls(path: Path) -> set:
     entries indefinitely, so without this a decline would be undone by the
     next nightly run.
     """
-    if not path.exists():
-        return set()
-    try:
-        return {d["url"] for d in json.loads(path.read_text()) if d.get("url")}
-    except Exception as e:
-        print(f"  WARN: could not read {path}: {e}", file=sys.stderr)
-        return set()
+    return {d["url"] for d in _read_rows(path) if d.get("url")}
 
 
 def merge_items(existing: dict, new_items: list, declined_urls: set) -> list:
