@@ -213,6 +213,39 @@ def test_community_feed_skips_an_empty_summary_for_content(monkeypatch):
     assert [i["description"] for i in items] == ["Body text."]
 
 
+def test_community_feed_reads_atom_xhtml_content(monkeypatch):
+    """type="xhtml" bodies are parsed children, not escaped markup, so the
+    element's own .text is just the whitespace before the <div> — the text has
+    to be gathered from the children."""
+    items = _fetch_xml(monkeypatch, _atom("""
+      <entry>
+        <title>A post</title>
+        <link href="https://example.com/a" />
+        <published>2026-06-23T00:00:00-07:00</published>
+        <content type="xhtml">
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <p>Body text.</p>
+          </div>
+        </content>
+      </entry>"""))
+
+    assert [i["description"] for i in items] == ["Body text."]
+
+
+def test_community_feed_keeps_text_around_inline_markup(monkeypatch):
+    """Text after a nested element is that element's tail — dropping it would
+    truncate the summary at the first bit of inline markup."""
+    items = _fetch_xml(monkeypatch, _atom("""
+      <entry>
+        <title>A post</title>
+        <link href="https://example.com/a" />
+        <published>2026-06-23T00:00:00-07:00</published>
+        <summary>Before <b>middle</b> after.</summary>
+      </entry>"""))
+
+    assert [i["description"] for i in items] == ["Before middle after."]
+
+
 def test_community_feed_keeps_an_rss_description(monkeypatch):
     items = _fetch_xml(monkeypatch, """<rss><channel>
       <item>

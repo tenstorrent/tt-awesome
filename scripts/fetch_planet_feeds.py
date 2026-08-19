@@ -313,13 +313,20 @@ def fetch_community_feed(feed: dict, known_urls: set) -> list:
         # CDATA or escaped HTML, not parsed children) tests false and an `or`
         # chain skips straight past it to the next candidate. That silently
         # emptied the description of every Atom item the fetcher wrote.
-        summary_el = None
+        #
+        # itertext(), not .text: Atom permits type="xhtml", where the body is a
+        # parsed <div> child rather than escaped markup, so .text is only the
+        # whitespace in front of it. itertext() flattens child text and tails,
+        # and for the escaped-HTML/CDATA case returns what .text returned.
+        raw = ""
         for tag in (f"{{{NS_ATOM}}}summary", f"{{{NS_ATOM}}}content", "description"):
             found = entry.find(tag)
-            if found is not None and (found.text or "").strip():
-                summary_el = found
+            if found is None:
+                continue
+            text = "".join(found.itertext())
+            if text.strip():
+                raw = text
                 break
-        raw = summary_el.text if summary_el is not None else ""
         desc = truncate(strip_html(raw))
         date_str = iso_to_date(published)
         items.append({
