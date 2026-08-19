@@ -151,3 +151,92 @@ def test_merge_items_sorts_newest_first():
     merged = fpf.merge_items(existing, new, set())
 
     assert [i["url"] for i in merged] == ["https://example.com/new", "https://example.com/old"]
+
+
+# ── fetch_community_feed: Atom descriptions survive the parse ────────────────
+#
+# An ElementTree element is falsy when it has no *child* elements, and a feed's
+# <summary>/<content> is text (CDATA or escaped HTML), not children. The old
+# `find(summary) or find(content) or find("description")` chain therefore
+# skipped past the element it had just found and returned the final None, so
+# every Atom item the fetcher wrote landed with description "". RSS was
+# unaffected: its <description> is last in the chain, and `or` returns the last
+# operand regardless of truthiness.
+
+def _atom(body: str) -> str:
+    return f'<feed xmlns="{fpf.NS_ATOM}">{body}</feed>'
+
+
+def _fetch_xml(monkeypatch, xml: str, trusted: bool = True) -> list:
+    monkeypatch.setattr(fpf, "_get", lambda url, timeout=12: xml.encode())
+    feed = {"name": "example.com", "url": "https://example.com/atom.xml",
+            "affiliation": "community", "trusted": trusted}
+    return fpf.fetch_community_feed(feed, set())
+
+
+def test_community_feed_keeps_an_atom_summary(monkeypatch):
+    items = _fetch_xml(monkeypatch, _atom("""
+      <entry>
+        <title>A post</title>
+        <link href="https://example.com/a" />
+        <published>2026-06-23T00:00:00-07:00</published>
+        <summary>What the post is about.</summary>
+      </entry>"""))
+
+    assert [i["description"] for i in items] == ["What the post is about."]
+
+
+def test_community_feed_falls_back_to_atom_content(monkeypatch):
+    """No <summary> at all — the post body is the only description available."""
+    items = _fetch_xml(monkeypatch, _atom("""
+      <entry>
+        <title>A post</title>
+        <link href="https://example.com/a" />
+        <published>2026-06-23T00:00:00-07:00</published>
+        <content type="html">&lt;p&gt;Body text.&lt;/p&gt;</content>
+      </entry>"""))
+
+    assert [i["description"] for i in items] == ["Body text."]
+
+
+def test_community_feed_skips_an_empty_summary_for_content(monkeypatch):
+    """An empty <summary> must not shadow a <content> that has real text."""
+    items = _fetch_xml(monkeypatch, _atom("""
+      <entry>
+        <title>A post</title>
+        <link href="https://example.com/a" />
+        <published>2026-06-23T00:00:00-07:00</published>
+        <summary>   </summary>
+        <content type="html">&lt;p&gt;Body text.&lt;/p&gt;</content>
+      </entry>"""))
+
+    assert [i["description"] for i in items] == ["Body text."]
+
+
+def test_community_feed_keeps_an_rss_description(monkeypatch):
+    items = _fetch_xml(monkeypatch, """<rss><channel>
+      <item>
+        <title>A post</title>
+        <link>https://example.com/a</link>
+        <pubDate>Tue, 23 Jun 2026 00:00:00 +0000</pubDate>
+        <description>What the post is about.</description>
+      </item>
+    </channel></rss>""")
+
+    assert [i["description"] for i in items] == ["What the post is about."]
+
+
+def test_community_feed_carries_source_date_and_approval(monkeypatch):
+    """The published date is preserved, so a back-dated post files under the
+    month it was written rather than the day it was fetched."""
+    items = _fetch_xml(monkeypatch, _atom("""
+      <entry>
+        <title>A post</title>
+        <link href="https://example.com/a" />
+        <published>2026-06-23T00:00:00-07:00</published>
+        <summary>Summary.</summary>
+      </entry>"""), trusted=False)
+
+    assert items[0]["date"] == "2026-06-23"
+    assert items[0]["dateISO"] == "2026-06-23T00:00:00Z"
+    assert items[0]["approved"] is False

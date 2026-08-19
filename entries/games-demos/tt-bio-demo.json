@@ -1,0 +1,43 @@
+{
+  "id": "tt-bio-demo",
+  "name": "tt-bio-demo",
+  "description": "A turnkey conference-booth demo for tt-bio: watch a protein condense out of noise into its folded structure in real time, computed on the Blackhole chips a few feet away. Native GTK4 and OpenGL, with a cartoon renderer, live per-residue confidence colouring, a Tensix core grid, and a 2×2 quad view running four independent folds on four chips at once.",
+  "affiliation": "affiliated",
+  "categories": [
+    "games-demos",
+    "ai-models"
+  ],
+  "tags": [
+    "demo",
+    "protein-folding",
+    "boltz",
+    "drug-discovery",
+    "biology",
+    "visualization",
+    "gtk4",
+    "opengl",
+    "multi-card"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tsingletaryTT/tt-bio-demo"
+    },
+    {
+      "type": "website",
+      "url": "https://tsingletarytt.github.io/tt-bio-demo/"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "related": [
+    "tt-bio"
+  ],
+  "featured": true,
+  "author": "tsingletaryTT",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-08-19"
+}

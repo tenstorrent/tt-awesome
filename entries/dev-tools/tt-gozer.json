@@ -1,0 +1,34 @@
+{
+  "id": "tt-gozer",
+  "name": "tt-gozer",
+  "description": "Cooperative chip leasing for Tenstorrent boxes, so several agents — Claude Code sessions, aider, shell scripts, cron jobs — can share one machine without corrupting each other's runs. A lease records who is using which chips and why; the kernel's view of the devices is the tiebreaker when the two disagree. Standard-library Python, board-grain leases by default, and it ships Claude Code skills that teach agents to lease before they run.",
+  "affiliation": "affiliated",
+  "categories": [
+    "dev-tools",
+    "hw-system"
+  ],
+  "tags": [
+    "queue",
+    "leasing",
+    "locking",
+    "multi-tenant",
+    "agents",
+    "claude-code",
+    "cli"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tsingletaryTT/tt-gozer"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox",
+    "galaxy"
+  ],
+  "author": "tsingletaryTT",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-08-19"
+}
