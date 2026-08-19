@@ -1,0 +1,36 @@
+{
+  "id": "tt-demo-maker",
+  "name": "tt-demo-maker",
+  "description": "A project-agnostic toolkit for authoring demo recordings and draft posts from inside any project. Describe scenes in a small YAML manifest and it drives the terminal ballet — tmux, asciinema, VHS, ffmpeg and agg — into asciicast/GIF/MP4 footage plus a first-draft Markdown post pairing each directive with the reaction it caused. Rust orchestrator over bash capture primitives, with idle trimming, readiness gating, and a /tt-demo Claude skill that writes the manifest for you.",
+  "affiliation": "affiliated",
+  "categories": [
+    "dev-tools"
+  ],
+  "tags": [
+    "demo",
+    "recording",
+    "asciinema",
+    "vhs",
+    "automation",
+    "tui",
+    "claude-code",
+    "developer-experience"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tsingletaryTT/tt-demo-maker"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "related": [
+    "tt-toplike"
+  ],
+  "author": "tsingletaryTT",
+  "language": "Rust",
+  "license": "Apache-2.0",
+  "added_at": "2026-08-19"
+}

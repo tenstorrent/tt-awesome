@@ -67,6 +67,11 @@ COMMUNITY_FEEDS = [
     # entries). Re-add them here only if they ever ship a real feed.
     # Eric Zietlow (DevRel) — dev.to serves per-author RSS at /feed/<user>.
     {"name": "dev.to/mando222","url": "https://dev.to/feed/mando222",              "affiliation": "affiliated", "trusted": True},
+    # Taylor Singletary (DevRel) — Jekyll site, feed advertised via autodiscovery
+    # at /feed.xml. The feed carries only the /writing posts, which are all
+    # Tenstorrent engineering write-ups, so items land approved. If the writing
+    # ever broadens past TT work, flip trusted to False so it gets reviewed.
+    {"name": "tsingletarytt.github.io", "url": "https://tsingletarytt.github.io/feed.xml", "affiliation": "affiliated", "trusted": True},
 ]
 CONNPASS_FEEDS = [
     # Connpass serves group feeds at /ja.atom (there is no /feed.atom — it 404s).
@@ -302,10 +307,26 @@ def fetch_community_feed(feed: dict, known_urls: set) -> list:
         url = url.strip()
         if not url or url in known_urls:
             continue
-        summary_el = (entry.find(f"{{{NS_ATOM}}}summary") or
-                      entry.find(f"{{{NS_ATOM}}}content") or
-                      entry.find("description"))
-        raw = summary_el.text if summary_el is not None else ""
+        # Explicit `is not None` per candidate, NOT an `or` chain: an
+        # ElementTree element is falsy when it has no child elements, so a
+        # text-only <summary>/<content> (the normal case — the post body is
+        # CDATA or escaped HTML, not parsed children) tests false and an `or`
+        # chain skips straight past it to the next candidate. That silently
+        # emptied the description of every Atom item the fetcher wrote.
+        #
+        # itertext(), not .text: Atom permits type="xhtml", where the body is a
+        # parsed <div> child rather than escaped markup, so .text is only the
+        # whitespace in front of it. itertext() flattens child text and tails,
+        # and for the escaped-HTML/CDATA case returns what .text returned.
+        raw = ""
+        for tag in (f"{{{NS_ATOM}}}summary", f"{{{NS_ATOM}}}content", "description"):
+            found = entry.find(tag)
+            if found is None:
+                continue
+            text = "".join(found.itertext())
+            if text.strip():
+                raw = text
+                break
         desc = truncate(strip_html(raw))
         date_str = iso_to_date(published)
         items.append({
