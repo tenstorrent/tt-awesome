@@ -299,6 +299,14 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Hardware topology visualizer for Tenstorrent chips — from individual chip to full cluster. Interactive JavaScript visualization of Tensix core layout and NoC connections.
   [📦 repo](https://github.com/tsingletaryTT/tensix-viz) · [🌐 website](https://tsingletarytt.github.io/tensix-viz/)
 
+- **[tt-demo-maker](https://github.com/tsingletaryTT/tt-demo-maker)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by [@tsingletaryTT](https://github.com/tsingletaryTT) — A project-agnostic toolkit for authoring demo recordings and draft posts from inside any project. Describe scenes in a small YAML manifest and it drives the terminal ballet — tmux, asciinema, VHS, ffmpeg and agg — into asciicast/GIF/MP4 footage plus a first-draft Markdown post pairing each directive with the reaction it caused. Rust orchestrator over bash capture primitives, with idle trimming, readiness gating, and a /tt-demo Claude skill that writes the manifest for you.
+  [📦 repo](https://github.com/tsingletaryTT/tt-demo-maker)
+
+- **[tt-gozer](https://github.com/tsingletaryTT/tt-gozer)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by [@tsingletaryTT](https://github.com/tsingletaryTT) — Cooperative chip leasing for Tenstorrent boxes, so several agents — Claude Code sessions, aider, shell scripts, cron jobs — can share one machine without corrupting each other's runs. A lease records who is using which chips and why; the kernel's view of the devices is the tiebreaker when the two disagree. Standard-library Python, board-grain leases by default, and it ships Claude Code skills that teach agents to lease before they run.
+  [📦 repo](https://github.com/tsingletaryTT/tt-gozer)
+
 - **[tt-model-runner](https://github.com/tsingletaryTT/tt-model-runner)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Discover, load, and benchmark models with a GUI and TUI for tt-inference-server. Makes exploring available models on Tenstorrent hardware as easy as browsing a catalog.
   [📦 repo](https://github.com/tsingletaryTT/tt-model-runner)
@@ -568,6 +576,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[ttMandelbrot](https://github.com/marty1885/ttMandelbrot)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@marty1885](https://github.com/marty1885) — Mandelbrot Set fractal renderer running on Tenstorrent hardware. A classic demo showcasing parallel compute on Tensix cores.
   [📦 repo](https://github.com/marty1885/ttMandelbrot)
+
+- **[tt-bio-demo](https://github.com/tsingletaryTT/tt-bio-demo)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by [@tsingletaryTT](https://github.com/tsingletaryTT) — A turnkey conference-booth demo for tt-bio: watch a protein condense out of noise into its folded structure in real time, computed on the Blackhole chips a few feet away. Native GTK4 and OpenGL, with a cartoon renderer, live per-residue confidence colouring, a Tensix core grid, and a 2×2 quad view running four independent folds on four chips at once.
+  [📦 repo](https://github.com/tsingletaryTT/tt-bio-demo) · [🌐 website](https://tsingletarytt.github.io/tt-bio-demo/)
 
 - **[tt-zork-and-more](https://github.com/tsingletaryTT/tt-zork-and-more)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — A Tenstorrent fork of Infocom's Zork I (and more!), running a Z-machine interpreter at least four different ways on TT hardware. The most fun you can have with an AI accelerator.
