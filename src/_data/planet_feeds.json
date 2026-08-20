@@ -114,7 +114,7 @@
   {
     "type": "release",
     "source": "github",
-    "approved": true,
+    "approved": false,
     "title": "tt-bio-demo v0.3.0",
     "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/tag/v0.3.0",
     "description": "Human serum albumin (585 residues) is now the headliner protein in the demo suite, replacing FKBP12, which no longer folds reliably on pinned tt-bio 0.6.3—a shift that lets you work with a larger, more representative folding target while the team re-measures performance baselines across all supported hardware.",
@@ -156,7 +156,7 @@
   {
     "type": "release",
     "source": "github",
-    "approved": true,
+    "approved": false,
     "title": "tt-bio-demo v0.2.2",
     "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/tag/v0.2.2",
     "description": "tt-bio-demo v0.2.2 aligns the desktop entry and application icon with Tenstorrent's standard reverse-DNS identifier scheme (`com.tenstorrent.ttbio.demo`), bringing consistency across the Tenstorrent application ecosystem and making the demo cleaner to integrate into standard Linux desktop environments.",
@@ -170,7 +170,7 @@
   {
     "type": "release",
     "source": "github",
-    "approved": true,
+    "approved": false,
     "title": "tt-bio-demo v0.2.1",
     "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/tag/v0.2.1",
     "description": "The demo application now includes a proper desktop launcher entry under Science, letting booth operators start it directly without cracking open a terminal — a small polish that makes the showcase feel more polished and accessible.",
@@ -184,7 +184,7 @@
   {
     "type": "release",
     "source": "github",
-    "approved": true,
+    "approved": false,
     "title": "tt-bio-demo v0.2.0",
     "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/tag/v0.2.0",
     "description": "tt-bio-demo v0.2.0 is ready for pip install—all four packages now build and distribute cleanly, tested fresh on Ubuntu 24.04. This matters if you've been running from source: you can now pull a stable tagged version and integrate the bioinformatics workflows into your Tenstorrent pipeline without wrestling a development checkout.",
