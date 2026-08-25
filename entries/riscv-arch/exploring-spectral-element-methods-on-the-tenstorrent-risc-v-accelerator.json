@@ -1,0 +1,20 @@
+{
+  "id": "exploring-spectral-element-methods-on-the-tenstorrent-risc-v-accelerator",
+  "name": "Exploring spectral element methods on the Tenstorrent RISC-V accelerator",
+  "description": "The growing availability of commodity RISC-V hardware has sparked interest in its use for High Performance Computing (HPC), with PCIe accelerator cards offering a practical near-term pathway to adoption. The Tenstorrent Wormhole is one example, with dedicated vector and matrix units across 128 Tensix cores, and is widely available. In this paper, we explore porting the AX kernel of Nekbone, a widely used HPC mini-application derived from the Gordon Bell Prize-winning Nek5000 spectral element solver, onto the Wormhole accelerator.",
+  "affiliation": "affiliated",
+  "categories": [
+    "riscv-arch",
+    "research"
+  ],
+  "links": [
+    {
+      "type": "paper",
+      "url": "https://arxiv.org/abs/2608.22964v1"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "Daniyal Arshad, Nick Brown"
+}
