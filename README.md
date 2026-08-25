@@ -96,8 +96,8 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   [📦 repo](https://github.com/tenstorrent/tt-inference-server) · [📖 Production Inference lesson (VSCode Toolkit)](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/tt-inference-server-lesson/)
 
 - **[tt-local-generator](https://github.com/tenstorrent/tt-local-generator)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  Generate infinite videos and images (and imaginative prompts to inspire them) on Tenstorrent's Quietbox 2. Fully local generative media pipeline.
-  [📦 repo](https://github.com/tenstorrent/tt-local-generator) · [🌐 website](https://docs.tenstorrent.com/tt-local-generator/)
+  GTK4 desktop app for generating video, images, and generative art locally on Tenstorrent hardware — Wan2.2 text-to-video and character animation, SkyReels-V2, Mochi-1, FLUX.1 text-to-image, and AnimateDiff, plus a three-tier prompt generator (algorithmic, Markov, Qwen3-0.6B) to inspire them. Installs from the Tenstorrent PPA; model weights ship as separate tt-model-* packages, and an MCP server exposes every generator as a tool to Claude Code and other clients.
+  [📦 repo](https://github.com/tenstorrent/tt-local-generator) · [🌐 website](https://docs.tenstorrent.com/tt-local-generator/) · [🐧 `apt install tt-local-generator`](https://ppa.tenstorrent.com/)
 
 - **[TT-Studio](https://github.com/tenstorrent/tt-studio)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.

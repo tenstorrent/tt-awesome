@@ -42,6 +42,12 @@ ENTRIES  = ROOT / "entries"
 OUT      = ROOT / "src" / "_data" / "planet_feeds.json"
 DECLINED = ROOT / "src" / "_data" / "planet_declined.json"
 
+# PR digest for this run (see scripts/pr_digest.py). The workflow points
+# create-pull-request's `body-path` at PR_BODY_OUT and falls back to the
+# template when the file is absent — which is what "nothing new" looks like.
+PR_BODY_OUT      = Path(os.environ.get("PR_BODY_PATH") or (ROOT / "pr-body.md"))
+PR_BODY_TEMPLATE = ROOT / ".github" / "pr-templates" / "planet-feeds.md"
+
 YOUTUBE_CHANNELS = [
     {"id": "UC7041p6DlAh0r4_Fnlk10pQ", "name": "Tenstorrent",  "affiliation": "official"},
     {"id": "UC2AWMRWukuukkLf52phMdjw",  "name": "tt-tinkering", "affiliation": "affiliated"},
@@ -86,6 +92,7 @@ USER_AGENT = "tt-awesome-planet/1.0 (github.com/tenstorrent/tt-awesome)"
 # Japanese text. The prompt lives in prompts/connpass-bilingual.prompt.yml;
 # the provider flips via SUMMARY_PROVIDER (see scripts/llm_client.py).
 import llm_client
+import pr_digest
 
 TRANSLATE_MODEL = "claude-haiku-4-5-20251001"  # Anthropic-direct default
 ANTHROPIC_KEY   = os.environ.get("ANTHROPIC_API_KEY", "")
@@ -569,7 +576,19 @@ def main():
     # Merge: stored approval flags are preserved; new items use source defaults
     all_items = merge_items(existing, new_items, declined_urls)
 
+    # One extra model call writes the PR lede; it degrades to an omitted
+    # paragraph on any failure, so the mechanical item list always ships.
+    digest_lede = pr_digest.request_lede(
+        new_items,
+        anthropic_api_key=ANTHROPIC_KEY,
+        github_token=GH_TOKEN,
+        foundry_api_key=FOUNDRY_KEY,
+    ) if new_items else ""
+
     if dry_run:
+        digest = pr_digest.build_digest(new_items, kind="planet", lede=digest_lede)
+        if digest:
+            print(f"\n--- DRY RUN: PR digest ---\n{digest}")
         print(f"\nDRY RUN: would write {len(all_items)} items ({len(new_items)} new)")
         return
 
@@ -577,6 +596,21 @@ def main():
     tmp.write_text(json.dumps(all_items, indent=2, ensure_ascii=False) + "\n")
     tmp.rename(OUT)
     print(f"\nWritten {len(all_items)} items ({len(new_items)} new) to {OUT.relative_to(ROOT)}")
+
+    # PR body + Actions run summary. Cosmetic surfaces: a failure here must
+    # not undo the feed write that already succeeded.
+    if new_items:
+        try:
+            boilerplate = (PR_BODY_TEMPLATE.read_text()
+                           if PR_BODY_TEMPLATE.exists() else "")
+            body = pr_digest.write_pr_body(
+                new_items, kind="planet", lede=digest_lede,
+                boilerplate=boilerplate, path=PR_BODY_OUT,
+            )
+            pr_digest.append_step_summary(body)
+            print(f"Wrote PR digest to {PR_BODY_OUT}")
+        except OSError as e:
+            print(f"  WARN: could not write PR digest ({e})", file=sys.stderr)
 
 
 if __name__ == "__main__":

@@ -31,6 +31,14 @@ META_IN = ROOT / "src" / "_data" / "github_meta.json"
 FEEDS_OUT = ROOT / "src" / "_data" / "planet_feeds.json"
 
 import llm_client
+import pr_digest
+
+# Where the PR body for this run is written (see pr_digest). The workflow
+# points create-pull-request's `body-path` here and falls back to
+# .github/pr-templates/github-metadata.md when the file is absent, which is
+# exactly what "nothing new to summarize" looks like.
+PR_BODY_OUT = Path(os.environ.get("PR_BODY_PATH") or (ROOT / "pr-body.md"))
+PR_BODY_TEMPLATE = ROOT / ".github" / "pr-templates" / "github-metadata.md"
 
 MODEL = "claude-haiku-4-5-20251001"  # Anthropic-direct default; see llm_client
 SPARSE_LIMIT = 120  # characters; bodies shorter than this are skipped.
@@ -532,9 +540,22 @@ def main(argv: list | None = None):
         print(f"\nWARN: {failures} summarization call(s) failed; {len(new_items)} succeeded.",
               file=sys.stderr)
 
+    # ── Build the PR digest for this batch ───────────────────────────────────
+    # One extra model call writes the lede; every failure path degrades to an
+    # omitted paragraph, so the mechanical list of summaries always ships.
+    digest_lede = pr_digest.request_lede(
+        new_items,
+        anthropic_api_key=TOKEN,
+        github_token=GH_TOKEN,
+        foundry_api_key=FOUNDRY_KEY,
+    ) if new_items else ""
+
     # ── Dry-run: report and exit without touching the filesystem ─────────────
     if dry_run:
         noun = "item" if len(new_items) == 1 else "items"
+        digest = pr_digest.build_digest(new_items, kind="release", lede=digest_lede)
+        if digest:
+            print(f"\n--- DRY RUN: PR digest ---\n{digest}")
         print(f"\nDRY RUN complete. {len(new_items)} {noun} would be added.")
         return
 
@@ -554,6 +575,20 @@ def main(argv: list | None = None):
         except ValueError:
             display_path = FEEDS_OUT
         print(f"\nWrote {len(new_items)} new release item(s) to {display_path}")
+
+        # PR body + Actions run summary. Both are cosmetic surfaces, so a
+        # failure here must not undo the feed write that already succeeded.
+        try:
+            boilerplate = (PR_BODY_TEMPLATE.read_text()
+                           if PR_BODY_TEMPLATE.exists() else "")
+            body = pr_digest.write_pr_body(
+                new_items, kind="release", lede=digest_lede,
+                boilerplate=boilerplate, path=PR_BODY_OUT,
+            )
+            pr_digest.append_step_summary(body)
+            print(f"Wrote PR digest to {PR_BODY_OUT}")
+        except OSError as e:
+            print(f"  WARN: could not write PR digest ({e})", file=sys.stderr)
     else:
         print("\nNo new release items.")
 

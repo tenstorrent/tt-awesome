@@ -98,4 +98,103 @@ const rel = {
   console.log("✓ resolveReleaseSummary: ignores non-release feed items");
 }
 
+// ── resolveRunSummaries ─────────────────────────────────────────────────────
+// The release feed carries one entry per project, so earlier releases from the
+// same burst ride along in that entry's <content>.
+{
+  const { resolveRunSummaries } = require("../src/_data/recentReleases.js");
+  const repo = "https://github.com/tenstorrent/tt-bio";
+  const feedItem = (tag, dateISO, description = "Summary.") => ({
+    type: "release",
+    url: `${repo}/releases/tag/${tag}`,
+    dateISO,
+    date: dateISO.slice(0, 10),
+    description,
+  });
+
+  const latest = { repoUrl: repo, url: `${repo}/releases/tag/v0.4.0`,
+                   publishedAt: "2026-08-19T12:00:00Z", tagName: "v0.4.0" };
+
+  // A release two days earlier is part of the run.
+  {
+    const run = resolveRunSummaries(latest, [
+      feedItem("v0.4.0", "2026-08-19T12:00:00Z"),
+      feedItem("v0.3.0", "2026-08-17T12:00:00Z", "Older summary."),
+    ]);
+    assert.strictEqual(run.length, 1, "the 2-day-earlier release joins the run");
+    assert.strictEqual(run[0].tag, "v0.3.0");
+    assert.strictEqual(run[0].description, "Older summary.");
+    console.log("✓ resolveRunSummaries: nearby earlier release is included");
+  }
+
+  // A release well outside the window is not.
+  {
+    const run = resolveRunSummaries(latest, [
+      feedItem("v0.1.0", "2026-07-01T12:00:00Z"),
+    ]);
+    assert.deepStrictEqual(run, [], "a release 7 weeks earlier is a separate run");
+    console.log("✓ resolveRunSummaries: a distant release is excluded");
+  }
+
+  // Gaps chain: each step is measured from the previous release.
+  {
+    const run = resolveRunSummaries(latest, [
+      feedItem("v0.3.0", "2026-08-17T12:00:00Z"),
+      feedItem("v0.2.0", "2026-08-15T12:00:00Z"),
+      feedItem("v0.1.0", "2026-08-13T12:00:00Z"),
+    ]);
+    assert.deepStrictEqual(run.map((r) => r.tag), ["v0.3.0", "v0.2.0", "v0.1.0"]);
+    console.log("✓ resolveRunSummaries: consecutive gaps chain backwards");
+  }
+
+  // The chain stops at the first gap wider than the window — releases beyond
+  // it belong to an earlier run even if they are individually close together.
+  {
+    const run = resolveRunSummaries(latest, [
+      feedItem("v0.3.0", "2026-08-17T12:00:00Z"),
+      feedItem("v0.2.0", "2026-08-01T12:00:00Z"),
+      feedItem("v0.1.0", "2026-07-31T12:00:00Z"),
+    ]);
+    assert.deepStrictEqual(run.map((r) => r.tag), ["v0.3.0"]);
+    console.log("✓ resolveRunSummaries: the chain stops at the first wide gap");
+  }
+
+  // The release itself never appears in its own run list.
+  {
+    const run = resolveRunSummaries(latest, [feedItem("v0.4.0", "2026-08-19T12:00:00Z")]);
+    assert.deepStrictEqual(run, []);
+    console.log("✓ resolveRunSummaries: the release excludes itself");
+  }
+
+  // Other repos never leak in, even on the same day.
+  {
+    const run = resolveRunSummaries(latest, [{
+      type: "release",
+      url: "https://github.com/tenstorrent/tt-metal/releases/tag/v0.77.0",
+      dateISO: "2026-08-18T12:00:00Z", date: "2026-08-18", description: "Other repo.",
+    }]);
+    assert.deepStrictEqual(run, [], "a different repo is never part of this run");
+    console.log("✓ resolveRunSummaries: other repos are excluded");
+  }
+
+  // Missing data degrades to an empty list rather than throwing.
+  {
+    assert.deepStrictEqual(resolveRunSummaries({ repoUrl: "", publishedAt: "" }, []), []);
+    assert.deepStrictEqual(resolveRunSummaries(latest, null), []);
+    assert.deepStrictEqual(resolveRunSummaries(latest, undefined), []);
+    console.log("✓ resolveRunSummaries: missing inputs return an empty list");
+  }
+
+  // Non-release items and summary-less items are ignored.
+  {
+    const run = resolveRunSummaries(latest, [
+      { type: "video", url: `${repo}/releases/tag/v0.3.0`, dateISO: "2026-08-18T12:00:00Z",
+        description: "Not a release." },
+      { type: "release", url: `${repo}/releases/tag/v0.2.0`, dateISO: "2026-08-18T12:00:00Z" },
+    ]);
+    assert.deepStrictEqual(run, []);
+    console.log("✓ resolveRunSummaries: non-releases and empty summaries are skipped");
+  }
+}
+
 console.log("\nAll recentReleases tests passed ✓");

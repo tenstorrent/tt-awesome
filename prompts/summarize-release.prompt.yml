@@ -18,7 +18,11 @@ description: >-
   scripts/summarize_releases.py.
 model: openai/gpt-4.1-mini
 modelParameters:
-  maxTokens: 400
+  # 400 clipped real summaries mid-word — tt-bio v0.7.0 ended at "on qb" after
+  # ~1230 characters. The prompt's own 2-5 sentence limit is what keeps these
+  # short; this ceiling only exists to stop a runaway, so it sits well above a
+  # normal reply rather than inside the range of one.
+  maxTokens: 700
 messages:
   - role: system
     content: |-

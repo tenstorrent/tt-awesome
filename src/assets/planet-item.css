@@ -187,3 +187,118 @@
 @media (max-width: 900px) {
   .planet-item-title { font-size: 14px; }
 }
+
+/* ── Grouped release card ─────────────────────────────────────────────────
+   A project that shipped several versions in a few days renders as ONE card
+   (groupReleaseRuns in .eleventy.js) with each version's own summary stacked
+   below. Sizes are deliberately larger than the single-item card: a grouped
+   card carries several summaries, so the 5-line clamp that keeps a lone
+   release compact would hide most of it. */
+
+/* Count pill in the meta row — same idiom as the type/affiliation badges,
+   deliberately quieter so it reads as metadata, not a second category. */
+.planet-release-count {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 1px 7px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  color: var(--teal-lt);
+  background: rgba(79, 209, 197, 0.1);
+  border: 1px solid rgba(79, 209, 197, 0.22);
+}
+
+/* The stack itself: a left rail ties the versions together as one run. */
+.planet-release-stack {
+  list-style: none;
+  margin: 4px 0 12px;
+  padding: 0 0 0 14px;
+  border-left: 2px solid rgba(79, 209, 197, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* A flex item's default min-width:auto refuses to shrink below its content,
+     so one long unbreakable token in a summary (`__builtin_rvtt_sfpwriteconfig_v`,
+     a bare URL) would push the whole card wider than a narrow viewport. */
+  min-width: 0;
+}
+
+.planet-release {
+  position: relative;
+  min-width: 0;   /* see the note on .planet-release-stack */
+}
+/* Node on the rail, aligned to the tag row's optical centre. */
+.planet-release::before {
+  content: "";
+  position: absolute;
+  left: -19px;
+  top: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bg2);
+  border: 1px solid rgba(79, 209, 197, 0.5);
+}
+/* The newest release leads the stack — mark its node as the live one. */
+.planet-release:first-child::before {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+
+.planet-release-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 3px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.planet-release-tag { overflow-wrap: anywhere; }
+.planet-release-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--teal-lt);
+  text-decoration: none;
+  font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  transition: color 0.1s;
+}
+.planet-release-tag:hover {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.planet-release-date {
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Each version's summary. Clamped so a run of eight stays scannable… */
+.planet-release-desc {
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.55;
+  margin: 0;
+  /* Release notes are full of long identifiers and flags; break them rather
+     than letting one token widen the card. */
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* …except the newest, which is the one a reader came for. */
+.planet-release:first-child .planet-release-desc {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  font-size: 13px;
+  color: var(--text2);
+}
+
+/* Narrow screens: pull the rail in so the text keeps its width. */
+@media (max-width: 900px) {
+  .planet-release-stack { padding-left: 11px; gap: 10px; }
+  .planet-release::before { left: -16px; }
+  .planet-release-desc { font-size: 12px; }
+}

@@ -63,7 +63,18 @@ jobs:
         if: ${{ !inputs.dry_run }}
         run: python3 scripts/generate_readme.py
 
+      # summarize_releases.py writes pr-body.md (digest + template) only when it
+      # added something. Fall back to the bare template otherwise, so the
+      # action always has a body-path to read.
+      - name: Prepare PR body
+        if: ${{ !inputs.dry_run }}
+        run: |
+          if [ ! -f pr-body.md ]; then
+            cp .github/pr-templates/github-metadata.md pr-body.md
+          fi
+
       - name: Create pull request if changed
+        id: cpr
         if: ${{ !inputs.dry_run }}
         uses: peter-evans/create-pull-request@v7
         with:
@@ -79,5 +90,33 @@ jobs:
           branch: "chore/nightly-github-metadata"
           delete-branch: true
           title: "chore: update GitHub metadata"
-          body: |
-            Automated GitHub metadata refresh.
+          # Body comes from pr-body.md — the run's digest of what it summarized,
+          # or the bare template when nothing was added. The boilerplate lives in
+          # .github/pr-templates/github-metadata.md, shared with pr_digest.py so
+          # there is only one copy of it.
+          body-path: pr-body.md
+
+      # The branch is reused across runs, so each run's body-path REPLACES the
+      # previous run's digest. Post it as a comment too: a PR that accumulates
+      # several runs before merge then keeps the history of what each one added.
+      - name: Comment this run's digest on the PR
+        if: ${{ !inputs.dry_run && steps.cpr.outputs.pull-request-number && hashFiles('pr-body.md') != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          # Only comment when this run actually produced a digest — the bare
+          # template carries no heading and is not worth a notification.
+          if ! grep -q '^### ' pr-body.md; then
+            echo "No digest in pr-body.md (nothing summarized); skipping comment."
+            exit 0
+          fi
+          {
+            echo "<!-- tt-awesome-digest run:${GITHUB_RUN_ID} -->"
+            echo "🤖 Run [\`${GITHUB_RUN_ID}\`](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}) added:"
+            echo
+            # Strip the shared boilerplate (everything from the --- separator)
+            # so the comment is just this run's additions.
+            sed '/^---$/,$d' pr-body.md
+          } > digest-comment.md
+          gh pr comment "$PR" --body-file digest-comment.md

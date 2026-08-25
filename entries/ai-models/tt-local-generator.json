@@ -1,7 +1,7 @@
 {
   "id": "tt-local-generator",
   "name": "tt-local-generator",
-  "description": "Generate infinite videos and images (and imaginative prompts to inspire them) on Tenstorrent's Quietbox 2. Fully local generative media pipeline.",
+  "description": "GTK4 desktop app for generating video, images, and generative art locally on Tenstorrent hardware — Wan2.2 text-to-video and character animation, SkyReels-V2, Mochi-1, FLUX.1 text-to-image, and AnimateDiff, plus a three-tier prompt generator (algorithmic, Markov, Qwen3-0.6B) to inspire them. Installs from the Tenstorrent PPA; model weights ship as separate tt-model-* packages, and an MCP server exposes every generator as a tool to Claude Code and other clients.",
   "affiliation": "official",
   "categories": [
     "ai-models"
@@ -23,9 +23,18 @@
     }
   ],
   "hardware": [
+    "wormhole",
+    "blackhole",
     "quietbox"
   ],
   "language": "Python",
   "license": "Apache-2.0",
-  "added_at": "2026-05-08"
+  "added_at": "2026-05-08",
+  "packages": [
+    {
+      "type": "apt",
+      "name": "tt-local-generator",
+      "url": "https://ppa.tenstorrent.com/"
+    }
+  ]
 }

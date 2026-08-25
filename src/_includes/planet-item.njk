@@ -20,7 +20,18 @@
     {%- if item.affiliation %}
     <span class="planet-affil-badge planet-affil-badge--{{ item.affiliation }}">{{ item.affiliation }}</span>
     {%- endif %}
+    {#- A run of releases collapsed into this one card (groupReleaseRuns in
+        .eleventy.js). The count tells a reader up front that the stack below
+        is several versions, not one long summary. -#}
+    {%- if item.releaseCount %}
+    <span class="planet-release-count">{{ item.releaseCount }} releases</span>
+    {%- endif %}
+    {#- Grouped cards show the span of the run; single items show their date. -#}
+    {%- if item.dateRange and item.dateRange.from != item.dateRange.to %}
+    <span class="planet-item-date">{{ item.dateRange.from | prettyDateRange(item.dateRange.to) }}</span>
+    {%- else %}
     <span class="planet-item-date">{{ item.date | prettyDate }}</span>
+    {%- endif %}
   </div>
 
   {%- if item.type == "release" and item.projectId %}
@@ -52,8 +63,30 @@
   </div>
   {%- endif %}
 
-  {%- if item.description %}
+  {#- A grouped release card renders the per-version stack below instead of one
+      paragraph; `item.description` still holds the newest release's summary for
+      any non-template consumer, so guard on `releases` to avoid showing it
+      twice. -#}
+  {%- if item.description and not item.releases %}
   <p class="planet-item-desc">{{ item.description | markdownInline | safe }}</p>
+  {%- endif %}
+
+  {#- Several releases from one project in a short window: one card, but each
+      version keeps its own summary. Newest first. -#}
+  {%- if item.releases %}
+  <ol class="planet-release-stack">
+    {%- for rel in item.releases %}
+    <li class="planet-release">
+      <div class="planet-release-head">
+        <a class="planet-release-tag" href="{{ rel.url }}" target="_blank" rel="noopener noreferrer">{{ rel.tag }}</a>
+        <span class="planet-release-date">{{ rel.date | prettyDate }}</span>
+      </div>
+      {%- if rel.description %}
+      <p class="planet-release-desc">{{ rel.description | markdownInline | safe }}</p>
+      {%- endif %}
+    </li>
+    {%- endfor %}
+  </ol>
   {%- endif %}
 
   {#- Other ways into the same item — a recording alongside a session page, a
@@ -84,7 +117,8 @@
     {%- endif %}
     <!-- Primary CTA — label varies by type -->
     <a class="planet-item-read" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
-      {%- if item.type == "release" %}View release ↗
+      {%- if item.releases %}View latest release ↗
+      {%- elif item.type == "release" %}View release ↗
       {%- elif item.type == "video" %}Watch ↗
       {%- elif item.type == "paper" %}Read paper ↗
       {%- else %}Read ↗
