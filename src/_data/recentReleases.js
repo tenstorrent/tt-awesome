@@ -102,7 +102,10 @@ function resolveRunSummaries(rel, planetFeeds) {
     .filter((i) => i && i.type === "release" && i.description && i.url &&
                    i.url.startsWith(prefix) && i.url !== rel.url &&
                    (i.dateISO || "") < rel.publishedAt)
-    .sort((a, b) => (a.dateISO < b.dateISO ? 1 : -1));
+    // Three-way compare so equal timestamps return 0; a comparator that never
+    // returns 0 violates the sort contract and can reorder same-timestamp
+    // siblings, changing which releases the "Also in this run" list shows.
+    .sort((a, b) => (a.dateISO < b.dateISO ? 1 : a.dateISO > b.dateISO ? -1 : 0));
 
   const run = [];
   let anchor = rel.publishedAt;

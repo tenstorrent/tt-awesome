@@ -551,8 +551,15 @@ module.exports = function (eleventyConfig) {
     const out = passthrough;
     for (const releases of byProject.values()) {
       // Oldest first so a run reads chronologically and gaps chain forward.
-      const sorted = [...releases].sort((a, b) =>
-        String(a.dateISO || a.date || "") < String(b.dateISO || b.date || "") ? -1 : 1);
+      // Three-way compare: a comparator that never returns 0 violates the sort
+      // contract and can reorder same-timestamp releases, which would garble a
+      // run's "oldest → newest" title. Matches the tie handling in the
+      // planetItems sort below.
+      const key = (r) => String(r.dateISO || r.date || "");
+      const sorted = [...releases].sort((a, b) => {
+        const ka = key(a), kb = key(b);
+        return ka < kb ? -1 : ka > kb ? 1 : 0;
+      });
 
       let run = [sorted[0]];
       const flush = () => {

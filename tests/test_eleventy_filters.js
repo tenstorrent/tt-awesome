@@ -969,6 +969,26 @@ assert(typeof diversifiedFeatured === "function", "diversifiedFeatured filter no
     console.log("✓ groupReleaseRuns: an unparseable date does not merge");
   }
 
+  // Same-timestamp releases: the comparator must return 0 for ties so the
+  // run's "oldest → newest" title stays derived from the input order rather
+  // than from whatever an unstable sort produced.
+  {
+    const tied = ["v0.2.0", "v0.2.1", "v0.2.2", "v0.2.3", "v0.2.4"].map((tag) => ({
+      ...rel("tt-bio", tag, "2026-07-09"),
+      dateISO: "2026-07-09T00:00:00Z",   // identical timestamps
+    }));
+    const out = groupReleaseRuns(tied);
+    assert.strictEqual(out.length, 1);
+    assert.strictEqual(out[0].title, "tt-bio v0.2.0 → v0.2.4",
+      "tied timestamps must keep input order for the run's endpoints");
+    assert.deepStrictEqual(
+      out[0].releases.map((r) => r.tag),
+      ["v0.2.4", "v0.2.3", "v0.2.2", "v0.2.1", "v0.2.0"],
+      "stack stays newest-first under ties"
+    );
+    console.log("✓ groupReleaseRuns: identical timestamps keep a stable order");
+  }
+
   // Empty and missing input are both fine.
   {
     assert.deepStrictEqual(groupReleaseRuns([]), []);

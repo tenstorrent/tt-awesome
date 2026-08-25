@@ -203,12 +203,15 @@ def build_digest(items: list, *, kind: str, lede: str) -> str:
             f"published, or record a decline (see below): {listed}"
         )
 
+    # One part per project — heading and its list together. _clamp_body() drops
+    # whole parts, so splitting them would let it keep a heading whose list did
+    # not fit and emit a run of bare headings.
+    sections = []
     for group in group_by_project(items):
         span = _date_range(group["dates"])
         heading = _sanitize_heading(group["project"])
-        parts.append(f"#### {heading}" + (f" — {span}" if span else ""))
 
-        lines = []
+        lines = [f"#### {heading}" + (f" — {span}" if span else ""), ""]
         for item in group["items"]:
             label = _sanitize_heading(_short_label(item))
             url = item.get("url", "")
@@ -216,33 +219,43 @@ def build_digest(items: list, *, kind: str, lede: str) -> str:
             desc = _inline(item.get("description", ""), BODY_DESC_CHARS)
             flag = "" if item.get("approved", True) else " ⚠️ *awaiting approval*"
             lines.append(f"- **{linked}**{flag}" + (f" — {desc}" if desc else ""))
-        parts.append("\n".join(lines))
+        sections.append("\n".join(lines))
 
-    return _clamp_body(parts)
+    return _clamp_body(parts, sections)
 
 
-def _clamp_body(parts: list) -> str:
-    """Join the digest's sections, dropping trailing ones that exceed the cap.
+def _clamp_body(header: list, sections: list) -> str:
+    """Join header + project sections, dropping the tail that exceeds the cap.
 
-    Sections are (heading, list) pairs appended in newest-first order, so
-    trimming from the end drops the least-recent projects — the ones a reviewer
-    is least likely to be looking for. The header and lede always survive.
+    Args:
+        header: The count heading, lede, and approval callout. Always kept —
+            these are what orient a reviewer, and together they are small.
+        sections: One self-contained markdown block per project (its heading and
+            its release list), newest project first.
+
+    Sections are dropped from the END and the loop STOPS at the first one that
+    does not fit. Both matter: dropping from the end sheds the least-recent
+    projects, and stopping — rather than skipping and continuing — keeps the
+    digest a contiguous prefix. Skipping would let a later, smaller section
+    slip in after an earlier one was dropped, so "the newest N projects" would
+    silently become an arbitrary subset.
     """
-    body = "\n\n".join(parts)
+    body = "\n\n".join(header + sections)
     if len(body) <= BODY_MAX_CHARS:
         return body
 
-    kept = []
-    dropped = 0
-    for part in parts:
-        candidate = "\n\n".join(kept + [part])
+    kept = list(header)
+    shown = 0
+    for section in sections:
         # Leave room for the truncation notice we are about to append.
-        if len(candidate) > BODY_MAX_CHARS - 200 and kept:
-            dropped += 1 if part.startswith("#### ") else 0
-            continue
-        kept.append(part)
+        if len("\n\n".join(kept + [section])) > BODY_MAX_CHARS - 250:
+            break
+        kept.append(section)
+        shown += 1
+
+    dropped = len(sections) - shown
     kept.append(
-        f"_Digest truncated to stay under GitHub's body size limit"
+        "_Digest truncated to stay under GitHub's body size limit"
         + (f" — {dropped} more project(s) not shown." if dropped else ".")
         + " The full set of additions is in the file diff._"
     )

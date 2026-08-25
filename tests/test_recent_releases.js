@@ -177,6 +177,17 @@ const rel = {
     console.log("✓ resolveRunSummaries: other repos are excluded");
   }
 
+  // Ties: siblings sharing a timestamp must not reorder, or which releases the
+  // "Also in this run" list shows would depend on the sort implementation.
+  {
+    const tied = ["v0.3.0", "v0.2.0", "v0.1.0"].map((t) =>
+      feedItem(t, "2026-08-18T00:00:00Z"));
+    const run = resolveRunSummaries(latest, tied);
+    assert.deepStrictEqual(run.map((r) => r.tag), ["v0.3.0", "v0.2.0", "v0.1.0"],
+      "tied timestamps keep their input order");
+    console.log("✓ resolveRunSummaries: identical timestamps keep a stable order");
+  }
+
   // Missing data degrades to an empty list rather than throwing.
   {
     assert.deepStrictEqual(resolveRunSummaries({ repoUrl: "", publishedAt: "" }, []), []);

@@ -10,6 +10,7 @@ monkeypatched or exercised through its degradation path, because the digest
 must still render when the summarization backend is unreachable.
 """
 
+import re
 import sys
 from pathlib import Path
 
@@ -209,6 +210,56 @@ def test_build_digest_truncation_keeps_the_newest_projects():
     ]
     out = pd.build_digest(items, kind="release", lede="")
     assert "#### newest" in out
+
+
+def _oversized_batch(n=150):
+    """A batch large enough to trip BODY_MAX_CHARS, one project per item."""
+    return [rel(f"proj{i:03d} v{i}.0", "2026-08-%02d" % (1 + i % 28), "y" * 1200)
+            for i in range(n)]
+
+
+def test_build_digest_truncation_never_leaves_a_dangling_heading():
+    """A project's heading and its release list must be dropped together.
+
+    Clamping used to drop parts independently, so once the cap was reached the
+    small headings kept fitting while their lists were skipped — the tail of the
+    digest became a run of 15 bare headings.
+    """
+    out = pd.build_digest(_oversized_batch(), kind="release", lede="A lede.")
+    lines = out.splitlines()
+    for i, line in enumerate(lines):
+        if not line.startswith("#### "):
+            continue
+        following = next((l for l in lines[i + 1:] if l.strip()), "")
+        assert following.startswith("- "), (
+            f"heading {line!r} is not followed by its release list "
+            f"(got {following[:60]!r})"
+        )
+
+
+def test_build_digest_truncation_keeps_a_contiguous_prefix():
+    """Trimming stops at the first section that doesn't fit.
+
+    Skipping-and-continuing would let a later, smaller project slip in after an
+    earlier one was dropped, so "the newest N projects" would quietly become an
+    arbitrary subset.
+    """
+    items = _oversized_batch()
+    out = pd.build_digest(items, kind="release", lede="")
+    shown = [l[5:].split(" —")[0].strip() for l in out.splitlines()
+             if l.startswith("#### ")]
+    expected = [g["project"] for g in pd.group_by_project(items)][:len(shown)]
+    assert shown == expected, "shown projects must be the newest-first prefix"
+
+
+def test_build_digest_truncation_count_matches_what_was_dropped():
+    items = _oversized_batch()
+    out = pd.build_digest(items, kind="release", lede="")
+    shown = sum(1 for l in out.splitlines() if l.startswith("#### "))
+    total = len(pd.group_by_project(items))
+    m = re.search(r"— (\d+) more project\(s\) not shown", out)
+    assert m, "truncation notice must report a count"
+    assert int(m.group(1)) == total - shown
 
 
 def test_build_digest_does_not_truncate_a_normal_run():
