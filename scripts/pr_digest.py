@@ -65,6 +65,10 @@ BODY_DESC_CHARS = 600
 # and says how many projects it dropped rather than letting the API 422.
 BODY_MAX_CHARS = 60000
 
+# Separates this run's digest from the shared boilerplate in the PR body. The
+# workflows cut here to build the per-run comment; keep the two in sync.
+BOILERPLATE_MARKER = "<!-- tt-awesome-digest-boilerplate -->"
+
 _MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
@@ -100,12 +104,33 @@ def _date_range(dates: list) -> str:
     return f"{first}–{last}"
 
 
+# A complete inline markdown link at the start of a string: "[label](url)".
+_COMPLETE_LINK_RE = re.compile(r"\[[^\]]*\]\([^)]*\)")
+
+
+def _trim_dangling_link(text: str) -> str:
+    """Drop a partial markdown link left at the end of a clamped string.
+
+    Clamping can land inside "[label](url)", and markdown renders the fragment
+    literally — "[late deallocation markers in buffer" — rather than as a link.
+    22 of 297 real release summaries hit this at a 600-character clamp, so the
+    partial link is removed instead of shown broken.
+    """
+    open_idx = text.rfind("[")
+    if open_idx == -1:
+        return text
+    if _COMPLETE_LINK_RE.match(text, open_idx):
+        return text  # the last link is intact; nothing to trim
+    return text[:open_idx].rstrip(" ,;:([")
+
+
 def _inline(text: str, limit: int) -> str:
     """Collapse a summary to one line and clamp it for inline display.
 
     Release summaries are one paragraph but can contain newlines, and a raw
     newline inside a markdown list item breaks the item. Truncation lands on a
-    word boundary so a clamped summary doesn't end mid-token.
+    word boundary so a clamped summary doesn't end mid-token, and never inside
+    a markdown link (see _trim_dangling_link).
     """
     flat = " ".join((text or "").split())
     if len(flat) <= limit:
@@ -113,7 +138,7 @@ def _inline(text: str, limit: int) -> str:
     cut = flat[:limit]
     if " " in cut:
         cut = cut[:cut.rindex(" ")]
-    return cut.rstrip(" ,;:") + "…"
+    return _trim_dangling_link(cut).rstrip(" ,;:") + "…"
 
 
 def _sanitize_heading(text: str) -> str:
@@ -331,7 +356,10 @@ def write_pr_body(items: list, *, kind: str, lede: str, boilerplate: str,
 
     body = digest
     if boilerplate and boilerplate.strip():
-        body += "\n\n---\n\n" + boilerplate.strip()
+        # The marker, not the horizontal rule, is what the workflow's sed keys
+        # on when trimming the shared boilerplate off the per-run comment. A
+        # bare "---" would be ambiguous with one inside a summary or lede.
+        body += f"\n\n{BOILERPLATE_MARKER}\n\n---\n\n" + boilerplate.strip()
     body += "\n"
 
     out = Path(path)

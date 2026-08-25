@@ -14,7 +14,6 @@ import re
 import sys
 from pathlib import Path
 
-import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 import pr_digest as pd
@@ -268,6 +267,70 @@ def test_build_digest_does_not_truncate_a_normal_run():
              for i in range(20)]
     out = pd.build_digest(items, kind="release", lede="A lede.")
     assert "truncated" not in out.lower()
+
+
+# ── clamping never breaks markdown ──────────────────────────────────────────
+
+def test_inline_does_not_clamp_inside_a_markdown_link():
+    """A clamp landing mid-link would render as literal "[label" text."""
+    text = ("word " * 100) + "and then [late deallocation markers](https://example.com/pr/1)"
+    out = pd._inline(text, 520)
+    assert out.count("[") == out.count("]"), f"unbalanced brackets in {out[-60:]!r}"
+    # Every "](" that survives must have a ")" after it — no half-open target.
+    for idx in [i for i in range(len(out)) if out.startswith("](", i)]:
+        assert ")" in out[idx:], f"link target never closes in {out[idx:]!r}"
+
+
+def test_inline_drops_a_partial_link_entirely():
+    text = "a " * 300 + "[a broken link label](https://example.com/x)"
+    out = pd._inline(text, 610)
+    assert "[a broken link" not in out
+
+
+def test_inline_keeps_a_link_that_fits_whole():
+    text = "short [label](https://example.com/x) tail"
+    assert pd._inline(text, 600) == text
+
+
+def test_inline_leaves_a_complete_trailing_link_intact_when_clamping_after_it():
+    """Trimming must not eat a link that is fully inside the clamp."""
+    text = "[label](https://example.com/x) " + ("word " * 300)
+    out = pd._inline(text, 400)
+    assert out.startswith("[label](https://example.com/x)")
+
+
+def test_no_real_summary_clamps_into_broken_markdown():
+    """Regression over the actual feed: 22 of 297 used to break at 600 chars."""
+    import json
+    from pathlib import Path as P
+    feeds = json.loads((P(__file__).parent.parent / "src" / "_data"
+                        / "planet_feeds.json").read_text())
+    bad = []
+    for item in feeds:
+        desc = item.get("description") or ""
+        if not desc:
+            continue
+        clamped = pd._inline(desc, pd.BODY_DESC_CHARS)
+        if clamped.count("[") != clamped.count("]"):
+            bad.append(item.get("title"))
+    assert not bad, f"summaries clamping into broken markdown: {bad[:5]}"
+
+
+def test_write_pr_body_separates_boilerplate_with_the_marker(tmp_path):
+    """The workflows cut the per-run comment at this marker."""
+    out = tmp_path / "pr-body.md"
+    body = pd.write_pr_body([rel("tt-bio v0.3.0", "2026-08-18")], kind="release",
+                            lede="", boilerplate="Footer text.", path=out)
+    assert pd.BOILERPLATE_MARKER in body
+    before, _, after = body.partition(pd.BOILERPLATE_MARKER)
+    assert "tt-bio" in before and "Footer text." in after
+
+
+def test_write_pr_body_omits_the_marker_when_there_is_no_boilerplate(tmp_path):
+    out = tmp_path / "pr-body.md"
+    body = pd.write_pr_body([rel("tt-bio v0.3.0", "2026-08-18")], kind="release",
+                            lede="", boilerplate="", path=out)
+    assert pd.BOILERPLATE_MARKER not in body
 
 
 # ── build_manifest (the LLM's input) ────────────────────────────────────────

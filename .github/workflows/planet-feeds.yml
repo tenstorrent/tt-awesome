@@ -78,8 +78,8 @@ jobs:
             echo "<!-- tt-awesome-digest run:${GITHUB_RUN_ID} -->"
             echo "🤖 Run [\`${GITHUB_RUN_ID}\`](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}) added:"
             echo
-            # Strip the shared boilerplate (everything from the --- separator)
-            # so the comment is just this run's additions.
-            sed '/^---$/,$d' pr-body.md
+            # Strip the shared boilerplate (everything from the marker that
+            # pr_digest.py writes) so the comment is just this run's additions.
+            sed '/tt-awesome-digest-boilerplate/,$d' pr-body.md
           } > digest-comment.md
           gh pr comment "$PR" --body-file digest-comment.md
