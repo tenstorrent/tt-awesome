@@ -806,4 +806,208 @@ assert(typeof diversifiedFeatured === "function", "diversifiedFeatured filter no
   console.log("✓ diversifiedFeatured: pinned pick satisfies its tier in the mix pass");
 }
 
+// ── prettyDateRange tests ───────────────────────────────────────────────────
+{
+  const prettyDateRange = filters["prettyDateRange"];
+  assert(typeof prettyDateRange === "function", "prettyDateRange filter not registered");
+
+  // Same year: the year is printed once, on the later date.
+  assert.strictEqual(prettyDateRange("2026-08-17", "2026-08-24"), "Aug 17 – Aug 24, 2026");
+  // Spanning a year boundary: both years are needed.
+  assert.strictEqual(prettyDateRange("2025-12-30", "2026-01-02"),
+                     "Dec 30, 2025 – Jan 2, 2026");
+  // A single day collapses to one date.
+  assert.strictEqual(prettyDateRange("2026-08-17", "2026-08-17"), "Aug 17, 2026");
+  // Missing halves degrade to whichever date exists.
+  assert.strictEqual(prettyDateRange("", "2026-08-17"), "Aug 17, 2026");
+  assert.strictEqual(prettyDateRange("2026-08-17", ""), "Aug 17, 2026");
+  assert.strictEqual(prettyDateRange("", ""), "");
+  // An unparseable date passes through rather than rendering "undefined".
+  assert.strictEqual(prettyDateRange("nope", "nope"), "nope");
+  console.log("✓ prettyDateRange: single/same-year/cross-year spans and fallbacks");
+}
+
+// ── groupReleaseRuns tests ──────────────────────────────────────────────────
+// Bursts of same-project releases collapse into one card carrying each
+// version's own summary. See the helper in .eleventy.js for the window/cap
+// rationale.
+{
+  const groupReleaseRuns = filters["groupReleaseRuns"];
+  assert(typeof groupReleaseRuns === "function", "groupReleaseRuns filter not registered");
+
+  const rel = (project, tag, date, description = "Summary.") => ({
+    type: "release",
+    title: `${project} ${tag}`,
+    projectName: project,
+    projectId: project,
+    url: `https://github.com/tenstorrent/${project}/releases/tag/${tag}`,
+    description,
+    date,
+    dateISO: `${date}T12:00:00Z`,
+    affiliation: "official",
+  });
+
+  // A lone release must come through completely untouched — no `releases`
+  // array, no rewritten title.
+  {
+    const out = groupReleaseRuns([rel("tt-bio", "v1.0", "2026-08-18")]);
+    assert.strictEqual(out.length, 1);
+    assert.strictEqual(out[0].title, "tt-bio v1.0");
+    assert.strictEqual(out[0].releases, undefined, "single release gets no stack");
+    console.log("✓ groupReleaseRuns: a lone release passes through unchanged");
+  }
+
+  // Same-day burst → one card holding all three.
+  {
+    const out = groupReleaseRuns([
+      rel("tt-bio", "v0.2.0", "2026-07-09"),
+      rel("tt-bio", "v0.2.1", "2026-07-09"),
+      rel("tt-bio", "v0.2.2", "2026-07-09"),
+    ]);
+    assert.strictEqual(out.length, 1, "three same-day releases make one card");
+    assert.strictEqual(out[0].releaseCount, 3);
+    assert.strictEqual(out[0].title, "tt-bio v0.2.0 → v0.2.2");
+    console.log("✓ groupReleaseRuns: same-day burst collapses to one card");
+  }
+
+  // Chaining: each gap is measured against the previous release, so a run can
+  // span more than the window in total.
+  {
+    const out = groupReleaseRuns([
+      rel("tt-bio", "v0.2.0", "2026-07-09"),
+      rel("tt-bio", "v0.2.1", "2026-07-11"),
+      rel("tt-bio", "v0.2.2", "2026-07-13"),
+    ]);
+    assert.strictEqual(out.length, 1, "2-day gaps chain into one 4-day run");
+    assert.strictEqual(out[0].releaseCount, 3);
+    console.log("✓ groupReleaseRuns: consecutive gaps chain beyond the window");
+  }
+
+  // A gap wider than the window splits the run.
+  {
+    const out = groupReleaseRuns([
+      rel("tt-bio", "v0.2.0", "2026-07-01"),
+      rel("tt-bio", "v0.3.0", "2026-07-20"),
+    ]);
+    assert.strictEqual(out.length, 2, "19 days apart is not one run");
+    assert.ok(out.every((i) => i.releases === undefined));
+    console.log("✓ groupReleaseRuns: a gap beyond the window splits the run");
+  }
+
+  // The cap stops a pathological run from becoming one unbounded card.
+  {
+    const many = Array.from({ length: 11 }, (_, i) =>
+      rel("churn", `v0.0.${i}`, "2026-07-09"));
+    const out = groupReleaseRuns(many);
+    assert.strictEqual(out.length, 2, "11 same-day releases split at the cap of 8");
+    const counts = out.map((i) => i.releaseCount || 1).sort((a, b) => b - a);
+    assert.deepStrictEqual(counts, [8, 3]);
+    console.log("✓ groupReleaseRuns: the max-group cap splits an oversized run");
+  }
+
+  // Different projects never merge, even on the same day.
+  {
+    const out = groupReleaseRuns([
+      rel("tt-bio", "v1.0", "2026-08-18"),
+      rel("tt-metal", "v2.0", "2026-08-18"),
+    ]);
+    assert.strictEqual(out.length, 2, "two projects stay two cards");
+    console.log("✓ groupReleaseRuns: different projects are never merged");
+  }
+
+  // Every release keeps its own summary, newest first.
+  {
+    const out = groupReleaseRuns([
+      rel("tt-bio", "v0.3.0", "2026-08-18", "The older one."),
+      rel("tt-bio", "v0.4.0", "2026-08-19", "The newer one."),
+    ]);
+    assert.strictEqual(out[0].releases.length, 2);
+    assert.deepStrictEqual(out[0].releases.map((r) => r.tag), ["v0.4.0", "v0.3.0"]);
+    assert.strictEqual(out[0].releases[0].description, "The newer one.");
+    assert.strictEqual(out[0].releases[1].description, "The older one.");
+    console.log("✓ groupReleaseRuns: per-release summaries are kept, newest first");
+  }
+
+  // The card's identity comes from the newest release — that's where a reader
+  // clicking through should land.
+  {
+    const out = groupReleaseRuns([
+      rel("tt-bio", "v0.3.0", "2026-08-18"),
+      rel("tt-bio", "v0.4.0", "2026-08-19"),
+    ]);
+    assert.ok(out[0].url.endsWith("v0.4.0"), "grouped card links the newest release");
+    assert.strictEqual(out[0].dateISO, "2026-08-19T12:00:00Z");
+    assert.deepStrictEqual(out[0].dateRange, { from: "2026-08-18", to: "2026-08-19" });
+    console.log("✓ groupReleaseRuns: the newest release supplies the card identity");
+  }
+
+  // Non-release items are never touched.
+  {
+    const paper = { type: "paper", title: "A Paper", date: "2026-08-18",
+                    dateISO: "2026-08-18T00:00:00Z", url: "https://arxiv.org/abs/1" };
+    const out = groupReleaseRuns([paper, rel("tt-bio", "v1.0", "2026-08-18")]);
+    assert.strictEqual(out.length, 2);
+    assert.ok(out.includes(paper), "the paper object passes through by reference");
+    console.log("✓ groupReleaseRuns: non-release items pass through untouched");
+  }
+
+  // A release with no projectName can't be grouped safely — pass it through.
+  {
+    const orphan = { type: "release", title: "mystery v1.0", date: "2026-08-18",
+                     dateISO: "2026-08-18T00:00:00Z", url: "https://example.com/r" };
+    const out = groupReleaseRuns([orphan]);
+    assert.strictEqual(out.length, 1);
+    assert.strictEqual(out[0].releases, undefined);
+    console.log("✓ groupReleaseRuns: a release without projectName is left alone");
+  }
+
+  // An unparseable date must not silently merge into a neighbouring run.
+  {
+    const broken = rel("tt-bio", "v9.9", "not-a-date");
+    const out = groupReleaseRuns([rel("tt-bio", "v1.0", "2026-08-18"), broken]);
+    assert.strictEqual(out.length, 2, "a bad date never joins a run");
+    console.log("✓ groupReleaseRuns: an unparseable date does not merge");
+  }
+
+  // Same-timestamp releases: the comparator must return 0 for ties so the
+  // run's "oldest → newest" title stays derived from the input order rather
+  // than from whatever an unstable sort produced.
+  {
+    const tied = ["v0.2.0", "v0.2.1", "v0.2.2", "v0.2.3", "v0.2.4"].map((tag) => ({
+      ...rel("tt-bio", tag, "2026-07-09"),
+      dateISO: "2026-07-09T00:00:00Z",   // identical timestamps
+    }));
+    const out = groupReleaseRuns(tied);
+    assert.strictEqual(out.length, 1);
+    assert.strictEqual(out[0].title, "tt-bio v0.2.0 → v0.2.4",
+      "tied timestamps must keep input order for the run's endpoints");
+    assert.deepStrictEqual(
+      out[0].releases.map((r) => r.tag),
+      ["v0.2.4", "v0.2.3", "v0.2.2", "v0.2.1", "v0.2.0"],
+      "stack stays newest-first under ties"
+    );
+    console.log("✓ groupReleaseRuns: identical timestamps keep a stable order");
+  }
+
+  // Empty and missing input are both fine.
+  {
+    assert.deepStrictEqual(groupReleaseRuns([]), []);
+    assert.deepStrictEqual(groupReleaseRuns(null), []);
+    console.log("✓ groupReleaseRuns: empty and null input return an empty list");
+  }
+
+  // End to end through planetItems: the burst arrives as one card and the
+  // page's release count reflects the grouping.
+  {
+    const feeds = [
+      rel("tt-bio", "v0.3.0", "2026-08-18"),
+      rel("tt-bio", "v0.4.0", "2026-08-19"),
+    ].map((i) => ({ ...i, approved: true, source: "github" }));
+    const out = planetItems([], [], feeds);
+    assert.strictEqual(out.length, 1, "planetItems groups the burst");
+    assert.strictEqual(out[0].releaseCount, 2);
+    console.log("✓ planetItems: release bursts arrive grouped");
+  }
+}
+
 console.log("\nAll eleventy filter tests passed ✓");

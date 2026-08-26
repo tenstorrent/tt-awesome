@@ -37,6 +37,28 @@ function buildFeedContentHtml(item) {
   // 1. Description / summary — block markdown (paragraphs preserved).
   if (item.description) parts.push(mdBlock.render(item.description));
 
+  // 1b. Earlier releases from the same run. The release feed carries one entry
+  //     per project (its latest stable), so when a project shipped several
+  //     versions in a few days the older ones never reached a subscriber at
+  //     all. Attaching them here means the feed says the same thing the planet
+  //     page's grouped card does. See runSummaries in _data/recentReleases.js.
+  const run = (item.runSummaries || []).filter((r) => r && r.description);
+  if (run.length) {
+    const rows = run
+      .map((r) => {
+        const tag = escapeHtml(r.tag || "");
+        const heading = /^https?:\/\//i.test(r.url || "")
+          ? `<a href="${escapeHtml(r.url)}">${tag}</a>`
+          : tag;
+        const when = r.date ? ` <em>(${escapeHtml(r.date)})</em>` : "";
+        // Inline rendering: these are one-paragraph summaries, and a nested
+        // block <p> inside a <li> flattens badly in plain-text readers.
+        return `<li><strong>${heading}</strong>${when} — ${mdInline.renderInline(r.description)}</li>`;
+      })
+      .join("\n");
+    parts.push(`<p><strong>Also in this run:</strong></p>\n<ul>\n${rows}\n</ul>`);
+  }
+
   // 2. Links — every typed link as a labeled anchor. Label falls back to a
   //    title-cased link type (e.g. "article" → "Article").
   // Defense-in-depth: only render http(s) links. Entry/release URLs are
@@ -187,6 +209,26 @@ module.exports = function (eleventyConfig) {
     if (parts.length < 3) return dateStr;
     const [y, m, d] = parts;
     return `${months[parseInt(m, 10) - 1]} ${parseInt(d, 10)}, ${y}`;
+  });
+
+  // Format a date span for a grouped release card: "Aug 17 – Aug 24, 2026"
+  // rather than the doubled-year "Aug 17, 2026 – Aug 24, 2026". Falls back to a
+  // single prettyDate when the two dates match or either is missing.
+  eleventyConfig.addFilter("prettyDateRange", (from, to) => {
+    const pretty = (d) => {
+      const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      const parts = String(d || "").split("-");
+      if (parts.length < 3) return d || "";
+      const [y, m, day] = parts;
+      const name = months[parseInt(m, 10) - 1];
+      return name ? `${name} ${parseInt(day, 10)}, ${y}` : d;
+    };
+    if (!from || !to || from === to) return pretty(to || from);
+    // Same year: the year appears once, on the later date.
+    if (String(from).slice(0, 4) === String(to).slice(0, 4)) {
+      return `${pretty(from).replace(/,\s*\d{4}$/, "")} – ${pretty(to)}`;
+    }
+    return `${pretty(from)} – ${pretty(to)}`;
   });
 
   // Return the top entry for a category (featured first, then by sort order).
@@ -443,11 +485,144 @@ module.exports = function (eleventyConfig) {
     return items;
   });
 
+  // ── Grouping bursts of releases into one card ──────────────────────────────
+  // A project that ships five versions in three days used to produce five
+  // near-identical cards, burying everything else on the planet page. Those
+  // releases are one push of work, so they render as one card carrying each
+  // version's own summary.
+  //
+  // Both knobs are deliberate:
+  //   WINDOW — the maximum gap between consecutive releases that still counts
+  //     as the same run. Chained, not absolute: tt-bio's v0.2.0–v0.2.4 (all
+  //     one day) plus v0.2.5 two days later are one run of six. Measured over
+  //     the release history, 3 days collapses 43 bursts covering 116 of 297
+  //     items — tight enough that a project's steady weekly cadence still
+  //     gets a card per release.
+  //   MAX — a hard cap so a pathological run can never render as one
+  //     unbounded wall of text. Hitting it starts a new group.
+  const RELEASE_RUN_WINDOW_DAYS = 3;
+  const RELEASE_RUN_MAX = 8;
+
+  // Whole days between two planet-item dates. Compares the YYYY-MM-DD parts via
+  // Date.UTC so the result never shifts with the build machine's timezone.
+  function releaseDayGap(a, b) {
+    const day = (s) => {
+      const [y, m, d] = String(s || "").slice(0, 10).split("-").map(Number);
+      return Number.isFinite(y) && Number.isFinite(m) && Number.isFinite(d)
+        ? Date.UTC(y, m - 1, d) / 86400000
+        : NaN;
+    };
+    const gap = Math.abs(day(b) - day(a));
+    // An unparseable date must never merge into a run — NaN comparisons are
+    // always false, so returning Infinity makes that explicit.
+    return Number.isFinite(gap) ? gap : Infinity;
+  }
+
+  // The part of a release title that isn't the project name. Release titles are
+  // "<project> <tag>" (summarize_releases.py builds them that way), so stripping
+  // the project leaves the bare tag — all a grouped card needs to show per row.
+  function releaseTag(item) {
+    const title = String(item.title || "").trim();
+    const project = String(item.projectName || "").trim();
+    if (project && title.startsWith(project + " ")) {
+      return title.slice(project.length + 1).trim() || title;
+    }
+    return title;
+  }
+
+  // Collapse runs of same-project releases into single items. Non-release items,
+  // releases with no projectName, and lone releases pass through untouched.
+  // Returns a new array; the caller re-sorts afterwards.
+  function groupReleaseRuns(items, opts) {
+    const windowDays = (opts && opts.windowDays) || RELEASE_RUN_WINDOW_DAYS;
+    const maxGroup = (opts && opts.maxGroup) || RELEASE_RUN_MAX;
+
+    const passthrough = [];
+    const byProject = new Map();
+    for (const item of items || []) {
+      if (!item || item.type !== "release" || !item.projectName) {
+        passthrough.push(item);
+        continue;
+      }
+      if (!byProject.has(item.projectName)) byProject.set(item.projectName, []);
+      byProject.get(item.projectName).push(item);
+    }
+
+    const out = passthrough;
+    for (const releases of byProject.values()) {
+      // Oldest first so a run reads chronologically and gaps chain forward.
+      // Three-way compare: a comparator that never returns 0 violates the sort
+      // contract and can reorder same-timestamp releases, which would garble a
+      // run's "oldest → newest" title. Matches the tie handling in the
+      // planetItems sort below.
+      const key = (r) => String(r.dateISO || r.date || "");
+      const sorted = [...releases].sort((a, b) => {
+        const ka = key(a), kb = key(b);
+        return ka < kb ? -1 : ka > kb ? 1 : 0;
+      });
+
+      let run = [sorted[0]];
+      const flush = () => {
+        out.push(run.length === 1 ? run[0] : mergeReleaseRun(run));
+        run = [];
+      };
+      for (const rel of sorted.slice(1)) {
+        const gap = releaseDayGap(run[run.length - 1].dateISO || run[run.length - 1].date,
+                                  rel.dateISO || rel.date);
+        if (gap <= windowDays && run.length < maxGroup) {
+          run.push(rel);
+        } else {
+          flush();
+          run = [rel];
+        }
+      }
+      if (run.length) flush();
+    }
+    return out;
+  }
+
+  // Fold a run of 2+ releases into one card-shaped item. The newest release
+  // supplies the card's identity (url, date, project link, affiliation) because
+  // that's what a reader clicking through wants; every release in the run keeps
+  // its own summary in `releases`, newest first.
+  function mergeReleaseRun(run) {
+    const chronological = [...run];                      // oldest → newest
+    const newest = chronological[chronological.length - 1];
+    const oldest = chronological[0];
+
+    return {
+      ...newest,
+      // "tt-bio v0.2.0 → v0.2.5" — the span of the run, oldest to newest.
+      title: `${newest.projectName} ${releaseTag(oldest)} → ${releaseTag(newest)}`,
+      releaseCount: chronological.length,
+      // Newest first: the most recent release is what a reader wants on top.
+      releases: [...chronological].reverse().map((rel) => ({
+        tag: releaseTag(rel),
+        title: rel.title || "",
+        url: rel.url || "",
+        date: rel.date || "",
+        dateISO: rel.dateISO || "",
+        description: rel.description || "",
+      })),
+      // `description` stays the newest summary so any consumer reading it still
+      // gets meaningful text; the grouped card renders the stack instead of this
+      // paragraph, so it isn't shown twice (see _includes/planet-item.njk).
+      description: newest.description || "",
+      dateRange: { from: oldest.date || "", to: newest.date || "" },
+    };
+  }
+
+  // Exposed as a filter purely so tests/test_eleventy_filters.js can reach it
+  // without booting Eleventy — templates use planetItems, which calls it.
+  eleventyConfig.addFilter("groupReleaseRuns", groupReleaseRuns);
+
   // Builds the Planet Tenstorrent item list from three sources:
   //   entries        — article-type links from curated entry JSONs
   //   recentReleases — stable releases (dev builds filtered out)
   //   externalFeeds  — approved items from planet_feeds.json (YouTube, arXiv, etc.)
   // Returns items sorted newest-first; URLs are deduplicated across all sources.
+  // Bursts of same-project releases are collapsed into single cards — see
+  // groupReleaseRuns above.
   eleventyConfig.addFilter("planetItems", (entries, recentReleases, externalFeeds) => {
     const ARTICLE_TYPES = new Set(["article", "lesson", "paper", "talk", "video", "demo"]);
     const items = [];
@@ -555,9 +730,14 @@ module.exports = function (eleventyConfig) {
       });
     }
 
+    // Collapse bursts of same-project releases into one card each. Done after
+    // every source has contributed and been URL-deduplicated, so a run made of
+    // summarized items plus a recentReleases fallback still groups as one run.
+    const grouped = groupReleaseRuns(items);
+
     // Sort all items newest-first
-    items.sort((a, b) => (a.dateISO < b.dateISO ? 1 : a.dateISO > b.dateISO ? -1 : 0));
-    return items;
+    grouped.sort((a, b) => (a.dateISO < b.dateISO ? 1 : a.dateISO > b.dateISO ? -1 : 0));
+    return grouped;
   });
 
   // Extract "YYYY-MM" from a "YYYY-MM-DD" (or "YYYY-MM") date string.

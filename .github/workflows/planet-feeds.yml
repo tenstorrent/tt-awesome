@@ -29,7 +29,18 @@ jobs:
           SUMMARY_PROVIDER: ${{ vars.SUMMARY_PROVIDER }}
           SUMMARY_MODEL: ${{ vars.SUMMARY_MODEL }}
         run: python3 scripts/fetch_planet_feeds.py
+
+      # fetch_planet_feeds.py writes pr-body.md (digest + template) only when it
+      # added something. Fall back to the bare template otherwise, so the action
+      # always has a body-path to read.
+      - name: Prepare PR body
+        run: |
+          if [ ! -f pr-body.md ]; then
+            cp .github/pr-templates/planet-feeds.md pr-body.md
+          fi
+
       - name: Create pull request if changed
+        id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
           add-paths: src/_data/planet_feeds.json
@@ -41,20 +52,34 @@ jobs:
           branch: "chore/nightly-planet-feeds"
           delete-branch: true
           title: "chore: update planet feeds"
-          body: |
-            Automated planet feed refresh.
+          # Body comes from pr-body.md — this run's digest of what it added (with
+          # anything awaiting approval called out), or the bare template when
+          # nothing was added. The boilerplate lives in
+          # .github/pr-templates/planet-feeds.md, shared with pr_digest.py so
+          # there is only one copy of it.
+          body-path: pr-body.md
 
-            New items from Reddit and untrusted community feeds start as `approved: false`.
-            Flip any you want to publish to `true`, then merge. Items already `approved: true`
-            (YouTube, arXiv) are safe to merge without review.
-
-            Stored approval flags are preserved across runs, so an item left `approved: false`
-            stays unpublished and won't reappear in a later diff. For posts you've decided
-            against for good, record the decision instead of leaving them pending:
-
-            ```
-            python3 scripts/decline_planet_item.py <url> [<url> …] --reason off-topic
-            ```
-
-            That moves them to `src/_data/planet_declined.json`, and the fetcher treats those
-            URLs as known so the source never re-proposes them.
+      # The branch is reused across runs, so each run's body-path REPLACES the
+      # previous run's digest. Post it as a comment too: a PR that accumulates
+      # several runs before merge then keeps the history of what each one added.
+      - name: Comment this run's digest on the PR
+        if: ${{ steps.cpr.outputs.pull-request-number && hashFiles('pr-body.md') != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          # Only comment when this run actually produced a digest — the bare
+          # template carries no heading and is not worth a notification.
+          if ! grep -q '^### ' pr-body.md; then
+            echo "No digest in pr-body.md (nothing new); skipping comment."
+            exit 0
+          fi
+          {
+            echo "<!-- tt-awesome-digest run:${GITHUB_RUN_ID} -->"
+            echo "🤖 Run [\`${GITHUB_RUN_ID}\`](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}) added:"
+            echo
+            # Strip the shared boilerplate (everything from the marker that
+            # pr_digest.py writes) so the comment is just this run's additions.
+            sed '/tt-awesome-digest-boilerplate/,$d' pr-body.md
+          } > digest-comment.md
+          gh pr comment "$PR" --body-file digest-comment.md
