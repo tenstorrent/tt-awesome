@@ -473,6 +473,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by Yuning Liang, Petr Penzin — Yuning Liang and Petr Penzin on closing the AI acceleration gap in the browser on RISC-V: how WebNN and WebLLM can reach efficient on-device inference using the RVV 1.0 variable-length vector ISA and Tenstorrent hardware underneath.
   [🎤 FOSDEM 2026 — session page](https://fosdem.org/2026/schedule/event/E7WQQX-webnn_and_webllm_on_risc-v_closing_the_ai_acceleration_gap_with_rvv_and_tenstorr/) · [🎥 Recording (MP4)](https://video.fosdem.org/2026/ud2120/E7WQQX-webnn_and_webllm_on_risc-v_closing_the_ai_acceleration_gap_with_rvv_and_tenstorr.mp4)
 
+- **Exploring spectral element methods on the Tenstorrent RISC-V accelerator** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by Daniyal Arshad, Nick Brown — The growing availability of commodity RISC-V hardware has sparked interest in its use for High Performance Computing (HPC), with PCIe accelerator cards offering a practical near-term pathway to adoption. The Tenstorrent Wormhole is one example, with dedicated vector and matrix units across 128 Tensix cores, and is widely available. In this paper, we explore porting the AX kernel of Nekbone, a widely used HPC mini-application derived from the Gordon Bell Prize-winning Nek5000 spectral element solver, onto the Wormhole accelerator.
+  [📄 paper](https://arxiv.org/abs/2608.22964v1)
+
 - **[tt-bh-linux](https://github.com/tenstorrent-riscv-software/tt-bh-linux)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Linux demo for the Tenstorrent Blackhole P100/P150 card RISC-V cores. Boot a real Linux kernel on the 16 high-performance RISC-V cores built into the Blackhole chip.
   [📦 repo](https://github.com/tenstorrent-riscv-software/tt-bh-linux) · [🌐 website](https://tenstorrent.com/hardware/blackhole)
