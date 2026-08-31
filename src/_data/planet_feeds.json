@@ -28,6 +28,20 @@
     "affiliation": "official"
   },
   {
+    "type": "paper",
+    "source": "arxiv",
+    "approved": true,
+    "title": "Great Expectations: Benchmarking the Real-World Performance of RVV 1.0 in HPC",
+    "url": "https://arxiv.org/abs/2608.28097v1",
+    "description": "Following the ratification of the RISC-V Vector Extension (RVV 1.0), new commercially available silicon has been adopting the extension. This paper revisits the question of RISC-V viability for High-Performance-Computing (HPC) by benchmarking the latest RVV 1.0-capable hardware (SiFive X280 (Tenstorrent Blackhole), SpacemiT X60 (K1) and X100/A100 (K3), and T-Head C920v2 (Sophon SG2044)). We assess these platforms using standard HPC benchmarks (BLAS, FFTW, HPL, HPCG) and synthetic workloads (STREAM, FMA throughput) and compare them to a state-of-the-art HPC ARM64 chip (NVIDIA Grace). Our findings show that while RVV 1.0 delivers significant performance improvements over scalar execution, hardware-specific implementation challenges remain. We detail these performance characteristics and…",
+    "date": "2026-08-28",
+    "dateISO": "2026-08-28T09:02:51Z",
+    "label": "arXiv:2608.28097",
+    "projectName": "arXiv",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
