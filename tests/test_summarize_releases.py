@@ -911,3 +911,53 @@ def test_fetch_compare_log_returns_none_when_all_commits_are_merges():
     payload = _compare_payload([], merges=4)
     with patch("urllib.request.urlopen", return_value=_mock_urlopen(payload)):
         assert sr.fetch_compare_log("o", "v1...v2") is None
+
+
+# Compare links get shared with the view options GitHub puts in the URL bar, so
+# a body can easily carry "?diff=split" or a "#diff-<sha>" anchor. Those belong
+# to the *page*, not to the basehead spec, and interpolating them into the API
+# path yields a 404 and a silently skipped release.
+
+def test_parse_compare_url_strips_query_string():
+    assert sr.parse_compare_url(
+        "https://github.com/zk4x/zyx/compare/v0.13.0...v0.14.0?diff=split"
+    ) == ("zk4x/zyx", "v0.13.0...v0.14.0")
+
+
+def test_parse_compare_url_strips_fragment():
+    assert sr.parse_compare_url(
+        "https://github.com/zk4x/zyx/compare/v0.13.0...v0.14.0#diff-abc123"
+    ) == ("zk4x/zyx", "v0.13.0...v0.14.0")
+
+
+def test_parse_compare_url_strips_query_and_fragment_together():
+    assert sr.parse_compare_url(
+        "https://github.com/o/r/compare/v1...v2?w=1&diff=unified#files_bucket"
+    ) == ("o/r", "v1...v2")
+
+
+def test_parse_compare_url_keeps_slashes_in_branch_names():
+    # Fork and branch comparisons are legitimate basehead specs and must survive
+    # intact — the API takes them as-is.
+    assert sr.parse_compare_url(
+        "https://github.com/o/r/compare/main...fork:feature/new-thing"
+    ) == ("o/r", "main...fork:feature/new-thing")
+
+
+def test_parse_compare_url_rejects_path_traversal():
+    # A release body is attacker-influenced text: any repo owner in the list
+    # writes it. A spec containing a '..' path segment would let the assembled
+    # API URL climb out of /compare/ and hit a different endpoint. The '...'
+    # basehead separator must still be fine.
+    assert sr.parse_compare_url("https://github.com/o/r/compare/../../../users/x") is None
+    assert sr.parse_compare_url("https://github.com/o/r/compare/v1...v2/../../x") is None
+    assert sr.parse_compare_url(
+        "https://github.com/o/r/compare/v1...v2"
+    ) == ("o/r", "v1...v2")
+
+
+def test_body_defers_to_compare_detects_link_with_query_string():
+    body = "**Full Changelog**: https://github.com/o/r/compare/v1...v2?diff=split"
+    url = sr.body_defers_to_compare(body)
+    assert url is not None
+    assert sr.parse_compare_url(url) == ("o/r", "v1...v2")

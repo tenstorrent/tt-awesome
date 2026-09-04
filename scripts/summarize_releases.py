@@ -245,17 +245,33 @@ def body_defers_to_compare(body: str) -> str | None:
 def parse_compare_url(url: str) -> tuple[str, str] | None:
     """Split a compare URL into ``(repo, spec)``, or None if it is not one.
 
-    ``spec`` is GitHub's basehead expression (``v0.13.0...v0.14.0``) and is
-    passed through to the API untouched, so fork comparisons (``owner:branch``)
-    keep working.
+    ``spec`` is GitHub's basehead expression (``v0.13.0...v0.14.0``), taken
+    verbatim from the URL path so fork and branch comparisons
+    (``main...fork:feature/x``) survive intact — the API accepts them as-is,
+    and because the spec comes out of a URL path it is already percent-encoded
+    where it needs to be. Re-quoting it here would double-encode any ``%2F``.
+
+    The query string and fragment are dropped first. Compare links get shared
+    straight from the browser's URL bar, carrying view state such as
+    ``?diff=split`` or a ``#diff-<sha>`` anchor; those describe the *page*, not
+    the basehead, and interpolating them into the API path yields a 404 — which
+    surfaces as a release quietly skipped rather than an error worth chasing.
     """
-    m = _COMPARE_URL_RE.match((url or "").strip())
+    cleaned = (url or "").strip().split("#", 1)[0].split("?", 1)[0]
+    m = _COMPARE_URL_RE.match(cleaned)
     if not m:
         return None
     repo = m.group(1)
     if repo.endswith(".git"):
         repo = repo[:-4]
-    return repo, m.group(2)
+    spec = m.group(2).rstrip("/")
+    # Release bodies are attacker-influenced: every repo owner in the list
+    # writes their own. Refuse a spec whose path segments could climb out of
+    # /compare/ and address some other API endpoint. The "..." basehead
+    # separator is not a path segment, so ordinary specs are unaffected.
+    if not spec or any(seg in (".", "..") for seg in spec.split("/")):
+        return None
+    return repo, spec
 
 
 def fetch_compare_log(repo: str, spec: str, cap: int = COMPARE_COMMIT_CAP) -> str | None:
