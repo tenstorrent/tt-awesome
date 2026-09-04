@@ -1,0 +1,29 @@
+{
+  "id": "tt-finetune",
+  "name": "tt-finetune",
+  "description": "Parameter-efficient fine-tuning — LoRA, rsLoRA, LoRA+, DoRA, and IA3 — on a single Blackhole P150a, behind a Hugging Face/PEFT-style trainer API. Ships as a self-contained Linux wheel bundling the TT-XLA/PJRT plugin, TTNN, and TT-Metal user-space libraries, so no source checkout, Docker, or PYTHONPATH setup is required. Includes a static planner that reports memory admission before you compile, deterministic checkpoint/resume, and standard PEFT adapter export.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "fine-tuning",
+    "training",
+    "lora",
+    "peft",
+    "blackhole"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/danielisraeli2409-jpg/tt-finetune"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "danielisraeli2409-jpg",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-09-04"
+}

@@ -41,10 +41,13 @@ PR_BODY_OUT = Path(os.environ.get("PR_BODY_PATH") or (ROOT / "pr-body.md"))
 PR_BODY_TEMPLATE = ROOT / ".github" / "pr-templates" / "github-metadata.md"
 
 MODEL = "claude-haiku-4-5-20251001"  # Anthropic-direct default; see llm_client
-SPARSE_LIMIT = 120  # characters; bodies shorter than this are skipped.
-# Set to 120 (down from 150) so terse-but-substantive notes — a few real
-# bullet points, e.g. ttsim v1.8.4's ~134-char changelog — still get
-# summarized, while one-liners like "Bug fixes." remain filtered out.
+SPARSE_LIMIT = 70  # characters; bodies shorter than this are skipped.
+# History: 150 → 120 (terse-but-substantive notes, e.g. ttsim v1.8.4's ~134-char
+# changelog, were being dropped) → 70. The 70 step was prompted by tt-finetune's
+# 86-char "Blackhole P150a Demo" release: a body can be a single sentence and
+# still be the only announcement a real artifact ever gets. One-liners like
+# "Bug fixes." (10 chars) stay filtered, but the margin above them is now thin —
+# if generic blurbs start showing up on the planet, this is the knob.
 
 TOKEN = os.environ.get("ANTHROPIC_API_KEY", "")     # LLM calls when SUMMARY_PROVIDER=anthropic
 GH_TOKEN = os.environ.get("GITHUB_TOKEN", "")       # GitHub REST API (release bodies, changelogs)
@@ -183,6 +186,133 @@ def body_defers_to_changelog(body: str) -> bool:
     section instead.
     """
     return bool(_DEFERS_RE.search(body or ""))
+
+
+# ── Bodies that are nothing but GitHub's "Full Changelog" link ───────────────
+# GitHub appends a "**Full Changelog**: <compare url>" line to auto-generated
+# release notes. When that line is the *whole* body, the release carries no
+# prose at all — and because a compare URL runs ~70 characters on its own, it
+# sails past SPARSE_LIMIT on URL length while giving the model nothing to work
+# from but the version numbers. zyx v0.14.0 is exactly this: 73 characters, all
+# of them the link.
+#
+# Rather than publish an invented blurb or widen the gate, we follow the link
+# and summarize the commit subjects behind it. Same move as
+# body_defers_to_changelog: the body says where the changes are, so go there.
+# Commit subjects are rougher than curated notes — often lowercase, sometimes
+# telegraphic — but they are what actually changed, which is the property that
+# matters.
+
+# The compare URL as it appears in a body. The repo is captured so a link that
+# points at a *different* repo than the release still resolves correctly.
+_COMPARE_URL_RE = re.compile(
+    r"https://(?:www\.)?github\.com/([^/\s]+/[^/\s]+?)/compare/([^\s>)\]]+)", re.I
+)
+
+# A whole line that is just the "Full Changelog" pointer. Tolerates the bold
+# markers GitHub emits, an angle-bracket autolink, quoting, and a missing colon.
+_FULL_CHANGELOG_LINE_RE = re.compile(
+    r"^[ \t>*_-]*\**\s*full\s+changelog\s*\**\s*:?\s*<?"
+    r"(https://\S*?/compare/[^\s>)\]]+)>?[ \t]*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+# How many commit subjects to hand the model. The compare API returns at most
+# 250 commits per response; 50 is well inside that and already more than enough
+# for a 2-5 sentence summary — past that the list is noise the model pays for.
+COMPARE_COMMIT_CAP = 50
+
+
+def body_defers_to_compare(body: str) -> str | None:
+    """Return the compare URL when a body is *only* a "Full Changelog" pointer.
+
+    Returns None when the body has real notes alongside the link — GitHub's
+    generated "What's Changed" list is the common case, and there is already
+    something worth summarizing there, so crawling would be wasted work.
+
+    Unlike body_defers_to_changelog this returns the URL rather than a bool,
+    because the caller's very next need is the link itself.
+    """
+    m = _FULL_CHANGELOG_LINE_RE.search(body or "")
+    if not m:
+        return None
+    remainder = _FULL_CHANGELOG_LINE_RE.sub("", body).strip()
+    if not is_sparse(remainder):
+        return None
+    return m.group(1)
+
+
+def parse_compare_url(url: str) -> tuple[str, str] | None:
+    """Split a compare URL into ``(repo, spec)``, or None if it is not one.
+
+    ``spec`` is GitHub's basehead expression (``v0.13.0...v0.14.0``) and is
+    passed through to the API untouched, so fork comparisons (``owner:branch``)
+    keep working.
+    """
+    m = _COMPARE_URL_RE.match((url or "").strip())
+    if not m:
+        return None
+    repo = m.group(1)
+    if repo.endswith(".git"):
+        repo = repo[:-4]
+    return repo, m.group(2)
+
+
+def fetch_compare_log(repo: str, spec: str, cap: int = COMPARE_COMMIT_CAP) -> str | None:
+    """Fetch a compare view and render its commit subjects for summarization.
+
+    Returns None — and the caller falls back to skipping the release — on any
+    API failure, or when what comes back is too thin to be worth a model call.
+
+    Merge commits are dropped (they describe branch topology, not changes) and
+    repeated subjects collapse to one, because working branches restate the
+    same subject across several commits: zyx v0.14.0 carries "work on multi
+    head attention" twice.
+    """
+    url = f"https://api.github.com/repos/{repo}/compare/{spec}"
+    try:
+        with urllib.request.urlopen(_gh_request(url), timeout=10) as r:
+            data = json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        print(f"  WARN fetch_compare_log {repo} {spec}: HTTP {e.code}", file=sys.stderr)
+        return None
+    except Exception as e:
+        print(f"  WARN fetch_compare_log {repo} {spec}: {e}", file=sys.stderr)
+        return None
+
+    subjects, seen = [], set()
+    for c in data.get("commits") or []:
+        if len(c.get("parents") or []) > 1:
+            continue
+        subject = ((c.get("commit") or {}).get("message") or "").split("\n")[0].strip()
+        if not subject:
+            continue
+        key = subject.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        subjects.append(subject)
+
+    if not subjects:
+        return None
+
+    shown = subjects[:cap]
+    # Gate on the subjects alone, before the framing text is bolted on. The
+    # header is ~150 characters by itself, so checking the finished string
+    # would carry a single "bump" commit straight past SPARSE_LIMIT.
+    if is_sparse("\n".join(shown)):
+        return None
+
+    total = data.get("total_commits", len(subjects))
+    # Tell the model plainly what it is reading. Left implicit, summaries of a
+    # commit log drift into describing it as though it were a curated release.
+    header = (f"The release notes contain only an auto-generated compare link, so what "
+              f"follows are the commit subjects in {spec} ({total} commits in total). "
+              f"They are raw commit messages, not curated release notes.")
+    lines = "\n".join(f"- {s}" for s in shown)
+    footer = (f"\n\n(showing the first {len(shown)} of {len(subjects)} non-merge commits)"
+              if len(shown) < len(subjects) else "")
+    return f"{header}\n\n{lines}{footer}"
 
 
 def extract_changelog_section(changelog_text: str, tag: str, date: str | None = None) -> str | None:
@@ -474,6 +604,21 @@ def main(argv: list | None = None):
                     content = section
                     print(f"  CHANGELOG {repo}@{tag}: summarizing changelog section "
                           f"({len(section.strip())} chars) — body defers to it")
+
+            # Other repos publish a body that is nothing but GitHub's
+            # auto-generated "Full Changelog" compare link. There is no prose to
+            # summarize at all, so follow the link and use the commit subjects.
+            # `content is body` means no better source has been found yet —
+            # curated changelog notes win over a raw commit log when both exist.
+            if content is body and (compare_url := body_defers_to_compare(body)):
+                parsed = parse_compare_url(compare_url)
+                if parsed:
+                    compare_repo, spec = parsed
+                    log = fetch_compare_log(compare_repo, spec)
+                    if log:
+                        content = log
+                        print(f"  COMPARE {repo}@{tag}: summarizing the commit log for "
+                              f"{spec} — body is only a compare link")
 
             # Quality-gate whatever content we actually plan to summarize.
             if is_sparse(content):
