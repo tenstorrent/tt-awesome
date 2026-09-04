@@ -765,3 +765,199 @@ def test_unreadable_file_does_not_double_warn(tmp_path, capsys):
     p.write_text("{not json")
     assert sr.load_known_release_keys(p) == set()
     assert "WARN" not in capsys.readouterr().err
+
+
+# ── Bodies that are only GitHub's auto-generated "Full Changelog" link ────────
+# These clear SPARSE_LIMIT purely on URL length while carrying no content, so
+# the compare view is crawled for commit subjects instead. See
+# body_defers_to_compare / fetch_compare_log in summarize_releases.py.
+
+BARE_COMPARE_BODY = (
+    "**Full Changelog**: https://github.com/zk4x/zyx/compare/v0.13.0...v0.14.0"
+)
+
+
+def test_body_defers_to_compare_detects_bare_link():
+    url = sr.body_defers_to_compare(BARE_COMPARE_BODY)
+    assert url == "https://github.com/zk4x/zyx/compare/v0.13.0...v0.14.0"
+
+
+def test_body_defers_to_compare_tolerates_formatting_variants():
+    # Angle-bracketed autolink, no bold, and a trailing blank line.
+    body = "Full Changelog: <https://github.com/o/r/compare/v1...v2>\n\n"
+    assert sr.body_defers_to_compare(body) == "https://github.com/o/r/compare/v1...v2"
+
+
+def test_body_defers_to_compare_ignores_body_with_real_notes():
+    # GitHub's generated notes: a real "What's Changed" list *plus* the link.
+    # There is already something to summarize, so we must not crawl.
+    body = (
+        "## What's Changed\n"
+        "* Fix a crash when the device is busy by @someone in #42\n"
+        "* Add BF8 support to the planner by @other in #43\n"
+        "* Speed up tile padding by roughly 30% by @third in #44\n\n"
+        "**Full Changelog**: https://github.com/o/r/compare/v1...v2"
+    )
+    assert sr.body_defers_to_compare(body) is None
+
+
+def test_body_defers_to_compare_returns_none_without_a_link():
+    assert sr.body_defers_to_compare("Bug fixes.") is None
+    assert sr.body_defers_to_compare("") is None
+
+
+def test_parse_compare_url_returns_repo_and_spec():
+    assert sr.parse_compare_url(
+        "https://github.com/zk4x/zyx/compare/v0.13.0...v0.14.0"
+    ) == ("zk4x/zyx", "v0.13.0...v0.14.0")
+
+
+def test_parse_compare_url_rejects_non_compare_urls():
+    assert sr.parse_compare_url("https://github.com/o/r/releases/tag/v1") is None
+    assert sr.parse_compare_url("not a url") is None
+
+
+def _compare_payload(subjects, total=None, merges=0):
+    """Build a /compare API payload with `subjects` as single-parent commits."""
+    commits = [
+        {"commit": {"message": s}, "parents": [{"sha": "a"}]} for s in subjects
+    ]
+    for i in range(merges):
+        commits.append({
+            "commit": {"message": f"Merge pull request #{i} from fork/branch"},
+            "parents": [{"sha": "a"}, {"sha": "b"}],
+        })
+    return {"total_commits": total if total is not None else len(commits),
+            "commits": commits}
+
+
+def test_fetch_compare_log_returns_commit_subjects():
+    payload = _compare_payload([
+        "local memory tiling implemented",
+        "cuda shared memory",
+        "all tensor functions now return proper errors",
+    ])
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen(payload)):
+        log = sr.fetch_compare_log("zk4x/zyx", "v0.13.0...v0.14.0")
+    assert log is not None
+    assert "local memory tiling implemented" in log
+    assert "cuda shared memory" in log
+    # The model must be told these are commit subjects, not curated notes.
+    assert "commit" in log.lower()
+
+
+def test_fetch_compare_log_uses_only_first_line_of_each_message():
+    payload = _compare_payload([
+        "Fix the scheduler reshape path\n\nLong body explaining the fix in detail.",
+        "Add softmax to the wgsl backend\n\nAnother paragraph.",
+        "Return proper errors from every tensor function",
+    ])
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen(payload)):
+        log = sr.fetch_compare_log("o", "v1...v2")
+    assert "Fix the scheduler reshape path" in log
+    assert "Long body explaining" not in log
+
+
+def test_fetch_compare_log_skips_merge_commits():
+    payload = _compare_payload(
+        ["Add local memory tiling to the wgsl backend",
+         "Implement tensor split and the masked-fill op",
+         "Fix broadcast errors in the reshape scheduler"],
+        merges=3,
+    )
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen(payload)):
+        log = sr.fetch_compare_log("o", "v1...v2")
+    assert "Merge pull request" not in log
+
+
+def test_fetch_compare_log_collapses_repeated_subjects():
+    # Real logs repeat: zyx v0.14.0 has "work on multi head attention" twice.
+    payload = _compare_payload([
+        "work on multi head attention",
+        "work on multi head attention",
+        "tensor split implemented",
+        "added local memory tiling",
+    ])
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen(payload)):
+        log = sr.fetch_compare_log("o", "v1...v2")
+    assert log.count("work on multi head attention") == 1
+
+
+def test_fetch_compare_log_caps_and_reports_truncation():
+    payload = _compare_payload([f"commit subject number {i}" for i in range(80)])
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen(payload)):
+        log = sr.fetch_compare_log("o", "v1...v2", cap=50)
+    assert log.count("\n- ") + log.startswith("- ") <= 50 + 1
+    assert "commit subject number 49" in log
+    assert "commit subject number 50" not in log
+    assert "80" in log  # the true total is still stated
+
+
+def test_fetch_compare_log_returns_none_when_subjects_are_sparse():
+    # One terse commit is not worth a model call — same bar as is_sparse().
+    payload = _compare_payload(["bump"])
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen(payload)):
+        assert sr.fetch_compare_log("o", "v1...v2") is None
+
+
+def test_fetch_compare_log_returns_none_on_http_error():
+    import urllib.error
+    with patch("urllib.request.urlopen",
+               side_effect=urllib.error.HTTPError(None, 404, "Not Found", {}, None)):
+        assert sr.fetch_compare_log("o", "v1...v2") is None
+
+
+def test_fetch_compare_log_returns_none_when_all_commits_are_merges():
+    payload = _compare_payload([], merges=4)
+    with patch("urllib.request.urlopen", return_value=_mock_urlopen(payload)):
+        assert sr.fetch_compare_log("o", "v1...v2") is None
+
+
+# Compare links get shared with the view options GitHub puts in the URL bar, so
+# a body can easily carry "?diff=split" or a "#diff-<sha>" anchor. Those belong
+# to the *page*, not to the basehead spec, and interpolating them into the API
+# path yields a 404 and a silently skipped release.
+
+def test_parse_compare_url_strips_query_string():
+    assert sr.parse_compare_url(
+        "https://github.com/zk4x/zyx/compare/v0.13.0...v0.14.0?diff=split"
+    ) == ("zk4x/zyx", "v0.13.0...v0.14.0")
+
+
+def test_parse_compare_url_strips_fragment():
+    assert sr.parse_compare_url(
+        "https://github.com/zk4x/zyx/compare/v0.13.0...v0.14.0#diff-abc123"
+    ) == ("zk4x/zyx", "v0.13.0...v0.14.0")
+
+
+def test_parse_compare_url_strips_query_and_fragment_together():
+    assert sr.parse_compare_url(
+        "https://github.com/o/r/compare/v1...v2?w=1&diff=unified#files_bucket"
+    ) == ("o/r", "v1...v2")
+
+
+def test_parse_compare_url_keeps_slashes_in_branch_names():
+    # Fork and branch comparisons are legitimate basehead specs and must survive
+    # intact — the API takes them as-is.
+    assert sr.parse_compare_url(
+        "https://github.com/o/r/compare/main...fork:feature/new-thing"
+    ) == ("o/r", "main...fork:feature/new-thing")
+
+
+def test_parse_compare_url_rejects_path_traversal():
+    # A release body is attacker-influenced text: any repo owner in the list
+    # writes it. A spec containing a '..' path segment would let the assembled
+    # API URL climb out of /compare/ and hit a different endpoint. The '...'
+    # basehead separator must still be fine.
+    assert sr.parse_compare_url("https://github.com/o/r/compare/../../../users/x") is None
+    assert sr.parse_compare_url("https://github.com/o/r/compare/v1...v2/../../x") is None
+    assert sr.parse_compare_url(
+        "https://github.com/o/r/compare/v1...v2"
+    ) == ("o/r", "v1...v2")
+
+
+def test_body_defers_to_compare_detects_link_with_query_string():
+    body = "**Full Changelog**: https://github.com/o/r/compare/v1...v2?diff=split"
+    url = sr.body_defers_to_compare(body)
+    assert url is not None
+    assert sr.parse_compare_url(url) == ("o/r", "v1...v2")

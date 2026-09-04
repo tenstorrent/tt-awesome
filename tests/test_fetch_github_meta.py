@@ -117,3 +117,55 @@ def test_fetch_releases_name_falls_back_to_tag():
     with patch("urllib.request.urlopen", return_value=_mock_response(data)):
         result = fetch_releases("foo/bar")
     assert result[0]["name"] == "v2.0.0"
+
+
+# ── release ordering ─────────────────────────────────────────────────────────
+# src/_data/entries.js resolves latestStableRelease with releases.find(...),
+# which takes the FIRST match in array order and therefore assumes the list is
+# newest-first. GitHub's list-releases endpoint sorts by created_at, not
+# published_at, so a release tagged from an older commit but published later
+# (tt-finetune's demo-2026-08-29) arrives out of order and quietly breaks that
+# assumption. Sort here so the invariant the data layer documents is actually
+# guaranteed, for every repo, on every nightly run.
+
+def test_fetch_releases_sorts_newest_published_first():
+    data = [
+        {   # created earlier, published LAST — the out-of-order case
+            "tag_name": "v0.2.1", "name": "v0.2.1",
+            "published_at": "2026-08-28T17:21:58Z",
+            "html_url": "https://github.com/foo/bar/releases/tag/v0.2.1",
+            "prerelease": False, "draft": False,
+        },
+        {
+            "tag_name": "demo-2026-08-29", "name": "Demo",
+            "published_at": "2026-08-29T15:44:38Z",
+            "html_url": "https://github.com/foo/bar/releases/tag/demo-2026-08-29",
+            "prerelease": False, "draft": False,
+        },
+        {
+            "tag_name": "v0.2.0", "name": "v0.2.0",
+            "published_at": "2026-08-26T07:14:15Z",
+            "html_url": "https://github.com/foo/bar/releases/tag/v0.2.0",
+            "prerelease": False, "draft": False,
+        },
+    ]
+    with patch("urllib.request.urlopen", return_value=_mock_response(data)):
+        result = fetch_releases("foo/bar")
+    assert [r["tagName"] for r in result] == ["demo-2026-08-29", "v0.2.1", "v0.2.0"]
+
+
+def test_fetch_releases_sort_tolerates_missing_published_at():
+    # A draft-turned-release can carry a null published_at; it must sort last
+    # rather than raising and costing us the whole repo's release list.
+    data = [
+        {   "tag_name": "v1.0.0", "name": "v1.0.0", "published_at": None,
+            "html_url": "https://github.com/foo/bar/releases/tag/v1.0.0",
+            "prerelease": False, "draft": False },
+        {   "tag_name": "v1.1.0", "name": "v1.1.0",
+            "published_at": "2026-05-01T00:00:00Z",
+            "html_url": "https://github.com/foo/bar/releases/tag/v1.1.0",
+            "prerelease": False, "draft": False },
+    ]
+    with patch("urllib.request.urlopen", return_value=_mock_response(data)):
+        result = fetch_releases("foo/bar")
+    assert [r["tagName"] for r in result] == ["v1.1.0", "v1.0.0"]

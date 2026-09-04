@@ -97,3 +97,69 @@ QuietBox-only; the package supports Wormhole and Blackhole P150x4/P300x2).
 emulate a mobile viewport — it lays out at ~800px and crops the image to 430. A screenshot
 that looks like right-edge clipping at "mobile width" is usually that artifact, not a CSS
 overflow bug. Verify by shooting at 800px and comparing.
+
+### 2026-09-04 — tt-finetune entry, and SPARSE_LIMIT 120 → 70
+
+Prompt: *"Let's add https://github.com/danielisraeli2409-jpg/tt-finetune to the awesome list
+and include its latest release in the planet feed"*, then *"ok let's add it to make the
+complete card. let's lower our sparse limit to 70 chars and see how ti goes?"*
+
+**Entry.** `community` — personal account, no TT org, and `employee_search` finds no
+matching Tenstorrent employee (Jeremy introduced it in `#devrel-private` as a community
+project). `language: Python` despite GitHub reporting C++ by byte count: the C++ is the
+bundled TT-XLA/TT-Metal runtime under `tt_finetune/_resident_bundles`, while every source
+directory is Python. No `packages` — the README states outright it does not claim PyPI
+publication, and the wheel installs from a release URL.
+
+`github_meta.json` was updated by importing `fetch_github_meta`'s functions for this one
+repo rather than running `main()`, which rewrites all 119 entries and would have buried
+the change in unrelated star churn.
+
+**Planet items written by hand.** No `ANTHROPIC_API_KEY`/`FOUNDRY_API_KEY` in the local
+environment, so `summarize_releases.py` cannot run here. The three items were written to
+the exact schema `main()` emits, following `summarize-release.prompt.yml`. Grouping then
+did its job at render time: v0.2.0 (8/26), v0.2.1 (8/28), demo (8/29) chain into one card,
+"3 releases · Aug 26 – Aug 29".
+
+**SPARSE_LIMIT 120 → 70.** Measured rather than guessed: of the releases in
+`github_meta.json` that the gate is the *only* thing blocking (11, after pre-release and
+rename filters), five sit in [70, 120) and six have literally empty bodies. Nothing at all
+falls in 1–69 in the current window, so 70 is a clean place to stand.
+
+**The 70-char gate exposed a hole, and the fix went a different way than proposed.**
+`zk4x/zyx v0.14.0` is 73 chars and its entire body is `**Full Changelog**:
+https://github.com/zk4x/zyx/compare/v0.13.0...v0.14.0` — GitHub's auto-generated link and
+nothing else. It clears 70 *only because the URL is long*. I proposed stripping URLs
+before measuring; Taylor asked instead: *"When we see this Full Changelog and URL line
+like this, can we ask our script/agent to crawl it and summarize from that?"* — which is
+the better answer, because it turns a skip into a real item.
+
+`body_defers_to_compare` + `parse_compare_url` + `fetch_compare_log` follow the link and
+summarize the commit subjects. Deliberately mirrors the existing
+`body_defers_to_changelog` → `fetch_changelog_section` pattern, and runs *after* it, since
+curated notes beat a raw commit log whenever both exist.
+
+Key decisions:
+* **Only fires when the link is the *whole* body.** GitHub's generated "What's Changed"
+  notes also end with a Full Changelog line, and those already have content — the check
+  strips the pointer line and crawls only if what remains is itself sparse. Verified
+  against all five newly-admitted releases: only zyx v0.14.0 crawls.
+* **Merge commits dropped, duplicate subjects collapsed.** Working branches restate the
+  same subject repeatedly — zyx v0.14.0 says "work on multi head attention" twice.
+* **The sparse gate is applied to the commit subjects alone, before the framing header is
+  added.** The header is ~200 chars, so gating the finished string would carry a
+  single-`bump`-commit release straight through. This is the one non-obvious bit; there is
+  a test pinning it.
+* **The header tells the model these are raw commit messages, not curated notes.** Left
+  implicit, summaries of a commit log drift into describing it as a polished release.
+* Best-effort throughout: any API failure returns None and the release falls back to being
+  skipped, never published from nothing.
+
+Result on the real release: 73 chars of URL → 835 chars of genuine commit log. The
+subjects are rough ("deinit", "licence", "cleanup") so the summary will be modest — but
+sourced rather than invented, which was the whole point.
+
+**Gotcha while writing the tests:** three of my own commit subjects in the
+merge-filtering test summed to 67 chars, so it failed on the sparse gate rather than on
+merge filtering. When writing fixtures for this path, keep subject text comfortably over
+`SPARSE_LIMIT` unless sparseness is what you are testing.
