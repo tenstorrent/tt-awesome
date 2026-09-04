@@ -38,6 +38,34 @@ Module._load = function (request, parent, isMain) {
         stars: 3,
         updatedAt: "2026-01-01T00:00:00Z",
       },
+      // Newest release is a dated demo tag carrying no version number. It is a
+      // genuine non-prerelease, so a plain "newest non-prerelease wins" rule
+      // would advertise a screen recording as the project's latest stable
+      // build. The version-shaped tag has to win. (Real case: tt-finetune's
+      // demo-2026-08-29, published a day after v0.2.1.)
+      "https://github.com/test/demotag": {
+        stars: 1,
+        updatedAt: "2026-08-29T00:00:00Z",
+        releases: [
+          { tagName: "demo-2026-08-29", name: "Demo", publishedAt: "2026-08-29T15:44:38Z",
+            url: "https://github.com/test/demotag/releases/tag/demo-2026-08-29", prerelease: false },
+          { tagName: "v0.2.1", name: "v0.2.1", publishedAt: "2026-08-28T17:21:58Z",
+            url: "https://github.com/test/demotag/releases/tag/v0.2.1", prerelease: false },
+          { tagName: "v0.2.0", name: "v0.2.0", publishedAt: "2026-08-26T07:14:15Z",
+            url: "https://github.com/test/demotag/releases/tag/v0.2.0", prerelease: false },
+        ],
+      },
+      // No release here carries a version number at all — polaris ships tags
+      // like "pre_perfmodel_merge". The newest non-prerelease must still win,
+      // or the entry silently loses its release callout.
+      "https://github.com/test/noversion": {
+        stars: 2,
+        updatedAt: "2026-01-01T00:00:00Z",
+        releases: [
+          { tagName: "pre_perfmodel_merge", name: "pre merge", publishedAt: "2026-06-01T00:00:00Z",
+            url: "https://github.com/test/noversion/releases/tag/pre_perfmodel_merge", prerelease: false },
+        ],
+      },
     };
   }
   return _origLoad.apply(this, arguments);
@@ -51,6 +79,10 @@ const testEntries = [
     links: [{ type: "repo", url: "https://github.com/test/preonly" }] },
   { id: "entry-noreleases", name: "No Releases Project", affiliation: "official",
     links: [{ type: "repo", url: "https://github.com/test/noreleases" }] },
+  { id: "entry-demotag", name: "Demo Tag Project", affiliation: "community",
+    links: [{ type: "repo", url: "https://github.com/test/demotag" }] },
+  { id: "entry-noversion", name: "No Version Project", affiliation: "official",
+    links: [{ type: "repo", url: "https://github.com/test/noversion" }] },
 ];
 
 // Patch fs.readdirSync and fs.readFileSync for test entries
@@ -99,6 +131,22 @@ assert(!preonlyEntry.latestStableRelease, "latestStableRelease should not be set
 const norelEntry = entries.find(e => e.id === "entry-noreleases");
 assert(norelEntry, "entry-noreleases not found");
 assert(!norelEntry.latestStableRelease, "latestStableRelease should not be set for no-releases entry");
+
+// Test 4: a dated demo tag never becomes the latest *stable* release, even
+// though it is the newest non-prerelease in the list.
+const demoEntry = entries.find(e => e.id === "entry-demotag");
+assert(demoEntry, "entry-demotag not found");
+assert(demoEntry.latestStableRelease, "latestStableRelease should be set for demo-tag entry");
+assert.strictEqual(demoEntry.latestStableRelease.tagName, "v0.2.1",
+  "should skip the newer non-version demo tag and pick the version-shaped release");
+
+// Test 5: when nothing carries a version number, fall back to the newest
+// non-prerelease rather than dropping the callout.
+const noverEntry = entries.find(e => e.id === "entry-noversion");
+assert(noverEntry, "entry-noversion not found");
+assert(noverEntry.latestStableRelease, "latestStableRelease should fall back when no tag has a version");
+assert.strictEqual(noverEntry.latestStableRelease.tagName, "pre_perfmodel_merge",
+  "should fall back to the newest non-prerelease when no version-shaped tag exists");
 
 console.log("✓ latestStableRelease tests passed");
 

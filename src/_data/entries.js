@@ -83,13 +83,22 @@ module.exports = function () {
     // "7.67.0-strength-49763" (version + branch word + run number) — GitHub
     // marks these non-prerelease, so only the tag shape identifies them.
     const PRE_RELEASE_TAG = /[.\-]dev[.\d]|[-.]rc\d+|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+-\d+$/i;
+    // A tag that actually names a version. Repos also cut dated, non-version
+    // tags for things that are not builds at all — tt-finetune publishes
+    // `demo-2026-08-29`, a screen recording, one day *after* v0.2.1. Those are
+    // real non-prerelease releases, so without this the newest-first list makes
+    // the site advertise a demo video as the project's latest stable release.
+    const VERSION_TAG = /\d+\.\d+/;
 
     if (Array.isArray(entry.releases) && entry.releases.length) {
       // Check both GitHub's prerelease flag AND the tag name — GitHub sometimes
       // marks dev/rc builds as non-prerelease, so the tag is the tiebreaker.
-      let stable = entry.releases.find(
-        r => !r.prerelease && !PRE_RELEASE_TAG.test(r.tagName)
-      );
+      const isStableCandidate = r => !r.prerelease && !PRE_RELEASE_TAG.test(r.tagName);
+      // Prefer a version-shaped tag, but fall back to the newest plain
+      // candidate: some repos never tag a version at all (polaris ships
+      // `pre_perfmodel_merge`) and must keep their release callout.
+      let stable = entry.releases.find(r => isStableCandidate(r) && VERSION_TAG.test(r.tagName))
+        || entry.releases.find(isStableCandidate);
 
       if (!stable) {
         const allTagsAreDev = entry.releases.every(r => PRE_RELEASE_TAG.test(r.tagName));

@@ -6,7 +6,12 @@
 
 For each release URL in github_meta.json not already in planet_feeds.json:
   - Fetches the release body from the GitHub API
-  - Skips if body is empty or under 120 characters
+  - Resolves what to actually summarize, in priority order:
+      1. the release body as written;
+      2. if the body defers to a changelog file, that version's section;
+      3. if the body is *only* a "Full Changelog" compare link, the commit
+         subjects from the compare view (see fetch_compare_log).
+  - Skips if the resolved content is empty or under SPARSE_LIMIT characters
   - Runs prompts/summarize-release.prompt.yml through llm_client (Claude on
     Microsoft Foundry by default; SUMMARY_PROVIDER=anthropic calls Anthropic
     direct. The former `github` GitHub Models path was retired 2026-07-30.)
