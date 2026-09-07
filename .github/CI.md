@@ -106,10 +106,26 @@ filtered before the model is ever called:
 
 - already present in `planet_feeds.json` (deduplicated by URL)
 - pre-release tags — `dev`, `rc`, `alpha`, `beta`, `qa`, CI experiment tags
-- bodies under `SPARSE_LIMIT` (120 chars) in `scripts/summarize_releases.py`
+- bodies under `SPARSE_LIMIT` (70 chars) in `scripts/summarize_releases.py`
 
 A repo whose releases carry empty bodies will never produce feed items. That is
 intended: summarizing "Bug fixes." yields nothing worth publishing.
+
+**A thin body is not always the end of the road.** Before the gate runs, two
+paths go looking for the real content the body points at:
+
+| Body looks like | What is summarized instead |
+|---|---|
+| mentions `CHANGELOG.md` (`body_defers_to_changelog`) | that version's changelog section |
+| is *only* `**Full Changelog**: <compare url>` (`body_defers_to_compare`) | the commit subjects from the compare view, merges dropped and duplicates collapsed, capped at `COMPARE_COMMIT_CAP` |
+
+The compare crawl exists because a bare compare link is ~73 characters of pure
+URL — it clears `SPARSE_LIMIT` while telling the model nothing, so the summary
+would have to be invented. Both paths are best-effort: if the changelog section
+or the compare API cannot be reached, the release falls back to the ordinary
+gate and is skipped rather than published from nothing. A body that carries real
+notes *alongside* a compare link (GitHub's generated "What's Changed" list) is
+summarized as-is and never triggers the crawl.
 
 **Metadata gaps are logged but do not fail the run.** `fetch_github_meta.py`
 prints `WARN <repo>: HTTP 404` for repos it cannot read — private, renamed, or

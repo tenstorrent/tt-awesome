@@ -23,6 +23,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 ## 🤖 AI & Models
 
+- **[tt-finetune](https://github.com/danielisraeli2409-jpg/tt-finetune)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@danielisraeli2409-jpg](https://github.com/danielisraeli2409-jpg) — Parameter-efficient fine-tuning — LoRA, rsLoRA, LoRA+, DoRA, and IA3 — on a single Blackhole P150a, behind a Hugging Face/PEFT-style trainer API. Ships as a self-contained Linux wheel bundling the TT-XLA/PJRT plugin, TTNN, and TT-Metal user-space libraries, so no source checkout, Docker, or PYTHONPATH setup is required. Includes a static planner that reports memory admission before you compile, deterministic checkpoint/resume, and standard PEFT adapter export.
+  [📦 repo](https://github.com/danielisraeli2409-jpg/tt-finetune)
+
 - **[tt-model-bringup](https://github.com/aweditya/tt-model-bringup)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@aweditya](https://github.com/aweditya) — Direct TT-Metal bringup of modern open-weight LLMs on Blackhole P150 — hand-written compute graphs with no PJRT and no JAX. Covers Qwen3.6-27B, Qwen3.6-35B-A3B MoE, Gemma 4 12B, and Nemotron-3 Nano 30B-A3B, plus a zoo of single-chip Llama / Qwen2.5 / SmolLM ports, backed by custom fused `owned_*` kernels, a continuous-batching engine, an OpenAI-compatible HTTP server, and a wiki documenting each design decision.
   [📦 repo](https://github.com/aweditya/tt-model-bringup) · [📖 HANDOFF.md — current perf and production paths](https://github.com/aweditya/tt-model-bringup/blob/main/HANDOFF.md)

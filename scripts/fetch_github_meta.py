@@ -124,16 +124,32 @@ def fetch_releases(repo: str, per_page: int = 5) -> list:
         tagName, name, publishedAt, url, prerelease, assets
     Draft releases are skipped; pre-releases are included (caller can filter).
     Returns an empty list on any error so a single bad repo never aborts the run.
+
+    The list is sorted newest-published first. This is not cosmetic:
+    src/_data/entries.js resolves latestStableRelease with releases.find(...),
+    which takes the first match in array order and so assumes newest-first.
+    GitHub's list-releases endpoint sorts by *created_at*, which is the tag's
+    date — a release tagged from an older commit but published later arrives
+    out of order and silently changes which release the site calls "latest".
+    tt-finetune's demo-2026-08-29 (same created_at as v0.2.1, published a day
+    later) is the case that surfaced it. Sorting here makes the invariant the
+    data layer documents hold for every repo on every run, rather than by luck
+    of how a maintainer happened to cut their tags.
     """
     try:
         url = f"https://api.github.com/repos/{repo}/releases?per_page={per_page}"
         with urllib.request.urlopen(_request(url), timeout=10) as r:
             releases = json.loads(r.read())
-            return [
+            parsed = [
                 _parse_release(rel)
                 for rel in releases
                 if not rel.get("draft", False)
             ]
+            # `or ""` keeps a null published_at (possible on a draft just
+            # promoted to a release) sorting last instead of raising and
+            # costing us the repo's entire release list.
+            parsed.sort(key=lambda r: r.get("publishedAt") or "", reverse=True)
+            return parsed
     except urllib.error.HTTPError as e:
         print(f"  WARN {repo} releases: HTTP {e.code}", file=sys.stderr)
     except Exception as e:

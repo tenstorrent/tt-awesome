@@ -269,6 +269,20 @@
     "type": "release",
     "source": "github",
     "approved": true,
+    "title": "tt-finetune demo-2026-08-29",
+    "url": "https://github.com/danielisraeli2409-jpg/tt-finetune/releases/tag/demo-2026-08-29",
+    "description": "A short screen recording, attached as `demo_final.mp4`, showing real LoRA training run end to end on a Tenstorrent Blackhole P150a — the same single-card path the 0.2.x wheels install. Worth a look if you have been reading the geometry and admission claims and want to see what the loop actually looks like on silicon.",
+    "date": "2026-08-29",
+    "dateISO": "2026-08-29T15:44:38Z",
+    "label": "danielisraeli2409-jpg/tt-finetune",
+    "projectName": "tt-finetune",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
     "title": "tt-installer v3.6.0",
     "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v3.6.0",
     "description": "The installer now supports [safe dry-run previews](https://github.com/tenstorrent/tt-installer/pull/153), letting you inspect what would be installed before committing—a practical win for validating setups in CI/CD or containerized environments. Along with that, firmware updates are [now disabled by default in container mode](https://github.com/tenstorrent/tt-installer/pull/157), sidestepping unexpected state changes when running inside Docker, plus improved test coverage to catch regressions in both modes.",
@@ -306,6 +320,20 @@
     "projectName": "tt-local-generator",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "tt-finetune v0.2.1",
+    "url": "https://github.com/danielisraeli2409-jpg/tt-finetune/releases/tag/v0.2.1",
+    "description": "Sparse-MoE models now train with dynamic selected-expert execution on device — no host-side token routing, and no evaluating every expert just to discard most of the results — which puts MoE fine-tuning on a single Blackhole P150a within reach. Alongside that, fused MQA, shared-expert MoE, irregular sequence geometry, and functional causal masks all picked up architecture-semantic corrections, so models that were quietly training on the wrong shapes now match reference behavior. The resident execution and compiler paths are more deterministic for qualified dense workloads, and the build was qualified from a clean wheel: device smoke, dense training, exact checkpoint resume, and PEFT export, reload, and continued training.",
+    "date": "2026-08-28",
+    "dateISO": "2026-08-28T17:21:58Z",
+    "label": "danielisraeli2409-jpg/tt-finetune",
+    "projectName": "tt-finetune",
+    "projectId": null,
+    "affiliation": "community"
   },
   {
     "type": "paper",
@@ -404,6 +432,20 @@
     "projectName": "tt-animatediff",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "tt-finetune v0.2.0",
+    "url": "https://github.com/danielisraeli2409-jpg/tt-finetune/releases/tag/v0.2.0",
+    "description": "The self-contained preview is complete: a geometry-aware measured autotuner, dynamic selected-expert sparse MoE, the full LoRA, rsLoRA, LoRA+, DoRA, and IA3 adapter set, and BF16 alongside qualified BF8/BF4 frozen-weight paths — all reachable without Docker, a source checkout, or PYTHONPATH wrangling, since the wheel carries TT-XLA/PJRT, TTNN, and the TT-Metal runtime and compiler with it. The planner accepted 19 of 19 dense and MoE geometry qualification cases and lands within 5% of the broader oracle across general cases, so the memory admission answer you get before compiling is worth trusting. Deterministic checkpoint/resume, PEFT export and reload, and data packing, bucketing, and prefetch round it out, with 598 owned regression tests and real P150a silicon qualification behind the build.",
+    "date": "2026-08-26",
+    "dateISO": "2026-08-26T07:14:15Z",
+    "label": "danielisraeli2409-jpg/tt-finetune",
+    "projectName": "tt-finetune",
+    "projectId": null,
+    "affiliation": "community"
   },
   {
     "type": "release",
