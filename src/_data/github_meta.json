@@ -165,7 +165,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 121,
-    "updatedAt": "2026-09-07T14:03:26Z",
+    "updatedAt": "2026-09-07T22:02:36Z",
     "releases": [
       {
         "tagName": "v0.7.3",
@@ -263,7 +263,7 @@
         ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Changed\n\n- **A `cyclic: true` chain is now refused by `esmfold2` and `esmfold2-fast` too.** Every other\n  model that cannot cyclise already refused it. ESMFold2 was the one path left that took the flag,\n  dropped it and folded the chain straight, returning `status=ok`: `examples/cyclic_prot.yaml` came\n  back with 21.8 A between the two ends it was asked to join. Such a job now fails with an error\n  instead. For a cyclic peptide use `--model boltz2` or `--model rf3`, which honour the flag.\n\n## [0.7.3] - 2026-09-04\n\n### Added\n\n- **tt-bio refuses a target it is measured not to fold, instead of crashing on it.** The per-model\n  ceilings only ever existed in the serving platform, as a record of where a worker had been seen to\n  die, so a CLI user who asked OpenDDE for 1024 residues got the crash itself: an L1 throw, an OOM,\n  or a chip left wedged for the next job. They live in `tt_bio/size_limits.py` now and refuse before\n  any device opens, naming the model, the limit, and any model that does take the input.\n\n  Nothing here was measured by this change; every row is copied from the ladder that walked it. The\n  table is Wormhole-only because nobody has walked a Blackhole ladder, and **on Blackhole this\n  refuses nothing.** On Wormhole: `opendde` and `opendde-abag` 544, `openfold3` and `openbind` 576,\n  `rf3` 627, `pxdesign` 768 target residues, `protenix-v2` 980, `rfd3` 490 motif plus designed,\n  `esmc-6b` 1968. `boltz2`, `esmfold2`, `boltzgen` and `nesso1` carry no measured ceiling and are\n  never refused, because absence of a limit is not a limit.\n\n  A size that folds licenses nothing below it. OpenDDE folds 544, throws at 576, and folds 608\n  again: the failure is an L1 static-CB clash that follows the padded tile shape and the core-grid\n  split, and neither is monotonic in residue count. So each limit is the largest size below that\n  model's **first** measured failure, and every row carries the size above it that was witnessed to\n  fail. A ladder top with nothing above it says so rather than passing itself off as a wall.\n\n  The limits were walked with an MSA, which is the default for the models that take one, and\n  single-sequence is measurably roomier: OpenFold3 caps at 576 with an alignment and folds 768\n  without one. So **`TT_BIO_SIZE_LIMIT=0` turns any refusal into a warning**, and the refusal message\n  names it. The guard costs 202-323 microseconds at 128-512 residues, paid once per invocation.\n\n- **`tt-bio design --model pxdesign --controller <url>` fans a design run across a fleet**, one shard\n  per design. The flag used to be accepted and then dropped, so a fleet invocation cold-opened a\n  device of its own and collided with the workers already holding every chip. Each shard gets\n  `seed+k`, the same per-design seeding"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Fixed\n\n- **Triangle attention on the fused kernel now pre-bakes the pair bias.** The fused kernel adds the\n  bias before applying its scale, so it wants a bias already multiplied by `sqrt(head_dim)`. The\n  fp32-softmax route did that; the fused route did not. Every model that ships\n  `scale_pair_bias=True` had the multiply folded into its weights at load, so nothing shipped was\n  affected -- the bug only bites a caller that passes `False`, and until RoseTTAFold3's template\n  embedder and MSA module moved to the fused route in this release, no such caller existed. There\n  it was worth 13.3x: 7ROA L117 scored 0.10683 A against its torch reference on the old route and\n  1.41825 A on the fused one, back to 0.15238 A with the bias corrected.\n\n### Changed\n\n- **RFdiffusion3 designs up to 704 residues on a 12 GiB Wormhole card, up from 490.** 704 is\n  604 target residues plus a 100-residue binder, 6261 atoms, and it folds three times out of\n  three in 148-170 s. The number holds only at the 100 diffusion steps a real run uses: a\n  2-step run never passes `D_II_self`, so it never enters self-conditioning, and the same\n  SwiGLU in the pair transition then asks for 33 554 432 B instead of 65 011 712 B. A ladder\n  walked at 2 steps reported 992 and that is withdrawn -- 992 fails at 100.\n\n  The first failure is 768, and it is a coin flip rather than a wall: the site wants two\n  700 416 B per-bank buffers live at once against a 1 395 424 B bank, so it misses by 5408 B\n  and whether the last one fits depends on what the preceding diffusion steps left behind.\n  It folded twice in three attempts and still cannot be published, because a limit has to be\n  a size below which everything works. The ceiling is therefore 704, the largest size below\n  the *first* failure, the same rule OpenDDE's 544 follows.\n\n  Getting there also needed the token initializer's atom-pair section row-blocked against\n  the part's own DRAM: unblocked it dies at 640 residues on a 2 114 887 680 B request, and it\n  is faster and lighter blocked (71.2 s against 124.5 s and 8.2 GB host RSS against 16.1 GB\n  at 512 residues, same card, budget the only difference). Designs up to about 310 residues\n  stay in a single block and so run the old path byte for byte; the five tensors the\n  initializer hands the sampler are md5-identical at 128, 256, 480 and 512.\n  `TT_BIO_ATOM_PAIR_BUDGET_BYTES=0` restores the unblocked path and its 640 wall.\n\n- **RoseTTAFold3 folds 1095 residues on a 12 GiB Wormhole card, up from 627.** Neither wall was\n  memory the model needs; both were shape choices, and the allocator's own byte counts name them.\n  The template embedder and the MSA module were the last two triangle-attention sites still\n  materialising the whole score tensor over the raw token axis"
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 18,
@@ -324,7 +324,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 71,
-    "updatedAt": "2026-09-07T12:35:17Z",
+    "updatedAt": "2026-09-07T15:33:51Z",
     "releases": [
       {
         "tagName": "v0.21.0",
@@ -819,8 +819,8 @@
     "updatedAt": "2026-09-04T07:22:32Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2238,
-    "updatedAt": "2026-09-07T10:16:25Z",
+    "stars": 2240,
+    "updatedAt": "2026-09-07T19:44:39Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1424,7 +1424,7 @@
   },
   "https://github.com/zk4x/zyx": {
     "stars": 64,
-    "updatedAt": "2026-09-06T19:34:25Z",
+    "updatedAt": "2026-09-07T19:14:49Z",
     "preview_image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
     "releases": [
       {
@@ -1469,8 +1469,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 10977,
-    "updatedAt": "2026-09-07T13:40:07Z",
+    "stars": 10979,
+    "updatedAt": "2026-09-07T21:27:13Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1600,7 +1600,7 @@
   },
   "https://github.com/tsingletaryTT/tt-demo-maker": {
     "stars": 0,
-    "updatedAt": "2026-08-27T22:16:34Z",
+    "updatedAt": "2026-09-07T15:47:06Z",
     "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tt-demo-maker/main/media/short-burst.gif"
   },
   "https://github.com/tenstorrent/tt-emule": {
@@ -1924,8 +1924,8 @@
     ]
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
-    "stars": 56,
-    "updatedAt": "2026-09-03T19:44:40Z",
+    "stars": 57,
+    "updatedAt": "2026-09-07T16:46:48Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -2616,8 +2616,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-kmd": {
-    "stars": 72,
-    "updatedAt": "2026-08-30T16:01:45Z",
+    "stars": 73,
+    "updatedAt": "2026-09-07T20:49:32Z",
     "releases": [
       {
         "tagName": "ttkmd-2.11.0",
@@ -2722,7 +2722,7 @@
   },
   "https://github.com/tenstorrent/tt-quietbox2-guide": {
     "stars": 0,
-    "updatedAt": "2026-09-06T22:51:07Z"
+    "updatedAt": "2026-09-07T19:04:03Z"
   },
   "https://github.com/tenstorrent/tt-smi": {
     "stars": 65,
@@ -3560,7 +3560,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 47,
-    "updatedAt": "2026-09-07T13:25:38Z",
+    "updatedAt": "2026-09-07T17:04:29Z",
     "releases": [
       {
         "tagName": "v0.9.9",
@@ -4114,8 +4114,8 @@
     "updatedAt": "2026-04-15T08:40:22Z"
   },
   "https://github.com/tenstorrent/tt-lang": {
-    "stars": 60,
-    "updatedAt": "2026-09-07T07:32:14Z",
+    "stars": 61,
+    "updatedAt": "2026-09-07T16:46:50Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
@@ -4124,8 +4124,8 @@
     "updatedAt": "2026-09-06T18:30:24Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1661,
-    "updatedAt": "2026-09-07T14:19:37Z",
+    "stars": 1662,
+    "updatedAt": "2026-09-07T21:14:55Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5057,8 +5057,15 @@
   },
   "https://github.com/tenstorrent/ttsim": {
     "stars": 154,
-    "updatedAt": "2026-09-06T18:24:40Z",
+    "updatedAt": "2026-09-07T18:17:59Z",
     "releases": [
+      {
+        "tagName": "v1.10.6",
+        "name": "v1.10.6",
+        "publishedAt": "2026-09-07T18:09:39Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.10.6",
+        "prerelease": false
+      },
       {
         "tagName": "v1.10.5",
         "name": "v1.10.5",
@@ -5085,13 +5092,6 @@
         "name": "v1.10.2",
         "publishedAt": "2026-08-19T23:15:09Z",
         "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.10.2",
-        "prerelease": false
-      },
-      {
-        "tagName": "v1.10.1",
-        "name": "v1.10.1",
-        "publishedAt": "2026-08-14T18:28:50Z",
-        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.10.1",
         "prerelease": false
       }
     ]
