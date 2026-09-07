@@ -1,5 +1,19 @@
 [
   {
+    "type": "article",
+    "source": "vllm.ai",
+    "approved": true,
+    "title": "Serving LLMs on Tenstorrent Hardware: Inside the vLLM TT Plugin",
+    "url": "https://vllm.ai/blog/2026-09-07-vllm-tt-plugin",
+    "description": "The vLLM project publishes a deep dive on **vllm-tt-plugin**, the Tenstorrent backend that registers itself through vLLM's standard platform-plugin mechanism — nothing TT-specific lands in vLLM core. It walks the four pieces that let traced mesh execution live under a general-purpose serving stack: **phase-based scheduling**, where each step is prefill-only or decode-only and never mixed, so batch shapes stay stable enough to trace; **single-process lane data parallelism**, running independent schedulers in one process rather than paying inter-process overhead on Galaxy; **on-device sampling**, with token selection inside the mesh program and a host-side fallback; and **asynchronous readback** for decode overlap, built on non-blocking device reads and `ttnn.event_synchronize()`. Covers Llama 3.1/3.2/3.3 and 3.2 Vision, Qwen 2.5/3.x and VL, Mistral 3, Gemma 3, DeepSeek V3, and GPT-OSS 20B/120B across n150, n300, QuietBox, and Galaxy, against vLLM 0.26.0.",
+    "date": "2026-09-07",
+    "dateISO": "2026-09-07T00:00:00Z",
+    "label": "vllm.ai",
+    "projectName": "vllm-tt-plugin",
+    "projectId": "vllm-tt-plugin",
+    "affiliation": "official"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,

@@ -19,11 +19,18 @@
     {
       "type": "repo",
       "url": "https://github.com/tenstorrent/vllm-tt-plugin"
+    },
+    {
+      "type": "article",
+      "url": "https://vllm.ai/blog/2026-09-07-vllm-tt-plugin",
+      "label": "vLLM blog post"
     }
   ],
   "hardware": [
     "wormhole",
-    "blackhole"
+    "blackhole",
+    "quietbox",
+    "galaxy"
   ],
   "language": "Python",
   "license": "Apache-2.0",

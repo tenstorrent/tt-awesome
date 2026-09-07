@@ -109,7 +109,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **[vllm-tt-plugin](https://github.com/tenstorrent/vllm-tt-plugin)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent backend for vLLM, built on vLLM's standard plugin mechanism — install it alongside vLLM and TT hardware registers itself as a platform whenever `ttnn` is importable. Self-contained: model registration, platform detection, scheduling, worker execution, model loading, async decode, and data-parallel/multi-lane execution all live in the plugin, so nothing Tenstorrent-specific has to land in vLLM core.
-  [📦 repo](https://github.com/tenstorrent/vllm-tt-plugin)
+  [📦 repo](https://github.com/tenstorrent/vllm-tt-plugin) · [📝 vLLM blog post](https://vllm.ai/blog/2026-09-07-vllm-tt-plugin)
 
 ## 🕵️ AI Agents
 

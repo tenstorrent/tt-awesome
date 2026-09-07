@@ -1008,6 +1008,66 @@ assert(typeof diversifiedFeatured === "function", "diversifiedFeatured filter no
     assert.strictEqual(out[0].releaseCount, 2);
     console.log("✓ planetItems: release bursts arrive grouped");
   }
+
+  // A published planet item outranks the entry-derived card for the same URL.
+  //
+  // The entry card can only date itself `added_at` and title itself after the
+  // project, so when planet_feeds.json carries the real headline and
+  // publication date for that exact URL, the entry link must step aside —
+  // otherwise curating the link retro-dates the piece. Regression guard for
+  // the arXiv paper that rendered as "Jan 1, 1970" (entry had no added_at).
+  {
+    const url = "https://example.com/post";
+    const entry = {
+      id: "proj", name: "proj", added_at: "2026-01-01",
+      description: "project blurb",
+      links: [{ type: "repo", url: "https://github.com/o/proj" },
+              { type: "article", url }],
+    };
+    const feedItem = {
+      type: "article", source: "example.com", approved: true,
+      title: "The real headline", url,
+      description: "post-specific summary",
+      date: "2026-09-07", dateISO: "2026-09-07T00:00:00Z",
+      projectId: "proj", projectName: "proj", affiliation: "official",
+    };
+    const out = planetItems([entry], [], [feedItem]);
+    assert.strictEqual(out.length, 1, "still exactly one card for the URL");
+    assert.strictEqual(out[0].title, "The real headline");
+    assert.strictEqual(out[0].date, "2026-09-07", "keeps the publication date");
+
+    // The same entry with no matching feed item still gets its fallback card,
+    // so the precedence rule doesn't cost curated links their planet presence.
+    const alone = planetItems([entry], [], []);
+    assert.strictEqual(alone.length, 1);
+    assert.strictEqual(alone[0].title, "proj", "falls back to the entry card");
+    assert.strictEqual(alone[0].date, "2026-01-01");
+
+    // An *unapproved* item is held for review and never renders, so it must
+    // not claim the URL away from the entry card.
+    const held = planetItems([entry], [], [{ ...feedItem, approved: false }]);
+    assert.strictEqual(held.length, 1, "unapproved item does not render");
+    assert.strictEqual(held[0].title, "proj",
+      "an unapproved feed item must not suppress the entry card");
+    console.log("✓ planetItems: a published feed item outranks the entry card");
+
+    // Stepping aside is all-or-nothing. An entry bundling several links is one
+    // event, so a feed item covering only part of it must not split the card —
+    // partial coverage keeps the bundle and claims every URL (cf. test 20d).
+    const bundle = {
+      id: "ev", name: "ev", added_at: "2026-02-01", description: "an event",
+      links: [{ type: "talk", url }, { type: "video", url: "https://example.com/rec" }],
+    };
+    const partial = planetItems([bundle], [], [feedItem]);
+    assert.strictEqual(partial.length, 1, "partial coverage stays one card");
+    assert.strictEqual(partial[0].title, "ev", "the bundled entry card survives");
+    // Lead is still chosen by LEAD_PRIORITY (video outranks talk), and the
+    // covered URL rides along as an extra link rather than becoming its own card.
+    assert.strictEqual(partial[0].url, "https://example.com/rec", "video leads");
+    assert.deepStrictEqual(partial[0].extraLinks.map(l => l.url), [url],
+      "the covered link stays on the bundle as an extra");
+    console.log("✓ planetItems: partial feed coverage keeps the bundled card");
+  }
 }
 
 console.log("\nAll eleventy filter tests passed ✓");
