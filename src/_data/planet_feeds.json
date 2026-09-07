@@ -1,5 +1,19 @@
 [
   {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "ttsim v1.10.6",
+    "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.10.6",
+    "description": "Floating-point math just got substantially faster in ttsim — MUL and ADD operations now run 4–8x quicker, with MAD seeing a 1.5x boost — making simulation of compute-heavy kernels noticeably snappier for developers profiling on Grayskale and Wormhole. The release also fills out QSR instruction support across a swathe of SFPSTORE, SFPCONFIG, and SFPSET variants, closes [a tricky corner case in BH SFPMAD and RV32F FMA](https://github.com/tenstorrent/ttsim/issues), and aligns DMAREG opcode naming across architectures for less surprise when moving code between chips.",
+    "date": "2026-09-07",
+    "dateISO": "2026-09-07T18:09:39Z",
+    "label": "tenstorrent/ttsim",
+    "projectName": "ttsim",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
     "type": "article",
     "source": "vllm.ai",
     "approved": true,
