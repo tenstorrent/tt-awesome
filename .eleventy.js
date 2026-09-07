@@ -628,6 +628,31 @@ module.exports = function (eleventyConfig) {
     const items = [];
     const seenUrls = new Set();
 
+    // URLs that planet_feeds.json already covers with a *published* item.
+    //
+    // An entry-derived card is a fallback: it is dated `added_at` (when the
+    // link was curated) and titled after the project, because that is all an
+    // entry knows. An explicit planet item carries the real publication date,
+    // the real headline, and a summary of that specific piece, so it is the
+    // better card whenever it exists.
+    //
+    // Used below to let an entry whose article links are *all* already
+    // published step aside entirely. Without that, curating a link for
+    // something that also has a planet item silently retro-dated the piece to
+    // `added_at` and replaced its headline with the project name — which is how
+    // the arXiv spectral-element paper (whose entry has no `added_at` at all)
+    // came to render under a "January 1970" heading at the bottom of the page.
+    //
+    // Deliberately all-or-nothing: an entry bundling a talk with its recording
+    // is ONE event, and a feed item for just the talk must not split it into
+    // two cards. Partial coverage therefore keeps the bundled entry card and
+    // lets it claim every URL, exactly as before (see test 20d).
+    //
+    // `approved` matters: unapproved items are held back for human review and
+    // never render, so they must not claim a URL away from the entry card.
+    const publishedFeedUrls = new Set(
+      (externalFeeds || []).filter(i => i.approved && i.url).map(i => i.url));
+
     // Article-type links from all entries — ONE card per entry, not per link.
     // A talk, its recording, and its companion write-up are one thing that
     // happened, and every link on an entry shares that entry's added_at date,
@@ -642,6 +667,11 @@ module.exports = function (eleventyConfig) {
     for (const entry of entries || []) {
       const artLinks = (entry.links || []).filter(l => ARTICLE_TYPES.has(l.type));
       if (!artLinks.length) continue;
+
+      // Every link here already has a published planet item of its own, each
+      // with a real date and headline — so add nothing and claim nothing, and
+      // let those items render as themselves.
+      if (artLinks.every(l => publishedFeedUrls.has(l.url))) continue;
 
       // Claim every one of this entry's URLs, including the ones that end up as
       // extra links, so an external feed item for the same page cannot add a

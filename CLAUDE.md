@@ -163,3 +163,70 @@ sourced rather than invented, which was the whole point.
 merge-filtering test summed to 67 chars, so it failed on the sparse gate rather than on
 merge filtering. When writing fixtures for this path, keep subject text comfortably over
 `SPARSE_LIMIT` unless sparseness is what you are testing.
+
+### 2026-09-07 — vLLM TT plugin: blog link, planet item, and planet-card precedence
+
+Prompt: *"Let's make sure the new TT vllm plugin is listed in tt-awesome. Official. It's a
+big deal! Then get this blog post linked from its entry and get the blog post itself into
+the TT planet feed. https://vllm.ai/blog/2026-09-07-vllm-tt-plugin"* — then, on being shown
+a workaround: *"the item should be tagged as blog article. we shouldn't incite side effects
+because of that. we don't want this as a community feed. just an article that ends up in
+planet too"*.
+
+**The entry already existed** — `entries/ai-models/vllm-tt-plugin.json`, added 2026-08-05
+in #153, already `official` with an accurate description. So the work was the blog post
+plus a correctness pass, not a new entry.
+
+**The collision.** `planetItems` treats any link in `ARTICLE_TYPES` (article, lesson, paper,
+talk, video, demo) as an entry-derived planet card dated `entry.added_at`, and it claimed
+the URL in `seenUrls` *before* external feeds were processed — so typing the blog link
+`article` produced one card dated **2026-08-05** titled "vllm-tt-plugin", and silently
+swallowed the hand-written planet item carrying the real headline and date.
+
+My first pass dodged this by typing the link `website` (the `cloud-native-support` shape,
+which does exactly that). Taylor rejected the workaround: the link *is* a blog article, and
+the type shouldn't be bent to steer rendering. Correct call — the fix belonged in the
+render logic.
+
+**The fix: a published planet item outranks the entry-derived card.** An entry card is a
+fallback — it can only date itself `added_at` and title itself after the project. When
+planet_feeds.json carries the real headline and publication date for that exact URL, the
+entry steps aside. Two constraints make it safe:
+
+* **All-or-nothing.** An entry bundling a talk with its recording is ONE event (that's the
+  whole point of "one card per entry, not per link"), so a feed item covering only *part*
+  of an entry must not split it into two cards. The entry steps aside only when **every**
+  one of its article links is already published; partial coverage keeps the bundle and
+  claims every URL exactly as before. Existing **test 20d** pins this and caught the first,
+  too-blunt version of the change, which dropped covered links individually.
+* **`approved` only.** Unapproved items are held for human review and never render, so they
+  must not claim a URL away from the entry card — that would erase the link from the planet
+  entirely.
+
+Push order is safe to reason about because `planetItems` date-sorts everything at the end;
+source order only ever decided dedup precedence, never display position.
+
+**It fixed a live bug.** Exactly one collision existed in the current data: the arXiv
+spectral-element paper, whose entry has **no `added_at`** (it's the standing `validate.py`
+WARN). The entry card was winning with the `|| "1970-01-01"` fallback, so the paper rendered
+under a **"January 1970"** month heading at the very bottom of the planet page. It now sits
+at its real date, Aug 24 2026, with its real title. Measured before changing anything —
+worth doing again before touching this precedence, via the entry-link/feed-URL intersection.
+
+**Also corrected while verifying:** `hardware` was `[wormhole, blackhole]`. The README
+documents `MESH_DEVICE` values `N150`/`N300`/`T3K`/`TG`/`BH-Galaxy` and names QuietBox
+explicitly, so `quietbox` and `galaxy` were added. Sourced from the repo README rather than
+the blog post alone.
+
+**Deliberately did *not* add vllm.ai to `COMMUNITY_FEEDS`** (Taylor confirmed: "we don't
+want this as a community feed"). `fetch_community_feed()` does no topic filtering — the
+comment there says to list only feeds whose *whole* output is on-topic. The vLLM blog is
+overwhelmingly non-Tenstorrent, so it would land a steady stream of unapproved items in the
+review queue. Hand-curated instead, like jasondavies.com.
+
+Since the link is now honestly `article`, the post also flows into `articles.xml` and
+`feed.json` — that feed is entry-curation keyed to `added_at`, which is the right home for
+"a resource this entry cites", while the planet item is the dated news card.
+
+`github_meta.json` was left alone (stars 10, `updatedAt` 2026-09-04 vs. a live push today).
+Nightly CI owns that file; hand-editing it only creates churn.
