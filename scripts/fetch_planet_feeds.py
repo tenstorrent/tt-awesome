@@ -62,10 +62,6 @@ ARXIV_URL  = ("https://export.arxiv.org/api/query"
 # and set trusted=False for anything broader so items land unapproved and get
 # reviewed before publishing.
 COMMUNITY_FEEDS = [
-    # /gemlog/atom.xml started 404ing; only the site-wide feed remains. That feed
-    # is much broader than the old gemlog subset (Arch/ROCm/search-engine posts
-    # alongside the Tenstorrent ones), so items land unapproved for review.
-    {"name": "clehaxze.tw",    "url": "https://clehaxze.tw/atom.xml",             "affiliation": "community", "trusted": False},
     # jasondavies.com and anuraagw.me were listed here but 404'd on every run —
     # both are hand-built sites that publish no feed at any path and advertise
     # none via autodiscovery. Their Tenstorrent posts are curated by hand
