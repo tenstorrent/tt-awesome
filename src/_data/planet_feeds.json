@@ -19,7 +19,7 @@
     "approved": true,
     "title": "tt-bio-demo v0.5.7",
     "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/tag/v0.5.7",
-    "description": "This release pulls in tt-bio 0.7.3's fix for ragged-token padding, addressing a correctness issue that could affect tokenization pipelines with variable-length sequences. If you're running inference or fine-tuning workloads with biological data on Tenstorrent hardware, this update ensures token handling behaves correctly across batches of differing lengths.",
+    "description": "This release pulls in tt-bio 0.7.3's fix for ragged-token padding, addressing a correctness issue that could affect tokenization pipelines with variable-length sequences. Literature updates too.",
     "date": "2026-09-09",
     "dateISO": "2026-09-09T17:05:31Z",
     "label": "tsingletaryTT/tt-bio-demo",
