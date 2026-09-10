@@ -328,8 +328,8 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   [📦 repo](https://github.com/tenstorrent/TenGEMM)
 
 - **[tt-cli](https://github.com/tenstorrent/tt-cli)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  Single entry point to the Tenstorrent software stack: `tt update` converges a machine onto the CI-tested "golden" version set, `tt device` covers status/info/reset, and `tt model`/`tt serve` pull weights and bring up tt-inference-server. Commands either run natively or delegate to tt-smi, tt-flash, and tt-installer behind a stable interface, with `--json` output and documented exit codes on every command. Early prototype — the README labels it an internal prototype and several subcommands are still stubs.
-  [📦 repo](https://github.com/tenstorrent/tt-cli)
+  Single entry point to the Tenstorrent software stack: `tt update` converges a machine onto the CI-tested "golden" version set, `tt device` covers status/info/reset, and `tt model`/`tt serve` pull weights and bring up tt-inference-server. Commands either run natively or delegate to tt-smi, tt-flash, and tt-installer behind a stable interface, with `--json` output and documented exit codes on every command. Beta software — breaking changes are expected — installed from PyPI as `tenstorrent` (`uv tool install tenstorrent`, or any pip-compatible tool). Usage telemetry is opt-in.
+  [📦 repo](https://github.com/tenstorrent/tt-cli) · [🐍 `pip install tenstorrent`](https://pypi.org/project/tenstorrent/)
 
 - **[tt-emule](https://github.com/tenstorrent/tt-emule)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   A C++ software emulator of the Tenstorrent device-level kernel and host APIs. Run tt-metal kernel and host code on a standard x86-64 Linux machine — no Tenstorrent hardware required.
