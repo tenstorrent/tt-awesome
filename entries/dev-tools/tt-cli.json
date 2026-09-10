@@ -1,7 +1,7 @@
 {
   "id": "tt-cli",
   "name": "tt-cli",
-  "description": "Single entry point to the Tenstorrent software stack: `tt update` converges a machine onto the CI-tested \"golden\" version set, `tt device` covers status/info/reset, and `tt model`/`tt serve` pull weights and bring up tt-inference-server. Commands either run natively or delegate to tt-smi, tt-flash, and tt-installer behind a stable interface, with `--json` output and documented exit codes on every command. Early prototype — the README labels it an internal prototype and several subcommands are still stubs.",
+  "description": "Single entry point to the Tenstorrent software stack: `tt update` converges a machine onto the CI-tested \"golden\" version set, `tt device` covers status/info/reset, and `tt model`/`tt serve` pull weights and bring up tt-inference-server. Commands either run natively or delegate to tt-smi, tt-flash, and tt-installer behind a stable interface, with `--json` output and documented exit codes on every command. Beta software — breaking changes are expected — installed from PyPI as `tenstorrent` (`uv tool install tenstorrent`, or any pip-compatible tool). Usage telemetry is opt-in.",
   "affiliation": "official",
   "categories": [
     "dev-tools",
@@ -12,7 +12,7 @@
     "device-management",
     "model-serving",
     "tt-smi",
-    "prototype"
+    "beta"
   ],
   "links": [
     {
@@ -26,5 +26,11 @@
   ],
   "language": "Python",
   "license": "Apache-2.0",
+  "packages": [
+    {
+      "type": "pypi",
+      "name": "tenstorrent"
+    }
+  ],
   "added_at": "2026-08-05"
 }
