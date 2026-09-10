@@ -5,7 +5,7 @@
     "approved": true,
     "title": "sfpi 7.75.1",
     "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.75.1",
-    "description": "We've reverted the Wormhole RAW hazard mitigation from 7.75.0 after finding it imposed unacceptable performance penalties—your kernels should see measurable speedup on Wormhole devices now that we've rolled back that overly conservative fix.",
+    "description": "We reverted the Wormhole RAW hazard mitigation from 7.75.0 after finding it imposed unacceptable performance penalties—your kernels should see measurable speedup on Wormhole devices.",
     "date": "2026-09-10",
     "dateISO": "2026-09-10T15:49:31Z",
     "label": "tenstorrent/sfpi",
