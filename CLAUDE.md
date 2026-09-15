@@ -230,3 +230,44 @@ Since the link is now honestly `article`, the post also flows into `articles.xml
 
 `github_meta.json` was left alone (stars 10, `updatedAt` 2026-09-04 vs. a live push today).
 Nightly CI owns that file; hand-editing it only creates churn.
+
+### 2026-09-15 — three Medium posts from Arni Steingrimsson's QuietBox series
+
+Prompt: *"Let's add https://medium.com/@arnis.us/780-tokens-per-second-on-the-same-tenstorrent-quietbox-a50b2f4b642a
+as a planet feed item. Look for other posts by the same author too that are relevant to
+tenstorrent. do not add a planet feed subscription"*
+
+**Medium blocks WebFetch and curl (403). The author's RSS feed does not.**
+`https://medium.com/feed/@arnis.us` returns 200 with `content:encoded` carrying the *full*
+post body — 7k–34k chars of text, not a truncated excerpt. That is how all three summaries
+were sourced. Worth remembering for any future Medium item: skip the article URL, fetch
+`medium.com/feed/@<handle>` and parse `content:encoded`.
+
+The feed also answered the "other posts" half of the prompt exhaustively: it carries exactly
+four items, and all four are Tenstorrent work. One ("First Pass at World Model on Tenstorrent
+Hardware", Aug 3) was already curated in #149, so three were new:
+
+* **780 Tokens per Second on the Same Tenstorrent QuietBox** (Sep 14) — speculative decoding,
+  SRAM-resident draft model, ~400 → ~780 tok/s.
+* **400 Tokens per Second on a $12,000 Tenstorrent QuietBox** (Aug 31) — the baseline for the
+  above: Marco-Nano-Instruct at 397.7 tok/s, batch one, residency-versus-staging argument.
+* **Building on a Frozen World Model** (Aug 4) — part two of the V-JEPA series; imitation vs.
+  RL on the frozen encoder, plus the "clonability" result.
+
+Each summary names the author's own caveats, because all three posts state them plainly and a
+summary that dropped them would oversell the numbers — the draft tuned on the same prompt it
+was measured on, the excluded prefill/warmup, the retracted 509-pipe demo video.
+
+**`affiliation: "community"`, matching the existing item.** `employee_search` returns no
+Tenstorrent employee by that name — he is an outside developer working on hardware he owns.
+Not `affiliated`: that value is for TT staff blogging (dev.to/mando222, tsingletarytt.github.io).
+
+**No feed subscription added** (Taylor: "do not add a planet feed subscription"). The right
+call independent of the instruction: `fetch_community_feed()` does no topic filtering, and
+while all four current posts are on-topic, a personal Medium account is not a whole-output-on-
+topic source the way a project blog is. Hand-curated instead, like the vllm.ai post and
+jasondavies.com. Items are written to the exact schema `fetch_planet_feeds.py` emits and keyed
+by URL, so `load_existing`/`merge_items` preserve them on every nightly run.
+
+Sorted into place newest-first the same way `merge_items` does — the file was already fully
+sorted by `dateISO` descending, so the diff is 42 pure insertions with no reordering churn.
