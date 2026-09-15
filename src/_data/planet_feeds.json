@@ -28,6 +28,20 @@
     "affiliation": "community"
   },
   {
+    "type": "article",
+    "source": "medium",
+    "approved": true,
+    "label": "medium.com/@arnis.us",
+    "projectName": "Arni Steingrimsson",
+    "projectId": null,
+    "affiliation": "community",
+    "title": "780 Tokens per Second on the Same Tenstorrent QuietBox",
+    "url": "https://medium.com/@arnis.us/780-tokens-per-second-on-the-same-tenstorrent-quietbox-a50b2f4b642a",
+    "description": "Speculative decoding takes Marco-Nano from roughly 400 to roughly **780 delivered tokens per second** on the same four-card Blackhole TT-QuietBox, with no shrinking of the target model and no further quantization. The draft model — a DFlash-inspired architecture built for this project, since no pretrained draft for Marco-Nano existed — fits entirely in the QuietBox's distributed on-chip SRAM alongside its working state, and the verification path keeps its buffers and the target's critical recurring data on chip too. Fixed eight-token blocks, deterministic selection, no adaptive block length. Unusually candid about the shortcut: the draft was tuned on the same Iceland prompt it was measured on, so full acceptance was a working assumption rather than a trained-in property — though the verifier genuinely ran on device and 72 responses matched ordinary decoding exactly. Numbers are warmed decode after the first token, excluding load, prefill and trace warmup; recent runs measured 776.8–788. Galaxy's larger SRAM budget is named as the next step.",
+    "date": "2026-09-14",
+    "dateISO": "2026-09-14T14:32:45Z"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
@@ -642,6 +656,20 @@
     "projectName": "tt-inference-server",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "article",
+    "source": "medium",
+    "approved": true,
+    "label": "medium.com/@arnis.us",
+    "projectName": "Arni Steingrimsson",
+    "projectId": null,
+    "affiliation": "community",
+    "title": "400 Tokens per Second on a $12,000 Tenstorrent QuietBox",
+    "url": "https://medium.com/@arnis.us/400-tokens-per-second-on-a-12-000-tenstorrent-quietbox-425aaf55bbeb",
+    "description": "The baseline behind the speculative-decoding follow-up: **Marco-Nano-Instruct**, an 8B mixture-of-experts with ~0.6B parameters active per token, decoding at **397.7 tokens per second** on a four-card Blackhole TT-QuietBox — batch one, all 28 layers, no draft model, no skipped layers. Trace replay without final token-log delivery reached 402.6; the project's best all-DRAM end-to-end path reached ~260, and a narrower same-layer residency A/B at 2,048 context isolates a 1.248× gain. The argument is residency versus staging: the usual optimizations (fusion, async prefetch, double buffering, sharded dataflow, device-side state, traced replay) only *hide* external-memory traffic, while keeping the critical recurring attention and decode state in Blackhole's explicitly-managed SRAM stops issuing the transaction at all — cold expert weights stream from GDDR6, with Block FP4/FP8 on selected weights. Doubles as a plain-language tour of Tensix, the QuietBox spec, and the SRAM-versus-HBM bet, framed as a desk-scale rehearsal for a 32-chip Galaxy.",
+    "date": "2026-08-31",
+    "dateISO": "2026-08-31T15:05:26Z"
   },
   {
     "type": "release",
@@ -1650,6 +1678,20 @@
     "projectName": "ttsim",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "article",
+    "source": "medium",
+    "approved": true,
+    "label": "medium.com/@arnis.us",
+    "projectName": "Arni Steingrimsson",
+    "projectId": null,
+    "affiliation": "community",
+    "title": "Building on a Frozen World Model",
+    "url": "https://medium.com/@arnis.us/building-on-a-frozen-world-model-e6c34a5b4891",
+    "description": "Part two of the V-JEPA series: with the encoder frozen on four Tenstorrent cards, a ~1M-parameter controller is trained on top of it twice — once by imitation, once by reinforcement learning — to play a Flappy Bird variant from nothing but 96×96 pixels. Linear probes first measure what the representation carries: position ~0.99, gap geometry climbing to 0.968 with depth (past raw pixels), but velocity only 0.59 where two raw frames give 0.90. That measurement looked like the reason RL plateaued across ~50 runs — and was wrong. A control handed the simulator's exact state learned nothing at the same 41k-step budget; given 1.64M steps, RL on the frozen encoder passed 50 pipes on 97% of held-out levels against imitation's 91%, which at 32 samples is the same number. Along the way: **clonability** — a 16-move-lookahead expert plays perfectly yet is nearly uncopyable (0.156) because its reasons lie outside the student's view, while a reactive expert is learnable; and corrections must target where the student *fails*, not where it disagrees. Includes a retraction of an earlier 509-pipe demo run as fitted to one level.",
+    "date": "2026-08-04",
+    "dateISO": "2026-08-04T15:21:25Z"
   },
   {
     "type": "article",
