@@ -58,7 +58,7 @@
   {
     "type": "release",
     "source": "github",
-    "approved": true,
+    "approved": false,
     "title": "dstack 0.22.1",
     "url": "https://github.com/dstackai/dstack/releases/tag/0.22.1",
     "description": "GCP gateways can now use [Google Cloud Certificate Manager](https://cloud.google.com/certificate-manager/docs/overview) for HTTPS with TLS terminated at the load balancer—just configure `certificate.type: gcp-cm` and reference your regional certificate by resource name. Gateway replicas are no longer experimental and can now scale up to 9 replicas (configurable via `DSTACK_SERVER_GATEWAY_MAX_REPLICAS`), though automatic Let's Encrypt issuance remains unsupported for replicated setups. On the preset side, you can now publish presets publicly in the dstack Sky registry so anyone can pull them without signing in, and a handful of fixes shore up runner lifecycle management, database performance, and TLS handling for model endpoints.",
