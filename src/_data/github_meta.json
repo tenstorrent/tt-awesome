@@ -172,7 +172,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 121,
-    "updatedAt": "2026-09-18T17:33:22Z",
+    "updatedAt": "2026-09-19T18:02:26Z",
     "releases": [
       {
         "tagName": "v0.9.0",
@@ -270,15 +270,15 @@
         ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Added\n\n- **Protenix-v2 and OpenDDE now report per-chain-pair ipTM in `results.json`.** A multi-chain\n  entry carries `pair_chains_iptm` and `chains_ptm`, the same two fields Boltz-2 already writes\n  and in the same shape, for every sample rather than only the best one. Read\n  `pair_chains_iptm[binder][target]` to score one named interface of a complex; the global `iptm`\n  averages the whole interface, and on a two-chain target the two agree. The matrix was already\n  computed to derive the per-chain averages and then dropped, so nothing about the fold changed:\n  the same input gives the same coordinates, pLDDT, pTM and ipTM as before. Opened as #15 by\n  @ssiddhantsharma; the diagonal (each chain's own pTM) and the device confidence path\n  (`TT_PROTENIX_CONF_DEVICE=1`) were added on top of it.\n\n## [0.9.0] - 2026-09-18\n\n### Added\n\n- **A preflight warning when a host OpenMPI is set up to break the bundled one.** tt-metal ships\n  the OpenMPI it wants and single-host prediction needs no MPI setup; `OMPI_MCA_*`, `OPAL_PREFIX`\n  or a foreign `libmpi` on `LD_LIBRARY_PATH` aborts it in `MPI_Init` before any Python runs. Every\n  local-worker path now names what it saw and points at the `unset` line, and changes nothing for\n  you. README gained the matching troubleshooting note. Reported in #12 by @ssiddhantsharma.\n\n- **`tt-bio --version`.** `-V` works too. Both print `tt-bio, version X.Y.Z` from the\n  installed package metadata and exit, without importing ttnn or opening a card.\n\n### Fixed\n\n- **A BoltzGen design spread over a full box now gets the same idle-thread parking a full box of\n  folds does.** The design fan-out built its per-card worker environment itself, with its own copy\n  of the cores-over-workers split, so it capped threads but never parked them: 32 single-chip design\n  workers on a 64-thread host sat at a two-thread share spinning their OpenMP pools through every\n  device sync, which is the one regime parking is for. It now takes that environment from\n  `runtime.host_thread_cap_env`, the same builder `predict` and ESMC use. The thread cap itself is\n  unchanged at every width, and an operator's own `OMP_NUM_THREADS` still wins.\n\n- **A host where the device bring-up lock file is not writable no longer brings chips up\n  unserialized in silence.** `/tmp/tt-bio-device-open.lock` belongs to whichever account created\n  it, so a second account on a shared box got a `PermissionError`, and tt-bio answered it by\n  skipping serialization entirely with nothing printed. That is the exact race the lock exists to\n  prevent: concurrent opens deadlock in the driver's `LockManager`, or bring a chip up remote-only\n  so it throws on the first program dispatch. tt-bio now falls back to a per-uid lock file beside\n  the shared one and says on std"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Fixed\n\n- **The size-ladder gate takes its rep count from the rung that is noisy.** One sigma, measured\n  at 512 aa only, set both the exponent tolerance and how many folds every rung is measured\n  over. runtime_s carries a size-independent host term, so the smallest rung is mostly made of\n  it and is the rung that moves: boltz2 on p300c recorded `reps: 1` off a 0.41 % sigma at 512\n  and then failed its own 256->512 exponent at four commits. The arm now measures the lowest\n  gated rung at the sigma rep count too and takes the rep count from the worst of them; the\n  tolerance still comes from the middle rung. Measured on qb1 p150a, benchlocked, AICLK pinned\n  at 1350 MHz: two single draws of k(256->512) disagree by more than the +-0.50 band 0.9 % of\n  the time, three reps takes that to 0.1 %. Existing baselines are unaffected until re-recorded.\n\n- **A tt-bio verb no longer turns off its caller's autograd.** `predict`, `warmup`, `embed`,\n  `affinity`, `saprot` and `design` called `torch.set_grad_enabled(False)` in their bodies, which\n  is process-wide and nothing restored it, so reaching any of them from a script, a notebook or a\n  test left the rest of that program without gradients. The verbs still run inference with grad\n  off; the setting now stops at the verb's edge. Same inputs give the same outputs.\n\n### Added\n\n- **Protenix-v2 and OpenDDE now report per-chain-pair ipTM in `results.json`.** A multi-chain\n  entry carries `pair_chains_iptm` and `chains_ptm`, the same two fields Boltz-2 already writes\n  and in the same shape, for every sample rather than only the best one. Read\n  `pair_chains_iptm[binder][target]` to score one named interface of a complex; the global `iptm`\n  averages the whole interface, and on a two-chain target the two agree. The matrix was already\n  computed to derive the per-chain averages and then dropped, so nothing about the fold changed:\n  the same input gives the same coordinates, pLDDT, pTM and ipTM as before. Opened as #15 by\n  @ssiddhantsharma; the diagonal (each chain's own pTM) and the device confidence path\n  (`TT_PROTENIX_CONF_DEVICE=1`) were added on top of it.\n\n## [0.9.0] - 2026-09-18\n\n### Added\n\n- **A preflight warning when a host OpenMPI is set up to break the bundled one.** tt-metal ships\n  the OpenMPI it wants and single-host prediction needs no MPI setup; `OMPI_MCA_*`, `OPAL_PREFIX`\n  or a foreign `libmpi` on `LD_LIBRARY_PATH` aborts it in `MPI_Init` before any Python runs. Every\n  local-worker path now names what it saw and points at the `unset` line, and changes nothing for\n  you. README gained the matching troubleshooting note. Reported in #12 by @ssiddhantsharma.\n\n- **`tt-bio --version`.** `-V` works too. Both print `tt-bio, version X.Y.Z` from the\n  installed package metadata and e"
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 18,
     "updatedAt": "2026-09-04T00:00:03Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
-    "stars": 64,
-    "updatedAt": "2026-02-16T05:34:14Z"
+    "stars": 63,
+    "updatedAt": "2026-09-19T13:08:57Z"
   },
   "https://github.com/tenstorrent/tt-example-apps": {
     "stars": 13,
@@ -1135,6 +1135,13 @@
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
+        "tagName": "1.5.0.dev20260919005148",
+        "name": "1.5.0.dev20260919005148",
+        "publishedAt": "2026-09-19T01:10:13Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260919005148",
+        "prerelease": false
+      },
+      {
         "tagName": "1.5.0.dev20260918004828",
         "name": "1.5.0.dev20260918004828",
         "publishedAt": "2026-09-18T01:08:44Z",
@@ -1161,13 +1168,6 @@
         "publishedAt": "2026-09-14T01:11:08Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260914005204",
         "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20260913005217",
-        "name": "1.5.0.dev20260913005217",
-        "publishedAt": "2026-09-13T01:13:28Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260913005217",
-        "prerelease": false
       }
     ],
     "latestStableRelease": {
@@ -1180,7 +1180,7 @@
   },
   "https://github.com/tenstorrent/tt-forge": {
     "stars": 365,
-    "updatedAt": "2026-09-18T02:36:48Z",
+    "updatedAt": "2026-09-19T08:08:18Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
       {
@@ -1407,7 +1407,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 74,
-    "updatedAt": "2026-09-18T08:07:32Z",
+    "updatedAt": "2026-09-19T06:31:30Z",
     "releases": [
       {
         "tagName": "1.5.0.dev20260831000501",
@@ -1500,8 +1500,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 11011,
-    "updatedAt": "2026-09-18T07:14:17Z",
+    "stars": 11012,
+    "updatedAt": "2026-09-19T14:57:15Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -2080,8 +2080,8 @@
     "updatedAt": "2025-08-06T10:49:37Z"
   },
   "https://github.com/Aswincloud/ttperf": {
-    "stars": 4,
-    "updatedAt": "2026-08-19T08:25:38Z",
+    "stars": 5,
+    "updatedAt": "2026-09-19T04:41:08Z",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## [0.1.6] - 2025-01-14\n\n### Added\n- **Memory Configuration Support**: New command-line options for tensor memory configuration\n- `--memory-config CONFIG`: General option with choices `[dram, l1]`\n- `--dram`: Shortcut flag for DRAM memory (default)\n- `--l1`: Shortcut flag for L1 memory\n- Memory configuration extraction from CSV profiler output\n- Memory config display in test result summaries\n\n### Changed\n- **Default tensor shape reduced from `[1, 1, 1024, 1024]` to `[1, 1, 32, 32]` for better performance**\n- Enhanced `create_test_tensor()` function to accept memory_config parameter\n- Updated all `ttnn.from_torch()` calls to use memory_config parameter\n- Improved CSV extraction to read memory configuration from profiler output\n- Enhanced debug output to show memory configuration\n\n### Technical\n- Added `validate_memory_config()` function with alias support\n- Extended environment variable system with `TTPERF_CUSTOM_MEMORY_CONFIG`\n- Updated operation_configs.json to include memory_config field\n- Enhanced test file configuration parsing to handle memory settings\n- Improved result reporting to include memory configuration details\n\n## [0.1.4] - 2025-01-14\n\n### Changed\n- **Major Improvement**: Configuration extraction now reads from CSV profiler output instead of parsing text with regex\n- Replaced 50+ complex regex patterns with structured CSV data parsing\n- Enhanced `extract_test_config_and_status()` function to prioritize CSV data over text parsing\n- Added new `extract_config_from_csv()` function for reliable configuration extraction\n\n### Fixed\n- More accurate shape, dtype, and layout detection from profiler results\n- Improved reliability of configuration reporting in test summaries\n- Better handling of tensor dimension parsing (e.g., \"32[32]\" format)\n\n### Technical\n- CSV-based extraction provides structured, consistent data vs. unreliable text parsing\n- Maintains backward compatibility with text parsing as fallback\n- Cleaner, more maintainable codebase with reduced complexity\n\n## [0.1.0] - 2025-07-14\n\n### Added\n- Initial release of ttperf CLI tool\n- Support for profiling TT-Metal tests with pytest\n- Automatic CSV path extraction from profiler output\n- Device kernel duration calculation\n- Real-time output streaming\n- Flexible command-line argument parsing\n- Support for named profiles\n- Comprehensive error handling\n\n### Features\n- Simple CLI interface: `ttperf [name] [pytest] <test_path>`\n- Automatic detection of test files and paths\n- Integration with TT-Metal profiler tools\n- CSV parsing for performance metrics\n- Real-time progress monitoring\n\n### Dependencies\n- pandas for CSV processing\n- Python 3.7+ support\n- TT-Metal development environment\n\n## [Unreleased]\n\n### Planned\n- Enhanced error messages\n\n##"
   },
   "https://github.com/tsingletaryTT/tt-bio-demo": {
@@ -4087,8 +4087,46 @@
   },
   "https://github.com/tenstorrent/sfpi": {
     "stars": 16,
-    "updatedAt": "2026-09-17T18:07:01Z",
+    "updatedAt": "2026-09-18T21:12:45Z",
     "releases": [
+      {
+        "tagName": "7.79.0-iaddgt-57012",
+        "name": "7.79.0-iaddgt-57012",
+        "publishedAt": "2026-09-19T00:17:33Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.79.0-iaddgt-57012",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.79.0-iaddgt-57012_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.79.0-iaddgt-57012/sfpi_7.79.0-iaddgt-57012_x86_64_debian.deb",
+            "size": 134632070
+          },
+          {
+            "name": "sfpi_7.79.0-iaddgt-57012_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.79.0-iaddgt-57012/sfpi_7.79.0-iaddgt-57012_x86_64_fedora.rpm",
+            "size": 134164071
+          }
+        ]
+      },
+      {
+        "tagName": "7.79.0-ttinsn-32639",
+        "name": "7.79.0-ttinsn-32639",
+        "publishedAt": "2026-09-18T19:04:28Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.79.0-ttinsn-32639",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.79.0-ttinsn-32639_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.79.0-ttinsn-32639/sfpi_7.79.0-ttinsn-32639_x86_64_debian.deb",
+            "size": 134632072
+          },
+          {
+            "name": "sfpi_7.79.0-ttinsn-32639_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.79.0-ttinsn-32639/sfpi_7.79.0-ttinsn-32639_x86_64_fedora.rpm",
+            "size": 134157336
+          }
+        ]
+      },
       {
         "tagName": "7.79.0-int8-57001",
         "name": "7.79.0-int8-57001",
@@ -4099,12 +4137,12 @@
           {
             "name": "sfpi_7.79.0-int8-57001_x86_64_debian.deb",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.79.0-int8-57001/sfpi_7.79.0-int8-57001_x86_64_debian.deb",
-            "size": 134620982
+            "size": 134620540
           },
           {
             "name": "sfpi_7.79.0-int8-57001_x86_64_fedora.rpm",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.79.0-int8-57001/sfpi_7.79.0-int8-57001_x86_64_fedora.rpm",
-            "size": 134161958
+            "size": 134162003
           }
         ]
       },
@@ -4150,49 +4188,6 @@
             "size": 134174342
           }
         ]
-      },
-      {
-        "tagName": "7.78.0",
-        "name": "Compiler Update",
-        "publishedAt": "2026-09-15T15:33:42Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.78.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.78.0_aarch64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.78.0/sfpi_7.78.0_aarch64_debian.deb",
-            "size": 129546166
-          },
-          {
-            "name": "sfpi_7.78.0_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.78.0/sfpi_7.78.0_x86_64_debian.deb",
-            "size": 134606804
-          },
-          {
-            "name": "sfpi_7.78.0_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.78.0/sfpi_7.78.0_x86_64_fedora.rpm",
-            "size": 134157539
-          }
-        ]
-      },
-      {
-        "tagName": "7.77.0-raw-55505",
-        "name": "7.77.0-raw-55505",
-        "publishedAt": "2026-09-14T14:49:05Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.77.0-raw-55505",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.77.0-raw-55505_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.77.0-raw-55505/sfpi_7.77.0-raw-55505_x86_64_debian.deb",
-            "size": 134629678
-          },
-          {
-            "name": "sfpi_7.77.0-raw-55505_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.77.0-raw-55505/sfpi_7.77.0-raw-55505_x86_64_fedora.rpm",
-            "size": 134165893
-          }
-        ]
       }
     ]
   },
@@ -4211,8 +4206,8 @@
     "updatedAt": "2026-09-06T18:30:24Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1684,
-    "updatedAt": "2026-09-18T18:04:18Z",
+    "stars": 1686,
+    "updatedAt": "2026-09-19T12:37:24Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -4901,7 +4896,7 @@
   },
   "https://github.com/tenstorrent/tt-isa-documentation": {
     "stars": 127,
-    "updatedAt": "2026-09-18T10:46:58Z"
+    "updatedAt": "2026-09-18T22:22:30Z"
   },
   "https://github.com/olofj/bhx": {
     "stars": 5,
