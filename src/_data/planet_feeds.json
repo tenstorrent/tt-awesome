@@ -1,31 +1,17 @@
 [
   {
-    "type": "article",
-    "source": "dev.to/mando222",
+    "type": "release",
+    "source": "github",
     "approved": true,
-    "title": "Coding with My QuietBox",
-    "url": "https://dev.to/mando222/coding-with-my-quietbox-50db",
-    "description": "Quick Disclosure: same as always, I work for Tenstorrent. That said I'll call out the rough edges as readily as the wins. I've spent the last few months getting real AI compute into my house. Big models, weird streaming tricks, a QuietBox 2 sitting in my lab humming away. Most of that has been benchmarking work. At some point you have to stop measuring the thing and start using it. So here's the using it. I pointed OpenCode, a terminal coding agent, at my own inference server, and told it to build me a Tetris clone. The whole thing stayed on my LAN. Setup took about ninety seconds, generation took a minute nine, and it worked. Why Coding Agents Coding agents are a good stress test for a local setup. They need tool calling that actually works, since the agent has to read and write files on…",
+    "title": "tt-toplike v0.13.5",
+    "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.13.5",
+    "description": "tt-toplike can now spot non-vLLM `tt-model-manager` containers, expanding visibility beyond the vLLM-centric deployments it previously tracked, and fixes a longstanding issue where kernel and weight-load probes would fail silently on certain configurations. If you're running model serving workloads on Tenstorrent hardware and want accurate telemetry across diverse container setups, this brings your monitoring into sync with emerging deployment patterns.",
     "date": "2026-09-21",
-    "dateISO": "2026-09-21T00:00:00Z",
-    "label": "dev.to/mando222",
-    "projectName": "dev.to/mando222",
+    "dateISO": "2026-09-21T19:41:22Z",
+    "label": "tenstorrent/tt-toplike",
+    "projectName": "tt-toplike",
     "projectId": null,
-    "affiliation": "affiliated"
-  },
-  {
-    "type": "article",
-    "source": "dev.to/mando222",
-    "approved": true,
-    "title": "I wanted to run any model on Tenstorrent hardware",
-    "url": "https://dev.to/mando222/i-wanted-to-run-any-model-on-tenstorrent-hardware-1ngn",
-    "description": "I kept running into the same problem, so I built a tool. I have run into the same general issue over and over for the last few months. I bring a model up on a Tenstorrent card. I get it running under vLLM, tune the mesh, nudge the batch size, and eventually land on the one exact combo of ttnn, a vLLM plugin, and my own hacked-up tt-metal tree that actually spits out coherent tokens. I have a working state but when anyone says \"cool, send it over,\" I spend the next afternoon typing out the answer into a wiki page: which branch of what, which env vars, which mesh, the exact serve flags, the weights repo. Half of it is stale by the time they read it, and the rest is tribal knowledge I didn't even realize I was relying on until I had to write it down. If you read my previous post about…",
-    "date": "2026-09-21",
-    "dateISO": "2026-09-21T00:00:00Z",
-    "label": "dev.to/mando222",
-    "projectName": "dev.to/mando222",
-    "projectId": null,
-    "affiliation": "affiliated"
+    "affiliation": "official"
   },
   {
     "type": "release",
@@ -54,6 +40,34 @@
     "projectName": "tt-umd",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "article",
+    "source": "dev.to/mando222",
+    "approved": true,
+    "title": "Coding with My QuietBox",
+    "url": "https://dev.to/mando222/coding-with-my-quietbox-50db",
+    "description": "Quick Disclosure: same as always, I work for Tenstorrent. That said I'll call out the rough edges as readily as the wins. I've spent the last few months getting real AI compute into my house. Big models, weird streaming tricks, a QuietBox 2 sitting in my lab humming away. Most of that has been benchmarking work. At some point you have to stop measuring the thing and start using it. So here's the using it. I pointed OpenCode, a terminal coding agent, at my own inference server, and told it to build me a Tetris clone. The whole thing stayed on my LAN. Setup took about ninety seconds, generation took a minute nine, and it worked. Why Coding Agents Coding agents are a good stress test for a local setup. They need tool calling that actually works, since the agent has to read and write files on…",
+    "date": "2026-09-21",
+    "dateISO": "2026-09-21T00:00:00Z",
+    "label": "dev.to/mando222",
+    "projectName": "dev.to/mando222",
+    "projectId": null,
+    "affiliation": "affiliated"
+  },
+  {
+    "type": "article",
+    "source": "dev.to/mando222",
+    "approved": true,
+    "title": "I wanted to run any model on Tenstorrent hardware",
+    "url": "https://dev.to/mando222/i-wanted-to-run-any-model-on-tenstorrent-hardware-1ngn",
+    "description": "I kept running into the same problem, so I built a tool. I have run into the same general issue over and over for the last few months. I bring a model up on a Tenstorrent card. I get it running under vLLM, tune the mesh, nudge the batch size, and eventually land on the one exact combo of ttnn, a vLLM plugin, and my own hacked-up tt-metal tree that actually spits out coherent tokens. I have a working state but when anyone says \"cool, send it over,\" I spend the next afternoon typing out the answer into a wiki page: which branch of what, which env vars, which mesh, the exact serve flags, the weights repo. Half of it is stale by the time they read it, and the rest is tribal knowledge I didn't even realize I was relying on until I had to write it down. If you read my previous post about…",
+    "date": "2026-09-21",
+    "dateISO": "2026-09-21T00:00:00Z",
+    "label": "dev.to/mando222",
+    "projectName": "dev.to/mando222",
+    "projectId": null,
+    "affiliation": "affiliated"
   },
   {
     "type": "release",
