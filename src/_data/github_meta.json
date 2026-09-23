@@ -5186,5 +5186,14 @@
         "prerelease": false
       }
     ]
+  },
+  "https://github.com/tenstorrent/skills": {
+    "stars": 13,
+    "updatedAt": "2026-09-23T16:11:32Z"
+  },
+  "https://github.com/tenstorrent/tt-transformers": {
+    "stars": 1,
+    "updatedAt": "2026-09-22T19:06:56Z",
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   }
 }

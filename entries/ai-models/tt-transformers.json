@@ -1,0 +1,43 @@
+{
+  "id": "tt-transformers",
+  "name": "tt-transformers",
+  "description": "Standalone library of reusable TTNN transformer building blocks (MLP, attention, RMSNorm, RoPE, embedding, LM head, sampling), a model-neutral LLM runtime, and HF-style `from_pretrained()` → `generate()` model implementations, extracted from tt-metal into its own repo. Ships Llama 3.x (1B–70B), Qwen2/2.5/3, Mistral 7B, Phi-4, and DeepSeek R1 Distill across N150, N300, T3K, and Blackhole P150/P150x4. It's a developer preview: every model is marked experimental and pinned to `ttnn==0.77.0`.",
+  "affiliation": "official",
+  "categories": [
+    "ai-models",
+    "kernels"
+  ],
+  "tags": [
+    "ttnn",
+    "transformers",
+    "llm",
+    "llama",
+    "qwen",
+    "mistral",
+    "inference",
+    "tensor-parallel"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-transformers"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/tenstorrent/tt-transformers/blob/main/SUPPORT.md",
+      "label": "Support matrix"
+    }
+  ],
+  "related": [
+    "tt-metal",
+    "vllm-tt-plugin"
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "quietbox"
+  ],
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-09-23"
+}

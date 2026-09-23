@@ -271,3 +271,21 @@ by URL, so `load_existing`/`merge_items` preserve them on every nightly run.
 
 Sorted into place newest-first the same way `merge_items` does — the file was already fully
 sorted by `dateISO` descending, so the diff is 42 pure insertions with no reordering churn.
+
+### 2026-09-23 — tenstorrent/skills and tenstorrent/tt-transformers
+
+Prompt: *"Make sure we are tracking https://github.com/tenstorrent/skills and the new
+tenstorrent/tt-transformers please"*
+
+Neither was listed. Added `agents/tenstorrent-skills.json` (id avoids the bare, ambiguous
+`skills`) and `ai-models/tt-transformers.json`, both `official`. Everything was taken from
+the repos themselves. The skills README still says "restricted visibility", but both repos
+are PUBLIC; that was checked with `gh repo view` and an anonymous 200.
+tt-transformers hardware comes from `SUPPORT.md` (N150/N300/T3K plus P150/P150_X4, so
+`quietbox` too, but no Galaxy geometry). It is not on PyPI (404) and installs from a
+checkout, so the entry has no `packages`.
+
+**No planet items.** Neither repo has any releases or tags yet. Nightly
+`fetch_github_meta` → `summarize_releases` will pick up the first release on its own now
+that the entries exist. `github_meta.json` was updated for just these two repos by
+importing the fetcher's functions, the same way as for tt-finetune.
