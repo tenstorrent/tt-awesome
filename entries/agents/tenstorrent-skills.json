@@ -1,0 +1,42 @@
+{
+  "id": "tenstorrent-skills",
+  "name": "Tenstorrent Skills",
+  "description": "Official agent-skill marketplace for Claude Code and Codex, aimed at tt-metal, TTNN, Metalium, and model work. A `tt-skills` finder plugin recommends and installs the rest with your approval: `tt-autodebug` (AutoDebug/AutoTriage investigate bugs and hangs, AutoFix repairs them), `tt-model-bringup` (an eleven-stage path from a Hugging Face decoder through TTNN to vLLM benchmarking), `tt-review-skills` (PR review for TTNN, Metalium, LLK, multi-chip, and L1 changes, also pinnable in gh-aw workflows), and `tt-debug-tools` (drives tt-triage, dprint, and watcher).",
+  "affiliation": "official",
+  "categories": [
+    "agents",
+    "dev-tools"
+  ],
+  "tags": [
+    "agent-skill",
+    "claude-code",
+    "codex",
+    "plugin-marketplace",
+    "code-review",
+    "debugging",
+    "model-bringup",
+    "ttnn",
+    "tt-metal"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/skills"
+    },
+    {
+      "type": "lesson",
+      "url": "https://github.com/tenstorrent/skills/blob/main/docs/agentic-research/getting-started.md",
+      "label": "Getting started with Agentic Research skills"
+    }
+  ],
+  "related": [
+    "tt-metal"
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-09-23"
+}

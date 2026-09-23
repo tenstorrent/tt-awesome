@@ -107,6 +107,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   Web-based GUI for deploying and chatting with AI models on Tenstorrent hardware. Handles all technical setup automatically — deploy models, run inference, and explore capabilities through a simple browser interface.
   [📦 repo](https://github.com/tenstorrent/tt-studio)
 
+- **[tt-transformers](https://github.com/tenstorrent/tt-transformers)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Standalone library of reusable TTNN transformer building blocks (MLP, attention, RMSNorm, RoPE, embedding, LM head, sampling), a model-neutral LLM runtime, and HF-style `from_pretrained()` → `generate()` model implementations, extracted from tt-metal into its own repo. Ships Llama 3.x (1B–70B), Qwen2/2.5/3, Mistral 7B, Phi-4, and DeepSeek R1 Distill across N150, N300, T3K, and Blackhole P150/P150x4. It's a developer preview: every model is marked experimental and pinned to `ttnn==0.77.0`.
+  [📦 repo](https://github.com/tenstorrent/tt-transformers) · [🌐 Support matrix](https://github.com/tenstorrent/tt-transformers/blob/main/SUPPORT.md)
+
 - **[vllm-tt-plugin](https://github.com/tenstorrent/vllm-tt-plugin)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent backend for vLLM, built on vLLM's standard plugin mechanism — install it alongside vLLM and TT hardware registers itself as a platform whenever `ttnn` is importable. Self-contained: model registration, platform detection, scheduling, worker execution, model loading, async decode, and data-parallel/multi-lane execution all live in the plugin, so nothing Tenstorrent-specific has to land in vLLM core.
   [📦 repo](https://github.com/tenstorrent/vllm-tt-plugin) · [📝 vLLM blog post](https://vllm.ai/blog/2026-09-07-vllm-tt-plugin)
@@ -124,6 +128,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-claw](https://github.com/tsingletaryTT/tt-claw)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — A Tenstorrent-powered claw machine that rewards players with real prizes. The QuietBox 2 runs local AI inference to act as an agent controlling the claw hardware — the OpenClaw AI assistant lesson builds directly on this project.
   [📦 repo](https://github.com/tsingletaryTT/tt-claw) · [📖 OpenClaw AI Assistant on QuietBox 2](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-openclaw-assistant/)
+
+- **[Tenstorrent Skills](https://github.com/tenstorrent/skills)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Official agent-skill marketplace for Claude Code and Codex, aimed at tt-metal, TTNN, Metalium, and model work. A `tt-skills` finder plugin recommends and installs the rest with your approval: `tt-autodebug` (AutoDebug/AutoTriage investigate bugs and hangs, AutoFix repairs them), `tt-model-bringup` (an eleven-stage path from a Hugging Face decoder through TTNN to vLLM benchmarking), `tt-review-skills` (PR review for TTNN, Metalium, LLK, multi-chip, and L1 changes, also pinnable in gh-aw workflows), and `tt-debug-tools` (drives tt-triage, dprint, and watcher).
+  [📦 repo](https://github.com/tenstorrent/skills) · [📖 Getting started with Agentic Research skills](https://github.com/tenstorrent/skills/blob/main/docs/agentic-research/getting-started.md)
 
 ## ⚙️ Custom Kernels & Low-Level
 
