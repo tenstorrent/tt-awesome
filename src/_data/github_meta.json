@@ -3,6 +3,10 @@
     "stars": 15,
     "updatedAt": "2026-06-19T08:51:12Z"
   },
+  "https://github.com/tenstorrent/skills": {
+    "stars": 13,
+    "updatedAt": "2026-09-23T16:11:32Z"
+  },
   "https://github.com/tsingletaryTT/tt-claw": {
     "stars": 0,
     "updatedAt": "2026-04-18T02:36:58Z"
@@ -172,7 +176,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 121,
-    "updatedAt": "2026-09-23T15:25:15Z",
+    "updatedAt": "2026-09-23T19:17:00Z",
     "releases": [
       {
         "tagName": "v0.9.0",
@@ -820,6 +824,11 @@
         "prerelease": false
       }
     ]
+  },
+  "https://github.com/tenstorrent/tt-transformers": {
+    "stars": 1,
+    "updatedAt": "2026-09-22T19:06:56Z",
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 13,
@@ -1993,9 +2002,23 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 57,
-    "updatedAt": "2026-09-22T18:26:27Z",
+    "updatedAt": "2026-09-23T19:38:16Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
+      {
+        "tagName": "v0.104.0",
+        "name": "v0.104.0",
+        "publishedAt": "2026-09-23T19:49:32Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.104.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "ttnn_visualizer-0.104.0-py3-none-any.whl",
+            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.104.0/ttnn_visualizer-0.104.0-py3-none-any.whl",
+            "size": 3054255
+          }
+        ]
+      },
       {
         "tagName": "v0.103.0",
         "name": "v0.103.0",
@@ -2049,20 +2072,6 @@
             "name": "ttnn_visualizer-0.101.0-py3-none-any.whl",
             "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.101.0/ttnn_visualizer-0.101.0-py3-none-any.whl",
             "size": 2899670
-          }
-        ]
-      },
-      {
-        "tagName": "v0.100.0",
-        "name": "v0.100.0",
-        "publishedAt": "2026-08-26T20:17:30Z",
-        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.100.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "ttnn_visualizer-0.100.0-py3-none-any.whl",
-            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.100.0/ttnn_visualizer-0.100.0-py3-none-any.whl",
-            "size": 2861251
           }
         ]
       }
@@ -2859,7 +2868,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 45,
-    "updatedAt": "2026-09-23T14:59:59Z",
+    "updatedAt": "2026-09-23T17:30:23Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -4200,7 +4209,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1686,
-    "updatedAt": "2026-09-23T15:08:16Z",
+    "updatedAt": "2026-09-23T21:25:13Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -4892,8 +4901,8 @@
     "updatedAt": "2026-09-18T22:22:30Z"
   },
   "https://github.com/olofj/bhx": {
-    "stars": 5,
-    "updatedAt": "2026-07-28T03:32:36Z",
+    "stars": 6,
+    "updatedAt": "2026-09-23T15:59:57Z",
     "changelog_excerpt": "# Changelog\n\nNotable changes per release. Format loosely follows\n[Keep a Changelog](https://keepachangelog.com/en/1.1.0/);\nthis project does not yet promise SemVer compatibility on the RPC\nwire format or library API surface (we're not 1.0).\n\n## Unreleased\n\nV2 virtio-dispatch redesign. The kick ring + completion ring + host-\nside throttle that grew up around #184 are gone; in their place is a\nper-(slot, queue) dirty bitmap in BRISC L1. The bitmap is level-\nsensitive \u2014 guest QUEUE_NOTIFY storms coalesce into a single set\nbyte, so the dispatch path can't fall behind under any burst. Wire\nincompatible with 0.9.0; `TENSIX_PROTOCOL_VERSION` bumped 4 \u2192 5.\n\n### Added\n\n- **V2 dirty-bitmap dispatch** (`#187` / `#188` / `#189`). BRISC\n  writes 1 to `CTRL_OFF_DIRTY[slot][queue]` on every guest\n  QUEUE_NOTIFY; the daemon's `Dispatcher` clears the byte and\n  dispatches each pass. Replaces V1's 2048-entry kick ring +\n  daemon-side `consume_kick_ring_pass` consumer.\n- **V2 processed-cursor table** at `CTRL_OFF_PROCESSED`. Daemon\n  publishes `used.idx` after each successful dispatch so\n  warm-resume reads cursors directly without re-probing guest\n  DRAM.\n- **`bhx_notify_events_total`, `bhx_dispatch_passes_total`,\n  `bhx_dispatch_queues_drained`** Prometheus counters surface the\n  new dispatch path. The burst regression test (`scripts/\n  soak_virtio_burst.py`) asserts `dispatch_passes_total > 0` to\n  confirm the workload reached the new path.\n- **`scripts/soak_virtio_burst.py`** \u2014 multi-queue burst regression\n  test. Sustains 16-job direct=1 fio randwrite + a tight\n  `printf` loop to `/dev/console`, samples `/metrics` every 1 s,\n  and verifies the daemon log contains zero\n  `kick.*drop|rescue|throttle.*ENGAGE` matches.\n- **`DaemonState.chip_reset_this_session`** flag \u2014 gates\n  `maybe_opportunistic_reset_board` so 4-way parallel cold boots\n  reset the chip exactly once, not once per L2CPU. Without this\n  the second-and-later resets blip the chip while earlier-booted\n  L2CPUs hold mmap pages, SIGBUSing their workers.\n- **`Dispatcher` (was `KickPoller`)** with documented testability\n  seam (`CtrlL1Access` trait); `drain_dirty_bitmap` is unit-tested\n  against an in-memory L1 fake covering all five visit/clear\n  semantics cases plus the address-formula pins.\n\n### Changed\n\n- **`KickPoller` \u2192 `Dispatcher`**, plus `kick_poller` \u2192 `dispatcher`\n  field on `DaemonState`, `tensix-kick-poller` \u2192 `tensix-dispatcher`\n  thread name, `[kick-poller]` \u2192 `[dispatcher]` log tag,\n  `kicks_consumed` \u2192 `dispatches_total`,\n  `last_kick_slot_queue` \u2192 `last_dispatch_slot_queue`. Pure\n  rename; no behavior change. V1 vocabulary scrubbed throughout\n  the codebase (firmware, daemon, scripts, docs).\n- **`CTRL_SIZE` shrinks 36 KiB \u2192 4 KiB**. V2 footprint is ~1.5 KiB;\n  the rest is reserved for future fields.\n- **Stats-page offsets repacked** \u2014 V1 `STATS_OFF_KICK_DROPS`,\n  `STATS_OFF_COMPL_EVENTS`, `STATS_OFF_LAST_COMPL` retired with\n  V1 (#190); deprecated PRECAP / BLINDCAP / POSTCAP slots dropp"
   },
   "https://github.com/tenstorrent/riescue": {
@@ -5186,14 +5195,5 @@
         "prerelease": false
       }
     ]
-  },
-  "https://github.com/tenstorrent/skills": {
-    "stars": 13,
-    "updatedAt": "2026-09-23T16:11:32Z"
-  },
-  "https://github.com/tenstorrent/tt-transformers": {
-    "stars": 1,
-    "updatedAt": "2026-09-22T19:06:56Z",
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   }
 }
