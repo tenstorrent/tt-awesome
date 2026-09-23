@@ -172,7 +172,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 121,
-    "updatedAt": "2026-09-22T20:31:27Z",
+    "updatedAt": "2026-09-23T15:25:15Z",
     "releases": [
       {
         "tagName": "v0.9.0",
@@ -327,11 +327,11 @@
   },
   "https://github.com/tenstorrent/tt-forge-models": {
     "stars": 14,
-    "updatedAt": "2026-09-17T16:37:39Z"
+    "updatedAt": "2026-09-23T05:29:06Z"
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 74,
-    "updatedAt": "2026-09-22T15:25:25Z",
+    "updatedAt": "2026-09-23T12:53:30Z",
     "releases": [
       {
         "tagName": "v0.22.0",
@@ -823,11 +823,11 @@
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 13,
-    "updatedAt": "2026-09-21T15:01:20Z"
+    "updatedAt": "2026-09-23T07:19:47Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2258,
-    "updatedAt": "2026-09-22T20:12:35Z",
+    "stars": 2259,
+    "updatedAt": "2026-09-23T15:00:08Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1135,6 +1135,13 @@
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
+        "tagName": "1.5.0.dev20260923005220",
+        "name": "1.5.0.dev20260923005220",
+        "publishedAt": "2026-09-23T01:11:59Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260923005220",
+        "prerelease": false
+      },
+      {
         "tagName": "1.5.0.dev20260922004832",
         "name": "1.5.0.dev20260922004832",
         "publishedAt": "2026-09-22T01:10:04Z",
@@ -1160,13 +1167,6 @@
         "name": "1.5.0.dev20260919005148",
         "publishedAt": "2026-09-19T01:10:13Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260919005148",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20260918004828",
-        "name": "1.5.0.dev20260918004828",
-        "publishedAt": "2026-09-18T01:08:44Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260918004828",
         "prerelease": false
       }
     ]
@@ -1225,8 +1225,8 @@
     "updatedAt": "2026-09-16T12:03:16Z"
   },
   "https://github.com/tenstorrent/tt-mlir": {
-    "stars": 309,
-    "updatedAt": "2026-09-22T20:16:22Z",
+    "stars": 310,
+    "updatedAt": "2026-09-23T12:49:37Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -2859,7 +2859,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 45,
-    "updatedAt": "2026-09-22T16:39:34Z",
+    "updatedAt": "2026-09-23T14:59:59Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -3615,7 +3615,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 50,
-    "updatedAt": "2026-09-22T20:16:46Z",
+    "updatedAt": "2026-09-23T10:20:39Z",
     "releases": [
       {
         "tagName": "v0.9.11",
@@ -4083,6 +4083,49 @@
     "updatedAt": "2026-09-22T19:54:00Z",
     "releases": [
       {
+        "tagName": "7.81.0-ttinsn-32639",
+        "name": "7.81.0-ttinsn-32639",
+        "publishedAt": "2026-09-22T23:58:34Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.81.0-ttinsn-32639",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.81.0-ttinsn-32639_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.81.0-ttinsn-32639/sfpi_7.81.0-ttinsn-32639_x86_64_debian.deb",
+            "size": 134630266
+          },
+          {
+            "name": "sfpi_7.81.0-ttinsn-32639_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.81.0-ttinsn-32639/sfpi_7.81.0-ttinsn-32639_x86_64_fedora.rpm",
+            "size": 134164454
+          }
+        ]
+      },
+      {
+        "tagName": "7.81.0",
+        "name": "SFPI Update",
+        "publishedAt": "2026-09-22T22:45:49Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.81.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.81.0_aarch64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.81.0/sfpi_7.81.0_aarch64_debian.deb",
+            "size": 129524906
+          },
+          {
+            "name": "sfpi_7.81.0_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.81.0/sfpi_7.81.0_x86_64_debian.deb",
+            "size": 134614988
+          },
+          {
+            "name": "sfpi_7.81.0_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.81.0/sfpi_7.81.0_x86_64_fedora.rpm",
+            "size": 134158157
+          }
+        ]
+      },
+      {
         "tagName": "7.80.0-minmax-57257",
         "name": "7.80.0-minmax-57257",
         "publishedAt": "2026-09-22T14:47:00Z",
@@ -4138,49 +4181,6 @@
             "size": 134162887
           }
         ]
-      },
-      {
-        "tagName": "7.80.0-ttinsn-32639",
-        "name": "7.80.0-ttinsn-32639",
-        "publishedAt": "2026-09-20T10:48:53Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.80.0-ttinsn-32639",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.80.0-ttinsn-32639_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.80.0-ttinsn-32639/sfpi_7.80.0-ttinsn-32639_x86_64_debian.deb",
-            "size": 134630282
-          },
-          {
-            "name": "sfpi_7.80.0-ttinsn-32639_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.80.0-ttinsn-32639/sfpi_7.80.0-ttinsn-32639_x86_64_fedora.rpm",
-            "size": 134168331
-          }
-        ]
-      },
-      {
-        "tagName": "7.80.0",
-        "name": "Compiler Update",
-        "publishedAt": "2026-09-20T09:29:41Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.80.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.80.0_aarch64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.80.0/sfpi_7.80.0_aarch64_debian.deb",
-            "size": 129548812
-          },
-          {
-            "name": "sfpi_7.80.0_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.80.0/sfpi_7.80.0_x86_64_debian.deb",
-            "size": 134633142
-          },
-          {
-            "name": "sfpi_7.80.0_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.80.0/sfpi_7.80.0_x86_64_fedora.rpm",
-            "size": 134157255
-          }
-        ]
       }
     ]
   },
@@ -4200,7 +4200,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1686,
-    "updatedAt": "2026-09-22T20:51:49Z",
+    "updatedAt": "2026-09-23T15:08:16Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5101,7 +5101,7 @@
   },
   "https://github.com/tenstorrent/tt-rpm": {
     "stars": 6,
-    "updatedAt": "2026-07-02T18:48:16Z"
+    "updatedAt": "2026-09-23T00:02:02Z"
   },
   "https://github.com/mesham/tt-sim": {
     "stars": 14,
