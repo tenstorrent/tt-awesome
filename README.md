@@ -151,6 +151,14 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@jaebaek](https://github.com/jaebaek) — Simple C++ kernel experiments on a GraySkull e75 chip. Hands-on examples for learning the TT-Metal programming model at the metal level.
   [📦 repo](https://github.com/jaebaek/tenstorrent-tiny-examples)
 
+- **[tt-ldpc-qb2-sim](https://github.com/palisurf/tt-ldpc-qb2-sim)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@palisurf](https://github.com/palisurf) — High-performance, multi-chip Monte Carlo LDPC (Low-Density Parity-Check) simulation framework targeting the Tenstorrent QuietBox 2 (QB2) equipped with 4 Blackhole processors in a 2x2 mesh topology (440 Tensix compute cores).
+
+The simulator features a hardware-optimized implementation of the Approximate-Min* constraint node updating algorithm developed by Christopher R. Jones et al., delivering full Belief Propagation (BP) error-correction performance at the execution speed of Min-Sum.
+
+The architecture can be mapping to any number of Tensix cores. The build is configured by default for a QB2.
+  [📦 repo](https://github.com/palisurf/tt-ldpc-qb2-sim)
+
 - **[tt-rqm-kernels](https://github.com/RQM-Technologies-dev/tt-rqm-kernels)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@RQM-Technologies-dev](https://github.com/RQM-Technologies-dev) — Structured quaternion, rotor, and phase-aware tensor kernels on ordinary floating-point tensors, plus StructuredBench. Includes CPU/PyTorch references, simulator and emulator paths, and reproducible Wormhole/N300 evidence for quaternion multiply (`qmul`), fused SU(2) composition, and H2A Hamiltonian lowering.
   [📦 repo](https://github.com/RQM-Technologies-dev/tt-rqm-kernels) · [🌐 Tenstorrent landing page](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-landing.md) · [🌐 Wormhole qmul benchmark](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul.md) · [🌐 Wormhole qmul hardware evidence](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/wormhole-qmul-hardware-evidence.md) · [🌐 SU2ComposeBench](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/su2-compose-bench.md) · [🌐 H2A silicon conformance](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/benchmarks/hamiltonian-lowering-h2a.md) · [🌐 Current-main qmul port](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/upstream/current-main-qmul-port.md) · [🌐 StructuredBench specification](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/structuredbench-spec.md) · [🌐 Tenstorrent RFC](https://github.com/RQM-Technologies-dev/tt-rqm-kernels/blob/main/docs/tenstorrent-rfc.md)
