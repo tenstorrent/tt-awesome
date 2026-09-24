@@ -1,0 +1,25 @@
+{
+  "id": "tt-ldpc-qb2-sim",
+  "name": "tt-ldpc-qb2-sim",
+  "description": "High-performance, multi-chip Monte Carlo LDPC (Low-Density Parity-Check) simulation framework targeting the Tenstorrent QuietBox 2 (QB2) equipped with 4 Blackhole processors in a 2x2 mesh topology (440 Tensix compute cores).\n\nThe simulator features a hardware-optimized implementation of the Approximate-Min* constraint node updating algorithm developed by Christopher R. Jones et al., delivering full Belief Propagation (BP) error-correction performance at the execution speed of Min-Sum.\n\nThe architecture can be mapping to any number of Tensix cores. The build is configured by default for a QB2.",
+  "affiliation": "community",
+  "categories": [
+    "kernels",
+    "research"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/palisurf/tt-ldpc-qb2-sim"
+    }
+  ],
+  "tags": [
+    "HPC"
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "author": "palisurf",
+  "language": "C++/Python"
+}
