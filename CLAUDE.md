@@ -290,7 +290,7 @@ checkout, so the entry has no `packages`.
 that the entries exist. `github_meta.json` was updated for just these two repos by
 importing the fetcher's functions, the same way as for tt-finetune.
 
-### 2026-09-28 — 20 candidates from investor-analysis, plus two stale-entry fixes
+### 2026-09-28 — 10 candidates from investor-analysis, plus two stale-entry fixes
 
 Prompt: *"Let's look at reports in ~/code/investor-analysis for new candidates to add to
 tt-awesome, then create a new branch to contain them"*
@@ -380,3 +380,12 @@ becomes reachable only if a GitHub-repo entry with releases gains a tt-model pac
 hand-added as an approved `community` YouTube item. Title, date and description came from
 YouTube's oEmbed and the watch page's `uploadDate`/`shortDescription`. There is no channel
 subscription, same as the other hand-curated items.
+
+**Review cut to 10 (PR #228).** Taylor kept torpedo, tt-blackhole-fan-win, vllm-cpp,
+tt-symbiote, kimi-linear, deepseek-v41-flash, openjev-p300x2, museglimmer, granite-4-ttnn and
+blackhole-qwen3-8-27b, and passed "for now" on the other ten: sglang-jax-tt, llama-cpp-metalium,
+docc, tenstorrent-open-me, bhtop, tenstorrent-homebrew-tools, tt-qwen-3-8-flash-next,
+qwen36-a3b-blackhole, qwen38-27b-dflash2-p300x2 and agillm-3-tenstorrent. The drafts are still in
+git history (commit 5c4d36c) if any come back. The `tt-model` install type stays, but it has
+**no users** now that both catalog bundles are out, so its build-output assertion is vacuous
+until one returns. The two stale-entry fixes and the Planet video stay.
