@@ -16,7 +16,10 @@ VALID_CATEGORY_SLUGS = {
 }
 VALID_LINK_TYPES = {"repo", "article", "talk", "video", "website", "demo", "lesson", "paper"}
 VALID_HARDWARE = {"grayskull", "wormhole", "blackhole", "quietbox", "galaxy", "ttsim"}
-VALID_PACKAGE_TYPES = {"pypi", "apt", "cargo", "conda"}
+VALID_PACKAGE_TYPES = {"pypi", "apt", "cargo", "conda", "tt-model"}
+# A tt-model package's name is the bundle's Hugging Face repo id, which is what
+# `tt serve` takes: exactly one `namespace/name`, no URL, no revision suffix.
+HF_REPO_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*$")
 # GitHub orgs owned by Tenstorrent. A repo in any of them is `official` — see the
 # affiliation policy in CONTRIBUTING.md. Keep this in sync with the org table
 # there; adding an org in one place without the other will trip the check below.
@@ -126,6 +129,13 @@ def validate_entry(path: Path, data: dict) -> list:
                     if not isinstance(channel, str) or not channel.strip():
                         errors.append(f"packages[{i}].channel must be a non-empty string, "
                                       f"got {channel!r}")
+                # tt-model bundles are served by id (`tt serve <ns>/<name>`), so the
+                # name must be a bare HF repo id. A pasted https://huggingface.co/...
+                # URL would render as an unrunnable command and a doubled link.
+                if pkg.get("type") == "tt-model" and isinstance(pkg.get("name"), str) \
+                        and not HF_REPO_ID_RE.match(pkg["name"]):
+                    errors.append(f"packages[{i}].name must be a Hugging Face repo id "
+                                  f"like 'namespace/bundle', got '{pkg['name']}'")
                 if "url" in pkg:
                     if not isinstance(pkg["url"], str) or not URL_RE.match(pkg["url"]):
                         errors.append(f"packages[{i}].url must be a valid https:// URL, got '{pkg.get('url')}'")

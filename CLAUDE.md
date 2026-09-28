@@ -357,3 +357,26 @@ The catalog had 58 bundles on 2026-09-28, three weeks in, and 30 of them are cha
 hand-listing every bundle won't scale. Discussed but not yet built: a `tt-model` package type
 rendering `tt serve <ns>/<name>` (tt-cli is the consumer front door for both catalog and
 community models), and a nightly generated bundles page from the catalog tag.
+
+**`tt-model` install type (same session).** Taylor: *"go ahead and build the install type"*.
+A `packages` entry `{"type": "tt-model", "name": "<ns>/<bundle>"}` renders `▶️ tt serve
+<ns>/<bundle>` as a copyable badge linking the Hub, plus a note that it runs with tt-cli (`uv tool
+install tenstorrent`) and is a community bundle. The command is tt-cli's `tt serve`, not
+`tt-model serve`. tt-cli is the consumer front door for both released and community models, and
+hands bundle ids to tt-model-manager, which pulls on first use. So one line is a real run command,
+checked in tt-cli's `commands/serve.py`. `validate.py` requires a bare HF repo id (no URL, no
+`@rev`), because a pasted URL would render an unrunnable command. The catalog-only rule is
+documented in CONTRIBUTING.md next to the package table. It is **not** machine-checked: validate
+is offline, so a nightly tag check is the natural follow-up.
+
+**Coverage gap, measured:** `entry-card-body.njk` has two package blocks. The first sits inside
+`{% if entry.releases %}`, the second is `packages and not releases`. The new
+`test_entry_pages.js` assertion goes red when the tt-model branch is removed from the second
+block, and stays green when it is removed from the first. That's because no tt-model entry has
+GitHub releases (bundles live on HF), so the first block is unreachable with today's data. It
+becomes reachable only if a GitHub-repo entry with releases gains a tt-model package.
+
+**Planet video:** "Tenstorrent Tensix Core Explained" by Jake (@jakedvs), published 2026-09-27,
+hand-added as an approved `community` YouTube item. Title, date and description came from
+YouTube's oEmbed and the watch page's `uploadDate`/`shortDescription`. There is no channel
+subscription, same as the other hand-curated items.

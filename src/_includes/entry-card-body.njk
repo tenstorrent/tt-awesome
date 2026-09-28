@@ -90,6 +90,15 @@
         <a class="pkg-badge pkg-badge--cargo" href="https://crates.io/crates/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">🦀 cargo add {{ pkg.name }}</a>
         {%- elif pkg.type == "conda" %}
         <a class="pkg-badge pkg-badge--conda" href="https://anaconda.org/{{ pkg.channel | default('conda-forge', true) }}/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">⚗️ conda install -c {{ pkg.channel | default('conda-forge', true) }} {{ pkg.name }}</a>
+        {%- elif pkg.type == "tt-model" %}
+        {#- A tt-model bundle is served, not installed: `tt serve` pulls it through
+            tt-model-manager on first use. The note says what the command needs and
+            that community bundles carry no Tenstorrent support promise. #}
+        <div class="pkg-apt-row">
+          <a class="pkg-badge pkg-badge--tt-model" href="https://huggingface.co/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">▶️ tt serve {{ pkg.name }}</a>
+          <button class="pkg-copy-btn" data-copy="tt serve {{ pkg.name }}" title="Copy run command" onclick="copyPkgCmd(this)">copy</button>
+        </div>
+        <div class="pkg-setup-note">⚙ Runs with <a href="{{ '/entry/tt-cli/' | url }}">tt-cli</a> (<code>uv tool install tenstorrent</code>) · community bundle, not tested or maintained by Tenstorrent</div>
         {%- elif pkg.type == "apt" and pkg.url %}
         <div class="pkg-apt-row">
           <a class="pkg-badge pkg-badge--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>
@@ -155,6 +164,15 @@
       <a class="pkg-badge pkg-badge--cargo" href="https://crates.io/crates/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">🦀 cargo add {{ pkg.name }}</a>
       {%- elif pkg.type == "conda" %}
       <a class="pkg-badge pkg-badge--conda" href="https://anaconda.org/{{ pkg.channel | default('conda-forge', true) }}/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">⚗️ conda install -c {{ pkg.channel | default('conda-forge', true) }} {{ pkg.name }}</a>
+      {%- elif pkg.type == "tt-model" %}
+      {#- A tt-model bundle is served, not installed: `tt serve` pulls it through
+          tt-model-manager on first use. The note says what the command needs and
+          that community bundles carry no Tenstorrent support promise. #}
+      <div class="pkg-apt-row">
+        <a class="pkg-badge pkg-badge--tt-model" href="https://huggingface.co/{{ pkg.name }}" target="_blank" rel="noopener noreferrer">▶️ tt serve {{ pkg.name }}</a>
+        <button class="pkg-copy-btn" data-copy="tt serve {{ pkg.name }}" title="Copy run command" onclick="copyPkgCmd(this)">copy</button>
+      </div>
+      <div class="pkg-setup-note">⚙ Runs with <a href="{{ '/entry/tt-cli/' | url }}">tt-cli</a> (<code>uv tool install tenstorrent</code>) · community bundle, not tested or maintained by Tenstorrent</div>
       {%- elif pkg.type == "apt" and pkg.url %}
       <div class="pkg-apt-row">
         <a class="pkg-badge pkg-badge--apt" href="{{ pkg.url }}" target="_blank" rel="noopener noreferrer">🐧 apt install {{ pkg.name }}</a>

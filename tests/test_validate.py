@@ -179,3 +179,16 @@ def test_previous_ids_rejects_own_id():
 def test_previous_ids_must_be_a_list():
     e = valid({"previous_ids": "barracuda"})
     assert any("previous_ids must be a list" in x for x in validate_entry(p(), e))
+
+
+def test_tt_model_package_takes_a_bare_hf_repo_id():
+    e = valid({"packages": [{"type": "tt-model", "name": "changh95/openjev-p300x2"}]})
+    assert validate_entry(p(), e) == []
+
+
+def test_tt_model_package_rejects_a_url_or_missing_namespace():
+    for bad in ("https://huggingface.co/changh95/openjev-p300x2", "openjev-p300x2",
+                "a/b/c", "changh95/openjev-p300x2@main"):
+        e = valid({"packages": [{"type": "tt-model", "name": bad}]})
+        errors = validate_entry(p(), e)
+        assert any("Hugging Face repo id" in x for x in errors), (bad, errors)

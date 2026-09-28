@@ -41,7 +41,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **Qwen3.6-35B-A3B on a single P150a** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@Adartras](https://github.com/Adartras) — A tt-model bundle that serves Qwen3.6-35B-A3B (hybrid Gated DeltaNet plus full attention, 256-expert MoE) on one Blackhole P150a through vLLM, with a 262K context, bf4 experts and bf8 paged KV. Multi-turn prefix reuse across up to four conversation slots holds time-to-first-token near 0.3 s as a chat grows. The card reports about 37 tok/s decode and 600-880 tok/s prefill, and its code/ directory is byte-identical to the model code in the container image.
-  [🌐 Model bundle on Hugging Face](https://huggingface.co/Adartras/qwen3.6-a3b-blackhole)
+  [🌐 Model bundle on Hugging Face](https://huggingface.co/Adartras/qwen3.6-a3b-blackhole) · [▶️ `tt serve Adartras/qwen3.6-a3b-blackhole`](https://huggingface.co/Adartras/qwen3.6-a3b-blackhole)
 
 - **[SGLang-JAX (Tenstorrent backend)](https://github.com/sgl-project/sglang-jax)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@sgl-project](https://github.com/sgl-project) — The JAX backend of the SGLang serving engine, which now carries an upstream Tenstorrent hardware backend in `python/sgl_jax/srt/hardware_backend/tt`. The backend lowers paged attention and Qwen3.5 gated-delta-net recurrence to TTNN kernels through JAX `ffi_call`, using the `libtt` PJRT plugin as the device runtime, and supports DFlash speculative decoding. It is single-device today; the PRs report Qwen3-8B serving on a Blackhole P150 at TP1.
@@ -105,7 +105,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - **Qwen3.8-27B with DFlash2 on P300x2** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@changh95](https://github.com/changh95) — A tt-model bundle that serves Qwen3.8-27B on four Blackhole chips (P300x2, 4-way tensor parallel) through vLLM, using the incoai DFlash2 drafter for lossless speculative decoding. The card publishes tt-inference-server benchmark grids from 128 to 131K input tokens and 1 to 8 users: 1.4 to 1.9x plain decode, and 111 tok/s per user vs 36 plain on SPEED-Bench coding prompts. The bundle's code/ directory is the tt-metal model code in the image, pinned to tt-metal and vllm-tt-plugin commits.
-  [🌐 Model bundle on Hugging Face](https://huggingface.co/changh95/qwen3.8-27b-dflash2-p300x2)
+  [🌐 Model bundle on Hugging Face](https://huggingface.co/changh95/qwen3.8-27b-dflash2-p300x2) · [▶️ `tt serve changh95/qwen3.8-27b-dflash2-p300x2`](https://huggingface.co/changh95/qwen3.8-27b-dflash2-p300x2)
 
 - **[tt-atom](https://github.com/moritztng/tt-atom)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@moritztng](https://github.com/moritztng) — Meta's UMA interatomic potential running on Tenstorrent Blackhole — energy, forces, and stress for molecules and periodic materials behind an ASE calculator. Its per-edge Wigner rotation runs as a custom tt-metal kernel for a highest-performance uma-s build.

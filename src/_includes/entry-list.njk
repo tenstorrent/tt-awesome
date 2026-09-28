@@ -30,6 +30,7 @@
             {%- elif pkg.type == "apt" %}<span class="pkg-dot pkg-dot--apt" title="apt install {{ pkg.name }}">apt</span>
             {%- elif pkg.type == "cargo" %}<span class="pkg-dot pkg-dot--cargo" title="cargo add {{ pkg.name }}">cargo</span>
             {%- elif pkg.type == "conda" %}<span class="pkg-dot pkg-dot--conda" title="conda install -c {{ pkg.channel | default('conda-forge', true) }} {{ pkg.name }}">conda</span>
+            {%- elif pkg.type == "tt-model" %}<span class="pkg-dot pkg-dot--tt-model" title="tt serve {{ pkg.name }}">serve</span>
             {%- endif %}
           {%- endfor %}
         </span>
