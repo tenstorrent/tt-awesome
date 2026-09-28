@@ -289,3 +289,47 @@ checkout, so the entry has no `packages`.
 `fetch_github_meta` → `summarize_releases` will pick up the first release on its own now
 that the entries exist. `github_meta.json` was updated for just these two repos by
 importing the fetcher's functions, the same way as for tt-finetune.
+
+### 2026-09-28 — 28 candidates from investor-analysis, plus three stale-entry fixes
+
+Prompt: *"Let's look at reports in ~/code/investor-analysis for new candidates to add to
+tt-awesome, then create a new branch to contain them"*
+
+**Where the candidates live.** Not in `reports/` so much as the database. The worklist is
+`discord_shared_projects` in `~/code/investor-analysis/data/investor_analysis.db`
+(`should_be_in_tt_awesome = 1` or unjudged `tier='candidate'`; note `database/investor_analysis.db`
+is a 0-byte decoy), plus the `keep` verdicts in `data/awesome_candidate_verdicts.json` from the
+code-search crawl. I cross-checked against the *current* entry URLs rather than the DB's
+`tt_awesome_id`, which lags. That gave 86 distinct unlisted candidates. About 30 fell on metadata
+alone: verbatim mirrors of TT repos, forks of polaris/blackhole-py, 2024 intern tools, internal
+hackathon/CI repos, coursework. The remaining ~55 were read at the source by five parallel agents
+(models, engines, tools, research, Hugging Face).
+
+**Result: 28 new entries, 1 extended.** The bar was TT-specific working code a reader can run or
+learn from, and for model bundles, published measurements. Folded rather than duplicated: the
+SwiftNPU code repo became a link on the existing `paper-swiftnpu`, daisytuner's two case studies
+became one `docc` entry, and yiding's llama.cpp fork (a slimmed derivative with P150 TP) became a
+link on `llama-cpp-metalium`.
+
+**Three stale entries found along the way:**
+* `tt-kernel-package-manager` → the repo was renamed `tenstorrent/tt-model-manager` (CLI
+  `tt-model`); the old URL only redirects. **The id was kept on purpose.** It's the permalink, and
+  investor-analysis joins on `tt_awesome_id`. Name, URL, description and links changed.
+* `wallabmc` moved to `tenstorrent-riscv-software`.
+* Both old `github_meta.json` keys were dropped so the moved repos don't render twice.
+
+**First Hugging Face entries.** Five entries are HF repos (`website` links). These are mostly
+tt-model *recipe bundles* (code + patches + launch config, weights referenced upstream), so they
+are labelled "Model bundle on Hugging Face", never "Weights". HF repos churn: two candidates
+(`mando2222/Qwen3-32B-blackhole`, `vibethinker-3b-P150`) had already been deleted and
+republished under `-v51` names. That's a case for a link-check in nightly CI.
+
+**Heads-up on releases.** `sglang-jax` and `vllm.cpp` are general-purpose upstreams with their
+own releases (5 and 4 in the current window), so the nightly summarizer will put them on the
+planet, the same as the dstack/nvtop/zyx precedent. If that proves noisy, the fix belongs in
+`summarize_releases.py` as a per-entry opt-out, not in bending the entry.
+
+**Affiliation came from Glean, but `employee_search` misses people.** It missed Suhail Alnahari
+(tt_symbiote, whose commits are from a tenstorrent.com address, so `affiliated`) and Martin
+Chang (kept `community` to match his three existing kernel entries, although his backend docs
+say he joined TT). Commit email and Glean doc ownership are better evidence than a directory miss.

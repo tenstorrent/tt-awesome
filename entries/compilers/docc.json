@@ -1,0 +1,51 @@
+{
+  "id": "docc",
+  "name": "DOCC (Daisytuner Optimizing Compiler Collection)",
+  "description": "An SDFG-based compiler that auto-parallelizes and auto-offloads unmodified C/C++ code, with a Tenstorrent target (`targets/tenstorrent`) alongside OpenMP, CUDA and ROCm. Two case-study repos show it on Wormhole and Blackhole: `HPCCG`, where DOCC maps the dot product to the vector unit, runs `waxpby` on the RISC-V cores, and hoists transfers out of the solver loop around a hand-tuned ELLPACK SpMV on the matrix unit (FP32 rather than the original FP64); and `OpenFOAM-TT`, a rebuilt `libOpenFOAM` whose sparse LDU matrix operations offload through Metalium kernels. Neither repo publishes benchmark numbers, and DOCC's own README does not yet list Tenstorrent in its target table.",
+  "affiliation": "community",
+  "categories": [
+    "compilers",
+    "research"
+  ],
+  "tags": [
+    "compiler",
+    "auto-offload",
+    "sdfg",
+    "hpc",
+    "sparse",
+    "openfoam",
+    "conjugate-gradient"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/daisytuner/docc"
+    },
+    {
+      "type": "repo",
+      "url": "https://github.com/daisytuner/HPCCG",
+      "label": "HPCCG case study"
+    },
+    {
+      "type": "repo",
+      "url": "https://github.com/daisytuner/OpenFOAM-TT",
+      "label": "OpenFOAM-TT case study"
+    },
+    {
+      "type": "article",
+      "url": "https://daisytuner.com/news/post-5",
+      "label": "Legacy software, new chips: How we at Daisytuner are breaking the hardware lock-in"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "author": "daisytuner",
+  "language": "C++",
+  "license": "BSD-3-Clause",
+  "added_at": "2026-09-28",
+  "related": [
+    "tt-metal"
+  ]
+}

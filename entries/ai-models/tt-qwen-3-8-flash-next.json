@@ -1,0 +1,33 @@
+{
+  "id": "tt-qwen-3-8-flash-next",
+  "name": "Qwen3.8-Flash-Next on Blackhole",
+  "description": "A TTNN port of Qwen3.8-Flash-Next (48 hybrid gated-delta-net / sparse-attention layers, a 256-expert BF4 MoE and an MTP head) served from a 1x4 Blackhole mesh through an OpenAI-compatible chat server with chunked prefill and contexts up to 262,144 tokens. The repo is a full tt-metal checkout carrying the model's runtime fixes; the port lives in `models/demos/blackhole/qwen38_flash_next`. On 4x p150 the author reports 38.6 tok/s greedy single-stream decode and 50–104 tok/s with `--mtp 4` depending on content, with 96/96 greedy token agreement against a CPU reference on the acceptance prompt. Caveats are stated: chunked prefill is only tolerance-class against the reference, and the 360 GB checkpoint plus a 104 GB n-gram table must sit in host RAM.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "llm",
+    "model-bringup",
+    "qwen",
+    "moe",
+    "speculative-decoding",
+    "mtp",
+    "long-context",
+    "openai-compatible"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/sjettTT/tt-qwen-3.8-flash-next"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "author": "sjettTT",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-09-28"
+}

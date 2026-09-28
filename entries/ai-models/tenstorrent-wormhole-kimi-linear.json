@@ -1,0 +1,34 @@
+{
+  "id": "tenstorrent-wormhole-kimi-linear",
+  "name": "Kimi-Linear on Wormhole",
+  "description": "A correctness-first bring-up of Kimi-Linear-48B-A3B on four n300 cards (8 Wormhole chips). Each hot layer type (KDA, MoE, MLA) is one fused program built from Python through `ttnn.generic_op` and a `ProgramDescriptor`, with no tt-metal fork or C++ rebuild. Per-layer gates check each kernel against an fp32 torch oracle before a full load. Decode went from 1.44 tok/s eager to 13.5 tok/s at 16K context once it moved to paged flash-MLA on the compressed latent. The author notes that chunked prefill is 28x faster but wrong, so it is disabled. `FINDINGS.md` lists 15 faults, three of them silent, and how each was found.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "kernels",
+    "guides"
+  ],
+  "tags": [
+    "llm",
+    "model-bringup",
+    "kimi",
+    "moe",
+    "mla",
+    "linear-attention",
+    "generic-op",
+    "multi-chip"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-kimi-linear"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "Veso-AI-Open-Source",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-09-28"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "gemma-4-26b-a4b-qb2",
+  "name": "Gemma-4-26B-A4B on QuietBox 2",
+  "description": "A tt-model vLLM bundle that serves google/gemma-4-26B-A4B-it, a 128-expert MoE, on two Blackhole p300c boards (four chips, TP=4 plus EP=4). It ships the vLLM registration, a bounded sliding-window KV adapter and a launch recipe, with no weights and no kernel cache. The card documents chunked and gathered-expert prefill that reaches the full 262K context, with measured needle recall of 5/5 at 128K and 4/5 at 256K, about 30-33 tok/s decode, and its known limits. It depends on an unmerged tt-metal autoport branch and a Tenstorrent vLLM fork.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "gemma",
+    "moe",
+    "llm",
+    "long-context",
+    "vllm",
+    "tt-model-manager",
+    "hugging-face"
+  ],
+  "links": [
+    {
+      "type": "website",
+      "url": "https://huggingface.co/mando2222/gemma-4-26b-a4b-it-QB2",
+      "label": "vLLM bundle on Hugging Face"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "author": "mando2222",
+  "added_at": "2026-09-28",
+  "related": [
+    "tt-kernel-package-manager"
+  ]
+}

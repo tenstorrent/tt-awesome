@@ -1,0 +1,31 @@
+{
+  "id": "museglimmer",
+  "name": "MuseGlimmer",
+  "description": "A TTNN bring-up of `meta-models/Muse-Glimmer-30B` for batch-1 inference on a single Blackhole P150, with 2,048-token chunked prefill into a paged KV cache, the checkpoint's native DFlash drafter for speculative decoding, and an OpenAI-compatible server with streaming and tool calls. The author reports 119.99 AR tok/s at short context and 1,549 prompt tok/s on a 128,000-token prefill, and defines `ar_decode_tokens_per_second` narrowly: it excludes tokenization, prefill and tool parsing, and DFlash rate varies with draft acceptance. Weights are BFP8 for attention and BFP4 for MLPs, decode replays three captured device traces, and parity tests compare against the Transformers reference. Its custom `packed_kv_update` kernel was upstreamed into TTNN as `ttnn.experimental.indexed_fused_update_cache`.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "kernels"
+  ],
+  "tags": [
+    "llm",
+    "model-bringup",
+    "speculative-decoding",
+    "dflash",
+    "openai-compatible",
+    "long-context",
+    "tool-calling"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Codys12/MuseGlimmer"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "Codys12",
+  "language": "Python",
+  "added_at": "2026-09-28"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "tt-train-roofline",
+  "name": "tt-train-roofline",
+  "description": "An analytical roofline model for transformer training on Tenstorrent hardware that mirrors the `ttml` (tt-train) module interface with metadata-only mock tensors. It walks the forward pass, backward pass and AdamW step to estimate per-op FLOPs, bytes moved, ideal time, compute- vs DRAM-bound classification and peak memory by category, for presets from NanoGPT to Llama 3 405B, including distributed variants. Specs cover Wormhole N150/N300 and Blackhole P100/P150. Outputs are ideal-case estimates, not measurements, and it needs no hardware and only the Python standard library.",
+  "affiliation": "affiliated",
+  "categories": [
+    "dev-tools",
+    "research"
+  ],
+  "tags": [
+    "roofline",
+    "training",
+    "performance-model",
+    "ttml",
+    "memory-analysis",
+    "llm"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/philei-tt/tt-train-roofline"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "author": "philei-tt",
+  "language": "Python",
+  "added_at": "2026-09-28"
+}

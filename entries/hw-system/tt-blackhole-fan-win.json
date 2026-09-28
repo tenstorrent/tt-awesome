@@ -1,0 +1,33 @@
+{
+  "id": "tt-blackhole-fan-win",
+  "name": "tt-bh-win (Blackhole Windows fan driver)",
+  "description": "A minimal Windows KMDF driver that stops a Blackhole PCIe card's fan running at 100% on Windows hosts, where no in-box driver exists. On `D0Entry` it maps BAR0 (ported from `blackhole_init()` in tt-kmd), programs a kernel TLB window to the ARC NOC node, and sends the `ASIC_STATE0` (0xA0) ARC message that hands fan control to the on-die firmware; it also parses the telemetry table for debug output. It has no compute path and no user-mode interface. Confirmed on p100a and expected to work on p150a/p150b; builds with Visual Studio and the WDK and needs test signing to install.",
+  "affiliation": "community",
+  "categories": [
+    "hw-system"
+  ],
+  "tags": [
+    "windows",
+    "kmdf",
+    "driver",
+    "fan-control",
+    "arc-firmware",
+    "thermal"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/party4bread/tt-blackhole-fan-win"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "party4bread",
+  "language": "C",
+  "license": "GPL-2.0-only",
+  "related": [
+    "tt-kmd"
+  ],
+  "added_at": "2026-09-28"
+}

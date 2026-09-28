@@ -1,0 +1,32 @@
+{
+  "id": "blackhole-qwen3-8-27b",
+  "name": "Qwen3.8-27B on two Blackhole P150A",
+  "description": "An optimisation campaign for single-stream coding inference of `Qwen/Qwen3.8-27B` on two P150A cards linked by QSFP-DD (TP2), using DSpark speculative drafting, fused MLP and custom Tensix kernels, with CI workflows that replay each experiment on hardware and on `ttsim`. The author reports 118 committed tok/s at 4K context and 50 tok/s at 64K, and states plainly that the 200 tok/s target has not been reached. These are offline runtime tests, not a serving benchmark, and reproducing them depends on a Docker image that is not published to a registry. The docs include a Blackhole tuning playbook, a gotchas list and a record of fixes contributed upstream to tt-metal.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "kernels"
+  ],
+  "tags": [
+    "llm",
+    "qwen",
+    "speculative-decoding",
+    "multi-chip",
+    "performance-tuning",
+    "ttsim"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Thatch-cloud/Tenstorrent.Blackhole-Qwen3.8-27B"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "ttsim"
+  ],
+  "author": "Thatch-cloud",
+  "language": "Python",
+  "license": "MIT",
+  "added_at": "2026-09-28"
+}

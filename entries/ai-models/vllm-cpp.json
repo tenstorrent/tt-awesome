@@ -1,0 +1,41 @@
+{
+  "id": "vllm-cpp",
+  "name": "vllm.cpp",
+  "description": "A C++ reimplementation of the vLLM engine (continuous batching, paged KV cache, GGUF loading) with CUDA, CPU, Metal, Vulkan and ROCm backends plus an opt-in Tenstorrent backend under `src/vt/tenstorrent`. The TT backend is a thin adapter over TTNN and TT-Metalium built with `-DVLLM_CPP_TENSTORRENT=ON`, adding paged attention, Qwen3.5 gated-delta-net, trace capture and quant-preserving (`keepquant`) matmul paths. Status is correctness-first on Blackhole: OPT-125m passes a strict token-exact gate, Qwen3-0.6B has committed goldens with a full rerun pending, and 27B GGUF decode is in smoke-measurement stage.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "inference",
+    "serving",
+    "vllm",
+    "gguf",
+    "paged-attention",
+    "ttnn",
+    "cpp"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/mudler/vllm.cpp"
+    },
+    {
+      "type": "repo",
+      "url": "https://github.com/mudler/vllm.cpp/tree/main/src/vt/tenstorrent",
+      "label": "Tenstorrent backend"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/mudler/vllm.cpp/blob/main/docs/BUILD.md#tenstorrent-build-blackhole",
+      "label": "Tenstorrent build docs"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "mudler",
+  "language": "C++",
+  "license": "Apache-2.0",
+  "added_at": "2026-09-28"
+}

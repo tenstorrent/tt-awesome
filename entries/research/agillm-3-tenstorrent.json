@@ -1,0 +1,35 @@
+{
+  "id": "agillm-3-tenstorrent",
+  "name": "AGILLM-3 N300 training port",
+  "description": "A proof-of-concept that pretrains the 698M-parameter AGILLM-3-Large model on a Wormhole N300 through TT-XLA/PJRT, with forward, backward and optimizer steps on the device. The trainer runs on CUDA, Tenstorrent or CPU and includes several TT port scripts. The Hugging Face repo holds checkpoints from about 274 steps and a write-up of the bugs fixed during the port. The author reports about 0.067 tokens/s effective throughput, an out-of-memory crash every few steps and full XLA recompilation on each restart.",
+  "affiliation": "community",
+  "categories": [
+    "research",
+    "ai-models"
+  ],
+  "tags": [
+    "training",
+    "pretraining",
+    "tt-xla",
+    "pjrt",
+    "pytorch",
+    "n300",
+    "hugging-face"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Marxist-Leninist/agillm-3"
+    },
+    {
+      "type": "website",
+      "url": "https://huggingface.co/OpenTransformer/AGILLM-3-Large-Tenstorrent",
+      "label": "Checkpoints on Hugging Face"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "OpenTransformer",
+  "added_at": "2026-09-28"
+}

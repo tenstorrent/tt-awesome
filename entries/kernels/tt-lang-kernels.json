@@ -1,0 +1,34 @@
+{
+  "id": "tt-lang-kernels",
+  "name": "tt-lang-kernels",
+  "description": "An eval harness that asks LLMs to translate CUDA solutions of 17 LeetGPU challenges into tt-lang kernels single-shot (pass@1, no feedback), then runs each on a Blackhole card against the PyTorch reference with a 30% tolerance floor. The recorded results are Claude Sonnet 4.6 11/17, Claude Opus 4.7 10/17, gpt-5.4 8/17 and Kimi k2.6 6/17, with per-run prompts, generated kernels, device logs and verdicts committed under `results/`. Eight further challenges are out of scope because they need gather/scatter, sort or integer bit ops that tt-lang did not yet expose.",
+  "affiliation": "affiliated",
+  "categories": [
+    "kernels",
+    "research"
+  ],
+  "tags": [
+    "tt-lang",
+    "llm",
+    "eval",
+    "cuda",
+    "code-translation",
+    "benchmark"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/zoecarver/tt-lang-kernels"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "zoecarver",
+  "language": "Python",
+  "added_at": "2026-09-28",
+  "related": [
+    "tt-lang",
+    "tt-lang-models"
+  ]
+}

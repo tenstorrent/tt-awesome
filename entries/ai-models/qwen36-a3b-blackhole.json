@@ -1,0 +1,33 @@
+{
+  "id": "qwen36-a3b-blackhole",
+  "name": "Qwen3.6-35B-A3B on a single P150a",
+  "description": "A tt-model bundle that serves Qwen3.6-35B-A3B (hybrid Gated DeltaNet plus full attention, 256-expert MoE) on one Blackhole P150a through vLLM, with a 262K context, bf4 experts and bf8 paged KV. Multi-turn prefix reuse across up to four conversation slots holds time-to-first-token near 0.3 s as a chat grows. The card reports about 37 tok/s decode and 600-880 tok/s prefill, and its code/ directory is byte-identical to the model code in the container image.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "qwen",
+    "moe",
+    "llm",
+    "prefix-caching",
+    "vllm",
+    "tt-model-manager",
+    "hugging-face"
+  ],
+  "links": [
+    {
+      "type": "website",
+      "url": "https://huggingface.co/Adartras/qwen3.6-a3b-blackhole",
+      "label": "Model bundle on Hugging Face"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "Adartras",
+  "added_at": "2026-09-28",
+  "related": [
+    "tt-kernel-package-manager"
+  ]
+}

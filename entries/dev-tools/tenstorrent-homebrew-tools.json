@@ -1,0 +1,29 @@
+{
+  "id": "tenstorrent-homebrew-tools",
+  "name": "Tenstorrent Homebrew Tap",
+  "description": "The official Homebrew tap (`brew tap tenstorrent/tools`) for Tenstorrent's fork of the Tracy profiler GUI, used to view tt-metal device and host profiling captures. It ships two formulae that both install a `tracy` binary: `tracy`, pinned to a tagged release with a checksum, and `tracy-experimental`, which builds from any branch set in `HOMEBREW_TRACY_BRANCH`. Supports macOS (Intel and Apple Silicon) and Linux via Linuxbrew.",
+  "affiliation": "official",
+  "categories": [
+    "dev-tools"
+  ],
+  "tags": [
+    "homebrew",
+    "macos",
+    "tracy",
+    "profiling",
+    "packaging"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/homebrew-tools"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "language": "Ruby",
+  "license": "Apache-2.0",
+  "added_at": "2026-09-28"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "tenstorrent-open-me",
+  "name": "tenstorrent-open-me",
+  "description": "SPARK Ada packages proved with GNATprove that restate arithmetic from `tt-npe`, `tt-umd`, `tt-smi`/`tt-topology` and the full Blackhole FMA reference model (`fma_model_bh` from tt-isa-documentation), each checked by differential tests against the upstream code, including 20M+ FMA triples with 0 mismatches. While reading `tt-npe` it found a real defect: both `DeviceArch` switches omit `break` on the Blackhole case, so any Blackhole workload with `fabric_send` events fails ingest; this is reported upstream as tenstorrent/tt-npe#136. The work was LLM-driven with human review, and the README keeps a list of its own refuted hypotheses. Nothing was run on silicon: results concern the tools as software and agreement with TT's C reference model.",
+  "affiliation": "community",
+  "categories": [
+    "research",
+    "dev-tools"
+  ],
+  "tags": [
+    "formal-verification",
+    "spark",
+    "ada",
+    "tt-npe",
+    "fma",
+    "differential-testing"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/the-dark-factory/tenstorrent-open-me"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/tenstorrent/tt-npe/issues/136",
+      "label": "Upstream issue: tt-npe#136 (Blackhole fallthrough)"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "the-dark-factory",
+  "language": "Ada",
+  "license": "Apache-2.0",
+  "added_at": "2026-09-28",
+  "related": [
+    "tt-npe",
+    "tt-isa-documentation",
+    "tt-umd",
+    "tt-smi"
+  ]
+}
