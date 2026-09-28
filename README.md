@@ -87,10 +87,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@zoecarver](https://github.com/zoecarver) — A Tenstorrent port of the DeepSeek Engram model using tt-lang. Brings DeepSeek's memory-efficient architecture to TT hardware.
   [📦 repo](https://github.com/zoecarver/Engram)
 
-- **Gemma-4-26B-A4B on QuietBox 2** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  by [@mando2222](https://github.com/mando2222) — A tt-model vLLM bundle that serves google/gemma-4-26B-A4B-it, a 128-expert MoE, on two Blackhole p300c boards (four chips, TP=4 plus EP=4). It ships the vLLM registration, a bounded sliding-window KV adapter and a launch recipe, with no weights and no kernel cache. The card documents chunked and gathered-expert prefill that reaches the full 262K context, with measured needle recall of 5/5 at 128K and 4/5 at 256K, about 30-33 tok/s decode, and its known limits. It depends on an unmerged tt-metal autoport branch and a Tenstorrent vLLM fork.
-  [🌐 vLLM bundle on Hugging Face](https://huggingface.co/mando2222/gemma-4-26b-a4b-it-QB2)
-
 - **[gemma4](https://github.com/zoecarver/gemma4)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@zoecarver](https://github.com/zoecarver) — Gemma 4 language model implemented in tt-lang (e4b variant) for direct execution on Tenstorrent hardware.
   [📦 repo](https://github.com/zoecarver/gemma4)
@@ -108,8 +104,8 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   [🌐 Code, patches and results on Hugging Face](https://huggingface.co/changh95/openjev-p300x2)
 
 - **Qwen3.8-27B with DFlash2 on P300x2** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  by [@changh95](https://github.com/changh95) — A tt-model bundle that serves Qwen3.8-27B on four Blackhole chips (P300x2, 4-way tensor parallel) through vLLM, using the incoai DFlash2 drafter for lossless speculative decoding. The card publishes tt-inference-server benchmark grids from 128 to 131K input tokens and 1 to 8 users: 1.4 to 1.9x plain decode, and 111 tok/s per user vs 36 plain on SPEED-Bench coding prompts. The bundle's code/ directory is the tt-metal model code in the image, pinned to tt-metal and vllm-tt-plugin commits. A follow-up bundle by mando2222 adds image input, a Q4 KV cache and a plain-decode fallback for sampled requests.
-  [🌐 Model bundle on Hugging Face](https://huggingface.co/changh95/qwen3.8-27b-dflash2-p300x2) · [🌐 Vision + Q4 KV variant (mando2222)](https://huggingface.co/mando2222/qwen3.8-27b-dflash2-vision-p300x2-q4kv)
+  by [@changh95](https://github.com/changh95) — A tt-model bundle that serves Qwen3.8-27B on four Blackhole chips (P300x2, 4-way tensor parallel) through vLLM, using the incoai DFlash2 drafter for lossless speculative decoding. The card publishes tt-inference-server benchmark grids from 128 to 131K input tokens and 1 to 8 users: 1.4 to 1.9x plain decode, and 111 tok/s per user vs 36 plain on SPEED-Bench coding prompts. The bundle's code/ directory is the tt-metal model code in the image, pinned to tt-metal and vllm-tt-plugin commits.
+  [🌐 Model bundle on Hugging Face](https://huggingface.co/changh95/qwen3.8-27b-dflash2-p300x2)
 
 - **[tt-atom](https://github.com/moritztng/tt-atom)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@moritztng](https://github.com/moritztng) — Meta's UMA interatomic potential running on Tenstorrent Blackhole — energy, forces, and stress for molecules and periodic materials behind an ASE calculator. Its per-edge Wigner rotation runs as a custom tt-metal kernel for a highest-performance uma-s build.

@@ -1,7 +1,7 @@
 {
   "id": "qwen38-27b-dflash2-p300x2",
   "name": "Qwen3.8-27B with DFlash2 on P300x2",
-  "description": "A tt-model bundle that serves Qwen3.8-27B on four Blackhole chips (P300x2, 4-way tensor parallel) through vLLM, using the incoai DFlash2 drafter for lossless speculative decoding. The card publishes tt-inference-server benchmark grids from 128 to 131K input tokens and 1 to 8 users: 1.4 to 1.9x plain decode, and 111 tok/s per user vs 36 plain on SPEED-Bench coding prompts. The bundle's code/ directory is the tt-metal model code in the image, pinned to tt-metal and vllm-tt-plugin commits. A follow-up bundle by mando2222 adds image input, a Q4 KV cache and a plain-decode fallback for sampled requests.",
+  "description": "A tt-model bundle that serves Qwen3.8-27B on four Blackhole chips (P300x2, 4-way tensor parallel) through vLLM, using the incoai DFlash2 drafter for lossless speculative decoding. The card publishes tt-inference-server benchmark grids from 128 to 131K input tokens and 1 to 8 users: 1.4 to 1.9x plain decode, and 111 tok/s per user vs 36 plain on SPEED-Bench coding prompts. The bundle's code/ directory is the tt-metal model code in the image, pinned to tt-metal and vllm-tt-plugin commits.",
   "affiliation": "affiliated",
   "categories": [
     "ai-models"
@@ -21,11 +21,6 @@
       "type": "website",
       "url": "https://huggingface.co/changh95/qwen3.8-27b-dflash2-p300x2",
       "label": "Model bundle on Hugging Face"
-    },
-    {
-      "type": "website",
-      "url": "https://huggingface.co/mando2222/qwen3.8-27b-dflash2-vision-p300x2-q4kv",
-      "label": "Vision + Q4 KV variant (mando2222)"
     }
   ],
   "hardware": [

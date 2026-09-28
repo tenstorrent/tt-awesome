@@ -290,7 +290,7 @@ checkout, so the entry has no `packages`.
 that the entries exist. `github_meta.json` was updated for just these two repos by
 importing the fetcher's functions, the same way as for tt-finetune.
 
-### 2026-09-28 — 21 candidates from investor-analysis, plus two stale-entry fixes
+### 2026-09-28 — 20 candidates from investor-analysis, plus two stale-entry fixes
 
 Prompt: *"Let's look at reports in ~/code/investor-analysis for new candidates to add to
 tt-awesome, then create a new branch to contain them"*
@@ -305,7 +305,7 @@ alone: verbatim mirrors of TT repos, forks of polaris/blackhole-py, 2024 intern 
 hackathon/CI repos, coursework. The remaining ~55 were read at the source by five parallel agents
 (models, engines, tools, research, Hugging Face).
 
-**Result: 21 new entries.** The bar was TT-specific working code a reader can run or learn from,
+**Result: 20 new entries** (after the two cuts below). The bar was TT-specific working code a reader can run or learn from,
 and for model bundles, published measurements. Folded rather than duplicated: daisytuner's two
 case studies became one `docc` entry, and yiding's llama.cpp fork (a slimmed derivative with P150
 TP) became a link on `llama-cpp-metalium`.
@@ -340,3 +340,20 @@ planet, the same as the dstack/nvtop/zyx precedent. If that proves noisy, the fi
 (tt_symbiote, whose commits are from a tenstorrent.com address, so `affiliated`) and Martin
 Chang (kept `community` to match his three existing kernel entries, although his backend docs
 say he joined TT). Commit email and Glean doc ownership are better evidence than a directory miss.
+
+**Rule for tt-model bundles: catalog-listed only.** Taylor: *"let's only have confirmed catalog
+listings for tt-model manager models."* A tt-model bundle earns an entry only if its HF repo
+carries the `tt-model-catalog` tag, which is the author's explicit `tt-model publish` opt-in. It
+also means the bundle passed tt-model's card check (`card.performance` + `card.limitations`)
+and is current enough for `tt serve` to accept. Check it live with
+`curl -s https://huggingface.co/api/models/<ns>/<name>` and look at `tags`. A bundle is
+recognisable by `tt_kernel_manifest.json` / `tt-model.yaml` in `siblings`.
+Dropped under this rule: `gemma-4-26b-a4b-qb2`, a `tt-kernel`-era bundle that was never
+listed, and the mando2222 vision/Q4-KV variant link on `qwen38-27b-dflash2-p300x2`. The rule
+does *not* cover HF repos that aren't bundles at all: `openjev-p300x2` (patches + results) and
+`agillm-3-tenstorrent` (training checkpoints) stay.
+
+The catalog had 58 bundles on 2026-09-28, three weeks in, and 30 of them are changh95's, so
+hand-listing every bundle won't scale. Discussed but not yet built: a `tt-model` package type
+rendering `tt serve <ns>/<name>` (tt-cli is the consumer front door for both catalog and
+community models), and a nightly generated bundles page from the catalog tag.
