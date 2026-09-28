@@ -37,9 +37,12 @@ LINK_ICONS = {
 }
 
 # Icons and install commands for package registry types
-PKG_ICONS = {"pypi": "🐍", "apt": "🐧", "cargo": "🦀", "conda": "⚗️"}
+PKG_ICONS = {"pypi": "🐍", "apt": "🐧", "cargo": "🦀", "conda": "⚗️", "tt-model": "▶️"}
+# A tt-model bundle isn't installed so much as served: tt-cli's `tt serve` takes
+# the bundle's Hugging Face id, pulls it through tt-model-manager if it isn't
+# cached, and starts its OpenAI-compatible server. One command covers both.
 PKG_INSTALL = {"pypi": "pip install", "apt": "apt install", "cargo": "cargo add",
-               "conda": "conda install"}
+               "conda": "conda install", "tt-model": "tt serve"}
 # Channel assumed when a conda package omits an explicit one.
 DEFAULT_CONDA_CHANNEL = "conda-forge"
 
@@ -67,6 +70,8 @@ def pkg_url(pkg):
         return f"https://pypi.org/project/{name}/"
     if t == "cargo":
         return f"https://crates.io/crates/{name}"
+    if t == "tt-model":
+        return f"https://huggingface.co/{name}"
     if t == "conda":
         channel = pkg.get("channel") or DEFAULT_CONDA_CHANNEL
         return f"https://anaconda.org/{channel}/{name}"

@@ -1,0 +1,33 @@
+{
+  "id": "tenstorrent-wormhole-deepseek-v41-flash",
+  "name": "DeepSeek-V4.1-Flash on Wormhole",
+  "description": "A correctness-first bring-up of DeepSeek-V4.1-Flash (552B plus a 196B Engram) on four n300 cards (8 Wormhole chips). Every model FLOP runs on device, and the host serves as a 449 GB expert store of pre-packed `.tensorbin` tiles behind an on-device LRU pool. Every stage is gated against DeepSeek's official `model.py` run on the CPU, reaching 0.985 decisive top-1 over a 2048-token prefill, with traced decode, 128K context, persistent prefix state and vision input. Speeds are stated honestly: decode is 1.68 tok/s (1.42 served), prefill is 95 tok/s, and DSpark speculation measured 0.48x so it is off. `CEILING.md` attributes the gap to about 7,200 ops per token of device-side dispatch, and `FINDINGS.md` lists 20 traps.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "research"
+  ],
+  "tags": [
+    "llm",
+    "model-bringup",
+    "deepseek",
+    "moe",
+    "engram",
+    "long-context",
+    "multi-chip",
+    "expert-offload"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-deepseek-v41-flash"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "Veso-AI-Open-Source",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-09-28"
+}

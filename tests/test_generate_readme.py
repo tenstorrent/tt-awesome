@@ -125,6 +125,13 @@ def test_install_cmd_other_types_unchanged():
     assert pkg_install_cmd({"type": "apt", "name": "tt-smi"}) == "apt install tt-smi"
 
 
+def test_tt_model_bundle_renders_tt_serve_and_hub_link():
+    """A tt-model bundle is served by its HF id through tt-cli, and links to the Hub."""
+    pkg = {"type": "tt-model", "name": "changh95/qwen3.8-27b-dflash2-p300x2"}
+    assert pkg_install_cmd(pkg) == "tt serve changh95/qwen3.8-27b-dflash2-p300x2"
+    assert pkg_url(pkg) == "https://huggingface.co/changh95/qwen3.8-27b-dflash2-p300x2"
+
+
 def test_install_cmd_and_url_agree_on_channel():
     """The command must not point somewhere other than the badge link."""
     pkg = {"type": "conda", "name": "pkg", "channel": "bioconda"}

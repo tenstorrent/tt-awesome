@@ -1978,10 +1978,6 @@
     "stars": 0,
     "updatedAt": "2026-09-16T15:04:10Z"
   },
-  "https://github.com/tenstorrent/tt-kernel-package-manager": {
-    "stars": 8,
-    "updatedAt": "2026-09-28T17:01:12Z"
-  },
   "https://github.com/tsingletaryTT/tt-model-runner": {
     "stars": 1,
     "updatedAt": "2026-09-28T18:06:51Z"
@@ -4099,11 +4095,6 @@
     ],
     "changelog_excerpt": "# Changelog\n\n## [0.9.5] - 2026-05-12\n\n### Changed\n\nHardware hang detection for NOC and PCIe.\nTracy profiler integration with instrumentation across TLB, PCIe and sysmem paths.\nDeviceProtocol ported to TTDevice, including DMA migration.\nSocDescriptor split into static (SocArchDescriptor) and runtime parts.\nLITERAL coordinate system in CoreCoord.\nMulticast to all TENSIX cores.\nSMN support.\nSWEmuleChip software emulation chip and Quasar simulation support (incl. 4GB TLB).\nUnified UmdException/UMD_ASSERT/UMD_THROW error handling across the codebase.\n\n## [0.9.4] - 2026-03-18\n\n### Changed\n\nTopologyDiscoveryOptions refactoring.\nTopologyDiscoveryOption to retrain ETH links on 6u.\nTLBs for TTsim.\nDRAM retrain support.\nDeviceProtocol changes.\nSimulator in TTDevice changes.\nETH heartbeat check.\n\n## [0.9.3] - 2026-02-24\n\n### Changed\n\nSigbus safe read write API.\nRemove 4U related code.\nImplement BH SPI as well, so full SPI support.\nP150 expects harvested cores.\nTT_VISIBLE_DEVICES uses logical IDs.\n\n## [0.9.2] - 2026-02-09\n\n### Changed\n\nSPI interface for Wormhole.\nPCI BDF based sorting and filtering.\nMulticast PCI DMA.\nSupport Blackhole loudbox.\nMany code fixes and test enhancements.\n\n## [0.9.1] - 2026-01-23\n\n### Changed\n\nStarted publishing to pypi.\n\n## [0.9.0] - 2026-01-23\n\n### Changed\n\nWarm reset notification and callback implementation.\n\n## [0.8.6] - 2026-01-20\n\n### Changed\n\nMake predicting ETH FW from CMFW optional in TopologyDiscovery.\n\n## [0.8.4] - 2026-01-16\n\n### Changed\n\nUse older manylinux image\n\n## [0.8.3] - 2026-01-15\n\n### Changed\n\nReverted remote discovery issue\n\n## [0.8.2] - 2026-01-15\n\n### Changed\n\nSupport warm reset without secondary bus reset.\nExpose subsystem vendor id.\n\n## [0.8.1] - 2026-01-15\n\n### Changed\n\nSupport dma functions on TTDevice layer\n\n## [0.8.0] - 2026-01-14\n\n### Changed\n\nMany functional fixes and minor changes.\nFinal fixes needed for integration into tt-smi.\nAlso contains adjustments needed for integration into exalens.\n\n## [0.7.0] - 2025-11-29\n\n### Changed\n\nChanged to a more generic arc_msg API.\n\n## [0.6.0] - 2025-11-24\n\n### Changed\n\nChange the usage of TLBs such that KMD is in control of TLB allocation instead of UMD.\nTLBs are now allocated using KMD's dedicated API.\n\n## [0.5.3] - 2025-11-14\n\n### Changed\n\nAdded generation of .deb and .rpm packages.\nAdded three separate packages (runtime, development and python).\n\n## [0.5.1] - 2025-11-12\n\n### Changed\n\nManylinux builds and Pypi test publishing.\nMany smaller fixes and improvements.\n\n## [0.4.0] - 2025-10-18\n\n### Changed\n\nRemoved old type names.\n\n## [0.3.0] - 2025-10-17\n\n### Changed\n\nMany smaller fixes and improvements.\nTTsim support improvements.\nJTAG support improvement.\nFixing CMake install path.\nFurther work on integrating new KMD TLBs.\n\n## [0.2.0] - 2025-09-15\n\n### Changed\n\nA couple of smaller fixes and improvements, including L2CPU harvesting, fixes for new FW. Better TTSim support. Further JTAG support.\nIntroduced new soft reset API.\nIntroduced lite fabric initial version."
   },
-  "https://github.com/tenstorrent/wallabmc": {
-    "stars": 54,
-    "updatedAt": "2026-09-11T09:08:11Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/wallabmc/main/img/web-ui-thumbnail.png"
-  },
   "https://github.com/seansiddens/current": {
     "stars": 5,
     "updatedAt": "2025-12-22T16:54:43Z"
@@ -5243,5 +5234,123 @@
         "prerelease": false
       }
     ]
+  },
+  "https://github.com/tenstorrent/tt-model-manager": {
+    "stars": 8,
+    "updatedAt": "2026-09-28T17:01:12Z"
+  },
+  "https://github.com/tenstorrent-riscv-software/wallabmc": {
+    "stars": 54,
+    "updatedAt": "2026-09-11T09:08:11Z",
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent-riscv-software/wallabmc/main/img/web-ui-thumbnail.png"
+  },
+  "https://github.com/Thatch-cloud/Tenstorrent.Blackhole-Qwen3.8-27B": {
+    "stars": 8,
+    "updatedAt": "2026-09-27T02:30:02Z"
+  },
+  "https://github.com/quandvucl/granite-4-ttnn": {
+    "stars": 0,
+    "updatedAt": "2026-09-04T09:44:37Z"
+  },
+  "https://github.com/Codys12/MuseGlimmer": {
+    "stars": 5,
+    "updatedAt": "2026-09-28T04:43:05Z"
+  },
+  "https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-deepseek-v41-flash": {
+    "stars": 1,
+    "updatedAt": "2026-09-18T20:10:24Z"
+  },
+  "https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-kimi-linear": {
+    "stars": 2,
+    "updatedAt": "2026-09-07T20:38:46Z"
+  },
+  "https://github.com/alnah005/tt_symbiote": {
+    "stars": 0,
+    "updatedAt": "2026-07-03T14:21:59Z"
+  },
+  "https://github.com/mudler/vllm.cpp": {
+    "stars": 438,
+    "updatedAt": "2026-09-28T12:26:38Z",
+    "preview_image": "https://raw.githubusercontent.com/mudler/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
+    "releases": [
+      {
+        "tagName": "v0.0.2",
+        "name": "v0.0.2",
+        "publishedAt": "2026-08-11T10:05:38Z",
+        "url": "https://github.com/mudler/vllm.cpp/releases/tag/v0.0.2",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "vllm.cpp-0.0.2-linux-aarch64-glibc-cpu.tar.gz",
+            "url": "https://github.com/mudler/vllm.cpp/releases/download/v0.0.2/vllm.cpp-0.0.2-linux-aarch64-glibc-cpu.tar.gz",
+            "size": 5858331
+          },
+          {
+            "name": "vllm.cpp-0.0.2-linux-aarch64-glibc-cuda-fat.tar.gz",
+            "url": "https://github.com/mudler/vllm.cpp/releases/download/v0.0.2/vllm.cpp-0.0.2-linux-aarch64-glibc-cuda-fat.tar.gz",
+            "size": 98849261
+          },
+          {
+            "name": "vllm.cpp-0.0.2-linux-x86_64-glibc-cpu.tar.gz",
+            "url": "https://github.com/mudler/vllm.cpp/releases/download/v0.0.2/vllm.cpp-0.0.2-linux-x86_64-glibc-cpu.tar.gz",
+            "size": 6598526
+          },
+          {
+            "name": "vllm.cpp-0.0.2-linux-x86_64-glibc-cuda-fat.tar.gz",
+            "url": "https://github.com/mudler/vllm.cpp/releases/download/v0.0.2/vllm.cpp-0.0.2-linux-x86_64-glibc-cuda-fat.tar.gz",
+            "size": 99752835
+          },
+          {
+            "name": "vllm.cpp-0.0.2-linux-x86_64-glibc-vulkan.tar.gz",
+            "url": "https://github.com/mudler/vllm.cpp/releases/download/v0.0.2/vllm.cpp-0.0.2-linux-x86_64-glibc-vulkan.tar.gz",
+            "size": 6811491
+          },
+          {
+            "name": "vllm.cpp-0.0.2-linux-x86_64-musl-cpu-static.tar.gz",
+            "url": "https://github.com/mudler/vllm.cpp/releases/download/v0.0.2/vllm.cpp-0.0.2-linux-x86_64-musl-cpu-static.tar.gz",
+            "size": 7912611
+          },
+          {
+            "name": "vllm.cpp-0.0.2-macos-arm64-metal-mlx.tar.gz",
+            "url": "https://github.com/mudler/vllm.cpp/releases/download/v0.0.2/vllm.cpp-0.0.2-macos-arm64-metal-mlx.tar.gz",
+            "size": 44037257
+          },
+          {
+            "name": "vllm.cpp-0.0.2-macos-arm64-metal.tar.gz",
+            "url": "https://github.com/mudler/vllm.cpp/releases/download/v0.0.2/vllm.cpp-0.0.2-macos-arm64-metal.tar.gz",
+            "size": 4320107
+          }
+        ]
+      },
+      {
+        "tagName": "v0.0.2-alpha1-ci-test",
+        "name": "v0.0.2-alpha1-ci-test",
+        "publishedAt": "2026-08-09T08:58:19Z",
+        "url": "https://github.com/mudler/vllm.cpp/releases/tag/v0.0.2-alpha1-ci-test",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.0.2-alpha",
+        "name": "v0.0.2-alpha",
+        "publishedAt": "2026-08-05T14:22:51Z",
+        "url": "https://github.com/mudler/vllm.cpp/releases/tag/v0.0.2-alpha",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.0.1-m03-parity-27b-35b",
+        "name": "v0.0.1-m03-parity-27b-35b",
+        "publishedAt": "2026-07-19T22:47:24Z",
+        "url": "https://github.com/mudler/vllm.cpp/releases/tag/v0.0.1-m03-parity-27b-35b",
+        "prerelease": false
+      }
+    ]
+  },
+  "https://github.com/daniel-geon-park/torpedo": {
+    "stars": 0,
+    "updatedAt": "2026-09-02T08:39:58Z"
+  },
+  "https://github.com/party4bread/tt-blackhole-fan-win": {
+    "stars": 3,
+    "updatedAt": "2026-05-18T00:58:48Z"
   }
 }

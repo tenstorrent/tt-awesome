@@ -289,3 +289,103 @@ checkout, so the entry has no `packages`.
 `fetch_github_meta` → `summarize_releases` will pick up the first release on its own now
 that the entries exist. `github_meta.json` was updated for just these two repos by
 importing the fetcher's functions, the same way as for tt-finetune.
+
+### 2026-09-28 — 10 candidates from investor-analysis, plus two stale-entry fixes
+
+Prompt: *"Let's look at reports in ~/code/investor-analysis for new candidates to add to
+tt-awesome, then create a new branch to contain them"*
+
+**Where the candidates live.** Not in `reports/` so much as the database. The worklist is
+`discord_shared_projects` in `~/code/investor-analysis/data/investor_analysis.db`
+(`should_be_in_tt_awesome = 1` or unjudged `tier='candidate'`; note `database/investor_analysis.db`
+is a 0-byte decoy), plus the `keep` verdicts in `data/awesome_candidate_verdicts.json` from the
+code-search crawl. I cross-checked against the *current* entry URLs rather than the DB's
+`tt_awesome_id`, which lags. That gave 86 distinct unlisted candidates. About 30 fell on metadata
+alone: verbatim mirrors of TT repos, forks of polaris/blackhole-py, 2024 intern tools, internal
+hackathon/CI repos, coursework. The remaining ~55 were read at the source by five parallel agents
+(models, engines, tools, research, Hugging Face).
+
+**Result: 20 new entries** (after the two cuts below). The bar was TT-specific working code a reader can run or learn from,
+and for model bundles, published measurements. Folded rather than duplicated: daisytuner's two
+case studies became one `docc` entry, and yiding's llama.cpp fork (a slimmed derivative with P150
+TP) became a link on `llama-cpp-metalium`.
+
+**Then a freshness cut.** Taylor: *"remove these ones that are from april or before."* Seven
+drafted entries were dropped because their last push was on or before 2026-04-30: corsix
+wormhole-vector, tt-fetch, autoresearch-tenstorrent, the k8s device plugin, tt-train-roofline,
+tt-metal-nix and tt-lang-kernels. The SwiftNPU code-repo link (last push Apr 29) was reverted too.
+The measure is GitHub `pushed_at`, which counts a push to any branch; for fork entries whose TT
+work lives on a branch, check that branch's last commit instead. agillm-3 stayed, because its
+primary GitHub repo was pushed May 4 even though its HF checkpoints date from March.
+
+**Two stale entries found along the way:**
+* `tt-kernel-package-manager` → the repo was renamed `tenstorrent/tt-model-manager` (CLI
+  `tt-model`); the old URL only redirects. **The id was kept on purpose.** It's the permalink, and
+  investor-analysis joins on `tt_awesome_id`. Name, URL, description and links changed.
+* `wallabmc` moved to `tenstorrent-riscv-software`.
+* Both old `github_meta.json` keys were dropped so the moved repos don't render twice.
+
+**First Hugging Face entries.** Five entries are HF repos (`website` links). These are mostly
+tt-model *recipe bundles* (code + patches + launch config, weights referenced upstream), so they
+are labelled "Model bundle on Hugging Face", never "Weights". HF repos churn: two candidates
+(`mando2222/Qwen3-32B-blackhole`, `vibethinker-3b-P150`) had already been deleted and
+republished under `-v51` names. That's a case for a link-check in nightly CI.
+
+**Heads-up on releases.** `sglang-jax` and `vllm.cpp` are general-purpose upstreams with their
+own releases (5 and 4 in the current window), so the nightly summarizer will put them on the
+planet, the same as the dstack/nvtop/zyx precedent. If that proves noisy, the fix belongs in
+`summarize_releases.py` as a per-entry opt-out, not in bending the entry.
+
+**Affiliation came from Glean, but `employee_search` misses people.** It missed Suhail Alnahari
+(tt_symbiote, whose commits are from a tenstorrent.com address, so `affiliated`) and Martin
+Chang (kept `community` to match his three existing kernel entries, although his backend docs
+say he joined TT). Commit email and Glean doc ownership are better evidence than a directory miss.
+
+**Rule for tt-model bundles: catalog-listed only.** Taylor: *"let's only have confirmed catalog
+listings for tt-model manager models."* A tt-model bundle earns an entry only if its HF repo
+carries the `tt-model-catalog` tag, which is the author's explicit `tt-model publish` opt-in. It
+also means the bundle passed tt-model's card check (`card.performance` + `card.limitations`)
+and is current enough for `tt serve` to accept. Check it live with
+`curl -s https://huggingface.co/api/models/<ns>/<name>` and look at `tags`. A bundle is
+recognisable by `tt_kernel_manifest.json` / `tt-model.yaml` in `siblings`.
+Dropped under this rule: `gemma-4-26b-a4b-qb2`, a `tt-kernel`-era bundle that was never
+listed, and the mando2222 vision/Q4-KV variant link on `qwen38-27b-dflash2-p300x2`. The rule
+does *not* cover HF repos that aren't bundles at all: `openjev-p300x2` (patches + results) and
+`agillm-3-tenstorrent` (training checkpoints) stay.
+
+The catalog had 58 bundles on 2026-09-28, three weeks in, and 30 of them are changh95's, so
+hand-listing every bundle won't scale. Discussed but not yet built: a `tt-model` package type
+rendering `tt serve <ns>/<name>` (tt-cli is the consumer front door for both catalog and
+community models), and a nightly generated bundles page from the catalog tag.
+
+**`tt-model` install type (same session).** Taylor: *"go ahead and build the install type"*.
+A `packages` entry `{"type": "tt-model", "name": "<ns>/<bundle>"}` renders `▶️ tt serve
+<ns>/<bundle>` as a copyable badge linking the Hub, plus a note that it runs with tt-cli (`uv tool
+install tenstorrent`) and is a community bundle. The command is tt-cli's `tt serve`, not
+`tt-model serve`. tt-cli is the consumer front door for both released and community models, and
+hands bundle ids to tt-model-manager, which pulls on first use. So one line is a real run command,
+checked in tt-cli's `commands/serve.py`. `validate.py` requires a bare HF repo id (no URL, no
+`@rev`), because a pasted URL would render an unrunnable command. The catalog-only rule is
+documented in CONTRIBUTING.md next to the package table. It is **not** machine-checked: validate
+is offline, so a nightly tag check is the natural follow-up.
+
+**Coverage gap, measured:** `entry-card-body.njk` has two package blocks. The first sits inside
+`{% if entry.releases %}`, the second is `packages and not releases`. The new
+`test_entry_pages.js` assertion goes red when the tt-model branch is removed from the second
+block, and stays green when it is removed from the first. That's because no tt-model entry has
+GitHub releases (bundles live on HF), so the first block is unreachable with today's data. It
+becomes reachable only if a GitHub-repo entry with releases gains a tt-model package.
+
+**Planet video:** "Tenstorrent Tensix Core Explained" by Jake (@jakedvs), published 2026-09-27,
+hand-added as an approved `community` YouTube item. Title, date and description came from
+YouTube's oEmbed and the watch page's `uploadDate`/`shortDescription`. There is no channel
+subscription, same as the other hand-curated items.
+
+**Review cut to 10 (PR #228).** Taylor kept torpedo, tt-blackhole-fan-win, vllm-cpp,
+tt-symbiote, kimi-linear, deepseek-v41-flash, openjev-p300x2, museglimmer, granite-4-ttnn and
+blackhole-qwen3-8-27b, and passed "for now" on the other ten: sglang-jax-tt, llama-cpp-metalium,
+docc, tenstorrent-open-me, bhtop, tenstorrent-homebrew-tools, tt-qwen-3-8-flash-next,
+qwen36-a3b-blackhole, qwen38-27b-dflash2-p300x2 and agillm-3-tenstorrent. The drafts are still in
+git history (commit 5c4d36c) if any come back. The `tt-model` install type stays, but it has
+**no users** now that both catalog bundles are out, so its build-output assertion is vacuous
+until one returns. The two stale-entry fixes and the Planet video stay.

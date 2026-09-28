@@ -23,6 +23,26 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 ## 🤖 AI & Models
 
+- **[Qwen3.8-27B on two Blackhole P150A](https://github.com/Thatch-cloud/Tenstorrent.Blackhole-Qwen3.8-27B)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@Thatch-cloud](https://github.com/Thatch-cloud) — An optimisation campaign for single-stream coding inference of `Qwen/Qwen3.8-27B` on two P150A cards linked by QSFP-DD (TP2), using DSpark speculative drafting, fused MLP and custom Tensix kernels, with CI workflows that replay each experiment on hardware and on `ttsim`. The author reports 118 committed tok/s at 4K context and 50 tok/s at 64K, and states plainly that the 200 tok/s target has not been reached. These are offline runtime tests, not a serving benchmark, and reproducing them depends on a Docker image that is not published to a registry. The docs include a Blackhole tuning playbook, a gotchas list and a record of fixes contributed upstream to tt-metal.
+  [📦 repo](https://github.com/Thatch-cloud/Tenstorrent.Blackhole-Qwen3.8-27B)
+
+- **[TT-Granite](https://github.com/quandvucl/granite-4-ttnn)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@quandvucl](https://github.com/quandvucl) — A TTNN port of IBM's Granite-4.0-H hybrid Mamba2/attention/MoE models (tiny and small) to Wormhole, written as a UCL thesis project and run on submeshes of a Galaxy. Includes two custom TT-Metal kernels, `ssm_update` and `conv1d_decode`, that fuse the Mamba2 decode step, plus decode trace capture and benchmark scripts against HuggingFace CPU/CUDA baselines. With trace enabled the author reports 10.65–10.69 tok/s for tiny on 4 chips (about 18% above an A100) and 5.84–5.89 tok/s for small on 8 chips (about 20% below the A100); all numbers are batch 1, and the fused kernels add only about 1–2%. The thesis PDF documents the porting challenges: quantization, SSM state across chunked prefill, and expert-parallel sharding.
+  [📦 repo](https://github.com/quandvucl/granite-4-ttnn) · [📄 paper](https://github.com/quandvucl/granite-4-ttnn/blob/main/COMP0251_TLVH1.pdf)
+
+- **[MuseGlimmer](https://github.com/Codys12/MuseGlimmer)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@Codys12](https://github.com/Codys12) — A TTNN bring-up of `meta-models/Muse-Glimmer-30B` for batch-1 inference on a single Blackhole P150, with 2,048-token chunked prefill into a paged KV cache, the checkpoint's native DFlash drafter for speculative decoding, and an OpenAI-compatible server with streaming and tool calls. The author reports 119.99 AR tok/s at short context and 1,549 prompt tok/s on a 128,000-token prefill, and defines `ar_decode_tokens_per_second` narrowly: it excludes tokenization, prefill and tool parsing, and DFlash rate varies with draft acceptance. Weights are BFP8 for attention and BFP4 for MLPs, decode replays three captured device traces, and parity tests compare against the Transformers reference. Its custom `packed_kv_update` kernel was upstreamed into TTNN as `ttnn.experimental.indexed_fused_update_cache`.
+  [📦 repo](https://github.com/Codys12/MuseGlimmer)
+
+- **[DeepSeek-V4.1-Flash on Wormhole](https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-deepseek-v41-flash)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@Veso-AI-Open-Source](https://github.com/Veso-AI-Open-Source) — A correctness-first bring-up of DeepSeek-V4.1-Flash (552B plus a 196B Engram) on four n300 cards (8 Wormhole chips). Every model FLOP runs on device, and the host serves as a 449 GB expert store of pre-packed `.tensorbin` tiles behind an on-device LRU pool. Every stage is gated against DeepSeek's official `model.py` run on the CPU, reaching 0.985 decisive top-1 over a 2048-token prefill, with traced decode, 128K context, persistent prefix state and vision input. Speeds are stated honestly: decode is 1.68 tok/s (1.42 served), prefill is 95 tok/s, and DSpark speculation measured 0.48x so it is off. `CEILING.md` attributes the gap to about 7,200 ops per token of device-side dispatch, and `FINDINGS.md` lists 20 traps.
+  [📦 repo](https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-deepseek-v41-flash)
+
+- **[Kimi-Linear on Wormhole](https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-kimi-linear)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@Veso-AI-Open-Source](https://github.com/Veso-AI-Open-Source) — A correctness-first bring-up of Kimi-Linear-48B-A3B on four n300 cards (8 Wormhole chips). Each hot layer type (KDA, MoE, MLA) is one fused program built from Python through `ttnn.generic_op` and a `ProgramDescriptor`, with no tt-metal fork or C++ rebuild. Per-layer gates check each kernel against an fp32 torch oracle before a full load. Decode went from 1.44 tok/s eager to 13.5 tok/s at 16K context once it moved to paged flash-MLA on the compressed latent. The author notes that chunked prefill is 28x faster but wrong, so it is disabled. `FINDINGS.md` lists 15 faults, three of them silent, and how each was found.
+  [📦 repo](https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-kimi-linear)
+
 - **[tt-finetune](https://github.com/danielisraeli2409-jpg/tt-finetune)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@danielisraeli2409-jpg](https://github.com/danielisraeli2409-jpg) — Parameter-efficient fine-tuning — LoRA, rsLoRA, LoRA+, DoRA, and IA3 — on a single Blackhole P150a, behind a Hugging Face/PEFT-style trainer API. Ships as a self-contained Linux wheel bundling the TT-XLA/PJRT plugin, TTNN, and TT-Metal user-space libraries, so no source checkout, Docker, or PYTHONPATH setup is required. Includes a static planner that reports memory admission before you compile, deterministic checkpoint/resume, and standard PEFT adapter export.
   [📦 repo](https://github.com/danielisraeli2409-jpg/tt-finetune)
@@ -30,6 +50,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-model-bringup](https://github.com/aweditya/tt-model-bringup)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@aweditya](https://github.com/aweditya) — Direct TT-Metal bringup of modern open-weight LLMs on Blackhole P150 — hand-written compute graphs with no PJRT and no JAX. Covers Qwen3.6-27B, Qwen3.6-35B-A3B MoE, Gemma 4 12B, and Nemotron-3 Nano 30B-A3B, plus a zoo of single-chip Llama / Qwen2.5 / SmolLM ports, backed by custom fused `owned_*` kernels, a continuous-batching engine, an OpenAI-compatible HTTP server, and a wiki documenting each design decision.
   [📦 repo](https://github.com/aweditya/tt-model-bringup) · [📖 HANDOFF.md — current perf and production paths](https://github.com/aweditya/tt-model-bringup/blob/main/HANDOFF.md)
+
+- **[vllm.cpp](https://github.com/mudler/vllm.cpp)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@mudler](https://github.com/mudler) — A C++ reimplementation of the vLLM engine (continuous batching, paged KV cache, GGUF loading) with CUDA, CPU, Metal, Vulkan and ROCm backends plus an opt-in Tenstorrent backend under `src/vt/tenstorrent`. The TT backend is a thin adapter over TTNN and TT-Metalium built with `-DVLLM_CPP_TENSTORRENT=ON`, adding paged attention, Qwen3.5 gated-delta-net, trace capture and quant-preserving (`keepquant`) matmul paths. Status is correctness-first on Blackhole: OPT-125m passes a strict token-exact gate, Qwen3-0.6B has committed goldens with a full rerun pending, and 27B GGUF decode is in smoke-measurement stage.
+  [📦 repo](https://github.com/mudler/vllm.cpp) · [📦 Tenstorrent backend](https://github.com/mudler/vllm.cpp/tree/main/src/vt/tenstorrent) · [🌐 Tenstorrent build docs](https://github.com/mudler/vllm.cpp/blob/main/docs/BUILD.md#tenstorrent-build-blackhole)
 
 - **[tt-bio](https://github.com/moritztng/tt-bio)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@moritztng](https://github.com/moritztng) — Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.
@@ -63,6 +87,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@zoecarver](https://github.com/zoecarver) — tt-lang inference script for Oasis 500M — an interactive video world model running on Tenstorrent hardware via the tt-lang DSL.
   [📦 repo](https://github.com/zoecarver/open-oasis)
 
+- **openjev on P300x2** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by [@changh95](https://github.com/changh95) — Serves AlexWortega/openjev, a Qwen3.5-4B NLI cross-encoder, as a vLLM pooling model on four Blackhole chips with 4-way tensor parallelism. The repo holds tt-metal and vllm-tt-plugin patches (classifier head, pooled prefill traces, pooling support), a tt-inference-server catalog entry, eval scripts and results: MNLI-500 accuracy 0.892 on TT vs 0.896 on CPU bf16, and about 32 ms per input up to 128 tokens. Includes a zero-shot Flappy Bird demo driven by /classify calls, with videos and a browser replay viewer. Weights are not duplicated; they load from the upstream checkpoint.
+  [🌐 Code, patches and results on Hugging Face](https://huggingface.co/changh95/openjev-p300x2)
+
 - **[tt-atom](https://github.com/moritztng/tt-atom)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@moritztng](https://github.com/moritztng) — Meta's UMA interatomic potential running on Tenstorrent Blackhole — energy, forces, and stress for molecules and periodic materials behind an ASE calculator. Its per-edge Wigner rotation runs as a custom tt-metal kernel for a highest-performance uma-s build.
   [📦 repo](https://github.com/moritztng/tt-atom)
@@ -70,6 +98,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-lang-models](https://github.com/zoecarver/tt-lang-models)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@zoecarver](https://github.com/zoecarver) — A growing collection of models that use tt-lang for some or all of their implementation. Reference implementations for bringing modern models to the tt-lang DSL.
   [📦 repo](https://github.com/zoecarver/tt-lang-models)
+
+- **[tt_symbiote](https://github.com/alnah005/tt_symbiote)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by [@alnah005](https://github.com/alnah005) — A pip-installable library whose public API mirrors Hugging Face transformers' `Auto*` loaders, with model recipes that replace supported modules with TTNN implementations and fall back to CPU `nn.Module`s for the rest; the only added line is `set_device(model, mesh)`. Verified recipes include Ling-mini-2.0 on T3K, ResNet-50, Gemma 4 E2B/E4B and Qwen3-VL-2B on N150, with `compatibility.report(model)` showing which modules actually ran on device. `ttnn` must be built from source at the pinned tt-metal commit. It is the standalone packaging of the framework that started in tt-metal's `models/experimental/tt_symbiote`.
+  [📦 repo](https://github.com/alnah005/tt_symbiote) · [📦 Original in tt-metal](https://github.com/tenstorrent/tt-metal/tree/main/models/experimental/tt_symbiote) · [🐍 `pip install tt-symbiote`](https://pypi.org/project/tt-symbiote/)
 
 - **Stable Diffusion XL on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — On-device image generation with Stable Diffusion XL running entirely on Tenstorrent hardware. Full inference pipeline with no cloud dependency.
@@ -299,6 +331,10 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by [@thatdspguy](https://github.com/thatdspguy) — A web playground that runs real TTNN operations on the ttsim hardware simulator — no card required. Switch between Wormhole and Blackhole, run elementwise/activation/matmul ops or a small MLP, draw a digit and classify it with a trained MNIST net, then sweep parameters in 1D or 2D and read latency, throughput, and memory back as line charts, 3D surfaces, and heatmaps.
   [📦 repo](https://github.com/thatdspguy/tenstorrent_playground)
 
+- **[torpedo](https://github.com/daniel-geon-park/torpedo)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@daniel-geon-park](https://github.com/daniel-geon-park) — A persistent HTTP telemetry server for Tenstorrent cards. It keeps one device-discovery context alive, samples `tt-smi` 6.3.0 telemetry on a background thread, and serves the latest snapshot as JSON at `/v1/devices` with a `/healthz` check, rediscovering devices with exponential backoff after a reset. It marks a device as held when other processes appear in `/proc/driver/tenstorrent/<n>/pids`, and reads allocated GDDR passively from tt-metal's `/dev/shm` allocator region without opening a Metal context. Written in Python with `luwen` (default) and `umd` backends and a systemd unit; the repo also includes `watchgpu`, a shell script that shows CUDA, Tenstorrent and Apple Silicon hosts side by side over SSH.
+  [📦 repo](https://github.com/daniel-geon-park/torpedo)
+
 - **[tt-monitor](https://github.com/antonibertel/tt-monitor)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@antonibertel](https://github.com/antonibertel) — A translucent, undecorated desktop widget showing live per-chip telemetry for Tenstorrent accelerators: temperature and power sparklines against the card's thermal and TDP limits, AI clock, voltage, current, DRAM channel training and ECC error counts, PCIe link generation/width, and board identity. Reads hardware directly through luwen over /dev/tenstorrent — no Python, no tt-smi subprocess, and no root.
   [📦 repo](https://github.com/antonibertel/tt-monitor)
@@ -355,9 +391,9 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   Low-level hardware debugger for Tenstorrent devices. Inspect register state, memory contents, and kernel execution at the hardware level.
   [📦 repo](https://github.com/tenstorrent/tt-exalens) · [🐍 `pip install tt-exalens`](https://pypi.org/project/tt-exalens/)
 
-- **[tt-kernel](https://github.com/tenstorrent/tt-kernel-package-manager)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
-  Distributes models over the Hugging Face Hub and serves them on Tenstorrent hardware — `tt-kernel serve <namespace>/<model>` pulls a bundle, registers it with the Tenstorrent vLLM plugin, and launches an OpenAI-compatible server. A vLLM bundle ships only adapter code and metadata (weights stay referenced by HF repo id), while legacy kernel-cache bundles package precompiled tt-metal kernel binaries so a model's first run is a cache hit instead of a slow JIT recompile. Explicitly experimental — the bundle format and APIs may change without notice.
-  [📦 repo](https://github.com/tenstorrent/tt-kernel-package-manager)
+- **[tt-model](https://github.com/tenstorrent/tt-model-manager)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  Distributes model bundles over the Hugging Face Hub and serves them on Tenstorrent cards — `tt-model serve <org>/<model>` pulls and installs a bundle, then launches the Tenstorrent vLLM plugin's OpenAI-compatible server. A bundle carries or pins its own serving stack, either as an OCI container image (v5.1, the supported path) or as a per-model venv built from pinned wheels (v6 thin, beta), and records the weights' upstream HF repo instead of shipping them, so the host needs only a card and its firmware. Formerly `tt-kernel` / tt-kernel-package-manager, when bundles were precompiled tt-metal kernel caches. Explicitly experimental — the bundle format and APIs may change without notice.
+  [📦 repo](https://github.com/tenstorrent/tt-model-manager) · [📖 End-to-end recipe: package, push, pull, serve](https://github.com/tenstorrent/tt-model-manager/blob/main/docs/E2E_RECIPE_V5.1.md)
 
 - **[tt-npe](https://github.com/tenstorrent/tt-npe)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Network-on-chip Performance Estimator for Tenstorrent Tensix-based devices. Model and estimate NoC utilization before running kernels on hardware.
@@ -384,6 +420,10 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **[tetsuh/tt-metal-community-distro-matrix](https://github.com/tetsuh/tt-metal-community-distro-matrix)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@tetsuh](https://github.com/tetsuh) — A compatibility guardrail that continuously monitors whether [tt-metal](https://github.com/tenstorrent/tt-metal) and the official [tt-installer](https://github.com/tenstorrent/tt-installer) build successfully on community Linux distributions that are not part of Tenstorrent's official CI.
   [📦 repo](https://github.com/tetsuh/tt-metal-community-distro-matrix)
+
+- **[tt-bh-win (Blackhole Windows fan driver)](https://github.com/party4bread/tt-blackhole-fan-win)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@party4bread](https://github.com/party4bread) — A minimal Windows KMDF driver that stops a Blackhole PCIe card's fan running at 100% on Windows hosts, where no in-box driver exists. On `D0Entry` it maps BAR0 (ported from `blackhole_init()` in tt-kmd), programs a kernel TLB window to the ARC NOC node, and sends the `ASIC_STATE0` (0xA0) ARC message that hands fan control to the on-die firmware; it also parses the telemetry table for debug output. It has no compute path and no user-mode interface. Confirmed on p100a and expected to work on p150a/p150b; builds with Visual Studio and the WDK and needs test signing to install.
+  [📦 repo](https://github.com/party4bread/tt-blackhole-fan-win)
 
 - **[tt-qb-lights](https://github.com/tsingletaryTT/tt-qb-lights)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Sync your Tenstorrent Quietbox's RGB lighting to accelerator utilization status. Visual feedback for hardware activity in real time.
@@ -449,9 +489,9 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   User-mode driver for Tenstorrent hardware. The userspace layer that sits between the kernel module and higher-level SDKs.
   [📦 repo](https://github.com/tenstorrent/tt-umd)
 
-- **[WallaBMC](https://github.com/tenstorrent/wallabmc)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+- **[WallaBMC](https://github.com/tenstorrent-riscv-software/wallabmc)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Lightweight BMC (Baseboard Management Controller) for STM32 and similar MCUs, with Web UI, Redfish API, and HTTPS support. Built on Zephyr RTOS. Used in Tenstorrent systems.
-  [📦 repo](https://github.com/tenstorrent/wallabmc)
+  [📦 repo](https://github.com/tenstorrent-riscv-software/wallabmc)
 
 ## ☁️ Cloud & Orchestration
 

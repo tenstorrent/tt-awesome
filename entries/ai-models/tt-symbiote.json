@@ -1,0 +1,42 @@
+{
+  "id": "tt-symbiote",
+  "name": "tt_symbiote",
+  "description": "A pip-installable library whose public API mirrors Hugging Face transformers' `Auto*` loaders, with model recipes that replace supported modules with TTNN implementations and fall back to CPU `nn.Module`s for the rest; the only added line is `set_device(model, mesh)`. Verified recipes include Ling-mini-2.0 on T3K, ResNet-50, Gemma 4 E2B/E4B and Qwen3-VL-2B on N150, with `compatibility.report(model)` showing which modules actually ran on device. `ttnn` must be built from source at the pinned tt-metal commit. It is the standalone packaging of the framework that started in tt-metal's `models/experimental/tt_symbiote`.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models",
+    "dev-tools"
+  ],
+  "tags": [
+    "transformers",
+    "huggingface",
+    "ttnn",
+    "model-porting",
+    "pytorch",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/alnah005/tt_symbiote"
+    },
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-metal/tree/main/models/experimental/tt_symbiote",
+      "label": "Original in tt-metal"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "alnah005",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-09-28",
+  "packages": [
+    {
+      "type": "pypi",
+      "name": "tt-symbiote"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "openjev-p300x2",
+  "name": "openjev on P300x2",
+  "description": "Serves AlexWortega/openjev, a Qwen3.5-4B NLI cross-encoder, as a vLLM pooling model on four Blackhole chips with 4-way tensor parallelism. The repo holds tt-metal and vllm-tt-plugin patches (classifier head, pooled prefill traces, pooling support), a tt-inference-server catalog entry, eval scripts and results: MNLI-500 accuracy 0.892 on TT vs 0.896 on CPU bf16, and about 32 ms per input up to 128 tokens. Includes a zero-shot Flappy Bird demo driven by /classify calls, with videos and a browser replay viewer. Weights are not duplicated; they load from the upstream checkpoint.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models",
+    "games-demos"
+  ],
+  "tags": [
+    "nli",
+    "cross-encoder",
+    "reranker",
+    "qwen",
+    "vllm",
+    "tt-metal",
+    "tensor-parallel",
+    "hugging-face"
+  ],
+  "links": [
+    {
+      "type": "website",
+      "url": "https://huggingface.co/changh95/openjev-p300x2",
+      "label": "Code, patches and results on Hugging Face"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "changh95",
+  "license": "MIT",
+  "added_at": "2026-09-28"
+}

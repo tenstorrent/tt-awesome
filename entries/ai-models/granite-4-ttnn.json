@@ -1,0 +1,38 @@
+{
+  "id": "granite-4-ttnn",
+  "name": "TT-Granite",
+  "description": "A TTNN port of IBM's Granite-4.0-H hybrid Mamba2/attention/MoE models (tiny and small) to Wormhole, written as a UCL thesis project and run on submeshes of a Galaxy. Includes two custom TT-Metal kernels, `ssm_update` and `conv1d_decode`, that fuse the Mamba2 decode step, plus decode trace capture and benchmark scripts against HuggingFace CPU/CUDA baselines. With trace enabled the author reports 10.65–10.69 tok/s for tiny on 4 chips (about 18% above an A100) and 5.84–5.89 tok/s for small on 8 chips (about 20% below the A100); all numbers are batch 1, and the fused kernels add only about 1–2%. The thesis PDF documents the porting challenges: quantization, SSM state across chunked prefill, and expert-parallel sharding.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "kernels",
+    "research"
+  ],
+  "tags": [
+    "llm",
+    "model-bringup",
+    "granite",
+    "mamba2",
+    "ssm",
+    "moe",
+    "hybrid-model",
+    "thesis"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/quandvucl/granite-4-ttnn"
+    },
+    {
+      "type": "paper",
+      "url": "https://github.com/quandvucl/granite-4-ttnn/blob/main/COMP0251_TLVH1.pdf"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "galaxy"
+  ],
+  "author": "quandvucl",
+  "language": "Python",
+  "added_at": "2026-09-28"
+}

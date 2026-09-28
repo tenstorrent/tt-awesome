@@ -62,6 +62,7 @@ registry-specific field:
 | `cargo` | `cargo add <name>` | — | `crates.io/crates/<name>` |
 | `conda` | `conda install -c <channel> <name>` | `channel` (optional, defaults to `conda-forge`) | `anaconda.org/<channel>/<name>` |
 | `apt` | `apt install <name>` | `ppa` or `url` (a PPA is required to install) | Launchpad, or the `url` as given |
+| `tt-model` | `tt serve <name>` | — (`name` is the bundle's Hugging Face repo id, `namespace/bundle`) | `huggingface.co/<name>` |
 
 The conda command is rendered with `-c <channel>` on purpose: the packages we link
 live on conda-forge rather than in conda's `defaults` channel, so a bare
@@ -69,6 +70,22 @@ live on conda-forge rather than in conda's `defaults` channel, so a bare
 
 Do not list a package you have not confirmed is actually published — the badge is an
 install promise.
+
+A `tt-model` package is a model bundle published with
+[tt-model-manager](https://github.com/tenstorrent/tt-model-manager) and run through
+[tt-cli](https://github.com/tenstorrent/tt-cli): `tt serve <namespace>/<bundle>` pulls it
+if needed and starts its OpenAI-compatible server. **List only bundles in the community
+catalog** — ones whose Hugging Face repo carries the `tt-model-catalog` tag, added by
+`tt-model publish`. A listing means the author opted in and the bundle passed tt-model's
+card check (published performance and limitations). Check before adding:
+
+```bash
+curl -s https://huggingface.co/api/models/<namespace>/<bundle> | python3 -c \
+  "import json,sys; print('tt-model-catalog' in json.load(sys.stdin)['tags'])"
+```
+
+A pushed-but-unlisted bundle, or one in an older format that `tt serve` refuses, does not
+qualify.
 
 ## Affiliation policy
 

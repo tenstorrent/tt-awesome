@@ -1,0 +1,35 @@
+{
+  "id": "torpedo",
+  "name": "torpedo",
+  "description": "A persistent HTTP telemetry server for Tenstorrent cards. It keeps one device-discovery context alive, samples `tt-smi` 6.3.0 telemetry on a background thread, and serves the latest snapshot as JSON at `/v1/devices` with a `/healthz` check, rediscovering devices with exponential backoff after a reset. It marks a device as held when other processes appear in `/proc/driver/tenstorrent/<n>/pids`, and reads allocated GDDR passively from tt-metal's `/dev/shm` allocator region without opening a Metal context. Written in Python with `luwen` (default) and `umd` backends and a systemd unit; the repo also includes `watchgpu`, a shell script that shows CUDA, Tenstorrent and Apple Silicon hosts side by side over SSH.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools",
+    "cloud-infra"
+  ],
+  "tags": [
+    "monitoring",
+    "telemetry",
+    "http",
+    "json",
+    "tt-smi",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/daniel-geon-park/torpedo"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "author": "daniel-geon-park",
+  "language": "Python",
+  "related": [
+    "tt-smi",
+    "tt-monitor"
+  ],
+  "added_at": "2026-09-28"
+}

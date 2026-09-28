@@ -33,6 +33,30 @@ assert(
   "site.baseUrl must end with a trailing slash"
 );
 
+// ── A tt-model package renders its run command (badge + copy button) and the
+//    tt-cli prerequisite. Guards the template wiring, not just the data: an
+//    entry can declare the package and still render nothing if a branch is
+//    missing from one of the card's two package blocks. ─────────────────────
+for (const entry of entries) {
+  for (const pkg of entry.packages || []) {
+    if (pkg.type !== "tt-model") continue;
+    const html = fs.readFileSync(
+      path.join(outDir, "entry", entry.id, "index.html"), "utf-8");
+    assert(
+      html.includes(`data-copy="tt serve ${pkg.name}"`),
+      `entry/${entry.id}/ lacks a copyable \`tt serve ${pkg.name}\``
+    );
+    assert(
+      html.includes(`href="https://huggingface.co/${pkg.name}"`),
+      `entry/${entry.id}/ tt-model badge does not link the bundle on the Hub`
+    );
+    assert(
+      html.includes("uv tool install tenstorrent"),
+      `entry/${entry.id}/ tt-model badge does not say it needs tt-cli`
+    );
+  }
+}
+
 // ── Every non-hidden entry gets a standalone page with stable extraction
 //    anchor, its content, and a canonical URL ────────────────────────────────
 for (const entry of entries) {
