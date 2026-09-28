@@ -290,7 +290,7 @@ checkout, so the entry has no `packages`.
 that the entries exist. `github_meta.json` was updated for just these two repos by
 importing the fetcher's functions, the same way as for tt-finetune.
 
-### 2026-09-28 — 28 candidates from investor-analysis, plus three stale-entry fixes
+### 2026-09-28 — 21 candidates from investor-analysis, plus two stale-entry fixes
 
 Prompt: *"Let's look at reports in ~/code/investor-analysis for new candidates to add to
 tt-awesome, then create a new branch to contain them"*
@@ -305,13 +305,20 @@ alone: verbatim mirrors of TT repos, forks of polaris/blackhole-py, 2024 intern 
 hackathon/CI repos, coursework. The remaining ~55 were read at the source by five parallel agents
 (models, engines, tools, research, Hugging Face).
 
-**Result: 28 new entries, 1 extended.** The bar was TT-specific working code a reader can run or
-learn from, and for model bundles, published measurements. Folded rather than duplicated: the
-SwiftNPU code repo became a link on the existing `paper-swiftnpu`, daisytuner's two case studies
-became one `docc` entry, and yiding's llama.cpp fork (a slimmed derivative with P150 TP) became a
-link on `llama-cpp-metalium`.
+**Result: 21 new entries.** The bar was TT-specific working code a reader can run or learn from,
+and for model bundles, published measurements. Folded rather than duplicated: daisytuner's two
+case studies became one `docc` entry, and yiding's llama.cpp fork (a slimmed derivative with P150
+TP) became a link on `llama-cpp-metalium`.
 
-**Three stale entries found along the way:**
+**Then a freshness cut.** Taylor: *"remove these ones that are from april or before."* Seven
+drafted entries were dropped because their last push was on or before 2026-04-30: corsix
+wormhole-vector, tt-fetch, autoresearch-tenstorrent, the k8s device plugin, tt-train-roofline,
+tt-metal-nix and tt-lang-kernels. The SwiftNPU code-repo link (last push Apr 29) was reverted too.
+The measure is GitHub `pushed_at`, which counts a push to any branch; for fork entries whose TT
+work lives on a branch, check that branch's last commit instead. agillm-3 stayed, because its
+primary GitHub repo was pushed May 4 even though its HF checkpoints date from March.
+
+**Two stale entries found along the way:**
 * `tt-kernel-package-manager` → the repo was renamed `tenstorrent/tt-model-manager` (CLI
   `tt-model`); the old URL only redirects. **The id was kept on purpose.** It's the permalink, and
   investor-analysis joins on `tt_awesome_id`. Name, URL, description and links changed.
