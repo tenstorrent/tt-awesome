@@ -1,5 +1,19 @@
 [
   {
+    "type": "talk",
+    "source": "connpass",
+    "approved": true,
+    "title": "Tenstorrent Tech Talk #10",
+    "url": "https://tenstorrent.connpass.com/event/408293/",
+    "description": "Tenstorrent Tech Talk #10 is a hybrid developer meetup on optimizing models with TTNN and TT-Metalium. It covers the framework fundamentals, Tensix architecture, and practical techniques demonstrated on a Blackhole card.\n\nTenstorrent Tech Talk #10 は、TTNN / TT-Metalium を使ったモデル最適化をテーマにした、オンライン・オフラインのハイブリッド開発者イベントです。フレームワークの基礎、Tensix アーキテクチャ、Blackhole Card で実践した高速化手法を解説します。",
+    "date": "2026-09-29",
+    "dateISO": "2026-09-29T13:58:57+09:00",
+    "label": "Tenstorrent Japan — connpass",
+    "projectName": "Tenstorrent Japan",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
@@ -178,6 +192,20 @@
     "dateISO": "2026-09-24T12:28:22Z",
     "label": "mesham/tt-sim",
     "projectName": "tt-sim",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "paper",
+    "source": "arxiv",
+    "approved": true,
+    "title": "Schedules Are Solvable Symbols: Tuning-Free Compilation of Tile Programs on Dataflow Architectures",
+    "url": "https://arxiv.org/abs/2609.29219v1",
+    "description": "Modern AI and HPC accelerators increasingly expose dataflow features: software-visible mechanisms for data movement and overlap, such as inter-core communication through the on-chip network and intra-core asynchronous pipelining. These features shift scheduling responsibility from hardware to the compiler, and because placement, movement, and synchronization become software-visible, they also make the performance of static schedules predictable. Yet high performance on such hardware still relies on vendor-engineered kernel libraries or profile-based auto-tuning, whose embedded expert knowledge transfers poorly across architectures and algorithms. We present Loom, a tuning-free symbolic compiler framework for tile-based SPMD programs on spatial dataflow architectures. The central idea is…",
+    "date": "2026-09-24",
+    "dateISO": "2026-09-24T08:27:35Z",
+    "label": "arXiv:2609.29219",
+    "projectName": "arXiv",
     "projectId": null,
     "affiliation": "community"
   },
