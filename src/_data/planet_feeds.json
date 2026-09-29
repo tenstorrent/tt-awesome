@@ -1,5 +1,19 @@
 [
   {
+    "type": "talk",
+    "source": "connpass",
+    "approved": true,
+    "title": "Tenstorrent Tech Talk #10",
+    "url": "https://tenstorrent.connpass.com/event/408293/",
+    "description": "開催日時: 2026/10/19 18:00 ～ 20:35 開催場所: 東京都港区虎ノ門2-4-7 T-Lite 8F Tenstorrent Tech Talk #10 開催のお知らせ 本イベントは、AIアクセラレータとRISC-V CPUを開発するTenstorrent社のハードウェア・ソフトウェア技術について、Tenstorrent社員による技術解説を交えながら学ぶ開発者向けの技術交流会です。 今回のTech Talkは、 TTNN / TT-Metalium を用いたモデル実装の最適化テクニック をテーマに実施します。Session1では理論編として、TTNN / TT-Metaliumの基礎から、高速化のために押さえておきたいTensixアーキテクチャまでを一通りカバーします。続くSession2では実践編として、実際にBlackhole Cardの上でモデルを高速化した際に用いた最適化手法を、具体例を交えて解説します。 Tenstorrentのプラットフォーム上でモデルを動かしている方、これから実装に取り組もうとしている方、そして性能を引き出すためのチューニング手法に関心のある方に向けた内容です。ぜひご参加ください。 開催概要 日時: 2026年10月19日（月） 18:00 - 20:30（開場 17:30） 形式: オンライン & オフラインのハイブリッド開催 オフライン会場: 東京都港区虎ノ門2-4-7 T-Lite 8F（テンストレント東京オフィス） 参加費: 無料 申込先 以下のConnpassイベントページよりご登録をお願いします。 イベントページ: （※ #10のConnpass URLを記入） タイムスケジュール 時間 内容 発表者 17:30 開場 18:00 - 18:10 Opening & Tenstorrent Update…",
+    "date": "2026-09-29",
+    "dateISO": "2026-09-29T13:58:57+09:00",
+    "label": "Tenstorrent Japan — connpass",
+    "projectName": "Tenstorrent Japan",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
@@ -178,6 +192,20 @@
     "dateISO": "2026-09-24T12:28:22Z",
     "label": "mesham/tt-sim",
     "projectName": "tt-sim",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "paper",
+    "source": "arxiv",
+    "approved": true,
+    "title": "Schedules Are Solvable Symbols: Tuning-Free Compilation of Tile Programs on Dataflow Architectures",
+    "url": "https://arxiv.org/abs/2609.29219v1",
+    "description": "Modern AI and HPC accelerators increasingly expose dataflow features: software-visible mechanisms for data movement and overlap, such as inter-core communication through the on-chip network and intra-core asynchronous pipelining. These features shift scheduling responsibility from hardware to the compiler, and because placement, movement, and synchronization become software-visible, they also make the performance of static schedules predictable. Yet high performance on such hardware still relies on vendor-engineered kernel libraries or profile-based auto-tuning, whose embedded expert knowledge transfers poorly across architectures and algorithms. We present Loom, a tuning-free symbolic compiler framework for tile-based SPMD programs on spatial dataflow architectures. The central idea is…",
+    "date": "2026-09-24",
+    "dateISO": "2026-09-24T08:27:35Z",
+    "label": "arXiv:2609.29219",
+    "projectName": "arXiv",
     "projectId": null,
     "affiliation": "community"
   },
