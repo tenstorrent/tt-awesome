@@ -1,5 +1,33 @@
 [
   {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "tt-installer v3.6.1",
+    "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v3.6.1",
+    "description": "The installer now gracefully handles Ubuntu and Debian systems with unknown or newer codenames by falling back to a published apt suite, eliminating setup friction on freshly released distro versions — [a fix](https://github.com/tenstorrent/tt-installer/issues/128) that matters if you're running bleeding-edge Linux. Golden versions have been pinned to tt-sw-manifest v3.0.0, and a few shell script linting issues were tidied up.",
+    "date": "2026-09-29",
+    "dateISO": "2026-09-29T17:27:44Z",
+    "label": "tenstorrent/tt-installer",
+    "projectName": "tt-installer",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "ttsim v1.10.12",
+    "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.10.12",
+    "description": "The simulator gains substantial new instruction coverage on QSR with support for SFPDIVP2, SFPSWAP, SFPSHFT32, and SFPLUTFP32—plus expanded packer/unpacker and dest bank tracking—making it much easier to validate real workloads without hitting unsupported-operation walls. Beyond that, a [16-datum alignment restriction on BFP exponent streams](https://github.com/tenstorrent/ttsim/releases/tag/v1.10.12) tightens spec compliance, harvesting masks on N150/P150 are corrected, and error reporting got sharper to help you debug faster.",
+    "date": "2026-09-29",
+    "dateISO": "2026-09-29T17:19:35Z",
+    "label": "tenstorrent/ttsim",
+    "projectName": "ttsim",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
     "type": "talk",
     "source": "connpass",
     "approved": true,
