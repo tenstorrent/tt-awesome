@@ -8,3 +8,7 @@ __pycache__/
 # Build output: scripts/generate_data_json.py writes it before every deploy
 # build (deploy.yml); the tracked copy only ever drifted. Served at /data.json.
 /data.json
+
+# Local working log for agent sessions. Kept on each machine, never committed;
+# AGENTS.md carries the durable operating notes.
+/CLAUDE.md
