@@ -3,6 +3,20 @@
     "type": "release",
     "source": "github",
     "approved": true,
+    "title": "tt-lab goes public",
+    "url": "https://github.com/tenstorrent/tt-lab",
+    "description": "Tenstorrent has opened up **tt-lab**, and it is the most radical reading of \"run an LLM on Blackhole\" to land yet: gpt-oss-20b and gpt-oss-120b executed by hand-written C++20 firmware on the BRISC core of each Tensix tile, fed straight from the same [MXFP4 GGUF files](https://github.com/tenstorrent/tt-lab#models) that llama.cpp and Ollama users already have on disk, with no TTNN, no TT-Metalium and no vLLM anywhere in the path. The whole stack from tokenizer to Tensix instruction is roughly 12,000 lines of C++ you can read end to end, and 120b runs across all four chips of a QuietBox 2 over [direct PCIe peer-to-peer DMA](https://github.com/tenstorrent/tt-lab#tt-blackhole-backend) with no host-mediated tensor exchange. What makes it a laboratory rather than a demo is the instrumentation: a [bit-exact host-side device proxy](https://github.com/tenstorrent/tt-lab#numerics-status) that silicon and `ttsim` must match logit-for-logit under `--check`, a Python-shaped DSL that compiles to SFPU vector kernels, `--profile` per-stage device cycles, tensor dumps, and CPU reference inference, so a kernel change can be verified on a laptop before it ever touches a chip. The README's short-context snapshot is 3.83 ms of device time per 20b token on 32 tiles, using only a fraction of each chip's Tensix array. It is deliberately not a serving framework (one sequence, greedy decoding, no endpoint, exclusive device ownership) and the project does not accept pull requests, but for anyone who has wanted to see exactly what a transformer looks like when it meets the silicon with nothing in between, this is the repo.",
+    "date": "2026-09-30",
+    "dateISO": "2026-09-30T20:47:07Z",
+    "label": "tenstorrent/tt-lab",
+    "projectName": "tt-lab",
+    "projectId": "tt-lab",
+    "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
     "title": "tt-inference-server v0.23.0",
     "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.23.0",
     "description": "Llama-3.1-8B LoRA fine-tuning on P150 is now production-ready with smarter job monitoring—the server switched from fixed timeouts to progress-based stuck detection and lets you manually delete training jobs and their results. On the inference side, gemma-4-31B-it support lands on Blackhole QuietBox 2, expanding the models you can run end-to-end on Tenstorrent hardware.",
@@ -3468,7 +3482,7 @@
     "dateISO": "2026-07-01T02:16:36Z",
     "label": "tenstorrent/tt-operator",
     "projectName": "tt-operator",
-    "projectId": null,
+    "projectId": "tt-operator",
     "affiliation": "official"
   },
   {

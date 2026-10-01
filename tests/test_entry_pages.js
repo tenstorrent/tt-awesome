@@ -225,6 +225,30 @@ assert(
   "index.html JSON-LD url must be the canonical site.baseUrl"
 );
 
+// ── data.json ships with the site, and is fresh ─────────────────────────────
+//    data.json is a build output (gitignored), produced by
+//    scripts/generate_data_json.py immediately before `npm run build` in both
+//    deploy.yml and build-check.yml. Eleventy's passthrough copy silently
+//    skips a missing source, so a workflow that dropped the generate step
+//    would still build green and serve no /data.json; and a stale copy left on
+//    disk would be copied as-is. Assert on the wiring, not the generator: the
+//    file must be there and must describe the entries this build rendered.
+{
+  const dataPath = path.join(outDir, "data.json");
+  assert(
+    fs.existsSync(dataPath),
+    "_site/data.json missing — run `python3 scripts/generate_data_json.py` " +
+      "before `npm run build` (or `npm run generate`)"
+  );
+  const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
+  assert.strictEqual(
+    data.meta && data.meta.total_entries,
+    entries.length,
+    `_site/data.json is stale: meta.total_entries=${data.meta && data.meta.total_entries} ` +
+      `but this build rendered ${entries.length} entries — regenerate it before building`
+  );
+}
+
 // ── AGENTS.md ships with the site ───────────────────────────────────────────
 assert(
   fs.existsSync(path.join(outDir, "AGENTS.md")),
