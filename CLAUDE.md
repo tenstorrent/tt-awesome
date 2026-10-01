@@ -422,3 +422,24 @@ backend is Blackhole-only and the dev machine is a QuietBox 2 with two P300 boar
 
 `github_meta.json` got the one record via `fetch_repo`, inserted in the slot `main()` would
 give it so the diff is a pure 4-line insertion. README regenerated with `generate_readme.py`.
+
+**Follow-up (same day): tt-operator is back.** Taylor: *"yes let's add tt-operator back in.
+nothing else for now"*, after a sweep of `~/code/investor-analysis` for candidates new since
+9/28. The entry was first added in #99 (2026-07-01) and dropped in 7d3d057 because the repo had
+gone private; it was re-opened for public release on 2026-09-17 (`ospo/public-release-prep`).
+Restored under the **same id** (permalink, and investor-analysis joins on it), with the
+description rewritten from today's README (OCI chart, DRA driver, kind dev loop, v0.3.0) and
+links to the two public component repos (`tt-k8s-driver-manager`, `tt-dra-driver`;
+`tt-telemetry` and `tt-fabric-manager` are still internal). `added_at` is today, so the
+new-entries feed announces the re-listing. `cloud-native-support` gets its `related` link back
+and the old v0.1.0 planet item its `projectId`.
+
+`summarize_releases.py` has **no date window**: with the entry restored, the next nightly will
+summarize every un-published release `fetch_releases` returns — v0.3.0, v0.2.0, and the June
+v0.0.4/v0.0.5 — at their real dates. The June ones chain with v0.1.0 into one grouped card.
+
+Sweep result, for the record: the Discord share table (refreshed 9/30) held three genuinely
+new candidates — tt-operator, `ndaly/Mistral-Small-4-119B-2603-tt-p300x2` (catalog-tagged,
+TT PM, would be the first `tt-model` install-type user) and `Adraca/mamba2-tt-bringup`
+(Mamba-2 SSD on TTNN, confirmed on N150, no license file). Taylor passed on the latter two
+for now. The code-search verdicts file is unchanged since 9/1.

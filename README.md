@@ -515,6 +515,10 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   Official documentation hub for running Tenstorrent accelerators on Kubernetes. Centers on tt-operator (the umbrella Helm chart) and covers Node Feature Discovery, kernel-mode driver (tt-kmd) management, firmware flashing, Prometheus telemetry, Fabric Manager topology resolution, Dynamic Resource Allocation, and multi-node scheduling via JobSet and PMIx.
   [🌐 docs.tenstorrent.com](https://docs.tenstorrent.com/cloud-native-support/)
 
+- **[tt-operator](https://github.com/tenstorrent/tt-operator)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  The official umbrella Helm chart for running Tenstorrent workloads on Kubernetes, back in the open after a stretch as a private repo. One `helm install` from the OCI registry (`oci://ghcr.io/tenstorrent/helm/tt-operator`) brings up the whole stack as subcharts: Node Feature Discovery to label nodes that carry a Tenstorrent PCI device, `tt-k8s-driver-manager` to own the lifecycle of `tt-kmd`, firmware and `tt-smi` on every node, `tt-fabric-manager` for inter-card and inter-host topology, a Dynamic Resource Allocation driver that publishes cards as `ResourceSlices` (Kubernetes 1.33+), `tt-telemetry` with a Prometheus endpoint, and JobSet plus a PMIx-injecting webhook for multi-node training. Every subchart can be switched off independently, image pins forward to each component, and a `kind` dev loop with fake-labelled nodes lets you work on the controllers without hardware. Releases ship a component version matrix; v0.3.0 (Sep 2026) added a fail-fast check for DRA on older clusters.
+  [📦 repo](https://github.com/tenstorrent/tt-operator) · [🌐 tt-operator docs](https://docs.tenstorrent.com/tt-operator/) · [🌐 Cloud-Native Support docs](https://docs.tenstorrent.com/cloud-native-support/) · [🌐 tt-k8s-driver-manager](https://github.com/tenstorrent/tt-k8s-driver-manager) · [🌐 tt-dra-driver](https://github.com/tenstorrent/tt-dra-driver)
+
 ## 🔩 RISC-V & Architecture
 
 - **[bhx](https://github.com/olofj/bhx)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
