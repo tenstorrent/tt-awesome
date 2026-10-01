@@ -29,6 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      # Parity with deploy.yml: data.json is a build output, not tracked, so it
+      # has to be generated here too or the passthrough copy silently serves
+      # nothing and test_entry_pages.js's freshness check fails.
+      - run: python3 scripts/generate_data_json.py
       - uses: actions/setup-node@v4
         with: { node-version: "22", cache: "npm" }
       - run: npm ci
