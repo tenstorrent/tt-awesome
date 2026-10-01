@@ -1,0 +1,55 @@
+{
+  "id": "tt-lab",
+  "name": "tt-lab",
+  "description": "A whole LLM inference stack you can read end to end: gpt-oss-20b and gpt-oss-120b running on Blackhole with **no TTNN, no TT-Metalium, no vLLM** — the same MXFP4 GGUF file an Ollama user already has, loaded straight into hand-written C++20 BRISC firmware over the kernel driver. Attention, expert matvecs, RMSNorm and SwiGLU all run inside the Tensix tiles, with four-chip runs (120b on a QuietBox 2) exchanging activations over direct PCIe peer-to-peer DMA rather than through the host. Around it sits a self-contained laboratory: a Python-shaped DSL that compiles to SFPU vector kernels, a bit-exact host-side device proxy that simulator and silicon must match logit-for-logit (`--check`), CPU reference inference, `--profile` per-stage device cycles, tensor dumps, and a `ttsim` path so kernel work needs no hardware at all. Roughly 12,000 lines of C++ from prompt to Tensix instruction; the README reports 3.83 ms of device time per 20b token across 32 tiles. One sequence, greedy decoding, no serving endpoint — this is a laboratory for understanding the silicon, not a serving framework, and it takes exclusive ownership of its chips.",
+  "affiliation": "official",
+  "featured": true,
+  "categories": [
+    "ai-models",
+    "kernels"
+  ],
+  "tags": [
+    "gpt-oss",
+    "gguf",
+    "mxfp4",
+    "moe",
+    "brisc",
+    "sfpu",
+    "firmware",
+    "inference",
+    "bare-metal",
+    "simulator",
+    "pcie-p2p"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tenstorrent/tt-lab"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/tenstorrent/tt-lab#tt-blackhole-backend",
+      "label": "Blackhole backend & hardware setup"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/tenstorrent/ttsim#running-an-llm-with-tt-lab",
+      "label": "Run it on ttsim, no silicon needed"
+    }
+  ],
+  "related": [
+    "ttsim",
+    "sfpi",
+    "tt-kmd",
+    "tt-llk",
+    "tt-metal"
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox",
+    "ttsim"
+  ],
+  "language": "C++",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-01"
+}

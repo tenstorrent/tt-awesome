@@ -389,3 +389,36 @@ qwen36-a3b-blackhole, qwen38-27b-dflash2-p300x2 and agillm-3-tenstorrent. The dr
 git history (commit 5c4d36c) if any come back. The `tt-model` install type stays, but it has
 **no users** now that both catalog bundles are out, so its build-output assertion is vacuous
 until one returns. The two stale-entry fixes and the Planet video stay.
+
+### 2026-10-01 — tt-lab entry and its public-debut planet card
+
+Prompt: *"Add a colorful, exciting entry for https://github.com/tenstorrent/tt-lab and its
+first release into the planet feed"*
+
+**tt-lab has no GitHub release.** `/releases` and `/tags` are both empty (checked via the API,
+not the web UI). The "first release" is the repo going public: the initial source drop landed
+9/28 and the "Prepare documentation and legal files for public release" commit on 9/30 at
+20:47 UTC, with Matt Craighead announcing it in Slack that evening. So the planet item is a
+hand-written `type:"release"` whose URL is the **repo itself**, dated to that commit, with
+`projectId` set explicitly (the summarizer's backfill only matches `/releases/` URLs). It
+cannot collide with a future real release: that one arrives with a `/releases/tag/` URL and
+a `tt-lab <tag>` title, so neither the URL dedup nor `release_key()` sees a match.
+
+**Why not a `lesson` link for the ttsim walkthrough.** The ttsim README has a public "Running
+an LLM with tt-lab" section worth linking. Typing it `lesson` would make `planetItems` emit
+an entry-derived card dated `added_at` — a second launch card next to the hand-written one.
+It is `website` with a label instead; the planet gets exactly one card.
+
+**Numbers were taken only from public sources.** The README publishes 3.83 ms/token of
+*device command time* (20b, 32 tiles) and says outright it is not end-to-end throughput, so
+the copy says "device time per token" rather than converting it to tok/s. The ttsim README
+supplies "roughly 12,000 lines of C++". Internal Slack carried a headline 120b tok/s figure;
+it is not in the repo, so it is not on the site.
+
+`featured: true` is what "colorful, exciting" maps to on this site — the ★ star on the card
+and top-of-tier placement in README and the home showcase. Easy to flip off if it crowds
+something out. `hardware` is `blackhole`/`quietbox`/`ttsim`: the README is explicit that the
+backend is Blackhole-only and the dev machine is a QuietBox 2 with two P300 boards.
+
+`github_meta.json` got the one record via `fetch_repo`, inserted in the slot `main()` would
+give it so the diff is a pure 4-line insertion. README regenerated with `generate_readme.py`.
