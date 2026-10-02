@@ -196,8 +196,27 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 121,
-    "updatedAt": "2026-10-01T12:31:08Z",
+    "updatedAt": "2026-10-02T04:41:53Z",
     "releases": [
+      {
+        "tagName": "v0.12.0",
+        "name": "v0.12.0",
+        "publishedAt": "2026-10-02T02:58:40Z",
+        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.12.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt_bio-0.12.0-py3-none-any.whl",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.12.0/tt_bio-0.12.0-py3-none-any.whl",
+            "size": 3433136
+          },
+          {
+            "name": "tt_bio-0.12.0.tar.gz",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.12.0/tt_bio-0.12.0.tar.gz",
+            "size": 4008837
+          }
+        ]
+      },
       {
         "tagName": "v0.11.0",
         "name": "v0.11.0",
@@ -273,28 +292,9 @@
             "size": 2712989
           }
         ]
-      },
-      {
-        "tagName": "v0.7.3",
-        "name": "v0.7.3",
-        "publishedAt": "2026-09-04T03:38:41Z",
-        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.7.3",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt_bio-0.7.3-py3-none-any.whl",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.7.3/tt_bio-0.7.3-py3-none-any.whl",
-            "size": 2419155
-          },
-          {
-            "name": "tt_bio-0.7.3.tar.gz",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.7.3/tt_bio-0.7.3.tar.gz",
-            "size": 2489183
-          }
-        ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Changed\n\n- **A BindCraft 2 gradient round is 1.15x faster on Blackhole.** The layer-norm backward ran as\n  about 22 ttnn calls, 14 of them full passes over the activation, 384 times a round at 288 tokens;\n  it is now one kernel (`tt_bio/lnbw.py`) that reads the activation and the cotangent once. At the\n  shipped default (three interleaved trajectories, 288 tokens) the round went from 5.969 to 5.186 s\n  on a p300c chip and from 6.216 to 5.463 s on a p150a, arms alternated in one sitting, AICLK 1350\n  MHz sampled during every arm. Against an H200's 0.6958 s that is 7.45x rather than 8.58x. The\n  gradient is closer to float64 than before (dx rel L2 1.81e-3 against 3.84e-3 on the same bf16\n  operands). It serves only a BindCraft 2 round on Blackhole: other models' tapes and Wormhole keep\n  the composed path, and `TT_BIO_LNBW_FUSED=0` turns it off. See\n  [docs/tuning-flags.md](docs/tuning-flags.md#tt_bio_lnbw_fused).\n\n### Fixed\n\n- **A BindCraft 2 refusal on a card held to its last percent called itself fragmentation.**\n  Above a Wormhole Galaxy chip's 512 tokens the fold holds 98 to 99 % of the board, and whether\n  the 100 to 250 MB left happened to cover the next request decided between \"the card is full\"\n  and \"this is fragmentation, not a full card\" for the same state: seven of the ten boundary\n  refusals on record read as fragmentation and sent the user after a fix that does not exist.\n  Fragmentation is now the diagnosis only with at least 5 % of the card free, and the full-card\n  message says how the remainder is split. The size a refusal sends the user to is swept across\n  every axis from 224 to 1536 tokens on both measured boards, pad-up on and off, so it can never\n  name a size that board also refuses.\n\n- **BindCraft 2 campaigns started together on one box each read the whole host as free.**\n  `trajectories_per_card=auto` sized its trajectory count from host memory read once at start,\n  before any sibling campaign had grown, so 32 campaigns launched together on a Wormhole Galaxy\n  would each have taken two trajectories at 288 tokens, 464 GB of plan against 278.6 GB free. Each\n  campaign now records the host memory it planned for, and a campaign starting while others have\n  not yet grown into their plans counts that memory as taken. See\n  [docs/bindcraft2.md](docs/bindcraft2.md).\n\n- **The 0.11.0 BindCraft 2 install advice broke BindCraft 2.** [docs/bindcraft2.md](docs/bindcraft2.md)\n  said to pin `numpy<2` after installing BindCraft 2, or to install BindCraft 2 first. Either way\n  numpy ends at 1.26, and the jax 0.11 that BindCraft 2 pins does not import on it. The page now\n  says to keep the numpy 2 that the install gives you: ttnn runs on it even though `pip check`\n  reports ttnn's `numpy<2` declaration.\n\n## [0.11.0] - 20"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [0.12.0] - 2026-10-02\n\nBindCraft 2 reaches 864 tokens on one Wormhole Galaxy chip, where 0.11.0 stopped at 512, so the\nEGFR ectodomain plus a 150 aa binder (800 tokens) folds uncropped. The 768-token axis that crashes 0.11.0 on\nBlackhole now runs at the default, and a p150a serves every axis from 192 to 864 tokens with no\nflag. A gradient round is faster on Blackhole. At 288 tokens and\nthree trajectories, with the release and 0.11.0 alternating on the same card at AICLK median 1350\nand no sample under 1200: on a p150a the round is 3.603 s against 0.11.0's 5.836 s, 1.62x, which\ntakes it from 8.39x an H200's 0.696 s round to 5.18x; on a p300c chip it is 3.653 s against\n5.883 s, 1.61x, 8.45x to 5.25x. 0.11.0's own headline, 6.00 s and 8.6x an H200, was a p150a figure.\n\n### Added\n\n- **BindCraft 2 keeps going past a card's fast ceiling instead of refusing: `memory=`.** A\n  Wormhole Galaxy chip's 512 tokens was the ceiling of the mode that runs fastest, not of the\n  card. Two levers buy room by spending time -- `lean` checkpoints each residual step inside a\n  block as well as each block, so a block's backward holds one step's tape instead of nine, and\n  `offload` additionally keeps the pinned block inputs in host memory between the forward and the\n  backward. Both run the same ops on the same values: an `offload` gradient is bit-identical to a\n  `lean` one, and both sit 0.0035 rel L2 from `fast` on top of the 0.0817 that separates `fast`\n  from a float64 reference, inside the 0.0668 that bf16 alone costs. The default is\n  `memory='auto'`, which picks the cheapest mode the fold fits in, per token axis, and prints\n  which: every fold that runs today stays in `fast` and is unchanged. A refusal now names the\n  next roomier mode, what it costs and how to ask for it. Measured on one dev Wormhole Galaxy\n  chip at AICLK 1000 MHz: 544 tokens refuse in `fast` holding 12.70 GB, and complete in `lean` at\n  a 7.527 GB peak and 84.3 s a round, against 60.2 s for the 512 tokens `fast` does carry at the\n  release tree. At the same token axis `lean` costs +10.6 % a round, measured as a pair on the\n  tree before the release (512: 61.3 s in `fast`, 67.8 s in `lean`). The largest axis supported\n  on one Wormhole Galaxy chip is now **864 tokens**: `offload`, 10.324 GB peak, 262.5 s median a\n  round over five rounds at AICLK 1000, 1.69x the axis the fast mode carries. 800 tokens, a whole\n  EGFR ectodomain plus a 150 aa binder with nothing cropped, runs at 222.9 s a round and an\n  8.934 GB peak. 896 is not offered, and the default refuses it before the first round with a\n  message that quotes 864: it completes two gradient rounds at 295.3 and 282.7 s and is refused on\n  the third, twice out of two, with 4.386 GB free, because the largest contiguous block in a bank\n  is 67."
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 18,
@@ -355,7 +355,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 75,
-    "updatedAt": "2026-10-01T13:37:45Z",
+    "updatedAt": "2026-10-01T17:17:01Z",
     "releases": [
       {
         "tagName": "v0.23.0",
@@ -884,8 +884,8 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/mudler/vllm.cpp": {
-    "stars": 440,
-    "updatedAt": "2026-09-30T23:55:17Z",
+    "stars": 441,
+    "updatedAt": "2026-10-02T02:12:20Z",
     "preview_image": "https://raw.githubusercontent.com/mudler/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -965,8 +965,8 @@
     "updatedAt": "2026-10-01T07:46:14Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2268,
-    "updatedAt": "2026-10-01T15:26:24Z",
+    "stars": 2270,
+    "updatedAt": "2026-10-02T06:15:51Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1146,7 +1146,7 @@
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 1,
-    "updatedAt": "2026-09-29T21:12:24Z"
+    "updatedAt": "2026-10-02T03:52:50Z"
   },
   "https://github.com/kernelize-ai/triton-tenstorrent": {
     "stars": 15,
@@ -1315,6 +1315,13 @@
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
+        "tagName": "1.5.0.dev20261002005024",
+        "name": "1.5.0.dev20261002005024",
+        "publishedAt": "2026-10-02T01:10:46Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261002005024",
+        "prerelease": false
+      },
+      {
         "tagName": "1.5.0.dev20261001010629",
         "name": "1.5.0.dev20261001010629",
         "publishedAt": "2026-10-01T01:27:05Z",
@@ -1340,13 +1347,6 @@
         "name": "1.5.0.dev20260927005314",
         "publishedAt": "2026-09-27T01:11:54Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260927005314",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20260926005002",
-        "name": "1.5.0.dev20260926005002",
-        "publishedAt": "2026-09-26T01:12:16Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20260926005002",
         "prerelease": false
       }
     ]
@@ -1580,7 +1580,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 74,
-    "updatedAt": "2026-09-30T02:21:17Z",
+    "updatedAt": "2026-10-02T04:07:51Z",
     "releases": [
       {
         "tagName": "1.5.0.dev20260831000501",
@@ -1673,8 +1673,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 11039,
-    "updatedAt": "2026-10-01T15:59:05Z",
+    "stars": 11041,
+    "updatedAt": "2026-10-02T04:03:49Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1808,7 +1808,7 @@
   },
   "https://github.com/tenstorrent/tt-cli": {
     "stars": 5,
-    "updatedAt": "2026-09-30T15:44:14Z",
+    "updatedAt": "2026-10-01T21:03:11Z",
     "releases": [
       {
         "tagName": "v1.0.1",
@@ -1852,7 +1852,7 @@
   },
   "https://github.com/tsingletaryTT/tt-demo-maker": {
     "stars": 0,
-    "updatedAt": "2026-10-01T16:03:13Z",
+    "updatedAt": "2026-10-01T19:01:46Z",
     "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tt-demo-maker/main/media/short-burst.gif"
   },
   "https://github.com/tenstorrent/tt-emule": {
@@ -2130,7 +2130,7 @@
   },
   "https://github.com/tenstorrent/tt-model-manager": {
     "stars": 8,
-    "updatedAt": "2026-09-28T17:01:12Z"
+    "updatedAt": "2026-10-01T20:22:46Z"
   },
   "https://github.com/tsingletaryTT/tt-model-runner": {
     "stars": 1,
@@ -2177,7 +2177,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 57,
-    "updatedAt": "2026-10-01T13:47:20Z",
+    "updatedAt": "2026-10-01T20:25:36Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -2535,7 +2535,7 @@
   },
   "https://github.com/tetsuh/tt-metal-community-distro-matrix": {
     "stars": 2,
-    "updatedAt": "2026-09-21T16:02:10Z",
+    "updatedAt": "2026-10-01T16:26:05Z",
     "preview_image": "https://raw.githubusercontent.com/tetsuh/tt-metal-community-distro-matrix/main/history/compatibility-history.svg"
   },
   "https://github.com/party4bread/tt-blackhole-fan-win": {
@@ -3047,7 +3047,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 45,
-    "updatedAt": "2026-09-25T16:30:26Z",
+    "updatedAt": "2026-10-01T19:05:44Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -4384,7 +4384,7 @@
   },
   "https://github.com/palisurf/tt-ldpc-qb2-sim": {
     "stars": 0,
-    "updatedAt": "2026-09-30T02:40:10Z",
+    "updatedAt": "2026-10-02T00:06:54Z",
     "preview_image": "https://raw.githubusercontent.com/palisurf/tt-ldpc-qb2-sim/main/Results/combined_ar4ja_r12_waterfall_iter200.png"
   },
   "https://github.com/tenstorrent/tt-llk": {
@@ -4392,8 +4392,8 @@
     "updatedAt": "2026-09-30T16:29:01Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1693,
-    "updatedAt": "2026-10-01T15:57:42Z",
+    "stars": 1695,
+    "updatedAt": "2026-10-02T04:40:14Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5332,8 +5332,15 @@
   },
   "https://github.com/tenstorrent/ttsim": {
     "stars": 158,
-    "updatedAt": "2026-09-30T23:52:08Z",
+    "updatedAt": "2026-10-02T02:28:32Z",
     "releases": [
+      {
+        "tagName": "v1.11.0",
+        "name": "v1.11.0",
+        "publishedAt": "2026-10-02T02:32:34Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.11.0",
+        "prerelease": false
+      },
       {
         "tagName": "v1.10.12",
         "name": "v1.10.12",
@@ -5360,13 +5367,6 @@
         "name": "v1.10.9",
         "publishedAt": "2026-09-18T16:16:55Z",
         "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.10.9",
-        "prerelease": false
-      },
-      {
-        "tagName": "v1.10.8",
-        "name": "v1.10.8",
-        "publishedAt": "2026-09-15T00:24:38Z",
-        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.10.8",
         "prerelease": false
       }
     ]
