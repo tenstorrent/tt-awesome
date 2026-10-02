@@ -961,3 +961,14 @@ def test_body_defers_to_compare_detects_link_with_query_string():
     url = sr.body_defers_to_compare(body)
     assert url is not None
     assert sr.parse_compare_url(url) == ("o/r", "v1...v2")
+
+
+def test_absolutize_links_resolves_relative_to_tag():
+    from summarize_releases import absolutize_links
+    out = absolutize_links(
+        "See [a](docs/a.md#x), [b](./b.md), [c](https://e.com/c), [d](#top).",
+        "o/r", "v1.0",
+    )
+    assert "[a](https://github.com/o/r/blob/v1.0/docs/a.md#x)" in out
+    assert "[b](https://github.com/o/r/blob/v1.0/b.md)" in out
+    assert "[c](https://e.com/c)" in out and "[d](#top)" in out

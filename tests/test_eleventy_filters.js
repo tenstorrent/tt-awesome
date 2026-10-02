@@ -522,6 +522,11 @@ assert(typeof markdownInline === "function", "markdownInline filter not register
   assert.ok(!markdownInline("plain text").includes("<p>"), "renderInline adds no <p> wrapper");
 
   // Falsy input is safe.
+  const rel = markdownInline("see [docs](docs/a.md) and [ok](https://example.com/x) and [top](#t)");
+  assert.ok(!rel.includes("docs/a.md") && rel.includes("see docs and"), "relative link keeps text, drops href");
+  assert.ok(rel.includes('href="https://example.com/x"'), "absolute link preserved");
+  assert.ok(!rel.includes('href="#t"'), "in-page anchor dropped");
+
   assert.strictEqual(markdownInline(""), "", "empty string → empty");
   assert.strictEqual(markdownInline(undefined), "", "undefined → empty");
 

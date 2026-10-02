@@ -496,6 +496,31 @@ def fetch_changelog_section(repo: str, tag: str, date: str | None = None) -> str
 # full text appears with paragraph breaks in the feed's <content> block.
 
 
+_MD_LINK_RE = re.compile(r"(\[[^\]]*\]\()\s*<?([^)\s>]+)>?((?:\s+\"[^\"]*\")?\))")
+_ABSOLUTE_RE = re.compile(r"^(?:[a-z][a-z0-9+.-]*:|//|#)", re.I)
+
+
+def absolutize_links(summary: str, repo: str, tag: str) -> str:
+    """Resolve repo-relative markdown links against the release's tag.
+
+    Release notes often link docs as ``docs/foo.md``. Rendered on the site that
+    would resolve under docs.tenstorrent.com/tt-awesome/ and 404, so rewrite to
+    https://github.com/<repo>/blob/<tag>/<path>. Absolute URLs, mailto: and
+    in-page #anchors are left alone.
+    """
+    def fix(m):
+        target = m.group(2)
+        if _ABSOLUTE_RE.match(target):
+            return m.group(0)
+        path = target.lstrip("/")
+        while path.startswith("./"):
+            path = path[2:]
+        while path.startswith("../"):
+            path = path[3:]
+        return f"{m.group(1)}https://github.com/{repo}/blob/{tag}/{path}{m.group(3)}"
+    return _MD_LINK_RE.sub(fix, summary)
+
+
 def call_summarization_model(repo: str, release_name: str, body: str, affiliation: str) -> str:
     """Run the release-summary prompt on the active provider. '' on error."""
     return llm_client.complete(
@@ -654,6 +679,8 @@ def main(argv: list | None = None):
                 failures += 1
                 print(f"  SKIP {repo}@{tag}: summarization failed")
                 continue
+
+            summary = absolutize_links(summary, repo, tag)
 
             # Build the ISO date string and short date for display/sorting.
             date_str = (release.get("publishedAt") or "")[:10] or "1970-01-01"
