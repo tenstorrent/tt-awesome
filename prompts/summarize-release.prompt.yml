@@ -46,7 +46,10 @@ messages:
       you something worth linking — a PR, an issue, docs, or a guide. Only
       link URLs that appear in the release notes, or build
       https://github.com/<repo>/issues/<N> for bare #N references using the
-      repo name you were given. Never fabricate any other URL.
+      repo name you were given. Never fabricate any other URL. Links must be
+      absolute (https://...): if the notes link a repo file by relative path
+      such as docs/foo.md, write https://github.com/<repo>/blob/<release>/docs/foo.md
+      using the repo and release you were given.
 
       Do not repeat the version number or project name — the item title
       already carries both. Do not use hype words like "exciting" or

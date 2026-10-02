@@ -23,6 +23,32 @@ mdInline.disable("image");
 // wrappers so multi-paragraph release summaries render as real <p> tags.
 const mdBlock = new MarkdownIt({ html: false, linkify: false });
 mdBlock.disable("image");
+mdBlock.core.ruler.push("drop_relative_links", dropRelativeLinks);
+
+// Feed text comes from release notes and external feeds, where markdown links
+// are often repo-relative ([docs](docs/foo.md)). Rendered on the site those
+// resolve against docs.tenstorrent.com/tt-awesome/ and 404. A link without a
+// scheme (or an in-page #anchor / protocol-relative //host) is therefore
+// unusable here, so keep its text and drop the anchor. Absolute links are
+// untouched. Writers also absolutize at generation time (summarize_releases.py);
+// this is the backstop for items already stored and for other sources.
+const ABSOLUTE_LINK = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
+function dropRelativeLinks(state) {
+  for (const blockTok of state.tokens) {
+    if (blockTok.type !== "inline" || !blockTok.children) continue;
+    let dropping = false;
+    for (const tok of blockTok.children) {
+      if (tok.type === "link_open") {
+        dropping = !ABSOLUTE_LINK.test(tok.attrGet("href") || "");
+        if (dropping) tok.hidden = true;
+      } else if (tok.type === "link_close") {
+        if (dropping) tok.hidden = true;
+        dropping = false;
+      }
+    }
+  }
+}
+mdInline.core.ruler.push("drop_relative_links", dropRelativeLinks);
 
 // Shared HTML escaper for text we interpolate directly into the content block.
 const escapeHtml = mdBlock.utils.escapeHtml;
