@@ -89,7 +89,7 @@
     "approved": true,
     "title": "Annotation-Driven Migration of CUDA Programs to Tenstorrent Blackhole",
     "url": "https://arxiv.org/abs/2610.02658v1",
-    "description": "Tenstorrent Blackhole combines distributed local memories, explicit inter-core communication, and Tensix cores decoupling data movement from computation. CUDA offers a substantial HPC software base but leaves physical data placement and scheduling largely implicit. Migrating CUDA HPC kernels to Blackhole requires spatial mapping across cores and per-core coordination of compute and data-movement kernels. We present an MLIR-based compiler deriving data placement, inter-core communication, and tile computation from a statically shaped affine CUDA subset. Declarative annotations express choices not fixed by the source, including compute/DM operation placement and streaming granularity. We evaluate it on Gaussian elimination, five-point stencil, and symmetric rank-k update. Relative to our…",
+    "description": "Tenstorrent Blackhole combines distributed local memories, explicit inter-core communication, and Tensix cores decoupling data movement from computation. CUDA offers a substantial HPC software base but leaves physical data placement and scheduling largely implicit. Migrating CUDA HPC kernels to Blackhole requires spatial mapping across cores and per-core coordination of compute and data-movement kernels. We present an MLIR-based compiler deriving data placement, inter-core communication, and tile computation from a statically shaped affine CUDA subset.",
     "date": "2026-10-02",
     "dateISO": "2026-10-02T01:27:48Z",
     "label": "arXiv:2610.02658",
