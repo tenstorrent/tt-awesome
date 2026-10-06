@@ -1,7 +1,7 @@
 {
   "https://github.com/aldegad/tenstorrent": {
     "stars": 15,
-    "updatedAt": "2026-06-19T08:51:12Z"
+    "updatedAt": "2026-10-06T04:59:44Z"
   },
   "https://github.com/tenstorrent/skills": {
     "stars": 13,
@@ -47,7 +47,7 @@
   },
   "https://github.com/smartonTT/gsplat_tt": {
     "stars": 0,
-    "updatedAt": "2026-10-05T16:07:51Z"
+    "updatedAt": "2026-10-05T21:15:06Z"
   },
   "https://github.com/Codys12/MuseGlimmer": {
     "stars": 5,
@@ -196,7 +196,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 123,
-    "updatedAt": "2026-10-05T15:13:31Z",
+    "updatedAt": "2026-10-06T04:01:19Z",
     "releases": [
       {
         "tagName": "v0.12.0",
@@ -351,11 +351,11 @@
   },
   "https://github.com/tenstorrent/tt-forge-models": {
     "stars": 14,
-    "updatedAt": "2026-10-05T05:51:39Z"
+    "updatedAt": "2026-10-06T04:46:37Z"
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 75,
-    "updatedAt": "2026-10-05T17:01:00Z",
+    "updatedAt": "2026-10-05T19:16:44Z",
     "releases": [
       {
         "tagName": "v0.23.0",
@@ -884,8 +884,8 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/mudler/vllm.cpp": {
-    "stars": 445,
-    "updatedAt": "2026-10-05T10:15:04Z",
+    "stars": 446,
+    "updatedAt": "2026-10-06T05:43:29Z",
     "preview_image": "https://raw.githubusercontent.com/mudler/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -1146,7 +1146,7 @@
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 2,
-    "updatedAt": "2026-10-05T17:07:43Z"
+    "updatedAt": "2026-10-06T04:26:49Z"
   },
   "https://github.com/kernelize-ai/triton-tenstorrent": {
     "stars": 15,
@@ -1315,6 +1315,13 @@
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
+        "tagName": "1.5.0.dev20261006005133",
+        "name": "1.5.0.dev20261006005133",
+        "publishedAt": "2026-10-06T01:15:17Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261006005133",
+        "prerelease": false
+      },
+      {
         "tagName": "1.5.0.dev20261005005235",
         "name": "1.5.0.dev20261005005235",
         "publishedAt": "2026-10-05T01:11:18Z",
@@ -1340,13 +1347,6 @@
         "name": "1.5.0.dev20261002005024",
         "publishedAt": "2026-10-02T01:10:46Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261002005024",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20261001010629",
-        "name": "1.5.0.dev20261001010629",
-        "publishedAt": "2026-10-01T01:27:05Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261001010629",
         "prerelease": false
       }
     ]
@@ -1580,7 +1580,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 74,
-    "updatedAt": "2026-10-05T04:44:13Z",
+    "updatedAt": "2026-10-06T03:30:40Z",
     "releases": [
       {
         "tagName": "1.5.0.dev20260831000501",
@@ -1628,7 +1628,7 @@
   },
   "https://github.com/zk4x/zyx": {
     "stars": 74,
-    "updatedAt": "2026-10-04T17:01:45Z",
+    "updatedAt": "2026-10-06T06:06:34Z",
     "preview_image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
     "releases": [
       {
@@ -1674,7 +1674,7 @@
   },
   "https://github.com/Syllo/nvtop": {
     "stars": 11045,
-    "updatedAt": "2026-10-05T15:58:10Z",
+    "updatedAt": "2026-10-06T02:17:23Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -2130,7 +2130,7 @@
   },
   "https://github.com/tenstorrent/tt-model-manager": {
     "stars": 8,
-    "updatedAt": "2026-10-05T18:01:32Z"
+    "updatedAt": "2026-10-05T19:38:59Z"
   },
   "https://github.com/tsingletaryTT/tt-model-runner": {
     "stars": 1,
@@ -2148,7 +2148,7 @@
   },
   "https://github.com/tenstorrent/tt-perf-report": {
     "stars": 11,
-    "updatedAt": "2026-09-30T15:40:12Z",
+    "updatedAt": "2026-10-05T19:50:21Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-perf-report/main/images/example_perf_report.png"
   },
   "https://github.com/tsingletaryTT/tt-warp": {
@@ -2177,7 +2177,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 57,
-    "updatedAt": "2026-10-05T14:04:59Z",
+    "updatedAt": "2026-10-05T19:37:16Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -2969,9 +2969,23 @@
   },
   "https://github.com/tenstorrent/tt-smi": {
     "stars": 66,
-    "updatedAt": "2026-09-30T16:29:01Z",
+    "updatedAt": "2026-10-05T19:17:05Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-smi/main/images/tt_smi.png",
     "releases": [
+      {
+        "tagName": "v6.7.0",
+        "name": "v6.7.0",
+        "publishedAt": "2026-10-05T19:16:19Z",
+        "url": "https://github.com/tenstorrent/tt-smi/releases/tag/v6.7.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt_smi-6.7.0-py3-none-any.whl",
+            "url": "https://github.com/tenstorrent/tt-smi/releases/download/v6.7.0/tt_smi-6.7.0-py3-none-any.whl",
+            "size": 66894
+          }
+        ]
+      },
       {
         "tagName": "v6.6.0",
         "name": "v6.6.0",
@@ -3025,20 +3039,6 @@
             "name": "tt_smi-6.4.0-py3-none-any.whl",
             "url": "https://github.com/tenstorrent/tt-smi/releases/download/v6.4.0/tt_smi-6.4.0-py3-none-any.whl",
             "size": 66850
-          }
-        ]
-      },
-      {
-        "tagName": "v6.3.0",
-        "name": "v6.3.0",
-        "publishedAt": "2026-08-27T15:36:07Z",
-        "url": "https://github.com/tenstorrent/tt-smi/releases/tag/v6.3.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt_smi-6.3.0-py3-none-any.whl",
-            "url": "https://github.com/tenstorrent/tt-smi/releases/download/v6.3.0/tt_smi-6.3.0-py3-none-any.whl",
-            "size": 64505
           }
         ]
       }
@@ -3803,7 +3803,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 50,
-    "updatedAt": "2026-10-05T16:41:30Z",
+    "updatedAt": "2026-10-06T06:38:49Z",
     "releases": [
       {
         "tagName": "v0.9.12",
@@ -4393,7 +4393,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1696,
-    "updatedAt": "2026-10-05T18:33:20Z",
+    "updatedAt": "2026-10-06T06:31:07Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5090,8 +5090,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-isa-documentation": {
-    "stars": 129,
-    "updatedAt": "2026-10-03T07:39:04Z"
+    "stars": 130,
+    "updatedAt": "2026-10-06T02:16:09Z"
   },
   "https://github.com/olofj/bhx": {
     "stars": 6,
@@ -5382,11 +5382,18 @@
   },
   "https://github.com/tenstorrent/whisper": {
     "stars": 96,
-    "updatedAt": "2026-10-05T16:47:50Z",
+    "updatedAt": "2026-10-06T01:22:30Z",
     "isFork": true,
     "forkParent": "chipsalliance/VeeR-ISS",
     "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS",
     "releases": [
+      {
+        "tagName": "r.1865",
+        "name": "r.1865",
+        "publishedAt": "2026-10-06T01:29:47Z",
+        "url": "https://github.com/tenstorrent/whisper/releases/tag/r.1865",
+        "prerelease": false
+      },
       {
         "tagName": "r1.864",
         "name": "r1.864",
