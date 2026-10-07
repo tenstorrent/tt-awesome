@@ -12,8 +12,8 @@
     "updatedAt": "2026-04-18T02:36:58Z"
   },
   "https://github.com/Thatch-cloud/Tenstorrent.Blackhole-Qwen3.8-27B": {
-    "stars": 9,
-    "updatedAt": "2026-10-03T04:04:08Z"
+    "stars": 10,
+    "updatedAt": "2026-10-06T15:07:06Z"
   },
   "https://github.com/zoecarver/dflash": {
     "stars": 0,
@@ -196,7 +196,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 123,
-    "updatedAt": "2026-10-06T04:01:19Z",
+    "updatedAt": "2026-10-07T00:48:47Z",
     "releases": [
       {
         "tagName": "v0.12.0",
@@ -351,12 +351,26 @@
   },
   "https://github.com/tenstorrent/tt-forge-models": {
     "stars": 14,
-    "updatedAt": "2026-10-06T04:46:37Z"
+    "updatedAt": "2026-10-06T14:40:47Z"
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 75,
-    "updatedAt": "2026-10-05T19:16:44Z",
+    "updatedAt": "2026-10-06T22:42:31Z",
     "releases": [
+      {
+        "tagName": "v0.24.0",
+        "name": "v0.24.0",
+        "publishedAt": "2026-10-06T19:13:47Z",
+        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.24.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "v0.24.0-release_artifacts.zip",
+            "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.24.0/v0.24.0-release_artifacts.zip",
+            "size": 106716657
+          }
+        ]
+      },
       {
         "tagName": "v0.23.0",
         "name": "v0.23.0",
@@ -410,20 +424,6 @@
             "name": "v0.20.0-release_artifacts.zip",
             "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.20.0/v0.20.0-release_artifacts.zip",
             "size": 15478216
-          }
-        ]
-      },
-      {
-        "tagName": "v0.19.0",
-        "name": "v0.19.0",
-        "publishedAt": "2026-07-24T16:58:16Z",
-        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.19.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "v0.19.0-release_artifacts.zip",
-            "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.19.0/v0.19.0-release_artifacts.zip",
-            "size": 87125319
           }
         ]
       }
@@ -884,8 +884,8 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/mudler/vllm.cpp": {
-    "stars": 446,
-    "updatedAt": "2026-10-06T05:43:29Z",
+    "stars": 447,
+    "updatedAt": "2026-10-06T21:21:50Z",
     "preview_image": "https://raw.githubusercontent.com/mudler/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -962,11 +962,11 @@
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 17,
-    "updatedAt": "2026-10-05T11:36:06Z"
+    "updatedAt": "2026-10-06T17:33:37Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2270,
-    "updatedAt": "2026-10-05T16:53:42Z",
+    "stars": 2272,
+    "updatedAt": "2026-10-06T19:19:28Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1052,8 +1052,8 @@
     ]
   },
   "https://github.com/Zaneham/Booth": {
-    "stars": 1751,
-    "updatedAt": "2026-10-05T09:36:04Z",
+    "stars": 1752,
+    "updatedAt": "2026-10-07T02:02:59Z",
     "releases": [
       {
         "tagName": "v0.6.0",
@@ -1311,9 +1311,16 @@
   },
   "https://github.com/tenstorrent/tt-forge-onnx": {
     "stars": 66,
-    "updatedAt": "2026-10-02T09:25:17Z",
+    "updatedAt": "2026-10-07T05:24:04Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
+      {
+        "tagName": "1.5.0.dev20261007005719",
+        "name": "1.5.0.dev20261007005719",
+        "publishedAt": "2026-10-07T01:18:10Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261007005719",
+        "prerelease": false
+      },
       {
         "tagName": "1.5.0.dev20261006005133",
         "name": "1.5.0.dev20261006005133",
@@ -1340,13 +1347,6 @@
         "name": "1.5.0.dev20261003005452",
         "publishedAt": "2026-10-03T01:33:51Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261003005452",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20261002005024",
-        "name": "1.5.0.dev20261002005024",
-        "publishedAt": "2026-10-02T01:10:46Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261002005024",
         "prerelease": false
       }
     ]
@@ -1406,7 +1406,7 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 311,
-    "updatedAt": "2026-10-05T17:29:33Z",
+    "updatedAt": "2026-10-06T09:04:22Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1580,7 +1580,7 @@
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 74,
-    "updatedAt": "2026-10-06T03:30:40Z",
+    "updatedAt": "2026-10-07T03:45:17Z",
     "releases": [
       {
         "tagName": "1.5.0.dev20260831000501",
@@ -1628,7 +1628,7 @@
   },
   "https://github.com/zk4x/zyx": {
     "stars": 74,
-    "updatedAt": "2026-10-06T06:06:34Z",
+    "updatedAt": "2026-10-06T13:22:09Z",
     "preview_image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
     "releases": [
       {
@@ -1673,8 +1673,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 11045,
-    "updatedAt": "2026-10-06T02:17:23Z",
+    "stars": 11052,
+    "updatedAt": "2026-10-07T04:59:14Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1808,7 +1808,7 @@
   },
   "https://github.com/tenstorrent/tt-cli": {
     "stars": 6,
-    "updatedAt": "2026-10-05T18:11:01Z",
+    "updatedAt": "2026-10-06T18:37:30Z",
     "releases": [
       {
         "tagName": "v1.0.1",
@@ -1861,7 +1861,7 @@
   },
   "https://github.com/tenstorrent/tt-exalens": {
     "stars": 21,
-    "updatedAt": "2026-09-29T13:07:58Z",
+    "updatedAt": "2026-10-06T14:00:50Z",
     "releases": [
       {
         "tagName": "v0.4.1",
@@ -2130,7 +2130,7 @@
   },
   "https://github.com/tenstorrent/tt-model-manager": {
     "stars": 8,
-    "updatedAt": "2026-10-05T19:38:59Z"
+    "updatedAt": "2026-10-06T19:57:33Z"
   },
   "https://github.com/tsingletaryTT/tt-model-runner": {
     "stars": 1,
@@ -2177,7 +2177,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 57,
-    "updatedAt": "2026-10-05T19:37:16Z",
+    "updatedAt": "2026-10-06T18:48:20Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -3047,9 +3047,38 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 45,
-    "updatedAt": "2026-10-02T19:39:28Z",
+    "updatedAt": "2026-10-06T16:22:39Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
+      {
+        "tagName": "v19.16.0-rc3",
+        "name": "v19.16.0-rc3",
+        "publishedAt": "2026-10-06T19:59:06Z",
+        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.16.0-rc3",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "fw-pack-v19.16.0-rc3-recovery.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.16.0-rc3/fw-pack-v19.16.0-rc3-recovery.tar.gz",
+            "size": 7717797
+          },
+          {
+            "name": "manufacturing-artifacts-v19.16.0-rc3.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.16.0-rc3/manufacturing-artifacts-v19.16.0-rc3.tar.gz",
+            "size": 889763
+          },
+          {
+            "name": "tt-firmware_19.16.0-rc3-ubuntu.1_all.deb",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.16.0-rc3/tt-firmware_19.16.0-rc3-ubuntu.1_all.deb",
+            "size": 5611096
+          },
+          {
+            "name": "tt-system-firmware-v19.16.0-rc3.zip",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.16.0-rc3/tt-system-firmware-v19.16.0-rc3.zip",
+            "size": 110567272
+          }
+        ]
+      },
       {
         "tagName": "v19.16.0-rc2",
         "name": "v19.16.0-rc2",
@@ -3163,35 +3192,6 @@
             "name": "tt-system-firmware-v19.15.0-rc1.zip",
             "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.15.0-rc1/tt-system-firmware-v19.15.0-rc1.zip",
             "size": 110016447
-          }
-        ]
-      },
-      {
-        "tagName": "v19.14.0",
-        "name": "v19.14.0",
-        "publishedAt": "2026-09-01T03:03:50Z",
-        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.14.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "fw-pack-v19.14.0-recovery.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.14.0/fw-pack-v19.14.0-recovery.tar.gz",
-            "size": 7622691
-          },
-          {
-            "name": "manufacturing-artifacts-v19.14.0.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.14.0/manufacturing-artifacts-v19.14.0.tar.gz",
-            "size": 878934
-          },
-          {
-            "name": "tt-firmware_19.14.0-ubuntu.1_all.deb",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.14.0/tt-firmware_19.14.0-ubuntu.1_all.deb",
-            "size": 5123426
-          },
-          {
-            "name": "tt-system-firmware-v19.14.0.zip",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.14.0/tt-system-firmware-v19.14.0.zip",
-            "size": 102246352
           }
         ]
       }
@@ -3447,9 +3447,48 @@
   },
   "https://github.com/tenstorrent/tt-toplike": {
     "stars": 14,
-    "updatedAt": "2026-09-28T22:31:09Z",
+    "updatedAt": "2026-10-06T23:30:10Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-toplike/main/assets/tt-toplike-arcade.gif",
     "releases": [
+      {
+        "tagName": "v0.13.10",
+        "name": "v0.13.10 - reset expectations when resetting hardware",
+        "publishedAt": "2026-10-06T23:34:23Z",
+        "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.13.10",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt-toplike-app_0.13.10_amd64_jammy.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.13.10/tt-toplike-app_0.13.10_amd64_jammy.deb",
+            "size": 4198376
+          },
+          {
+            "name": "tt-toplike-app_0.13.10_amd64_noble.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.13.10/tt-toplike-app_0.13.10_amd64_noble.deb",
+            "size": 4175972
+          },
+          {
+            "name": "tt-toplike-tui-0.13.10-macos-universal.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.13.10/tt-toplike-tui-0.13.10-macos-universal.tar.gz",
+            "size": 3402052
+          },
+          {
+            "name": "tt-toplike-tui-0.13.10-windows-x86_64.zip",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.13.10/tt-toplike-tui-0.13.10-windows-x86_64.zip",
+            "size": 1590746
+          },
+          {
+            "name": "tt-toplike_0.13.10_amd64_jammy.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.13.10/tt-toplike_0.13.10_amd64_jammy.deb",
+            "size": 1889102
+          },
+          {
+            "name": "tt-toplike_0.13.10_amd64_noble.deb",
+            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.13.10/tt-toplike_0.13.10_amd64_noble.deb",
+            "size": 1874124
+          }
+        ]
+      },
       {
         "tagName": "v0.13.5",
         "name": "v0.13.5 detect more models betterly",
@@ -3605,48 +3644,9 @@
             "size": 1683964
           }
         ]
-      },
-      {
-        "tagName": "v0.7.40",
-        "name": "v0.7.40 - meet the hivemindsweeper",
-        "publishedAt": "2026-07-16T21:41:41Z",
-        "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.7.40",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt-toplike-app_0.7.40_amd64_jammy.deb",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.40/tt-toplike-app_0.7.40_amd64_jammy.deb",
-            "size": 4181548
-          },
-          {
-            "name": "tt-toplike-app_0.7.40_amd64_noble.deb",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.40/tt-toplike-app_0.7.40_amd64_noble.deb",
-            "size": 4156622
-          },
-          {
-            "name": "tt-toplike-tui-0.7.40-macos-universal.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.40/tt-toplike-tui-0.7.40-macos-universal.tar.gz",
-            "size": 2947276
-          },
-          {
-            "name": "tt-toplike-tui-0.7.40-windows-x86_64.zip",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.40/tt-toplike-tui-0.7.40-windows-x86_64.zip",
-            "size": 1348368
-          },
-          {
-            "name": "tt-toplike_0.7.40_amd64_jammy.deb",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.40/tt-toplike_0.7.40_amd64_jammy.deb",
-            "size": 1634314
-          },
-          {
-            "name": "tt-toplike_0.7.40_amd64_noble.deb",
-            "url": "https://github.com/tenstorrent/tt-toplike/releases/download/v0.7.40/tt-toplike_0.7.40_amd64_noble.deb",
-            "size": 1619516
-          }
-        ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nThe **canonical, complete release log lives in [`debian/changelog`](debian/changelog)** \u2014\nthat's the file the `.deb` packages are built from and where every release is\nrecorded in full. This file is a friendly pointer plus a summary of the most\nrecent releases; it deliberately does not duplicate the whole history.\n\nTo see everything:\n\n```bash\nless debian/changelog          # full history\ngit tag                        # released versions\n```\n\n## Recent releases\n\n### 0.11.0\n- **Add**: Training view (`t`) \u2014 a full-screen visualization of a live\n  tt-train run, drawn as the network it is: a character grid of transformer\n  blocks and attention heads fed by token particles, a loss \"mountain range\"\n  under a twinkling aurora nightscape that opens up as the model converges,\n  plus chip telemetry alongside it.\n- **Auto-attaches with no command**: scans running processes for a tt-train\n  example binary (`nano_gpt`, `mnist_mlp`, `linear_regression`), then resolves\n  `/proc/<pid>/fd/1` to find and tail that process's log. Checkpoint saves\n  are detected by mtime on the run's rolling checkpoint file.\n- **Honest limitation**: tt-train's per-step stream can only be tailed if its\n  stdout was redirected to a real file at launch (`> train.log`). If fd 1 is\n  a pipe or tty, retroactively reading it is an OS-level impossibility, not a\n  gap in this tool \u2014 the view says so and falls back to what it can still\n  see (process liveness, chip telemetry, and checkpoint mtime) rather than\n  drawing a fake loss curve. Gradient norms, MFU, and throughput counters\n  aren't emitted live either, so the view derives tokens/sec and ETA only\n  from what it can actually read.\n- Nine independent color channels (loss magnitude, run-history timeline,\n  loss-delta direction, forward/backward sweep cadence, cache compile/steady\n  state, checkpoint bursts, plus chip temp/power) \u2014 see the new legend and\n  explain overlays.\n\n### 0.10.3\n- **Security fix**: a direct-vLLM host process's own `PATH` was forwarded\n  onto the `sh` the monitor spawns to probe it \u2014 a bare `Command::new(\"sh\")`\n  lookup resolves via whatever `PATH` ends up on the builder, so an\n  attacker-controlled process (gated only by `MESH_DEVICE`/`TT_METAL_HOME`,\n  which the process itself controls) could have redirected the root-run\n  monitor into executing a planted binary. Fixed by invoking the interpreter\n  via an absolute path and never forwarding the target's own `PATH`.\n- **Fix**: four GDDR-telemetry correctness gaps \u2014 a stale 8-channel cap\n  dropping real fault data for Blackhole's channels 8\u201311, Starfield's DDR\n  planets missing an `enabled` check present in every other memory\n  visualization, the Insights GDDR temp/ECC rows silently disappearing\n  instead of falling back on partially-usable real data, and a missing ECC\n  counter parsing as a genuine zero instead of \"not reported\".\n- **Perf**: a host-keyed service's per-tick probe redundantly re-read\n  `/proc/<pid>/environ` up to four times and re-walked"
+    "changelog_excerpt": "# Changelog\n\nThe **canonical, complete release log lives in [`debian/changelog`](debian/changelog)** \u2014\nthat's the file the `.deb` packages are built from and where every release is\nrecorded in full. This file is a friendly pointer plus a summary of the most\nrecent releases; it deliberately does not duplicate the whole history.\n\nTo see everything:\n\n```bash\nless debian/changelog          # full history\ngit tag                        # released versions\n```\n\n## Recent releases\n\nReleases 0.11.1 through 0.13.9 are recorded only in `debian/changelog`; this\nlist is a summary and is not kept for every release.\n\n### 0.13.10\n- **Add**: Inference view (`i`) shows the port and chips each model runs on,\n  for example `:8000 \u00b7 chips 0,1`, on each roster row or in a header line for a\n  single model.\n- **Add**: `--tt-smi-reset-behavior` (`ignore`, `inform` default, `dazzle`,\n  `demo`). A `tt-smi -r` in another terminal shows in the status bar of every\n  view. `dazzle` adds a takeover box with one of five animations (Quiet\n  Notice, 128 Blackholes, a BBS sysop chatbot, TT-TREKLIKE, Silly Cetacean);\n  `demo` plays all five at start and on every real reset.\n- **Change**: the legend (`l`) and explain (`!`) text for the Training,\n  Inference, HivemindSweeper, Insights, Defrag and Memory Castle views matches\n  what they draw now; the Help panel shows the reset status segment.\n\n### 0.11.0\n- **Add**: Training view (`t`) \u2014 a full-screen visualization of a live\n  tt-train run, drawn as the network it is: a character grid of transformer\n  blocks and attention heads fed by token particles, a loss \"mountain range\"\n  under a twinkling aurora nightscape that opens up as the model converges,\n  plus chip telemetry alongside it.\n- **Auto-attaches with no command**: scans running processes for a tt-train\n  example binary (`nano_gpt`, `mnist_mlp`, `linear_regression`), then resolves\n  `/proc/<pid>/fd/1` to find and tail that process's log. Checkpoint saves\n  are detected by mtime on the run's rolling checkpoint file.\n- **Honest limitation**: tt-train's per-step stream can only be tailed if its\n  stdout was redirected to a real file at launch (`> train.log`). If fd 1 is\n  a pipe or tty, retroactively reading it is an OS-level impossibility, not a\n  gap in this tool \u2014 the view says so and falls back to what it can still\n  see (process liveness, chip telemetry, and checkpoint mtime) rather than\n  drawing a fake loss curve. Gradient norms, MFU, and throughput counters\n  aren't emitted live either, so the view derives tokens/sec and ETA only\n  from what it can actually read.\n- Nine independent color channels (loss magnitude, run-history timeline,\n  loss-delta direction, forward/backward sweep cadence, cache compile/steady\n  state, checkpoint bursts, plus chip temp/power) \u2014 see the new legend and\n  explain overlays.\n\n### 0.10.3\n- **Security fix**: a direct-vLLM host process's own `PATH` was forwarded\n  onto the `sh` the monitor spawns to probe it \u2014 a bare `Command::new(\"sh\")`\n  lookup re"
   },
   "https://github.com/tenstorrent/tt-topology": {
     "stars": 16,
@@ -3803,7 +3803,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 50,
-    "updatedAt": "2026-10-06T06:38:49Z",
+    "updatedAt": "2026-10-06T20:47:55Z",
     "releases": [
       {
         "tagName": "v0.9.12",
@@ -4251,7 +4251,7 @@
         ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\n## [0.9.5] - 2026-05-12\n\n### Changed\n\nHardware hang detection for NOC and PCIe.\nTracy profiler integration with instrumentation across TLB, PCIe and sysmem paths.\nDeviceProtocol ported to TTDevice, including DMA migration.\nSocDescriptor split into static (SocArchDescriptor) and runtime parts.\nLITERAL coordinate system in CoreCoord.\nMulticast to all TENSIX cores.\nSMN support.\nSWEmuleChip software emulation chip and Quasar simulation support (incl. 4GB TLB).\nUnified UmdException/UMD_ASSERT/UMD_THROW error handling across the codebase.\n\n## [0.9.4] - 2026-03-18\n\n### Changed\n\nTopologyDiscoveryOptions refactoring.\nTopologyDiscoveryOption to retrain ETH links on 6u.\nTLBs for TTsim.\nDRAM retrain support.\nDeviceProtocol changes.\nSimulator in TTDevice changes.\nETH heartbeat check.\n\n## [0.9.3] - 2026-02-24\n\n### Changed\n\nSigbus safe read write API.\nRemove 4U related code.\nImplement BH SPI as well, so full SPI support.\nP150 expects harvested cores.\nTT_VISIBLE_DEVICES uses logical IDs.\n\n## [0.9.2] - 2026-02-09\n\n### Changed\n\nSPI interface for Wormhole.\nPCI BDF based sorting and filtering.\nMulticast PCI DMA.\nSupport Blackhole loudbox.\nMany code fixes and test enhancements.\n\n## [0.9.1] - 2026-01-23\n\n### Changed\n\nStarted publishing to pypi.\n\n## [0.9.0] - 2026-01-23\n\n### Changed\n\nWarm reset notification and callback implementation.\n\n## [0.8.6] - 2026-01-20\n\n### Changed\n\nMake predicting ETH FW from CMFW optional in TopologyDiscovery.\n\n## [0.8.4] - 2026-01-16\n\n### Changed\n\nUse older manylinux image\n\n## [0.8.3] - 2026-01-15\n\n### Changed\n\nReverted remote discovery issue\n\n## [0.8.2] - 2026-01-15\n\n### Changed\n\nSupport warm reset without secondary bus reset.\nExpose subsystem vendor id.\n\n## [0.8.1] - 2026-01-15\n\n### Changed\n\nSupport dma functions on TTDevice layer\n\n## [0.8.0] - 2026-01-14\n\n### Changed\n\nMany functional fixes and minor changes.\nFinal fixes needed for integration into tt-smi.\nAlso contains adjustments needed for integration into exalens.\n\n## [0.7.0] - 2025-11-29\n\n### Changed\n\nChanged to a more generic arc_msg API.\n\n## [0.6.0] - 2025-11-24\n\n### Changed\n\nChange the usage of TLBs such that KMD is in control of TLB allocation instead of UMD.\nTLBs are now allocated using KMD's dedicated API.\n\n## [0.5.3] - 2025-11-14\n\n### Changed\n\nAdded generation of .deb and .rpm packages.\nAdded three separate packages (runtime, development and python).\n\n## [0.5.1] - 2025-11-12\n\n### Changed\n\nManylinux builds and Pypi test publishing.\nMany smaller fixes and improvements.\n\n## [0.4.0] - 2025-10-18\n\n### Changed\n\nRemoved old type names.\n\n## [0.3.0] - 2025-10-17\n\n### Changed\n\nMany smaller fixes and improvements.\nTTsim support improvements.\nJTAG support improvement.\nFixing CMake install path.\nFurther work on integrating new KMD TLBs.\n\n## [0.2.0] - 2025-09-15\n\n### Changed\n\nA couple of smaller fixes and improvements, including L2CPU harvesting, fixes for new FW. Better TTSim support. Further JTAG support.\nIntroduced new soft reset API.\nIntroduced lite fabric initial version."
+    "changelog_excerpt": "# Changelog\n\n## [0.9.13] - 2026-10-02\n\n### Changed\n\nRTL simulator IP partitioning: one simulator run serving several chips via ip_layout.yaml.\nRiscReset component interface.\nHost memory channels set automatically based on topology.\nIPMI reset improvements.\n\n## [0.9.12] - 2026-09-28\n\n### Changed\n\nSimulator topology discovered through the silicon path.\nIoOrdering parameter on Cluster read and write.\nQuasar ATT address map.\nSimulation servers whose host is gone are no longer reported.\n\n## [0.9.11] - 2026-09-21\n\n### Changed\n\nTLBManager removed in favor of IoWindow; per-arch silicon TTDevice subclasses deleted.\nRuntime telemetry and clock queries served by DeviceFirmware.\nOptional cluster_id in the cluster descriptor.\nLatest supported CMFW raised to 19.14.\n\n## [0.9.10] - 2026-09-09\n\n### Changed\n\nBase API alignment: TTDeviceModel, DeviceFirmware, DmaInterface, IoWindow, MutexInterface, SystemMemoryAllocator.\nSysmemBuffer ownership and host copy APIs; dma-buf export for RDMA.\nLocks backed by KMD resource locks; tt-kmd-lib extracted.\nStateless NOC across TTDevice and SocDescriptor; xy_pair overloads removed.\nShared simulation server (sim_server) with client/host mode over sockets.\n\n## [0.9.9] - 2026-07-09\n\n### Changed\n\nBlackhole runtime telemetry buffer accessors.\nPrecise ETH_LIVE_STATUS based APIs and Blackhole harvesting utility.\nTTSim cluster descriptor discovered from simulator directory.\n\n## [0.9.8] - 2026-07-01\n\n### Changed\n\nPer-op MMIO timeout for TLB-mapped device access.\nset_power_state renamed to set_clock_state in TTDevice.\nSimulation client mode over SimulationClient.\n\n## [0.9.7] - 2026-06-26\n\n### Changed\n\nDevice health errors returned from TopologyDiscovery.\nDedicated EthernetBroadcast and noc_multicast for remote chips.\nDeviceTimeoutError exception type.\nDRAM retrain on BIST failure.\n\n## [0.9.6] - 2026-06-03\n\n### Changed\n\nARM (aarch64) builds and fixes.\nTTSimChip and RtlSimulationChip merged into SimulationChip, with multichip support.\nTensixSoftResetOptions removed.\nWarm reset with remote IO failure recovery.\n\n## [0.9.5] - 2026-05-12\n\n### Changed\n\nHardware hang detection for NOC and PCIe.\nTracy profiler integration with instrumentation across TLB, PCIe and sysmem paths.\nDeviceProtocol ported to TTDevice, including DMA migration.\nSocDescriptor split into static (SocArchDescriptor) and runtime parts.\nLITERAL coordinate system in CoreCoord.\nMulticast to all TENSIX cores.\nSMN support.\nSWEmuleChip software emulation chip and Quasar simulation support (incl. 4GB TLB).\nUnified UmdException/UMD_ASSERT/UMD_THROW error handling across the codebase.\n\n## [0.9.4] - 2026-03-18\n\n### Changed\n\nTopologyDiscoveryOptions refactoring.\nTopologyDiscoveryOption to retrain ETH links on 6u.\nTLBs for TTsim.\nDRAM retrain support.\nDeviceProtocol changes.\nSimulator in TTDevice changes.\nETH heartbeat check.\n\n## [0.9.3] - 2026-02-24\n\n### Changed\n\nSigbus safe read write API.\nRemove 4U related code.\nImplement BH SPI as well, so full SPI support.\nP150 expects harvested core"
   },
   "https://github.com/tenstorrent-riscv-software/wallabmc": {
     "stars": 54,
@@ -4268,105 +4268,105 @@
   },
   "https://github.com/tenstorrent/sfpi": {
     "stars": 16,
-    "updatedAt": "2026-10-01T12:06:24Z",
+    "updatedAt": "2026-10-06T11:35:04Z",
     "releases": [
       {
-        "tagName": "7.84.0-misc-ai",
-        "name": "7.84.0-misc-ai",
-        "publishedAt": "2026-10-05T17:17:16Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.84.0-misc-ai",
+        "tagName": "7.85.0-binutils-ai",
+        "name": "7.85.0-binutils-ai",
+        "publishedAt": "2026-10-06T19:45:20Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.85.0-binutils-ai",
         "prerelease": false,
         "assets": [
           {
-            "name": "sfpi_7.84.0-misc-ai_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.84.0-misc-ai/sfpi_7.84.0-misc-ai_x86_64_debian.deb",
-            "size": 134624264
+            "name": "sfpi_7.85.0-binutils-ai_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0-binutils-ai/sfpi_7.85.0-binutils-ai_x86_64_debian.deb",
+            "size": 134624418
           },
           {
-            "name": "sfpi_7.84.0-misc-ai_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.84.0-misc-ai/sfpi_7.84.0-misc-ai_x86_64_fedora.rpm",
-            "size": 134177571
+            "name": "sfpi_7.85.0-binutils-ai_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0-binutils-ai/sfpi_7.85.0-binutils-ai_x86_64_fedora.rpm",
+            "size": 134188439
           }
         ]
       },
       {
-        "tagName": "7.84.0-dynamic-ai",
-        "name": "7.84.0-dynamic-ai",
-        "publishedAt": "2026-10-05T13:57:16Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.84.0-dynamic-ai",
+        "tagName": "7.85.0-ttinsn-32639",
+        "name": "7.85.0-ttinsn-32639",
+        "publishedAt": "2026-10-06T17:16:42Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.85.0-ttinsn-32639",
         "prerelease": false,
         "assets": [
           {
-            "name": "sfpi_7.84.0-dynamic-ai_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.84.0-dynamic-ai/sfpi_7.84.0-dynamic-ai_x86_64_debian.deb",
-            "size": 134622726
+            "name": "sfpi_7.85.0-ttinsn-32639_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0-ttinsn-32639/sfpi_7.85.0-ttinsn-32639_x86_64_debian.deb",
+            "size": 134641542
           },
           {
-            "name": "sfpi_7.84.0-dynamic-ai_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.84.0-dynamic-ai/sfpi_7.84.0-dynamic-ai_x86_64_fedora.rpm",
-            "size": 134175781
+            "name": "sfpi_7.85.0-ttinsn-32639_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0-ttinsn-32639/sfpi_7.85.0-ttinsn-32639_x86_64_fedora.rpm",
+            "size": 134180980
           }
         ]
       },
       {
-        "tagName": "7.84.0",
+        "tagName": "7.85.0-chain-53164",
+        "name": "7.85.0-chain-53164",
+        "publishedAt": "2026-10-06T17:09:49Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.85.0-chain-53164",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.85.0-chain-53164_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0-chain-53164/sfpi_7.85.0-chain-53164_x86_64_debian.deb",
+            "size": 134641556
+          },
+          {
+            "name": "sfpi_7.85.0-chain-53164_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0-chain-53164/sfpi_7.85.0-chain-53164_x86_64_fedora.rpm",
+            "size": 134188595
+          }
+        ]
+      },
+      {
+        "tagName": "7.85.0-stochrnd-59303",
+        "name": "7.85.0-stochrnd-59303",
+        "publishedAt": "2026-10-06T16:07:10Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.85.0-stochrnd-59303",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.85.0-stochrnd-59303_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0-stochrnd-59303/sfpi_7.85.0-stochrnd-59303_x86_64_debian.deb",
+            "size": 134614936
+          },
+          {
+            "name": "sfpi_7.85.0-stochrnd-59303_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0-stochrnd-59303/sfpi_7.85.0-stochrnd-59303_x86_64_fedora.rpm",
+            "size": 134178707
+          }
+        ]
+      },
+      {
+        "tagName": "7.85.0",
         "name": "Compiler update",
-        "publishedAt": "2026-09-30T19:47:44Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.84.0",
+        "publishedAt": "2026-10-06T12:36:37Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.85.0",
         "prerelease": false,
         "assets": [
           {
-            "name": "sfpi_7.84.0_aarch64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.84.0/sfpi_7.84.0_aarch64_debian.deb",
-            "size": 129500120
+            "name": "sfpi_7.85.0_aarch64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0/sfpi_7.85.0_aarch64_debian.deb",
+            "size": 129524986
           },
           {
-            "name": "sfpi_7.84.0_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.84.0/sfpi_7.84.0_x86_64_debian.deb",
-            "size": 134624150
+            "name": "sfpi_7.85.0_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0/sfpi_7.85.0_x86_64_debian.deb",
+            "size": 134611230
           },
           {
-            "name": "sfpi_7.84.0_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.84.0/sfpi_7.84.0_x86_64_fedora.rpm",
-            "size": 134178225
-          }
-        ]
-      },
-      {
-        "tagName": "7.83.0-ttinsn-32639",
-        "name": "7.83.0-ttinsn-32639",
-        "publishedAt": "2026-09-30T13:56:56Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.83.0-ttinsn-32639",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.83.0-ttinsn-32639_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.83.0-ttinsn-32639/sfpi_7.83.0-ttinsn-32639_x86_64_debian.deb",
-            "size": 134635728
-          },
-          {
-            "name": "sfpi_7.83.0-ttinsn-32639_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.83.0-ttinsn-32639/sfpi_7.83.0-ttinsn-32639_x86_64_fedora.rpm",
-            "size": 134174898
-          }
-        ]
-      },
-      {
-        "tagName": "7.83.0-chain-53164",
-        "name": "7.83.0-chain-53164",
-        "publishedAt": "2026-09-29T22:52:53Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.83.0-chain-53164",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.83.0-chain-53164_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.83.0-chain-53164/sfpi_7.83.0-chain-53164_x86_64_debian.deb",
-            "size": 134626558
-          },
-          {
-            "name": "sfpi_7.83.0-chain-53164_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.83.0-chain-53164/sfpi_7.83.0-chain-53164_x86_64_fedora.rpm",
-            "size": 134182998
+            "name": "sfpi_7.85.0_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.85.0/sfpi_7.85.0_x86_64_fedora.rpm",
+            "size": 134179734
           }
         ]
       }
@@ -4377,8 +4377,8 @@
     "updatedAt": "2026-04-15T08:40:22Z"
   },
   "https://github.com/tenstorrent/tt-lang": {
-    "stars": 62,
-    "updatedAt": "2026-09-30T23:16:13Z",
+    "stars": 63,
+    "updatedAt": "2026-10-06T23:57:42Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
@@ -4393,7 +4393,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1696,
-    "updatedAt": "2026-10-06T06:31:07Z",
+    "updatedAt": "2026-10-07T06:20:01Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5041,7 +5041,7 @@
   },
   "https://github.com/ke1rro/tt-wavelet": {
     "stars": 0,
-    "updatedAt": "2026-10-04T10:55:31Z",
+    "updatedAt": "2026-10-06T09:12:11Z",
     "releases": [
       {
         "tagName": "v0.1.0",
