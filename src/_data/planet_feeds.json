@@ -5,7 +5,7 @@
     "approved": true,
     "title": "tt-toplike v0.13.10",
     "url": "https://github.com/tenstorrent/tt-toplike/releases/tag/v0.13.10",
-    "description": "`tt-smi -r` now surfaces reset status as information messages, with an optional `dazzle` mode for visual feedback during resets—useful when you need to know what's actually happening on your hardware ([#31](https://github.com/tenstorrent/tt-toplike/pull/31)). The training and inference server visualizations got a refresh too, with the training view now data-driven and the inference server view explicitly showing port and chip usage ([#32](https://github.com/tenstorrent/tt-toplike/pull/32)).",
+    "description": "Routine card resets with`tt-smi -r` now surface as informational messages across all views. A new, optional `dazzle` mode provides even more entertainment for every reset. The training and inference server visualizations got a refresh too, with the training view more further data-driven and the inference server view explicitly showing port and chip usage ([#32](https://github.com/tenstorrent/tt-toplike/pull/32)).",
     "date": "2026-10-06",
     "dateISO": "2026-10-06T23:34:23Z",
     "label": "tenstorrent/tt-toplike",
