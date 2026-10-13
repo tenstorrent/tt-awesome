@@ -33,7 +33,7 @@
     "approved": true,
     "title": "tt-system-firmware v19.16.0",
     "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.16.0",
-    "description": "Blackhole's getting a new board variant (Galaxy CF) and significant reliability bumps across the stack. The headline is [GDDR CA latch-and-retest functionality](https://github.com/tenstorrent/tt-system-firmware/blob/v19.16.0) that hardens initialization—especially useful if you're pushing Blackhole hardware in production. Ethernet training is now more resilient to link-partner resets, PCIe EQ presets can vary by platform, and the boot firmware table layout got redesigned for safer updates; see the [migration guide](https://github.com/tenstorrent/tt-system-firmware/tree/v19.16.0/doc/release/migration-guide-19.16.md) if you're upgrading from 19.15.0.",
+    "description": "Significant reliability bumps across the stack in this release. The headline is [GDDR CA latch-and-retest functionality](https://github.com/tenstorrent/tt-system-firmware/blob/v19.16.0) that hardens initialization—especially useful if you're pushing Blackhole hardware in production. Ethernet training is now more resilient to link-partner resets, PCIe EQ presets can vary by platform, and the boot firmware table layout got redesigned for safer updates; see the [migration guide](https://github.com/tenstorrent/tt-system-firmware/tree/v19.16.0/doc/release/migration-guide-19.16.md) if you're upgrading from 19.15.0.",
     "date": "2026-10-10",
     "dateISO": "2026-10-10T13:49:17Z",
     "label": "tenstorrent/tt-system-firmware",
