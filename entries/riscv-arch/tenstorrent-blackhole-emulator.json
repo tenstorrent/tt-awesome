@@ -1,0 +1,46 @@
+{
+  "id": "tenstorrent-blackhole-emulator",
+  "name": "Tenstorrent Blackhole Emulator",
+  "description": "A full-system Blackhole emulator built on QEMU: a PCIe device with BAR0/BAR2/BAR4 and TLB translation, a 17x12 dual NoC mesh, 140 Tensix nodes with 980 RV32IMC cores and a Tensix coprocessor model covering about 200 instructions, ARC firmware and telemetry. A guest Linux runs the real tt-kmd and tt-metal on it, and all tt-metal programming examples and the LLK and SFPI unit tests pass. The QEMU device patches and the RV32 instruction-set emulator live in companion repositories.",
+  "affiliation": "community",
+  "categories": [
+    "riscv-arch",
+    "dev-tools"
+  ],
+  "tags": [
+    "emulator",
+    "qemu",
+    "simulator",
+    "tensix",
+    "noc",
+    "rv32",
+    "blackhole"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/itisme/tenstorrent-blackhole-emulator"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/itisme/qemu-update",
+      "label": "QEMU device patches"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/itisme/rv32-emu",
+      "label": "RV32IMC + Tensix emulator library"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "related": [
+    "ttsim-qemu",
+    "ttsim"
+  ],
+  "author": "itisme",
+  "language": "C",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-14"
+}

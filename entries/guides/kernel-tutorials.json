@@ -1,0 +1,32 @@
+{
+  "id": "kernel-tutorials",
+  "name": "Kernel Tutorials",
+  "description": "Interactive, presentation-style tutorials on tt-metal kernel programming, built as companions to the kernel_dojo exercises. The Circular Buffer Dojo steps through reserve, push, wait and pop, the DST handshake, and the classic deadlock and wrong-data bugs as live simulations of the exercise kernels; the Throughput Dojo covers multi-core scaling, the DRAM-bandwidth knee, batched NoC transactions, K-accumulation in DST, operand reuse and math fidelity. Each tutorial is one self-contained HTML file.",
+  "affiliation": "affiliated",
+  "categories": [
+    "guides",
+    "kernels"
+  ],
+  "tags": [
+    "tutorial",
+    "circular-buffers",
+    "kernel-programming",
+    "interactive",
+    "simulation",
+    "tt-metal"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/mstojkovicTT/kernel-tutorials"
+    },
+    {
+      "type": "website",
+      "url": "https://mstojkovicTT.github.io/kernel-tutorials/",
+      "label": "Live tutorials"
+    }
+  ],
+  "author": "mstojkovicTT",
+  "language": "HTML",
+  "added_at": "2026-10-14"
+}

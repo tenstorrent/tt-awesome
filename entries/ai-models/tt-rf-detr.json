@@ -1,0 +1,34 @@
+{
+  "id": "tt-rf-detr",
+  "name": "tt-RF-DETR",
+  "description": "End-to-end port of Roboflow's RF-DETR object detector to a single Blackhole p150a. The whole detector, from DINOv2 patch embedding through the deformable transformer and detection heads, runs on the chip as one Metal trace replayed per image; the only host work is an im2col and two readbacks. Measured at 8.1 ms per image at 98.7 detection IoU against the fp32 reference, with a torch shadow, PCC tests, benchmark and profiling harness.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "object-detection",
+    "detr",
+    "dinov2",
+    "computer-vision",
+    "ttnn",
+    "metal-trace"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/changh95/tt-RF-DETR"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "related": [
+    "tt-pi-0-5",
+    "tt-sam3",
+    "tt-depth-anything-3"
+  ],
+  "author": "changh95",
+  "language": "Python",
+  "added_at": "2026-10-14"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "cache-me-if-you-can",
+  "name": "Cache Me If You Can",
+  "description": "Hands-on LLM inference tutorial given at ML in PL 2026 in Warsaw by Tenstorrent's Maciek Draguła and Nathan Maurice. Jupyter notebooks run GPT-2 and DeepSeek-R1-Distill-Qwen-1.5B on an n150: prefill versus decode, building a KV cache by hand, and what tt_transformers does under the hood. A setup script installs dependencies and downloads the weights.",
+  "affiliation": "affiliated",
+  "categories": [
+    "guides",
+    "ai-models"
+  ],
+  "tags": [
+    "tutorial",
+    "llm-inference",
+    "kv-cache",
+    "jupyter",
+    "workshop",
+    "ttnn"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/mdragulaTT/cache-me-if-you-can"
+    },
+    {
+      "type": "lesson",
+      "url": "https://conference.mlinpl.org/2026/program#tutorial-9",
+      "label": "ML in PL 2026 tutorial listing"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "mdragulaTT",
+  "language": "Jupyter Notebook",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-14"
+}

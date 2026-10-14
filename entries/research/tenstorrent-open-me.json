@@ -1,0 +1,31 @@
+{
+  "id": "tenstorrent-open-me",
+  "name": "tenstorrent-open-me",
+  "description": "Machine-checked SPARK Ada proofs about tt-npe, Tenstorrent's network-on-chip performance estimator, produced by a specification-to-proof pipeline with an LLM in the loop and a human reviewing every claim. Reading the code surfaced a real defect: a missing break makes every Blackhole workload with fabric_send events fail ingest. The report keeps the refuted hypotheses and the authors' own mistakes alongside the hypothesis that held. Nothing was run on silicon.",
+  "affiliation": "community",
+  "categories": [
+    "research",
+    "dev-tools"
+  ],
+  "tags": [
+    "formal-verification",
+    "spark",
+    "ada",
+    "tt-npe",
+    "noc",
+    "bug-report"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/the-dark-factory/tenstorrent-open-me"
+    }
+  ],
+  "related": [
+    "tt-npe"
+  ],
+  "author": "the-dark-factory",
+  "language": "Ada",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-14"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "sparsedrive-tt",
+  "name": "SparseDrive-tt",
+  "description": "SparseDriveV2 end-to-end autonomous driving (perception plus planning) running on Tenstorrent with TT-NN, built on the Sparse4D port. One frame is split across both chips of an n300 and runs at 128 ms, faster than the PyTorch reference on an RTX 5060 Ti, with the full navtest PDMS score within 0.02% of the published checkpoint. The README documents the deformable-aggregation kernel work and the stable 56-core grid configuration.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "kernels"
+  ],
+  "tags": [
+    "autonomous-driving",
+    "end-to-end-driving",
+    "ttnn",
+    "custom-kernels",
+    "multi-chip",
+    "navsim"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/koreaygj/sparsedrive-tt"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "related": [
+    "sparse4d-tt"
+  ],
+  "author": "koreaygj",
+  "language": "C++",
+  "added_at": "2026-10-14"
+}

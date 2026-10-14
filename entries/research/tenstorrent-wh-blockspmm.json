@@ -1,0 +1,30 @@
+{
+  "id": "tenstorrent-wh-blockspmm",
+  "name": "Block-Sparse Linear Algebra on Tenstorrent Wormhole",
+  "description": "Artifact for the paper \"Leveraging Network-on-Chip Architecture for Block-Sparse Linear Algebra on Tenstorrent\": block-sparse SpMM and SDDMM kernels for the Wormhole n150 in naive, store-and-forward and NoC data-driven variants, plus scripts that reproduce every n150 figure and table. Builds as a submodule inside a tt-metal checkout.",
+  "affiliation": "community",
+  "categories": [
+    "research",
+    "kernels"
+  ],
+  "tags": [
+    "sparse",
+    "spmm",
+    "sddmm",
+    "noc",
+    "linear-algebra",
+    "paper-artifact"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/salmanra/Tenstorrent-WH-BlockSpMM"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "Rahmy Salman",
+  "language": "C++",
+  "added_at": "2026-10-14"
+}

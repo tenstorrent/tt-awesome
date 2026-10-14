@@ -1,0 +1,36 @@
+{
+  "id": "tt-pi-0-5",
+  "name": "tt-pi-0.5",
+  "description": "Port of the π0.5 vision-language-action robotics model to a single Blackhole p150a via TTNN. The default path runs the whole action-sampling call as three persistent generic-op megakernel programs on 110 cores (SigLIP vision, Gemma-2B prefix, and the flow-matching action expert), replayed from one Metal trace per prompt bucket, with earlier whole-model and op-by-op paths kept as comparators. Serves over HTTP and over openpi's websocket protocol, with LIBERO evaluation against GPU.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models",
+    "kernels"
+  ],
+  "tags": [
+    "robotics",
+    "vla",
+    "pi0",
+    "megakernel",
+    "generic-op",
+    "ttnn",
+    "lerobot"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/changh95/tt-pi-0.5"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "related": [
+    "tt-sam3",
+    "tt-rf-detr",
+    "tt-depth-anything-3"
+  ],
+  "author": "changh95",
+  "language": "Python",
+  "added_at": "2026-10-14"
+}

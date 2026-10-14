@@ -1,0 +1,34 @@
+{
+  "id": "carla-2026-tenstorrent-stencil",
+  "name": "3D Jacobi Stencil on Blackhole (CARLA 2026)",
+  "description": "Reference implementation for the CARLA 2026 paper \"Shift Matrices and Single-Batch Halos: Optimizing 3D Stencils on Tenstorrent Blackhole Architecture\". A TT-Metalium 3D Jacobi stencil kernel for the p150a that uses shift matrices and single-batch halo exchange, with build and run scripts for reproducing the paper's results.",
+  "affiliation": "community",
+  "categories": [
+    "research",
+    "kernels"
+  ],
+  "tags": [
+    "stencil",
+    "hpc",
+    "jacobi",
+    "tt-metalium",
+    "paper-artifact"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/LSC-Unicamp/carla_2026_tenstorrent_stencil"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "related": [
+    "paper-stencils-wormhole",
+    "paper-stencils-grayskull"
+  ],
+  "author": "LSC-Unicamp",
+  "language": "C++",
+  "license": "MIT",
+  "added_at": "2026-10-14"
+}

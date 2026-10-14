@@ -1,0 +1,35 @@
+{
+  "id": "tenstorrent-dra-framework",
+  "name": "Tenstorrent Kubernetes DRA driver",
+  "description": "A Kubernetes 1.34 Dynamic Resource Allocation driver that publishes each node's Tenstorrent cards as exclusive whole-card devices, mixing Wormhole and Blackhole on one node. Ships a Helm chart with a node DaemonSet, a leader-elected controller that validates the cluster fabric graph, DeviceClasses, CRDs, health and metrics endpoints, and a TenstorrentWorkload resource that places distributed rank Pods on connected rings. Inventory comes from tt-kmd and PCI sysfs, and the ttsim QEMU VM is the validation target.",
+  "affiliation": "community",
+  "categories": [
+    "cloud-infra"
+  ],
+  "tags": [
+    "kubernetes",
+    "dra",
+    "helm",
+    "scheduling",
+    "multi-chip",
+    "go"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/varrahan/tenstorrent-dra-framework"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "ttsim"
+  ],
+  "related": [
+    "tt-operator",
+    "cloud-native-support"
+  ],
+  "author": "varrahan",
+  "language": "Go",
+  "added_at": "2026-10-14"
+}

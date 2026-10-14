@@ -1,0 +1,33 @@
+{
+  "id": "tensixfuse",
+  "name": "TensixFuse",
+  "description": "Fused and block-float ML kernels for Tensix cores, written in TT-Lang and by hand in TT-Metalium C++, measured on Tenstorrent's simulators. Quantifies how much DRAM traffic kernel fusion and data reuse save on a fused matmul-bias-ReLU, and how far GPT-2 MLP weights can be pushed into bfloat8_b and bfloat4_b before accuracy drops, with an analytic traffic model that matches the simulator tile for tile. CI runs the studies on simulated Wormhole and Blackhole on every change.",
+  "affiliation": "community",
+  "categories": [
+    "kernels",
+    "research"
+  ],
+  "tags": [
+    "tt-lang",
+    "tt-metalium",
+    "kernel-fusion",
+    "block-float",
+    "bfp8",
+    "ttsim",
+    "gpt-2",
+    "simulator"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tanaymihani/tensixfuse"
+    }
+  ],
+  "hardware": [
+    "ttsim"
+  ],
+  "author": "tanaymihani",
+  "language": "Python",
+  "license": "MIT",
+  "added_at": "2026-10-14"
+}
