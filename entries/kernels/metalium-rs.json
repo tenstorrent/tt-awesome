@@ -1,7 +1,7 @@
 {
   "id": "metalium-rs",
   "name": "metalium-rs",
-  "description": "A native-Rust stack for Tenstorrent Blackhole with no Python, C++ or TT-Metalium dependency: bare-metal firmware for the baby RISC-V cores, host device access through tt-kmd, Tensix kernels, host tilize/detilize, and a Burn deep-learning backend. Burn MLP and small transformer models train on the card, with ResNet-18, ViT-Tiny and SmolLM2 inference checked against a reference backend. Developed bit-exact against ttsim and run on p150a cards, including two- and four-card meshes over Ethernet; Burn's own backend conformance suite passes on silicon.",
+  "description": "A native-Rust stack for Tenstorrent Blackhole with no Python, C++ or TT-Metalium dependency: bare-metal firmware for the baby RISC-V cores, host device access through tt-kmd, Tensix kernels, host tilize/detilize, and a Burn deep-learning backend. Burn MLP and small transformer models train on the card, with ResNet-18, ViT-Tiny and SmolLM2 inference checked against a reference backend. Developed bit-exact against ttsim and run on p150a cards, including two- and four-card meshes over Ethernet; Burn's own backend conformance suite runs on silicon, with the failing cases (matmul rounding, F64, BF16 resolution) listed with reasons.",
   "affiliation": "community",
   "categories": [
     "kernels",

@@ -188,7 +188,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   [📦 repo](https://github.com/seansiddens/current)
 
 - **[metalium-rs](https://github.com/Knight-Ops/metalium-rs)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@Knight-Ops](https://github.com/Knight-Ops) — A native-Rust stack for Tenstorrent Blackhole with no Python, C++ or TT-Metalium dependency: bare-metal firmware for the baby RISC-V cores, host device access through tt-kmd, Tensix kernels, host tilize/detilize, and a Burn deep-learning backend. Burn MLP and small transformer models train on the card, with ResNet-18, ViT-Tiny and SmolLM2 inference checked against a reference backend. Developed bit-exact against ttsim and run on p150a cards, including two- and four-card meshes over Ethernet; Burn's own backend conformance suite passes on silicon.
+  by [@Knight-Ops](https://github.com/Knight-Ops) — A native-Rust stack for Tenstorrent Blackhole with no Python, C++ or TT-Metalium dependency: bare-metal firmware for the baby RISC-V cores, host device access through tt-kmd, Tensix kernels, host tilize/detilize, and a Burn deep-learning backend. Burn MLP and small transformer models train on the card, with ResNet-18, ViT-Tiny and SmolLM2 inference checked against a reference backend. Developed bit-exact against ttsim and run on p150a cards, including two- and four-card meshes over Ethernet; Burn's own backend conformance suite runs on silicon, with the failing cases (matmul rounding, F64, BF16 resolution) listed with reasons.
   [📦 repo](https://github.com/Knight-Ops/metalium-rs)
 
 - **[TensixFuse](https://github.com/tanaymihani/tensixfuse)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
@@ -364,7 +364,7 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   [📦 repo](https://github.com/Zaneham/ttas)
 
 - **[TTNN Ops Coverage Matrix](https://github.com/Aswincloud/ttnn-ops-coverage)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@Aswincloud](https://github.com/Aswincloud) — Interactive dashboard of the TTNN operation test matrix: every elementwise op across eight dtypes, two layouts, five memory configurations and three broadcast modes, classified as pass, PCC failure or hard error, with the PCC and ULP error against a torch golden for each cell. The data comes from a published probe script, and the zero-dependency front end works offline.
+  by [@Aswincloud](https://github.com/Aswincloud) — Interactive dashboard of the TTNN operation test matrix: every elementwise op across eight dtypes, two layouts and five memory configurations, with scalar, row and column broadcast modes for binary ops, classified as pass, PCC failure or hard error, with the PCC and ULP error against a torch golden for each cell. The data comes from a published probe script, and the zero-dependency front end works offline.
   [📦 repo](https://github.com/Aswincloud/ttnn-ops-coverage) · [🌐 Live matrix](https://ttnn-ops-coverage.aswincloud.com/)
 
 - **[TTNN Eltwise Performance Tracker](https://github.com/Aswincloud/ttnn-performance-dashboard)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
@@ -664,7 +664,7 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   [📄 arXiv:2604.03279](https://arxiv.org/abs/2604.03279)
 
 - **[Block-Sparse Linear Algebra on Tenstorrent Wormhole](https://github.com/salmanra/Tenstorrent-WH-BlockSpMM)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by Rahmy Salman — Artifact for the paper "Leveraging Network-on-Chip Architecture for Block-Sparse Linear Algebra on Tenstorrent": block-sparse SpMM and SDDMM kernels for the Wormhole n150 in naive, store-and-forward and NoC data-driven variants, plus scripts that reproduce every n150 figure and table. Builds as a submodule inside a tt-metal checkout.
+  by Rahmy Salman — Artifact for the paper "Leveraging Network-on-Chip Architecture for Block-Sparse Linear Algebra on Tenstorrent": block-sparse SpMM and SDDMM kernels for the Wormhole n150 in several data-movement variants, plus scripts that reproduce every n150 figure and table. Builds as a submodule inside a tt-metal checkout.
   [📦 repo](https://github.com/salmanra/Tenstorrent-WH-BlockSpMM)
 
 - **[polaris](https://github.com/tenstorrent/polaris)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)

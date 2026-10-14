@@ -1,7 +1,7 @@
 {
   "id": "ttnn-ops-coverage",
   "name": "TTNN Ops Coverage Matrix",
-  "description": "Interactive dashboard of the TTNN operation test matrix: every elementwise op across eight dtypes, two layouts, five memory configurations and three broadcast modes, classified as pass, PCC failure or hard error, with the PCC and ULP error against a torch golden for each cell. The data comes from a published probe script, and the zero-dependency front end works offline.",
+  "description": "Interactive dashboard of the TTNN operation test matrix: every elementwise op across eight dtypes, two layouts and five memory configurations, with scalar, row and column broadcast modes for binary ops, classified as pass, PCC failure or hard error, with the PCC and ULP error against a torch golden for each cell. The data comes from a published probe script, and the zero-dependency front end works offline.",
   "affiliation": "community",
   "categories": [
     "dev-tools"
