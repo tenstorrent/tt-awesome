@@ -35,18 +35,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@Codys12](https://github.com/Codys12) — A TTNN bring-up of `meta-models/Muse-Glimmer-30B` for batch-1 inference on a single Blackhole P150, with 2,048-token chunked prefill into a paged KV cache, the checkpoint's native DFlash drafter for speculative decoding, and an OpenAI-compatible server with streaming and tool calls. The author reports 119.99 AR tok/s at short context and 1,549 prompt tok/s on a 128,000-token prefill, and defines `ar_decode_tokens_per_second` narrowly: it excludes tokenization, prefill and tool parsing, and DFlash rate varies with draft acceptance. Weights are BFP8 for attention and BFP4 for MLPs, decode replays three captured device traces, and parity tests compare against the Transformers reference. Its custom `packed_kv_update` kernel was upstreamed into TTNN as `ttnn.experimental.indexed_fused_update_cache`.
   [📦 repo](https://github.com/Codys12/MuseGlimmer)
 
-- **[qwen36-tt](https://github.com/anyin233/qwen36-tt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@anyin233](https://github.com/anyin233) — Qwen3.6-27B, a hybrid of 48 Gated-DeltaNet and 16 full-attention layers, ported to an 8-card Blackhole p150b mesh. Ships the device runtime, a chunk-parallel on-device Gated-DeltaNet prefill kernel, bfp8 and bfp4 weight presets, a host-free decode trace with on-device sampling, exact Hugging Face token parity, and per-technique write-ups including the dead ends. Reports measured LongBench decode and time-to-first-token numbers with one-command reproduction.
-  [📦 repo](https://github.com/anyin233/qwen36-tt)
-
-- **[Sparse4D on Tenstorrent](https://github.com/koreaygj/sparse4D-tt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@koreaygj](https://github.com/koreaygj) — Sparse4D v3 multi-camera 3D object detection (ICCV 2023) ported to Tenstorrent with TT-NN, evaluated on the full nuScenes validation set. A pure TT-NN build runs on stock ops; the recommended build adds four custom Metalium kernels and a grid_sample patch, bringing one 6-camera sample from 235 ms to 57 ms on an n300. Every change carries its own measurement in the changelog.
-  [📦 repo](https://github.com/koreaygj/sparse4D-tt)
-
-- **[SparseDrive-tt](https://github.com/koreaygj/sparsedrive-tt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@koreaygj](https://github.com/koreaygj) — SparseDriveV2 end-to-end autonomous driving (perception plus planning) running on Tenstorrent with TT-NN, built on the Sparse4D port. One frame is split across both chips of an n300 and runs at 128 ms, faster than the PyTorch reference on an RTX 5060 Ti, with the full navtest PDMS score within 0.02% of the published checkpoint. The README documents the deformable-aggregation kernel work and the stable 56-core grid configuration.
-  [📦 repo](https://github.com/koreaygj/sparsedrive-tt)
-
 - **[DeepSeek-V4.1-Flash on Wormhole](https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-deepseek-v41-flash)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@Veso-AI-Open-Source](https://github.com/Veso-AI-Open-Source) — A correctness-first bring-up of DeepSeek-V4.1-Flash (552B plus a 196B Engram) on four n300 cards (8 Wormhole chips). Every model FLOP runs on device, and the host serves as a 449 GB expert store of pre-packed `.tensorbin` tiles behind an on-device LRU pool. Every stage is gated against DeepSeek's official `model.py` run on the CPU, reaching 0.985 decisive top-1 over a 2048-token prefill, with traced decode, 128K context, persistent prefix state and vision input. Speeds are stated honestly: decode is 1.68 tok/s (1.42 served), prefill is 95 tok/s, and DSpark speculation measured 0.48x so it is off. `CEILING.md` attributes the gap to about 7,200 ops per token of device-side dispatch, and `FINDINGS.md` lists 20 traps.
   [📦 repo](https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-deepseek-v41-flash)
@@ -107,25 +95,9 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@moritztng](https://github.com/moritztng) — Meta's UMA interatomic potential running on Tenstorrent Blackhole — energy, forces, and stress for molecules and periodic materials behind an ASE calculator. Its per-edge Wigner rotation runs as a custom tt-metal kernel for a highest-performance uma-s build.
   [📦 repo](https://github.com/moritztng/tt-atom)
 
-- **[tt-Depth-Anything-3](https://github.com/changh95/tt-Depth-Anything-3)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  by [@changh95](https://github.com/changh95) — Blackhole p150a port of the Depth Anything V3 metric-depth model (DA3Metric-Large, 0.35B parameters). The 24-block DINOv2-L backbone runs as one fused, traced device graph, with the DPT head on the host. Includes a benchmark, a served predict endpoint, and a KITTI Eigen accuracy harness that matches the canonical ByteDance model on all 697 images.
-  [📦 repo](https://github.com/changh95/tt-Depth-Anything-3)
-
 - **[tt-lang-models](https://github.com/zoecarver/tt-lang-models)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@zoecarver](https://github.com/zoecarver) — A growing collection of models that use tt-lang for some or all of their implementation. Reference implementations for bringing modern models to the tt-lang DSL.
   [📦 repo](https://github.com/zoecarver/tt-lang-models)
-
-- **[tt-pi-0.5](https://github.com/changh95/tt-pi-0.5)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  by [@changh95](https://github.com/changh95) — Port of the π0.5 vision-language-action robotics model to a single Blackhole p150a via TTNN. The default path runs the whole action-sampling call as three persistent generic-op megakernel programs on 110 cores (SigLIP vision, Gemma-2B prefix, and the flow-matching action expert), replayed from one Metal trace per prompt bucket, with earlier whole-model and op-by-op paths kept as comparators. Serves over HTTP and over openpi's websocket protocol, with LIBERO evaluation against GPU.
-  [📦 repo](https://github.com/changh95/tt-pi-0.5)
-
-- **[tt-RF-DETR](https://github.com/changh95/tt-RF-DETR)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  by [@changh95](https://github.com/changh95) — End-to-end port of Roboflow's RF-DETR object detector to a single Blackhole p150a. The whole detector, from DINOv2 patch embedding through the deformable transformer and detection heads, runs on the chip as one Metal trace replayed per image; the only host work is an im2col and two readbacks. Measured at 8.1 ms per image at 98.7 detection IoU against the fp32 reference, with a torch shadow, PCC tests, benchmark and profiling harness.
-  [📦 repo](https://github.com/changh95/tt-RF-DETR)
-
-- **[tt-sam3](https://github.com/changh95/tt-sam3)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  by [@changh95](https://github.com/changh95) — End-to-end port of Meta's SAM3 open-vocabulary segmentation model (840M parameters) to a single Blackhole p150a. The ViT-H/14 backbone and fusion encoder run on the chip as fused, traced device graphs, with the FPN neck, decoder and segmentation head on the host. Ships a torch reference as a numerical shadow, per-stage PCC and end-to-end mask tests, a benchmark and a Tracy-profileable perf test; masks match the fp32 reference at 0.999 IoU.
-  [📦 repo](https://github.com/changh95/tt-sam3)
 
 - **[tt_symbiote](https://github.com/alnah005/tt_symbiote)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@alnah005](https://github.com/alnah005) — A pip-installable library whose public API mirrors Hugging Face transformers' `Auto*` loaders, with model recipes that replace supported modules with TTNN implementations and fall back to CPU `nn.Module`s for the rest; the only added line is `set_device(model, mesh)`. Verified recipes include Ling-mini-2.0 on T3K, ResNet-50, Gemma 4 E2B/E4B and Qwen3-VL-2B on N150, with `compatibility.report(model)` showing which modules actually ran on device. `ttnn` must be built from source at the pinned tt-metal commit. It is the standalone packaging of the framework that started in tt-metal's `models/experimental/tt_symbiote`.
@@ -469,10 +441,6 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by [@boopdotpng](https://github.com/boopdotpng) — Pure Python driver for Tenstorrent Blackhole cards providing direct low-level hardware access without going through the full TT-Metal stack.
   [📦 repo](https://github.com/boopdotpng/blackhole-py)
 
-- **[QuietBox 2 vs DGX Spark](https://github.com/rothgar/qb2-vs-spark)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by Justin Garrison — Benchmark harness and published results comparing a Tenstorrent QuietBox 2 against one and two NVIDIA DGX Sparks and Apple hardware on open-weight models. Workloads are shaped like coding-agent traffic, from short chat turns to 128K-context prefill, measuring time to first token, per-user decode speed, aggregate throughput, and wall power and tokens per joule from a smart plug. Any machine with an OpenAI-compatible server can be added.
-  [📦 repo](https://github.com/rothgar/qb2-vs-spark) · [🌐 Results](https://rothgar.github.io/qb2-vs-spark/)
-
 - **[tenstorrent.nix](https://github.com/RossComputerGuy/tenstorrent.nix)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@RossComputerGuy](https://github.com/RossComputerGuy) — Nix flake packaging the Tenstorrent software stack for NixOS and Nix users. Reproducible, declarative installation of TT drivers and tools.
   [📦 repo](https://github.com/RossComputerGuy/tenstorrent.nix)
@@ -484,10 +452,6 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **[tt-bh-win (Blackhole Windows fan driver)](https://github.com/party4bread/tt-blackhole-fan-win)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@party4bread](https://github.com/party4bread) — A minimal Windows KMDF driver that stops a Blackhole PCIe card's fan running at 100% on Windows hosts, where no in-box driver exists. On `D0Entry` it maps BAR0 (ported from `blackhole_init()` in tt-kmd), programs a kernel TLB window to the ARC NOC node, and sends the `ASIC_STATE0` (0xA0) ARC message that hands fan control to the on-die firmware; it also parses the telemetry table for debug output. It has no compute path and no user-mode interface. Confirmed on p100a and expected to work on p150a/p150b; builds with Visual Studio and the WDK and needs test signing to install.
   [📦 repo](https://github.com/party4bread/tt-blackhole-fan-win)
-
-- **[tt-win-kmd](https://github.com/Enigma-Labs-Technology/tt-win-kmd)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@Enigma-Labs-Technology](https://github.com/Enigma-Labs-Technology) — Experimental Windows 11 KMDF port of the Tenstorrent kernel-mode driver for Blackhole p150a cards. Exposes the same IOCTL ABI as the Linux tt-kmd (byte-identical request structures, checked by static asserts against the upstream header) plus Windows-only map and unmap requests, so tt-umd runs on top through a Windows backend. Enumeration, ARC messaging, TLB windows and DMA buffers are implemented and tested on a p150a and on the ttsim/QEMU rig. The authors mark it unfinished and not production-ready.
-  [📦 repo](https://github.com/Enigma-Labs-Technology/tt-win-kmd)
 
 - **[tt-qb-lights](https://github.com/tsingletaryTT/tt-qb-lights)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Sync your Tenstorrent Quietbox's RGB lighting to accelerator utilization status. Visual feedback for hardware activity in real time.
@@ -605,10 +569,6 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by Yuning Liang, Petr Penzin — Yuning Liang and Petr Penzin on closing the AI acceleration gap in the browser on RISC-V: how WebNN and WebLLM can reach efficient on-device inference using the RVV 1.0 variable-length vector ISA and Tenstorrent hardware underneath.
   [🎤 FOSDEM 2026 — session page](https://fosdem.org/2026/schedule/event/E7WQQX-webnn_and_webllm_on_risc-v_closing_the_ai_acceleration_gap_with_rvv_and_tenstorr/) · [🎥 Recording (MP4)](https://video.fosdem.org/2026/ud2120/E7WQQX-webnn_and_webllm_on_risc-v_closing_the_ai_acceleration_gap_with_rvv_and_tenstorr.mp4)
 
-- **[Tenstorrent Blackhole Emulator](https://github.com/itisme/tenstorrent-blackhole-emulator)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@itisme](https://github.com/itisme) — A full-system Blackhole emulator built on QEMU: a PCIe device with BAR0/BAR2/BAR4 and TLB translation, a 17x12 dual NoC mesh, 140 Tensix nodes with 980 RV32IMC cores and a Tensix coprocessor model covering about 200 instructions, ARC firmware and telemetry. A guest Linux runs the real tt-kmd and tt-metal on it, and all tt-metal programming examples and the LLK and SFPI unit tests pass. The QEMU device patches and the RV32 instruction-set emulator live in companion repositories.
-  [📦 repo](https://github.com/itisme/tenstorrent-blackhole-emulator) · [🌐 QEMU device patches](https://github.com/itisme/qemu-update) · [🌐 RV32IMC + Tensix emulator library](https://github.com/itisme/rv32-emu)
-
 - **Exploring spectral element methods on the Tenstorrent RISC-V accelerator** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by Daniyal Arshad, Nick Brown — The growing availability of commodity RISC-V hardware has sparked interest in its use for High Performance Computing (HPC), with PCIe accelerator cards offering a practical near-term pathway to adoption. The Tenstorrent Wormhole is one example, with dedicated vector and matrix units across 128 Tensix cores, and is widely available. In this paper, we explore porting the AX kernel of Nekbone, a widely used HPC mini-application derived from the Gordon Bell Prize-winning Nek5000 spectral element solver, onto the Wormhole accelerator.
   [📄 paper](https://arxiv.org/abs/2608.22964v1)
@@ -702,14 +662,6 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **Rewriting TTS Inference Economics: Lightning V2 on Tenstorrent vs. NVIDIA L40S** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Ranjith M. S., Akshat Mandloi, Sudarshan Kamath — Shows that Text-to-Speech inference on Tenstorrent Lightning V2 achieves 4× lower cost than NVIDIA L40S. Applies BlockFloat8 (BFP8) and low-fidelity (LoFi) precision strategies to TTS despite their greater numerical fragility compared to LLMs.
   [📄 arXiv:2604.03279](https://arxiv.org/abs/2604.03279)
-
-- **[tenstorrent-open-me](https://github.com/the-dark-factory/tenstorrent-open-me)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@the-dark-factory](https://github.com/the-dark-factory) — Machine-checked SPARK Ada proofs about tt-npe, Tenstorrent's network-on-chip performance estimator, produced by a specification-to-proof pipeline with an LLM in the loop and a human reviewing every claim. Reading the code surfaced a real defect: a missing break makes every Blackhole workload with fabric_send events fail ingest. The report keeps the refuted hypotheses and the authors' own mistakes alongside the hypothesis that held. Nothing was run on silicon.
-  [📦 repo](https://github.com/the-dark-factory/tenstorrent-open-me)
-
-- **[Wormhole n300 Empirical Roofline Model](https://github.com/Taldux/tenstorrent-roofline)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@Taldux](https://github.com/Taldux) — Bachelor thesis project building an empirical roofline model of the Wormhole n300. Handwritten TT-Metal kernels measure peak DRAM bandwidth, L1 and NoC bandwidth, and matmul throughput across numerical formats and math fidelities, and a TTNN benchmark measures the same quantities through the library's own operators for comparison. Includes results and plots.
-  [📦 repo](https://github.com/Taldux/tenstorrent-roofline)
 
 - **[Block-Sparse Linear Algebra on Tenstorrent Wormhole](https://github.com/salmanra/Tenstorrent-WH-BlockSpMM)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Rahmy Salman — Artifact for the paper "Leveraging Network-on-Chip Architecture for Block-Sparse Linear Algebra on Tenstorrent": block-sparse SpMM and SDDMM kernels for the Wormhole n150 in naive, store-and-forward and NoC data-driven variants, plus scripts that reproduce every n150 figure and table. Builds as a submodule inside a tt-metal checkout.
