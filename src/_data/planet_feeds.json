@@ -19,7 +19,7 @@
     "approved": true,
     "title": "tt-metal v0.80.0",
     "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.80.0",
-    "description": "This release tackles stability and scale across the model zoo: [Llama QB2 prefill crashes are fixed](https://github.com/tenstorrent/tt-metal/pull/57404), a [31B Gemma-4 hang in sampling is resolved](https://github.com/tenstorrent/tt-metal/pull/60199), and [Gemma-4 gets tuned prefill warmup and sampling thresholds](https://github.com/tenstorrent/tt-metal/pull/60009) to improve inference quality. New model support lands with [Gemma-4 31B QB2](https://github.com/tenstorrent/tt-metal/pull/58081), while profiler and telemetry paths get cleaned up for Quasar builds and [ternary accessor support extends to minimal matmul](https://github.com/tenstorrent/tt-metal/pull/60305) for tighter kernel composition.",
+    "description": "This release tackles stability and scale across the model zoo: [Llama QB2 prefill crashes are fixed](https://github.com/tenstorrent/tt-metal/pull/57404), a [31B Gemma-4 hang in sampling is resolved](https://github.com/tenstorrent/tt-metal/pull/60199), and [Gemma-4 gets tuned prefill warmup and sampling thresholds](https://github.com/tenstorrent/tt-metal/pull/60009) to improve inference quality. Also, new model support lands with [Gemma-4 31B QB2](https://github.com/tenstorrent/tt-metal/pull/58081).",
     "date": "2026-10-14",
     "dateISO": "2026-10-14T12:25:50Z",
     "label": "tenstorrent/tt-metal",
