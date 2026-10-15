@@ -3,6 +3,20 @@
     "type": "release",
     "source": "github",
     "approved": true,
+    "title": "sfpi 7.88.0",
+    "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.88.0",
+    "description": "The compiler now applies automatic workarounds for two rocc errata—`addrgen` and `pop_{src,dest}`—when targeting Quasar rocc extensions, keeping your code correct without manual intervention (disable with `-mno-tt-fix-qsrrocc` if needed). Alongside fixes to the `sfptransp` builtin and streamlined `sfp{gt,le}` mod1 handling, this release also removes deprecated APIs, so check your code if you're using older interfaces.",
+    "date": "2026-10-15",
+    "dateISO": "2026-10-15T17:27:23Z",
+    "label": "tenstorrent/sfpi",
+    "projectName": "sfpi",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
     "title": "tt-bio v0.18.0",
     "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.18.0",
     "description": "OpenFold3 and OpenBind-0's `--fast` mode now runs the diffusion transformer's linear layers at reduced math fidelity on Wormhole, shaving 0.16–0.28 seconds off 512-residue predictions without affecting structure quality or docking accuracy across 11 test complexes. This is a practical win for interactive fold-and-dock workflows where latency matters more than peak precision, and Blackhole performance remains stable.",
@@ -278,6 +292,20 @@
     "projectName": "tt-bio",
     "projectId": null,
     "affiliation": "affiliated"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "tensixfuse data-v1",
+    "url": "https://github.com/tanaymihani/tensixfuse/releases/tag/data-v1",
+    "description": "This release packages GPU-CorruptNet's fine-tuned ResNet-50 head features and BatchNorm inputs—2,048-dimensional pooled vectors extracted from 4,160 total test frames (both seen and unseen content)—alongside reference logits, calibration temperature, and raw layer4 activations with BatchNorm pre-folded into per-channel scales. The feature set reproduces the model's published macro-F1 scores (0.911 seen, 0.876 unseen) when the head is recomputed, making it useful for researchers validating inference quantization, calibration strategies, or alternative classifier designs on real CorruptNet outputs without retraining the backbone.",
+    "date": "2026-10-08",
+    "dateISO": "2026-10-08T03:08:03Z",
+    "label": "tanaymihani/tensixfuse",
+    "projectName": "tensixfuse",
+    "projectId": null,
+    "affiliation": "community"
   },
   {
     "type": "release",
