@@ -1,0 +1,32 @@
+{
+  "id": "tt-bio-bringup",
+  "name": "tt-bio-bringup",
+  "description": "A Claude Code skill that ports a PyTorch biomolecular model to Tenstorrent hardware inside a tt-bio fork: parity-verified against a CPU golden, optimized against a measured roofline, then packaged and gated like the models already shipped. Needs only a PyTorch reference implementation and Tenstorrent cards; no GPU is used at any point.",
+  "affiliation": "affiliated",
+  "categories": [
+    "agents",
+    "ai-models"
+  ],
+  "tags": [
+    "claude-code",
+    "skill",
+    "model-bringup",
+    "biology",
+    "drug-discovery",
+    "agentic"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/moritztng/tt-bio-bringup"
+    }
+  ],
+  "related": [
+    "tt-bio",
+    "tenstorrent-skills"
+  ],
+  "author": "moritztng",
+  "language": "Python",
+  "license": "MIT",
+  "added_at": "2026-10-14"
+}

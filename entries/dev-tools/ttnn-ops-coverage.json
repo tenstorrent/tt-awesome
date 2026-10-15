@@ -1,0 +1,39 @@
+{
+  "id": "ttnn-ops-coverage",
+  "name": "TTNN Ops Coverage Matrix",
+  "description": "Interactive dashboard of the TTNN operation test matrix: every elementwise op across eight dtypes, two layouts and five memory configurations, with scalar, row and column broadcast modes for binary ops, classified as pass, PCC failure or hard error, with the PCC and ULP error against a torch golden for each cell. The data comes from a published probe script, and the zero-dependency front end works offline.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools"
+  ],
+  "tags": [
+    "test-coverage",
+    "dashboard",
+    "ttnn",
+    "eltwise",
+    "numerics",
+    "support-matrix"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Aswincloud/ttnn-ops-coverage"
+    },
+    {
+      "type": "website",
+      "url": "https://ttnn-ops-coverage.aswincloud.com/",
+      "label": "Live matrix"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "related": [
+    "ttnn-performance-dashboard"
+  ],
+  "author": "Aswincloud",
+  "language": "JavaScript",
+  "license": "MIT",
+  "added_at": "2026-10-14"
+}

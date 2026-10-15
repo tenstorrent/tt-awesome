@@ -1,0 +1,34 @@
+{
+  "id": "tt-sscad26",
+  "name": "Minicurso SSCAD 2026: Tenstorrent com TT-Metalium",
+  "description": "Code for the SSCAD 2026 short course \"Arquitetura Tenstorrent e programação com TT-Metalium\" (in Portuguese). The chapter's listings are extracted straight from this repository, and everything runs on the ttsim Wormhole simulator inside a Docker Compose setup, so no hardware is needed to follow along.",
+  "affiliation": "community",
+  "categories": [
+    "guides",
+    "kernels"
+  ],
+  "tags": [
+    "course",
+    "portuguese",
+    "tt-metalium",
+    "ttsim",
+    "hpc",
+    "education"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/CESAR-HPC/tt-sscad26"
+    }
+  ],
+  "hardware": [
+    "ttsim"
+  ],
+  "related": [
+    "tt-sim-lab"
+  ],
+  "author": "CESAR-HPC",
+  "language": "C++",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-14"
+}

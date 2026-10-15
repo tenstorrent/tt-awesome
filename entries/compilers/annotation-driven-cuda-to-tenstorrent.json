@@ -1,0 +1,34 @@
+{
+  "id": "annotation-driven-cuda-to-tenstorrent",
+  "name": "Annotation-Driven CUDA to Tenstorrent Migration",
+  "description": "Artifact for a paper on an MLIR-based compiler pipeline that migrates a statically shaped affine subset of CUDA to Tenstorrent Blackhole. Processor assignment, guard realization and buffer streaming are given as declarative annotations the compiler checks and lowers through tt-mlir. Holds the intermediate representations at every stage, the compiled programs for Gaussian elimination, a 2D Jacobi stencil and SYRK on a 10x10 core grid, and scripts that reproduce each timing and accuracy number, including the A100 comparison.",
+  "affiliation": "community",
+  "categories": [
+    "compilers",
+    "research"
+  ],
+  "tags": [
+    "cuda",
+    "mlir",
+    "tt-mlir",
+    "migration",
+    "paper-artifact",
+    "hpc"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/casys-utokyo/annotation-driven-cuda-to-tenstorrent"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "related": [
+    "tt-mlir"
+  ],
+  "author": "casys-utokyo",
+  "language": "MLIR",
+  "license": "MIT",
+  "added_at": "2026-10-14"
+}

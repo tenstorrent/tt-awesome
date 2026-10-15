@@ -1,0 +1,36 @@
+{
+  "id": "ttnn-performance-dashboard",
+  "name": "TTNN Eltwise Performance Tracker",
+  "description": "Day-by-day performance dashboard for TT-Metal TTNN elementwise operations. Tracks kernel timings per operation across dates with baseline comparison, trend indicators, thirteen operation categories, and links from performance changes to the tt-metal commits that caused them. Deployed as a live site and updated by a bot.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools"
+  ],
+  "tags": [
+    "performance",
+    "dashboard",
+    "eltwise",
+    "ttnn",
+    "benchmarking",
+    "monitoring"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Aswincloud/ttnn-performance-dashboard"
+    },
+    {
+      "type": "website",
+      "url": "https://ttnn-eltwise-performance.aswincloud.com",
+      "label": "Live dashboard"
+    }
+  ],
+  "related": [
+    "ttperf",
+    "ttnn-ops-coverage"
+  ],
+  "author": "Aswincloud",
+  "language": "JavaScript",
+  "license": "MIT",
+  "added_at": "2026-10-14"
+}
