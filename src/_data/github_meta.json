@@ -4,8 +4,8 @@
     "updatedAt": "2026-10-06T04:59:44Z"
   },
   "https://github.com/tenstorrent/skills": {
-    "stars": 14,
-    "updatedAt": "2026-10-13T22:44:32Z"
+    "stars": 15,
+    "updatedAt": "2026-10-19T15:03:49Z"
   },
   "https://github.com/moritztng/tt-bio-bringup": {
     "stars": 0,
@@ -200,7 +200,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 125,
-    "updatedAt": "2026-10-19T05:42:26Z",
+    "updatedAt": "2026-10-19T18:07:38Z",
     "releases": [
       {
         "tagName": "v0.20.0",
@@ -359,7 +359,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 77,
-    "updatedAt": "2026-10-17T21:10:17Z",
+    "updatedAt": "2026-10-19T17:03:04Z",
     "releases": [
       {
         "tagName": "v0.25.0",
@@ -858,7 +858,7 @@
     "releases": [
       {
         "tagName": "v2.12.0",
-        "name": "TT Studio v2.12.0",
+        "name": "v2.12.0",
         "publishedAt": "2026-10-16T19:57:01Z",
         "url": "https://github.com/tenstorrent/tt-studio/releases/tag/v2.12.0",
         "prerelease": false
@@ -904,7 +904,7 @@
   },
   "https://github.com/mudler/vllm.cpp": {
     "stars": 452,
-    "updatedAt": "2026-10-19T00:52:33Z",
+    "updatedAt": "2026-10-19T16:55:52Z",
     "preview_image": "https://raw.githubusercontent.com/mudler/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -981,11 +981,11 @@
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 18,
-    "updatedAt": "2026-10-19T06:07:47Z"
+    "updatedAt": "2026-10-19T13:33:00Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2284,
-    "updatedAt": "2026-10-16T16:12:23Z",
+    "stars": 2285,
+    "updatedAt": "2026-10-19T13:23:43Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1379,8 +1379,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-forge": {
-    "stars": 371,
-    "updatedAt": "2026-10-18T06:28:05Z",
+    "stars": 372,
+    "updatedAt": "2026-10-19T15:32:12Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
       {
@@ -1700,8 +1700,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 11091,
-    "updatedAt": "2026-10-18T17:43:31Z",
+    "stars": 11094,
+    "updatedAt": "2026-10-19T13:29:23Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1907,7 +1907,7 @@
   },
   "https://github.com/tenstorrent/tt-exalens": {
     "stars": 21,
-    "updatedAt": "2026-10-15T16:38:52Z",
+    "updatedAt": "2026-10-19T16:21:19Z",
     "releases": [
       {
         "tagName": "v0.4.1",
@@ -2231,7 +2231,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 58,
-    "updatedAt": "2026-10-16T23:49:02Z",
+    "updatedAt": "2026-10-19T13:51:54Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -2488,7 +2488,7 @@
   },
   "https://github.com/CESAR-HPC/tt-sscad26": {
     "stars": 1,
-    "updatedAt": "2026-10-17T00:42:33Z"
+    "updatedAt": "2026-10-19T07:03:55Z"
   },
   "https://github.com/RISCVtestbed/tt-tutorial": {
     "stars": 8,
@@ -2542,8 +2542,8 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to the TT-VSCode-Toolkit will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n---\n\n## [0.1.29] - 2026-09-07\n\nCorrectness pass on what a TT-QuietBox 2 actually ships. The three-path venv\nactivation blocks added in 0.1.25 offered `~/.tenstorrent-venv` as the \"QB2\npre-installed\" environment for TT-NN and vLLM, and described a QB2 as \"4\nindependent single-chip devices\". Neither claim is true, and this release\ncorrects both everywhere they were found \u2014 including in this repo's own\n`CLAUDE.md`, `llms.txt`, and two lessons outside the original diff\n(`content/pages/FAQ.md`, `monkeypatch-ttnn.md`) that had never been touched\nby the earlier topology/venv corrections this built on.\n\nVerified against `tt-installer`'s `install.m4`, the published `tt-metalium`/\n`tt-metalium-models` GHCR image configs, `tt-inference-server`'s `run.py`,\nand tt-metal `main` \u2014 plus live end-to-end testing on a QB2-equivalent\nboard \u2014 rather than other Tenstorrent docs, which largely descend from the\nsame stale source note this release supersedes.\n\n### Fixed\n\n**`~/.tenstorrent-venv` is not a TT-NN or vLLM environment.** `tt-installer`\nonly ever installs `tt-smi`, `tt-flash` and (opt-in) `tt-topology` into it, so\n`import ttnn` and `import vllm` both fail there. TT-NN lives **only** inside\nthe TT-Metalium container (`tt-metalium`, where `python3` is\n`/opt/venv/bin/python3`); vLLM runs in a container `tt-inference-server`\nlaunches. Corrected everywhere this was asserted or assumed:\n- The \"QB2 pre-installed image\" activation line in all 11 TT-NN blocks across\n  `explore-metalium`, `video-generation-ttmetal`, `animatediff-video-generation`,\n  `cookbook-game-of-life`, `cookbook-mandelbrot`, `cookbook-particle-life`,\n  `cookbook-image-filters`, `cookbook-audio-processor`, and the four lessons\n  that used it as a premise (`lfs-00-intro`, `lfs-05-train-and-run`,\n  `ct1-understanding-training`, `ct4-finetuning-basics` \u2014 their `ttml`-needs-a-\n  source-tree conclusions were already correct; only the premise changed).\n- `tt-installer`'s own \"may not include the container wrapper\" framing \u2014\n  backwards: a QB2 *has* the wrapper (it's the only way to reach TT-NN) and\n  has no host-side TT-NN. Its \"Test TT-Metalium\" button and pytest demo\n  example were also broken independent of this: missing `-c` (so `bash` tried\n  to run the whole command string as a filename), a bare `ttnn.__version__`\n  that doesn't exist on the built package (now `getattr(ttnn, \"__version__\",\n  \"import OK\")`), and \u2014 for the demo \u2014 the wrong container and a Blackhole\n  demo path that moved in tt-metal's January 2026 reorg (now\n  `tt-metalium-models` + `models/demos/vision/segmentation/ufld_v2/blackhole`,\n  with `--install-metalium-models-container` named as off-by-default).\n- `vllm-production`'s new \"On a QB2 \u2014 read this first\" section (pointing a"
   },
   "https://github.com/boopdotpng/blackhole-py": {
-    "stars": 21,
-    "updatedAt": "2026-10-10T00:29:33Z",
+    "stars": 22,
+    "updatedAt": "2026-10-19T10:55:39Z",
     "releases": [
       {
         "tagName": "hcq-v1",
@@ -3113,7 +3113,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 45,
-    "updatedAt": "2026-10-16T21:16:04Z",
+    "updatedAt": "2026-10-19T17:31:31Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -3869,7 +3869,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 50,
-    "updatedAt": "2026-10-16T15:44:57Z",
+    "updatedAt": "2026-10-19T16:07:16Z",
     "releases": [
       {
         "tagName": "v0.9.14",
@@ -4333,13 +4333,56 @@
     "updatedAt": "2026-04-03T21:16:09Z"
   },
   "https://github.com/Knight-Ops/metalium-rs": {
-    "stars": 0,
-    "updatedAt": "2026-10-15T02:59:30Z"
+    "stars": 1,
+    "updatedAt": "2026-10-19T10:55:51Z"
   },
   "https://github.com/tenstorrent/sfpi": {
     "stars": 16,
-    "updatedAt": "2026-10-16T12:45:15Z",
+    "updatedAt": "2026-10-19T14:08:17Z",
     "releases": [
+      {
+        "tagName": "7.89.0-ttinsn-32639",
+        "name": "7.89.0-ttinsn-32639",
+        "publishedAt": "2026-10-19T17:39:05Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.89.0-ttinsn-32639",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.89.0-ttinsn-32639_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-ttinsn-32639/sfpi_7.89.0-ttinsn-32639_x86_64_debian.deb",
+            "size": 134651412
+          },
+          {
+            "name": "sfpi_7.89.0-ttinsn-32639_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-ttinsn-32639/sfpi_7.89.0-ttinsn-32639_x86_64_fedora.rpm",
+            "size": 134194424
+          }
+        ]
+      },
+      {
+        "tagName": "7.89.0",
+        "name": "SFPI update",
+        "publishedAt": "2026-10-19T16:39:40Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.89.0",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "sfpi_7.89.0_aarch64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0/sfpi_7.89.0_aarch64_debian.deb",
+            "size": 129578996
+          },
+          {
+            "name": "sfpi_7.89.0_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0/sfpi_7.89.0_x86_64_debian.deb",
+            "size": 134660140
+          },
+          {
+            "name": "sfpi_7.89.0_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0/sfpi_7.89.0_x86_64_fedora.rpm",
+            "size": 134192735
+          }
+        ]
+      },
       {
         "tagName": "7.88.0-overload",
         "name": "7.88.0-overload",
@@ -4360,78 +4403,50 @@
         ]
       },
       {
-        "tagName": "7.88.0-mask-59874",
-        "name": "7.88.0-mask-59874",
-        "publishedAt": "2026-10-16T15:09:00Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.88.0-mask-59874",
+        "tagName": "7.88.0",
+        "name": "Compiler Update",
+        "publishedAt": "2026-10-15T17:27:23Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.88.0",
         "prerelease": false,
         "assets": [
           {
-            "name": "sfpi_7.88.0-mask-59874_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0-mask-59874/sfpi_7.88.0-mask-59874_x86_64_debian.deb",
-            "size": 134666702
+            "name": "sfpi_7.88.0_aarch64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0/sfpi_7.88.0_aarch64_debian.deb",
+            "size": 129562372
           },
           {
-            "name": "sfpi_7.88.0-mask-59874_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0-mask-59874/sfpi_7.88.0-mask-59874_x86_64_fedora.rpm",
-            "size": 134197729
+            "name": "sfpi_7.88.0_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0/sfpi_7.88.0_x86_64_debian.deb",
+            "size": 134666248
+          },
+          {
+            "name": "sfpi_7.88.0_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0/sfpi_7.88.0_x86_64_fedora.rpm",
+            "size": 134191949
           }
         ]
       },
       {
-        "tagName": "7.88.0-transp-54445",
-        "name": "7.88.0-transp-54445",
-        "publishedAt": "2026-10-15T20:39:16Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.88.0-transp-54445",
+        "tagName": "7.87.0",
+        "name": "Compiler Update",
+        "publishedAt": "2026-10-09T15:55:22Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.87.0",
         "prerelease": false,
         "assets": [
           {
-            "name": "sfpi_7.88.0-transp-54445_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0-transp-54445/sfpi_7.88.0-transp-54445_x86_64_debian.deb",
-            "size": 134681448
+            "name": "sfpi_7.87.0_aarch64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.87.0/sfpi_7.87.0_aarch64_debian.deb",
+            "size": 129579530
           },
           {
-            "name": "sfpi_7.88.0-transp-54445_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0-transp-54445/sfpi_7.88.0-transp-54445_x86_64_fedora.rpm",
-            "size": 134200604
-          }
-        ]
-      },
-      {
-        "tagName": "7.88.0-neg-55172",
-        "name": "7.88.0-neg-55172",
-        "publishedAt": "2026-10-15T20:06:28Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.88.0-neg-55172",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.88.0-neg-55172_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0-neg-55172/sfpi_7.88.0-neg-55172_x86_64_debian.deb",
-            "size": 134665722
+            "name": "sfpi_7.87.0_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.87.0/sfpi_7.87.0_x86_64_debian.deb",
+            "size": 134652512
           },
           {
-            "name": "sfpi_7.88.0-neg-55172_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0-neg-55172/sfpi_7.88.0-neg-55172_x86_64_fedora.rpm",
-            "size": 134197087
-          }
-        ]
-      },
-      {
-        "tagName": "7.88.0-cmp-simple",
-        "name": "7.88.0-cmp-simple",
-        "publishedAt": "2026-10-15T19:53:37Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.88.0-cmp-simple",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.88.0-cmp-simple_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0-cmp-simple/sfpi_7.88.0-cmp-simple_x86_64_debian.deb",
-            "size": 134666566
-          },
-          {
-            "name": "sfpi_7.88.0-cmp-simple_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0-cmp-simple/sfpi_7.88.0-cmp-simple_x86_64_fedora.rpm",
-            "size": 134198423
+            "name": "sfpi_7.87.0_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.87.0/sfpi_7.87.0_x86_64_fedora.rpm",
+            "size": 134200982
           }
         ]
       }
@@ -4455,8 +4470,8 @@
     "updatedAt": "2026-04-15T08:40:22Z"
   },
   "https://github.com/tenstorrent/tt-lang": {
-    "stars": 64,
-    "updatedAt": "2026-10-18T19:07:21Z",
+    "stars": 65,
+    "updatedAt": "2026-10-19T18:09:42Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
@@ -4471,7 +4486,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1715,
-    "updatedAt": "2026-10-19T06:40:46Z",
+    "updatedAt": "2026-10-19T18:26:03Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5443,8 +5458,22 @@
   },
   "https://github.com/tenstorrent/ttsim": {
     "stars": 163,
-    "updatedAt": "2026-10-17T00:32:22Z",
+    "updatedAt": "2026-10-19T16:07:22Z",
     "releases": [
+      {
+        "tagName": "v1.12.1",
+        "name": "v1.12.1",
+        "publishedAt": "2026-10-19T16:10:21Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.12.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v1.12.0",
+        "name": "v1.12.0",
+        "publishedAt": "2026-10-19T10:48:36Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.12.0",
+        "prerelease": false
+      },
       {
         "tagName": "v1.11.5",
         "name": "v1.11.5",
@@ -5464,20 +5493,6 @@
         "name": "v1.11.3",
         "publishedAt": "2026-10-09T23:43:03Z",
         "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.11.3",
-        "prerelease": false
-      },
-      {
-        "tagName": "v1.11.2",
-        "name": "v1.11.2",
-        "publishedAt": "2026-10-07T18:21:56Z",
-        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.11.2",
-        "prerelease": false
-      },
-      {
-        "tagName": "v1.11.1",
-        "name": "v1.11.1",
-        "publishedAt": "2026-10-02T17:47:26Z",
-        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.11.1",
         "prerelease": false
       }
     ]
