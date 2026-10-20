@@ -169,3 +169,204 @@ def test_fetch_releases_sort_tolerates_missing_published_at():
     with patch("urllib.request.urlopen", return_value=_mock_response(data)):
         result = fetch_releases("foo/bar")
     assert [r["tagName"] for r in result] == ["v1.1.0", "v1.0.0"]
+
+
+# ── Rename / org-move detection ──────────────────────────────────────────────
+#
+# GitHub answers a request for a renamed repo with a 301 that urllib follows,
+# so the JSON that comes back describes the repo under its *current* name.
+# fetch_repo keeps that name; main() compares it to the entry's and rewrites
+# the entry when they differ.
+
+from fetch_github_meta import rename_target, apply_rename, format_renames_md
+import fetch_github_meta as fgm
+
+
+def test_fetch_repo_captures_current_full_name_and_url():
+    data = {
+        "stargazers_count": 14, "updated_at": "2026-10-19T00:00:00Z",
+        "full_name": "hedgehope/wolfpine",
+        "html_url": "https://github.com/hedgehope/wolfpine",
+    }
+    with patch("urllib.request.urlopen", return_value=_mock_response(data)):
+        result = fetch_repo("mesham/tt-sim")
+    assert result["_full_name"] == "hedgehope/wolfpine"
+    assert result["_html_url"] == "https://github.com/hedgehope/wolfpine"
+
+
+def test_rename_target_is_none_when_unchanged():
+    assert rename_target("tenstorrent/tt-metal", "tenstorrent/tt-metal") is None
+
+
+def test_rename_target_ignores_case_only_differences():
+    # GitHub repo names are case-insensitive; "Tenstorrent/TT-Metal" in an
+    # entry is the same repo as "tenstorrent/tt-metal" in the API response.
+    assert rename_target("Tenstorrent/TT-Metal", "tenstorrent/tt-metal") is None
+
+
+def test_rename_target_is_none_when_api_gave_no_name():
+    # A fetch that failed or returned no full_name must never look like a rename.
+    assert rename_target("mesham/tt-sim", "") is None
+
+
+def test_rename_target_detects_rename_and_org_move():
+    assert rename_target("mesham/tt-sim", "hedgehope/wolfpine") == "hedgehope/wolfpine"
+    assert rename_target("tenstorrent/tt-bh-linux", "tenstorrent-riscv-software/tt-bh-linux") \
+        == "tenstorrent-riscv-software/tt-bh-linux"
+
+
+def _entry_file(tmp_path, **overrides):
+    entry = {
+        "id": "tt-sim",
+        "name": "tt-sim",
+        "description": "A simulator — with a dash to check UTF-8 survives.",
+        "affiliation": "community",
+        "categories": ["riscv-arch"],
+        "links": [
+            {"type": "repo", "url": "https://github.com/mesham/tt-sim"},
+            {"type": "website", "url": "https://github.com/mesham/tt-sim/wiki"},
+        ],
+        "author": "mesham",
+    }
+    entry.update(overrides)
+    path = tmp_path / "tt-sim.json"
+    path.write_text(json.dumps(entry, indent=2, ensure_ascii=False) + "\n")
+    return path
+
+
+def test_apply_rename_rewrites_repo_link_and_records_previous_repo(tmp_path):
+    path = _entry_file(tmp_path)
+    apply_rename(path, "mesham/tt-sim", "hedgehope/wolfpine",
+                 "https://github.com/hedgehope/wolfpine")
+    entry = json.loads(path.read_text())
+    assert entry["links"][0] == {"type": "repo", "url": "https://github.com/hedgehope/wolfpine"}
+    # Only the canonical repo link moves; other links are left for a human.
+    assert entry["links"][1]["url"] == "https://github.com/mesham/tt-sim/wiki"
+    assert entry["previous_repos"] == ["mesham/tt-sim"]
+    # Everything else, including the author, is untouched — the author did not change.
+    assert entry["author"] == "mesham"
+    assert entry["name"] == "tt-sim"
+
+
+def test_apply_rename_preserves_key_order_utf8_and_trailing_newline(tmp_path):
+    path = _entry_file(tmp_path)
+    before = path.read_text()
+    apply_rename(path, "mesham/tt-sim", "hedgehope/wolfpine",
+                 "https://github.com/hedgehope/wolfpine")
+    after = path.read_text()
+    assert "—" in after                      # ensure_ascii=False
+    assert after.endswith("}\n")
+    # Key order is preserved so the diff is only the lines that changed.
+    assert list(json.loads(before)) + ["previous_repos"] == list(json.loads(after))
+
+
+def test_apply_rename_appends_to_existing_previous_repos_without_duplicates(tmp_path):
+    path = _entry_file(tmp_path, previous_repos=["someone/older-name", "mesham/tt-sim"])
+    apply_rename(path, "mesham/tt-sim", "hedgehope/wolfpine",
+                 "https://github.com/hedgehope/wolfpine")
+    entry = json.loads(path.read_text())
+    assert entry["previous_repos"] == ["someone/older-name", "mesham/tt-sim"]
+
+
+def test_main_rewrites_renamed_entry_and_keys_meta_by_new_url(tmp_path, monkeypatch):
+    entries = tmp_path / "entries" / "riscv-arch"
+    entries.mkdir(parents=True)
+    path = _entry_file(entries)
+    meta_out = tmp_path / "github_meta.json"
+    renames_out = tmp_path / "repo-renames.md"
+    monkeypatch.setattr(fgm, "ENTRIES_DIR", tmp_path / "entries")
+    monkeypatch.setattr(fgm, "META_OUT", meta_out)
+    monkeypatch.setattr(fgm, "RENAMES_OUT", renames_out)
+    monkeypatch.setattr(fgm, "fetch_repo", lambda repo: {
+        "stars": 14, "updatedAt": "2026-10-19T00:00:00Z",
+        "_default_branch": "main", "_is_fork": False,
+        "_fork_parent_name": "", "_fork_parent_url": "",
+        "_full_name": "hedgehope/wolfpine",
+        "_html_url": "https://github.com/hedgehope/wolfpine",
+    })
+    monkeypatch.setattr(fgm, "fetch_readme_image", lambda repo, b: None)
+    monkeypatch.setattr(fgm, "fetch_releases", lambda repo: [])
+    monkeypatch.setattr(fgm, "fetch_changelog", lambda repo, b: None)
+
+    fgm.main([])
+
+    entry = json.loads(path.read_text())
+    assert entry["links"][0]["url"] == "https://github.com/hedgehope/wolfpine"
+    assert entry["previous_repos"] == ["mesham/tt-sim"]
+    meta = json.loads(meta_out.read_text())
+    # The site looks metadata up by the entry's repo URL, so the key must be
+    # the URL the entry now carries, not the one it was fetched under.
+    assert list(meta) == ["https://github.com/hedgehope/wolfpine"]
+    assert meta["https://github.com/hedgehope/wolfpine"]["stars"] == 14
+    md = renames_out.read_text()
+    assert md.startswith("### ")
+    assert "mesham/tt-sim" in md and "hedgehope/wolfpine" in md
+    assert "riscv-arch/tt-sim.json" in md
+
+
+def test_main_dry_run_reports_rename_but_touches_nothing(tmp_path, monkeypatch):
+    entries = tmp_path / "entries" / "riscv-arch"
+    entries.mkdir(parents=True)
+    path = _entry_file(entries)
+    before = path.read_text()
+    meta_out = tmp_path / "github_meta.json"
+    renames_out = tmp_path / "repo-renames.md"
+    monkeypatch.setattr(fgm, "ENTRIES_DIR", tmp_path / "entries")
+    monkeypatch.setattr(fgm, "META_OUT", meta_out)
+    monkeypatch.setattr(fgm, "RENAMES_OUT", renames_out)
+    monkeypatch.setattr(fgm, "fetch_repo", lambda repo: {
+        "stars": 1, "updatedAt": "", "_default_branch": "main", "_is_fork": False,
+        "_fork_parent_name": "", "_fork_parent_url": "",
+        "_full_name": "hedgehope/wolfpine",
+        "_html_url": "https://github.com/hedgehope/wolfpine",
+    })
+    monkeypatch.setattr(fgm, "fetch_readme_image", lambda repo, b: None)
+    monkeypatch.setattr(fgm, "fetch_releases", lambda repo: [])
+    monkeypatch.setattr(fgm, "fetch_changelog", lambda repo, b: None)
+
+    fgm.main(["--dry-run"])
+
+    assert path.read_text() == before
+    assert not renames_out.exists()
+    # Metadata is still written (the workflow step always runs it) but keyed by
+    # the URL the entry still has, so the site stays consistent with the entry.
+    assert list(json.loads(meta_out.read_text())) == ["https://github.com/mesham/tt-sim"]
+
+
+def test_main_without_rename_leaves_entry_alone_and_writes_no_renames_file(tmp_path, monkeypatch):
+    entries = tmp_path / "entries" / "riscv-arch"
+    entries.mkdir(parents=True)
+    path = _entry_file(entries)
+    before = path.read_text()
+    renames_out = tmp_path / "repo-renames.md"
+    renames_out.write_text("stale from a previous run\n")
+    monkeypatch.setattr(fgm, "ENTRIES_DIR", tmp_path / "entries")
+    monkeypatch.setattr(fgm, "META_OUT", tmp_path / "github_meta.json")
+    monkeypatch.setattr(fgm, "RENAMES_OUT", renames_out)
+    monkeypatch.setattr(fgm, "fetch_repo", lambda repo: {
+        "stars": 1, "updatedAt": "", "_default_branch": "main", "_is_fork": False,
+        "_fork_parent_name": "", "_fork_parent_url": "",
+        "_full_name": "mesham/tt-sim", "_html_url": "https://github.com/mesham/tt-sim",
+    })
+    monkeypatch.setattr(fgm, "fetch_readme_image", lambda repo, b: None)
+    monkeypatch.setattr(fgm, "fetch_releases", lambda repo: [])
+    monkeypatch.setattr(fgm, "fetch_changelog", lambda repo, b: None)
+
+    fgm.main([])
+
+    assert path.read_text() == before
+    # A leftover file from an earlier run must not be mistaken for this run's findings.
+    assert not renames_out.exists()
+
+
+def test_format_renames_md_lists_each_rename_with_a_checklist():
+    md = format_renames_md([{
+        "entry_id": "tt-sim", "entry_path": "entries/riscv-arch/tt-sim.json",
+        "old_repo": "mesham/tt-sim", "new_repo": "hedgehope/wolfpine",
+        "new_url": "https://github.com/hedgehope/wolfpine",
+    }])
+    assert md.startswith("### 🔀 1 repo rename detected")
+    assert "`mesham/tt-sim` → [`hedgehope/wolfpine`](https://github.com/hedgehope/wolfpine)" in md
+    assert "entries/riscv-arch/tt-sim.json" in md
+    for word in ("name", "previous_ids", "description", "author", "affiliation", "packages"):
+        assert word in md

@@ -49,6 +49,8 @@ Every entry must be valid against this schema:
 | `language` | string | no | Primary language |
 | `license` | string | no | SPDX identifier |
 | `packages` | object[] | no | Published packages — see below |
+| `previous_ids` | string[] | no | Retired ids this entry was published under; each gets a redirect page at `entry/<old-id>/` |
+| `previous_repos` | string[] | no | `owner/name` pairs the repo used to live at. Written by the nightly job when GitHub reports a rename; keeps old releases from being re-announced |
 
 ### Packages
 

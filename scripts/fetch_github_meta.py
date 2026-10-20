@@ -3,7 +3,23 @@
 # SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
 """Fetch stars, updatedAt, and a preview image for all repo-linked entries.
-Writes src/_data/github_meta.json."""
+Writes src/_data/github_meta.json.
+
+Also detects repos that were renamed or moved between orgs since the entry was
+written. GitHub answers a request for the old name with a 301 that urllib
+follows, so the JSON describes the repo under its *current* name. When that
+differs from the entry's, main() rewrites the entry's canonical repo link,
+records the old name in the entry's `previous_repos`, and writes a markdown
+section to repo-renames.md for the nightly PR body. The summarizer reads
+`previous_repos` so releases re-arriving under the new URL are not published
+twice. Name, description and id are left alone — a rebrand (tt-sim → Wolfpine)
+needs a human to decide what the entry should now say.
+
+    python3 scripts/fetch_github_meta.py [--dry-run]
+
+--dry-run reports renames without touching entries/ or writing repo-renames.md;
+github_meta.json is still written, keyed by the URL each entry currently has.
+"""
 import base64
 import json
 import os
@@ -16,6 +32,9 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 ENTRIES_DIR = ROOT / "entries"
 META_OUT = ROOT / "src" / "_data" / "github_meta.json"
+# Markdown the nightly workflow prepends to the PR body when this run moved an
+# entry to a renamed repo. Gitignored; absent when there was nothing to report.
+RENAMES_OUT = ROOT / "repo-renames.md"
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 REPO_RE = re.compile(r"https://github\.com/([^/?#]+/[^/?#]+?)(?:\.git)?$")
 
@@ -54,6 +73,10 @@ def fetch_repo(repo: str) -> dict:
                 "_is_fork": d.get("fork", False),
                 "_fork_parent_name": parent.get("full_name", ""),
                 "_fork_parent_url": parent.get("html_url", ""),
+                # The repo's name as GitHub reports it now. Differs from the
+                # requested name after a rename or org move (see rename_target).
+                "_full_name": d.get("full_name", ""),
+                "_html_url": d.get("html_url", ""),
             }
     except urllib.error.HTTPError as e:
         print(f"  WARN {repo}: HTTP {e.code}", file=sys.stderr)
@@ -218,10 +241,90 @@ def fetch_changelog(repo: str, default_branch: str = "main") -> str | None:
     return None
 
 
-def main():
-    entries = [json.loads(f.read_text()) for f in sorted(ENTRIES_DIR.rglob("*.json"))]
+def rename_target(requested: str, current: str) -> str | None:
+    """Return the repo's current "owner/name" if it differs from the one requested.
+
+    GitHub repo names are case-insensitive, so a case-only difference is the
+    same repo and not a rename. An empty `current` (failed fetch, old API shape)
+    is never treated as a rename: moving an entry on missing data would be
+    worse than leaving it stale.
+    """
+    if not requested or not current:
+        return None
+    if requested.lower() == current.lower():
+        return None
+    return current
+
+
+def apply_rename(entry_path: Path, old_repo: str, new_repo: str, new_url: str) -> None:
+    """Point an entry's canonical repo link at a renamed repo.
+
+    Rewrites only the first `repo` link — other links (wiki, docs under the
+    old path) are left for the reviewer, as is every other field: the author
+    did not change because the repo moved, and the display name and id need a
+    human decision. The old "owner/name" is appended to `previous_repos`,
+    which the summarizer uses to recognise releases arriving under the new URL
+    (see summarize_releases.load_previous_repos).
+
+    The file is rewritten with the same key order, UTF-8 intact and a trailing
+    newline, so the PR diff shows only the lines that changed.
+    """
+    entry = json.loads(entry_path.read_text())
+    for link in entry.get("links", []):
+        if link.get("type") == "repo":
+            link["url"] = new_url
+            break
+    prev = [r for r in (entry.get("previous_repos") or []) if isinstance(r, str)]
+    if old_repo not in prev:
+        prev.append(old_repo)
+    entry["previous_repos"] = prev
+    entry_path.write_text(json.dumps(entry, indent=2, ensure_ascii=False) + "\n")
+
+
+def format_renames_md(renames: list) -> str:
+    """Markdown section for the PR body listing this run's repo renames.
+
+    Starts with a `### ` heading on purpose: the nightly workflow comments any
+    pr-body section carrying one onto the PR, so a rename is surfaced in the
+    notification and not just the diff.
+    """
+    n = len(renames)
+    noun = "repo rename" if n == 1 else "repo renames"
+    lines = [f"### 🔀 {n} {noun} detected", ""]
+    lines.append(
+        "GitHub now reports these repos under a new owner or name. The entry's "
+        "canonical `repo` link has been moved and the old name recorded in "
+        "`previous_repos`, so Planet will not re-announce old releases under the "
+        "new URL. Everything else needs a look before merging:"
+    )
+    lines.append("")
+    for r in renames:
+        lines.append(f"- **{r['entry_id']}** — `{r['old_repo']}` → "
+                     f"[`{r['new_repo']}`]({r['new_url']}) (`{r['entry_path']}`)")
+    lines += [
+        "",
+        "Checklist per entry:",
+        "- [ ] `name` and `description` — is this a rebrand, or just a move?",
+        "- [ ] `id` — if the project is known by the new name, rename the file and "
+        "add the old id to `previous_ids` so existing links redirect",
+        "- [ ] `author` — unchanged by the move; fix it only if the maintainer changed",
+        "- [ ] `affiliation` — a move into or out of a Tenstorrent org changes it, "
+        "and `scripts/validate.py` will fail until it matches",
+        "- [ ] `packages` and other links still under the old path",
+        "- [ ] existing Planet items whose `label` carries the old name",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def main(argv: list | None = None):
+    args = sys.argv[1:] if argv is None else argv
+    dry_run = "--dry-run" in args
+    entry_files = sorted(ENTRIES_DIR.rglob("*.json"))
     meta = {}
-    for entry in entries:
+    renames = []
+    for entry_path in entry_files:
+        entry = json.loads(entry_path.read_text())
         repo_link = next((l for l in entry.get("links", []) if l["type"] == "repo"), None)
         if not repo_link:
             continue
@@ -233,6 +336,30 @@ def main():
         result = fetch_repo(repo)
         if result:
             default_branch = result.pop("_default_branch", "main")
+            # Rename / org move: the API answered for a different owner/name
+            # than the entry asked for. Move the entry now so the rest of this
+            # run (and the site, which looks metadata up by the entry's URL)
+            # works from the new name.
+            new_repo = rename_target(repo, result.pop("_full_name", ""))
+            new_url = result.pop("_html_url", "") or f"https://github.com/{new_repo}"
+            meta_key = repo_link["url"]
+            if new_repo:
+                rel_path = entry_path.relative_to(ROOT) if entry_path.is_relative_to(ROOT) \
+                    else entry_path.relative_to(ENTRIES_DIR.parent)
+                record = {
+                    "entry_id": entry.get("id", entry_path.stem),
+                    "entry_path": str(rel_path),
+                    "old_repo": repo, "new_repo": new_repo, "new_url": new_url,
+                }
+                if dry_run:
+                    print(f"  RENAME {repo} → {new_repo} (dry run; entry not changed)")
+                else:
+                    apply_rename(entry_path, repo, new_repo, new_url)
+                    renames.append(record)
+                    meta_key = new_url
+                    print(f"  RENAME {repo} → {new_repo}: entry moved, old name "
+                          f"recorded in previous_repos")
+                repo = new_repo
             # Consume private fork fields; expose public keys only for actual forks.
             is_fork = result.pop("_is_fork", False)
             fork_parent_name = result.pop("_fork_parent_name", "")
@@ -267,10 +394,18 @@ def main():
             if changelog:
                 result["changelog_excerpt"] = changelog
                 print(f"  changelog: {len(changelog)} chars")
-            meta[repo_link["url"]] = result
+            meta[meta_key] = result
     META_OUT.parent.mkdir(parents=True, exist_ok=True)
     META_OUT.write_text(json.dumps(meta, indent=2) + "\n")
     print(f"Wrote {len(meta)} entries to {META_OUT}")
+
+    # A stale file from an earlier run would otherwise be read by the workflow
+    # as this run's findings, so it is removed whenever there is nothing to say.
+    if renames:
+        RENAMES_OUT.write_text(format_renames_md(renames))
+        print(f"Wrote {len(renames)} rename(s) to {RENAMES_OUT}")
+    elif RENAMES_OUT.exists():
+        RENAMES_OUT.unlink()
 
 
 if __name__ == "__main__":

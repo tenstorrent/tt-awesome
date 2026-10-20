@@ -4,6 +4,9 @@ _site/
 __pycache__/
 *.pyc
 /pr-body.md
+# Written by scripts/fetch_github_meta.py when a run moved an entry to a
+# renamed repo; nightly.yml prepends it to the PR body.
+/repo-renames.md
 /digest-comment.md
 # Build output: scripts/generate_data_json.py writes it before every deploy
 # build (deploy.yml); the tracked copy only ever drifted. Served at /data.json.
