@@ -200,8 +200,27 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 125,
-    "updatedAt": "2026-10-20T06:31:10Z",
+    "updatedAt": "2026-10-20T17:14:03Z",
     "releases": [
+      {
+        "tagName": "v0.20.1",
+        "name": "v0.20.1",
+        "publishedAt": "2026-10-20T13:44:33Z",
+        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.20.1",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt_bio-0.20.1-py3-none-any.whl",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.20.1/tt_bio-0.20.1-py3-none-any.whl",
+            "size": 3918438
+          },
+          {
+            "name": "tt_bio-0.20.1.tar.gz",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.20.1/tt_bio-0.20.1.tar.gz",
+            "size": 4622828
+          }
+        ]
+      },
       {
         "tagName": "v0.20.0",
         "name": "v0.20.0",
@@ -277,32 +296,13 @@
             "size": 4540654
           }
         ]
-      },
-      {
-        "tagName": "v0.16.1",
-        "name": "v0.16.1",
-        "publishedAt": "2026-10-14T04:42:23Z",
-        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.16.1",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt_bio-0.16.1-py3-none-any.whl",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.16.1/tt_bio-0.16.1-py3-none-any.whl",
-            "size": 3776339
-          },
-          {
-            "name": "tt_bio-0.16.1.tar.gz",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.16.1/tt_bio-0.16.1.tar.gz",
-            "size": 4453410
-          }
-        ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Fixed\n- **Chain ids.** A repeated chain id is refused on every model instead of folding two chains as one.\n  OpenFold3 and OpenBind-0 accept ids longer than four characters (they crashed in MSA\n  featurization). ESMFold-2 keeps ids longer than 16 characters in mmCIF instead of truncating them.\n  RF3, OpenFold3 and OpenBind-0 write `--output_format pdb` with a multi-character id, relabelled with\n  a `REMARK 999` like the other models, instead of failing after the fold. RF3 refuses whitespace in\n  an id before it starts, and AF2-IG refuses the same chain as target and binder.\n\n### Changed\n- **A local-database MSA search for a complex runs its unpaired and paired searches at the same time.**\n  On a 64-core host a new two-chain OpenDDE input reaches its first fold about 10 s sooner (22.4 s to\n  12.8 s of search), with byte-identical alignments. Applies to OpenDDE, Protenix, ESMFold-2 and OpenBind-0.\n\n## [0.20.0] - 2026-10-18\n\n### Changed\n- **OpenFold3 and OpenBind-0 `--fast` run the diffusion transformer's linears at a lower math fidelity on\n  Wormhole.** A 512-residue fast fold on a Galaxy chip at 1000 MHz takes 0.16 s (OpenFold3) and 0.28 s\n  (OpenBind-0) less; CA-lDDT and docking success are unchanged on 11 complexes. Blackhole is unchanged.\n\n## [0.19.0] - 2026-10-17\n\n### Changed\n- **Nesso-1's normal mode runs the fused triangle kernels** (triangle multiplication, including the\n  256-token crops, the triangle attention tail and the fused pair transition). A 532-token forward on a\n  Wormhole chip at 1000 MHz takes 7.1-7.2 s instead of 9.8-10.3 s. Graded on four DAVIS targets (30\n  ligands each): the 90th-percentile prediction change stays under the reseeded floor on every target.\n  `TT_BIO_LEVERS=none` restores the previous path.\n- **`--fast` runs the pair transition as one weight-stationary kernel on Boltz-2,\n  RFdiffusion3, OpenDDE and Protenix.** The kernel keeps its weights on chip and never writes the hidden\n  activations out; the c_z 128 transition takes 2.2 ms instead of 4.1 ms on Blackhole. A 685-residue\n  RFdiffusion3 fast design drops from 61.3 to 56.3 s on a p150a at 1350 MHz and from 114.7 to 100.1 s on\n  a Wormhole chip at 1000 MHz. Boltz-2, OpenDDE and Protenix-v2 pass the fast accuracy bar on both architectures; a\n  512-token Protenix-v2 fast fold on a Wormhole chip saves 2.8 s. OpenFold3 and ESMFold2 keep their\n  previous fast path until their own grades read.\n\n## [0.16.1] - 2026-10-14\n\nFixes wrong ESMC-300M/600M embeddings, again. Upgrade if you embed with ESMC.\n\n### Fixed\n- **ESMC embeddings could be wrong after the model had traced two sequence lengths.** 0.16.0 was cut from a\n  tree that predates the 0.15.2 fix and shipped the defect again. ESMC-300M and ESMC-600M capture a device\n  trace the second time they"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Fixed\n- **Chain ids.** A repeated chain id is refused on every model instead of folding two chains as one.\n  OpenFold3 and OpenBind-0 accept ids longer than four characters (they crashed in MSA\n  featurization). ESMFold-2 keeps ids longer than 16 characters in mmCIF instead of truncating them.\n  RF3, OpenFold3 and OpenBind-0 write `--output_format pdb` with a multi-character id, relabelled with\n  a `REMARK 999` like the other models, instead of failing after the fold. RF3 refuses whitespace in\n  an id before it starts, and AF2-IG refuses the same chain as target and binder.\n\n### Changed\n- **A local-database MSA search for a complex runs its unpaired and paired searches at the same time.**\n  On a 64-core host a new two-chain OpenDDE input reaches its first fold about 10 s sooner (22.4 s to\n  12.8 s of search), with byte-identical alignments. Applies to OpenDDE, Protenix, ESMFold-2 and OpenBind-0.\n\n## [0.20.1] - 2026-10-20\n\n### Fixed\n- **Boltz-2 on Wormhole no longer hangs on some protein lengths.** Every fold of exactly 584 or 644\n  residues stalled while reading the confidence heads back from the chip and never finished; 583, 585,\n  642 and 645 folded. The confidence result is now read whole and cut on the host, as on Blackhole,\n  which costs about 15 ms at 512 tokens. Blackhole is unchanged.\n\n## [0.20.0] - 2026-10-18\n\n### Changed\n- **OpenFold3 and OpenBind-0 `--fast` run the diffusion transformer's linears at a lower math fidelity on\n  Wormhole.** A 512-residue fast fold on a Galaxy chip at 1000 MHz takes 0.16 s (OpenFold3) and 0.28 s\n  (OpenBind-0) less; CA-lDDT and docking success are unchanged on 11 complexes. Blackhole is unchanged.\n\n## [0.19.0] - 2026-10-17\n\n### Changed\n- **Nesso-1's normal mode runs the fused triangle kernels** (triangle multiplication, including the\n  256-token crops, the triangle attention tail and the fused pair transition). A 532-token forward on a\n  Wormhole chip at 1000 MHz takes 7.1-7.2 s instead of 9.8-10.3 s. Graded on four DAVIS targets (30\n  ligands each): the 90th-percentile prediction change stays under the reseeded floor on every target.\n  `TT_BIO_LEVERS=none` restores the previous path.\n- **`--fast` runs the pair transition as one weight-stationary kernel on Boltz-2,\n  RFdiffusion3, OpenDDE and Protenix.** The kernel keeps its weights on chip and never writes the hidden\n  activations out; the c_z 128 transition takes 2.2 ms instead of 4.1 ms on Blackhole. A 685-residue\n  RFdiffusion3 fast design drops from 61.3 to 56.3 s on a p150a at 1350 MHz and from 114.7 to 100.1 s on\n  a Wormhole chip at 1000 MHz. Boltz-2, OpenDDE and Protenix-v2 pass the fast accuracy bar on both architectures; a\n  512-token Protenix-v2 fast fold on a Wormhole chip saves 2.8 s. OpenFold3 and ESMFold2 keep their\n  pr"
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 19,
-    "updatedAt": "2026-10-13T12:42:04Z"
+    "updatedAt": "2026-10-20T12:44:56Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 63,
@@ -359,7 +359,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 77,
-    "updatedAt": "2026-10-19T17:03:04Z",
+    "updatedAt": "2026-10-20T14:48:16Z",
     "releases": [
       {
         "tagName": "v0.25.0",
@@ -903,8 +903,8 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n  The Qwen3-32B T3K trace region grows from 120 MB to 150 MB: its batch-32\n  cases gain three prefix-cached 1024 traces and need up to 125 MB.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/mudler/vllm.cpp": {
-    "stars": 452,
-    "updatedAt": "2026-10-19T16:55:52Z",
+    "stars": 453,
+    "updatedAt": "2026-10-20T16:56:58Z",
     "preview_image": "https://raw.githubusercontent.com/mudler/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -981,11 +981,11 @@
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 18,
-    "updatedAt": "2026-10-20T01:21:00Z"
+    "updatedAt": "2026-10-20T13:15:10Z"
   },
   "https://github.com/dstackai/dstack": {
     "stars": 2284,
-    "updatedAt": "2026-10-20T03:32:43Z",
+    "updatedAt": "2026-10-20T18:25:00Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1173,7 +1173,7 @@
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 2,
-    "updatedAt": "2026-10-20T03:10:49Z",
+    "updatedAt": "2026-10-20T18:25:38Z",
     "releases": [
       {
         "tagName": "v0.1.2",
@@ -1438,11 +1438,11 @@
   },
   "https://github.com/swote-git/tt-iree": {
     "stars": 12,
-    "updatedAt": "2026-09-16T12:03:16Z"
+    "updatedAt": "2026-10-20T12:39:04Z"
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 317,
-    "updatedAt": "2026-10-19T05:40:47Z",
+    "updatedAt": "2026-10-20T13:07:38Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1710,7 +1710,7 @@
   },
   "https://github.com/Syllo/nvtop": {
     "stars": 11094,
-    "updatedAt": "2026-10-19T13:29:23Z",
+    "updatedAt": "2026-10-20T08:49:10Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1844,7 +1844,7 @@
   },
   "https://github.com/tenstorrent/tt-cli": {
     "stars": 6,
-    "updatedAt": "2026-10-19T22:20:34Z",
+    "updatedAt": "2026-10-20T16:06:04Z",
     "releases": [
       {
         "tagName": "v1.1.0",
@@ -2185,7 +2185,7 @@
   },
   "https://github.com/tenstorrent/tt-model-manager": {
     "stars": 9,
-    "updatedAt": "2026-10-19T18:42:23Z"
+    "updatedAt": "2026-10-20T13:52:04Z"
   },
   "https://github.com/tsingletaryTT/tt-model-runner": {
     "stars": 1,
@@ -2203,7 +2203,7 @@
   },
   "https://github.com/tenstorrent/tt-perf-report": {
     "stars": 11,
-    "updatedAt": "2026-10-19T19:22:50Z",
+    "updatedAt": "2026-10-20T09:02:15Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-perf-report/main/images/example_perf_report.png"
   },
   "https://github.com/tsingletaryTT/tt-warp": {
@@ -2240,7 +2240,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 58,
-    "updatedAt": "2026-10-19T13:51:54Z",
+    "updatedAt": "2026-10-20T18:00:56Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -3878,7 +3878,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 50,
-    "updatedAt": "2026-10-19T20:39:42Z",
+    "updatedAt": "2026-10-20T12:48:55Z",
     "releases": [
       {
         "tagName": "v0.9.14",
@@ -4490,7 +4490,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1715,
-    "updatedAt": "2026-10-20T06:10:32Z",
+    "updatedAt": "2026-10-20T18:09:33Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5178,8 +5178,8 @@
     "updatedAt": "2025-11-01T12:16:06Z"
   },
   "https://github.com/tenstorrent/polaris": {
-    "stars": 45,
-    "updatedAt": "2026-10-19T06:01:43Z",
+    "stars": 46,
+    "updatedAt": "2026-10-20T09:27:14Z",
     "releases": [
       {
         "tagName": "pre_perfmodel_merge",
@@ -5254,8 +5254,8 @@
     ]
   },
   "https://github.com/tenstorrent/riscv_arch_tests": {
-    "stars": 124,
-    "updatedAt": "2026-09-28T08:14:55Z",
+    "stars": 125,
+    "updatedAt": "2026-10-20T10:45:50Z",
     "releases": [
       {
         "tagName": "v0.2.0+aligned-access",
@@ -5502,8 +5502,8 @@
     ]
   },
   "https://github.com/tenstorrent/whisper": {
-    "stars": 98,
-    "updatedAt": "2026-10-15T16:51:30Z",
+    "stars": 99,
+    "updatedAt": "2026-10-20T18:18:38Z",
     "isFork": true,
     "forkParent": "chipsalliance/VeeR-ISS",
     "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS",
