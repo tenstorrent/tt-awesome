@@ -23,6 +23,7 @@ something new.
 | LLM index | `llms.txt` | Compact categorized index sized for LLM context windows. |
 | JSON Feed | `feeds/feed.json` | Combined releases, new entries, and articles (JSON Feed 1.1). |
 | Atom feeds | `feeds/releases.xml`, `feeds/new-entries.xml`, `feeds/articles.xml` | Latest stable releases, newly added projects, and articles/papers/talks. |
+| Official releases | `feeds/releases-official.xml` | The releases feed restricted to repos in Tenstorrent-owned orgs. Subscribe here when a consumer must not announce community projects. |
 
 All paths are relative to the site root
 (`https://docs.tenstorrent.com/tt-awesome/`).

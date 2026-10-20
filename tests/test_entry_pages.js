@@ -191,6 +191,7 @@ rawEntryFiles.forEach((f, i) => {
 for (const feedFile of [
   "feeds/new-entries.xml",
   "feeds/releases.xml",
+  "feeds/releases-official.xml",
   "feeds/articles.xml",
 ]) {
   const xml = fs.readFileSync(path.join(outDir, feedFile), "utf-8");
@@ -258,3 +259,27 @@ assert(
 console.log(
   `ok — ${entries.length} static entry pages + sitemap + metadata + feed-id guards verified`
 );
+
+// ── releases-official.xml carries only Tenstorrent-org releases, and every
+//    one of them is also in releases.xml under the same id, so a subscriber
+//    switching feeds sees a strict subset rather than a different history ───
+{
+  const all = fs.readFileSync(path.join(outDir, "feeds", "releases.xml"), "utf-8");
+  const official = fs.readFileSync(path.join(outDir, "feeds", "releases-official.xml"), "utf-8");
+  const entries = [...official.matchAll(/<entry>[\s\S]*?<\/entry>/g)].map((m) => m[0]);
+  assert(entries.length > 0, "releases-official.xml has no entries");
+  const allIds = new Set([...all.matchAll(/<id>([^<]*)<\/id>/g)].map((m) => m[1]));
+  for (const e of entries) {
+    assert(
+      /<category term="official"\/>/.test(e),
+      `releases-official.xml entry without an official category: ${e.slice(0, 120)}`
+    );
+    assert(
+      !/<category term="(community|affiliated)"\/>/.test(e),
+      `releases-official.xml entry carries a non-official category: ${e.slice(0, 120)}`
+    );
+    const id = e.match(/<id>([^<]*)<\/id>/)[1];
+    assert(allIds.has(id), `releases-official.xml entry ${id} is missing from releases.xml`);
+  }
+  console.log(`ok — releases-official.xml: ${entries.length} entries, all official, all in releases.xml`);
+}

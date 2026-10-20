@@ -1076,3 +1076,21 @@ assert(typeof diversifiedFeatured === "function", "diversifiedFeatured filter no
 }
 
 console.log("\nAll eleventy filter tests passed ✓");
+
+// ── officialOnly ─────────────────────────────────────────────────────────────
+{
+  const officialOnly = filters["officialOnly"];
+  assert(typeof officialOnly === "function", "officialOnly filter is registered");
+  const input = [
+    { url: "a", affiliation: "official",   publishedAt: "2026-10-19T00:00:00Z" },
+    { url: "b", affiliation: "community",  publishedAt: "2026-10-18T00:00:00Z" },
+    { url: "c", affiliation: "affiliated", publishedAt: "2026-10-17T00:00:00Z" },
+    { url: "d", affiliation: "official",   publishedAt: "2026-10-16T00:00:00Z" },
+    { url: "e" },
+  ];
+  assert.deepStrictEqual(officialOnly(input).map((i) => i.url), ["a", "d"],
+    "officialOnly keeps only official items, in input order");
+  assert.deepStrictEqual(officialOnly(undefined), [], "officialOnly tolerates a missing list");
+  assert.deepStrictEqual(officialOnly([null]), [], "officialOnly tolerates null items");
+  console.log("officialOnly filter tests passed ✓");
+}
