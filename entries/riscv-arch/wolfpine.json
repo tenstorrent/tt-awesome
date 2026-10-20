@@ -1,0 +1,45 @@
+{
+  "id": "wolfpine",
+  "previous_ids": [
+    "tt-sim"
+  ],
+  "previous_repos": [
+    "mesham/tt-sim"
+  ],
+  "name": "Wolfpine",
+  "description": "A pure-Python framework for building cycle-approximate simulators of AI accelerators, with Wormhole and Blackhole backends written from the public Tenstorrent ISA documentation. Runs real tt-metal programs unmodified on the full worker grid (72 cores on Wormhole, 130 on Blackhole) with no hardware, and because it is Python throughout, a driver script can inspect simulator state directly. The `wolfpine run` CLI switches a tt-metal build between simulated Wormhole, simulated Blackhole and real silicon. Not cycle accurate by design. Formerly tt-sim; renamed to Wolfpine in 2026 and unrelated to Tenstorrent's official `ttsim`.",
+  "affiliation": "community",
+  "categories": [
+    "riscv-arch",
+    "dev-tools"
+  ],
+  "tags": [
+    "simulator",
+    "architecture",
+    "no-hardware",
+    "research",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/hedgehope/wolfpine"
+    }
+  ],
+  "packages": [
+    {
+      "type": "pypi",
+      "name": "wolfpine"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "featured": true,
+  "author": "mesham",
+  "language": "Python",
+  "license": "BSD-3-Clause",
+  "added_at": "2026-05-08",
+  "related": ["ttsim"]
+}

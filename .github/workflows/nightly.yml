@@ -41,10 +41,17 @@ jobs:
         with: { python-version: "3.11" }
       - run: pip install pyyaml  # prompts/*.prompt.yml parsing (scripts/llm_client.py)
 
+      # Besides stars/releases, this step detects repos GitHub now reports
+      # under a new owner or name. It moves the entry's repo link, records the
+      # old name in the entry's previous_repos, and writes repo-renames.md for
+      # the PR body below. Name/description/id are left for the reviewer.
       - name: Fetch metadata
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 scripts/fetch_github_meta.py
+        run: |
+          FLAGS=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then FLAGS="--dry-run"; fi
+          python3 scripts/fetch_github_meta.py $FLAGS
 
       - name: Summarize new releases
         # Skipped entirely when no Foundry credential is configured. When one is
@@ -65,12 +72,18 @@ jobs:
 
       # summarize_releases.py writes pr-body.md (digest + template) only when it
       # added something. Fall back to the bare template otherwise, so the
-      # action always has a body-path to read.
+      # action always has a body-path to read. A repo-renames.md from the fetch
+      # step goes first: it carries a "### " heading, so the comment step below
+      # surfaces it in the PR notification, and it sits above the boilerplate
+      # marker that step strips.
       - name: Prepare PR body
         if: ${{ !inputs.dry_run }}
         run: |
           if [ ! -f pr-body.md ]; then
             cp .github/pr-templates/github-metadata.md pr-body.md
+          fi
+          if [ -f repo-renames.md ]; then
+            cat repo-renames.md pr-body.md > pr-body.tmp && mv pr-body.tmp pr-body.md
           fi
 
       - name: Create pull request if changed
@@ -82,6 +95,7 @@ jobs:
             src/_data/github_meta.json
             src/_data/planet_feeds.json
             README.md
+            entries/**/*.json
           # No [skip ci]: single-commit PRs squash-merge with this message as
           # the commit title, and it must not suppress the Pages deploy on main.
           # (The bot's own branch pushes use GITHUB_TOKEN, which never triggers

@@ -23,6 +23,7 @@ something new.
 | LLM index | `llms.txt` | Compact categorized index sized for LLM context windows. |
 | JSON Feed | `feeds/feed.json` | Combined releases, new entries, and articles (JSON Feed 1.1). |
 | Atom feeds | `feeds/releases.xml`, `feeds/new-entries.xml`, `feeds/articles.xml` | Latest stable releases, newly added projects, and articles/papers/talks. |
+| Official releases | `feeds/releases-official.xml` | The releases feed restricted to repos in Tenstorrent-owned orgs. Subscribe here when a consumer must not announce community projects. |
 
 All paths are relative to the site root
 (`https://docs.tenstorrent.com/tt-awesome/`).
@@ -74,10 +75,18 @@ template uses them.
 
 ### Entries
 
-* The `id` is the filename and the permalink. Never change it. If a project is
-  renamed or moves, update `name`, `url`, `description` and `links` and keep
-  the id. To retire an id, list it in `previous_ids` on the successor so a
-  redirect stub is generated.
+* The `id` is the filename and the permalink. Changing it breaks links, so
+  when a project is renamed either keep the id and update `name`,
+  `description` and `links`, or give the entry its new name as the id and list
+  the old one in `previous_ids` so a redirect stub is generated (Booth,
+  Wolfpine).
+* The nightly metadata job notices when GitHub reports a repo under a new
+  owner or name. It moves the entry's `repo` link, appends the old
+  `owner/name` to `previous_repos`, and opens its usual PR with a rename
+  section and checklist. It never touches `name`, `description`, `id` or
+  `author`; those are the reviewer's call. `previous_repos` is what stops
+  the summarizer re-announcing every old release under the new URL, so keep
+  it when editing the entry by hand.
 * `affiliation` is `official` for repos in a Tenstorrent-owned org (the
   validator enforces this from the repo URL), `affiliated` for Tenstorrent
   staff publishing on personal accounts, and `community` otherwise. A commit

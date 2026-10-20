@@ -128,9 +128,36 @@ notes *alongside* a compare link (GitHub's generated "What's Changed" list) is
 summarized as-is and never triggers the crawl.
 
 **Metadata gaps are logged but do not fail the run.** `fetch_github_meta.py`
-prints `WARN <repo>: HTTP 404` for repos it cannot read — private, renamed, or
-deleted — and moves on. Those entries silently keep stale stars and releases
-forever, so it is worth grepping a nightly log for `WARN` occasionally.
+prints `WARN <repo>: HTTP 404` for repos it cannot read — private or deleted —
+and moves on. Those entries silently keep stale stars and releases forever, so
+it is worth grepping a nightly log for `WARN` occasionally.
+
+**Renamed and moved repos are detected and moved in the same PR.** GitHub
+answers a request for a repo's old name with a 301 that urllib follows, so the
+JSON `fetch_github_meta.py` gets back carries the repo's *current* `full_name`.
+When that differs from the entry's (case-insensitively), the script:
+
+1. rewrites the entry's canonical `repo` link to the new URL,
+2. appends the old `owner/name` to the entry's `previous_repos`,
+3. keys `github_meta.json` by the new URL, so the site and the entry agree,
+4. writes `repo-renames.md`, which the workflow prepends to the PR body and
+   comments on the PR (it carries a `### ` heading for that reason), with a
+   checklist of what a human still has to decide: `name`, `description`,
+   `id`/`previous_ids`, `author`, `affiliation`, `packages`, old Planet labels.
+
+`entries/**/*.json` is in the PR's `add-paths` so the moved entry ships with
+the metadata. If the move crosses into or out of a Tenstorrent org the
+`affiliation` check in `validate.yml` fails on that PR until someone sets it,
+which is the intended signal. `--dry-run` (the workflow's `dry_run` input)
+reports renames and changes nothing.
+
+`summarize_releases.py` reads `previous_repos` and skips a release that was
+already published under any old name, matching either the old-style URL or the
+old-style `<basename> <tag>` title key. Without it every release the repo ever
+published would re-arrive under the new URL and new basename and slip past both
+existing duplicate checks — which is what happened to tt-bh-linux and
+BarraCUDA/Booth before `release_key()`, and would have happened to tt-sim →
+Wolfpine (2026-10) without this field.
 
 ## Bot PRs
 

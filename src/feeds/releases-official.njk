@@ -1,0 +1,48 @@
+---
+permalink: /feeds/releases-official.xml
+eleventyExcludeFromCollections: true
+---
+{#-
+  Official-only companion to releases.xml: the same items, restricted to
+  entries whose affiliation is "official" (repos in a Tenstorrent-owned org;
+  validate.py enforces that from the repo URL). Exists so a consumer that
+  should only announce Tenstorrent's own releases — the Discord releases bot,
+  say — can subscribe here instead of filtering releases.xml on its
+  <category term="official"/> tag. Community projects whose names resemble
+  official ones (tt-sim/Wolfpine next to ttsim, 2026-10) never appear here.
+
+  Entry <id>s are the release URLs, identical to releases.xml, so an item is
+  the same item in both feeds. The feed's own <id>/self link stays on the
+  github.io host like the other feeds; see the immutability note in
+  tests/test_entry_pages.js.
+-#}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>tt-awesome — Official Tenstorrent Releases</title>
+  <subtitle>Latest stable releases from Tenstorrent's own repositories</subtitle>
+  <link href="https://tenstorrent.github.io/tt-awesome/feeds/releases-official.xml" rel="self"/>
+  <link href="https://tenstorrent.github.io/tt-awesome/"/>
+  <id>https://tenstorrent.github.io/tt-awesome/feeds/releases-official.xml</id>
+  <author><name>Tenstorrent</name><uri>https://tenstorrent.github.io/tt-awesome/</uri></author>
+  {#- recentReleases.js already caps its list at 50 across all affiliations,
+      so this feed holds the official releases inside that window (33 of 50
+      on 2026-10-20). Raise that cap there if the official feed runs short. #}
+  {%- set official = recentReleases | officialOnly %}
+  {#- recentReleases is sorted newest-first by recentReleases.js, and
+      officialOnly keeps that order, so the first official item is the latest. #}
+  <updated>{{ official[0].publishedAt if official.length else "1970-01-01T00:00:00Z" }}</updated>
+  {%- for rel in official %}
+  {%- if loop.index <= 50 %}
+  <entry>
+    <id>{{ rel.url }}</id>
+    <title>{{ rel.entryName }} {{ rel.tagName }}</title>
+    <link href="{{ rel.url }}"/>
+    <updated>{{ rel.publishedAt }}</updated>
+    <summary type="html"><![CDATA[{{ rel.summary | singleLine | markdownInline | cdataSafe | safe }}]]></summary>
+    <content type="html"><![CDATA[{{ rel | feedContentHtml | cdataSafe | safe }}]]></content>
+    <category term="{{ rel.affiliation }}"/>
+    <category term="release"/>
+  </entry>
+  {%- endif %}
+  {%- endfor %}
+</feed>

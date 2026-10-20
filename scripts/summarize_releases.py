@@ -119,6 +119,35 @@ def load_known_release_keys(feeds_path: Path) -> set:
     return keys
 
 
+def load_previous_repos(entry_dirs: list) -> dict:
+    """Map each entry's current "owner/name" to the names it was published under.
+
+    Read from the `previous_repos` field that fetch_github_meta.py writes when
+    it moves an entry to a renamed repo (and that a human can set by hand). A
+    rename defeats both duplicate checks at once: the release URL changes with
+    the owner/name, and release_key() is built from the repo basename, which
+    changes too. This map lets main() also ask "was this published under any
+    of the repo's old names?" before summarizing.
+    """
+    mapping = {}
+    for d in entry_dirs:
+        for f in Path(d).rglob("*.json"):
+            try:
+                entry = json.loads(f.read_text())
+            except Exception:
+                continue
+            prev = [r for r in (entry.get("previous_repos") or []) if isinstance(r, str) and r]
+            if not prev:
+                continue
+            for link in entry.get("links", []):
+                if link.get("type") == "repo":
+                    m = REPO_RE.match(link.get("url", "").rstrip("/"))
+                    if m:
+                        mapping[m.group(1)] = prev
+                    break
+    return mapping
+
+
 def build_affiliation_map(entry_dirs: list) -> dict:
     """Scan all entry JSONs once and return a repo_url -> affiliation mapping."""
     mapping = {}
@@ -582,6 +611,8 @@ def main(argv: list | None = None):
 
     # Precompute once — avoids O(repos × entries) file reads per run.
     affiliation_map = build_affiliation_map([ENTRIES_DIR])
+    # Old owner/name per repo, for the rename check inside the loop.
+    previous_repos = load_previous_repos([ENTRIES_DIR])
 
     new_items = []
     # Counts provider calls that came back empty. A summarization backend that
@@ -630,6 +661,22 @@ def main(argv: list | None = None):
             if rkey in known_release_keys:
                 print(f"  SKIP {repo}@{tag}: already published as '{repo_name} {tag}' "
                       f"(repo likely renamed/moved)")
+                continue
+
+            # The same release under one of the repo's recorded previous names.
+            # A rename changes the owner/name in the URL *and* the basename in
+            # the title key, so neither check above can see that
+            # hedgehope/wolfpine v2.0 is mesham/tt-sim v2.0 already on the
+            # planet. Both the old-style URL and the old-style key are tried:
+            # hand-written items may carry either.
+            old_name = next(
+                (old for old in previous_repos.get(repo, [])
+                 if url.replace(f"https://github.com/{repo}/", f"https://github.com/{old}/", 1) in known_urls
+                 or release_key(f"{old.split('/')[-1]} {tag}") in known_release_keys),
+                None,
+            )
+            if old_name:
+                print(f"  SKIP {repo}@{tag}: already published under previous repo name {old_name}")
                 continue
 
             # Fetch the release body — this is what we summarize by default.

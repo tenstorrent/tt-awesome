@@ -156,6 +156,27 @@ def validate_entry(path: Path, data: dict) -> list:
                     errors.append(f"previous_ids[{i}] must be a lowercase slug, got {pid!r}")
                 elif pid == data.get("id"):
                     errors.append(f"previous_ids[{i}] '{pid}' is this entry's current id")
+    # previous_repos: "owner/name" pairs this project's repo used to live at.
+    # Written by scripts/fetch_github_meta.py when it detects a rename, read by
+    # scripts/summarize_releases.py so old releases are not re-announced under
+    # the new URL. Plain owner/name, never a URL, so the summarizer can build
+    # both the old-style URL and the old-style title key from it.
+    prev_repos = data.get("previous_repos")
+    if prev_repos is not None:
+        if not isinstance(prev_repos, list):
+            errors.append("previous_repos must be a list")
+        else:
+            current = None
+            for link in data.get("links", []) if isinstance(data.get("links"), list) else []:
+                if isinstance(link, dict) and link.get("type") == "repo":
+                    m = re.match(r"https://github\.com/([^/?#]+/[^/?#]+?)(?:\.git)?/?$", str(link.get("url", "")))
+                    current = m.group(1).lower() if m else None
+                    break
+            for i, pr in enumerate(prev_repos):
+                if not isinstance(pr, str) or not re.match(r'^[A-Za-z0-9_.\-]+/[A-Za-z0-9_.\-]+$', pr):
+                    errors.append(f"previous_repos[{i}] must be 'owner/name' (no URL), got {pr!r}")
+                elif current and pr.lower() == current:
+                    errors.append(f"previous_repos[{i}] '{pr}' is this entry's current repo")
     related = data.get("related")
     if related is not None:
         if not isinstance(related, list):

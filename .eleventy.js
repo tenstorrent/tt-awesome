@@ -830,6 +830,16 @@ module.exports = function (eleventyConfig) {
     (items || []).filter((i) => i.type === type).length
   );
 
+  // Keep only the releases whose entry is official (a repo in a
+  // Tenstorrent-owned org). Feeds feeds/releases-official.xml. A filter rather
+  // than selectattr for the same reason as planetCount: Nunjucks' selectattr
+  // has no "equalto" test, so a template that tried it published every
+  // release under the official-only URL (caught by test_entry_pages.js).
+  // Order is preserved, so a newest-first input stays newest-first.
+  eleventyConfig.addFilter("officialOnly", (items) =>
+    (items || []).filter((i) => i && i.affiliation === "official")
+  );
+
   // Inline a file's content directly into the template.
   // Used to embed CSS and JS into the HTML so that private GitHub Pages
   // authentication doesn't intercept sub-resource requests and return an

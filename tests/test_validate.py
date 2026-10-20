@@ -192,3 +192,27 @@ def test_tt_model_package_rejects_a_url_or_missing_namespace():
         e = valid({"packages": [{"type": "tt-model", "name": bad}]})
         errors = validate_entry(p(), e)
         assert any("Hugging Face repo id" in x for x in errors), (bad, errors)
+
+
+# ── previous_repos (repo renames / org moves) ────────────────────────────────
+
+def test_previous_repos_accepts_owner_slash_name():
+    e = valid({"previous_repos": ["mesham/tt-sim", "tenstorrent/tt-bh-linux"]})
+    assert validate_entry(p(), e) == []
+
+
+def test_previous_repos_rejects_urls_and_bare_names():
+    e = valid({"previous_repos": ["https://github.com/mesham/tt-sim"]})
+    assert any("previous_repos[0]" in x for x in validate_entry(p(), e))
+    e = valid({"previous_repos": ["tt-sim"]})
+    assert any("previous_repos[0]" in x for x in validate_entry(p(), e))
+
+
+def test_previous_repos_rejects_the_current_repo():
+    e = valid({"previous_repos": ["foo/bar"]})
+    assert any("current repo" in x for x in validate_entry(p(), e))
+
+
+def test_previous_repos_must_be_a_list():
+    e = valid({"previous_repos": "mesham/tt-sim"})
+    assert any("previous_repos must be a list" in x for x in validate_entry(p(), e))

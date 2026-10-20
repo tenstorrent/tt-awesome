@@ -557,9 +557,9 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by [@boopdotpng](https://github.com/boopdotpng) — A 6,500-word community deep dive into the Blackhole p100a architecture: the tile model (Tensix, DRAM, SiFive x280 L2CPU, Ethernet, PCIe, NoC arc), firmware startup sequence, MOP micro-op processor, replay buffer, FPU/SFPU sync, and the anatomy of a kernel. From the author of blackhole-py.
   [📝 anuraagw.me — February 2026](https://anuraagw.me/blog/blackhole-architecture)
 
-- **[tt-sim](https://github.com/mesham/tt-sim)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@mesham](https://github.com/mesham) — Community-built Tenstorrent architecture simulator written in Python. Runs without hardware — useful for researchers and developers exploring the Tensix architecture offline.
-  [📦 repo](https://github.com/mesham/tt-sim)
+- **[Wolfpine](https://github.com/hedgehope/wolfpine)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@mesham](https://github.com/mesham) — A pure-Python framework for building cycle-approximate simulators of AI accelerators, with Wormhole and Blackhole backends written from the public Tenstorrent ISA documentation. Runs real tt-metal programs unmodified on the full worker grid (72 cores on Wormhole, 130 on Blackhole) with no hardware, and because it is Python throughout, a driver script can inspect simulator state directly. The `wolfpine run` CLI switches a tt-metal build between simulated Wormhole, simulated Blackhole and real silicon. Not cycle accurate by design. Formerly tt-sim; renamed to Wolfpine in 2026 and unrelated to Tenstorrent's official `ttsim`.
+  [📦 repo](https://github.com/hedgehope/wolfpine) · [🐍 `pip install wolfpine`](https://pypi.org/project/wolfpine/)
 
 - **All in RISC-V, RISC-V All in AI — FOSDEM 2026** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Martin Chang — Martin Chang and Danfeng Zhang on solving real AI compute problems with open hardware, spanning AI PC / edge devices and AI servers: pairing high-performance RISC-V CPUs with NPUs, and Tenstorrent's RISC-V cores and scalable mesh for AI workloads. The speaker's companion write-up covers the Tensix programming model in depth — the five RISC-V cores per tile, Dst register double-buffering, and the macro-recording hardware that lets control cores run ahead of the math engine.

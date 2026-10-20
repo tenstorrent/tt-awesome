@@ -972,3 +972,90 @@ def test_absolutize_links_resolves_relative_to_tag():
     assert "[a](https://github.com/o/r/blob/v1.0/docs/a.md#x)" in out
     assert "[b](https://github.com/o/r/blob/v1.0/b.md)" in out
     assert "[c](https://e.com/c)" in out and "[d](#top)" in out
+
+
+# ── previous_repos: releases re-arriving under a renamed repo ────────────────
+#
+# After fetch_github_meta.py moves an entry to a renamed repo, every release the
+# repo ever published shows up under the new URL *and* a new basename, so
+# neither the URL check nor release_key() recognises it. The entry's
+# previous_repos list is what ties the two names together.
+
+def _rename_fixture(tmp_path, entry_extra=None, feed_items=None):
+    rel = {"tagName": "v2.0", "name": "v2.0", "publishedAt": "2026-08-18T14:07:12Z",
+           "url": "https://github.com/hedgehope/wolfpine/releases/tag/v2.0",
+           "prerelease": False}
+    meta = {"https://github.com/hedgehope/wolfpine": {"releases": [rel]}}
+    meta_file  = tmp_path / "github_meta.json"
+    feeds_file = tmp_path / "planet_feeds.json"
+    meta_file.write_text(json.dumps(meta))
+    feeds_file.write_text(json.dumps(feed_items or []))
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+    entry = {"id": "wolfpine", "affiliation": "community",
+             "links": [{"type": "repo", "url": "https://github.com/hedgehope/wolfpine"}]}
+    entry.update(entry_extra or {})
+    (entry_dir / "wolfpine.json").write_text(json.dumps(entry))
+    return meta_file, feeds_file, entry_dir
+
+
+def _wire(monkeypatch, meta_file, feeds_file, entry_dir):
+    monkeypatch.setattr(sr, "META_IN",     meta_file)
+    monkeypatch.setattr(sr, "FEEDS_OUT",   feeds_file)
+    monkeypatch.setattr(sr, "ENTRIES_DIR", entry_dir)
+    monkeypatch.setattr(sr, "TOKEN",         "fake-token")
+    monkeypatch.setattr(sr, "FOUNDRY_KEY",   "fake-foundry-key")
+
+
+def test_load_previous_repos_maps_current_repo_to_old_names(tmp_path):
+    entry_dir = tmp_path / "entries"
+    entry_dir.mkdir()
+    (entry_dir / "a.json").write_text(json.dumps({
+        "id": "a", "previous_repos": ["mesham/tt-sim"],
+        "links": [{"type": "repo", "url": "https://github.com/hedgehope/wolfpine"}]}))
+    (entry_dir / "b.json").write_text(json.dumps({
+        "id": "b", "links": [{"type": "repo", "url": "https://github.com/x/y"}]}))
+    assert sr.load_previous_repos([entry_dir]) == {"hedgehope/wolfpine": ["mesham/tt-sim"]}
+
+
+def test_main_skips_release_already_published_under_previous_repo_url(tmp_path, monkeypatch):
+    published = [{"type": "release", "title": "tt-sim v2.0",
+                  "url": "https://github.com/mesham/tt-sim/releases/tag/v2.0",
+                  "dateISO": "2026-08-18T14:07:12Z"}]
+    files = _rename_fixture(tmp_path, {"previous_repos": ["mesham/tt-sim"]}, published)
+    _wire(monkeypatch, *files)
+    with patch.object(sr, "fetch_release_body") as mock_body:
+        sr.main([])
+    mock_body.assert_not_called()
+    assert len(json.loads(files[1].read_text())) == 1
+
+
+def test_main_skips_release_already_published_under_previous_basename(tmp_path, monkeypatch):
+    # Hand-written items can carry a URL that never matched the API's (an
+    # old-style one, say), so the "<old basename> <tag>" key is checked too.
+    published = [{"type": "release", "title": "tt-sim v2.0",
+                  "url": "https://example.invalid/tt-sim-2.0",
+                  "dateISO": "2026-08-18T00:00:00Z"}]
+    files = _rename_fixture(tmp_path, {"previous_repos": ["mesham/tt-sim"]}, published)
+    _wire(monkeypatch, *files)
+    with patch.object(sr, "fetch_release_body") as mock_body:
+        sr.main([])
+    mock_body.assert_not_called()
+
+
+def test_main_without_previous_repos_still_publishes_release_under_new_url(tmp_path, monkeypatch):
+    # The guard above must not fire on its own: with no previous_repos the
+    # release is new to us and gets summarized as before.
+    published = [{"type": "release", "title": "tt-sim v2.0",
+                  "url": "https://github.com/mesham/tt-sim/releases/tag/v2.0",
+                  "dateISO": "2026-08-18T14:07:12Z"}]
+    files = _rename_fixture(tmp_path, None, published)
+    _wire(monkeypatch, *files)
+    monkeypatch.setattr(sr, "PR_BODY_OUT", tmp_path / "pr-body.md")
+    body = "## Changes\n" + "- a real change line\n" * 20
+    with patch.object(sr, "fetch_release_body", return_value=body), \
+         patch.object(sr, "call_summarization_model", return_value="A summary."), \
+         patch.object(sr.pr_digest, "request_lede", return_value=""):
+        sr.main([])
+    items = json.loads(files[1].read_text())
+    assert {i["title"] for i in items} == {"wolfpine v2.0", "tt-sim v2.0"}
