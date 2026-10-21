@@ -51,9 +51,9 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@aweditya](https://github.com/aweditya) — Direct TT-Metal bringup of modern open-weight LLMs on Blackhole P150 — hand-written compute graphs with no PJRT and no JAX. Covers Qwen3.6-27B, Qwen3.6-35B-A3B MoE, Gemma 4 12B, and Nemotron-3 Nano 30B-A3B, plus a zoo of single-chip Llama / Qwen2.5 / SmolLM ports, backed by custom fused `owned_*` kernels, a continuous-batching engine, an OpenAI-compatible HTTP server, and a wiki documenting each design decision.
   [📦 repo](https://github.com/aweditya/tt-model-bringup) · [📖 HANDOFF.md — current perf and production paths](https://github.com/aweditya/tt-model-bringup/blob/main/HANDOFF.md)
 
-- **[vllm.cpp](https://github.com/mudler/vllm.cpp)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+- **[vllm.cpp](https://github.com/localai-org/vllm.cpp)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@mudler](https://github.com/mudler) — A C++ reimplementation of the vLLM engine (continuous batching, paged KV cache, GGUF loading) with CUDA, CPU, Metal, Vulkan and ROCm backends plus an opt-in Tenstorrent backend under `src/vt/tenstorrent`. The TT backend is a thin adapter over TTNN and TT-Metalium built with `-DVLLM_CPP_TENSTORRENT=ON`, adding paged attention, Qwen3.5 gated-delta-net, trace capture and quant-preserving (`keepquant`) matmul paths. Status is correctness-first on Blackhole: OPT-125m passes a strict token-exact gate, Qwen3-0.6B has committed goldens with a full rerun pending, and 27B GGUF decode is in smoke-measurement stage.
-  [📦 repo](https://github.com/mudler/vllm.cpp) · [📦 Tenstorrent backend](https://github.com/mudler/vllm.cpp/tree/main/src/vt/tenstorrent) · [🌐 Tenstorrent build docs](https://github.com/mudler/vllm.cpp/blob/main/docs/BUILD.md#tenstorrent-build-blackhole)
+  [📦 repo](https://github.com/localai-org/vllm.cpp) · [📦 Tenstorrent backend](https://github.com/mudler/vllm.cpp/tree/main/src/vt/tenstorrent) · [🌐 Tenstorrent build docs](https://github.com/mudler/vllm.cpp/blob/main/docs/BUILD.md#tenstorrent-build-blackhole)
 
 - **[tt-bio](https://github.com/moritztng/tt-bio)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@moritztng](https://github.com/moritztng) — Boltz-2 biomolecular model for drug discovery on Tenstorrent Blackhole. Supports single-card and multi-card configurations — QuietBox (4×) and Galaxy (32×). Approaches physics-based FEP accuracy at 1000× the speed.
@@ -667,9 +667,9 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by Rahmy Salman — Artifact for the paper "Leveraging Network-on-Chip Architecture for Block-Sparse Linear Algebra on Tenstorrent": block-sparse SpMM and SDDMM kernels for the Wormhole n150 in several data-movement variants, plus scripts that reproduce every n150 figure and table. Builds as a submodule inside a tt-metal checkout.
   [📦 repo](https://github.com/salmanra/Tenstorrent-WH-BlockSpMM)
 
-- **[polaris](https://github.com/tenstorrent/polaris)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+- **[polaris](https://github.com/tenstorrent/tt-polaris)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   A high-level AI simulator from Tenstorrent for modeling and exploring AI accelerator and workload performance.
-  [📦 repo](https://github.com/tenstorrent/polaris)
+  [📦 repo](https://github.com/tenstorrent/tt-polaris)
 
 - **[tt-isa-documentation](https://github.com/tenstorrent/tt-isa-documentation)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Low-level ISA and microarchitecture documentation for Tenstorrent AI architectures (Grayskull, Wormhole, Blackhole) — the authoritative hardware reference beneath the tt-forge / tt-metal software stack.
