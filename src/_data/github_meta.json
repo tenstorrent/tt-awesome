@@ -5,7 +5,7 @@
   },
   "https://github.com/tenstorrent/skills": {
     "stars": 15,
-    "updatedAt": "2026-10-19T15:03:49Z"
+    "updatedAt": "2026-10-21T14:35:48Z"
   },
   "https://github.com/moritztng/tt-bio-bringup": {
     "stars": 0,
@@ -200,8 +200,27 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 125,
-    "updatedAt": "2026-10-21T05:58:52Z",
+    "updatedAt": "2026-10-22T06:36:56Z",
     "releases": [
+      {
+        "tagName": "v0.21.0",
+        "name": "v0.21.0",
+        "publishedAt": "2026-10-21T15:01:45Z",
+        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.21.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt_bio-0.21.0-py3-none-any.whl",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.21.0/tt_bio-0.21.0-py3-none-any.whl",
+            "size": 4127902
+          },
+          {
+            "name": "tt_bio-0.21.0.tar.gz",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.21.0/tt_bio-0.21.0.tar.gz",
+            "size": 4840331
+          }
+        ]
+      },
       {
         "tagName": "v0.20.1",
         "name": "v0.20.1",
@@ -277,28 +296,9 @@
             "size": 4568555
           }
         ]
-      },
-      {
-        "tagName": "v0.17.0",
-        "name": "v0.17.0",
-        "publishedAt": "2026-10-15T02:01:16Z",
-        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.17.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt_bio-0.17.0-py3-none-any.whl",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.17.0/tt_bio-0.17.0-py3-none-any.whl",
-            "size": 3845207
-          },
-          {
-            "name": "tt_bio-0.17.0.tar.gz",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.17.0/tt_bio-0.17.0.tar.gz",
-            "size": 4540654
-          }
-        ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Fixed\n- **Chain ids.** A repeated chain id is refused on every model instead of folding two chains as one.\n  OpenFold3 and OpenBind-0 accept ids longer than four characters (they crashed in MSA\n  featurization). ESMFold-2 keeps ids longer than 16 characters in mmCIF instead of truncating them.\n  RF3, OpenFold3 and OpenBind-0 write `--output_format pdb` with a multi-character id, relabelled with\n  a `REMARK 999` like the other models, instead of failing after the fold. RF3 refuses whitespace in\n  an id before it starts, and AF2-IG refuses the same chain as target and binder.\n- **A job that hangs its worker no longer walks the whole fleet.** If two workers in turn stop heartbeating\n  on the same job, the controller fails it with an error saying so instead of handing it to a third\n  chip, which the same input would hang too. One dead chip is still retried. `tt-bio controller\n  --max-leases` changes the limit (default 2). See [multi-host](docs/multi-host.md).\n\n### Changed\n- **A local-database MSA search for a complex runs its unpaired and paired searches at the same time.**\n  On a 64-core host a new two-chain OpenDDE input reaches its first fold about 10 s sooner (22.4 s to\n  12.8 s of search), with byte-identical alignments. Applies to OpenDDE, Protenix, ESMFold-2 and OpenBind-0.\n\n## [0.20.1] - 2026-10-20\n\n### Fixed\n- **Boltz-2 on Wormhole no longer hangs on some protein lengths.** Every fold of exactly 584 or 644\n  residues stalled while reading the confidence heads back from the chip and never finished; 583, 585,\n  642 and 645 folded. The confidence result is now read whole and cut on the host, as on Blackhole,\n  which costs about 15 ms at 512 tokens. Blackhole is unchanged.\n\n## [0.20.0] - 2026-10-18\n\n### Changed\n- **OpenFold3 and OpenBind-0 `--fast` run the diffusion transformer's linears at a lower math fidelity on\n  Wormhole.** A 512-residue fast fold on a Galaxy chip at 1000 MHz takes 0.16 s (OpenFold3) and 0.28 s\n  (OpenBind-0) less; CA-lDDT and docking success are unchanged on 11 complexes. Blackhole is unchanged.\n\n## [0.19.0] - 2026-10-17\n\n### Changed\n- **Nesso-1's normal mode runs the fused triangle kernels** (triangle multiplication, including the\n  256-token crops, the triangle attention tail and the fused pair transition). A 532-token forward on a\n  Wormhole chip at 1000 MHz takes 7.1-7.2 s instead of 9.8-10.3 s. Graded on four DAVIS targets (30\n  ligands each): the 90th-percentile prediction change stays under the reseeded floor on every target.\n  `TT_BIO_LEVERS=none` restores the previous path.\n- **`--fast` runs the pair transition as one weight-stationary kernel on Boltz-2,\n  RFdiffusion3, OpenDDE and Protenix.** The kernel keeps its weights on chip and never writes the hidden\n  activations out; the c_z 128 transi"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Added\n- **RFD4-Proteina (`tt-bio design --model rfd4`).** Binders, motif scaffolds, enzymes around a\n  ligand, antibody and nanobody CDRs and unconditional monomers, designed through a latent flow at\n  the shipped `thinking_medium` budget (60 steps, 180 trunk passes). Input is a design YAML with\n  contig strings and conditioning blocks, the grammar `rfd3` uses; each design is a CIF in the\n  input's frame. `--nsteps` changes the integration steps (a different model, not a faster one),\n  `--annotated_cif` designs from an annotated CIF instead of a spec, and `--no_validate` skips the\n  per-structure checks when building a large spec. A 128-token binder design takes 13.2 s on one\n  Blackhole p300 chip at 1350 MHz. See [rfd4-design](docs/rfd4-design.md).\n- **RFD4-Proteina designs from Python in one call.** `tt_bio.rfd4.design(spec, out_dir, ...)` takes a\n  design spec to annotated-CIF designs with the same arguments and defaults as `tt-bio design --model\n  rfd4`, which now runs that same call. `rfd4.DesignEngine.from_pretrained()` keeps the weights on the\n  card across a sweep. See [rfd4-design](docs/rfd4-design.md).\n- **RFD4 designs fan across the fleet.** `tt-bio design --model rfd4 --controller URL` makes one job\n  per design, each carrying the input the submitting host prepared, and writes a `metrics.json`\n  with every design that landed. See [rfd4-design](docs/rfd4-design.md).\n- **RFD4 loads a LoRA fine-tune.** `rfd4.DesignEngine(adapter=...)` merges a PEFT adapter directory\n  into the weights at load, so it costs nothing per design. Merging the released bundle's own\n  adapter onto its own base reproduces NVIDIA's merged checkpoint to 3e-08. `--lora DIR` on the\n  CLI; local runs only, and asking for it with `--controller` says so.\n- **`--backend` on `--model rfd4`.** `native` runs the model; `bioir` is declined with the reason\n  (it is NVIDIA BioNeMo-IR, CUDA-only) instead of being ignored.\n- **`--recipe` picks RFD4's thinking budget.** Upstream runs each design family at its own recycle\n  schedule, and only the released `thinking_medium` was reachable from the CLI; all twelve are now.\n  An unknown name is refused before a spec is built or a device is opened.\n\n### Fixed\n- **A job that hangs its worker no longer walks the whole fleet.** If two workers in turn stop heartbeating\n  on the same job, the controller fails it with an error saying so instead of handing it to a third\n  chip, which the same input would hang too. One dead chip is still retried. `tt-bio controller\n  --max-leases` changes the limit (default 2). See [multi-host](docs/multi-host.md).\n\n## [0.21.0] - 2026-10-21\n\n### Fixed\n- **Chain ids.** A repeated chain id is refused on every model instead of folding two chains as one.\n  OpenFold3 and OpenBind-0 accept ids lo"
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 19,
@@ -359,7 +359,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 77,
-    "updatedAt": "2026-10-20T14:48:16Z",
+    "updatedAt": "2026-10-21T16:00:18Z",
     "releases": [
       {
         "tagName": "v0.25.0",
@@ -898,13 +898,13 @@
     "updatedAt": "2026-07-03T14:21:59Z"
   },
   "https://github.com/tenstorrent/tt-transformers": {
-    "stars": 1,
-    "updatedAt": "2026-10-08T15:45:17Z",
+    "stars": 2,
+    "updatedAt": "2026-10-21T23:12:02Z",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n  The Qwen3-32B T3K trace region grows from 120 MB to 150 MB: its batch-32\n  cases gain three prefix-cached 1024 traces and need up to 125 MB.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/localai-org/vllm.cpp": {
     "stars": 453,
-    "updatedAt": "2026-10-21T05:59:20Z",
+    "updatedAt": "2026-10-21T20:28:35Z",
     "preview_image": "https://raw.githubusercontent.com/localai-org/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -981,11 +981,11 @@
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 18,
-    "updatedAt": "2026-10-20T13:15:10Z"
+    "updatedAt": "2026-10-21T12:45:51Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2284,
-    "updatedAt": "2026-10-20T18:25:00Z",
+    "stars": 2285,
+    "updatedAt": "2026-10-21T20:10:28Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1172,8 +1172,8 @@
     "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Booth 0.6.0\n\n### Runtime\n\n- `kath run`, `kath build` and `kath doctor`, so one command builds a source\n  and runs it on whatever device is there (Zane Hambly, 2026-09-14)\n\n### Backends\n\n- `--nvidia-cubin` writes a cubin the card will load, with no NVCC anywhere in\n  the chain. All 67 of ggml-cuda's files now reach the IR\n  (Zane Hambly, 2026-09-09)\n\n### Frontend\n\n- `constexpr` and `const` objects fold at every use, and anything the folder\n  cannot evaluate refuses with E128 (Zane Hambly, 2026-09-03)\n\n- class templates, specialisations, default template arguments and\n  `enum class` parse, so 47 of ggml-cuda's 67 files reach the lowerer\n  (Zane Hambly, 2026-09-04)\n\n- the lowerer's tables no longer run out of room on a large translation unit,\n  taking ggml-cuda's lowering errors from 774 to 210 (Zane Hambly, 2026-09-04)\n\n\n## Booth 0.5.3\n\n### Runtime\n\n- #169: the runtime is split by where it runs, the `BC_ERR_*` codes no\n  longer collide, and the examples and NVIDIA harness are built\n  (Zane Hambly, 2026-08-23)\n\n\n### Frontend\n\n- variadic template parameter packs, several `.cu` files as separate\n  translation units, `mma.sync` and `mfma` lowering, and an i1 that no\n  longer strides by zero (Zane Hambly, 2026-09-03)\n\n- `(a) + (b)` adds again; the parser treated any parenthesised identifier as a\n  type name without asking whether it named one, so the left operand vanished\n  into a cast with no diagnostic (Zane Hambly, 2026-09-03)\n\n- the cast test is now the type name registry, so the registry has to be\n  complete. Template type parameters, `using X = T` aliases and the type names\n  sema resolves without a typedef (`size_t`, `uint32_t`, `float4` and the rest)\n  all reach it. A compound literal through a typedef, `(pair){1, 2}`, parses\n  for the first time, and `sizeof(name)` where the name is a type reads as a\n  type rather than an expression (Zane Hambly, 2026-09-03)\n\n- llama.cpp's ggml-cuda preprocesses, all 67 files; `#pragma once` is\n  honoured, variadic and multi-line macro invocations expand, and an\n  expansion too big for the output buffer is E053 rather than an\n  unterminated buffer the lexer reads past (Zane Hambly, 2026-09-03)\n\n- `kath --mlir` reads MLIR text, no LLVM in the path. \u010cert\u00edk's pure-C\n  reader vendored under `src/mlir/vendor` (mlir 826b69c9, corec a160199d),\n  reached only through `src/mlir/mlir_fe.c` (Zane Hambly, 2026-08-11)\n\n- `src/mlir/lower.c` walks the parsed module into BIR: `func.func`, `return`,\n  `arith.constant` and every arith binop, compare and conversion the reader\n  classifies. From there it is the pipeline CUDA and Triton already use, and\n  MLIR reaches all four backends. `--mlir --pp` reprints instead\n  (Zane Hambly, 2026-08-11)\n\n- an op outside the subset stops the lowering and names itself. Skipping it\n  would leave a function that compiles and computes something else\n  (Zane Hambly, 2026-08-11)\n\n- five fixes to the vendored reader, all worth upstreaming, and four of them"
   },
   "https://github.com/pcmoritz/libtt": {
-    "stars": 12,
-    "updatedAt": "2026-10-21T04:45:30Z",
+    "stars": 13,
+    "updatedAt": "2026-10-21T23:57:37Z",
     "releases": [
       {
         "tagName": "v0.1.2",
@@ -1351,6 +1351,13 @@
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
+        "tagName": "1.5.0.dev20261022010608",
+        "name": "1.5.0.dev20261022010608",
+        "publishedAt": "2026-10-22T01:24:01Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261022010608",
+        "prerelease": false
+      },
+      {
         "tagName": "1.5.0.dev20261021004616",
         "name": "1.5.0.dev20261021004616",
         "publishedAt": "2026-10-21T01:04:26Z",
@@ -1376,13 +1383,6 @@
         "name": "1.5.0.dev20261018004847",
         "publishedAt": "2026-10-18T01:06:17Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261018004847",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20261017004807",
-        "name": "1.5.0.dev20261017004807",
-        "publishedAt": "2026-10-17T01:11:32Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261017004807",
         "prerelease": false
       }
     ]
@@ -1441,8 +1441,8 @@
     "updatedAt": "2026-10-20T12:39:04Z"
   },
   "https://github.com/tenstorrent/tt-mlir": {
-    "stars": 317,
-    "updatedAt": "2026-10-21T03:29:18Z",
+    "stars": 318,
+    "updatedAt": "2026-10-21T20:44:55Z",
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1615,8 +1615,8 @@
     "updatedAt": "2026-06-07T04:07:14Z"
   },
   "https://github.com/tenstorrent/tt-xla": {
-    "stars": 74,
-    "updatedAt": "2026-10-14T16:04:52Z",
+    "stars": 75,
+    "updatedAt": "2026-10-21T19:44:51Z",
     "releases": [
       {
         "tagName": "1.5.0.dev20260831000501",
@@ -1664,7 +1664,7 @@
   },
   "https://github.com/zk4x/zyx": {
     "stars": 74,
-    "updatedAt": "2026-10-17T05:30:03Z",
+    "updatedAt": "2026-10-21T18:51:46Z",
     "preview_image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
     "releases": [
       {
@@ -1710,7 +1710,7 @@
   },
   "https://github.com/Syllo/nvtop": {
     "stars": 11095,
-    "updatedAt": "2026-10-21T04:07:49Z",
+    "updatedAt": "2026-10-22T05:53:33Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1844,8 +1844,27 @@
   },
   "https://github.com/tenstorrent/tt-cli": {
     "stars": 6,
-    "updatedAt": "2026-10-20T16:06:04Z",
+    "updatedAt": "2026-10-21T17:20:49Z",
     "releases": [
+      {
+        "tagName": "v1.2.0",
+        "name": "v1.2.0",
+        "publishedAt": "2026-10-21T17:50:08Z",
+        "url": "https://github.com/tenstorrent/tt-cli/releases/tag/v1.2.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tenstorrent-1.2.0-py3-none-any.whl",
+            "url": "https://github.com/tenstorrent/tt-cli/releases/download/v1.2.0/tenstorrent-1.2.0-py3-none-any.whl",
+            "size": 372285
+          },
+          {
+            "name": "tenstorrent-1.2.0.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-cli/releases/download/v1.2.0/tenstorrent-1.2.0.tar.gz",
+            "size": 582231
+          }
+        ]
+      },
       {
         "tagName": "v1.1.0",
         "name": "v1.1.0",
@@ -2232,17 +2251,31 @@
   },
   "https://github.com/Aswincloud/ttnn-ops-coverage": {
     "stars": 0,
-    "updatedAt": "2026-10-21T00:39:06Z"
+    "updatedAt": "2026-10-22T00:36:40Z"
   },
   "https://github.com/Aswincloud/ttnn-performance-dashboard": {
     "stars": 1,
-    "updatedAt": "2026-10-21T00:43:39Z"
+    "updatedAt": "2026-10-22T00:12:18Z"
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 58,
-    "updatedAt": "2026-10-20T18:57:05Z",
+    "updatedAt": "2026-10-21T19:24:15Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
+      {
+        "tagName": "v0.108.0",
+        "name": "v0.108.0",
+        "publishedAt": "2026-10-21T19:25:28Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.108.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "ttnn_visualizer-0.108.0-py3-none-any.whl",
+            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.108.0/ttnn_visualizer-0.108.0-py3-none-any.whl",
+            "size": 3219523
+          }
+        ]
+      },
       {
         "tagName": "v0.107.0",
         "name": "v0.107.0",
@@ -2298,20 +2331,6 @@
             "size": 3054255
           }
         ]
-      },
-      {
-        "tagName": "v0.103.0",
-        "name": "v0.103.0",
-        "publishedAt": "2026-09-15T23:05:37Z",
-        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.103.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "ttnn_visualizer-0.103.0-py3-none-any.whl",
-            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.103.0/ttnn_visualizer-0.103.0-py3-none-any.whl",
-            "size": 3001879
-          }
-        ]
       }
     ]
   },
@@ -2326,9 +2345,38 @@
   },
   "https://github.com/tsingletaryTT/tt-bio-demo": {
     "stars": 1,
-    "updatedAt": "2026-10-15T23:50:02Z",
+    "updatedAt": "2026-10-21T20:43:05Z",
     "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tt-bio-demo/main/docs/screenshots/booth-loop.gif",
     "releases": [
+      {
+        "tagName": "v0.8.2",
+        "name": "tt-bio-demo v0.8.2",
+        "publishedAt": "2026-10-21T20:48:35Z",
+        "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/tag/v0.8.2",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt-bio-demo-all_0.8.2_all.deb",
+            "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/download/v0.8.2/tt-bio-demo-all_0.8.2_all.deb",
+            "size": 9700
+          },
+          {
+            "name": "tt-bio-demo-runtime_0.8.2_amd64.deb",
+            "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/download/v0.8.2/tt-bio-demo-runtime_0.8.2_amd64.deb",
+            "size": 12214
+          },
+          {
+            "name": "tt-bio-demo-weights_0.8.2_all.deb",
+            "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/download/v0.8.2/tt-bio-demo-weights_0.8.2_all.deb",
+            "size": 18286
+          },
+          {
+            "name": "tt-bio-demo_0.8.2_all.deb",
+            "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/download/v0.8.2/tt-bio-demo_0.8.2_all.deb",
+            "size": 943262
+          }
+        ]
+      },
       {
         "tagName": "v0.8.1",
         "name": "tt-bio-demo v0.8.1",
@@ -2422,35 +2470,6 @@
         "publishedAt": "2026-09-17T20:21:16Z",
         "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/tag/v0.6.0",
         "prerelease": false
-      },
-      {
-        "tagName": "v0.5.7",
-        "name": "v0.5.7",
-        "publishedAt": "2026-09-09T17:05:31Z",
-        "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/tag/v0.5.7",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt-bio-demo-all_0.5.7_all.deb",
-            "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/download/v0.5.7/tt-bio-demo-all_0.5.7_all.deb",
-            "size": 5256
-          },
-          {
-            "name": "tt-bio-demo-runtime_0.5.7_amd64.deb",
-            "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/download/v0.5.7/tt-bio-demo-runtime_0.5.7_amd64.deb",
-            "size": 7764
-          },
-          {
-            "name": "tt-bio-demo-weights_0.5.7_all.deb",
-            "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/download/v0.5.7/tt-bio-demo-weights_0.5.7_all.deb",
-            "size": 8666
-          },
-          {
-            "name": "tt-bio-demo_0.5.7_all.deb",
-            "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/download/v0.5.7/tt-bio-demo_0.5.7_all.deb",
-            "size": 859698
-          }
-        ]
       }
     ]
   },
@@ -2565,8 +2584,15 @@
   },
   "https://github.com/tenstorrent/luwen": {
     "stars": 34,
-    "updatedAt": "2026-10-02T18:42:48Z",
+    "updatedAt": "2026-10-21T21:01:35Z",
     "releases": [
+      {
+        "tagName": "bh-mod-v2.3.0",
+        "name": "bh-mod-v2.3.0",
+        "publishedAt": "2026-10-21T21:01:14Z",
+        "url": "https://github.com/tenstorrent/luwen/releases/tag/bh-mod-v2.3.0",
+        "prerelease": false
+      },
       {
         "tagName": "v0.10.0",
         "name": "v0.10.0",
@@ -2593,13 +2619,6 @@
         "name": "v0.9.0",
         "publishedAt": "2026-08-12T14:56:20Z",
         "url": "https://github.com/tenstorrent/luwen/releases/tag/v0.9.0",
-        "prerelease": false
-      },
-      {
-        "tagName": "bh-mod-v2.0.0",
-        "name": "bh-mod-v2.0.0",
-        "publishedAt": "2026-08-07T14:05:56Z",
-        "url": "https://github.com/tenstorrent/luwen/releases/tag/bh-mod-v2.0.0",
         "prerelease": false
       }
     ]
@@ -3122,7 +3141,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 45,
-    "updatedAt": "2026-10-20T22:20:34Z",
+    "updatedAt": "2026-10-22T03:27:52Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -3878,7 +3897,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 50,
-    "updatedAt": "2026-10-20T22:38:10Z",
+    "updatedAt": "2026-10-22T06:26:44Z",
     "releases": [
       {
         "tagName": "v0.9.14",
@@ -4350,21 +4369,78 @@
     "updatedAt": "2026-10-19T14:08:17Z",
     "releases": [
       {
-        "tagName": "7.89.0-stov",
-        "name": "7.89.0-stov",
-        "publishedAt": "2026-10-20T00:14:35Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.89.0-stov",
+        "tagName": "7.89.0-replay-41386",
+        "name": "7.89.0-replay-41386",
+        "publishedAt": "2026-10-21T22:53:26Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.89.0-replay-41386",
         "prerelease": false,
         "assets": [
           {
-            "name": "sfpi_7.89.0-stov_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-stov/sfpi_7.89.0-stov_x86_64_debian.deb",
-            "size": 134653356
+            "name": "sfpi_7.89.0-replay-41386_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-replay-41386/sfpi_7.89.0-replay-41386_x86_64_debian.deb",
+            "size": 134644738
           },
           {
-            "name": "sfpi_7.89.0-stov_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-stov/sfpi_7.89.0-stov_x86_64_fedora.rpm",
-            "size": 134194317
+            "name": "sfpi_7.89.0-replay-41386_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-replay-41386/sfpi_7.89.0-replay-41386_x86_64_fedora.rpm",
+            "size": 134227072
+          }
+        ]
+      },
+      {
+        "tagName": "7.89.0-macros",
+        "name": "7.89.0-macros",
+        "publishedAt": "2026-10-21T19:29:06Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.89.0-macros",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.89.0-macros_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-macros/sfpi_7.89.0-macros_x86_64_debian.deb",
+            "size": 134651280
+          },
+          {
+            "name": "sfpi_7.89.0-macros_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-macros/sfpi_7.89.0-macros_x86_64_fedora.rpm",
+            "size": 134196631
+          }
+        ]
+      },
+      {
+        "tagName": "7.89.0-ecf-59925",
+        "name": "7.89.0-ecf-59925",
+        "publishedAt": "2026-10-21T18:50:16Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.89.0-ecf-59925",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.89.0-ecf-59925_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-ecf-59925/sfpi_7.89.0-ecf-59925_x86_64_debian.deb",
+            "size": 134677510
+          },
+          {
+            "name": "sfpi_7.89.0-ecf-59925_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-ecf-59925/sfpi_7.89.0-ecf-59925_x86_64_fedora.rpm",
+            "size": 134199733
+          }
+        ]
+      },
+      {
+        "tagName": "7.89.0-del-lut",
+        "name": "7.89.0-del-lut",
+        "publishedAt": "2026-10-21T17:43:22Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.89.0-del-lut",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.89.0-del-lut_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-del-lut/sfpi_7.89.0-del-lut_x86_64_debian.deb",
+            "size": 134655292
+          },
+          {
+            "name": "sfpi_7.89.0-del-lut_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-del-lut/sfpi_7.89.0-del-lut_x86_64_fedora.rpm",
+            "size": 134199259
           }
         ]
       },
@@ -4378,79 +4454,12 @@
           {
             "name": "sfpi_7.89.0-ttinsn-32639_x86_64_debian.deb",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-ttinsn-32639/sfpi_7.89.0-ttinsn-32639_x86_64_debian.deb",
-            "size": 134665388
+            "size": 134654584
           },
           {
             "name": "sfpi_7.89.0-ttinsn-32639_x86_64_fedora.rpm",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0-ttinsn-32639/sfpi_7.89.0-ttinsn-32639_x86_64_fedora.rpm",
-            "size": 134209247
-          }
-        ]
-      },
-      {
-        "tagName": "7.89.0",
-        "name": "SFPI update",
-        "publishedAt": "2026-10-19T16:39:40Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.89.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.89.0_aarch64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0/sfpi_7.89.0_aarch64_debian.deb",
-            "size": 129578996
-          },
-          {
-            "name": "sfpi_7.89.0_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0/sfpi_7.89.0_x86_64_debian.deb",
-            "size": 134660140
-          },
-          {
-            "name": "sfpi_7.89.0_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.89.0/sfpi_7.89.0_x86_64_fedora.rpm",
-            "size": 134192735
-          }
-        ]
-      },
-      {
-        "tagName": "7.88.0-overload",
-        "name": "7.88.0-overload",
-        "publishedAt": "2026-10-16T15:26:33Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.88.0-overload",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.88.0-overload_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0-overload/sfpi_7.88.0-overload_x86_64_debian.deb",
-            "size": 134664538
-          },
-          {
-            "name": "sfpi_7.88.0-overload_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0-overload/sfpi_7.88.0-overload_x86_64_fedora.rpm",
-            "size": 134198360
-          }
-        ]
-      },
-      {
-        "tagName": "7.88.0",
-        "name": "Compiler Update",
-        "publishedAt": "2026-10-15T17:27:23Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.88.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.88.0_aarch64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0/sfpi_7.88.0_aarch64_debian.deb",
-            "size": 129562372
-          },
-          {
-            "name": "sfpi_7.88.0_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0/sfpi_7.88.0_x86_64_debian.deb",
-            "size": 134666248
-          },
-          {
-            "name": "sfpi_7.88.0_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.88.0/sfpi_7.88.0_x86_64_fedora.rpm",
-            "size": 134191949
+            "size": 134208067
           }
         ]
       }
@@ -4475,13 +4484,13 @@
   },
   "https://github.com/tenstorrent/tt-lang": {
     "stars": 65,
-    "updatedAt": "2026-10-20T22:17:44Z",
+    "updatedAt": "2026-10-22T03:04:20Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
   "https://github.com/palisurf/tt-ldpc-qb2-sim": {
     "stars": 1,
-    "updatedAt": "2026-10-02T18:19:06Z",
+    "updatedAt": "2026-10-22T06:28:15Z",
     "preview_image": "https://raw.githubusercontent.com/palisurf/tt-ldpc-qb2-sim/main/Results/combined_ar4ja_r12_waterfall_iter200.png"
   },
   "https://github.com/tenstorrent/tt-llk": {
@@ -4489,8 +4498,8 @@
     "updatedAt": "2026-10-17T11:55:44Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1717,
-    "updatedAt": "2026-10-21T06:06:33Z",
+    "stars": 1718,
+    "updatedAt": "2026-10-22T06:05:42Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5169,17 +5178,13 @@
     "stars": 3,
     "updatedAt": "2026-09-10T05:35:22Z"
   },
-  "https://github.com/LSC-Unicamp/carla_2026_tenstorrent_stencil": {
-    "stars": 0,
-    "updatedAt": "2026-10-11T13:11:32Z"
-  },
   "https://github.com/EngineerCharlie/TenstorrentAllreduce": {
     "stars": 4,
     "updatedAt": "2025-11-01T12:16:06Z"
   },
   "https://github.com/tenstorrent/tt-polaris": {
-    "stars": 46,
-    "updatedAt": "2026-10-20T09:27:14Z",
+    "stars": 47,
+    "updatedAt": "2026-10-22T05:20:53Z",
     "releases": [
       {
         "tagName": "pre_perfmodel_merge",
@@ -5204,8 +5209,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-isa-documentation": {
-    "stars": 132,
-    "updatedAt": "2026-10-21T02:51:02Z"
+    "stars": 134,
+    "updatedAt": "2026-10-22T04:45:03Z"
   },
   "https://github.com/olofj/bhx": {
     "stars": 6,
@@ -5428,8 +5433,15 @@
   },
   "https://github.com/tenstorrent/ttsim": {
     "stars": 163,
-    "updatedAt": "2026-10-19T21:02:23Z",
+    "updatedAt": "2026-10-21T17:17:47Z",
     "releases": [
+      {
+        "tagName": "v1.13.0",
+        "name": "v1.13.0",
+        "publishedAt": "2026-10-21T11:54:58Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.13.0",
+        "prerelease": false
+      },
       {
         "tagName": "v1.12.1",
         "name": "v1.12.1",
@@ -5457,19 +5469,12 @@
         "publishedAt": "2026-10-15T00:53:47Z",
         "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.11.4",
         "prerelease": false
-      },
-      {
-        "tagName": "v1.11.3",
-        "name": "v1.11.3",
-        "publishedAt": "2026-10-09T23:43:03Z",
-        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.11.3",
-        "prerelease": false
       }
     ]
   },
   "https://github.com/tenstorrent/whisper": {
     "stars": 99,
-    "updatedAt": "2026-10-21T03:52:10Z",
+    "updatedAt": "2026-10-21T16:30:19Z",
     "isFork": true,
     "forkParent": "chipsalliance/VeeR-ISS",
     "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS",
