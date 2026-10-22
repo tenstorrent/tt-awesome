@@ -1,0 +1,29 @@
+{#- Models section. Two docked regions: the browse area (collection tiles, or a card grid) and a
+    details panel for the selected model. models.js fills both. The data is the generated
+    src/_data/models.json (scripts/build_models_data.py). -#}
+<div class="models-view" id="models-view">
+  <div class="models-main" id="models-main">
+    <div class="models-head">
+      <nav class="models-crumb" id="models-crumb" aria-label="Breadcrumb"></nav>
+      <h1 class="models-title" id="models-title"></h1>
+      <p class="models-blurb" id="models-blurb"></p>
+    </div>
+    <div class="models-tiles" id="models-tiles"></div>
+    <div id="models-list">
+      <div class="models-bar">
+        <span id="models-count"></span>
+        <label>Sort
+          <select id="models-sort" aria-label="Sort models">
+            <option value="listed">tt-inference-server first</option>
+            <option value="name">Name</option>
+            <option value="newest">Newest bundle</option>
+          </select>
+        </label>
+        <span>Status and limits are copied from tt-inference-server's release spec. Nothing here is measured.</span>
+      </div>
+      <div class="models-grid" id="models-grid"></div>
+    </div>
+  </div>
+  <aside class="models-panel" id="models-panel" aria-label="Model details"></aside>
+</div>
+<script type="application/json" id="models-data">{{ models | jsonForScript | safe }}</script>

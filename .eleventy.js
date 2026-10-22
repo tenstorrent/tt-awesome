@@ -179,6 +179,12 @@ module.exports = function (eleventyConfig) {
   // agentic consumers; publish it at the site root alongside data.json.
   eleventyConfig.addPassthroughCopy({ "AGENTS.md": "AGENTS.md" });
 
+  // JSON for an inline <script type="application/json"> block. "<", ">" and "&" are escaped so
+  // model names or summaries can never close the tag or open markup.
+  eleventyConfig.addFilter("jsonForScript", (v) =>
+    JSON.stringify(v).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026")
+  );
+
   eleventyConfig.addFilter("truncate", (str, len) =>
     str && str.length > len ? str.slice(0, len) + "…" : str
   );

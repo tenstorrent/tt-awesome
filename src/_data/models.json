@@ -1,0 +1,5460 @@
+{
+ "models": [
+  {
+   "id": "afm45b",
+   "name": "AFM-4.5B",
+   "upstream": "arcee-ai/AFM-4.5B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "4B",
+   "rows": [
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "AFM-4.5B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": null,
+   "status": "Experimental",
+   "devices": [
+    "n300",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 2 device types; best status Experimental.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "bgelargeenv15",
+   "name": "bge-large-en-v1.5",
+   "upstream": "BAAI/bge-large-en-v1.5",
+   "kind": "Embedding",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 32
+    },
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "media",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "media",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 4
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "bge-large-en-v1.5",
+   "studio": "Embedding demo",
+   "chat": false,
+   "parser": null,
+   "status": "Experimental",
+   "devices": [
+    "galaxy",
+    "n150",
+    "n300",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 4 device types; best status Experimental.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "bgem3",
+   "name": "bge-m3",
+   "upstream": "BAAI/bge-m3",
+   "kind": "Embedding",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "forge",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 4
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "bge-m3",
+   "studio": "Embedding demo",
+   "chat": false,
+   "parser": null,
+   "status": "Experimental",
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 1 device type; best status Experimental.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "deepseekr10528",
+   "name": "DeepSeek-R1-0528",
+   "upstream": "deepseek-ai/DeepSeek-R1-0528",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "dual_galaxy",
+     "chips": 64,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "32K",
+     "users": 256
+    },
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "2K",
+     "users": 256
+    },
+    {
+     "device": "quad_galaxy (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "32K",
+     "users": 512
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "DeepSeek-R1-0528",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "deepseek_v3",
+   "status": "Experimental",
+   "devices": [
+    "dual_galaxy",
+    "galaxy",
+    "quad_galaxy (unmapped)"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 3 device types; best status Experimental.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "deepseekr1distillllama70b",
+   "name": "DeepSeek-R1-Distill-Llama-70B",
+   "upstream": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "70B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x4",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "DeepSeek-R1-Distill-Llama-70B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "deepseek_v3",
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "p150x4",
+    "p150x8",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 6 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "diffusiongemma26ba4bit",
+   "name": "diffusiongemma-26B-A4B-it",
+   "upstream": "google/diffusiongemma-26B-A4B-it",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "4B",
+   "rows": [
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "256K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "diffusiongemma-26B-A4B-it",
+   "studio": "Chat",
+   "chat": true,
+   "parser": null,
+   "status": "Experimental",
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 1 device type; best status Experimental.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "distillargev3",
+   "name": "distil-large-v3",
+   "upstream": "distil-whisper/distil-large-v3",
+   "kind": "Speech to text",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 32
+    },
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p150",
+     "chips": 1,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 4
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 4
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "distil-large-v3",
+   "studio": "Speech to text",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "n150",
+    "n300",
+    "p150",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 6 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "flux1dev",
+   "name": "FLUX.1-dev",
+   "upstream": "black-forest-labs/FLUX.1-dev",
+   "kind": "Image generation",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p150x4",
+     "chips": 4,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p300c",
+     "chips": 2,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "FLUX.1-dev",
+   "studio": "Image generation",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "p150x4",
+    "p150x8",
+    "p300c",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 6 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "flux1schnell",
+   "name": "FLUX.1-schnell",
+   "upstream": "black-forest-labs/FLUX.1-schnell",
+   "kind": "Image generation",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p150x4",
+     "chips": 4,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p300c",
+     "chips": 2,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "FLUX.1-schnell",
+   "studio": "Image generation",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "p150x4",
+    "p150x8",
+    "p300c",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 6 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "gemma327bit",
+   "name": "gemma-3-27b-it",
+   "upstream": "google/gemma-3-27b-it",
+   "kind": "Vision-language model",
+   "kindGuess": false,
+   "params": "27B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "gemma-3-27b-it",
+   "studio": "Chat, with image input",
+   "chat": true,
+   "parser": null,
+   "status": "Experimental",
+   "devices": [
+    "galaxy"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 1 device type; best status Experimental.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "gemma412bit",
+   "name": "gemma-4-12B-it",
+   "upstream": "google/gemma-4-12B-it",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "12B",
+   "rows": [
+    {
+     "device": "blackhole_galaxy (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "256K",
+     "users": 128
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "256K",
+     "users": 32
+    }
+   ],
+   "bundles": [
+    {
+     "repo": "stisiTT/gemma-4-12b-it-p150",
+     "owner": "stisiTT",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": true,
+   "serve": "gemma-4-12B-it",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "gemma4",
+   "status": "Complete",
+   "devices": [
+    "blackhole_galaxy (unmapped)",
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 2 device types; best status Complete. 1 tt-model bundle also published.",
+   "source": "tt-inference-server",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "gemma431bit",
+   "name": "gemma-4-31B-it",
+   "upstream": "google/gemma-4-31B-it",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "31B",
+   "rows": [
+    {
+     "device": "blackhole_galaxy (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "256K",
+     "users": 128
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "256K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "gemma-4-31B-it",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "gemma4",
+   "status": "Complete",
+   "devices": [
+    "blackhole_galaxy (unmapped)",
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 2 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "gptoss120b",
+   "name": "gpt-oss-120b",
+   "upstream": "openai/gpt-oss-120b",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "120B",
+   "rows": [
+    {
+     "device": "blackhole_galaxy (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "128K",
+     "users": 1
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "16K",
+     "users": 1
+    }
+   ],
+   "bundles": [
+    {
+     "repo": "changh95/gpt-oss-120b-p150x8",
+     "owner": "changh95",
+     "boards": [
+      "p150x8"
+     ],
+     "updated": "2026-09-12"
+    },
+    {
+     "repo": "jashansinghTT/gpt-oss-120b-blackhole-fast",
+     "owner": "jashansinghTT",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-10-16"
+    },
+    {
+     "repo": "tt-hous/gpt-oss-120b",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": true,
+   "serve": "gpt-oss-120b",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "openai",
+   "status": "Experimental",
+   "devices": [
+    "blackhole_galaxy (unmapped)",
+    "galaxy",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 4 device types; best status Experimental. 3 tt-model bundles also published.",
+   "source": "tt-inference-server",
+   "newest": "2026-10-16"
+  },
+  {
+   "id": "llama3170b",
+   "name": "Llama-3.1-70B",
+   "upstream": "meta-llama/Llama-3.1-70B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "70B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x4",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Llama-3.1-70B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "llama3_json",
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "p150x4",
+    "p150x8",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 6 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "llama3170binstruct",
+   "name": "Llama-3.1-70B-Instruct",
+   "upstream": "meta-llama/Llama-3.1-70B-Instruct",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "70B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x4",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Llama-3.1-70B-Instruct",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "llama3_json",
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "p150x4",
+    "p150x8",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 6 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "llama318b",
+   "name": "Llama-3.1-8B",
+   "upstream": "meta-llama/Llama-3.1-8B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "8B",
+   "rows": [
+    {
+     "device": "gpu (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "64K",
+     "users": 32
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 128
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 256
+    },
+    {
+     "device": "p300c",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Llama-3.1-8B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "llama3_json",
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "gpu (unmapped)",
+    "n150",
+    "n300",
+    "p150x8",
+    "p300c",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 9 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "llama318binstruct",
+   "name": "Llama-3.1-8B-Instruct",
+   "upstream": "meta-llama/Llama-3.1-8B-Instruct",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "8B",
+   "rows": [
+    {
+     "device": "gpu (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "64K",
+     "users": 32
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 128
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 256
+    },
+    {
+     "device": "p300c",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150",
+     "chips": 1,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Llama-3.1-8B-Instruct",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "llama3_json",
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "gpu (unmapped)",
+    "n150",
+    "n300",
+    "p150",
+    "p150x8",
+    "p300c",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 10 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "llama321b",
+   "name": "Llama-3.2-1B",
+   "upstream": "meta-llama/Llama-3.2-1B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "1B",
+   "rows": [
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Llama-3.2-1B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "llama3_json",
+   "status": "Functional",
+   "devices": [
+    "n150",
+    "n300",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 3 device types; best status Functional.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "llama321binstruct",
+   "name": "Llama-3.2-1B-Instruct",
+   "upstream": "meta-llama/Llama-3.2-1B-Instruct",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "1B",
+   "rows": [
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Llama-3.2-1B-Instruct",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "llama3_json",
+   "status": "Functional",
+   "devices": [
+    "n150",
+    "n300",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 3 device types; best status Functional.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "llama323b",
+   "name": "Llama-3.2-3B",
+   "upstream": "meta-llama/Llama-3.2-3B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "3B",
+   "rows": [
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [
+    {
+     "repo": "stisiTT/llama-3.2-3b-blackhole-v51",
+     "owner": "stisiTT",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": true,
+   "serve": "Llama-3.2-3B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "llama3_json",
+   "status": "Functional",
+   "devices": [
+    "n150",
+    "n300",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 3 device types; best status Functional. 1 tt-model bundle also published.",
+   "source": "tt-inference-server",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "llama323binstruct",
+   "name": "Llama-3.2-3B-Instruct",
+   "upstream": "meta-llama/Llama-3.2-3B-Instruct",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "3B",
+   "rows": [
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Llama-3.2-3B-Instruct",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "llama3_json",
+   "status": "Functional",
+   "devices": [
+    "n150",
+    "n300",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 3 device types; best status Functional.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "llama3370binstruct",
+   "name": "Llama-3.3-70B-Instruct",
+   "upstream": "meta-llama/Llama-3.3-70B-Instruct",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "70B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x4",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Llama-3.3-70B-Instruct",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "llama3_json",
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "p150x4",
+    "p150x8",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 6 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "mistral7binstructv03",
+   "name": "Mistral-7B-Instruct-v0.3",
+   "upstream": "mistralai/Mistral-7B-Instruct-v0.3",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "7B",
+   "rows": [
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "32K",
+     "users": 32
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "32K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "32K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Mistral-7B-Instruct-v0.3",
+   "studio": "Chat",
+   "chat": true,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "n150",
+    "n300",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 3 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "mobilenetv2",
+   "name": "mobilenetv2",
+   "upstream": "mobilenetv2",
+   "kind": "Vision (CNN)",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "forge",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "forge",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "mobilenetv2",
+   "studio": "Object detection",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "n150",
+    "n300"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 2 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "mochi1preview",
+   "name": "mochi-1-preview",
+   "upstream": "genmo/mochi-1-preview",
+   "kind": "Video generation",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "mochi-1-preview",
+   "studio": "Video generation",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "p150x8",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 3 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "qwen2572b",
+   "name": "Qwen2.5-72B",
+   "upstream": "Qwen/Qwen2.5-72B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "72B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 128
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Qwen2.5-72B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "hermes",
+   "status": "Functional",
+   "devices": [
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 3 device types; best status Functional.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "qwen2572binstruct",
+   "name": "Qwen2.5-72B-Instruct",
+   "upstream": "Qwen/Qwen2.5-72B-Instruct",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "72B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 128
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Qwen2.5-72B-Instruct",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "hermes",
+   "status": "Functional",
+   "devices": [
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 3 device types; best status Functional.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "qwen332b",
+   "name": "Qwen3-32B",
+   "upstream": "Qwen/Qwen3-32B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "32B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "blackhole_galaxy (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [
+    {
+     "repo": "changh95/qwen3-32b-bh-galaxy",
+     "owner": "changh95",
+     "boards": [
+      "Blackhole",
+      "Galaxy"
+     ],
+     "updated": "2026-10-02"
+    },
+    {
+     "repo": "changh95/qwen3-32b-wh-galaxy",
+     "owner": "changh95",
+     "boards": [
+      "Galaxy",
+      "Wormhole"
+     ],
+     "updated": "2026-10-02"
+    },
+    {
+     "repo": "mando2222/qwen3-32b-blackhole-v51",
+     "owner": "mando2222",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-09-09"
+    }
+   ],
+   "inSpec": true,
+   "serve": "Qwen3-32B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "hermes",
+   "status": "Complete",
+   "devices": [
+    "blackhole_galaxy (unmapped)",
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "p150x8",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 6 device types; best status Complete. 3 tt-model bundles also published.",
+   "source": "tt-inference-server",
+   "newest": "2026-10-02"
+  },
+  {
+   "id": "qwen38b",
+   "name": "Qwen3-8B",
+   "upstream": "Qwen/Qwen3-8B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "8B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "40K",
+     "users": 128
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "40K",
+     "users": 32
+    },
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "40K",
+     "users": 32
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "40K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "40K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Qwen3-8B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "hermes",
+   "status": "Functional",
+   "devices": [
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "n150",
+    "n300",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 5 device types; best status Functional.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "qwen3embedding06b",
+   "name": "Qwen3-Embedding-0.6B",
+   "upstream": "Qwen/Qwen3-Embedding-0.6B",
+   "kind": "Embedding",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "forge",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 4
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Qwen3-Embedding-0.6B",
+   "studio": "Embedding demo",
+   "chat": false,
+   "parser": null,
+   "status": "Experimental",
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 1 device type; best status Experimental.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "qwen3embedding4b",
+   "name": "Qwen3-Embedding-4B",
+   "upstream": "Qwen/Qwen3-Embedding-4B",
+   "kind": "Embedding",
+   "kindGuess": false,
+   "params": "4B",
+   "rows": [
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "forge",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 4
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Qwen3-Embedding-4B",
+   "studio": "Embedding demo",
+   "chat": false,
+   "parser": null,
+   "status": "Experimental",
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 1 device type; best status Experimental.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "qwen3embedding8b",
+   "name": "Qwen3-Embedding-8B",
+   "upstream": "Qwen/Qwen3-Embedding-8B",
+   "kind": "Embedding",
+   "kindGuess": false,
+   "params": "8B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 32
+    },
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "media",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "media",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 4
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Qwen3-Embedding-8B",
+   "studio": "Embedding demo",
+   "chat": false,
+   "parser": null,
+   "status": "Experimental",
+   "devices": [
+    "galaxy",
+    "n150",
+    "n300",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 4 device types; best status Experimental.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "qwen3vl32binstruct",
+   "name": "Qwen3-VL-32B-Instruct",
+   "upstream": "Qwen/Qwen3-VL-32B-Instruct",
+   "kind": "Vision-language model",
+   "kindGuess": false,
+   "params": "32B",
+   "rows": [
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Qwen3-VL-32B-Instruct",
+   "studio": "Chat, with image input",
+   "chat": true,
+   "parser": null,
+   "status": "Functional",
+   "devices": [
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 1 device type; best status Functional.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "qwen3627b",
+   "name": "Qwen3.6-27B",
+   "upstream": "Qwen/Qwen3.6-27B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "27B",
+   "rows": [
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "256K",
+     "users": 32
+    }
+   ],
+   "bundles": [
+    {
+     "repo": "tt-hous/qwen3.6-27b",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": true,
+   "serve": "Qwen3.6-27B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "qwen3_coder",
+   "status": "Experimental",
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 1 device type; best status Experimental. 1 tt-model bundle also published.",
+   "source": "tt-inference-server",
+   "newest": "2026-10-14"
+  },
+  {
+   "id": "qwen3827b",
+   "name": "Qwen3.8-27B",
+   "upstream": "Qwen/Qwen3.8-27B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "27B",
+   "rows": [
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "vLLM",
+     "status": "Complete",
+     "context": "256K",
+     "users": 16
+    }
+   ],
+   "bundles": [
+    {
+     "repo": "changh95/qwen3.8-27b-p150x2",
+     "owner": "changh95",
+     "boards": [
+      "p150x2 (unmapped)"
+     ],
+     "updated": "2026-10-02"
+    },
+    {
+     "repo": "changh95/qwen3.8-27b-p300x2",
+     "owner": "changh95",
+     "boards": [
+      "p300cx2"
+     ],
+     "updated": "2026-10-02"
+    },
+    {
+     "repo": "tt-hous/qwen3.8-27b",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": true,
+   "serve": "Qwen3.8-27B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "qwen3_coder",
+   "status": "Complete",
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 1 device type; best status Complete. 3 tt-model bundles also published.",
+   "source": "tt-inference-server",
+   "newest": "2026-10-14"
+  },
+  {
+   "id": "qwq32b",
+   "name": "QwQ-32B",
+   "upstream": "Qwen/QwQ-32B",
+   "kind": "Language model",
+   "kindGuess": false,
+   "params": "32B",
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 128
+    },
+    {
+     "device": "galaxy_t3k (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "QwQ-32B",
+   "studio": "Chat",
+   "chat": true,
+   "parser": "hermes",
+   "status": "Functional",
+   "devices": [
+    "galaxy",
+    "galaxy_t3k (unmapped)",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 3 device types; best status Functional.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "resnet50",
+   "name": "resnet-50",
+   "upstream": "resnet-50",
+   "kind": "Vision (CNN)",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "forge",
+     "status": "Functional",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "forge",
+     "status": "Functional",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "resnet-50",
+   "studio": "Object detection",
+   "chat": false,
+   "parser": null,
+   "status": "Functional",
+   "devices": [
+    "n150",
+    "n300"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 2 device types; best status Functional.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "segformer",
+   "name": "segformer",
+   "upstream": "segformer",
+   "kind": "Vision (CNN)",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "forge",
+     "status": "Functional",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "forge",
+     "status": "Functional",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "segformer",
+   "studio": "Object detection",
+   "chat": false,
+   "parser": null,
+   "status": "Functional",
+   "devices": [
+    "n150",
+    "n300"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 2 device types; best status Functional.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "speecht5tts",
+   "name": "speecht5_tts",
+   "upstream": "microsoft/speecht5_tts",
+   "kind": "Text to speech",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "p150",
+     "chips": 1,
+     "engine": "media",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "media",
+     "status": "Experimental",
+     "context": "64K",
+     "users": 4
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "speecht5_tts",
+   "studio": "Text to speech",
+   "chat": false,
+   "parser": null,
+   "status": "Experimental",
+   "devices": [
+    "p150",
+    "p300cx2"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 2 device types; best status Experimental.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "stablediffusion35large",
+   "name": "stable-diffusion-3.5-large",
+   "upstream": "stabilityai/stable-diffusion-3.5-large",
+   "kind": "Image generation",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "stable-diffusion-3.5-large",
+   "studio": "Image generation",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 2 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "stablediffusionxlbase10",
+   "name": "stable-diffusion-xl-base-1.0",
+   "upstream": "stabilityai/stable-diffusion-xl-base-1.0",
+   "kind": "Image generation",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 16
+    },
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 4
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "stable-diffusion-xl-base-1.0",
+   "studio": "Image generation",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "n150",
+    "n300",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 4 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "stablediffusionxlbase10img2img",
+   "name": "stable-diffusion-xl-base-1.0-img-2-img",
+   "upstream": "stabilityai/stable-diffusion-xl-base-1.0-img-2-img",
+   "kind": "Image generation",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 16
+    },
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 4
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "stable-diffusion-xl-base-1.0-img-2-img",
+   "studio": "Image generation",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "n150",
+    "n300",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 4 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "vit",
+   "name": "vit",
+   "upstream": "vit",
+   "kind": "Vision (CNN)",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "forge",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "forge",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "vit",
+   "studio": "Object detection",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "n150",
+    "n300"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 2 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "vovnet",
+   "name": "vovnet",
+   "upstream": "vovnet",
+   "kind": "Vision (CNN)",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "forge",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "forge",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "vovnet",
+   "studio": "Object detection",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "n150",
+    "n300"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 2 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "wan22t2va14bdiffusers",
+   "name": "Wan2.2-T2V-A14B-Diffusers",
+   "upstream": "Wan-AI/Wan2.2-T2V-A14B-Diffusers",
+   "kind": "Video generation",
+   "kindGuess": false,
+   "params": "14B",
+   "rows": [
+    {
+     "device": "blackhole_galaxy (unmapped)",
+     "chips": null,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p150x4",
+     "chips": 4,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p150x8",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "Wan2.2-T2V-A14B-Diffusers",
+   "studio": "Video generation",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "blackhole_galaxy (unmapped)",
+    "galaxy",
+    "p150x4",
+    "p150x8",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 6 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "whisperlargev3",
+   "name": "whisper-large-v3",
+   "upstream": "openai/whisper-large-v3",
+   "kind": "Speech to text",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "galaxy",
+     "chips": 32,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 32
+    },
+    {
+     "device": "n150",
+     "chips": 1,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "n300",
+     "chips": 2,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p150",
+     "chips": 1,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    },
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 4
+    },
+    {
+     "device": "t3k",
+     "chips": 8,
+     "engine": "media",
+     "status": "Complete",
+     "context": "64K",
+     "users": 4
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "whisper-large-v3",
+   "studio": "Speech to text",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "galaxy",
+    "n150",
+    "n300",
+    "p150",
+    "p300cx2",
+    "t3k"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 6 device types; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "yoloxnano",
+   "name": "yolox_nano",
+   "upstream": "yolox_nano",
+   "kind": "Vision (CNN)",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "p150",
+     "chips": 1,
+     "engine": "forge",
+     "status": "Complete",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [],
+   "inSpec": true,
+   "serve": "yolox_nano",
+   "studio": "Object detection",
+   "chat": false,
+   "parser": null,
+   "status": "Complete",
+   "devices": [
+    "p150"
+   ],
+   "singleCard": true,
+   "multiOnly": false,
+   "summary": "Listed in tt-inference-server on 1 device type; best status Complete.",
+   "source": "tt-inference-server",
+   "newest": ""
+  },
+  {
+   "id": "zimageturbo",
+   "name": "Z-Image-Turbo",
+   "upstream": "Tongyi-MAI/Z-Image-Turbo",
+   "kind": "Image generation",
+   "kindGuess": false,
+   "params": null,
+   "rows": [
+    {
+     "device": "p300cx2",
+     "chips": 4,
+     "engine": "media",
+     "status": "Functional",
+     "context": "64K",
+     "users": 1
+    }
+   ],
+   "bundles": [
+    {
+     "repo": "sunandbean/z-image-turbo-p100a",
+     "owner": "sunandbean",
+     "boards": [
+      "p100a (unmapped)"
+     ],
+     "updated": "2026-10-16"
+    }
+   ],
+   "inSpec": true,
+   "serve": "Z-Image-Turbo",
+   "studio": "Image generation",
+   "chat": false,
+   "parser": null,
+   "status": "Functional",
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": true,
+   "summary": "Listed in tt-inference-server on 1 device type; best status Functional. 1 tt-model bundle also published.",
+   "source": "tt-inference-server",
+   "newest": "2026-10-16"
+  },
+  {
+   "id": "acestep15turbo",
+   "name": "acestep-1.5-turbo",
+   "upstream": null,
+   "kind": "Audio and speech",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "sunandbean/acestep-1.5-turbo-p100a",
+     "owner": "sunandbean",
+     "boards": [
+      "p100a (unmapped)"
+     ],
+     "updated": "2026-10-16"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "sunandbean/acestep-1.5-turbo-p100a",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p100a (unmapped)"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by sunandbean. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-16"
+  },
+  {
+   "id": "alpamayo2super",
+   "name": "alpamayo2-super",
+   "upstream": null,
+   "kind": "Robotics",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/Alpamayo2-Super-p300x2",
+     "owner": "changh95",
+     "boards": [
+      "p300cx2"
+     ],
+     "updated": "2026-09-20"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/Alpamayo2-Super-p300x2",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-20"
+  },
+  {
+   "id": "bevdet",
+   "name": "bevdet",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/bevdet-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/bevdet-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "bevformer",
+   "name": "bevformer",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/bevformer-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/bevformer-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "bevfusion",
+   "name": "bevfusion",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/bevfusion-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/bevfusion-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "centerpoint",
+   "name": "centerpoint",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/centerpoint-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/centerpoint-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "clef",
+   "name": "clef",
+   "upstream": null,
+   "kind": "Unclassified",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "episod/clef-p300",
+     "owner": "episod",
+     "boards": [
+      "p300c"
+     ],
+     "updated": "2026-10-07"
+    },
+    {
+     "repo": "tt-hous/clef",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-06"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "episod/clef-p300",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p300c"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 2 tt-model bundles by episod, tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-07"
+  },
+  {
+   "id": "clmv018b",
+   "name": "clm-v0.1-8b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/clm-v0.1-8b",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-06"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/clm-v0.1-8b",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-06"
+  },
+  {
+   "id": "cohostllm",
+   "name": "cohost-llm",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "jashansinghTT/cohost-llm-blackhole",
+     "owner": "jashansinghTT",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-10-19"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "jashansinghTT/cohost-llm-blackhole",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by jashansinghTT. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-19"
+  },
+  {
+   "id": "cohostspeech",
+   "name": "cohost-speech",
+   "upstream": null,
+   "kind": "Audio and speech",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "jashansinghTT/cohost-speech-blackhole",
+     "owner": "jashansinghTT",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-10-19"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "jashansinghTT/cohost-speech-blackhole",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by jashansinghTT. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-19"
+  },
+  {
+   "id": "deepseekv41flash",
+   "name": "deepseek-v4.1-flash",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "rothgar/deepseek-v4.1-flash-p300x2",
+     "owner": "rothgar",
+     "boards": [
+      "p300cx2"
+     ],
+     "updated": "2026-10-12"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "rothgar/deepseek-v4.1-flash-p300x2",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by rothgar. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-12"
+  },
+  {
+   "id": "depthanything3",
+   "name": "depth-anything-3",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/depth-anything-3-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/depth-anything-3-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "diffrhythm12",
+   "name": "diffrhythm-1.2",
+   "upstream": null,
+   "kind": "Audio and speech",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "sunandbean/diffrhythm-1.2-p100a",
+     "owner": "sunandbean",
+     "boards": [
+      "p100a (unmapped)"
+     ],
+     "updated": "2026-10-16"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "sunandbean/diffrhythm-1.2-p100a",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p100a (unmapped)"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by sunandbean. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-16"
+  },
+  {
+   "id": "diffusionplanner",
+   "name": "diffusion-planner",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/diffusion-planner-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/diffusion-planner-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "elyzathinking10llmjp433b",
+   "name": "elyza-thinking-1.0-llm-jp-4-33b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tomo-o/elyza-thinking-1.0-llm-jp-4-33b-p300x2",
+     "owner": "tomo-o",
+     "boards": [
+      "p300cx2"
+     ],
+     "updated": "2026-10-22"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tomo-o/elyza-thinking-1.0-llm-jp-4-33b-p300x2",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tomo-o. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-22"
+  },
+  {
+   "id": "embeddinggemma2",
+   "name": "embeddinggemma-2",
+   "upstream": null,
+   "kind": "Embedding",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/embeddinggemma-2",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/embeddinggemma-2",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "exaone4533b",
+   "name": "exaone-4.5-33b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/exaone-4.5-33b-p150x8",
+     "owner": "changh95",
+     "boards": [
+      "p150x8"
+     ],
+     "updated": "2026-09-12"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/exaone-4.5-33b-p150x8",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150x8"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-12"
+  },
+  {
+   "id": "flux2dev",
+   "name": "flux2-dev",
+   "upstream": null,
+   "kind": "Image generation",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "stisiTT/flux2-dev-qb2",
+     "owner": "stisiTT",
+     "boards": [
+      "QB2"
+     ],
+     "updated": "2026-09-01"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "stisiTT/flux2-dev-qb2",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "QB2"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by stisiTT. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-01"
+  },
+  {
+   "id": "flux2klein",
+   "name": "flux2-klein",
+   "upstream": null,
+   "kind": "Image generation",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "sunandbean/flux2-klein-p100a",
+     "owner": "sunandbean",
+     "boards": [
+      "p100a (unmapped)"
+     ],
+     "updated": "2026-10-16"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "sunandbean/flux2-klein-p100a",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p100a (unmapped)"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by sunandbean. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-16"
+  },
+  {
+   "id": "frnet",
+   "name": "frnet",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/frnet-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/frnet-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "gazelle",
+   "name": "gaze-lle",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/gaze-lle-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/gaze-lle-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "glm45air",
+   "name": "glm-4.5-air",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "raahemnabeel/glm-4.5-air",
+     "owner": "raahemnabeel",
+     "boards": [],
+     "updated": "2026-10-10"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "raahemnabeel/glm-4.5-air",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by raahemnabeel. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-10"
+  },
+  {
+   "id": "gptoss20b",
+   "name": "gpt-oss-20b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/gpt-oss-20b-p150x8",
+     "owner": "changh95",
+     "boards": [
+      "p150x8"
+     ],
+     "updated": "2026-09-12"
+    },
+    {
+     "repo": "jashansinghTT/gpt-oss-20b-blackhole-fast",
+     "owner": "jashansinghTT",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-10-19"
+    },
+    {
+     "repo": "tt-hous/gpt-oss-20b",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "jashansinghTT/gpt-oss-20b-blackhole-fast",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole",
+    "p150x8"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 3 tt-model bundles by changh95, jashansinghTT, tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-19"
+  },
+  {
+   "id": "gr00tn153b",
+   "name": "gr00t-n1.5-3b",
+   "upstream": null,
+   "kind": "Robotics",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/GR00T-N1.5-3B-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-09-28"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/GR00T-N1.5-3B-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-28"
+  },
+  {
+   "id": "gr00tn163b",
+   "name": "gr00t-n1.6-3b",
+   "upstream": null,
+   "kind": "Robotics",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/GR00T-N1.6-3B-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-09-28"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/GR00T-N1.6-3B-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-28"
+  },
+  {
+   "id": "gr00tn173b",
+   "name": "gr00t-n1.7-3b",
+   "upstream": null,
+   "kind": "Robotics",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/GR00T-N1.7-3B-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-09-28"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/GR00T-N1.7-3B-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-28"
+  },
+  {
+   "id": "hamer",
+   "name": "hamer",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/hamer-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/hamer-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "hidreamo1",
+   "name": "hidream-o1",
+   "upstream": null,
+   "kind": "Image generation",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "sunandbean/hidream-o1-p100a",
+     "owner": "sunandbean",
+     "boards": [
+      "p100a (unmapped)"
+     ],
+     "updated": "2026-10-16"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "sunandbean/hidream-o1-p100a",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p100a (unmapped)"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by sunandbean. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-16"
+  },
+  {
+   "id": "kimilinear48ba3binstruct",
+   "name": "kimi-linear-48b-a3b-instruct",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "jashansinghTT/kimi-linear-48b-a3b-instruct-blackhole",
+     "owner": "jashansinghTT",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-10-08"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "jashansinghTT/kimi-linear-48b-a3b-instruct-blackhole",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by jashansinghTT. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-08"
+  },
+  {
+   "id": "lagunas21",
+   "name": "laguna-s-2.1",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "mando2222/laguna-s-2.1-v51",
+     "owner": "mando2222",
+     "boards": [],
+     "updated": "2026-09-10"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "mando2222/laguna-s-2.1-v51",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by mando2222. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-10"
+  },
+  {
+   "id": "lagunaxs21",
+   "name": "laguna-xs-2.1",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/laguna-xs-2.1",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/laguna-xs-2.1",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-14"
+  },
+  {
+   "id": "laya",
+   "name": "laya",
+   "upstream": null,
+   "kind": "Unclassified",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/laya",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-06"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/laya",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-06"
+  },
+  {
+   "id": "layatypeddecisions",
+   "name": "laya-typed-decisions",
+   "upstream": null,
+   "kind": "Unclassified",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/laya-typed-decisions",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-06"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/laya-typed-decisions",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-06"
+  },
+  {
+   "id": "lfm2524ba2b",
+   "name": "lfm2.5-24b-a2b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "joel000/lfm2.5-24b-a2b-p150x4",
+     "owner": "joel000",
+     "boards": [
+      "p150x4"
+     ],
+     "updated": "2026-10-20"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "joel000/lfm2.5-24b-a2b-p150x4",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150x4"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by joel000. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-20"
+  },
+  {
+   "id": "llmjp433bthinking",
+   "name": "llm-jp-4-33b-thinking",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tomo-o/llm-jp-4-33b-thinking-p300x2",
+     "owner": "tomo-o",
+     "boards": [
+      "p300cx2"
+     ],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tomo-o/llm-jp-4-33b-thinking-p300x2",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tomo-o. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-14"
+  },
+  {
+   "id": "llmjp48bthinking",
+   "name": "llm-jp-4-8b-thinking",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tomo-o/llm-jp-4-8b-thinking-p150",
+     "owner": "tomo-o",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tomo-o/llm-jp-4-8b-thinking-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tomo-o. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-14"
+  },
+  {
+   "id": "locateanything3b",
+   "name": "locate-anything-3b",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/locate-anything-3b-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/locate-anything-3b-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "mast3r",
+   "name": "mast3r",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/mast3r-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/mast3r-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "meteor",
+   "name": "meteor",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/meteor-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-19"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/meteor-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-19"
+  },
+  {
+   "id": "mimov26distillqwen9b",
+   "name": "mimo-v2.6-distill-qwen-9b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "ndaly/MiMo-V2.6-Distill-Qwen-9B",
+     "owner": "ndaly",
+     "boards": [],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "ndaly/MiMo-V2.6-Distill-Qwen-9B",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by ndaly. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "minimaxh3",
+   "name": "minimax-h3",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "jashansinghTT/minimax-h3-blackhole",
+     "owner": "jashansinghTT",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-10-08"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "jashansinghTT/minimax-h3-blackhole",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by jashansinghTT. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-08"
+  },
+  {
+   "id": "minimaxmusic3",
+   "name": "minimax-music3",
+   "upstream": null,
+   "kind": "Audio and speech",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "jashansinghTT/minimax-music3-blackhole",
+     "owner": "jashansinghTT",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-10-19"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "jashansinghTT/minimax-music3-blackhole",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by jashansinghTT. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-19"
+  },
+  {
+   "id": "mistralsmall4119b2603",
+   "name": "mistral-small-4-119b-2603",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "ndaly/Mistral-Small-4-119B-2603",
+     "owner": "ndaly",
+     "boards": [],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "ndaly/Mistral-Small-4-119B-2603",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by ndaly. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "moge2",
+   "name": "moge-2",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/moge-2-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/moge-2-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "motif3",
+   "name": "motif-3",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/motif-3-bh-galaxy",
+     "owner": "changh95",
+     "boards": [
+      "Blackhole",
+      "Galaxy"
+     ],
+     "updated": "2026-10-12"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/motif-3-bh-galaxy",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole",
+    "Galaxy"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-12"
+  },
+  {
+   "id": "museglimmer30b",
+   "name": "muse-glimmer-30b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/muse-glimmer-30b",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/muse-glimmer-30b",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-14"
+  },
+  {
+   "id": "nvidianemotron35lightning30ba3bnvfp4",
+   "name": "nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "ndaly/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
+     "owner": "ndaly",
+     "boards": [],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "ndaly/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by ndaly. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "olmo3132binstruct",
+   "name": "olmo-3.1-32b-instruct",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "jashansinghTT/olmo-3.1-32b-instruct-blackhole",
+     "owner": "jashansinghTT",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-10-08"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "jashansinghTT/olmo-3.1-32b-instruct-blackhole",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by jashansinghTT. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-08"
+  },
+  {
+   "id": "ornith1035b",
+   "name": "ornith-1.0-35b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/ornith-1.0-35b",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-19"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/ornith-1.0-35b",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-19"
+  },
+  {
+   "id": "ornith1535ba3b",
+   "name": "ornith-1.5-35b-a3b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "raahemnabeel/ornith-1.5-35b-a3b",
+     "owner": "raahemnabeel",
+     "boards": [],
+     "updated": "2026-10-16"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "raahemnabeel/ornith-1.5-35b-a3b",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by raahemnabeel. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-16"
+  },
+  {
+   "id": "ornith159b",
+   "name": "ornith-1.5-9b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/ornith-1.5-9b",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/ornith-1.5-9b",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-14"
+  },
+  {
+   "id": "pi05base",
+   "name": "pi05-base",
+   "upstream": null,
+   "kind": "Robotics",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/pi05-base-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-04"
+    },
+    {
+     "repo": "changh95/pi05-base-p300x2",
+     "owner": "changh95",
+     "boards": [
+      "p300cx2"
+     ],
+     "updated": "2026-10-13"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/pi05-base-p300x2",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150",
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 2 tt-model bundles by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-13"
+  },
+  {
+   "id": "pointpainting",
+   "name": "pointpainting",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/pointpainting-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/pointpainting-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "ptv3",
+   "name": "ptv3",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/ptv3-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/ptv3-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "qwenimage21",
+   "name": "qwen-image-2.1",
+   "upstream": null,
+   "kind": "Image generation",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/qwen-image-2.1-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/qwen-image-2.1-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "qwenimageedit2511",
+   "name": "qwen-image-edit-2511",
+   "upstream": null,
+   "kind": "Image generation",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "sunandbean/qwen-image-edit-2511-p100a",
+     "owner": "sunandbean",
+     "boards": [
+      "p100a (unmapped)"
+     ],
+     "updated": "2026-10-16"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "sunandbean/qwen-image-edit-2511-p100a",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p100a (unmapped)"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by sunandbean. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-16"
+  },
+  {
+   "id": "qwen35122ba10b",
+   "name": "qwen3-5-122b-a10b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "raahemnabeel/qwen3-5-122b-a10b",
+     "owner": "raahemnabeel",
+     "boards": [],
+     "updated": "2026-10-09"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "raahemnabeel/qwen3-5-122b-a10b",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by raahemnabeel. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-09"
+  },
+  {
+   "id": "qwen3coder30ba3b",
+   "name": "qwen3-coder-30b-a3b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "raahemnabeel/qwen3-coder-30b-a3b",
+     "owner": "raahemnabeel",
+     "boards": [],
+     "updated": "2026-10-08"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "raahemnabeel/qwen3-coder-30b-a3b",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by raahemnabeel. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-08"
+  },
+  {
+   "id": "qwen3codernext",
+   "name": "qwen3-coder-next",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "raahemnabeel/qwen3-coder-next",
+     "owner": "raahemnabeel",
+     "boards": [],
+     "updated": "2026-10-06"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "raahemnabeel/qwen3-coder-next",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by raahemnabeel. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-06"
+  },
+  {
+   "id": "qwen3tts17bbase",
+   "name": "qwen3-tts-1.7b-base",
+   "upstream": null,
+   "kind": "Audio and speech",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/qwen3-tts-1.7b-base",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/qwen3-tts-1.7b-base",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "qwen3tts17bcustomvoice",
+   "name": "qwen3-tts-1.7b-customvoice",
+   "upstream": null,
+   "kind": "Audio and speech",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/qwen3-tts-1.7b-customvoice",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/qwen3-tts-1.7b-customvoice",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "qwen3tts17bvoicedesign",
+   "name": "qwen3-tts-1.7b-voicedesign",
+   "upstream": null,
+   "kind": "Audio and speech",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "tt-hous/qwen3-tts-1.7b-voicedesign",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/qwen3-tts-1.7b-voicedesign",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "qwen3635ba3b",
+   "name": "qwen3.6-35b-a3b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "rothgar/qwen3.6-35b-a3b-p300x2",
+     "owner": "rothgar",
+     "boards": [
+      "p300cx2"
+     ],
+     "updated": "2026-10-11"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "rothgar/qwen3.6-35b-a3b-p300x2",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p300cx2"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by rothgar. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-11"
+  },
+  {
+   "id": "qwen36a3b",
+   "name": "qwen3.6-a3b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "Adartras/qwen3.6-a3b-blackhole",
+     "owner": "Adartras",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-09-09"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "Adartras/qwen3.6-a3b-blackhole",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by Adartras. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-09"
+  },
+  {
+   "id": "qwen38flashnext",
+   "name": "qwen3.8-flash-next",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "DeAIafdeling/qwen38-flash-next",
+     "owner": "DeAIafdeling",
+     "boards": [],
+     "updated": "2026-10-01"
+    },
+    {
+     "repo": "DeAIafdeling/qwen38-flash-next-qb2-256k",
+     "owner": "DeAIafdeling",
+     "boards": [
+      "QB2"
+     ],
+     "updated": "2026-10-04"
+    },
+    {
+     "repo": "changh95/qwen3.8-flash-next-p150x8",
+     "owner": "changh95",
+     "boards": [
+      "p150x8"
+     ],
+     "updated": "2026-09-20"
+    },
+    {
+     "repo": "sjettTT/qwen3.8-flash-next_p150x4",
+     "owner": "sjettTT",
+     "boards": [
+      "p150x4"
+     ],
+     "updated": "2026-09-29"
+    },
+    {
+     "repo": "tt-hous/qwen3.8-flash-next",
+     "owner": "tt-hous",
+     "boards": [],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "tt-hous/qwen3.8-flash-next",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "QB2",
+    "p150x4",
+    "p150x8"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 5 tt-model bundles by DeAIafdeling, changh95, sjettTT, tt-hous. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-14"
+  },
+  {
+   "id": "raggate27b",
+   "name": "rag-gate-27b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "episod/rag-gate-27b-p300",
+     "owner": "episod",
+     "boards": [
+      "p300c"
+     ],
+     "updated": "2026-10-14"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "episod/rag-gate-27b-p300",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p300c"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by episod. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-14"
+  },
+  {
+   "id": "rfdetr",
+   "name": "rf-detr",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/rf-detr-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/rf-detr-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "rldx1pt",
+   "name": "rldx-1-pt",
+   "upstream": null,
+   "kind": "Robotics",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/RLDX-1-PT-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-09-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/RLDX-1-PT-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-21"
+  },
+  {
+   "id": "rldx1ptimg",
+   "name": "rldx-1-pt-img",
+   "upstream": null,
+   "kind": "Robotics",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/RLDX-1-PT-IMG-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-09-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/RLDX-1-PT-IMG-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-21"
+  },
+  {
+   "id": "s2pro",
+   "name": "s2-pro",
+   "upstream": null,
+   "kind": "Audio and speech",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "jashansinghTT/s2-pro-blackhole",
+     "owner": "jashansinghTT",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-10-19"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "jashansinghTT/s2-pro-blackhole",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by jashansinghTT. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-19"
+  },
+  {
+   "id": "sam3",
+   "name": "sam3",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/sam3-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/sam3-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "sceneseg",
+   "name": "sceneseg",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/sceneseg-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/sceneseg-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "smollm2135minstruct",
+   "name": "smollm2-135m-instruct",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "stisiTT/smollm2-135m-instruct-p150",
+     "owner": "stisiTT",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "stisiTT/smollm2-135m-instruct-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by stisiTT. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "solaropen100b",
+   "name": "solar-open-100b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/solar-open-100b-p150x8",
+     "owner": "changh95",
+     "boards": [
+      "p150x8"
+     ],
+     "updated": "2026-09-11"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/solar-open-100b-p150x8",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150x8"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-11"
+  },
+  {
+   "id": "streampetr",
+   "name": "streampetr",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/streampetr-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/streampetr-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "superpoint",
+   "name": "superpoint",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/superpoint-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/superpoint-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "transfusion",
+   "name": "transfusion",
+   "upstream": null,
+   "kind": "Automotive perception",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/transfusion-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/transfusion-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  },
+  {
+   "id": "vggt1b",
+   "name": "vggt-1b",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/vggt-1b-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-05"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/vggt-1b-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-05"
+  },
+  {
+   "id": "vibethinker3b",
+   "name": "vibethinker-3b",
+   "upstream": null,
+   "kind": "Language model",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "mando2222/vibethinker-3b-blackhole-v51",
+     "owner": "mando2222",
+     "boards": [
+      "Blackhole"
+     ],
+     "updated": "2026-09-08"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "mando2222/vibethinker-3b-blackhole-v51",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "Blackhole"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by mando2222. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-08"
+  },
+  {
+   "id": "voxtralmini4brealtime2602",
+   "name": "voxtral-mini-4b-realtime-2602",
+   "upstream": null,
+   "kind": "Audio and speech",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "ndaly/Voxtral-Mini-4B-Realtime-2602",
+     "owner": "ndaly",
+     "boards": [],
+     "updated": "2026-10-21"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "ndaly/Voxtral-Mini-4B-Realtime-2602",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by ndaly. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-21"
+  },
+  {
+   "id": "wan22i2va14b",
+   "name": "wan2.2-i2v-a14b",
+   "upstream": null,
+   "kind": "Video generation",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "sunandbean/wan2.2-i2v-a14b-p100a",
+     "owner": "sunandbean",
+     "boards": [
+      "p100a (unmapped)"
+     ],
+     "updated": "2026-10-16"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "sunandbean/wan2.2-i2v-a14b-p100a",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p100a (unmapped)"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by sunandbean. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-16"
+  },
+  {
+   "id": "xvlabase",
+   "name": "xvla-base",
+   "upstream": null,
+   "kind": "Robotics",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/xvla-base-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-09-14"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/xvla-base-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-09-14"
+  },
+  {
+   "id": "yolox",
+   "name": "yolox",
+   "upstream": null,
+   "kind": "Vision",
+   "kindGuess": true,
+   "params": null,
+   "rows": [],
+   "bundles": [
+    {
+     "repo": "changh95/yolox-p150",
+     "owner": "changh95",
+     "boards": [
+      "p150"
+     ],
+     "updated": "2026-10-17"
+    }
+   ],
+   "inSpec": false,
+   "status": null,
+   "serve": "changh95/yolox-p150",
+   "studio": null,
+   "chat": null,
+   "parser": null,
+   "devices": [
+    "p150"
+   ],
+   "singleCard": false,
+   "multiOnly": false,
+   "summary": "Published as 1 tt-model bundle by changh95. Not listed in tt-inference-server.",
+   "source": "tt-model only",
+   "newest": "2026-10-17"
+  }
+ ],
+ "spec": {
+  "commit": "d8ab60f3b",
+  "release": "0.25.0"
+ }
+}

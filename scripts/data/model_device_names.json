@@ -1,0 +1,85 @@
+{
+ "_about": "Maps tt-inference-server device names (release_model_spec.json device_type) to the names the Models section shows. Copied from tt-model-ranker card_viewer/device_names.json (read 2026-10-21). A name not listed is shown as the spec spells it, marked unmapped.",
+ "devices": {
+  "p150": {
+   "name": "p150",
+   "chips": 1
+  },
+  "p300": {
+   "name": "p300c",
+   "chips": 2
+  },
+  "p300x2": {
+   "name": "p300cx2",
+   "chips": 4
+  },
+  "p100": {
+   "name": "p100",
+   "chips": 1
+  },
+  "p150x4": {
+   "name": "p150x4",
+   "chips": 4
+  },
+  "p150x8": {
+   "name": "p150x8",
+   "chips": 8
+  },
+  "n150": {
+   "name": "n150",
+   "chips": 1
+  },
+  "n300": {
+   "name": "n300",
+   "chips": 2
+  },
+  "n300x4": {
+   "name": "n300x4",
+   "chips": 8
+  },
+  "t3k": {
+   "name": "t3k",
+   "chips": 8
+  },
+  "galaxy": {
+   "name": "galaxy",
+   "chips": 32
+  },
+  "galaxy_bh": {
+   "name": "galaxy_bh",
+   "chips": 32
+  },
+  "dual_galaxy": {
+   "name": "dual_galaxy",
+   "chips": 64
+  },
+  "dual_galaxy_bh": {
+   "name": "dual_galaxy_bh",
+   "chips": 64
+  },
+  "galaxyx4": {
+   "name": "galaxyx4",
+   "chips": 128
+  },
+  "galaxyx4_bh": {
+   "name": "galaxyx4_bh",
+   "chips": 128
+  },
+  "galaxyx8": {
+   "name": "galaxyx8",
+   "chips": 256
+  },
+  "galaxyx8_bh": {
+   "name": "galaxyx8_bh",
+   "chips": 256
+  },
+  "galaxyx16": {
+   "name": "galaxyx16",
+   "chips": 512
+  },
+  "galaxyx16_bh": {
+   "name": "galaxyx16_bh",
+   "chips": 512
+  }
+ }
+}

@@ -1,0 +1,83 @@
+name: Refresh models list
+# Rebuilds src/_data/models.json (the Models section of the site) from
+#   1. tt-inference-server's release_model_spec.json (takes precedence), and
+#   2. tt-model's community catalog (`tt-model search --catalog`, a read-only Hub listing),
+# then opens a PR if the list changed. Same pattern as nightly.yml: the change is reviewed and merged,
+# and the merge to main deploys. The deploy job itself never fetches anything.
+on:
+  schedule:
+    - cron: "43 7 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: build the list and print the diff, open no PR"
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: nightly-models
+  cancel-in-progress: true
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      # The catalog search asks for this many rows; build_models_data.py fails if it gets exactly this many,
+      # because the listing was then cut off.
+      CATALOG_LIMIT: "300"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      # tt-inference-server: only the release spec is needed.
+      - name: Fetch the tt-inference-server release spec
+        uses: actions/checkout@v4
+        with:
+          repository: tenstorrent/tt-inference-server
+          path: .tt-inference-server
+          sparse-checkout: release_model_spec.json
+          sparse-checkout-cone-mode: false
+          # Defaults to this workflow's token. Set MODELS_SOURCE_TOKEN if that cannot read the repo.
+          token: ${{ secrets.MODELS_SOURCE_TOKEN || github.token }}
+
+      # tt-model, for `tt-model search`. It only lists Hub repos; it opens no device.
+      - name: Install tt-model
+        run: |
+          pip install "git+https://x-access-token:${MODELS_SOURCE_TOKEN:-$GITHUB_TOKEN}@github.com/tenstorrent/tt-model-manager.git"
+          tt-model --help > /dev/null
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          MODELS_SOURCE_TOKEN: ${{ secrets.MODELS_SOURCE_TOKEN }}
+
+      - name: Read the tt-model catalog
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: tt-model search --catalog --json --limit "$CATALOG_LIMIT" > catalog.json
+
+      - name: Build models.json
+        run: |
+          python3 scripts/build_models_data.py \
+            --spec .tt-inference-server/release_model_spec.json \
+            --catalog catalog.json --limit "$CATALOG_LIMIT" \
+            --spec-commit "$(git -C .tt-inference-server rev-parse --short=9 HEAD)"
+          git --no-pager diff --stat -- src/_data/models.json || true
+
+      - name: Create pull request if changed
+        if: ${{ !inputs.dry_run }}
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: src/_data/models.json
+          commit-message: "chore: refresh models list"
+          branch: "chore/nightly-models"
+          delete-branch: true
+          title: "chore: refresh models list"
+          body: |
+            Nightly rebuild of `src/_data/models.json` from tt-inference-server's `release_model_spec.json`
+            and the tt-model community catalog (`scripts/build_models_data.py`).
+
+            Status, context and users are copied from the release spec. Nothing is measured.
+            The kind of a model that only exists as a tt-model bundle is guessed from its name, so check any
+            new "Unclassified" entries.

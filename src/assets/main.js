@@ -96,6 +96,7 @@ function updateMobileTopbar(title, showBack) {
  */
 function mobilePaneBack() {
   const panes = document.getElementById("panes");
+  if (panes.classList.contains("models-active")) { modelsBack(); return; }
   if (panes.classList.contains("detail-active")) {
     panes.classList.remove("detail-active");
     // Return to the pane we came from (stored in dataset.detailFrom by _applyEntry)
@@ -312,7 +313,12 @@ function restoreFromUrl() {
   const author = params.get("author");
   const releases = params.get("releases");
   const entryId = params.get("entry");
+  const models = params.get("models");
 
+  if (models) {
+    _applyModels(models, params.get("model"));
+    return;
+  }
   if (releases) {
     _applyReleases(releases);
     if (entryId) {
@@ -370,6 +376,7 @@ function showHome() {
 
 /** Internal: show home without touching history. */
 function _applyHome() {
+  leaveModels();
   activeCategory = null;
   activeEntryId = null;
   activeAuthorFilter = null;
@@ -389,6 +396,7 @@ function _applyHome() {
 
 /** Internal: show list pane with no category filter (cross-category search). No history push. */
 function _applySearchAll() {
+  leaveModels();
   activeCategory = null;
   activeAuthorFilter = null;
   const panes = document.getElementById("panes");
@@ -418,6 +426,7 @@ function navigateToEntry(id) {
 
 /** Internal: show author-filtered list without touching history. */
 function _applyAuthorFilter(name) {
+  leaveModels();
   activeAuthorFilter = name;
   activeCategory = null;
   const panes = document.getElementById("panes");
@@ -448,6 +457,7 @@ function selectReleases(view) {
 
 /** Internal: activate releases pane without touching history. */
 function _applyReleases(view) {
+  leaveModels();
   const VALID_VIEWS = new Set(['all', 'official', 'community']);
   activeReleasesView = VALID_VIEWS.has(view) ? view : 'all';
   activeCategory = null;
@@ -507,6 +517,7 @@ function selectCategory(slug, el) {
 
 /** Internal: select category without touching history. */
 function _applyCategory(slug, el) {
+  leaveModels();
   activeCategory = slug;
   activeAuthorFilter = null;
   const panes = document.getElementById("panes");
