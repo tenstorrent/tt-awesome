@@ -285,6 +285,10 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by [@casys-utokyo](https://github.com/casys-utokyo) — Artifact for a paper on an MLIR-based compiler pipeline that migrates a statically shaped affine subset of CUDA to Tenstorrent Blackhole. Processor assignment, guard realization and buffer streaming are given as declarative annotations the compiler checks and lowers through tt-mlir. Holds the intermediate representations at every stage, the compiled programs for Gaussian elimination, a 2D Jacobi stencil and SYRK on a 10x10 core grid, and scripts that reproduce each timing and accuracy number, including the A100 comparison.
   [📦 repo](https://github.com/casys-utokyo/annotation-driven-cuda-to-tenstorrent)
 
+- **[ferrite](https://github.com/alkinun/ferrite)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@alkinun](https://github.com/alkinun) — A from-scratch userspace software stack for Tenstorrent Blackhole in about 1,900 lines of Python. It talks to the card over PCIe, loads firmware onto Tensix cores, compiles tensor expressions to Tensix instructions, and runs and serves GPT-2, SmolLM and Llama-family models, with tinygrad integration and training examples. It does not use the Tenstorrent kernel driver, tt-umd, tt-metal or LLK beyond the card firmware, and can run against the TTSIM simulator.
+  [📦 repo](https://github.com/alkinun/ferrite)
+
 - **[libtt](https://github.com/pcmoritz/libtt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Philipp Moritz — A Bazel-built PJRT plugin (libtt.so) providing an XLA backend for Tenstorrent devices. Bundles the tt-xla PJRT implementation with tt-mlir and tt-metal into a single shared object so JAX code runs on Tenstorrent hardware, with patches so sglang-jax works out of the box.
   [📦 repo](https://github.com/pcmoritz/libtt)
