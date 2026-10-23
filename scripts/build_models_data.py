@@ -53,6 +53,10 @@ ISRV = pathlib.Path(args.isrv)
 
 KIND = {"LLM": "LLM", "VLM": "VLM", "IMAGE": "Image generation", "VIDEO": "Video generation",
         "AUDIO": "Speech-to-text", "TEXT_TO_SPEECH": "Text-to-speech", "EMBEDDING": "Embedding", "CNN": "CNN"}
+# The page tt-studio opens for a model type (tt-studio app/frontend/src/api/modelsDeployedApis.ts, getDestinationFromModelType).
+# tt-studio deploys tt-inference-server models, so this is set only for models in the release spec.
+STUDIO = {"LLM": "Chat", "VLM": "Chat, with image input", "IMAGE": "Image generation", "VIDEO": "Video generation",
+          "AUDIO": "Speech to text", "TEXT_TO_SPEECH": "Text to speech", "EMBEDDING": "Embedding demo", "CNN": "Object detection"}
 # Folder under docs/model_support for each model type.
 DOCDIR = {"LLM": "llm", "VLM": "vlm", "IMAGE": "image", "VIDEO": "video", "AUDIO": "audio",
           "TEXT_TO_SPEECH": "tts", "EMBEDDING": "embedding", "CNN": "cnn"}
@@ -159,7 +163,7 @@ for r in rows:
     m = models.setdefault(r["hf_model_repo"], dict(
         name=r["model_name"], upstream=r["hf_model_repo"], weights=r.get("hf_weights_repo"),
         kind=KIND[r["model_type"]], kindFrom="tt-inference-server model type", modelType=r["model_type"],
-        kindInferred=False, params=params(r.get("param_count")), minDiskGb=r.get("min_disk_gb"), minRamGb=r.get("min_ram_gb"),
+        kindInferred=False, studio=STUDIO.get(r["model_type"]), params=params(r.get("param_count")), minDiskGb=r.get("min_disk_gb"), minRamGb=r.get("min_ram_gb"),
         modalities=r.get("supported_modalities"), rows=[], bundles=[], inSpec=True,
         serve=r["model_name"], toolParser=None, reasoningParser=None))
     meta = r.get("metadata") or {}
@@ -271,7 +275,7 @@ for c in catalog:
     m = only.setdefault(wrepo.lower(), dict(
         name=name, upstream=wrepo, weights=wrepo, kind=NOT_STATED_ANY, kindFrom="the tt-model bundle manifest", modelType=None,
         params=None, minDiskGb=None, minRamGb=None, modalities=None, rows=[], bundles=[], inSpec=False, status=None,
-        serve=None, toolParser=None, reasoningParser=None, impls=[]))
+        serve=None, toolParser=None, reasoningParser=None, impls=[], studio=None))
     m["bundles"].append(b)
 
 for m in only.values():

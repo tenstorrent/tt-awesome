@@ -93,6 +93,8 @@ eleventyComputed:
     {%- if not m.inSpec %}<p class="m-note">A tt-model bundle, so <code>tt serve</code> runs it through tt-model. If a bundle needs hardware you do not have, tt says so.</p>{% endif %}
     {%- if m.bundles.length and m.inSpec %}<p class="m-note">To serve one of its tt-model bundles instead, use the Copy serve button beside it.</p>{% endif %}
 
+    {%- if m.studio %}<p class="m-studio"><span>tt-studio</span> opens this as the <strong>{{ m.studio }}</strong> page. It picks the page from the model type.</p>{% endif %}
+
     <div class="kind m-kind-gap">Connect a client with tt launch</div>
     {%- if m.clients.length %}
     <p class="m-note">Serve the model first, then run one of these. Only clients that work with this model are listed.</p>
