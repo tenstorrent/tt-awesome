@@ -21,7 +21,7 @@ eleventyComputed:
 <div class="mp">
   <div class="mp-main">
     <div class="kind">
-      {%- if kindUrl %}<a href="{{ kindUrl | url }}">{{ m.kind }}</a>{% else %}<span>{{ m.kind }}</span>{% endif %}
+      {%- if kindUrl %}<a href="{{ kindUrl | url }}">{{ m.kind }}</a>{% else %}<span>{{ m.kind }}</span>{% endif %}{% if m.kindInferred %}<span class="m-pill">kind inferred</span>{% endif %}
       <span class="m-pill{{ ' tt' if m.inSpec }}">{{ m.source }}</span>
       {%- if familyUrl %}<a class="m-pill" href="{{ familyUrl | url }}">{{ m.family }} family</a>{% endif %}
     </div>
@@ -69,7 +69,7 @@ eleventyComputed:
 
     <h2 class="m-h">Details</h2>
     <table class="m-table m-dl">
-      <tr><td>Kind</td><td>{{ m.kind }} <span class="m-sub">(from {{ m.kindFrom }})</span></td></tr>
+      <tr><td>Kind</td><td>{{ m.kind }} <span class="m-sub">({% if m.kindInferred %}{{ m.kindFrom }}{% else %}from {{ m.kindFrom }}{% endif %})</span></td></tr>
       {%- if m.params %}<tr><td>Parameters</td><td>{{ m.params }}</td></tr>{% endif %}
       <tr><td>Family</td><td>{{ m.family }} <span class="m-sub">(from the start of the name)</span></td></tr>
       {%- if m.impls.length %}<tr><td>Implementation</td><td>{% for i in m.impls %}{{ ", " if not loop.first }}{% if modelsSite.urls.implementation[i] %}<a href="{{ modelsSite.urls.implementation[i] | url }}">{{ i }}</a>{% else %}{{ i }}{% endif %}{% endfor %}</td></tr>{% endif %}

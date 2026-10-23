@@ -73,7 +73,7 @@ const pick = (test) => models.filter(test).sort(byListing);
   const stated = (k) => !/task not stated/.test(k);
   Object.keys(kinds).sort((a, b) => (stated(b) - stated(a)) || kinds[b].length - kinds[a].length || a.localeCompare(b))
     .forEach((k) => add(k, k, stated(k)
-      ? `Models of this kind. A tt-inference-server model's kind is its model type. A tt-model bundle's kind is the task tag on its card.`
+      ? `Models of this kind. A tt-inference-server model's kind is its model type. A tt-model bundle's kind is the task tag on its card.${kinds[k].some((m) => m.kindInferred) ? " A bundle with no tag was placed here by an inference from its name and manifest, and its card says so." : ""}`
       : `tt-model bundles whose card gives no task tag. They are grouped by how the bundle's manifest says it is served.`,
       kinds[k].sort(byListing)));
 }

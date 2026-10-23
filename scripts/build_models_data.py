@@ -13,7 +13,9 @@ Every fact comes from one of three sources. Nothing is measured and nothing is t
        `tt-model search --catalog --json` the published bundles
        `tt-model info <repo>`             each bundle's manifest: weights repo, kind, hardware profiles,
                                           context length, parsers and the card's Hub task tag
-  3. This repo's own scripts/data/model_families.json, a short list of name prefixes that decides a model's family.
+  3. This repo's own scripts/data/model_families.json, a short list of name prefixes that decides a model's family,
+     and scripts/data/model_kinds_inferred.json, the kind of a bundle whose card states no task. That file is an
+     inference (each entry says why), applied only when no task is stated, and the pages mark the kind as inferred.
 
 A bundle belongs to a model when the weights repo in its manifest is the model's Hugging Face repo, or when the
 last part of the two names matches. A bundle that matches no model is a model of its own, named after its weights
@@ -157,7 +159,7 @@ for r in rows:
     m = models.setdefault(r["hf_model_repo"], dict(
         name=r["model_name"], upstream=r["hf_model_repo"], weights=r.get("hf_weights_repo"),
         kind=KIND[r["model_type"]], kindFrom="tt-inference-server model type", modelType=r["model_type"],
-        params=params(r.get("param_count")), minDiskGb=r.get("min_disk_gb"), minRamGb=r.get("min_ram_gb"),
+        kindInferred=False, params=params(r.get("param_count")), minDiskGb=r.get("min_disk_gb"), minRamGb=r.get("min_ram_gb"),
         modalities=r.get("supported_modalities"), rows=[], bundles=[], inSpec=True,
         serve=r["model_name"], toolParser=None, reasoningParser=None))
     meta = r.get("metadata") or {}
@@ -257,6 +259,7 @@ def bundle_facts(c):
     return b, (mf.get("weights") or {}).get("repo_id") or repo, mf
 
 
+INFERRED = json.load(open(HERE / "data/model_kinds_inferred.json"))["kinds"]
 only = {}
 for c in catalog:
     b, wrepo, mf = bundle_facts(c)
@@ -279,6 +282,11 @@ for m in only.values():
     if tag:
         m["kind"] = TAG_KIND.get(tag, tag.replace("-", " ").capitalize())
         m["kindFrom"] = "the task tag on the bundle's card"
+    m["kindInferred"] = False
+    guess = INFERRED.get(m["upstream"].lower())
+    if guess and not tag:
+        m["kind"], m["kindInferred"] = guess["kind"], True
+        m["kindFrom"] = "an inference: " + guess["basis"]
     m["serve"] = newest[0]["repo"]
     m["toolParser"] = next((b.get("toolParser") for b in newest if b.get("toolParser")), None)
     m["reasoningParser"] = next((b.get("reasoningParser") for b in newest if b.get("reasoningParser")), None)
@@ -352,7 +360,8 @@ hardware_names = [dict(key=e, product=PRODUCT[e], mesh=MESH.get(e)) for e in MEM
 commit = args.spec_commit or subprocess.run(["git", "-C", str(ISRV), "rev-parse", "--short=9", "HEAD"],
                                            capture_output=True, text=True).stdout.strip()
 out = dict(models=all_models, hardware=hardware_names,
-           spec=dict(commit=commit, release=spec["release_version"]), unreadableBundles=unreadable)
+           spec=dict(commit=commit, release=spec["release_version"]), unreadableBundles=unreadable,
+           unclassified=sorted(m["name"] for m in all_models if "task not stated" in m["kind"].lower()))
 outp = pathlib.Path(args.out)
 if outp.exists():
     before = len(json.loads(outp.read_text()).get("models", []))
