@@ -12,7 +12,9 @@
     const fallback = () => {
       const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
       document.body.append(ta); ta.select();
-      try { document.execCommand("copy"); done(); } catch (e) { btn.textContent = "Select and copy"; }
+      let ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      if (ok) done(); else btn.textContent = "Select and copy";
       ta.remove();
     };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();

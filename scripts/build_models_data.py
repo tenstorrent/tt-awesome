@@ -202,12 +202,14 @@ for m in models.values():
 # ---- tt-model bundles ----
 REPO_ID = re.compile(r"^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$")
 catalog = json.load(open(args.catalog))
+# The cut-off check counts the rows the search returned, before any are skipped below.
+raw_rows = len(catalog)
+if args.limit and raw_rows >= args.limit:
+    die(f"catalog has {raw_rows} rows, the search limit: it was cut off. Raise --limit.")
 bad_ids = [c["id"] for c in catalog if not REPO_ID.match(c["id"]) or any(set(x) == {"."} for x in c["id"].split("/"))]
 if bad_ids:
     print("skipping catalog ids that are not owner/name:", bad_ids, file=sys.stderr)
     catalog = [c for c in catalog if c["id"] not in bad_ids]
-if args.limit and len(catalog) >= args.limit:
-    die(f"catalog has {len(catalog)} rows, the search limit: it was cut off. Raise --limit.")
 
 
 def tt_model_info(repo):
@@ -358,11 +360,30 @@ for m in all_models:
     used.add(s)
     m["id"] = s
     m["bundles"].sort(key=lambda b: b["repo"])
+    # A card's license is {id, name, link}; "other" has no meaning alone, so its name is shown.
+    m["licenses"] = sorted({(b["license"].get("name") if b["license"].get("id") == "other" else None) or b["license"].get("id")
+                            for b in m["bundles"] if isinstance(b.get("license"), dict)} - {None})
 
 # The hardware names tt-inference-server uses, for the Hardware page.
 hardware_names = [dict(key=e, product=PRODUCT[e], mesh=MESH.get(e)) for e in MEMBERS if e in PRODUCT]
-commit = args.spec_commit or subprocess.run(["git", "-C", str(ISRV), "rev-parse", "--short=9", "HEAD"],
-                                           capture_output=True, text=True).stdout.strip()
+def checkout_commit(root):
+    """Short commit of a checkout, read from .git/HEAD (no git process; a detached HEAD or a branch ref)."""
+    try:
+        head = (root / ".git" / "HEAD").read_text().strip()
+        if head.startswith("ref: "):
+            ref = head[5:]
+            ref_file = root / ".git" / ref
+            if ref_file.is_file():
+                head = ref_file.read_text().strip()
+            else:
+                packed = (root / ".git" / "packed-refs").read_text().splitlines()
+                head = next(l.split()[0] for l in packed if l.endswith(" " + ref))
+        return head[:9] if re.fullmatch(r"[0-9a-f]{40}", head) else ""
+    except (OSError, StopIteration):
+        return ""
+
+
+commit = args.spec_commit or checkout_commit(ISRV)
 out = dict(models=all_models, hardware=hardware_names,
            spec=dict(commit=commit, release=spec["release_version"]), unreadableBundles=unreadable,
            unclassified=sorted(m["name"] for m in all_models if "task not stated" in m["kind"].lower()))

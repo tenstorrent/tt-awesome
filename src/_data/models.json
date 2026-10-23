@@ -116,6 +116,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 28,
    "minRamGb": 10.0,
    "modalities": [
@@ -188,6 +189,7 @@
    "kind": "Embedding",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -289,6 +291,7 @@
    "kind": "Embedding",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -387,6 +390,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": [
@@ -520,6 +524,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 160,
    "minRamGb": 175.0,
    "modalities": [
@@ -650,6 +655,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 28,
    "minRamGb": 10.0,
    "modalities": [
@@ -708,6 +714,7 @@
    "kind": "Speech-to-text",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -846,6 +853,7 @@
    "kind": "Image generation",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -984,6 +992,7 @@
    "kind": "Image generation",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -1130,6 +1139,7 @@
    "kind": "VLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 74,
    "minRamGb": 67.5,
    "modalities": [
@@ -1261,6 +1271,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 44,
    "minRamGb": 30.0,
    "modalities": [
@@ -1374,6 +1385,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 82,
    "minRamGb": 77.5,
    "modalities": [
@@ -1572,6 +1584,9 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": 260,
    "minRamGb": 300.0,
    "modalities": [
@@ -1721,6 +1736,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 160,
    "minRamGb": 175.0,
    "modalities": [
@@ -1886,6 +1902,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 160,
    "minRamGb": 175.0,
    "modalities": [
@@ -2053,6 +2070,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 36,
    "minRamGb": 20.0,
    "modalities": [
@@ -2269,6 +2287,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 36,
    "minRamGb": 20.0,
    "modalities": [
@@ -2495,6 +2514,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 22,
    "minRamGb": 2.5,
    "modalities": [
@@ -2625,6 +2645,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 22,
    "minRamGb": 2.5,
    "modalities": [
@@ -2755,6 +2776,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 26,
    "minRamGb": 7.5,
    "modalities": [
@@ -2922,6 +2944,9 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [
+    "llama3.2"
+   ],
    "minDiskGb": 26,
    "minRamGb": 7.5,
    "modalities": [
@@ -3055,6 +3080,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 160,
    "minRamGb": 175.0,
    "modalities": [
@@ -3187,6 +3213,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 34,
    "minRamGb": 17.5,
    "modalities": [
@@ -3273,6 +3300,7 @@
    "kind": "CNN",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -3344,6 +3372,7 @@
    "kind": "Video generation",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 60,
    "minRamGb": 32,
    "modalities": [
@@ -3473,6 +3502,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 164,
    "minRamGb": 180.0,
    "modalities": [
@@ -3586,6 +3616,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 164,
    "minRamGb": 180.0,
    "modalities": [
@@ -3778,6 +3809,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 84,
    "minRamGb": 80.0,
    "modalities": [
@@ -3978,6 +4010,9 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": 36,
    "minRamGb": 20.0,
    "modalities": [
@@ -4079,6 +4114,7 @@
    "kind": "Embedding",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -4132,6 +4168,7 @@
    "kind": "Embedding",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -4188,6 +4225,7 @@
    "kind": "Embedding",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -4302,6 +4340,7 @@
    "kind": "VLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 84,
    "minRamGb": 80.0,
    "modalities": [
@@ -4429,6 +4468,9 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": 74,
    "minRamGb": 67.5,
    "modalities": [
@@ -4604,6 +4646,9 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": 74,
    "minRamGb": 67.5,
    "modalities": [
@@ -4701,6 +4746,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 84,
    "minRamGb": 80.0,
    "modalities": [
@@ -4771,6 +4817,7 @@
    "kind": "CNN",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -4841,6 +4888,7 @@
    "kind": "CNN",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -4911,6 +4959,7 @@
    "kind": "Text-to-speech",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -4981,6 +5030,7 @@
    "kind": "Image generation",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -5053,6 +5103,7 @@
    "kind": "Image generation",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -5157,6 +5208,7 @@
    "kind": "Image generation",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -5259,6 +5311,7 @@
    "kind": "CNN",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -5329,6 +5382,7 @@
    "kind": "CNN",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -5403,6 +5457,7 @@
    "kind": "Video generation",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 60,
    "minRamGb": 32,
    "modalities": [
@@ -5541,6 +5596,7 @@
    "kind": "Speech-to-text",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -5674,6 +5730,7 @@
    "kind": "CNN",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 15,
    "minRamGb": 6,
    "modalities": [
@@ -5753,6 +5810,7 @@
    "kind": "Image generation",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": 30,
    "minRamGb": 16,
    "modalities": [
@@ -5829,6 +5887,7 @@
    "kind": "Text to audio",
    "kindFrom": "an inference: ACE-Step is a music-generation model.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -5886,6 +5945,7 @@
    "kind": "Robotics",
    "kindFrom": "an inference: Alpamayo is NVIDIA's vision-language-action model for driving.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -5956,6 +6016,7 @@
    "kind": "Served with vLLM, task not stated",
    "kindFrom": "the tt-model bundle manifest",
    "kindInferred": false,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6017,6 +6078,9 @@
    "kind": "Object detection",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6078,6 +6142,9 @@
    "kind": "Object detection",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6139,6 +6206,9 @@
    "kind": "Object detection",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6237,6 +6307,9 @@
    "kind": "VLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6294,6 +6367,7 @@
    "kind": "Depth and 3D geometry",
    "kindFrom": "an inference: Depth Anything 3 estimates metric depth.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6351,6 +6425,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: DeepSeek-V4.1-Flash is a language model. The bundle's manifest says tt-dit-server, which does not match.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6408,6 +6483,7 @@
    "kind": "Text to audio",
    "kindFrom": "an inference: DiffRhythm generates songs from lyrics and a style prompt.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6469,6 +6545,9 @@
    "kind": "Robotics",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6526,6 +6605,7 @@
    "kind": "Depth and 3D geometry",
    "kindFrom": "an inference: DUSt3R reconstructs 3D geometry from images.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6630,6 +6710,9 @@
    "kind": "LLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6691,6 +6774,9 @@
    "kind": "Embedding",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6791,6 +6877,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: EXAONE is LG's language-model family; the bundle names a hermes tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6848,6 +6935,7 @@
    "kind": "Image generation",
    "kindFrom": "an inference: FLUX.2 is an image-generation model.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6905,6 +6993,7 @@
    "kind": "Image generation",
    "kindFrom": "an inference: FLUX.2 is an image-generation model.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -6962,6 +7051,7 @@
    "kind": "Computer vision",
    "kindFrom": "an inference: Gaze-LLE estimates where a person in an image is looking.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7083,6 +7173,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: GLM is a language-model family; the bundle names a glm45 tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7190,6 +7281,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: GLM is a language-model family; the bundle names a glm47 tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7401,6 +7493,10 @@
    "kind": "LLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0",
+    "per-model"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7458,6 +7554,7 @@
    "kind": "Robotics",
    "kindFrom": "an inference: GR00T is NVIDIA's robot foundation model.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7515,6 +7612,7 @@
    "kind": "Robotics",
    "kindFrom": "an inference: GR00T is NVIDIA's robot foundation model.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7572,6 +7670,7 @@
    "kind": "Robotics",
    "kindFrom": "an inference: GR00T is NVIDIA's robot foundation model.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7629,6 +7728,7 @@
    "kind": "Computer vision",
    "kindFrom": "an inference: HaMeR reconstructs 3D hand meshes from images.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7686,6 +7786,7 @@
    "kind": "Image generation",
    "kindFrom": "an inference: HiDream is an image-generation model.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7747,6 +7848,9 @@
    "kind": "Object detection",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7854,6 +7958,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: An instruct language model; the bundle names a kimi_k2 tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -7924,6 +8029,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: Poolside's Laguna is a coding language model, served with vLLM.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8035,6 +8141,9 @@
    "kind": "LLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "openmdw-1.1"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8103,6 +8212,9 @@
    "kind": "Text classification",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8171,6 +8283,9 @@
    "kind": "Text classification",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8275,6 +8390,9 @@
    "kind": "LLM",
    "kindFrom": "an inference: The bundle's card calls it an instruct model for chat, tool calling and reasoning.",
    "kindInferred": true,
+   "licenses": [
+    "LFM Open License v1.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8336,6 +8454,9 @@
    "kind": "Object detection",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8397,6 +8518,9 @@
    "kind": "Image segmentation",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8458,6 +8582,9 @@
    "kind": "Object detection",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8532,6 +8659,9 @@
    "kind": "LLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8606,6 +8736,9 @@
    "kind": "LLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8663,6 +8796,7 @@
    "kind": "Object detection",
    "kindFrom": "an inference: LocateAnything finds objects in an image from a text prompt.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8724,6 +8858,9 @@
    "kind": "Robotics",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8794,6 +8931,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: A distilled Qwen-based language model, served with vLLM.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8862,6 +9000,9 @@
    "kind": "Image text to video",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "minimax-model-license-agreement"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -8930,6 +9071,9 @@
    "kind": "Text to audio",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "minimax-music3-community-license"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -9000,6 +9144,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: Mistral Small is a language-model family, served with vLLM.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -9057,6 +9202,7 @@
    "kind": "Depth and 3D geometry",
    "kindFrom": "an inference: MoGe-2 estimates geometry (points, depth, normals) from one image.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -9114,6 +9260,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: Motif is a language-model family; the bundle names a motif tool-call parser and a motif reasoning parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -9218,6 +9365,9 @@
    "kind": "LLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -9322,6 +9472,9 @@
    "kind": "LLM",
    "kindFrom": "an inference: The bundle's card calls it a reasoning chat model.",
    "kindInferred": true,
+   "licenses": [
+    "openmdw-1.1"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -9436,6 +9589,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: An instruct language model; the bundle names an olmo3_tt tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -9561,6 +9715,9 @@
    "kind": "LLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "mit"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -9750,6 +9907,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: A language model; the bundle names a qwen3_xml tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -9868,6 +10026,9 @@
    "kind": "LLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "mit"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -9950,6 +10111,7 @@
    "kind": "Robotics",
    "kindFrom": "an inference: pi0.5 is a robot policy, from the lerobot repo.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -10011,6 +10173,9 @@
    "kind": "Object detection",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -10068,6 +10233,7 @@
    "kind": "Image generation",
    "kindFrom": "an inference: Qwen-Image is an image-generation model.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -10125,6 +10291,7 @@
    "kind": "Image generation",
    "kindFrom": "an inference: Qwen-Image-Edit edits images from a prompt.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -10253,6 +10420,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: A coding language model, with a qwen3_coder tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -10416,6 +10584,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: A coding language model, with a qwen3_coder tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -10477,6 +10646,9 @@
    "kind": "Text-to-speech",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -10538,6 +10710,9 @@
    "kind": "Text-to-speech",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -10599,6 +10774,9 @@
    "kind": "Text-to-speech",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -10706,6 +10884,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: A Qwen language model; the bundle names a qwen3_xml tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -10858,6 +11037,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: A Qwen language model; the bundle names a qwen3_xml tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11070,6 +11250,10 @@
    "kind": "LLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "qwen-community-1.0",
+    "qwen-license-apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11140,6 +11324,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: A 27B model served with vLLM; the name suggests a retrieval gate, so low confidence.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11197,6 +11382,7 @@
    "kind": "Object detection",
    "kindFrom": "an inference: RF-DETR is an object detector.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11254,6 +11440,7 @@
    "kind": "Robotics",
    "kindFrom": "an inference: RLDX-1 is a robot model from RLWRLD.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11311,6 +11498,7 @@
    "kind": "Robotics",
    "kindFrom": "an inference: RLDX-1 is a robot model from RLWRLD.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11417,6 +11605,9 @@
    "kind": "Text-to-speech",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "per-model"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11474,6 +11665,7 @@
    "kind": "Image segmentation",
    "kindFrom": "an inference: SAM 3 segments objects in images.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11535,6 +11727,9 @@
    "kind": "Image segmentation",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11616,6 +11811,9 @@
    "kind": "LLM",
    "kindFrom": "an inference: The bundle's card calls it a decoder-only chat model.",
    "kindInferred": true,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11716,6 +11914,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: Solar is a language-model family; the bundle names a solar_open tool-call parser.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11773,6 +11972,7 @@
    "kind": "Computer vision",
    "kindFrom": "an inference: SuperPoint detects and describes image keypoints.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11834,6 +12034,9 @@
    "kind": "Object detection",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11895,6 +12098,9 @@
    "kind": "Object detection",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11952,6 +12158,7 @@
    "kind": "Depth and 3D geometry",
    "kindFrom": "an inference: VGGT predicts camera pose, depth and 3D points from images.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -12022,6 +12229,7 @@
    "kind": "LLM",
    "kindFrom": "an inference: A small reasoning language model, served with vLLM.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -12096,6 +12304,9 @@
    "kind": "Speech-to-text",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -12153,6 +12364,7 @@
    "kind": "Video generation",
    "kindFrom": "an inference: Wan 2.2 is a video-generation model.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -12210,6 +12422,7 @@
    "kind": "Robotics",
    "kindFrom": "an inference: X-VLA is a robot policy, from the lerobot repo.",
    "kindInferred": true,
+   "licenses": [],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,

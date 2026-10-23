@@ -81,7 +81,7 @@ eleventyComputed:
       {%- if m.minRamGb %}<tr><td>RAM needed</td><td>{{ m.minRamGb }} GB</td></tr>{% endif %}
       {%- if m.toolParser %}<tr><td>Tool-call parser</td><td><code>{{ m.toolParser }}</code></td></tr>{% endif %}
       {%- if m.reasoningParser %}<tr><td>Reasoning parser</td><td><code>{{ m.reasoningParser }}</code></td></tr>{% endif %}
-      {%- if m.bundles.length and m.bundles[0].license %}<tr><td>License (bundle card)</td><td>{{ m.bundles[0].license }}</td></tr>{% endif %}
+      {%- if m.licenses.length %}<tr><td>License{{ "s" if m.licenses.length > 1 }} (bundle cards)</td><td>{{ m.licenses | join(", ") }}</td></tr>{% endif %}
       <tr><td>Listed by</td><td>{{ m.source }}</td></tr>
     </table>
   </div>
