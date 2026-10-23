@@ -144,6 +144,14 @@
    "params": null,
    "rows": [
     {
+     "device": "QUAD_GALAXY (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Experimental",
+     "context": "32K",
+     "users": 512
+    },
+    {
      "device": "dual_galaxy",
      "chips": 64,
      "engine": "vLLM",
@@ -158,14 +166,6 @@
      "status": "Experimental",
      "context": "2K",
      "users": 256
-    },
-    {
-     "device": "quad_galaxy (unmapped)",
-     "chips": null,
-     "engine": "vLLM",
-     "status": "Experimental",
-     "context": "32K",
-     "users": 512
     }
    ],
    "bundles": [],
@@ -176,9 +176,9 @@
    "parser": "deepseek_v3",
    "status": "Experimental",
    "devices": [
+    "QUAD_GALAXY (unmapped)",
     "dual_galaxy",
-    "galaxy",
-    "quad_galaxy (unmapped)"
+    "galaxy"
    ],
    "singleCard": false,
    "multiOnly": true,
@@ -203,7 +203,7 @@
      "users": 32
     },
     {
-     "device": "galaxy_t3k (unmapped)",
+     "device": "GALAXY_T3K (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Functional",
@@ -251,8 +251,8 @@
    "parser": "deepseek_v3",
    "status": "Complete",
    "devices": [
+    "GALAXY_T3K (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
     "p150x4",
     "p150x8",
     "p300cx2",
@@ -573,7 +573,7 @@
    "params": "12B",
    "rows": [
     {
-     "device": "blackhole_galaxy (unmapped)",
+     "device": "BLACKHOLE_GALAXY (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Complete",
@@ -606,7 +606,7 @@
    "parser": "gemma4",
    "status": "Complete",
    "devices": [
-    "blackhole_galaxy (unmapped)",
+    "BLACKHOLE_GALAXY (unmapped)",
     "p300cx2"
    ],
    "singleCard": false,
@@ -624,7 +624,7 @@
    "params": "31B",
    "rows": [
     {
-     "device": "blackhole_galaxy (unmapped)",
+     "device": "BLACKHOLE_GALAXY (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Complete",
@@ -648,7 +648,7 @@
    "parser": "gemma4",
    "status": "Complete",
    "devices": [
-    "blackhole_galaxy (unmapped)",
+    "BLACKHOLE_GALAXY (unmapped)",
     "p300cx2"
    ],
    "singleCard": false,
@@ -666,7 +666,7 @@
    "params": "120B",
    "rows": [
     {
-     "device": "blackhole_galaxy (unmapped)",
+     "device": "BLACKHOLE_GALAXY (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Experimental",
@@ -729,7 +729,7 @@
    "parser": "openai",
    "status": "Experimental",
    "devices": [
-    "blackhole_galaxy (unmapped)",
+    "BLACKHOLE_GALAXY (unmapped)",
     "galaxy",
     "p300cx2",
     "t3k"
@@ -757,7 +757,7 @@
      "users": 32
     },
     {
-     "device": "galaxy_t3k (unmapped)",
+     "device": "GALAXY_T3K (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Functional",
@@ -805,8 +805,8 @@
    "parser": "llama3_json",
    "status": "Complete",
    "devices": [
+    "GALAXY_T3K (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
     "p150x4",
     "p150x8",
     "p300cx2",
@@ -835,7 +835,7 @@
      "users": 32
     },
     {
-     "device": "galaxy_t3k (unmapped)",
+     "device": "GALAXY_T3K (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Functional",
@@ -883,8 +883,8 @@
    "parser": "llama3_json",
    "status": "Complete",
    "devices": [
+    "GALAXY_T3K (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
     "p150x4",
     "p150x8",
     "p300cx2",
@@ -905,7 +905,7 @@
    "params": "8B",
    "rows": [
     {
-     "device": "gpu (unmapped)",
+     "device": "GPU (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Complete",
@@ -937,20 +937,20 @@
      "users": 32
     },
     {
+     "device": "GALAXY_T3K (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
      "device": "galaxy",
      "chips": 32,
      "engine": "vLLM",
      "status": "Functional",
      "context": "128K",
      "users": 128
-    },
-    {
-     "device": "galaxy_t3k (unmapped)",
-     "chips": null,
-     "engine": "vLLM",
-     "status": "Functional",
-     "context": "128K",
-     "users": 32
     },
     {
      "device": "p150x8",
@@ -985,9 +985,9 @@
    "parser": "llama3_json",
    "status": "Complete",
    "devices": [
+    "GALAXY_T3K (unmapped)",
+    "GPU (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
-    "gpu (unmapped)",
     "n150",
     "n300",
     "p150x8",
@@ -1010,7 +1010,7 @@
    "params": "8B",
    "rows": [
     {
-     "device": "gpu (unmapped)",
+     "device": "GPU (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Complete",
@@ -1042,20 +1042,20 @@
      "users": 32
     },
     {
+     "device": "GALAXY_T3K (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
      "device": "galaxy",
      "chips": 32,
      "engine": "vLLM",
      "status": "Functional",
      "context": "128K",
      "users": 128
-    },
-    {
-     "device": "galaxy_t3k (unmapped)",
-     "chips": null,
-     "engine": "vLLM",
-     "status": "Functional",
-     "context": "128K",
-     "users": 32
     },
     {
      "device": "p150x8",
@@ -1098,9 +1098,9 @@
    "parser": "llama3_json",
    "status": "Complete",
    "devices": [
+    "GALAXY_T3K (unmapped)",
+    "GPU (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
-    "gpu (unmapped)",
     "n150",
     "n300",
     "p150",
@@ -1345,7 +1345,7 @@
      "users": 32
     },
     {
-     "device": "galaxy_t3k (unmapped)",
+     "device": "GALAXY_T3K (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Functional",
@@ -1393,8 +1393,8 @@
    "parser": "llama3_json",
    "status": "Complete",
    "devices": [
+    "GALAXY_T3K (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
     "p150x4",
     "p150x8",
     "p300cx2",
@@ -1559,20 +1559,20 @@
    "params": "72B",
    "rows": [
     {
+     "device": "GALAXY_T3K (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
      "device": "galaxy",
      "chips": 32,
      "engine": "vLLM",
      "status": "Functional",
      "context": "128K",
      "users": 128
-    },
-    {
-     "device": "galaxy_t3k (unmapped)",
-     "chips": null,
-     "engine": "vLLM",
-     "status": "Functional",
-     "context": "128K",
-     "users": 32
     },
     {
      "device": "t3k",
@@ -1591,8 +1591,8 @@
    "parser": "hermes",
    "status": "Functional",
    "devices": [
+    "GALAXY_T3K (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
     "t3k"
    ],
    "singleCard": false,
@@ -1610,20 +1610,20 @@
    "params": "72B",
    "rows": [
     {
+     "device": "GALAXY_T3K (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
      "device": "galaxy",
      "chips": 32,
      "engine": "vLLM",
      "status": "Functional",
      "context": "128K",
      "users": 128
-    },
-    {
-     "device": "galaxy_t3k (unmapped)",
-     "chips": null,
-     "engine": "vLLM",
-     "status": "Functional",
-     "context": "128K",
-     "users": 32
     },
     {
      "device": "t3k",
@@ -1642,8 +1642,8 @@
    "parser": "hermes",
    "status": "Functional",
    "devices": [
+    "GALAXY_T3K (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
     "t3k"
    ],
    "singleCard": false,
@@ -1669,7 +1669,7 @@
      "users": 32
     },
     {
-     "device": "blackhole_galaxy (unmapped)",
+     "device": "BLACKHOLE_GALAXY (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Functional",
@@ -1677,7 +1677,7 @@
      "users": 32
     },
     {
-     "device": "galaxy_t3k (unmapped)",
+     "device": "GALAXY_T3K (unmapped)",
      "chips": null,
      "engine": "vLLM",
      "status": "Functional",
@@ -1744,9 +1744,9 @@
    "parser": "hermes",
    "status": "Complete",
    "devices": [
-    "blackhole_galaxy (unmapped)",
+    "BLACKHOLE_GALAXY (unmapped)",
+    "GALAXY_T3K (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
     "p150x8",
     "p300cx2",
     "t3k"
@@ -1766,20 +1766,20 @@
    "params": "8B",
    "rows": [
     {
+     "device": "GALAXY_T3K (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "40K",
+     "users": 32
+    },
+    {
      "device": "galaxy",
      "chips": 32,
      "engine": "vLLM",
      "status": "Functional",
      "context": "40K",
      "users": 128
-    },
-    {
-     "device": "galaxy_t3k (unmapped)",
-     "chips": null,
-     "engine": "vLLM",
-     "status": "Functional",
-     "context": "40K",
-     "users": 32
     },
     {
      "device": "n150",
@@ -1814,8 +1814,8 @@
    "parser": "hermes",
    "status": "Functional",
    "devices": [
+    "GALAXY_T3K (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
     "n150",
     "n300",
     "t3k"
@@ -2090,20 +2090,20 @@
    "params": "32B",
    "rows": [
     {
+     "device": "GALAXY_T3K (unmapped)",
+     "chips": null,
+     "engine": "vLLM",
+     "status": "Functional",
+     "context": "128K",
+     "users": 32
+    },
+    {
      "device": "galaxy",
      "chips": 32,
      "engine": "vLLM",
      "status": "Functional",
      "context": "128K",
      "users": 128
-    },
-    {
-     "device": "galaxy_t3k (unmapped)",
-     "chips": null,
-     "engine": "vLLM",
-     "status": "Functional",
-     "context": "128K",
-     "users": 32
     },
     {
      "device": "t3k",
@@ -2122,8 +2122,8 @@
    "parser": "hermes",
    "status": "Functional",
    "devices": [
+    "GALAXY_T3K (unmapped)",
     "galaxy",
-    "galaxy_t3k (unmapped)",
     "t3k"
    ],
    "singleCard": false,
@@ -2513,7 +2513,7 @@
    "params": "14B",
    "rows": [
     {
-     "device": "blackhole_galaxy (unmapped)",
+     "device": "BLACKHOLE_GALAXY (unmapped)",
      "chips": null,
      "engine": "media",
      "status": "Complete",
@@ -2569,7 +2569,7 @@
    "parser": null,
    "status": "Complete",
    "devices": [
-    "blackhole_galaxy (unmapped)",
+    "BLACKHOLE_GALAXY (unmapped)",
     "galaxy",
     "p150x4",
     "p150x8",

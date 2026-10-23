@@ -61,11 +61,12 @@
     return query.split(/\s+/).every((w) => hay.includes(w));
   }
 
-  /* tt launch's rule (tt-cli launchers/base.py, commands/launch.py): a client needs chat completions, which tt
+  /* The clients below are tt-cli's launcher registry (src/tenstorrent/launchers/__init__.py). Keep the list in step
+     with it. tt launch's rule (tt-cli launchers/base.py, commands/launch.py): a client needs chat completions, which tt
      serves through vLLM, and the terminal clients also need a published tool-call parser. A model outside the
      catalog is not checked: tt warns and carries on. */
   const CLIENTS = [["opencode", "Terminal", true], ["pi", "Terminal", true], ["aider", "Terminal", true],
-    ["qwencode", "Terminal", true], ["openwebui", "Web service", false], ["anythingllm", "Web service", false]];
+    ["qwencode", "Terminal", true], ["hermes", "Terminal", true], ["openwebui", "Web service", false], ["anythingllm", "Web service", false]];
   function clientFit(m, needsTools) {
     if (m.inSpec) {
       if (!m.chat) return ["no", "Not a chat model"];
@@ -257,7 +258,7 @@
     d.append(el("p", null, "Open a collection and pick a model. Its page has the exact commands. The three steps are the same for every model."));
     d.append(el("h4", null, "1. Download"), cmdBlock("Weights, and the bundle if there is one", "tt model pull <model>"));
     d.append(el("h4", null, "2. Serve"), cmdBlock("Starts an OpenAI-compatible server on this machine", "tt serve <model>"));
-    d.append(el("h4", null, "3. Connect a client"), cmdBlock("opencode, pi, aider, qwencode, Open WebUI or AnythingLLM", "tt launch <client> --model <model>"));
+    d.append(el("h4", null, "3. Connect a client"), cmdBlock("opencode, pi, aider, qwencode, hermes, Open WebUI or AnythingLLM", "tt launch <client> --model <model>"));
     d.append(el("p", "note", "tt-studio gives chat, image, video, speech and embedding models a web page of their own."));
     d.append(el("h4", null, "Find a model from the terminal"), cmdBlock("Lists published tt-model bundles", "tt model search"));
   }

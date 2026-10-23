@@ -1094,3 +1094,24 @@ console.log("\nAll eleventy filter tests passed ✓");
   assert.deepStrictEqual(officialOnly([null]), [], "officialOnly tolerates null items");
   console.log("officialOnly filter tests passed ✓");
 }
+
+// ── jsonForScript ────────────────────────────────────────────────────────────
+// The Models data is embedded in <script type="application/json">. A model name or summary must not be able
+// to close that tag or open markup, and the data must still parse back to the same value.
+{
+  const jsonForScript = filters["jsonForScript"];
+  assert(typeof jsonForScript === "function", "jsonForScript filter is registered");
+  const value = {
+    name: "</script><script>alert(1)</script>",
+    angle: "a < b > c",
+    amp: "R&D &amp; &lt;",
+    nested: [{ k: "</SCRIPT>" }],
+    plain: "gpt-oss-120b",
+  };
+  const out = jsonForScript(value);
+  assert(!/[<>&]/.test(out), "output contains no raw <, > or &");
+  assert(out.includes("\\u003c/script\\u003e"), "</script> is escaped, not removed");
+  assert.deepStrictEqual(JSON.parse(out), value, "escaped output parses back to the original value");
+  assert.strictEqual(jsonForScript("x"), '"x"', "a plain string is only quoted");
+  console.log("jsonForScript filter tests passed ✓");
+}

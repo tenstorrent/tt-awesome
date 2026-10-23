@@ -51,8 +51,9 @@ KIND = {"LLM": "Language model", "VLM": "Vision-language model", "IMAGE": "Image
 
 
 def dev_name(spec_name):
+    # Lower case only for the lookup. A name the table lacks keeps the spec's own spelling.
     d = DEVICES.get(spec_name.lower())
-    return (d["name"] if d else spec_name.lower() + " (unmapped)"), (d["chips"] if d else None)
+    return (d["name"] if d else spec_name + " (unmapped)"), (d["chips"] if d else None)
 
 
 def k(n):
