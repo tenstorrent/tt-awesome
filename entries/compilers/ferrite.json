@@ -1,0 +1,38 @@
+{
+  "id": "ferrite",
+  "name": "ferrite",
+  "description": "A from-scratch userspace software stack for Tenstorrent Blackhole in about 1,900 lines of Python. It talks to the card over PCIe, loads firmware onto Tensix cores, compiles tensor expressions to Tensix instructions, and runs and serves GPT-2, SmolLM and Llama-family models, with tinygrad integration and training examples. It does not use the Tenstorrent kernel driver, tt-umd, tt-metal or LLK beyond the card firmware, and can run against the TTSIM simulator.",
+  "affiliation": "community",
+  "categories": [
+    "compilers",
+    "hw-system"
+  ],
+  "tags": [
+    "blackhole",
+    "runtime",
+    "tensor-compiler",
+    "tensix",
+    "pcie",
+    "llm-inference",
+    "tinygrad",
+    "training",
+    "userspace-driver"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/alkinun/ferrite"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "ttsim"
+  ],
+  "related": [
+    "tt-tinygrad"
+  ],
+  "author": "alkinun",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-23"
+}
