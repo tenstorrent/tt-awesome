@@ -1,7 +1,7 @@
 name: Refresh models list
-# Rebuilds src/_data/models.json (the Models section of the site) from
-#   1. tt-inference-server's release_model_spec.json (takes precedence), and
-#   2. tt-model's community catalog (`tt-model search --catalog`, a read-only Hub listing),
+# Rebuilds src/_data/models.json (the Models pages of the site) from
+#   1. tt-inference-server's main branch (release spec, hardware names, support pages; takes precedence), and
+#   2. tt-model: the community catalog (`tt-model search --catalog`) and each bundle's manifest (`tt-model info`),
 # then opens a PR if the list changed. Same pattern as nightly.yml: the change is reviewed and merged,
 # and the merge to main deploys. The deploy job itself never fetches anything.
 on:
@@ -41,13 +41,16 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
 
-      # tt-inference-server: only the release spec is needed.
+      # tt-inference-server: the release spec, the file that names its hardware, and the list of support pages.
       - name: Fetch the tt-inference-server release spec
         uses: actions/checkout@v4
         with:
           repository: tenstorrent/tt-inference-server
           path: .tt-inference-server
-          sparse-checkout: release_model_spec.json
+          sparse-checkout: |
+            release_model_spec.json
+            workflows/workflow_types.py
+            docs/model_support
           sparse-checkout-cone-mode: false
           persist-credentials: false
           # Read-only. Set MODELS_SOURCE_TOKEN (read access to the source repos) if the default token
@@ -70,9 +73,7 @@ jobs:
       - name: Build models.json
         run: |
           python3 scripts/build_models_data.py \
-            --spec .tt-inference-server/release_model_spec.json \
-            --catalog catalog.json --limit "$CATALOG_LIMIT" \
-            --spec-commit "$(git -C .tt-inference-server rev-parse --short=9 HEAD)"
+            --isrv .tt-inference-server --catalog catalog.json --limit "$CATALOG_LIMIT"
           git --no-pager diff --stat -- src/_data/models.json || true
 
       - uses: actions/upload-artifact@v4
@@ -105,9 +106,9 @@ jobs:
           delete-branch: true
           title: "chore: refresh models list"
           body: |
-            Nightly rebuild of `src/_data/models.json` from tt-inference-server's `release_model_spec.json`
-            and the tt-model community catalog (`scripts/build_models_data.py`).
+            Nightly rebuild of `src/_data/models.json` from tt-inference-server (main branch) and tt-model
+            (`scripts/build_models_data.py`).
 
             Status, context and users are copied from the release spec. Nothing is measured.
-            The kind of a model that only exists as a tt-model bundle is guessed from its name, so check any
-            new "Unclassified" entries.
+            A model that exists only as a tt-model bundle takes its kind from the task tag on its card. A bundle
+            with no tag is listed as "task not stated".

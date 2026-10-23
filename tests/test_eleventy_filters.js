@@ -1095,23 +1095,19 @@ console.log("\nAll eleventy filter tests passed ✓");
   console.log("officialOnly filter tests passed ✓");
 }
 
-// ── jsonForScript ────────────────────────────────────────────────────────────
-// The Models data is embedded in <script type="application/json">. A model name or summary must not be able
-// to close that tag or open markup, and the data must still parse back to the same value.
+// ── hfUrl and safeHttpsUrl ───────────────────────────────────────────────────
+// Links on the Models pages are built from data files, so each one goes through a shape check.
 {
-  const jsonForScript = filters["jsonForScript"];
-  assert(typeof jsonForScript === "function", "jsonForScript filter is registered");
-  const value = {
-    name: "</script><script>alert(1)</script>",
-    angle: "a < b > c",
-    amp: "R&D &amp; &lt;",
-    nested: [{ k: "</SCRIPT>" }],
-    plain: "gpt-oss-120b",
-  };
-  const out = jsonForScript(value);
-  assert(!/[<>&]/.test(out), "output contains no raw <, > or &");
-  assert(out.includes("\\u003c/script\\u003e"), "</script> is escaped, not removed");
-  assert.deepStrictEqual(JSON.parse(out), value, "escaped output parses back to the original value");
-  assert.strictEqual(jsonForScript("x"), '"x"', "a plain string is only quoted");
-  console.log("jsonForScript filter tests passed ✓");
+  const { hfUrl, safeHttpsUrl } = filters;
+  assert(typeof hfUrl === "function" && typeof safeHttpsUrl === "function", "link filters are registered");
+  assert.strictEqual(hfUrl("openai/gpt-oss-120b"), "https://huggingface.co/openai/gpt-oss-120b");
+  assert.strictEqual(hfUrl("a/b.c_d-1"), "https://huggingface.co/a/b.c_d-1");
+  for (const bad of ["javascript:alert(1)", "a/b/c", "a b/c", "../x", "owner/", "/name", "", null, undefined, 5, "a/b?x=1", "a/b#h", 'a/"onmouseover=x']) {
+    assert.strictEqual(hfUrl(bad), "", `hfUrl rejects ${JSON.stringify(bad)}`);
+  }
+  assert.strictEqual(safeHttpsUrl("https://github.com/tenstorrent/tt-metal/tree/805f43d/models"), "https://github.com/tenstorrent/tt-metal/tree/805f43d/models");
+  for (const bad of ["javascript:alert(1)", "http://example.com", "data:text/html,x", "//evil.example", "not a url", "", null, undefined, "https://"]) {
+    assert.strictEqual(safeHttpsUrl(bad), "", `safeHttpsUrl rejects ${JSON.stringify(bad)}`);
+  }
+  console.log("link filter tests passed ✓");
 }

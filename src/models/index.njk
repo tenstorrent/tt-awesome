@@ -1,0 +1,54 @@
+---
+layout: base-models.njk
+permalink: /models/index.html
+eleventyExcludeFromCollections: true
+activeUrl: /models/
+canonicalPath: models/
+pageTitle: Models — tt-awesome
+pageDescription: Every model listed in tt-inference-server or published as a tt-model bundle, in collections, families, kinds and hardware types, with the commands to install and run it.
+---
+{%- from "models-macros.njk" import command -%}
+<nav class="m-crumb" aria-label="Breadcrumb"><a href="{{ '/' | url }}">tt-awesome</a><span>/</span><span aria-current="page">Models</span></nav>
+<h1 class="m-title">Models</h1>
+<p class="m-blurb">{{ modelsSite.count }} models, listed in tt-inference-server's release spec (commit <code>{{ modelsSite.spec.commit }}</code>) or published as tt-model bundles. Models in tt-inference-server come first inside every list. Each model has its own page with the commands to install and run it.</p>
+
+<div class="m-index">
+  <div class="m-index-main">
+    {%- for set in modelsSite.sets %}
+    <section class="m-tilegroup">
+      <h2>{{ set.label }}</h2>
+      <p class="m-setintro">{{ set.intro }}</p>
+      <div class="m-tilerow">
+        {%- for p in set.pages %}
+        <a class="m-tile{{ ' hero' if p.slug == 'all' and set.group == 'collections' }}" href="{{ p.url | url }}">
+          <span class="t"><span>{{ p.title }}</span><span class="n">{{ p.count }}</span></span>
+        </a>
+        {%- endfor %}
+      </div>
+    </section>
+    {%- endfor %}
+
+    <section class="m-tilegroup">
+      <h2>Hardware names</h2>
+      <p class="m-setintro">tt-inference-server's release spec names a device with a key such as <code>GALAXY_T3K</code>. This is the product name it gives each key (<code>workflows/workflow_types.py</code>, <code>DeviceTypes.to_product_str</code>), and the mesh name it uses.</p>
+      <div class="m-scroll"><table class="m-table">
+        <tr><th>Device key</th><th>Product</th><th>Mesh</th></tr>
+        {%- for h in modelsSite.hardware %}
+        <tr><td><code>{{ h.key }}</code></td><td>{% if modelsSite.urls.hardware[h.product] %}<a href="{{ modelsSite.urls.hardware[h.product] | url }}">{{ h.product }}</a>{% else %}{{ h.product }}{% endif %}</td><td>{{ h.mesh }}</td></tr>
+        {%- endfor %}
+      </table></div>
+    </section>
+  </div>
+
+  <aside class="m-index-side" aria-label="Quick start">
+    <div class="kind">Quick start</div>
+    <h2>Run any model with tt</h2>
+    <p>Open a model for its exact commands. The steps are the same for every model.</p>
+    <h4>1. Download</h4>
+    {{ command("Weights, and the bundle if there is one", "tt model pull <model>") }}
+    <h4>2. Serve</h4>
+    {{ command("Starts an OpenAI-compatible server on this machine", "tt serve <model>") }}
+    <h4>Find a model from the terminal</h4>
+    {{ command("Lists published tt-model bundles", "tt model search") }}
+  </aside>
+</div>

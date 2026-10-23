@@ -1,0 +1,96 @@
+---
+layout: base-models.njk
+pagination:
+  data: modelsSite.models
+  size: 1
+  alias: m
+permalink: "models/{{ m.id }}/index.html"
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  activeUrl: "{{ m.url }}"
+  openGroup: "kinds"
+  canonicalPath: "models/{{ m.id }}/"
+  pageTitle: "{{ m.name }} — Models — tt-awesome"
+  pageDescription: "{{ m.name }} ({{ m.kind }}). {{ m.summary }}"
+---
+{%- from "models-macros.njk" import command -%}
+{%- set kindUrl = modelsSite.urls.kind[m.kind] -%}
+{%- set familyUrl = modelsSite.urls.family[m.family] -%}
+<nav class="m-crumb" aria-label="Breadcrumb"><a href="{{ '/' | url }}">tt-awesome</a><span>/</span><a href="{{ '/models/' | url }}">Models</a><span>/</span>{% if kindUrl %}<a href="{{ kindUrl | url }}">{{ m.kind }}</a>{% else %}<span>{{ m.kind }}</span>{% endif %}<span>/</span><span aria-current="page">{{ m.name }}</span></nav>
+
+<div class="mp">
+  <div class="mp-main">
+    <div class="kind">
+      {%- if kindUrl %}<a href="{{ kindUrl | url }}">{{ m.kind }}</a>{% else %}<span>{{ m.kind }}</span>{% endif %}
+      <span class="m-pill{{ ' tt' if m.inSpec }}">{{ m.source }}</span>
+      {%- if familyUrl %}<a class="m-pill" href="{{ familyUrl | url }}">{{ m.family }} family</a>{% endif %}
+    </div>
+    <h1 class="m-title">{{ m.name }}</h1>
+    {%- if m.upstream %}<div class="upstream">{% set up = m.upstream | hfUrl %}{% if up %}<a href="{{ up }}" target="_blank" rel="noopener noreferrer">{{ m.upstream }}</a>{% else %}{{ m.upstream }}{% endif %}</div>{% endif %}
+    <p class="m-blurb">{{ m.summary }}</p>
+
+    {%- if m.rows.length %}
+    <h2 class="m-h">In tt-inference-server</h2>
+    <div class="m-scroll"><table class="m-table">
+      <tr><th>Hardware</th><th>Engine</th><th>Status</th><th>Context</th><th>Users</th><th>Support page</th></tr>
+      {%- for r in m.rows %}
+      <tr>
+        <td>{% if modelsSite.urls.hardware[r.hardware] %}<a href="{{ modelsSite.urls.hardware[r.hardware] | url }}">{{ r.hardware }}</a>{% else %}{{ r.hardware }}{% endif %}<div class="m-sub"><code>{{ r.deviceKey }}</code></div></td>
+        <td>{{ r.engine }}</td>
+        <td>{{ r.status }}</td>
+        <td class="num">{{ r.context or "-" }}</td>
+        <td class="num">{{ r.users if r.users != null else "-" }}</td>
+        <td>{% set du = r.docUrl | safeHttpsUrl %}{% if du %}<a href="{{ du }}" target="_blank" rel="noopener noreferrer">Open</a>{% else %}-{% endif %}</td>
+      </tr>
+      {%- endfor %}
+    </table></div>
+    <p class="m-note">Status, context and users are copied from tt-inference-server's release spec (commit <code>{{ modelsSite.spec.commit }}</code>, release {{ modelsSite.spec.release }}). Context is the longest prompt plus reply the entry allows. Users is its highest concurrency. Nothing on this page is measured.</p>
+    {%- endif %}
+
+    <h2 class="m-h">tt-model bundles</h2>
+    {%- if m.bundles.length %}
+    <div class="m-scroll"><table class="m-table">
+      <tr><th>Bundle</th><th>Hardware</th><th>Served with</th><th>Context</th><th>Pushed</th><th></th></tr>
+      {%- for b in m.bundles %}
+      <tr>
+        <td>{% set bu = b.repo | hfUrl %}{% if bu %}<a href="{{ bu }}" target="_blank" rel="noopener noreferrer">{{ b.repo }}</a>{% else %}{{ b.repo }}{% endif %}</td>
+        <td>{%- if b.hardware and b.hardware.length %}{% for h in b.hardware %}{{ ", " if not loop.first }}{% if modelsSite.urls.hardware[h.product] %}<a href="{{ modelsSite.urls.hardware[h.product] | url }}">{{ h.product }}</a>{% else %}{{ h.product }}{% endif %}{% endfor %}{% else %}Not stated{% endif %}</td>
+        <td>{{ b.bundleKind or "Not stated" }}</td>
+        <td class="num">{{ b.context or "-" }}</td>
+        <td class="num">{{ b.updated }}</td>
+        <td><button type="button" class="m-copy sm" data-copy="tt serve {{ b.repo }}" aria-label="Copy: tt serve {{ b.repo }}">Copy serve</button></td>
+      </tr>
+      {%- endfor %}
+    </table></div>
+    <p class="m-note">From <code>tt-model search --catalog</code> and each bundle's manifest (<code>tt-model info</code>). A bundle lists every hardware profile its manifest defines.</p>
+    {%- else %}
+    <p class="m-none">No tt-model bundle has been published for this model.</p>
+    {%- endif %}
+
+    <h2 class="m-h">Details</h2>
+    <table class="m-table m-dl">
+      <tr><td>Kind</td><td>{{ m.kind }} <span class="m-sub">(from {{ m.kindFrom }})</span></td></tr>
+      {%- if m.params %}<tr><td>Parameters</td><td>{{ m.params }}</td></tr>{% endif %}
+      <tr><td>Family</td><td>{{ m.family }} <span class="m-sub">(from the start of the name)</span></td></tr>
+      {%- if m.impls.length %}<tr><td>Implementation</td><td>{% for i in m.impls %}{{ ", " if not loop.first }}{% if modelsSite.urls.implementation[i] %}<a href="{{ modelsSite.urls.implementation[i] | url }}">{{ i }}</a>{% else %}{{ i }}{% endif %}{% endfor %}</td></tr>{% endif %}
+      {%- if m.rows[0] and m.rows[0].codeLink %}<tr><td>Code</td><td>{% set cl = m.rows[0].codeLink | safeHttpsUrl %}{% if cl %}<a href="{{ cl }}" target="_blank" rel="noopener noreferrer">{{ cl }}</a>{% else %}{{ m.rows[0].codeLink }}{% endif %}</td></tr>{% endif %}
+      {%- if m.rows[0] and m.rows[0].ttMetal %}<tr><td>tt-metal commit</td><td><code>{{ m.rows[0].ttMetal }}</code></td></tr>{% endif %}
+      {%- if m.rows[0] and m.rows[0].vllm %}<tr><td>vLLM commit</td><td><code>{{ m.rows[0].vllm }}</code></td></tr>{% endif %}
+      {%- if m.rows[0] and m.rows[0].image %}<tr><td>Docker image</td><td><code class="wrap">{{ m.rows[0].image }}</code></td></tr>{% endif %}
+      {%- if m.minDiskGb %}<tr><td>Disk needed</td><td>{{ m.minDiskGb }} GB</td></tr>{% endif %}
+      {%- if m.minRamGb %}<tr><td>RAM needed</td><td>{{ m.minRamGb }} GB</td></tr>{% endif %}
+      {%- if m.toolParser %}<tr><td>Tool-call parser</td><td><code>{{ m.toolParser }}</code></td></tr>{% endif %}
+      {%- if m.reasoningParser %}<tr><td>Reasoning parser</td><td><code>{{ m.reasoningParser }}</code></td></tr>{% endif %}
+      {%- if m.bundles.length and m.bundles[0].license %}<tr><td>License (bundle card)</td><td>{{ m.bundles[0].license }}</td></tr>{% endif %}
+      <tr><td>Listed by</td><td>{{ m.source }}</td></tr>
+    </table>
+  </div>
+
+  <aside class="mp-side" aria-label="Install and run">
+    <div class="kind">Install and run</div>
+    {{ command("Download the weights" + ("" if m.inSpec else " and the bundle"), "tt model pull " + m.serve) }}
+    {{ command("Serve it on this machine", "tt serve " + m.serve) }}
+    {%- if not m.inSpec %}<p class="m-note">A tt-model bundle, so <code>tt serve</code> runs it through tt-model. If a bundle needs hardware you do not have, tt says so.</p>{% endif %}
+    {%- if m.bundles.length and m.inSpec %}<p class="m-note">To serve one of its tt-model bundles instead, use the Copy serve button beside it.</p>{% endif %}
+  </aside>
+</div>

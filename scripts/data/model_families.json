@@ -1,0 +1,10 @@
+{
+ "_about": "Name prefixes that decide a model's family on the Models pages. A name that matches no prefix takes its first word, without a trailing version number (Llama-3.1-8B is Llama, Qwen3-32B is Qwen). Lower-case prefixes, checked in order. This file only fixes names whose first word is not the family.",
+ "prefixes": [
+  ["gpt-oss", "gpt-oss"],
+  ["stable-diffusion", "Stable Diffusion"],
+  ["z-image", "Z-Image"],
+  ["speecht5", "SpeechT5"],
+  ["qwq", "QwQ"]
+ ]
+}

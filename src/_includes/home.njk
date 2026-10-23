@@ -23,13 +23,13 @@
   </div>
 
   <div class="home-section-label">Models</div>
-  <button type="button" class="models-hero" onclick="showModels()">
+  <a class="models-hero" href="{{ '/models/' | url }}">
     <span class="models-hero-top">
-      <span class="models-hero-name">Models <span class="cat-card-count">{{ models.models | length }}</span></span>
+      <span class="models-hero-name">Models <span class="cat-card-count">{{ modelsSite.count }}</span></span>
       <span class="cat-card-browse">Browse →</span>
     </span>
-    <span class="cat-card-desc">Every model listed in tt-inference-server or published as a tt-model bundle, with the command to install and run it.</span>
-  </button>
+    <span class="cat-card-desc">Every model listed in tt-inference-server or published as a tt-model bundle, with the command to install and run it. One page per model, plus collections, families, kinds and hardware.</span>
+  </a>
 
   <div class="home-section-label home-section-label--spaced">Browse by category</div>
   {%- set featuredMap = entries | diversifiedFeatured(categories) %}

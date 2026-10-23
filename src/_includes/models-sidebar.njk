@@ -1,0 +1,34 @@
+{#- Sidebar for the Models pages. Same items as the main site's sidebar, but every item is a link, and the
+    Models item opens to show the collections. `activeUrl` is the page's own URL. -#}
+<nav class="sidebar" id="sidebar">
+  <a class="sidebar-item sidebar-home" href="{{ '/' | url }}">🏠 Home</a>
+  <a class="sidebar-item" href="{{ '/' | url }}?releases=all">🏷 Recent Releases</a>
+  <a class="sidebar-item{{ ' active' if activeUrl == '/models/' }}" href="{{ '/models/' | url }}">🧠 Models <span class="sidebar-count">{{ modelsSite.count }}</span></a>
+  <div class="models-sub">
+    {%- for set in modelsSite.sets %}
+    <details{{ ' open' if (set.group == openGroup) or (set.group == 'collections' and not openGroup) }}>
+      <summary>{{ set.label }}</summary>
+      <ul>
+        {%- for p in set.pages %}
+        <li><a class="models-nav-link" href="{{ p.url | url }}"{{ ' aria-current="page"' | safe if p.url == activeUrl }}><span>{{ p.title }}</span><span class="n">{{ p.count }}</span></a></li>
+        {%- endfor %}
+      </ul>
+    </details>
+    {%- endfor %}
+  </div>
+  <hr class="sidebar-hr">
+  <div class="sidebar-label">Categories</div>
+  {%- for cat in categories %}
+  <a class="sidebar-item" href="{{ '/' | url }}?cat={{ cat.slug }}">{{ cat.sidebarLabel if cat.sidebarLabel else cat.label }}</a>
+  {%- endfor %}
+  <hr class="sidebar-hr">
+  <div class="sidebar-label">Community</div>
+  <a class="sidebar-item sidebar-ext" href="https://discord.gg/tenstorrent" target="_blank" rel="noopener noreferrer">💬 Discord</a>
+  <a class="sidebar-item sidebar-ext" href="https://docs.tenstorrent.com" target="_blank" rel="noopener noreferrer">📖 Docs</a>
+  <a class="sidebar-item sidebar-ext" href="https://github.com/tenstorrent" target="_blank" rel="noopener noreferrer">⌥ GitHub</a>
+  <hr class="sidebar-hr">
+  <a class="sidebar-item" href="{{ '/planet/' | url }}">🪐 Planet Tenstorrent</a>
+  <div class="sidebar-submit-wrap">
+    <a class="sidebar-submit" href="https://github.com/tenstorrent/tt-awesome/issues/new?template=submit-entry.yml" target="_blank" rel="noopener noreferrer">+ Submit entry</a>
+  </div>
+</nav>

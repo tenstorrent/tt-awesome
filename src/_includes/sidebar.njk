@@ -9,16 +9,7 @@
      onclick="selectReleases('all'); return false;">
     🏷 Recent Releases
   </a>
-  <a class="sidebar-item" id="models-item"
-     href="?models=index"
-     onclick="showModels(); return false;">
-    🧠 Models <span class="sidebar-count">{{ models.models | length }}</span>
-  </a>
-  {#- The collections under Models. models.js fills #models-nav and shows this block only while Models is open. #}
-  <div class="models-sub" id="models-sub" hidden>
-    <input type="search" class="models-search" id="models-q" placeholder="Search models" aria-label="Search models" autocomplete="off">
-    <div id="models-nav"></div>
-  </div>
+  <a class="sidebar-item" href="{{ '/models/' | url }}">🧠 Models <span class="sidebar-count">{{ modelsSite.count }}</span></a>
   <hr class="sidebar-hr">
   <div class="sidebar-label">Categories</div>
   {%- for cat in categories %}
