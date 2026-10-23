@@ -1,0 +1,27 @@
+---
+layout: base-models.njk
+pagination:
+  data: modelsSite.pages
+  size: 1
+  alias: g
+permalink: "models/{{ g.group }}/{{ g.slug }}/index.html"
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  activeUrl: "{{ g.url }}"
+  openGroup: "{{ g.group }}"
+  canonicalPath: "models/{{ g.group }}/{{ g.slug }}/"
+  pageTitle: "{{ g.title }} — Models — tt-awesome"
+  pageDescription: "{{ g.title }}: {{ g.count }} models. {{ g.blurb }}"
+---
+{%- from "models-macros.njk" import card -%}
+<nav class="m-crumb" aria-label="Breadcrumb"><a href="{{ '/' | url }}">tt-awesome</a><span>/</span><a href="{{ '/models/' | url }}">Models</a><span>/</span><span>{{ g.groupLabel }}</span><span>/</span><span aria-current="page">{{ g.title }}</span></nav>
+<h1 class="m-title">{{ g.title }}</h1>
+<p class="m-blurb">{{ g.blurb }}</p>
+<div class="m-bar">
+  <span id="m-count" data-total="{{ g.count }}">{{ g.count }} {{ "model" if g.count == 1 else "models" }}</span>
+  <label>Filter <input type="search" id="m-filter" placeholder="Filter this list" aria-label="Filter this list" autocomplete="off"></label>
+</div>
+<div class="m-grid" id="m-grid">
+  {%- for m in g.models %}{{ card(m) }}{% endfor %}
+</div>
+<p class="m-none" id="m-none" hidden>No model in this list matches the filter.</p>

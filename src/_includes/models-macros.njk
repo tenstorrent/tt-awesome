@@ -1,0 +1,34 @@
+{#- Pieces shared by the Models pages. -#}
+
+{#- A command with a Copy button. models-page.js copies the data-copy text. -#}
+{% macro command(label, text) -%}
+<div class="m-cmd">
+  <div class="lbl">{{ label }}</div>
+  <code>{{ text }}</code>
+  <button type="button" class="m-copy" data-copy="{{ text }}" aria-label="Copy: {{ text }}">Copy</button>
+</div>
+{%- endmacro %}
+
+{#- One model as a link card. -#}
+{% macro card(m, modelsSite) -%}
+<a class="m-card" href="{{ m.url | url }}" data-search="{{ (m.name ~ ' ' ~ (m.upstream or '') ~ ' ' ~ m.kind ~ ' ' ~ m.family ~ ' ' ~ m.hardware | join(' ')) | lower }}">
+  <div class="kind"><span>{{ m.kind }}{% if m.kindInferred %} (inferred){% endif %}</span><span class="m-pill{{ ' tt' if m.inSpec }}">{{ m.source }}</span></div>
+  <h3>{{ m.name }}</h3>
+  <div class="upstream">{{ m.upstream }}</div>
+  <p class="sum">{{ m.summary }}</p>
+  <dl class="m-facts">
+    <dt>Runs on</dt>
+    <dd{{ ' class="none"' | safe if not m.hardware.length }}>
+      {%- if m.hardware.length %}{% for h in m.hardware %}{% if loop.index <= 3 %}{{ ", " if not loop.first }}{{ h }}{% endif %}{% endfor %}{% if m.hardware.length > 3 %} +{{ m.hardware.length - 3 }}{% endif %}{% else %}Not stated{% endif -%}
+    </dd>
+    <dt>Status</dt>
+    <dd{{ ' class="none"' | safe if not m.status }}>{{ m.status or "Not in the release spec" }}</dd>
+    <dt>tt launch</dt>
+    <dd{{ ' class="none"' | safe if not m.clients.length }}>{{ (m.clients.length ~ (" client" if m.clients.length == 1 else " clients")) if m.clients.length else "None" }}</dd>
+  </dl>
+  <div class="m-foot">
+    {%- if m.params %}<span>{{ m.params }} parameters</span>{% endif %}
+    {%- if m.bundles.length %}<span>{{ m.bundles.length }} tt-model {{ "bundle" if m.bundles.length == 1 else "bundles" }}</span>{% endif %}
+  </div>
+</a>
+{%- endmacro %}

@@ -6,6 +6,13 @@ eleventyExcludeFromCollections: true
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>{{ site.baseUrl }}</loc></url>
   <url><loc>{{ site.baseUrl }}planet/</loc></url>
+  <url><loc>{{ site.baseUrl }}models/</loc></url>
+{%- for g in modelsSite.pages %}
+  <url><loc>{{ site.baseUrl }}models/{{ g.group }}/{{ g.slug }}/</loc></url>
+{%- endfor %}
+{%- for m in modelsSite.models %}
+  <url><loc>{{ site.baseUrl }}models/{{ m.id }}/</loc></url>
+{%- endfor %}
 {%- for entry in entries %}
   <url><loc>{{ site.baseUrl }}entry/{{ entry.id }}/</loc></url>
 {%- endfor %}

@@ -1,0 +1,114 @@
+name: Refresh models list
+# Rebuilds src/_data/models.json (the Models pages of the site) from
+#   1. tt-inference-server's main branch (release spec, hardware names, support pages; takes precedence), and
+#   2. tt-model: the community catalog (`tt-model search --catalog`) and each bundle's manifest (`tt-model info`),
+# then opens a PR if the list changed. Same pattern as nightly.yml: the change is reviewed and merged,
+# and the merge to main deploys. The deploy job itself never fetches anything.
+on:
+  schedule:
+    - cron: "43 7 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: build the list and print the diff, open no PR"
+        type: boolean
+        default: false
+# Nothing is written to the repo with a token that has run downloaded code. The "build" job installs
+# and runs tt-model with a read-only token and hands models.json over as an artifact. The "pr" job has
+# write access and runs only this repo's own files.
+permissions:
+  contents: read
+concurrency:
+  group: nightly-models
+  cancel-in-progress: true
+env:
+  # tt-model-manager is installed from this exact commit, so a change on its main branch cannot run in
+  # this job unreviewed. To update tt-model, change the commit in a PR.
+  TT_MODEL_COMMIT: 713eeb2f33354881beca0fffc2b1ffe15bb5867d
+  # The catalog search asks for this many rows; build_models_data.py fails if it gets exactly this many,
+  # because the listing was then cut off.
+  CATALOG_LIMIT: "300"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      # tt-inference-server: the release spec, the file that names its hardware, and the list of support pages.
+      - name: Fetch the tt-inference-server release spec
+        uses: actions/checkout@v4
+        with:
+          repository: tenstorrent/tt-inference-server
+          path: .tt-inference-server
+          sparse-checkout: |
+            release_model_spec.json
+            workflows/workflow_types.py
+            docs/model_support
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+          # Read-only. Set MODELS_SOURCE_TOKEN (read access to the source repos) if the default token
+          # cannot read them.
+          token: ${{ secrets.MODELS_SOURCE_TOKEN || github.token }}
+
+      # tt-model, for `tt-model search`. It only lists Hub repos; it opens no device.
+      - name: Install tt-model at a pinned commit
+        env:
+          SOURCE_TOKEN: ${{ secrets.MODELS_SOURCE_TOKEN || github.token }}
+        run: |
+          pip install "git+https://x-access-token:${SOURCE_TOKEN}@github.com/tenstorrent/tt-model-manager.git@${TT_MODEL_COMMIT}"
+          tt-model --help > /dev/null
+
+      - name: Read the tt-model catalog
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: tt-model search --catalog --json --limit "$CATALOG_LIMIT" > catalog.json
+
+      - name: Build models.json
+        run: |
+          python3 scripts/build_models_data.py \
+            --isrv .tt-inference-server --catalog catalog.json --limit "$CATALOG_LIMIT"
+          git --no-pager diff --stat -- src/_data/models.json || true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: models-json
+          path: src/_data/models.json
+          retention-days: 3
+
+  pr:
+    needs: build
+    if: ${{ !inputs.dry_run }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: models-json
+          path: src/_data
+
+      - name: Create pull request if changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: src/_data/models.json
+          commit-message: "chore: refresh models list"
+          branch: "chore/nightly-models"
+          delete-branch: true
+          title: "chore: refresh models list"
+          body: |
+            Nightly rebuild of `src/_data/models.json` from tt-inference-server (main branch) and tt-model
+            (`scripts/build_models_data.py`).
+
+            Status, context and users are copied from the release spec. Nothing is measured.
+            A model that exists only as a tt-model bundle takes its kind from the task tag on its card. A bundle
+            with no tag is listed as "task not stated".
