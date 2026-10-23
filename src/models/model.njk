@@ -92,5 +92,20 @@ eleventyComputed:
     {{ command("Serve it on this machine", "tt serve " + m.serve) }}
     {%- if not m.inSpec %}<p class="m-note">A tt-model bundle, so <code>tt serve</code> runs it through tt-model. If a bundle needs hardware you do not have, tt says so.</p>{% endif %}
     {%- if m.bundles.length and m.inSpec %}<p class="m-note">To serve one of its tt-model bundles instead, use the Copy serve button beside it.</p>{% endif %}
+
+    <div class="kind m-kind-gap">Connect a client with tt launch</div>
+    {%- if m.clients.length %}
+    <p class="m-note">Serve the model first, then run one of these. Only clients that work with this model are listed.</p>
+    {%- for c in m.clients %}
+    <div class="m-cmd compact">
+      <div class="lbl">{{ c.type }}. {{ c.note }}{% if not c.checked %} <span class="m-fit">Not checked by tt</span>{% endif %}</div>
+      <code>tt launch {{ c.id }} --model {{ m.serve }}</code>
+      <button type="button" class="m-copy" data-copy="tt launch {{ c.id }} --model {{ m.serve }}" aria-label="Copy: tt launch {{ c.id }} --model {{ m.serve }}">Copy</button>
+    </div>
+    {%- endfor %}
+    <p class="m-note">Terminal clients need a tool-call parser. Open WebUI and AnythingLLM take any chat model. The rule is tt-cli's (<code>tt launch</code>).{% if not m.inSpec %} This model is not in tt's catalog, so tt warns instead of checking. The listing comes from the bundle's manifest, which says it is served with vLLM{% if m.toolParser %} and names the <code>{{ m.toolParser }}</code> parser{% endif %}.{% endif %}</p>
+    {%- else %}
+    <p class="m-none">None. tt launch connects chat models served with vLLM{% if m.inSpec %}, and tt-inference-server lists no vLLM entry for this model{% else %}, and no bundle of this model is served with vLLM{% endif %}.</p>
+    {%- endif %}
   </aside>
 </div>

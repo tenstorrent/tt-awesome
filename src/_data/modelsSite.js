@@ -49,6 +49,9 @@ const pick = (test) => models.filter(test).sort(byListing);
   add("has-bundle", "Has a tt-model bundle", "Models with at least one published tt-model bundle.", pick((m) => m.bundles.length > 0));
   add("newest-bundles", "Newest tt-model bundles", "The 20 models with the most recently pushed tt-model bundles, newest first.",
     models.filter((m) => m.newest).sort((a, b) => b.newest.localeCompare(a.newest) || a.name.localeCompare(b.name)).slice(0, 20));
+  add("terminal-clients", "Works with terminal coding clients",
+    "Models with a tool-call parser and a chat server, so tt launch can connect opencode, pi, aider, qwencode or hermes. A bundle-only model is listed when its manifest names a parser; tt cannot check those.",
+    pick((m) => m.clients.some((c) => c.type === "Terminal")));
   add("tool-calling", "States a tool-call parser", "Models whose spec entry or bundle manifest names a tool-call parser.", pick((m) => m.toolParser));
 }
 

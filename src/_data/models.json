@@ -89,6 +89,20 @@
  "models": [
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "AFM",
    "hardware": [
     "WH LoudBox/QuietBox",
@@ -156,6 +170,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "bge",
    "hardware": [
     "WH Galaxy",
@@ -257,6 +272,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "bge",
    "hardware": [
     "BH QuietBox 2"
@@ -307,6 +323,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: deepseek_v3",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: deepseek_v3",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: deepseek_v3",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: deepseek_v3",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: deepseek_v3",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "DeepSeek",
    "hardware": [
     "Dual WH Galaxy",
@@ -391,6 +451,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: deepseek_v3",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: deepseek_v3",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: deepseek_v3",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: deepseek_v3",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: deepseek_v3",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "DeepSeek",
    "hardware": [
     "BH 4xP150",
@@ -510,6 +614,20 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "diffusiongemma",
    "hardware": [
     "BH QuietBox 2"
@@ -560,6 +678,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "distil",
    "hardware": [
     "BH QuietBox 2",
@@ -695,6 +814,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "FLUX",
    "hardware": [
     "BH 4xP150",
@@ -830,6 +950,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "FLUX",
    "hardware": [
     "BH 4xP150",
@@ -965,6 +1086,20 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "gemma",
    "hardware": [
     "WH Galaxy"
@@ -1047,6 +1182,50 @@
      "updated": "2026-10-21"
     }
    ],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "gemma",
    "hardware": [
     "BH Galaxy",
@@ -1116,6 +1295,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "gemma",
    "hardware": [
     "BH Galaxy",
@@ -1264,6 +1487,50 @@
      "updated": "2026-10-14"
     }
    ],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: openai",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: openai",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: openai",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: openai",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: openai",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "gpt-oss",
    "hardware": [
     "BH 4xP150",
@@ -1367,6 +1634,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Llama",
    "hardware": [
     "BH 4xP150",
@@ -1486,6 +1797,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Llama",
    "hardware": [
     "BH 4xP150",
@@ -1605,6 +1960,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Llama",
    "hardware": [
     "BH LoudBox",
@@ -1774,6 +2173,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Llama",
    "hardware": [
     "BH LoudBox",
@@ -1960,6 +2403,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Llama",
    "hardware": [
     "WH LoudBox/QuietBox",
@@ -2044,6 +2531,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Llama",
    "hardware": [
     "WH LoudBox/QuietBox",
@@ -2128,6 +2659,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Llama",
    "hardware": [
     "WH LoudBox/QuietBox",
@@ -2247,6 +2822,50 @@
      "updated": "2026-10-21"
     }
    ],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Llama",
    "hardware": [
     "WH LoudBox/QuietBox",
@@ -2333,6 +2952,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: llama3_json",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Llama",
    "hardware": [
     "BH 4xP150",
@@ -2452,6 +3115,20 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Mistral",
    "hardware": [
     "WH LoudBox/QuietBox",
@@ -2536,6 +3213,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "mobilenet",
    "hardware": [
     "n150",
@@ -2603,6 +3281,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "mochi",
    "hardware": [
     "BH LoudBox",
@@ -2687,6 +3366,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Qwen",
    "hardware": [
     "WH Galaxy",
@@ -2754,6 +3477,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Qwen",
    "hardware": [
     "WH Galaxy",
@@ -2892,6 +3659,50 @@
      "task": null,
      "toolParser": "hermes",
      "updated": "2026-09-09"
+    }
+   ],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Qwen",
@@ -3050,6 +3861,50 @@
      "updated": "2026-10-06"
     }
    ],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Qwen",
    "hardware": [
     "BH 4xP150",
@@ -3153,6 +4008,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "Qwen",
    "hardware": [
     "BH QuietBox 2"
@@ -3203,6 +4059,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "Qwen",
    "hardware": [
     "BH QuietBox 2"
@@ -3253,6 +4110,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "Qwen",
    "hardware": [
     "WH Galaxy",
@@ -3354,6 +4212,20 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Qwen",
    "hardware": [
     "WH LoudBox/QuietBox"
@@ -3432,6 +4304,50 @@
      "task": "text-generation",
      "toolParser": "qwen3_coder",
      "updated": "2026-10-14"
+    }
+   ],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Qwen",
@@ -3562,6 +4478,50 @@
      "updated": "2026-10-14"
     }
    ],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Qwen",
    "hardware": [
     "BH 4xP150",
@@ -3614,6 +4574,50 @@
   },
   {
    "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "QwQ",
    "hardware": [
     "WH Galaxy",
@@ -3681,6 +4685,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "resnet",
    "hardware": [
     "n150",
@@ -3748,6 +4753,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "segformer",
    "hardware": [
     "n150",
@@ -3815,6 +4821,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "SpeechT5",
    "hardware": [
     "BH QuietBox 2",
@@ -3882,6 +4889,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "Stable Diffusion",
    "hardware": [
     "WH Galaxy",
@@ -3949,6 +4957,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "Stable Diffusion",
    "hardware": [
     "WH Galaxy",
@@ -4050,6 +5059,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "Stable Diffusion",
    "hardware": [
     "WH Galaxy",
@@ -4151,6 +5161,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "vit",
    "hardware": [
     "n150",
@@ -4218,6 +5229,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "vovnet",
    "hardware": [
     "n150",
@@ -4285,6 +5297,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "Wan",
    "hardware": [
     "BH 4xP150",
@@ -4420,6 +5433,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "whisper",
    "hardware": [
     "BH QuietBox 2",
@@ -4555,6 +5569,7 @@
   },
   {
    "bundles": [],
+   "clients": [],
    "family": "yolox",
    "hardware": [
     "p150"
@@ -4630,6 +5645,7 @@
      "updated": "2026-10-16"
     }
    ],
+   "clients": [],
    "family": "Z-Image",
    "hardware": [
     "BH QuietBox 2",
@@ -4706,6 +5722,7 @@
      "updated": "2026-10-16"
     }
    ],
+   "clients": [],
    "family": "Ace",
    "hardware": [
     "p100a"
@@ -4760,6 +5777,7 @@
      "updated": "2026-09-20"
     }
    ],
+   "clients": [],
    "family": "Alpamayo",
    "hardware": [
     "p150"
@@ -4812,6 +5830,20 @@
      "task": null,
      "toolParser": null,
      "updated": "2026-10-23"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "AREX",
@@ -4872,6 +5904,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "bevformer",
    "hardware": [
     "p150"
@@ -4930,6 +5963,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "bevfusion",
    "hardware": [
     "p150"
@@ -4988,6 +6022,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "camera",
    "hardware": [
     "p150"
@@ -5070,6 +6105,20 @@
      "updated": "2026-10-06"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "clef",
    "hardware": [
     "p150x2"
@@ -5124,6 +6173,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "DA3Metric",
    "hardware": [
     "p150"
@@ -5178,6 +6228,7 @@
      "updated": "2026-10-12"
     }
    ],
+   "clients": [],
    "family": "DeepSeek",
    "hardware": [
     "BH QuietBox 2"
@@ -5232,6 +6283,7 @@
      "updated": "2026-10-16"
     }
    ],
+   "clients": [],
    "family": "DiffRhythm",
    "hardware": [
     "p100a"
@@ -5290,6 +6342,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "diffusion",
    "hardware": [
     "p150"
@@ -5344,6 +6397,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "DUSt3R",
    "hardware": [
     "p150"
@@ -5400,6 +6454,50 @@
      "task": "text-generation",
      "toolParser": "llmjp_harmony",
      "updated": "2026-10-22"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: llmjp_harmony",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: llmjp_harmony",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: llmjp_harmony",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: llmjp_harmony",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: llmjp_harmony",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "ELYZA",
@@ -5460,6 +6558,7 @@
      "updated": "2026-10-21"
     }
    ],
+   "clients": [],
    "family": "embeddinggemma",
    "hardware": [
     "p150"
@@ -5512,6 +6611,50 @@
      "task": null,
      "toolParser": "hermes",
      "updated": "2026-09-12"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "EXAONE",
@@ -5568,6 +6711,7 @@
      "updated": "2026-09-01"
     }
    ],
+   "clients": [],
    "family": "FLUX",
    "hardware": [
     "BH QuietBox 2"
@@ -5622,6 +6766,7 @@
      "updated": "2026-10-16"
     }
    ],
+   "clients": [],
    "family": "FLUX",
    "hardware": [
     "p100a"
@@ -5676,6 +6821,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "gaze",
    "hardware": [
     "p150"
@@ -5748,6 +6894,50 @@
      "updated": "2026-10-10"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: glm45",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: glm45",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: glm45",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: glm45",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: glm45",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "GLM",
    "hardware": [
     "BH 4xP150",
@@ -5809,6 +6999,50 @@
      "task": null,
      "toolParser": "glm47",
      "updated": "2026-10-23"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: glm47",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: glm47",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: glm47",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: glm47",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: glm47",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "GLM",
@@ -5974,6 +7208,50 @@
      "updated": "2026-10-14"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: openai",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: openai",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: openai",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: openai",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: openai",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "gpt-oss",
    "hardware": [
     "BH 4xP150",
@@ -6031,6 +7309,7 @@
      "updated": "2026-09-28"
     }
    ],
+   "clients": [],
    "family": "GR00T",
    "hardware": [
     "p150"
@@ -6085,6 +7364,7 @@
      "updated": "2026-09-28"
     }
    ],
+   "clients": [],
    "family": "GR00T",
    "hardware": [
     "p150"
@@ -6139,6 +7419,7 @@
      "updated": "2026-09-28"
     }
    ],
+   "clients": [],
    "family": "GR00T",
    "hardware": [
     "p150"
@@ -6193,6 +7474,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "hamer",
    "hardware": [
     "p150"
@@ -6247,6 +7529,7 @@
      "updated": "2026-10-16"
     }
    ],
+   "clients": [],
    "family": "HiDream",
    "hardware": [
     "p100a"
@@ -6305,6 +7588,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "image",
    "hardware": [
     "p150"
@@ -6365,6 +7649,50 @@
      "updated": "2026-10-08"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: kimi_k2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: kimi_k2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: kimi_k2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: kimi_k2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: kimi_k2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Kimi",
    "hardware": [
     "BH P300",
@@ -6418,6 +7746,20 @@
      "task": null,
      "toolParser": null,
      "updated": "2026-09-10"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Laguna",
@@ -6482,6 +7824,50 @@
      "task": "text-generation",
      "toolParser": "poolside_v1",
      "updated": "2026-10-14"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: poolside_v1",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: poolside_v1",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: poolside_v1",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: poolside_v1",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: poolside_v1",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Laguna",
@@ -6549,6 +7935,7 @@
      "updated": "2026-10-06"
     }
    ],
+   "clients": [],
    "family": "laya",
    "hardware": [
     "BH 4xP150",
@@ -6614,6 +8001,7 @@
      "updated": "2026-10-06"
     }
    ],
+   "clients": [],
    "family": "laya",
    "hardware": [
     "BH 4xP150",
@@ -6671,6 +8059,50 @@
      "task": null,
      "toolParser": "lfm2",
      "updated": "2026-10-20"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: lfm2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: lfm2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: lfm2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: lfm2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: lfm2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "LFM",
@@ -6731,6 +8163,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "lidar",
    "hardware": [
     "p150"
@@ -6789,6 +8222,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "lidar",
    "hardware": [
     "p150"
@@ -6847,6 +8281,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "lidar",
    "hardware": [
     "p150"
@@ -6903,6 +8338,20 @@
      "task": "text-generation",
      "toolParser": null,
      "updated": "2026-10-14"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "llm",
@@ -6963,6 +8412,20 @@
      "updated": "2026-10-14"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "llm",
    "hardware": [
     "p150"
@@ -7017,6 +8480,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "LocateAnything",
    "hardware": [
     "p150"
@@ -7075,6 +8539,7 @@
      "updated": "2026-10-19"
     }
    ],
+   "clients": [],
    "family": "meteor",
    "hardware": [
     "p150"
@@ -7127,6 +8592,20 @@
      "task": null,
      "toolParser": null,
      "updated": "2026-10-21"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "MiMo",
@@ -7193,6 +8672,7 @@
      "updated": "2026-10-08"
     }
    ],
+   "clients": [],
    "family": "MiniMax",
    "hardware": [
     "BH QuietBox 2",
@@ -7258,6 +8738,7 @@
      "updated": "2026-10-19"
     }
    ],
+   "clients": [],
    "family": "MiniMax",
    "hardware": [
     "p100",
@@ -7311,6 +8792,20 @@
      "task": null,
      "toolParser": null,
      "updated": "2026-10-21"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Mistral",
@@ -7367,6 +8862,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "moge",
    "hardware": [
     "p150"
@@ -7421,6 +8917,7 @@
      "updated": "2026-10-12"
     }
    ],
+   "clients": [],
    "family": "Motif",
    "hardware": [
     "BH Galaxy"
@@ -7479,6 +8976,50 @@
      "updated": "2026-10-14"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: muse_glimmer",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: muse_glimmer",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: muse_glimmer",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: muse_glimmer",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: muse_glimmer",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Muse",
    "hardware": [
     "BH QuietBox 2"
@@ -7535,6 +9076,50 @@
      "task": null,
      "toolParser": "qwen3_coder",
      "updated": "2026-10-21"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "NVIDIA",
@@ -7601,6 +9186,50 @@
      "task": null,
      "toolParser": "olmo3_tt",
      "updated": "2026-10-08"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: olmo3_tt",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: olmo3_tt",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: olmo3_tt",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: olmo3_tt",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: olmo3_tt",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Olmo",
@@ -7679,6 +9308,50 @@
      "task": "text-generation",
      "toolParser": "qwen3_xml",
      "updated": "2026-10-19"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Ornith",
@@ -7822,6 +9495,50 @@
      "updated": "2026-10-23"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Ornith",
    "hardware": [
     "BH 4xP150",
@@ -7895,6 +9612,50 @@
      "task": "text-generation",
      "toolParser": "qwen3_xml",
      "updated": "2026-10-14"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Ornith",
@@ -7977,6 +9738,7 @@
      "updated": "2026-10-13"
     }
    ],
+   "clients": [],
    "family": "pi",
    "hardware": [
     "BH QuietBox 2",
@@ -8036,6 +9798,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "pt",
    "hardware": [
     "p150"
@@ -8090,6 +9853,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "Qwen",
    "hardware": [
     "p150"
@@ -8144,6 +9908,7 @@
      "updated": "2026-10-16"
     }
    ],
+   "clients": [],
    "family": "Qwen",
    "hardware": [
     "p100a"
@@ -8220,6 +9985,50 @@
      "task": null,
      "toolParser": "qwen3_coder",
      "updated": "2026-10-08"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Qwen",
@@ -8340,6 +10149,50 @@
      "updated": "2026-10-23"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Qwen",
    "hardware": [
     "BH 4xP150",
@@ -8401,6 +10254,7 @@
      "updated": "2026-10-21"
     }
    ],
+   "clients": [],
    "family": "Qwen",
    "hardware": [
     "p150"
@@ -8459,6 +10313,7 @@
      "updated": "2026-10-21"
     }
    ],
+   "clients": [],
    "family": "Qwen",
    "hardware": [
     "p150"
@@ -8517,6 +10372,7 @@
      "updated": "2026-10-21"
     }
    ],
+   "clients": [],
    "family": "Qwen",
    "hardware": [
     "p150"
@@ -8575,6 +10431,50 @@
      "task": null,
      "toolParser": "qwen3_xml",
      "updated": "2026-10-09"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Qwen",
@@ -8678,6 +10578,50 @@
      "task": null,
      "toolParser": "qwen3_xml",
      "updated": "2026-10-11"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Qwen",
@@ -8848,6 +10792,50 @@
      "updated": "2026-10-14"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Qwen",
    "hardware": [
     "BH 4xP150",
@@ -8904,6 +10892,20 @@
      "updated": "2026-10-14"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "RAG",
    "hardware": [
     "p150x2"
@@ -8958,6 +10960,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "rf",
    "hardware": [
     "p150"
@@ -9012,6 +11015,7 @@
      "updated": "2026-09-21"
     }
    ],
+   "clients": [],
    "family": "RLDX",
    "hardware": [
     "p150"
@@ -9066,6 +11070,7 @@
      "updated": "2026-09-21"
     }
    ],
+   "clients": [],
    "family": "RLDX",
    "hardware": [
     "p150"
@@ -9166,6 +11171,7 @@
      "updated": "2026-10-19"
     }
    ],
+   "clients": [],
    "family": "s",
    "hardware": [
     "BH P300",
@@ -9223,6 +11229,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "sam",
    "hardware": [
     "p150"
@@ -9281,6 +11288,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "sceneseg",
    "hardware": [
     "p150"
@@ -9345,6 +11353,20 @@
      "updated": "2026-10-21"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "SmolLM",
    "hardware": [
     "p100",
@@ -9398,6 +11420,50 @@
      "task": null,
      "toolParser": "solar_open",
      "updated": "2026-09-11"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: solar_open",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: solar_open",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: solar_open",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: solar_open",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: solar_open",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "Solar",
@@ -9454,6 +11520,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "superpoint",
    "hardware": [
     "p150"
@@ -9512,6 +11579,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "tensorrt",
    "hardware": [
     "p150"
@@ -9570,6 +11638,7 @@
      "updated": "2026-10-17"
     }
    ],
+   "clients": [],
    "family": "tensorrt",
    "hardware": [
     "p150"
@@ -9624,6 +11693,7 @@
      "updated": "2026-10-05"
     }
    ],
+   "clients": [],
    "family": "VGGT",
    "hardware": [
     "p150"
@@ -9676,6 +11746,20 @@
      "task": null,
      "toolParser": null,
      "updated": "2026-09-08"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
     }
    ],
    "family": "VibeThinker",
@@ -9736,6 +11820,20 @@
      "updated": "2026-10-21"
     }
    ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Voxtral",
    "hardware": [
     "BH QuietBox 2"
@@ -9790,6 +11888,7 @@
      "updated": "2026-10-16"
     }
    ],
+   "clients": [],
    "family": "Wan",
    "hardware": [
     "p100a"
@@ -9844,6 +11943,7 @@
      "updated": "2026-09-14"
     }
    ],
+   "clients": [],
    "family": "xvla",
    "hardware": [
     "p150"

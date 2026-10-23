@@ -63,6 +63,14 @@ NOT_STATED = {"vllm-plugin": "Served with vLLM, task not stated", "vllm": "Serve
               "http-server": "HTTP server, task not stated"}
 NOT_STATED_ANY = "Task not stated"
 RANK = {"COMPLETE": 3, "FUNCTIONAL": 2, "EXPERIMENTAL": 1}
+# The clients `tt launch` can connect to a served model (tt-cli, src/tenstorrent/launchers/__init__.py), and whether each
+# needs tool calling (the launcher's requires_tool_calling). tt-cli's rule (commands/launch.py): a client needs a chat
+# model, which tt serves through vLLM, and a client that needs tool calling also needs a tool-call parser. Keep this
+# list in step with that registry.
+CLIENTS = [("opencode", "Terminal", True), ("pi", "Terminal", True), ("aider", "Terminal", True),
+           ("qwencode", "Terminal", True), ("hermes", "Terminal", True),
+           ("openwebui", "Web service", False), ("anythingllm", "Web service", False)]
+VLLM_BUNDLE_KINDS = {"vllm", "vllm-plugin", "vllm-fork"}
 # tt-inference-server lists these products as one card each (workflow_types.py: "Single P300 card (2 dies)").
 SINGLE_CARD_KEYS = {"E150", "N150", "N300", "P100", "P150", "P300"}
 
@@ -309,6 +317,16 @@ for m in all_models:
         owners = ", ".join(sorted({b["owner"] for b in m["bundles"]}))
         m["summary"] = blurb or f"Published as {n} tt-model {'bundle' if n == 1 else 'bundles'} by {owners}."
     m["source"] = "tt-inference-server" if m["inSpec"] else "tt-model only"
+    # A tt-inference-server model is checked by tt against the spec: a vLLM row means chat, and a vLLM row's tool-call
+    # parser means tool calling. A bundle-only model is not in tt's catalog, so tt cannot check it. Its manifest says
+    # whether it is served with vLLM and names a parser, and the clients that follow are marked as not checked by tt.
+    if m["inSpec"]:
+        chat, checked = any(x["engine"] == "vLLM" for x in m["rows"]), True
+    else:
+        chat, checked = any(b.get("bundleKind") in VLLM_BUNDLE_KINDS for b in m["bundles"]), False
+    m["clients"] = [dict(id=cid, type=ctype,
+                         note=(f"Tool calling: {m['toolParser']}" if needs else "Any chat model"), checked=checked)
+                    for cid, ctype, needs in CLIENTS if chat and (m["toolParser"] or not needs)]
 
 # A family label keeps the casing most of its models use.
 spell = {}

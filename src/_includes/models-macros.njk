@@ -23,6 +23,8 @@
     </dd>
     <dt>Status</dt>
     <dd{{ ' class="none"' | safe if not m.status }}>{{ m.status or "Not in the release spec" }}</dd>
+    <dt>tt launch</dt>
+    <dd{{ ' class="none"' | safe if not m.clients.length }}>{{ (m.clients.length ~ (" client" if m.clients.length == 1 else " clients")) if m.clients.length else "None" }}</dd>
   </dl>
   <div class="m-foot">
     {%- if m.params %}<span>{{ m.params }} parameters</span>{% endif %}

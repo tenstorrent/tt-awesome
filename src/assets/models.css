@@ -96,6 +96,10 @@
          border: 1px solid var(--bg2); border-radius: 6px; padding: 8px 10px; margin-bottom: 8px; }
 .m-cmd .lbl { grid-column: 1 / -1; font-size: 10px; color: var(--muted); }
 .m-cmd code { font-size: 12.5px; color: var(--teal-lt); overflow-wrap: anywhere; user-select: all; }
+.m-kind-gap { margin-top: 18px; }
+.m-fit { display: inline-block; font-size: 9px; padding: 0 5px; border-radius: 6px; margin-left: 4px; border: 1px solid var(--gold); color: var(--gold); }
+.m-cmd.compact { padding: 6px 10px; margin-bottom: 6px; }
+.m-cmd.compact code { font-size: 12px; }
 .m-copy { background: var(--bg1); color: var(--teal-lt); border: 1px solid var(--bg2); border-radius: 4px; padding: 3px 10px;
           font: inherit; font-size: 11px; cursor: pointer; white-space: nowrap; }
 .m-copy:hover { border-color: var(--teal); }
