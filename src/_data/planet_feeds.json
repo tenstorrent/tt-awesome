@@ -1,5 +1,33 @@
 [
   {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "ttsim v1.14.0",
+    "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.14.0",
+    "description": "Ttsim v1.14.0 tightens instruction validity checking across Wormhole and Blackhole while fixing a crop of long-standing simulator bugs—most notably [SFPMOV reads returning stale PRNG state](https://github.com/tenstorrent/ttsim/blob/v1.14.0/CHANGELOG.md) on WH/BH and packer edge-masking errors that could silently corrupt tile data. The release also expands int4/uint4 unpacking support and L1 hash registers on Quasar, and ships a 3–5× speedup for simulator-only Ethernet base firmware on Wormhole when accessing remote DRAM. A mix of correctness wins and performance, with stricter semantic checks that may surface latent issues in existing kernels.",
+    "date": "2026-10-24",
+    "dateISO": "2026-10-24T01:59:57Z",
+    "label": "tenstorrent/ttsim",
+    "projectName": "ttsim",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "tt-metal v0.81.1",
+    "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.81.1",
+    "description": "This patch release updates the PyPI commit metadata to reference the version tag instead of a specific commit SHA, simplifying release tracking and making it easier to correlate installed packages with their source versions. The change also refines SKU labeling in the release workflow, ensuring cleaner artifact identification as releases move through CI. If you're installing from this version, be sure to consult the packaged README and INSTALLATION docs rather than the main branch—they may differ from the latest development code.",
+    "date": "2026-10-23",
+    "dateISO": "2026-10-23T23:41:16Z",
+    "label": "tenstorrent/tt-metal",
+    "projectName": "tt-metal",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
     "type": "video",
     "source": "youtube",
     "approved": true,
