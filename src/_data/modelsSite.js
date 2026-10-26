@@ -71,8 +71,9 @@ const pick = (test) => models.filter(test).sort(byListing);
   // A bundle whose card states no task, and that has no inference, has no kind page. It is still in All models.
   const stated = (k) => !/task not stated/i.test(k);
   Object.keys(kinds).filter(stated).sort((a, b) => kinds[b].length - kinds[a].length || a.localeCompare(b))
-    .forEach((k) => add(k, k,
-      `Models of this kind. A tt-inference-server model's kind is its model type. A tt-model bundle's kind is the task tag on its card.${kinds[k].some((m) => m.kindInferred) ? " A bundle with no tag was placed here by an inference from its name and manifest, and its card says so." : ""}`,
+    .forEach((k) => add(k, k, k === "Decision model"
+      ? "Models that answer typed questions (choice, score, noul) about a text, JSON or image state with a probability for each option, and generate no text. Each bundle card names the System One (Jev) API they serve. They are not chat models, so tt launch has no client for them."
+      : `Models of this kind. A tt-inference-server model's kind is its model type. A tt-model bundle's kind is the task tag on its card.${kinds[k].some((m) => m.kindInferred) ? " A bundle with no tag was placed here by an inference from its name and manifest, and its card says so." : ""}`,
       kinds[k].sort(byListing)));
 }
 

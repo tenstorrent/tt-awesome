@@ -1245,6 +1245,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -1513,6 +1514,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "16K",
+     "decision": false,
      "devices": 8,
      "hardware": [
       {
@@ -1538,6 +1540,7 @@
      "blurb": "gpt-oss-120b served with vLLM on four Blackhole chips (a QuietBox 2, P150x4, tensor parallel 4).",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -1567,6 +1570,7 @@
      "blurb": "gpt-oss-120b, OpenAI's 117B-parameter mixture-of-experts reasoning model (5.1B active parameters), served with vLLM for chat, reasoning and function calling.",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -3199,6 +3203,7 @@
      "blurb": "Llama 3.2 3B Instruct, a 3.2B-parameter dense decoder-only transformer, instruction-tuned for multilingual chat and text generation, served with vLLM.",
      "bundleKind": "vllm-plugin",
      "context": "16K",
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -4162,6 +4167,7 @@
      "blurb": "",
      "bundleKind": null,
      "context": "128K",
+     "decision": false,
      "devices": 32,
      "hardware": [
       {
@@ -4187,6 +4193,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 32,
      "hardware": [
       {
@@ -4212,6 +4219,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "32K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -4430,43 +4438,7 @@
    "weights": "Qwen/Qwen3-32B"
   },
   {
-   "bundles": [
-    {
-     "arch": "blackhole",
-     "blurb": "CLM-v0.1-8B (Contrastive Language Model) is a System One verifier and ranker: a frozen Qwen3-8B encoder with last-token pooling plus two 9.4M-parameter projection heads trained with InfoNCE.",
-     "bundleKind": "tt-dit-server",
-     "context": null,
-     "devices": 1,
-     "hardware": [
-      {
-       "key": "P150",
-       "listed": true,
-       "product": "p150",
-       "raw": "p150"
-      },
-      {
-       "key": "P150X4",
-       "listed": true,
-       "product": "BH 4xP150",
-       "raw": "p150x4"
-      }
-     ],
-     "license": {
-      "id": "apache-2.0",
-      "link": null,
-      "name": null
-     },
-     "owner": "tt-hous",
-     "perf": null,
-     "readable": true,
-     "reasoningParser": null,
-     "repo": "tt-hous/clm-v0.1-8b",
-     "schema": "5.1",
-     "task": "text-ranking",
-     "toolParser": null,
-     "updated": "2026-10-06"
-    }
-   ],
+   "bundles": [],
    "clients": [
     {
      "checked": true,
@@ -4513,12 +4485,10 @@
    ],
    "family": "Qwen",
    "hardware": [
-    "BH 4xP150",
     "WH Galaxy",
     "WH LoudBox/QuietBox",
     "n150",
-    "n300",
-    "p150"
+    "n300"
    ],
    "id": "qwen3-8b",
    "impls": [
@@ -4528,9 +4498,7 @@
    "kind": "LLM",
    "kindFrom": "tt-inference-server model type",
    "kindInferred": false,
-   "licenses": [
-    "apache-2.0"
-   ],
+   "licenses": [],
    "minDiskGb": 36,
    "minRamGb": 20.0,
    "modalities": [
@@ -4538,7 +4506,7 @@
    ],
    "modelType": "LLM",
    "name": "Qwen3-8B",
-   "newest": "2026-10-06",
+   "newest": "",
    "params": "8B",
    "perf": {
     "chips": null,
@@ -4641,7 +4609,7 @@
    "source": "tt-inference-server",
    "status": "Functional",
    "studio": "Chat",
-   "summary": "Listed in tt-inference-server on 4 hardware types; best status Functional. 1 tt-model bundle also published.",
+   "summary": "Listed in tt-inference-server on 4 hardware types; best status Functional.",
    "toolParser": "hermes",
    "upstream": "Qwen/Qwen3-8B",
    "weights": "Qwen/Qwen3-8B"
@@ -4959,6 +4927,7 @@
      "blurb": "Qwen3.6-27B, a 27B-parameter dense hybrid model (Gated DeltaNet and attention layers), served with vLLM for chat and tool calling on text.",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -5097,6 +5066,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": null,
+     "decision": false,
      "devices": 2,
      "hardware": [
       {
@@ -5122,6 +5092,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -5147,6 +5118,7 @@
      "blurb": "Qwen3.8-27B, a 27B-parameter dense hybrid model (Gated DeltaNet and attention layers), served with vLLM for chat, reasoning and tool calling on text.",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -6448,6 +6420,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -6531,6 +6504,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -6591,6 +6565,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -6651,6 +6626,7 @@
      "blurb": "BEVFormer-small, a 59.5M-parameter camera-only 3D detector (ResNet-101 with deformable convolutions in stages 3 and 4 and a one-level FPN, a 3-layer spatiotemporal BEV encoder over a 150x150 bird's-eye view that attends to the previous…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -6717,6 +6693,7 @@
      "blurb": "BEVFusion-L, the lidar-only model of the weights repo (bevfusionlidar.onnx, 8.3M parameters): hard voxelization (0.17 x 0.17 x 0.2 m voxels on a 1440 x 1440 x 41 grid) with a mean voxel encoder, a 21-layer sparse 3D convolution encoder to…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -6783,6 +6760,7 @@
      "blurb": "StreamPETR, an 82M-parameter camera-only 3D detector with a temporal object memory: a VoVNet-99-eSE + CPFPN image backbone on five cameras at 480x640, the PETR 3D position embedding (computed once per calibration) and a 6-layer transformer…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -6849,6 +6827,7 @@
      "blurb": "",
      "bundleKind": "vllm",
      "context": "256K",
+     "decision": false,
      "devices": 2,
      "hardware": [
       {
@@ -6874,6 +6853,7 @@
      "blurb": "Clef is a 27B multimodal decision model from Cloudflare, post-trained from Qwen/Qwen3.8-27B.",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": true,
      "devices": 2,
      "hardware": [
       {
@@ -6899,20 +6879,7 @@
      "updated": "2026-10-06"
     }
    ],
-   "clients": [
-    {
-     "checked": false,
-     "id": "openwebui",
-     "note": "Any chat model",
-     "type": "Web service"
-    },
-    {
-     "checked": false,
-     "id": "anythingllm",
-     "note": "Any chat model",
-     "type": "Web service"
-    }
-   ],
+   "clients": [],
    "family": "clef",
    "hardware": [
     "p150x2"
@@ -6920,8 +6887,8 @@
    "id": "clef",
    "impls": [],
    "inSpec": false,
-   "kind": "VLM",
-   "kindFrom": "the task tag on the bundle's card",
+   "kind": "Decision model",
+   "kindFrom": "the bundle card, which says it answers typed System One questions and generates no text",
    "kindInferred": false,
    "licenses": [
     "apache-2.0"
@@ -6950,9 +6917,84 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "CLM-v0.1-8B (Contrastive Language Model) is a System One verifier and ranker: a frozen Qwen3-8B encoder with last-token pooling plus two 9.4M-parameter projection heads trained with InfoNCE.",
+     "bundleKind": "tt-dit-server",
+     "context": null,
+     "decision": true,
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "tt-hous",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "tt-hous/clm-v0.1-8b",
+     "schema": "5.1",
+     "task": "text-ranking",
+     "toolParser": null,
+     "updated": "2026-10-06"
+    }
+   ],
+   "clients": [],
+   "family": "clm",
+   "hardware": [
+    "BH 4xP150",
+    "p150"
+   ],
+   "id": "clm-v0-1-8b",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Decision model",
+   "kindFrom": "the bundle card, which says it answers typed System One questions and generates no text",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "clm-v0.1-8b",
+   "newest": "2026-10-06",
+   "params": null,
+   "perf": null,
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "tt-hous/clm-v0.1-8b",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "CLM-v0.1-8B (Contrastive Language Model) is a System One verifier and ranker: a frozen Qwen3-8B encoder with last-token pooling plus two 9.4M-parameter projection heads trained with InfoNCE.",
+   "toolParser": null,
+   "upstream": "Qwen/Qwen3-8B",
+   "weights": "Qwen/Qwen3-8B"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -7013,6 +7055,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": "9K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -7073,6 +7116,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -7133,6 +7177,7 @@
      "blurb": "Diffusion Planner v5.0, a 14.55M-parameter diffusion-transformer planner: six MLP-Mixer entity encoders and a 6-block transformer fusion encoder over 564 scene tokens, a 3-block DiT decoder with adaLN (self-attention over the ego and 320…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -7199,6 +7244,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -7259,6 +7305,7 @@
      "blurb": "elyza/ELYZA-Thinking-1.0-llm-jp-4-33b (ELYZA-Thinking 1.0, a reasoning model post-trained by ELYZA on llm-jp/llm-jp-4-33b-base) served by vLLM and the Tenstorrent vLLM plugin on a QuietBox 2 (two p300c boards, four Blackhole chips, mesh…",
      "bundleKind": "vllm-plugin",
      "context": "64K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -7383,6 +7430,7 @@
      "blurb": "EmbeddingGemma 2, a multimodal embedding model.",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -7449,6 +7497,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 8,
      "hardware": [
       {
@@ -7552,6 +7601,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -7612,6 +7662,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -7672,6 +7723,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -7732,6 +7784,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -7856,6 +7909,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -7966,6 +8020,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "32K",
+     "decision": false,
      "devices": 8,
      "hardware": [
       {
@@ -7991,6 +8046,7 @@
      "blurb": "Two language models served at the same time from one process on the same four Blackhole chips, each on its own OpenAI-compatible endpoint: GPT-OSS-20B (21B-parameter mixture-of-experts) with either Llama-3.1-8B-Instruct (8B dense) or…",
      "bundleKind": "cohost",
      "context": null,
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -8026,6 +8082,7 @@
      "blurb": "Same model, same serving stack and the same six profiles as tt-hous/gpt-oss-20b-p150, with faster decode: a lone request on P150x4, P150x2, P150 decodes through fused, DRAM-streaming decode ops (from tenstorrent/tt-metal60161, adapted to…",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -8067,6 +8124,7 @@
      "blurb": "gpt-oss-20b, OpenAI's 21B-parameter mixture-of-experts reasoning model (3.6B active parameters), served with vLLM for chat, reasoning and function calling.",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -8207,6 +8265,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -8267,6 +8326,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -8327,6 +8387,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -8387,6 +8448,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -8447,6 +8509,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -8507,6 +8570,7 @@
      "blurb": "PointPainting, a camera-LiDAR 3D object detector: the 2-D detections (ROIs) of up to 8 rectified cameras are projected onto the LiDAR points as 3 additive class bits, then a PointPillars pillar encoder (PFN 12-16-32), a SECOND backbone, a…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -8573,6 +8637,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": null,
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -8683,6 +8748,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "8K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -8756,6 +8822,7 @@
      "blurb": "Laguna-XS-2.1, poolside's 33B-parameter mixture-of-experts coding model (3B active parameters), served with vLLM with tool calling and separated reasoning output.",
      "bundleKind": "vllm-plugin",
      "context": null,
+     "decision": false,
      "devices": 2,
      "hardware": [
       {
@@ -8887,6 +8954,7 @@
      "blurb": "Laya is a non-LLM calibrated decision model: a ModernBERT-large encoder with an option-marker decision head (421M parameters).",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": true,
      "devices": 1,
      "hardware": [
       {
@@ -8927,8 +8995,8 @@
    "id": "laya",
    "impls": [],
    "inSpec": false,
-   "kind": "Text classification",
-   "kindFrom": "the task tag on the bundle's card",
+   "kind": "Decision model",
+   "kindFrom": "the bundle card, which says it answers typed System One questions and generates no text",
    "kindInferred": false,
    "licenses": [
     "apache-2.0"
@@ -8960,6 +9028,7 @@
      "blurb": "Laya typed-decisions is the authors' fine-tune of Laya (ModernBERT-large encoder with an option-marker decision head, 421M parameters) on the LocalLLaMA/typed-decisions train split, with a 1024-token context and a 256-token head budget.",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": true,
      "devices": 1,
      "hardware": [
       {
@@ -9000,8 +9069,8 @@
    "id": "laya-typed-decisions",
    "impls": [],
    "inSpec": false,
-   "kind": "Text classification",
-   "kindFrom": "the task tag on the bundle's card",
+   "kind": "Decision model",
+   "kindFrom": "the bundle card, which says it answers typed System One questions and generates no text",
    "kindInferred": false,
    "licenses": [
     "apache-2.0"
@@ -9033,6 +9102,7 @@
      "blurb": "A 24B-parameter mixture-of-experts model with 2B active parameters per token: a hybrid decoder of 30 gated short-convolution layers and 10 grouped-query attention layers.",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -9157,6 +9227,7 @@
      "blurb": "CenterPoint, the LiDAR 3D object detector Autoware runs by default, and its CenterPoint-tiny variant: a PointPillars pillar encoder (PFN 9-16-32), a SECOND backbone, a SECONDFPN neck and a single-task CenterPoint head, on a 480x480 head…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -9223,6 +9294,7 @@
      "blurb": "FRNet, a 10.0M-parameter LiDAR semantic-segmentation network (a frustum feature encoder of point-wise MLPs with a per-cell max, a frustum-range 2D CNN with four residual stages and point-pixel fusion, and a per-point head), one network per…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -9289,6 +9361,7 @@
      "blurb": "TransFusion-L (t4xx190m), the LiDAR-only TransFusion detector of Autoware's opt-in lidartransfusion node: a PointPillars pillar encoder (11 decorated features, PFN 32-64) on a 768x768 pillar grid, a SECOND backbone, a SECONDFPN neck and a…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -9355,6 +9428,7 @@
      "blurb": "llm-jp/llm-jp-4-33b-thinking (LLM-jp-4 33B, thinking) served by vLLM and the Tenstorrent vLLM plugin on a QuietBox 2 (two p300c boards, four Blackhole chips, mesh P300x2).",
      "bundleKind": "vllm-plugin",
      "context": "64K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -9449,6 +9523,7 @@
      "blurb": "llm-jp/llm-jp-4-8b-thinking (LLM-jp-4 8B, thinking) served by vLLM and the Tenstorrent vLLM plugin on one Blackhole P150 chip (p150a).",
      "bundleKind": "vllm-plugin",
      "context": "64K",
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -9543,6 +9618,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -9603,6 +9679,7 @@
      "blurb": "METEOR v157, a 48.25M-parameter camera-only perception and planning network (a ResNet-34 + FPN image encoder over the eight cameras, 2D segmentation, depth, 2D detection and traffic-light heads, a depth-gated lift to one 800x500 bird's-eye…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -9669,6 +9746,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -9742,6 +9820,7 @@
      "blurb": "MiniMax-H3 on Tenstorrent Blackhole: a 50-block diffusion transformer that generates video and the matching stereo soundtrack in one pass, conditioned by a Qwen3-VL-32B text/vision encoder.",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -9815,6 +9894,7 @@
      "blurb": "MiniMax Music 3, a lyrics-and-caption conditioned music generation model (8B Qwen3-based global LLM, 0.6B depth decoder for the residual RVQ codebooks, 2.4B flow-matching DiT and a DAC-style vocoder), with an SGLang-Omni compatible…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -9888,6 +9968,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "1024K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -9961,6 +10042,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -10021,6 +10103,7 @@
      "blurb": "",
      "bundleKind": null,
      "context": "32K",
+     "decision": false,
      "devices": 32,
      "hardware": [
       {
@@ -10081,6 +10164,7 @@
      "blurb": "Muse-Glimmer-30B, a dense transformer of about 29.6B parameters including its vision encoder, served with vLLM as a text-only endpoint for long-context agentic coding with tool calling and separated reasoning output.",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -10205,6 +10289,7 @@
      "blurb": "NVIDIA Nemotron 3.5 Lightning 30B-A3B (NVFP4 checkpoint), a hybrid Mamba-Transformer mixture-of-experts reasoning model with a 1,048,576-token context, ported to Tenstorrent Blackhole and served through stock vLLM 0.26.0 plus the…",
      "bundleKind": "vllm-plugin",
      "context": "1024K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -10314,6 +10399,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -10431,6 +10517,7 @@
      "blurb": "Ornith-1.0-35B, a 35B-parameter mixture-of-experts model for agentic reasoning and coding, served with vLLM with tool calling and separated reasoning output.",
      "bundleKind": "vllm-fork",
      "context": "256K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -10576,6 +10663,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 2,
      "hardware": [
       {
@@ -10631,6 +10719,7 @@
      "blurb": "Ornith-1.5-35B-A3B (35B total / 3B active MoE: 256 experts, top-8 + shared expert, 40 layers of Gated DeltaNet + gated attention, vision tower, MTP head) on Blackhole through vLLM and the Tenstorrent plugin, with a fused decode step: the…",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 2,
      "hardware": [
       {
@@ -10784,6 +10873,7 @@
      "blurb": "Ornith-1.5-9B ported to Tenstorrent Blackhole, served through upstream vLLM with the standalone Tenstorrent plugin.",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -10916,6 +11006,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -10941,6 +11032,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -11002,6 +11094,7 @@
      "blurb": "Point Transformer V3, a 34.0M-parameter LiDAR network: 0.12 m voxels serialized along two Morton curves, a 5-stage encoder (sparse-conv positional encoding, attention over patches of 512 voxels, grid pooling; about 0.36 TFLOPs on a…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -11068,6 +11161,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -11128,6 +11222,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -11188,6 +11283,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "250K",
+     "decision": false,
      "devices": 2,
      "hardware": [
       {
@@ -11237,6 +11333,7 @@
      "blurb": "Qwen3-Coder-30B-A3B-Instruct (30B total / 3B active MoE: 128 experts, top-8, 48 layers) for agentic coding with tool calling on Blackhole through vLLM, with a fused MoE decode: the published bundle (raahemnabeel/qwen3-coder-30b-a3b, v2)…",
      "bundleKind": "vllm-plugin",
      "context": "250K",
+     "decision": false,
      "devices": 2,
      "hardware": [
       {
@@ -11383,6 +11480,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -11426,6 +11524,7 @@
      "blurb": "Qwen3-Coder-Next (80B total / 3B active MoE: 512 experts, top-10 + shared expert, 48 layers of Gated DeltaNet + gated attention) on Blackhole through vLLM and the Tenstorrent plugin, with a fused decode step: the published bundle…",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -11565,6 +11664,7 @@
      "blurb": "Qwen3-TTS 1.7B Base, a text-to-speech model that clones the voice of a 3 to 10 s reference clip, in ten languages.",
      "bundleKind": "http-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -11631,6 +11731,7 @@
      "blurb": "Qwen3-TTS 1.7B CustomVoice, a text-to-speech model with nine built-in speakers and ten languages.",
      "bundleKind": "http-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -11697,6 +11798,7 @@
      "blurb": "Qwen3-TTS 1.7B VoiceDesign, a text-to-speech model that speaks in a voice described in a sentence, in ten languages.",
      "bundleKind": "http-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -11763,6 +11865,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -11794,6 +11897,7 @@
      "blurb": "Qwen3.5-122B-A10B (122B total / 10B active MoE: 256 experts, top-8 + shared expert, 48 layers of Gated DeltaNet + gated attention, vision tower, MTP head) on four Blackhole dies through vLLM and the Tenstorrent plugin, with a fused decode…",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -11919,6 +12023,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -11944,6 +12049,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "256K",
+     "decision": false,
      "devices": 2,
      "hardware": [
       {
@@ -12075,6 +12181,7 @@
      "blurb": "A dense decoder-only LLM (Qwen3.8-Flash-Next, custom qwen4exp architecture with a multi-token-prediction head) served on 4 Blackhole chips by its own OpenAI-compatible HTTP server: POST /v1/chat/completions (streaming SSE or JSON), GET…",
      "bundleKind": "http-server",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -12100,6 +12207,7 @@
      "blurb": "Qwen3.8 Flash-Next (125B MoE + 51B PLE + 4B MTP, GDN + QSA attention) served on a four-chip Blackhole line (QB2 / p300x2) through vLLM with the Tenstorrent platform plugin.",
      "bundleKind": "vllm-plugin",
      "context": null,
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -12129,6 +12237,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 8,
      "hardware": [
       {
@@ -12154,6 +12263,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -12185,6 +12295,7 @@
      "blurb": "Qwen3.8-Flash-Next, a mixture-of-experts model with 125B parameters (about 6B active per token) plus a 51B n-gram embedding table, served with vLLM as a text-only chat and completion endpoint with tool calling and separated reasoning…",
      "bundleKind": "vllm-plugin",
      "context": null,
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -12312,6 +12423,7 @@
      "blurb": "",
      "bundleKind": "vllm",
      "context": "256K",
+     "decision": false,
      "devices": 2,
      "hardware": [
       {
@@ -12385,6 +12497,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -12445,6 +12558,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -12505,6 +12619,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -12565,6 +12680,7 @@
      "blurb": "Speech to text (Whisper large-v3), text to speech (Fish Audio S2 Pro) and text to music (MiniMax Music 3) served at the same time from one process on one Blackhole chip, each model on its own HTTP endpoint.",
      "bundleKind": "cohost",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -12594,6 +12710,7 @@
      "blurb": "Fish Audio S2 Pro, a 4.5B dual-autoregressive text-to-speech model (Qwen3-based semantic decoder, 400M codebook decoder, 44.1 kHz DAC codec) on Tenstorrent Blackhole, with a fish-speech-compatible /v1/tts API (streaming WAV, voice cloning…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -12677,6 +12794,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -12737,6 +12855,7 @@
      "blurb": "SceneSeg, a 48.3M-parameter camera segmentation network (EfficientNet-B0 encoder, a SceneContext block that gates the stride-32 features with a global prior, and a UNet-style decoder of five 2x up-blocks with a 3-class head) on a fixed…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -12803,6 +12922,7 @@
      "blurb": "SmolLM2-135M-Instruct, a 135M-parameter Llama-architecture decoder-only transformer, served with vLLM.",
      "bundleKind": "vllm-plugin",
      "context": "8K",
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -12895,6 +13015,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "16K",
+     "decision": false,
      "devices": 8,
      "hardware": [
       {
@@ -12998,6 +13119,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -13058,6 +13180,7 @@
      "blurb": "BEVDet-R50-4DLongterm-Depth, a 76M-parameter camera-only 3D detector with temporal fusion: a ResNet-50 + FPN image encoder with a camera-aware depth network (118 depth bins) on six cameras at 256x704, a BEVPool v2 lift-splat into a 128 x…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -13124,6 +13247,7 @@
      "blurb": "YOLOX-s+ seg16, a 15.5M-parameter single-stage camera detector (ELAN CSPDarknet backbone, PAFPN neck, anchor-free decoupled head on strides 8, 16 and 32) with a 16-class semantic-segmentation decoder, run on a 960x960 letterboxed input…",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -13190,6 +13314,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -13250,6 +13375,7 @@
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -13323,6 +13449,7 @@
      "blurb": "Voxtral-Mini-4B-Realtime-2602, Mistral AI's realtime speech-to-text model (a 970M-parameter causal audio encoder feeding a 3.4B Ministral text decoder; 13 languages; one text token per 80 ms of audio), served on four Blackhole chips (2 x…",
      "bundleKind": "vllm-plugin",
      "context": "128K",
+     "decision": false,
      "devices": 4,
      "hardware": [
       {
@@ -13402,6 +13529,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {
@@ -13462,6 +13590,7 @@
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
+     "decision": false,
      "devices": 1,
      "hardware": [
       {

@@ -317,6 +317,12 @@ def first_sentence(text, n=240):
     return t[:cut.start()] if cut and cut.start() <= n else (t[:n].rsplit(" ", 1)[0] + "…" if len(t) > n else t)
 
 
+# A decision model answers typed questions (choice, score, noul) with probabilities and generates no text. Its card
+# says so by naming the System One / SystemOne API or the "noul" question type. Such a bundle is never joined to the
+# language model its weights came from (CLM-v0.1-8B is built on Qwen3-8B but is not a chat model).
+DECISION = re.compile(r"system ?one|noul", re.I)
+
+
 def bundle_facts(c):
     """-> (bundle dict, weights repo the bundle was built from, manifest)."""
     repo = c["id"]
@@ -339,7 +345,8 @@ def bundle_facts(c):
         context=k(serve.get("max_model_len") or (mf.get("resources") or {}).get("max_model_len")),
         toolParser=caps.get("tool_parser"), reasoningParser=caps.get("reasoning_parser"),
         task=card.get("pipeline_tag"), license=card.get("license"), blurb=first_sentence(card.get("description")),
-        perf=bundle_perf(card.get("performance")))
+        perf=bundle_perf(card.get("performance")),
+        decision=bool(DECISION.search(" ".join(str(card.get(f) or "") for f in ("description", "intended_use")))))
     return b, (mf.get("weights") or {}).get("repo_id") or repo, mf
 
 
@@ -347,8 +354,9 @@ INFERRED = json.load(open(HERE / "data/model_kinds_inferred.json"))["kinds"]
 only = {}
 for c in catalog:
     b, wrepo, mf = bundle_facts(c)
-    name = wrepo.split("/")[-1]
-    tgt = by_repo.get(wrepo.lower()) or by_name.get(norm(name))
+    decision = b.get("decision")
+    name = c["id"].split("/")[-1] if decision else wrepo.split("/")[-1]
+    tgt = None if decision else (by_repo.get(wrepo.lower()) or by_name.get(norm(name)))
     if tgt:
         tgt["bundles"].append(b)
         continue
@@ -367,6 +375,10 @@ for m in only.values():
         m["kind"] = TAG_KIND.get(tag, tag.replace("-", " ").capitalize())
         m["kindFrom"] = "the task tag on the bundle's card"
     m["kindInferred"] = False
+    if any(b.get("decision") for b in m["bundles"]):
+        m["kind"] = "Decision model"
+        m["kindFrom"] = "the bundle card, which says it answers typed System One questions and generates no text"
+        tag = "decision"
     guess = INFERRED.get(m["upstream"].lower())
     if guess and not tag:
         m["kind"], m["kindInferred"] = guess["kind"], True
@@ -448,7 +460,9 @@ for m in all_models:
     if m["inSpec"]:
         chat, checked = any(x["engine"] == "vLLM" for x in m["rows"]), True
     else:
-        chat, checked = any(b.get("bundleKind") in VLLM_BUNDLE_KINDS for b in m["bundles"]), False
+        # A decision model is served through its own API, so no chat client connects to it.
+        chat = m["kind"] != "Decision model" and any(b.get("bundleKind") in VLLM_BUNDLE_KINDS for b in m["bundles"])
+        checked = False
     m["clients"] = [dict(id=cid, type=ctype,
                          note=(f"Tool calling: {m['toolParser']}" if needs else "Any chat model"), checked=checked)
                     for cid, ctype, needs in CLIENTS if chat and (m["toolParser"] or not needs)]
