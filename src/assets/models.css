@@ -45,7 +45,6 @@
 .m-tile { display: block; background: var(--bg1); border: 1px solid var(--bg2); border-radius: 8px; padding: 10px 12px;
           color: var(--text) !important; text-decoration: none; transition: border-color 0.15s; }
 .m-tile:hover { border-color: var(--teal); }
-.m-tile.hero { grid-column: 1 / -1; }
 .m-tile .t { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; }
 .m-tile .n { font-size: 11px; font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
 

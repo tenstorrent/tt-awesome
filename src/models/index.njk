@@ -20,7 +20,7 @@ pageDescription: Every model listed in tt-inference-server or published as a tt-
       <p class="m-setintro">{{ set.intro }}</p>
       <div class="m-tilerow">
         {%- for p in set.pages %}
-        <a class="m-tile{{ ' hero' if p.slug == 'all' and set.group == 'collections' }}" href="{{ p.url | url }}">
+        <a class="m-tile" href="{{ p.url | url }}">
           <span class="t"><span>{{ p.title }}</span><span class="n">{{ p.count }}</span></span>
         </a>
         {%- endfor %}
