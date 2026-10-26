@@ -620,6 +620,23 @@
      "vllm": "3334377"
     },
     {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/v0.62.0-rc33/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "GALAXY_T3K",
+     "doc": null,
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.2.0-v0.62.0-rc33-e7c329b",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": null,
+     "status": "Functional",
+     "ttMetal": "v0.62.0-rc33",
+     "users": 32,
+     "version": "0.2.0",
+     "vllm": "e7c329b"
+    },
+    {
      "codeLink": "https://github.com/tenstorrent/tt-metal/tree/750ca54/models/tt_transformers",
      "context": "128K",
      "deviceKey": "T3K",
@@ -1443,6 +1460,7 @@
    ],
    "id": "gemma-4-31b-it",
    "impls": [
+    "gemma4-31b-qb2",
     "tt-transformers"
    ],
    "inSpec": true,
@@ -1478,6 +1496,23 @@
      "users": 128,
      "version": "0.25.0",
      "vllm": "a723030"
+    },
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/2fd9445/models/demos/gemma4_31b_qb2",
+     "context": "256K",
+     "deviceKey": "P300X2",
+     "doc": "llm/gemma-4-31B-it_p300x2.md",
+     "engine": "vLLM",
+     "hardware": "BH QuietBox 2",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.23.0-2fd9445-7250ddf",
+     "impl": "gemma4-31b-qb2",
+     "listed": true,
+     "perf": null,
+     "status": "Complete",
+     "ttMetal": "2fd9445",
+     "users": 1,
+     "version": "0.23.0",
+     "vllm": "7250ddf"
     },
     {
      "codeLink": "https://github.com/tenstorrent/tt-metal/tree/978f93b/models/tt_transformers",
@@ -1945,6 +1980,23 @@
      "vllm": "3334377"
     },
     {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/v0.62.0-rc33/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "GALAXY_T3K",
+     "doc": null,
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.2.0-v0.62.0-rc33-e7c329b",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": null,
+     "status": "Functional",
+     "ttMetal": "v0.62.0-rc33",
+     "users": 32,
+     "version": "0.2.0",
+     "vllm": "e7c329b"
+    },
+    {
      "codeLink": "https://github.com/tenstorrent/tt-metal/tree/750ca54/models/tt_transformers",
      "context": "128K",
      "deviceKey": "T3K",
@@ -2139,6 +2191,23 @@
      "users": 32,
      "version": "0.16.0",
      "vllm": "3334377"
+    },
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/v0.62.0-rc33/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "GALAXY_T3K",
+     "doc": null,
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.2.0-v0.62.0-rc33-e7c329b",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": null,
+     "status": "Functional",
+     "ttMetal": "v0.62.0-rc33",
+     "users": 32,
+     "version": "0.2.0",
+     "vllm": "e7c329b"
     },
     {
      "codeLink": "https://github.com/tenstorrent/tt-metal/tree/750ca54/models/tt_transformers",
@@ -2425,6 +2494,23 @@
      "users": 128,
      "version": "0.11.1",
      "vllm": "7c6685a"
+    },
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/bac8b34/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "GALAXY_T3K",
+     "doc": null,
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.11.1-bac8b34-7c6685a",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": null,
+     "status": "Functional",
+     "ttMetal": "bac8b34",
+     "users": 32,
+     "version": "0.11.1",
+     "vllm": "7c6685a"
     }
    ],
    "serve": "Llama-3.1-8B",
@@ -2497,6 +2583,7 @@
    ],
    "id": "llama-3-1-8b-instruct",
    "impls": [
+    "llama31-8b-qb2",
     "tt-transformers"
    ],
    "inSpec": true,
@@ -2648,6 +2735,28 @@
      "vllm": "9bd099c"
     },
     {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/29f93c9/models/demos/llama31_8b_qb2",
+     "context": "128K",
+     "deviceKey": "P300X2",
+     "doc": "llm/Llama-3.1-8B-Instruct_p300x2.md",
+     "engine": "vLLM",
+     "hardware": "BH QuietBox 2",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.24.0-29f93c9-3506696",
+     "impl": "llama31-8b-qb2",
+     "listed": true,
+     "perf": {
+      "decode": 131.33333944432843,
+      "measured": false,
+      "tier": "target",
+      "ttft": 28.56452900596196
+     },
+     "status": "Functional",
+     "ttMetal": "29f93c9",
+     "users": 32,
+     "version": "0.24.0",
+     "vllm": "3506696"
+    },
+    {
      "codeLink": "https://github.com/tenstorrent/tt-metal/tree/8c48a10/models/tt_transformers",
      "context": "128K",
      "deviceKey": "P300X2",
@@ -2684,6 +2793,23 @@
      "ttMetal": "bac8b34",
      "users": 128,
      "version": "0.11.0",
+     "vllm": "7c6685a"
+    },
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/bac8b34/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "GALAXY_T3K",
+     "doc": null,
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.11.1-bac8b34-7c6685a",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": null,
+     "status": "Functional",
+     "ttMetal": "bac8b34",
+     "users": 32,
+     "version": "0.11.1",
      "vllm": "7c6685a"
     },
     {
@@ -3571,6 +3697,23 @@
      "vllm": "3334377"
     },
     {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/v0.62.0-rc33/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "GALAXY_T3K",
+     "doc": null,
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.2.0-v0.62.0-rc33-e7c329b",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": null,
+     "status": "Functional",
+     "ttMetal": "v0.62.0-rc33",
+     "users": 32,
+     "version": "0.2.0",
+     "vllm": "e7c329b"
+    },
+    {
      "codeLink": "https://github.com/tenstorrent/tt-metal/tree/750ca54/models/tt_transformers",
      "context": "128K",
      "deviceKey": "T3K",
@@ -3994,6 +4137,23 @@
     {
      "codeLink": "https://github.com/tenstorrent/tt-metal/tree/13f44c5/models/tt_transformers",
      "context": "128K",
+     "deviceKey": "GALAXY_T3K",
+     "doc": null,
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.3.0-13f44c5-0edd242",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": null,
+     "status": "Functional",
+     "ttMetal": "13f44c5",
+     "users": 32,
+     "version": "0.3.0",
+     "vllm": "0edd242"
+    },
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/13f44c5/models/tt_transformers",
+     "context": "128K",
      "deviceKey": "T3K",
      "doc": "llm/Qwen2.5-72B_t3k.md",
      "engine": "vLLM",
@@ -4124,6 +4284,23 @@
      "status": "Functional",
      "ttMetal": "13f44c5",
      "users": 128,
+     "version": "0.3.0",
+     "vllm": "0edd242"
+    },
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/13f44c5/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "GALAXY_T3K",
+     "doc": null,
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.3.0-13f44c5-0edd242",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": null,
+     "status": "Functional",
+     "ttMetal": "13f44c5",
+     "users": 32,
      "version": "0.3.0",
      "vllm": "0edd242"
     },
@@ -4407,6 +4584,45 @@
     {
      "codeLink": "https://github.com/tenstorrent/tt-metal/tree/e95ffa5/models/tt_transformers",
      "context": "128K",
+     "deviceKey": "GALAXY",
+     "doc": "llm/Qwen3-32B_galaxy.md",
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.4.0-e95ffa5-48eba14",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": {
+      "decode": 15.600000000000001,
+      "measured": false,
+      "tier": "functional",
+      "ttft": 300.0
+     },
+     "status": "Functional",
+     "ttMetal": "e95ffa5",
+     "users": 128,
+     "version": "0.4.0",
+     "vllm": "48eba14"
+    },
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/e95ffa5/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "GALAXY_T3K",
+     "doc": null,
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.4.0-e95ffa5-48eba14",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": null,
+     "status": "Functional",
+     "ttMetal": "e95ffa5",
+     "users": 32,
+     "version": "0.4.0",
+     "vllm": "48eba14"
+    },
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/e95ffa5/models/tt_transformers",
+     "context": "128K",
      "deviceKey": "T3K",
      "doc": "llm/Qwen3-32B_t3k.md",
      "engine": "vLLM",
@@ -4510,16 +4726,38 @@
    "params": "8B",
    "perf": {
     "chips": null,
-    "decode": 8.1,
-    "decodeText": "8.1",
-    "hardware": "WH LoudBox/QuietBox",
+    "decode": 60.0,
+    "decodeText": "60",
+    "hardware": "WH Galaxy",
     "measured": false,
     "tier": "functional",
-    "ttft": 220.0,
-    "ttftText": "220 ms"
+    "ttft": 120.0,
+    "ttftText": "120 ms"
    },
    "reasoningParser": "qwen3",
    "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/e95ffa5/models/tt_transformers",
+     "context": "40K",
+     "deviceKey": "GALAXY",
+     "doc": "llm/Qwen3-8B_galaxy.md",
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.4.0-e95ffa5-48eba14",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": {
+      "decode": 60.0,
+      "measured": false,
+      "tier": "functional",
+      "ttft": 120.0
+     },
+     "status": "Functional",
+     "ttMetal": "e95ffa5",
+     "users": 128,
+     "version": "0.4.0",
+     "vllm": "48eba14"
+    },
     {
      "codeLink": "https://github.com/tenstorrent/tt-metal/tree/e95ffa5/models/tt_transformers",
      "context": "40K",
@@ -5365,6 +5603,23 @@
      "status": "Functional",
      "ttMetal": "e95ffa5",
      "users": 128,
+     "version": "0.4.0",
+     "vllm": "48eba14"
+    },
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/e95ffa5/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "GALAXY_T3K",
+     "doc": null,
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.4.0-e95ffa5-48eba14",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": null,
+     "status": "Functional",
+     "ttMetal": "e95ffa5",
+     "users": 32,
      "version": "0.4.0",
      "vllm": "48eba14"
     },
@@ -11557,9 +11812,9 @@
      "perf": {
       "board": "p300x2",
       "chips": 4,
-      "decode": 70.0,
+      "decode": 179.3,
       "measured": true,
-      "ttft": 176.0
+      "ttft": 173.0
      },
      "readable": true,
      "reasoningParser": null,
@@ -11567,7 +11822,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_coder",
-     "updated": "2026-10-23"
+     "updated": "2026-10-26"
     }
    ],
    "clients": [
@@ -11633,17 +11888,17 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3-Coder-Next",
-   "newest": "2026-10-23",
+   "newest": "2026-10-26",
    "params": null,
    "perf": {
     "board": "p300x2",
     "chips": 4,
-    "decode": 70.0,
-    "decodeText": "70",
+    "decode": 179.3,
+    "decodeText": "179",
     "hardware": "BH QuietBox 2",
     "measured": true,
-    "ttft": 176.0,
-    "ttftText": "176 ms"
+    "ttft": 173.0,
+    "ttftText": "173 ms"
    },
    "reasoningParser": null,
    "rows": [],

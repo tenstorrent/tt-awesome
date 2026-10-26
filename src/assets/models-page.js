@@ -44,9 +44,24 @@
     });
   }
 
-  // Phone menu: the sidebar is a drawer (style.css shows it when body has drawer-open).
+  // Phone menu: the sidebar is a drawer (style.css shows it when body has drawer-open). It closes from the menu
+  // button, the backdrop or Escape, and focus goes into the menu when it opens and back to the button when it closes.
   const burger = document.getElementById("hamburger");
   const backdrop = document.getElementById("drawer-backdrop");
-  if (burger) burger.addEventListener("click", () => document.body.classList.add("drawer-open"));
-  if (backdrop) backdrop.addEventListener("click", () => document.body.classList.remove("drawer-open"));
+  const sidebar = document.getElementById("sidebar");
+  function setDrawer(open) {
+    document.body.classList.toggle("drawer-open", open);
+    if (burger) { burger.setAttribute("aria-expanded", open ? "true" : "false"); burger.setAttribute("aria-label", open ? "Close menu" : "Open menu"); }
+    if (open && sidebar) { const first = sidebar.querySelector("a"); if (first) first.focus(); }
+    if (!open && burger) burger.focus();
+  }
+  if (burger) {
+    burger.setAttribute("aria-controls", "sidebar");
+    burger.setAttribute("aria-expanded", "false");
+    burger.addEventListener("click", () => setDrawer(!document.body.classList.contains("drawer-open")));
+  }
+  if (backdrop) backdrop.addEventListener("click", () => setDrawer(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.body.classList.contains("drawer-open")) setDrawer(false);
+  });
 })();

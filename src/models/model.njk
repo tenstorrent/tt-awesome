@@ -15,6 +15,8 @@ eleventyComputed:
 ---
 {%- from "models-macros.njk" import command -%}
 {%- set kindUrl = modelsSite.urls.kind[m.kind] -%}
+{#- tt launch matches --model against the id the server reports. A tt-inference-server model is in tt's catalog under its name. A bundle reports its weights repo (tt-model's /v1/models), so a bundle-only model uses that. -#}
+{%- set launchModel = m.serve if m.inSpec else (m.weights or m.upstream or m.serve) -%}
 {%- set familyUrl = modelsSite.urls.family[m.family] -%}
 <nav class="m-crumb" aria-label="Breadcrumb"><a href="{{ '/' | url }}">tt-awesome</a><span>/</span><a href="{{ '/models/' | url }}">Models</a><span>/</span>{% if kindUrl %}<a href="{{ kindUrl | url }}">{{ m.kind }}</a>{% else %}<span>{{ m.kind }}</span>{% endif %}<span>/</span><span aria-current="page">{{ m.name }}</span></nav>
 
@@ -32,11 +34,11 @@ eleventyComputed:
     {%- if m.rows.length %}
     <h2 class="m-h">In tt-inference-server</h2>
     <div class="m-scroll"><table class="m-table">
-      <tr><th>Hardware</th><th>Engine</th><th>Status</th><th>Context</th><th>Users</th><th>Support page</th></tr>
+      <tr><th>Hardware</th><th>Engine and implementation</th><th>Status</th><th>Context</th><th>Users</th><th>Support page</th></tr>
       {%- for r in m.rows %}
       <tr>
         <td>{% if modelsSite.urls.hardware[r.hardware] %}<a href="{{ modelsSite.urls.hardware[r.hardware] | url }}">{{ r.hardware }}</a>{% else %}{{ r.hardware }}{% endif %}<div class="m-sub"><code>{{ r.deviceKey }}</code></div></td>
-        <td>{{ r.engine }}</td>
+        <td>{{ r.engine }}{% if r.impl %}<div class="m-sub">{{ r.impl }}</div>{% endif %}</td>
         <td>{{ r.status }}</td>
         <td class="num">{{ r.context or "-" }}</td>
         <td class="num">{{ r.users if r.users != null else "-" }}</td>
@@ -88,7 +90,9 @@ eleventyComputed:
 
   <aside class="mp-side" aria-label="Install and run">
     <div class="kind">Install and run</div>
-    {{ command("Download the weights" + ("" if m.inSpec else " and the bundle"), "tt model pull " + m.serve) }}
+    {#- A model whose upstream is a bare label (the forge CNNs) has no Hub weights: tt model pull refuses it, and tt serve fetches the container image. -#}
+    {%- if m.inSpec and "/" not in m.upstream %}<p class="m-note">Nothing to download first. Its weights ship inside the container image, and <code>tt serve</code> fetches the image.</p>
+    {%- else %}{{ command("Download the weights" + ("" if m.inSpec else " and the bundle"), "tt model pull " + m.serve) }}{% endif %}
     {{ command("Serve it on this machine", "tt serve " + m.serve) }}
     {%- if not m.inSpec %}<p class="m-note">A tt-model bundle, so <code>tt serve</code> runs it through tt-model. If a bundle needs hardware you do not have, tt says so.</p>{% endif %}
     {%- if m.bundles.length and m.inSpec %}<p class="m-note">To serve one of its tt-model bundles instead, use the Copy serve button beside it.</p>{% endif %}
@@ -101,8 +105,8 @@ eleventyComputed:
     {%- for c in m.clients %}
     <div class="m-cmd compact">
       <div class="lbl">{{ c.type }}. {{ c.note }}</div>
-      <code>tt launch {{ c.id }} --model {{ m.serve }}</code>
-      <button type="button" class="m-copy" data-copy="tt launch {{ c.id }} --model {{ m.serve }}" aria-label="Copy: tt launch {{ c.id }} --model {{ m.serve }}">Copy</button>
+      <code>tt launch {{ c.id }} --model {{ launchModel }}</code>
+      <button type="button" class="m-copy" data-copy="tt launch {{ c.id }} --model {{ launchModel }}" aria-label="Copy: tt launch {{ c.id }} --model {{ launchModel }}">Copy</button>
     </div>
     {%- endfor %}
     <p class="m-note">Terminal clients need a tool-call parser. Open WebUI and AnythingLLM take any chat model. The rule is tt-cli's (<code>tt launch</code>).{% if not m.inSpec %} This model is not in tt's catalog, so tt warns instead of checking. The listing comes from the bundle's manifest, which says it is served with vLLM{% if m.toolParser %} and names the <code>{{ m.toolParser }}</code> parser{% endif %}.{% endif %}</p>

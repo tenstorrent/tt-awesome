@@ -258,8 +258,10 @@ for r in rows:
         doc=doc if (DOCS / doc).exists() else None))
 for m in models.values():
     seen, uniq = set(), []
-    for x in sorted(m["rows"], key=lambda x: (-RANK[x["status"].upper()], x["hardware"], x["engine"])):
-        key = (x["hardware"], x["engine"])
+    for x in sorted(m["rows"], key=lambda x: (-RANK[x["status"].upper()], x["hardware"], x["deviceKey"], x["engine"], x["impl"] or "")):
+        # Two spec rows can share a product name (GALAXY and GALAXY_T3K are both WH Galaxy) or a device with two
+        # implementations, so the key carries the device key and the implementation.
+        key = (x["deviceKey"], x["engine"], x["impl"])
         if key not in seen:
             seen.add(key)
             uniq.append(x)
