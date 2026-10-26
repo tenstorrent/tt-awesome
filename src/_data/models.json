@@ -10764,9 +10764,9 @@
      "perf": {
       "board": "p300x2",
       "chips": 4,
-      "decode": 51.1,
+      "decode": 220.0,
       "measured": true,
-      "ttft": 167.0
+      "ttft": 118.0
      },
      "readable": true,
      "reasoningParser": "qwen3",
@@ -10774,7 +10774,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-23"
+     "updated": "2026-10-26"
     }
    ],
    "clients": [
@@ -10842,17 +10842,17 @@
    "modalities": null,
    "modelType": null,
    "name": "Ornith-1.5-35B-A3B",
-   "newest": "2026-10-23",
+   "newest": "2026-10-26",
    "params": null,
    "perf": {
     "board": "p300x2",
     "chips": 4,
-    "decode": 51.1,
-    "decodeText": "51",
+    "decode": 220.0,
+    "decodeText": "220",
     "hardware": "BH QuietBox 2",
     "measured": true,
-    "ttft": 167.0,
-    "ttftText": "167 ms"
+    "ttft": 118.0,
+    "ttftText": "118 ms"
    },
    "reasoningParser": "qwen3",
    "rows": [],
@@ -12442,7 +12442,7 @@
      "schema": "6",
      "task": null,
      "toolParser": null,
-     "updated": "2026-10-14"
+     "updated": "2026-10-26"
     }
    ],
    "clients": [],
@@ -12462,7 +12462,7 @@
    "modalities": null,
    "modelType": null,
    "name": "RAG-Gate-27B",
-   "newest": "2026-10-14",
+   "newest": "2026-10-26",
    "params": null,
    "perf": null,
    "reasoningParser": null,
