@@ -71,7 +71,7 @@
 .m-perf { display: flex; flex-wrap: wrap; gap: 0 10px; align-items: baseline; }
 .m-perf .fig { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .m-perf .fig small { font-weight: 400; font-size: 10px; color: var(--muted); }
-.m-perf .where { flex-basis: 100%; font-size: 10px; color: var(--muted); }
+.m-perf .where { font-size: 10px; color: var(--muted); }
 .m-foot { display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 10.5px; color: var(--muted); }
 
 /* Model page: details beside a sticky install column */
