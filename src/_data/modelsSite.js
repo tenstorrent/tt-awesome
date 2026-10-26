@@ -52,6 +52,9 @@ const pick = (test) => models.filter(test).sort(byListing);
   add("terminal-clients", "Works with terminal coding clients",
     "Models with a tool-call parser and a chat server, so tt launch can connect opencode, pi, aider, qwencode or hermes. A bundle-only model is listed when its manifest names a parser; tt cannot check those.",
     pick((m) => m.clients.some((c) => c.type === "Terminal")));
+  add("v6-beta", "v6 bundles (beta)",
+    "Models with a tt-model bundle in the v6 thin format. tt-model's README calls that format beta and unsupported, and its flags and layout may change.",
+    pick((m) => m.bundles.some((b) => b.schema === "6")));
   add("tool-calling", "States a tool-call parser", "Models whose spec entry or bundle manifest names a tool-call parser.", pick((m) => m.toolParser));
 }
 

@@ -53,7 +53,7 @@ eleventyComputed:
       <tr><th>Bundle</th><th>Hardware</th><th>Served with</th><th>Context</th><th>Pushed</th><th></th></tr>
       {%- for b in m.bundles %}
       <tr>
-        <td>{% set bu = b.repo | hfUrl %}{% if bu %}<a href="{{ bu }}" target="_blank" rel="noopener noreferrer">{{ b.repo }}</a>{% else %}{{ b.repo }}{% endif %}</td>
+        <td>{% set bu = b.repo | hfUrl %}{% if bu %}<a href="{{ bu }}" target="_blank" rel="noopener noreferrer">{{ b.repo }}</a>{% else %}{{ b.repo }}{% endif %}{% if b.schema == "6" %} <span class="m-fit" title="tt-model's v6 thin format is beta and unsupported">v6, beta</span>{% endif %}</td>
         <td>{%- if b.hardware and b.hardware.length %}{% for h in b.hardware %}{{ ", " if not loop.first }}{% if modelsSite.urls.hardware[h.product] %}<a href="{{ modelsSite.urls.hardware[h.product] | url }}">{{ h.product }}</a>{% else %}{{ h.product }}{% endif %}{% endfor %}{% else %}Not stated{% endif %}</td>
         <td>{{ b.bundleKind or "Not stated" }}</td>
         <td class="num">{{ b.context or "-" }}</td>
