@@ -44,18 +44,10 @@ const pick = (test) => models.filter(test).sort(byListing);
   add("single-card", "Runs on a single card",
     "Models with a supported device that tt-inference-server lists as one card: e150, n150, n300, p100, p150 or BH P300 (one card with two dies). Includes tt-model bundles built for those cards.",
     pick((m) => m.singleCard));
-  add("in-tt-inference-server", "In tt-inference-server", "Models in tt-inference-server's release spec.", pick((m) => m.inSpec));
-  add("tt-model-only", "Only a tt-model bundle", "Published as tt-model bundles. tt-inference-server does not list them.", pick((m) => !m.inSpec));
-  add("has-bundle", "Has a tt-model bundle", "Models with at least one published tt-model bundle.", pick((m) => m.bundles.length > 0));
+  add("in-tt-inference-server", "Official model support", "Models in tt-inference-server's release spec.", pick((m) => m.inSpec));
+  add("has-bundle", "Community-supported models", "Models with at least one published tt-model bundle.", pick((m) => m.bundles.length > 0));
   add("newest-bundles", "Newest tt-model bundles", "The 20 models with the most recently pushed tt-model bundles, newest first.",
     models.filter((m) => m.newest).sort((a, b) => b.newest.localeCompare(a.newest) || a.name.localeCompare(b.name)).slice(0, 20));
-  add("terminal-clients", "Works with terminal coding clients",
-    "Models with a tool-call parser and a chat server, so tt launch can connect opencode, pi, aider, qwencode or hermes. A bundle-only model is listed when its manifest names a parser; tt cannot check those.",
-    pick((m) => m.clients.some((c) => c.type === "Terminal")));
-  add("v6-beta", "v6 bundles (beta)",
-    "Models with a tt-model bundle in the v6 thin format. tt-model's README calls that format beta and unsupported, and its flags and layout may change.",
-    pick((m) => m.bundles.some((b) => b.schema === "6")));
-  add("tool-calling", "States a tool-call parser", "Models whose spec entry or bundle manifest names a tool-call parser.", pick((m) => m.toolParser));
 }
 
 // Families: a family with one model gets no page.
