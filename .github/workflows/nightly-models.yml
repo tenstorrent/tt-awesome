@@ -78,8 +78,19 @@ jobs:
       - name: Build models.json
         run: |
           python3 scripts/build_models_data.py \
-            --isrv .tt-inference-server --catalog catalog.json --limit "$CATALOG_LIMIT"
+            --isrv .tt-inference-server --catalog catalog.json --limit "$CATALOG_LIMIT" \
+            --manifests manifests.json
           git --no-pager diff --stat -- src/_data/models.json || true
+
+      # The same inputs in another catalog order must give the same file, or the nightly PR would show changes
+      # that are only ordering. The manifests are read from the cache the first build wrote.
+      - name: Check the output does not depend on catalog order
+        run: |
+          python3 -c "import json; c = json.load(open('catalog.json')); json.dump(c[::-1], open('catalog_reversed.json', 'w'))"
+          python3 scripts/build_models_data.py \
+            --isrv .tt-inference-server --catalog catalog_reversed.json --limit "$CATALOG_LIMIT" \
+            --manifests manifests.json --out models_reversed.json
+          cmp src/_data/models.json models_reversed.json
 
       - uses: actions/upload-artifact@v4
         with:

@@ -200,7 +200,7 @@ def read_device_tables(path):
 
 MEMBERS, PRODUCT, MESH = read_device_tables(ISRV / "workflows/workflow_types.py")
 BY_MESH = {v.lower(): kk for kk, v in MESH.items()}
-HW_SEEN = {}   # lower-case name -> spelling first seen, for names tt-inference-server does not list
+HW_SEEN = {}   # lower-case name -> one spelling, for names tt-inference-server does not list (see choose_spellings)
 
 
 def hardware(raw):
@@ -209,8 +209,7 @@ def hardware(raw):
     enum = r.upper() if r.upper() in PRODUCT else BY_MESH.get(r.lower())
     if enum and enum in PRODUCT:
         return dict(raw=r, key=enum, product=PRODUCT[enum], listed=True)
-    HW_SEEN.setdefault(r.lower(), r)
-    return dict(raw=r, key=None, product=HW_SEEN[r.lower()], listed=False)
+    return dict(raw=r, key=None, product=HW_SEEN.get(r.lower(), r), listed=False)
 
 
 # ---- tt-inference-server models ----
@@ -323,6 +322,31 @@ def first_sentence(text, n=240):
 DECISION = re.compile(r"system ?one|noul", re.I)
 
 
+def manifest_hardware_names(mf):
+    """The hardware names a manifest gives: its serve profiles, else its mesh device names."""
+    cont = mf.get("container") or {}
+    serve = cont.get("serve") or {}
+    profiles = cont.get("serve_profiles") or []
+    names = [serve.get("hardware")] + [p.get("hardware") for p in profiles]
+    if not any(names):
+        names = [serve.get("mesh_device")] + [p.get("mesh_device") for p in profiles] + [(mf.get("mesh") or {}).get("topology")]
+    return [str(h) for h in names if h]
+
+
+def choose_spellings():
+    """One spelling for each hardware name that tt-inference-server does not list: the one most manifests use, and
+    on a tie the first in sort order. It does not depend on the order the catalog comes back in."""
+    seen = {}
+    for c in catalog:
+        mf = manifests[c["id"]]
+        if "_error" in mf:
+            continue
+        for h in manifest_hardware_names(mf):
+            seen.setdefault(h.strip().lower(), Counter())[h.strip()] += 1
+    for low, counts in seen.items():
+        HW_SEEN[low] = min(counts, key=lambda sp: (-counts[sp], sp))
+
+
 def bundle_facts(c):
     """-> (bundle dict, weights repo the bundle was built from, manifest)."""
     repo = c["id"]
@@ -332,10 +356,7 @@ def bundle_facts(c):
         return b, repo, mf
     cont = mf.get("container") or {}
     serve = cont.get("serve") or {}
-    profiles = cont.get("serve_profiles") or []
-    names = [serve.get("hardware")] + [p.get("hardware") for p in profiles]
-    if not any(names):
-        names = [serve.get("mesh_device")] + [p.get("mesh_device") for p in profiles] + [(mf.get("mesh") or {}).get("topology")]
+    names = manifest_hardware_names(mf)
     card = cont.get("card") or {}
     caps = serve.get("capabilities") or mf.get("capabilities") or {}
     b.update(
@@ -351,6 +372,7 @@ def bundle_facts(c):
 
 
 INFERRED = json.load(open(HERE / "data/model_kinds_inferred.json"))["kinds"]
+choose_spellings()
 only = {}
 for c in catalog:
     b, wrepo, mf = bundle_facts(c)
@@ -367,7 +389,7 @@ for c in catalog:
     m["bundles"].append(b)
 
 for m in only.values():
-    newest = sorted(m["bundles"], key=lambda b: b["updated"], reverse=True)
+    newest = sorted(m["bundles"], key=lambda b: (b["updated"], b["repo"]), reverse=True)
     tag = next((b["task"] for b in newest if b.get("task")), None)
     bundle_kind = next((b.get("bundleKind") for b in newest if b.get("bundleKind")), None)
     m["kind"] = NOT_STATED.get(bundle_kind, NOT_STATED_ANY)
@@ -408,7 +430,7 @@ for m in all_models:
         if row:
             m["perf"] = dict(row["perf"], hardware=row["hardware"], chips=None)
     else:
-        b = next((b for b in sorted(m["bundles"], key=lambda b: b["updated"], reverse=True) if b.get("perf")), None)
+        b = next((b for b in sorted(m["bundles"], key=lambda b: (b["updated"], b["repo"]), reverse=True) if b.get("perf")), None)
         if b:
             perf = dict(b["perf"])
             # A table that names no board takes the bundle's own hardware when the manifest lists exactly one.
@@ -450,7 +472,7 @@ for m in all_models:
         m["summary"] = (f"Listed in tt-inference-server on {nh} hardware type{'s' if nh != 1 else ''}; best status {m['status']}."
                         + (f" {n} tt-model {'bundle' if n == 1 else 'bundles'} also published." if n else ""))
     else:
-        blurb = next((b["blurb"] for b in sorted(m["bundles"], key=lambda b: b["updated"], reverse=True) if b.get("blurb")), "")
+        blurb = next((b["blurb"] for b in sorted(m["bundles"], key=lambda b: (b["updated"], b["repo"]), reverse=True) if b.get("blurb")), "")
         owners = ", ".join(sorted({b["owner"] for b in m["bundles"]}))
         m["summary"] = blurb or f"Published as {n} tt-model {'bundle' if n == 1 else 'bundles'} by {owners}."
     m["source"] = "tt-inference-server" if m["inSpec"] else "tt-model bundle"
