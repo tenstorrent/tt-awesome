@@ -8,7 +8,10 @@
 const data = require("./models.json");
 
 const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-const byListing = (a, b) => (b.inSpec - a.inSpec) || a.name.localeCompare(b.name);
+// Complete, then Functional, then Experimental, then models with no spec status (community bundles), each by name.
+const STATUS_ORDER = { Complete: 0, Functional: 1, Experimental: 2 };
+const statusRank = (m) => (m.status in STATUS_ORDER ? STATUS_ORDER[m.status] : 3);
+const byListing = (a, b) => (statusRank(a) - statusRank(b)) || a.name.localeCompare(b.name);
 
 // A support page is linked only when its path has the expected shape: <folder>/<file>.md.
 const DOC_BASE = "https://github.com/tenstorrent/tt-inference-server/blob/main/docs/model_support/";
@@ -40,7 +43,7 @@ const pick = (test) => models.filter(test).sort(byListing);
 // Collections
 {
   const add = addSet("collections", "Collections", "Ready-made lists.");
-  add("all", "All models", "Every model listed in tt-inference-server or published as a tt-model bundle. Models in tt-inference-server come first.", pick(() => true));
+  add("all", "All models", "Every model listed in tt-inference-server or published as a tt-model bundle. Complete models come first, then Functional, then Experimental, then community bundles.", pick(() => true));
   add("single-card", "Runs on a single card",
     "Models with a supported device that tt-inference-server lists as one card: e150, n150, n300, p100, p150 or BH P300 (one card with two dies). Includes tt-model bundles built for those cards.",
     pick((m) => m.singleCard));
