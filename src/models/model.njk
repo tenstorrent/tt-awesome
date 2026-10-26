@@ -74,7 +74,7 @@ eleventyComputed:
       <tr><td>Kind</td><td>{{ m.kind }} <span class="m-sub">({% if m.kindInferred %}{{ m.kindFrom }}{% else %}from {{ m.kindFrom }}{% endif %})</span></td></tr>
       {%- if m.params %}<tr><td>Parameters</td><td>{{ m.params }}</td></tr>{% endif %}
       <tr><td>Family</td><td>{{ m.family }} <span class="m-sub">(from the start of the name)</span></td></tr>
-      {%- if m.impls.length %}<tr><td>Implementation</td><td>{% for i in m.impls %}{{ ", " if not loop.first }}{% if modelsSite.urls.implementation[i] %}<a href="{{ modelsSite.urls.implementation[i] | url }}">{{ i }}</a>{% else %}{{ i }}{% endif %}{% endfor %}</td></tr>{% endif %}
+      {%- if m.impls.length %}<tr><td>Implementation</td><td>{{ m.impls | join(", ") }}</td></tr>{% endif %}
       {%- if m.rows[0] and m.rows[0].codeLink %}<tr><td>Code</td><td>{% set cl = m.rows[0].codeLink | safeHttpsUrl %}{% if cl %}<a href="{{ cl }}" target="_blank" rel="noopener noreferrer">{{ cl }}</a>{% else %}{{ m.rows[0].codeLink }}{% endif %}</td></tr>{% endif %}
       {%- if m.rows[0] and m.rows[0].ttMetal %}<tr><td>tt-metal commit</td><td><code>{{ m.rows[0].ttMetal }}</code></td></tr>{% endif %}
       {%- if m.rows[0] and m.rows[0].vllm %}<tr><td>vLLM commit</td><td><code>{{ m.rows[0].vllm }}</code></td></tr>{% endif %}

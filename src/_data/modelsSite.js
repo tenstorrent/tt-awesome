@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
 // Data for the Models pages: one page per model, and one page per collection, family, kind,
-// hardware type, status and implementation. Reads src/_data/models.json (scripts/build_models_data.py)
+// hardware type and status. Reads src/_data/models.json (scripts/build_models_data.py)
 // and groups it. Nothing here adds a fact; every grouping is a field of that file.
 
 const data = require("./models.json");
@@ -96,19 +96,10 @@ const pick = (test) => models.filter(test).sort(byListing);
     add(s, s, `Models whose best status in the release spec is ${s}.`, pick((m) => m.status === s)));
 }
 
-// Implementations: the tt-metal code that runs the model, from the spec.
-{
-  const add = addSet("implementations", "Implementations", "The tt-metal code that runs a model, as named in the release spec.");
-  const impls = {};
-  models.forEach((m) => m.impls.forEach((i) => { (impls[i] = impls[i] || []).push(m); }));
-  Object.keys(impls).sort((a, b) => impls[b].length - impls[a].length || a.localeCompare(b))
-    .forEach((i) => add(i, i, `Models the release spec runs with the ${i} implementation.`, impls[i].sort(byListing)));
-}
-
 // URL lookups for templates
-const urls = { hardware: {}, family: {}, kind: {}, implementation: {} };
+const urls = { hardware: {}, family: {}, kind: {} };
 pages.forEach((p) => {
-  const map = { hardware: urls.hardware, families: urls.family, kinds: urls.kind, implementations: urls.implementation }[p.group];
+  const map = { hardware: urls.hardware, families: urls.family, kinds: urls.kind }[p.group];
   if (map) map[p.title] = p.url;
 });
 
