@@ -12445,20 +12445,7 @@
      "updated": "2026-10-14"
     }
    ],
-   "clients": [
-    {
-     "checked": false,
-     "id": "openwebui",
-     "note": "Any chat model",
-     "type": "Web service"
-    },
-    {
-     "checked": false,
-     "id": "anythingllm",
-     "note": "Any chat model",
-     "type": "Web service"
-    }
-   ],
+   "clients": [],
    "family": "RAG",
    "hardware": [
     "p150x2"
@@ -12466,8 +12453,8 @@
    "id": "rag-gate-27b",
    "impls": [],
    "inSpec": false,
-   "kind": "LLM",
-   "kindFrom": "an inference: A 27B model served with vLLM; the name suggests a retrieval gate, so low confidence.",
+   "kind": "Decision model",
+   "kindFrom": "an inference: The bundle's README (episod/rag-gate-27b-p300) says it sits after retrieval and picks one action, Answer, Retrieve or Stop, from the first generated token. The bundle's manifest has no card, so this comes from the README and not from tt-model.",
    "kindInferred": true,
    "licenses": [],
    "minDiskGb": null,

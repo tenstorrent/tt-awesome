@@ -170,8 +170,8 @@
    "basis": "MoGe-2 estimates geometry (points, depth, normals) from one image."
   },
   "thakicloud/rag-gate-27b": {
-   "kind": "LLM",
-   "basis": "A 27B model served with vLLM; the name suggests a retrieval gate, so low confidence."
+   "kind": "Decision model",
+   "basis": "The bundle's README (episod/rag-gate-27b-p300) says it sits after retrieval and picks one action, Answer, Retrieve or Stop, from the first generated token. The bundle's manifest has no card, so this comes from the README and not from tt-model."
   },
   "upstage/solar-open-100b": {
    "kind": "LLM",
