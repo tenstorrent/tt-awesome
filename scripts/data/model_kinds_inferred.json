@@ -125,6 +125,10 @@
    "kind": "LLM",
    "basis": "A language model; the bundle names a qwen3_xml tool-call parser."
   },
+  "ornith-ai/ornith-1.5-9b": {
+   "kind": "LLM",
+   "basis": "The bundle's card no longer gives a task tag. It is served with vLLM and names a qwen3_xml tool-call parser and a qwen3 reasoning parser."
+  },
   "poolside/laguna-s-2.1": {
    "kind": "LLM",
    "basis": "Poolside's Laguna is a coding language model, served with vLLM."
