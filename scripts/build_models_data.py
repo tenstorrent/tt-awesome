@@ -441,7 +441,7 @@ for m in all_models:
         blurb = next((b["blurb"] for b in sorted(m["bundles"], key=lambda b: b["updated"], reverse=True) if b.get("blurb")), "")
         owners = ", ".join(sorted({b["owner"] for b in m["bundles"]}))
         m["summary"] = blurb or f"Published as {n} tt-model {'bundle' if n == 1 else 'bundles'} by {owners}."
-    m["source"] = "tt-inference-server" if m["inSpec"] else "tt-model only"
+    m["source"] = "tt-inference-server" if m["inSpec"] else "tt-model bundle"
     # A tt-inference-server model is checked by tt against the spec: a vLLM row means chat, and a vLLM row's tool-call
     # parser means tool calling. A bundle-only model is not in tt's catalog, so tt cannot check it. Its manifest says
     # whether it is served with vLLM and names a parser, and the clients that follow are marked as not checked by tt.

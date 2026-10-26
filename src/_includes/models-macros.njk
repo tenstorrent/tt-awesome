@@ -12,7 +12,7 @@
 {#- One model as a link card. -#}
 {% macro card(m, modelsSite) -%}
 <a class="m-card" href="{{ m.url | url }}" data-search="{{ (m.name ~ ' ' ~ (m.upstream or '') ~ ' ' ~ m.kind ~ ' ' ~ m.family ~ ' ' ~ m.hardware | join(' ')) | lower }}">
-  <div class="kind"><span>{{ m.kind }}{% if m.kindInferred %} (inferred){% endif %}</span><span class="m-pill{{ ' tt' if m.inSpec }}">{{ m.source }}</span></div>
+  <div class="kind"><span>{{ m.kind }}{% if m.kindInferred %} (inferred){% endif %}</span><span class="m-pill{{ ' tt' if m.inSpec }}" title="{{ 'Listed in the tt-inference-server release spec' if m.inSpec else 'Published as a tt-model bundle. Not in the tt-inference-server release spec' }}">{{ "Official" if m.inSpec else "Community model" }}</span></div>
   <h3>{{ m.name }}</h3>
   <div class="upstream">{{ m.upstream }}</div>
   <p class="sum">{{ m.summary }}</p>

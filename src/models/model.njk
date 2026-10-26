@@ -22,7 +22,7 @@ eleventyComputed:
   <div class="mp-main">
     <div class="kind">
       {%- if kindUrl %}<a href="{{ kindUrl | url }}">{{ m.kind }}</a>{% else %}<span>{{ m.kind }}</span>{% endif %}{% if m.kindInferred %}<span class="m-pill">kind inferred</span>{% endif %}
-      <span class="m-pill{{ ' tt' if m.inSpec }}">{{ m.source }}</span>
+      <span class="m-pill{{ ' tt' if m.inSpec }}" title="{{ 'Listed in the tt-inference-server release spec' if m.inSpec else 'Published as a tt-model bundle. Not in the tt-inference-server release spec' }}">{{ "Official" if m.inSpec else "Community model" }}</span>
       {%- if familyUrl %}<a class="m-pill" href="{{ familyUrl | url }}">{{ m.family }} family</a>{% endif %}
     </div>
     <h1 class="m-title">{{ m.name }}</h1>
