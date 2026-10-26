@@ -100,7 +100,7 @@ eleventyComputed:
     <p class="m-note">Serve the model first, then run one of these. Only clients that work with this model are listed.</p>
     {%- for c in m.clients %}
     <div class="m-cmd compact">
-      <div class="lbl">{{ c.type }}. {{ c.note }}{% if not c.checked %} <span class="m-fit">Not checked by tt</span>{% endif %}</div>
+      <div class="lbl">{{ c.type }}. {{ c.note }}</div>
       <code>tt launch {{ c.id }} --model {{ m.serve }}</code>
       <button type="button" class="m-copy" data-copy="tt launch {{ c.id }} --model {{ m.serve }}" aria-label="Copy: tt launch {{ c.id }} --model {{ m.serve }}">Copy</button>
     </div>
