@@ -21,6 +21,13 @@
     <dd{{ ' class="none"' | safe if not m.hardware.length }}>
       {%- if m.hardware.length %}{% for h in m.hardware %}{% if loop.index <= 3 %}{{ ", " if not loop.first }}{{ h }}{% endif %}{% endfor %}{% if m.hardware.length > 3 %} +{{ m.hardware.length - 3 }}{% endif %}{% else %}Not stated{% endif -%}
     </dd>
+    {%- if m.perf %}
+    <dt>Speed</dt>
+    <dd class="m-perf" title="{{ ('Target in tt-inference-server\'s release spec for this status, at 128 tokens in and 128 out, one user. Not a measurement.' if not m.perf.measured else 'Measured at one user' ~ (', 128-token prompt' if m.perf.ttftText else '') ~ ', from the bundle card.') }}">
+      <span class="fig">{{ "at least " if not m.perf.measured }}{{ m.perf.decodeText }}<small> tok/s/user</small></span>{% if m.perf.ttftText %}<span class="fig">{{ m.perf.ttftText }}<small> to first token</small></span>{% endif %}
+      <span class="where">{{ (m.perf.chips ~ (" chip" if m.perf.chips == 1 else " chips") ~ " · ") if m.perf.chips }}{{ m.perf.hardware }}{{ " · spec target" if not m.perf.measured }}</span>
+    </dd>
+    {%- endif %}
     <dt>Status</dt>
     <dd{{ ' class="none"' | safe if not m.status }}>{{ m.status or "Not in the release spec" }}</dd>
     <dt>tt launch</dt>

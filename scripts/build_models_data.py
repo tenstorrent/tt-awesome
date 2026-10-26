@@ -93,6 +93,82 @@ def norm(s):
     return re.sub(r"[^a-z0-9]", "", s.lower())
 
 
+
+# ---- Headline speed figures for the browse cards (LLM and VLM only) ----
+TIER_FOR_STATUS = {"COMPLETE": "complete", "FUNCTIONAL": "functional", "EXPERIMENTAL": "functional"}
+
+
+def spec_perf(refs, status):
+    """tt-inference-server's reference entry for 128 in / 128 out at one user: the figure for the row's status tier.
+    These are targets the release spec sets for that status, not measurements."""
+    for e in refs or []:
+        if (e.get("isl"), e.get("osl"), e.get("max_concurrency")) != (128, 128, 1):
+            continue
+        tgt = e.get("targets") or {}
+        tier = TIER_FOR_STATUS.get(status.upper(), "functional")
+        t = tgt.get(tier) or (tgt.get("target") if tgt.get("target") and not tgt.get(tier) else None)
+        tier = tier if tgt.get(tier) else "target"
+        if t and t.get("tput_user") and t.get("ttft_ms"):
+            return dict(decode=t["tput_user"], ttft=t["ttft_ms"], tier=tier, measured=False)
+    return None
+
+
+# Board names as a bundle's card writes them, with the number of chips on that board. Hand-kept:
+# P300 is one card with two chips; the x2, x4 and x8 names count P150 or P300 boards.
+CHIPS = {"p100": 1, "p150": 1, "p150x2": 2, "p150x4": 4, "p150x8": 8, "p300": 2, "p300x2": 4}
+BOARD = re.compile(r"\b(p100|p150x8|p150x4|p150x2|p150|p300x2|p300)\b", re.I)
+
+
+def md_number(cell):
+    m = re.search(r"-?\d[\d,]*\.?\d*", cell.replace("**", ""))
+    return float(m.group(0).replace(",", "")) if m else None
+
+
+def bundle_perf(text):
+    """Speed at one user for the shortest prompt, read from the latency table in a bundle card's performance text.
+    Returns None unless a table gives both time to first token and decode speed per user."""
+    heading, lines, best = "", (text or "").split("\n"), None
+    i = 0
+    while i < len(lines) - 2:
+        line = lines[i].strip()
+        if line.startswith("#"):
+            heading = line
+        if line.startswith("|") and re.match(r"^\|[\s:|-]+\|?$", lines[i + 1].strip()):
+            head = [c.strip().strip("*").lower() for c in line.strip("|").split("|")]
+            rows = []
+            j = i + 2
+            while j < len(lines) and lines[j].strip().startswith("|"):
+                rows.append([c.strip() for c in lines[j].strip().strip("|").split("|")])
+                j += 1
+            col = lambda pred: next((n for n, h in enumerate(head) if pred(h)), None)
+            c_ttft = col(lambda h: h.startswith("ttft") and "p99" not in h and "(ms)" in h)
+            c_dec = col(lambda h: "decode" in h and ("tok/s/u" in h or "/user" in h or h == "decode tok/s"))
+            c_isl = col(lambda h: h in ("isl", "input tokens"))
+            c_users = col(lambda h: h in ("users", "concurrency", "c"))
+            c_prof = col(lambda h: h == "profile")
+            if c_ttft is not None and c_dec is not None:
+                cands = []
+                for r in rows:
+                    if len(r) != len(head):
+                        continue
+                    if c_users is not None and md_number(r[c_users]) != 1:
+                        continue
+                    isl = md_number(r[c_isl]) if c_isl is not None else 0
+                    ttft, dec = md_number(r[c_ttft]), md_number(r[c_dec])
+                    if isl is None or not ttft or not dec:
+                        continue
+                    board = BOARD.search(r[c_prof]) if c_prof is not None else BOARD.search(heading)
+                    cands.append((isl != 128, isl, ttft, dec, board.group(0).lower() if board else None))
+                if cands:
+                    _, isl, ttft, dec, board = min(cands, key=lambda c: c[:2])
+                    # Time to first token is only comparable at the shortest prompt; at any other length it is left out.
+                    return dict(decode=dec, ttft=ttft if isl in (0, 128) else None, board=board, chips=CHIPS.get(board), measured=True)
+            i = j
+            continue
+        i += 1
+    return best
+
+
 def k(n):
     return f"{n // 1024}K" if n and n >= 1024 else (str(n) if n else None)
 
@@ -175,6 +251,7 @@ for r in rows:
     doc = f"{DOCDIR[r['model_type']]}/{r['model_name']}_{r['device_type'].lower()}.md"
     impl = r.get("impl") or {}
     m["rows"].append(dict(
+        perf=spec_perf(dm.get("perf_reference"), r["status"]),
         hardware=hw["product"], deviceKey=r["device_type"], listed=hw["listed"], engine=r["inference_engine"],
         status=r["status"].title(), context=k(dm.get("max_context")), users=dm.get("max_concurrency"),
         impl=impl.get("impl_name"), codeLink=r.get("code_link"), ttMetal=r.get("tt_metal_commit"),
@@ -261,7 +338,8 @@ def bundle_facts(c):
         hardware=[hardware(h) for h in sorted({str(h) for h in names if h}, key=str.lower)],
         context=k(serve.get("max_model_len") or (mf.get("resources") or {}).get("max_model_len")),
         toolParser=caps.get("tool_parser"), reasoningParser=caps.get("reasoning_parser"),
-        task=card.get("pipeline_tag"), license=card.get("license"), blurb=first_sentence(card.get("description")))
+        task=card.get("pipeline_tag"), license=card.get("license"), blurb=first_sentence(card.get("description")),
+        perf=bundle_perf(card.get("performance")))
     return b, (mf.get("weights") or {}).get("repo_id") or repo, mf
 
 
@@ -298,6 +376,39 @@ for m in only.values():
     m["reasoningParser"] = next((b.get("reasoningParser") for b in newest if b.get("reasoningParser")), None)
 
 all_models = list(models.values()) + list(only.values())
+
+def perf_text(perf):
+    """Display strings for the browse card: decode speed per user, and time to first token when there is one."""
+    d, t = perf["decode"], perf.get("ttft")
+    perf["decodeText"] = f"{d:.1f}" if d < 10 else f"{d:.0f}"
+    perf["ttftText"] = None if not t else (f"{t / 1000:.1f} s" if t >= 1000 else f"{t:.0f} ms")
+    return perf
+
+
+# One speed figure per language model. A tt-inference-server model uses its best-status vLLM row that has a reference
+# figure; any other model uses the newest bundle with a readable latency table.
+for m in all_models:
+    m["perf"] = None
+    if m["kind"] not in ("LLM", "VLM"):
+        continue
+    if m["inSpec"]:
+        row = next((x for x in m["rows"] if x.get("perf") and x["engine"] == "vLLM"), None)
+        if row:
+            m["perf"] = dict(row["perf"], hardware=row["hardware"], chips=None)
+    else:
+        b = next((b for b in sorted(m["bundles"], key=lambda b: b["updated"], reverse=True) if b.get("perf")), None)
+        if b:
+            perf = dict(b["perf"])
+            # A table that names no board takes the bundle's own hardware when the manifest lists exactly one.
+            if not perf["board"] and len(b.get("hardware") or []) == 1:
+                raw = b["hardware"][0]["raw"].lower()
+                perf["board"] = raw if raw in CHIPS else None
+                perf["chips"] = CHIPS.get(raw) or b.get("devices")
+                perf["hardware"] = b["hardware"][0]["product"]
+            elif perf["board"]:
+                perf["hardware"] = hardware(perf["board"])["product"]
+            if perf.get("hardware"):
+                m["perf"] = perf
 
 # ---- derived fields, all from the facts above ----
 FAMILY_PREFIXES = json.load(open(HERE / "data/model_families.json"))["prefixes"]
@@ -350,6 +461,9 @@ for m in all_models:
     m["family"] = spell[m["family"].lower()].most_common(1)[0][0]
 
 # tt-inference-server models first, then by name; ids are URL slugs and must be unique
+for m in all_models:
+    if m["perf"]:
+        perf_text(m["perf"])
 all_models.sort(key=lambda m: (not m["inSpec"], m["name"].lower()))
 used = set()
 for m in all_models:
