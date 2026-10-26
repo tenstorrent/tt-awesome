@@ -5,6 +5,11 @@ name: Refresh models list
 # then opens a PR if the list changed. Same pattern as nightly.yml: the change is reviewed and merged,
 # and the merge to main deploys. The deploy job itself never fetches anything.
 on:
+  # TEMPORARY test trigger: runs the build job once from this branch (the workflow is not on main yet, so it
+  # cannot be dispatched). The pr job is skipped for push events. Removed after the test run.
+  push:
+    branches: [feat/models-browser]
+    paths: [".github/workflows/nightly-models.yml"]
   schedule:
     - cron: "43 7 * * *"
   workflow_dispatch:
@@ -84,7 +89,7 @@ jobs:
 
   pr:
     needs: build
-    if: ${{ !inputs.dry_run }}
+    if: ${{ github.event_name != 'push' && !inputs.dry_run }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
