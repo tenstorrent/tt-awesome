@@ -1,0 +1,21 @@
+{
+  "id": "cjllm-harness",
+  "name": "cjllm-harness",
+  "description": "A lightweight, single-file, zero-framework Python CLI inference and search-augmented generation harness ([cjllm.py](https://github.com/palisurf/cjllm-harness/blob/main/cjllm.py)) built for OpenAI-compatible vLLM endpoints running on local AI workstations and accelerator appliances (including Tenstorrent QuietBox 2 (p300x2 Blackhole)",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "agents"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/palisurf/cjllm-harness"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "author": "palisurf"
+}
