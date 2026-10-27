@@ -1,0 +1,56 @@
+{
+  "id": "tensixinet",
+  "name": "tensixinet",
+  "description": "Your Tenstorrent chips, playing in a band: tensixinet reads each chip's telemetry with tt-smi (temperature, clock, power, current, memory temperatures, harvesting, link state, errors) and turns it into music from eleven synthesizers inspired by Ciat-Lonbarde instruments, so a hot chip and a cool chip sound different, a busy chip gets more solos, and uneven memory makes the melody wander. Every mapping is logged with its reason, each run draws a replayable patch, a live mode follows the chips as they heat under a prompted language model, some devices run as TT-Lang kernels on the chips themselves, and a Gradio page draws the band as it plays. Needs no hardware to try: it plays any number of synthetic chips.",
+  "affiliation": "affiliated",
+  "categories": [
+    "games-demos",
+    "dev-tools"
+  ],
+  "tags": [
+    "music",
+    "audio",
+    "sonification",
+    "telemetry",
+    "tt-smi",
+    "synthesizer",
+    "ciat-lonbarde",
+    "tt-lang",
+    "kernels",
+    "gradio",
+    "live",
+    "demo"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tsingletaryTT/tensixinet"
+    },
+    {
+      "type": "website",
+      "url": "https://tsingletarytt.github.io/tensixinet/",
+      "label": "Project site: routing diagrams, cable explorer, audio samples"
+    },
+    {
+      "type": "demo",
+      "url": "https://tsingletarytt.github.io/tensixinet/assets/kernels.mp4",
+      "label": "100-second demo with sound: four chips, TT-Lang kernels, tt-toplike alongside"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "related": [
+    "tt-toplike",
+    "tt-smi",
+    "tt-bio-demo",
+    "tt-lang",
+    "tt-demo-maker"
+  ],
+  "featured": true,
+  "author": "tsingletaryTT",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-27"
+}
