@@ -273,3 +273,85 @@ def test_community_feed_carries_source_date_and_approval(monkeypatch):
     assert items[0]["date"] == "2026-06-23"
     assert items[0]["dateISO"] == "2026-06-23T00:00:00Z"
     assert items[0]["approved"] is False
+
+
+# ── fetch_developer_blog: tenstorrent.com/developers has no RSS feed; the
+# posts are read from the site's public Sanity dataset instead. The document
+# shape is the CMS's, so the mapping below is what the fetcher must get right.
+
+def _sanity(results: list) -> str:
+    return json.dumps({"query": "…", "result": results, "ms": 3})
+
+
+_POST = {
+    "title": "Serving Prefill and Decode for Agentic AI",
+    "date": "2026-10-27",
+    "slug": "serving-prefill-and-decode-for-agentic-ai",
+    "authors": ["Ben Hall"],
+    # Portable-text excerpt, already flattened to its text spans by the query.
+    "excerpt": ["Agent workloads shift the balance ", "between prefill and decode."],
+    "body": "Long body text that is only used when there is no excerpt.",
+}
+
+
+def _fetch_blog(monkeypatch, results: list, known: set = frozenset(),
+                today: str = "2026-10-27") -> list:
+    monkeypatch.setattr(fpf, "_get", lambda url, timeout=12: _sanity(results).encode())
+    monkeypatch.setattr(fpf, "_today", lambda: today)
+    return fpf.fetch_developer_blog(set(known))
+
+
+def test_developer_blog_maps_a_post_to_an_official_article(monkeypatch):
+    items = _fetch_blog(monkeypatch, [_POST])
+
+    assert len(items) == 1
+    it = items[0]
+    assert it["url"] == ("https://tenstorrent.com/developers/blog/"
+                         "serving-prefill-and-decode-for-agentic-ai")
+    assert it["title"] == "Serving Prefill and Decode for Agentic AI"
+    assert it["description"] == "Agent workloads shift the balance between prefill and decode."
+    assert it["author"] == "Ben Hall"
+    assert it["date"] == "2026-10-27"
+    assert it["dateISO"] == "2026-10-27T00:00:00Z"
+    assert it["type"] == "article"
+    assert it["source"] == fpf.DEVELOPER_BLOG["name"]
+    assert it["label"] == fpf.DEVELOPER_BLOG["name"]
+    assert it["affiliation"] == "official"
+    assert it["approved"] is True
+
+
+def test_developer_blog_skips_known_urls(monkeypatch):
+    known = {"https://tenstorrent.com/developers/blog/serving-prefill-and-decode-for-agentic-ai"}
+    assert _fetch_blog(monkeypatch, [_POST], known=known) == []
+
+
+def test_developer_blog_skips_a_post_without_slug_or_title(monkeypatch):
+    no_slug = {**_POST, "slug": None}
+    no_title = {**_POST, "slug": "other", "title": ""}
+    assert _fetch_blog(monkeypatch, [no_slug, no_title]) == []
+
+
+def test_developer_blog_falls_back_to_the_body_when_there_is_no_excerpt(monkeypatch):
+    items = _fetch_blog(monkeypatch, [{**_POST, "excerpt": None}])
+    assert items[0]["description"].startswith("Long body text")
+
+
+def test_developer_blog_skips_a_post_dated_in_the_future(monkeypatch):
+    """An editor can set a date ahead of publication; the site hides the post
+    until then, so the planet must not announce it first."""
+    assert _fetch_blog(monkeypatch, [_POST], today="2026-10-26") == []
+    assert len(_fetch_blog(monkeypatch, [_POST], today="2026-10-28")) == 1
+
+
+def test_developer_blog_returns_nothing_when_the_api_fails(monkeypatch):
+    def boom(url, timeout=12):
+        raise OSError("connection refused")
+    monkeypatch.setattr(fpf, "_get", boom)
+    assert fpf.fetch_developer_blog(set()) == []
+
+
+def test_developer_blog_is_wired_into_main():
+    """A fetcher that exists but is never called publishes nothing. Guard the
+    wiring, not just the mapping."""
+    import inspect
+    assert "fetch_developer_blog(" in inspect.getsource(fpf.main)
