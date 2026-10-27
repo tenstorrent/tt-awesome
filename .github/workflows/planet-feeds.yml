@@ -43,11 +43,25 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
+          # Open the PR as a collaborator, not as github-actions[bot]. The bot has
+          # no collaborator permission on this repo, so the pull_request runs its
+          # PRs trigger (Build check, Validate entries) sit in "Approve and run"
+          # every night, and an approval never carries over: it covers one run on
+          # one commit, and this branch is deleted and recreated each night.
+          # The job-level guard in build-check.yml cannot help either, since job
+          # conditions are evaluated after the run is approved, and pull_request
+          # branch filters match the base branch, so the head branch cannot be
+          # excluded at the trigger. A token that belongs to a collaborator is
+          # what removes the gate. NIGHTLY_PR_TOKEN is a fine-grained PAT scoped
+          # to this repo with contents:write and pull-requests:write (or a GitHub
+          # App installation token). Until the secret exists this falls back to
+          # the default token and behaves exactly as before.
+          token: ${{ secrets.NIGHTLY_PR_TOKEN || github.token }}
           add-paths: src/_data/planet_feeds.json
           # No [skip ci]: single-commit PRs squash-merge with this message as
           # the commit title, and it must not suppress the Pages deploy on main.
-          # (pull_request workflows are kept off this branch by the
-          # branches-ignore filters in build-check.yml and validate.yml.)
+          # (With the default token the bot's pushes still created pull_request
+          # runs; they just waited in the approval queue. See the token note.)
           commit-message: "chore: update planet feeds"
           branch: "chore/nightly-planet-feeds"
           delete-branch: true
