@@ -98,15 +98,19 @@ DEVELOPER_BLOG = {
     "affiliation": "official",
     "trusted":     True,
 }
-# GROQ. The excerpt (editorialDescription) is portable text, an array of blocks
-# with text spans; the query flattens it to the spans so the fetcher joins
-# strings instead of walking the block tree. The body is one plain string per
-# language and is the fallback description when a post has no excerpt.
+# GROQ. The excerpt (editorialDescription) is Portable Text: an array of
+# blocks, each a list of spans split wherever a formatting mark starts or
+# ends, so "Tenstorrent" + "." is one sentence end and not two words. The
+# query joins each block's spans with "" and returns one string per block;
+# the fetcher then joins blocks with a space to keep paragraph boundaries.
+# The body is one plain string per language and is the fallback description
+# when a post has no excerpt.
 DEVELOPER_BLOG_QUERY = (
     '*[_type == "developer-blog-post" && defined(slug.current)] | order(date desc) {'
     ' title, date, "slug": slug.current,'
     ' "authors": authors[].name,'
-    ' "excerpt": editorialDescription[language == "en"][0].value[].children[].text,'
+    ' "excerpt": editorialDescription[language == "en"][0].value[]'
+    '{ "t": array::join(children[].text, "") }.t,'
     ' "body": content[language == "en"][0].value'
     ' }'
 )
@@ -515,6 +519,8 @@ def fetch_developer_blog(known_urls: set) -> list:
         date_str = iso_to_date(post.get("date") or "")
         if date_str > today:
             continue
+        # One string per block from the query; a space between blocks is the
+        # paragraph boundary.
         excerpt = " ".join(t for t in (post.get("excerpt") or []) if t)
         raw = excerpt.strip() or (post.get("body") or "")
         desc = truncate(strip_html(raw))

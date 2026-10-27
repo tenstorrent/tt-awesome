@@ -288,8 +288,10 @@ _POST = {
     "date": "2026-10-27",
     "slug": "serving-prefill-and-decode-for-agentic-ai",
     "authors": ["Ben Hall"],
-    # Portable-text excerpt, already flattened to its text spans by the query.
-    "excerpt": ["Agent workloads shift the balance ", "between prefill and decode."],
+    # Portable-text excerpt: the query joins each block's spans into one
+    # string, so this is one string per paragraph.
+    "excerpt": ["Agent workloads shift the balance between prefill and decode.",
+                "Blackhole runs both phases."],
     "body": "Long body text that is only used when there is no excerpt.",
 }
 
@@ -309,7 +311,8 @@ def test_developer_blog_maps_a_post_to_an_official_article(monkeypatch):
     assert it["url"] == ("https://tenstorrent.com/developers/blog/"
                          "serving-prefill-and-decode-for-agentic-ai")
     assert it["title"] == "Serving Prefill and Decode for Agentic AI"
-    assert it["description"] == "Agent workloads shift the balance between prefill and decode."
+    assert it["description"] == ("Agent workloads shift the balance between prefill and decode. "
+                                 "Blackhole runs both phases.")
     assert it["author"] == "Ben Hall"
     assert it["date"] == "2026-10-27"
     assert it["dateISO"] == "2026-10-27T00:00:00Z"
@@ -318,6 +321,16 @@ def test_developer_blog_maps_a_post_to_an_official_article(monkeypatch):
     assert it["label"] == fpf.DEVELOPER_BLOG["name"]
     assert it["affiliation"] == "official"
     assert it["approved"] is True
+
+
+def test_developer_blog_query_joins_spans_without_a_separator():
+    """A Portable Text block is a list of spans split at formatting marks, so
+    "Tenstorrent" + "." is one sentence end. The query must join spans with
+    "" (the fetcher then joins blocks with a space); joining spans with a
+    space would produce "Tenstorrent ."."""
+    assert 'array::join(children[].text, "")' in fpf.DEVELOPER_BLOG_QUERY
+    assert "children[].text," not in fpf.DEVELOPER_BLOG_QUERY.replace(
+        'array::join(children[].text, "")', "")
 
 
 def test_developer_blog_skips_known_urls(monkeypatch):
