@@ -1,6 +1,13 @@
 name: Validate entries
+# Nightly automation PRs (chore/nightly-*) are excluded at the trigger: their
+# author is github-actions[bot], which is not a collaborator, so every run it
+# triggers waits in "Approve and run" (see the note in build-check.yml). The
+# nightly workflow that edits entries/** runs scripts/validate.py itself before
+# it opens the PR, so those entries are still checked.
 on:
   pull_request:
+    branches-ignore:
+      - "chore/nightly-*"
     paths: ["entries/**", "scripts/validate.py"]
 jobs:
   validate:

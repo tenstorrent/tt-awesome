@@ -5,13 +5,21 @@ name: Build check
 # template/data regression is caught on the PR instead of turning main red
 # after merge.
 #
-# The nightly and planet-feeds automations open PRs from `chore/nightly-*`
-# branches that touch src/_data/*.json (matching the paths below). We skip
-# those deterministically with the job-level head_ref guard rather than
-# relying on commit-message skip tokens — this keeps automation PRs off the
-# gate regardless of how GitHub treats "[skip ci]" for pull_request events.
+# The nightly automations (nightly.yml, planet-feeds.yml, nightly-models.yml)
+# open PRs from `chore/nightly-*` branches that touch src/_data/*.json and
+# entries/**, matching the paths below. Those PRs are excluded at the trigger
+# with `branches-ignore`, not with a job-level `if`. The difference matters:
+# the PR author is github-actions[bot], which is not a repo collaborator, so
+# the repo's Actions approval policy parks every run it triggers in "Approve
+# and run" before any job condition is evaluated. A job-level guard therefore
+# still produced a daily approval prompt for a run that would only have
+# skipped itself. A trigger filter is evaluated before the gate, so no run is
+# created at all. (The approval is per run and per commit, and the nightly
+# branch is deleted and recreated each night, so approvals could never stick.)
 on:
   pull_request:
+    branches-ignore:
+      - "chore/nightly-*"
     paths:
       - "src/**"
       - "entries/**"
@@ -23,9 +31,6 @@ on:
       - ".github/workflows/build-check.yml"
 jobs:
   build-check:
-    # Skip the nightly/planet-feeds automation PRs (chore/nightly-github-metadata,
-    # chore/nightly-planet-feeds); they only refresh data files.
-    if: ${{ !startsWith(github.head_ref, 'chore/nightly-') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

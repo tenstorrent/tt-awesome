@@ -46,8 +46,8 @@ jobs:
           add-paths: src/_data/planet_feeds.json
           # No [skip ci]: single-commit PRs squash-merge with this message as
           # the commit title, and it must not suppress the Pages deploy on main.
-          # (The bot's own branch pushes use GITHUB_TOKEN, which never triggers
-          # workflows, so [skip ci] added nothing there.)
+          # (pull_request workflows are kept off this branch by the
+          # branches-ignore filters in build-check.yml and validate.yml.)
           commit-message: "chore: update planet feeds"
           branch: "chore/nightly-planet-feeds"
           delete-branch: true
