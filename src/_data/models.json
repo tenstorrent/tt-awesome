@@ -10915,62 +10915,6 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
-     "bundleKind": "vllm-plugin",
-     "context": "256K",
-     "decision": false,
-     "devices": 2,
-     "hardware": [
-      {
-       "key": "P100",
-       "listed": true,
-       "product": "p100",
-       "raw": "p100"
-      },
-      {
-       "key": "P150",
-       "listed": true,
-       "product": "p150",
-       "raw": "p150"
-      },
-      {
-       "key": null,
-       "listed": false,
-       "product": "p150x2",
-       "raw": "p150x2"
-      },
-      {
-       "key": "P150X4",
-       "listed": true,
-       "product": "BH 4xP150",
-       "raw": "p150x4"
-      },
-      {
-       "key": "P300",
-       "listed": true,
-       "product": "BH P300",
-       "raw": "p300"
-      },
-      {
-       "key": "P300X2",
-       "listed": true,
-       "product": "BH QuietBox 2",
-       "raw": "p300x2"
-      }
-     ],
-     "license": null,
-     "owner": "raahemnabeel",
-     "perf": null,
-     "readable": true,
-     "reasoningParser": "qwen3",
-     "repo": "raahemnabeel/ornith-1.5-35b-a3b",
-     "schema": "5.1",
-     "task": null,
-     "toolParser": "qwen3_xml",
-     "updated": "2026-10-16"
-    },
-    {
-     "arch": "blackhole",
      "blurb": "Ornith-1.5-35B-A3B (35B total / 3B active MoE: 256 experts, top-8 + shared expert, 40 layers of Gated DeltaNet + gated attention, vision tower, MTP head) on Blackhole through vLLM and the Tenstorrent plugin, with a fused decode step: the…",
      "bundleKind": "vllm-plugin",
      "context": "256K",
@@ -11025,11 +10969,67 @@
      },
      "readable": true,
      "reasoningParser": "qwen3",
-     "repo": "raahemnabeel/ornith-1.5-35b-a3b-blackhole-fast",
+     "repo": "raahemnabeel/ornith-1.5-35b-a3b",
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-26"
+     "updated": "2026-10-27"
+    },
+    {
+     "arch": "blackhole",
+     "blurb": "",
+     "bundleKind": "vllm-plugin",
+     "context": "256K",
+     "decision": false,
+     "devices": 2,
+     "hardware": [
+      {
+       "key": "P100",
+       "listed": true,
+       "product": "p100",
+       "raw": "p100"
+      },
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300",
+       "listed": true,
+       "product": "BH P300",
+       "raw": "p300"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": null,
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "raahemnabeel/ornith-1.5-35b-a3b-v1",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": "qwen3_xml",
+     "updated": "2026-10-16"
     }
    ],
    "clients": [
@@ -11097,7 +11097,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Ornith-1.5-35B-A3B",
-   "newest": "2026-10-26",
+   "newest": "2026-10-27",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -11111,7 +11111,7 @@
    },
    "reasoningParser": "qwen3",
    "rows": [],
-   "serve": "raahemnabeel/ornith-1.5-35b-a3b-blackhole-fast",
+   "serve": "raahemnabeel/ornith-1.5-35b-a3b",
    "singleCard": true,
    "source": "tt-model bundle",
    "status": null,
@@ -11535,57 +11535,7 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
-     "bundleKind": "vllm-plugin",
-     "context": "250K",
-     "decision": false,
-     "devices": 2,
-     "hardware": [
-      {
-       "key": "P150",
-       "listed": true,
-       "product": "p150",
-       "raw": "p150"
-      },
-      {
-       "key": null,
-       "listed": false,
-       "product": "p150x2",
-       "raw": "p150x2"
-      },
-      {
-       "key": "P150X4",
-       "listed": true,
-       "product": "BH 4xP150",
-       "raw": "p150x4"
-      },
-      {
-       "key": "P300",
-       "listed": true,
-       "product": "BH P300",
-       "raw": "p300"
-      },
-      {
-       "key": "P300X2",
-       "listed": true,
-       "product": "BH QuietBox 2",
-       "raw": "p300x2"
-      }
-     ],
-     "license": null,
-     "owner": "raahemnabeel",
-     "perf": null,
-     "readable": true,
-     "reasoningParser": null,
-     "repo": "raahemnabeel/qwen3-coder-30b-a3b",
-     "schema": "5.1",
-     "task": null,
-     "toolParser": "qwen3_coder",
-     "updated": "2026-10-08"
-    },
-    {
-     "arch": "blackhole",
-     "blurb": "Qwen3-Coder-30B-A3B-Instruct (30B total / 3B active MoE: 128 experts, top-8, 48 layers) for agentic coding with tool calling on Blackhole through vLLM, with a fused MoE decode: the published bundle (raahemnabeel/qwen3-coder-30b-a3b, v2)…",
+     "blurb": "Qwen3-Coder-30B-A3B-Instruct (30B total / 3B active MoE: 128 experts, top-8, 48 layers) for agentic coding with tool calling on Blackhole through vLLM, with a fused MoE decode: the v1 bundle (raahemnabeel/qwen3-coder-30b-a3b-v1) plus the…",
      "bundleKind": "vllm-plugin",
      "context": "250K",
      "decision": false,
@@ -11633,11 +11583,11 @@
      },
      "readable": true,
      "reasoningParser": null,
-     "repo": "raahemnabeel/qwen3-coder-30b-a3b-blackhole-fast",
+     "repo": "raahemnabeel/qwen3-coder-30b-a3b",
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_coder",
-     "updated": "2026-10-24"
+     "updated": "2026-10-27"
     }
    ],
    "clients": [
@@ -11704,7 +11654,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3-Coder-30B-A3B-Instruct",
-   "newest": "2026-10-24",
+   "newest": "2026-10-27",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -11718,12 +11668,12 @@
    },
    "reasoningParser": null,
    "rows": [],
-   "serve": "raahemnabeel/qwen3-coder-30b-a3b-blackhole-fast",
+   "serve": "raahemnabeel/qwen3-coder-30b-a3b",
    "singleCard": true,
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Qwen3-Coder-30B-A3B-Instruct (30B total / 3B active MoE: 128 experts, top-8, 48 layers) for agentic coding with tool calling on Blackhole through vLLM, with a fused MoE decode: the published bundle (raahemnabeel/qwen3-coder-30b-a3b, v2)…",
+   "summary": "Qwen3-Coder-30B-A3B-Instruct (30B total / 3B active MoE: 128 experts, top-8, 48 layers) for agentic coding with tool calling on Blackhole through vLLM, with a fused MoE decode: the v1 bundle (raahemnabeel/qwen3-coder-30b-a3b-v1) plus the…",
    "toolParser": "qwen3_coder",
    "upstream": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
    "weights": "Qwen/Qwen3-Coder-30B-A3B-Instruct"
@@ -11732,51 +11682,7 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
-     "bundleKind": "vllm-plugin",
-     "context": "256K",
-     "decision": false,
-     "devices": 4,
-     "hardware": [
-      {
-       "key": null,
-       "listed": false,
-       "product": "p150x2",
-       "raw": "p150x2"
-      },
-      {
-       "key": "P150X4",
-       "listed": true,
-       "product": "BH 4xP150",
-       "raw": "p150x4"
-      },
-      {
-       "key": "P300",
-       "listed": true,
-       "product": "BH P300",
-       "raw": "p300"
-      },
-      {
-       "key": "P300X2",
-       "listed": true,
-       "product": "BH QuietBox 2",
-       "raw": "p300x2"
-      }
-     ],
-     "license": null,
-     "owner": "raahemnabeel",
-     "perf": null,
-     "readable": true,
-     "reasoningParser": null,
-     "repo": "raahemnabeel/qwen3-coder-next",
-     "schema": "5.1",
-     "task": null,
-     "toolParser": "qwen3_coder",
-     "updated": "2026-10-06"
-    },
-    {
-     "arch": "blackhole",
-     "blurb": "Qwen3-Coder-Next (80B total / 3B active MoE: 512 experts, top-10 + shared expert, 48 layers of Gated DeltaNet + gated attention) on Blackhole through vLLM and the Tenstorrent plugin, with a fused decode step: the published bundle…",
+     "blurb": "Qwen3-Coder-Next (80B total / 3B active MoE: 512 experts, top-10 + shared expert, 48 layers of Gated DeltaNet + gated attention) on Blackhole through vLLM and the Tenstorrent plugin, with a fused decode step: the v1 bundle…",
      "bundleKind": "vllm-plugin",
      "context": "256K",
      "decision": false,
@@ -11818,11 +11724,11 @@
      },
      "readable": true,
      "reasoningParser": null,
-     "repo": "raahemnabeel/qwen3-coder-next-blackhole-fast",
+     "repo": "raahemnabeel/qwen3-coder-next",
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_coder",
-     "updated": "2026-10-26"
+     "updated": "2026-10-27"
     }
    ],
    "clients": [
@@ -11888,7 +11794,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3-Coder-Next",
-   "newest": "2026-10-26",
+   "newest": "2026-10-27",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -11902,12 +11808,12 @@
    },
    "reasoningParser": null,
    "rows": [],
-   "serve": "raahemnabeel/qwen3-coder-next-blackhole-fast",
+   "serve": "raahemnabeel/qwen3-coder-next",
    "singleCard": true,
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Qwen3-Coder-Next (80B total / 3B active MoE: 512 experts, top-10 + shared expert, 48 layers of Gated DeltaNet + gated attention) on Blackhole through vLLM and the Tenstorrent plugin, with a fused decode step: the published bundle…",
+   "summary": "Qwen3-Coder-Next (80B total / 3B active MoE: 512 experts, top-10 + shared expert, 48 layers of Gated DeltaNet + gated attention) on Blackhole through vLLM and the Tenstorrent plugin, with a fused decode step: the v1 bundle…",
    "toolParser": "qwen3_coder",
    "upstream": "Qwen/Qwen3-Coder-Next",
    "weights": "Qwen/Qwen3-Coder-Next"
@@ -12117,38 +12023,6 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
-     "bundleKind": "vllm-plugin",
-     "context": "256K",
-     "decision": false,
-     "devices": 4,
-     "hardware": [
-      {
-       "key": "P150X4",
-       "listed": true,
-       "product": "BH 4xP150",
-       "raw": "p150x4"
-      },
-      {
-       "key": "P300X2",
-       "listed": true,
-       "product": "BH QuietBox 2",
-       "raw": "p300x2"
-      }
-     ],
-     "license": null,
-     "owner": "raahemnabeel",
-     "perf": null,
-     "readable": true,
-     "reasoningParser": "qwen3",
-     "repo": "raahemnabeel/qwen3-5-122b-a10b",
-     "schema": "5.1",
-     "task": null,
-     "toolParser": "qwen3_xml",
-     "updated": "2026-10-09"
-    },
-    {
-     "arch": "blackhole",
      "blurb": "Qwen3.5-122B-A10B (122B total / 10B active MoE: 256 experts, top-8 + shared expert, 48 layers of Gated DeltaNet + gated attention, vision tower, MTP head) on four Blackhole dies through vLLM and the Tenstorrent plugin, with a fused decode…",
      "bundleKind": "vllm-plugin",
      "context": "256K",
@@ -12173,17 +12047,17 @@
      "perf": {
       "board": "p300x2",
       "chips": 4,
-      "decode": 52.8,
+      "decode": 130.9,
       "measured": true,
-      "ttft": 289.0
+      "ttft": 216.0
      },
      "readable": true,
      "reasoningParser": "qwen3",
-     "repo": "raahemnabeel/qwen3-5-122b-a10b-blackhole-fast",
+     "repo": "raahemnabeel/qwen3-5-122b-a10b",
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-23"
+     "updated": "2026-10-27"
     }
    ],
    "clients": [
@@ -12247,21 +12121,21 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3.5-122B-A10B",
-   "newest": "2026-10-23",
+   "newest": "2026-10-27",
    "params": null,
    "perf": {
     "board": "p300x2",
     "chips": 4,
-    "decode": 52.8,
-    "decodeText": "53",
+    "decode": 130.9,
+    "decodeText": "131",
     "hardware": "BH QuietBox 2",
     "measured": true,
-    "ttft": 289.0,
-    "ttftText": "289 ms"
+    "ttft": 216.0,
+    "ttftText": "216 ms"
    },
    "reasoningParser": "qwen3",
    "rows": [],
-   "serve": "raahemnabeel/qwen3-5-122b-a10b-blackhole-fast",
+   "serve": "raahemnabeel/qwen3-5-122b-a10b",
    "singleCard": false,
    "source": "tt-model bundle",
    "status": null,
@@ -13888,7 +13762,7 @@
   }
  ],
  "spec": {
-  "commit": "9935af599",
+  "commit": "",
   "release": "0.25.0"
  },
  "unclassified": [],
