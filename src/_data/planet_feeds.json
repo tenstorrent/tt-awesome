@@ -5,7 +5,7 @@
     "approved": true,
     "title": "tt-cli v1.2.1",
     "url": "https://github.com/tenstorrent/tt-cli/releases/tag/v1.2.1",
-    "description": "This release adds Grayskull P100 support to the community catalog and fixes a critical issue where gated Hugging Face models wouldn't serve properly in `tt-inference-server` due to missing `HF_TOKEN` environment setup—[a change](https://github.com/tenstorrent/tt-cli/pull/95) that's essential if you're deploying inference workloads on restricted model architectures. Additional fixes address container permission handling for git-based tool clones and bump several upstream dependencies to their latest stable versions.",
+    "description": "This release adds Blackhole P100 support to the community catalog and fixes a critical issue where gated Hugging Face models wouldn't serve properly in `tt-inference-server` due to missing `HF_TOKEN` environment setup—[a change](https://github.com/tenstorrent/tt-cli/pull/95) that's essential if you're deploying inference workloads on restricted model architectures. Additional fixes address container permission handling for git-based tool clones and bump several upstream dependencies to their latest stable versions.",
     "date": "2026-10-26",
     "dateISO": "2026-10-26T20:26:37Z",
     "label": "tenstorrent/tt-cli",
