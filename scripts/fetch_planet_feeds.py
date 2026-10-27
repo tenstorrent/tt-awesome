@@ -13,6 +13,9 @@ Sources:
     Descriptions are condensed into a bilingual EN + JA summary (~200 chars each)
     via the active summarization provider (GitHub Copilot by default, see
     scripts/llm_client.py); Japanese-only when its credential is absent.
+  - The developer blog at tenstorrent.com/developers (trusted — auto-approved).
+    The site publishes no RSS or Atom feed, so posts are read from its public
+    Sanity dataset (see DEVELOPER_BLOG below).
 
 Items are appended to src/_data/planet_feeds.json. New items carry their
 source's default approval (trusted sources land approved=True and publish
@@ -79,6 +82,38 @@ CONNPASS_FEEDS = [
     # Connpass serves group feeds at /ja.atom (there is no /feed.atom — it 404s).
     {"name": "Tenstorrent Japan", "url": "https://tenstorrent.connpass.com/ja.atom", "affiliation": "official", "trusted": True},
 ]
+
+# tenstorrent.com/developers has no RSS or Atom feed (nothing advertised, every
+# common feed path 404s, and the sitemap lists no /developers URLs). The site
+# is Next.js on Sanity CMS, and the Sanity dataset answers anonymous queries,
+# so the posts are read from there. The dataset only returns published
+# documents without a token (drafts need one), and every post on the blog is
+# about Tenstorrent, so items land approved. If the dataset is ever made
+# private the query fails, the run logs a warning and this source contributes
+# nothing, the same as a dead feed.
+DEVELOPER_BLOG = {
+    "name":        "tenstorrent.com/developers",
+    "query_url":   "https://jpb4ed5r.api.sanity.io/v2024-01-01/data/query/production",
+    "post_base":   "https://tenstorrent.com/developers/blog/",
+    "affiliation": "official",
+    "trusted":     True,
+}
+# GROQ. The excerpt (editorialDescription) is Portable Text: an array of
+# blocks, each a list of spans split wherever a formatting mark starts or
+# ends, so "Tenstorrent" + "." is one sentence end and not two words. The
+# query joins each block's spans with "" and returns one string per block;
+# the fetcher then joins blocks with a space to keep paragraph boundaries.
+# The body is one plain string per language and is the fallback description
+# when a post has no excerpt.
+DEVELOPER_BLOG_QUERY = (
+    '*[_type == "developer-blog-post" && defined(slug.current)] | order(date desc) {'
+    ' title, date, "slug": slug.current,'
+    ' "authors": authors[].name,'
+    ' "excerpt": editorialDescription[language == "en"][0].value[]'
+    '{ "t": array::join(children[].text, "") }.t,'
+    ' "body": content[language == "en"][0].value'
+    ' }'
+)
 
 USER_AGENT = "tt-awesome-planet/1.0 (github.com/tenstorrent/tt-awesome)"
 
@@ -452,6 +487,64 @@ def fetch_connpass(known_urls: set) -> list:
     return items
 
 
+def _today() -> str:
+    """UTC date as YYYY-MM-DD. A function so tests can pin it."""
+    from datetime import datetime, timezone
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+
+def fetch_developer_blog(known_urls: set) -> list:
+    """Posts from tenstorrent.com/developers, via the site's public Sanity dataset."""
+    import urllib.parse
+    src = DEVELOPER_BLOG
+    url = src["query_url"] + "?" + urllib.parse.urlencode({"query": DEVELOPER_BLOG_QUERY})
+    try:
+        posts = json.loads(_get(url)).get("result") or []
+    except Exception as e:
+        print(f"  WARN {src['name']}: {e}", file=sys.stderr)
+        return []
+
+    today = _today()
+    items = []
+    for post in posts:
+        slug  = (post.get("slug") or "").strip()
+        title = (post.get("title") or "").strip()
+        if not slug or not title:
+            continue
+        post_url = src["post_base"] + slug
+        if post_url in known_urls:
+            continue
+        # An editor can date a post ahead of publication and the site hides it
+        # until then. The planet must not announce it first.
+        date_str = iso_to_date(post.get("date") or "")
+        if date_str > today:
+            continue
+        # One string per block from the query; a space between blocks is the
+        # paragraph boundary.
+        excerpt = " ".join(t for t in (post.get("excerpt") or []) if t)
+        raw = excerpt.strip() or (post.get("body") or "")
+        desc = truncate(strip_html(raw))
+        authors = ", ".join(a for a in (post.get("authors") or []) if a)
+        item = {
+            "type":        "article",
+            "source":      src["name"],
+            "approved":    src.get("trusted", False),
+            "title":       title,
+            "url":         post_url,
+            "description": desc,
+            "date":        date_str,
+            "dateISO":     f"{date_str}T00:00:00Z",
+            "label":       src["name"],
+            "projectName": src["name"],
+            "projectId":   None,
+            "affiliation": src.get("affiliation", "official"),
+        }
+        if authors:
+            item["author"] = authors
+        items.append(item)
+    return items
+
+
 def _read_rows(path: Path) -> list:
     """Read a JSON array of objects, skipping rows that aren't objects.
 
@@ -568,6 +661,12 @@ def main():
     print(f"  {len(cp)} new events")
     new_items += cp
     known_urls.update(i["url"] for i in cp)
+
+    print(f"Fetching {DEVELOPER_BLOG['name']}…")
+    db = fetch_developer_blog(known_urls)
+    print(f"  {len(db)} new posts")
+    new_items += db
+    known_urls.update(i["url"] for i in db)
 
     # Merge: stored approval flags are preserved; new items use source defaults
     all_items = merge_items(existing, new_items, declined_urls)

@@ -9,7 +9,7 @@ whoever maintains the automation.
 | Workflow | Trigger | What it does |
 |---|---|---|
 | `nightly.yml` | `17 6,18 * * *` UTC + dispatch | Refreshes `src/_data/github_meta.json`, summarizes new releases into `src/_data/planet_feeds.json`, regenerates `README.md`, opens a PR |
-| `planet-feeds.yml` | `43 6,18 * * *` UTC + dispatch | Pulls YouTube / arXiv / Reddit / community / connpass items into `src/_data/planet_feeds.json`, opens a PR |
+| `planet-feeds.yml` | `43 6,18 * * *` UTC + dispatch | Pulls YouTube / arXiv / Reddit / community / connpass / developer-blog items into `src/_data/planet_feeds.json`, opens a PR |
 | `validate.yml` | PR | `scripts/validate.py` over every entry |
 | `build-check.yml` | PR | Eleventy build |
 | `entry-from-issue.yml` | `approved` label on an issue | Converts an entry-submission issue into a PR |

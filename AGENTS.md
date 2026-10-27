@@ -47,7 +47,7 @@ summarization backend, and how to debug a failed nightly run.
 |---|---|
 | `entries/<category>/*.json` | Source of truth. One file per entry. `scripts/validate.py` enforces the schema. |
 | `src/_data/github_meta.json` | Stars, releases, changelogs per repo. Written nightly by `scripts/fetch_github_meta.py`. |
-| `src/_data/planet_feeds.json` | Every Planet item: release summaries from `scripts/summarize_releases.py`, plus YouTube, arXiv, Reddit, blogs and connpass from `scripts/fetch_planet_feeds.py`. One record per item, keyed by URL, sorted newest first by `dateISO`. |
+| `src/_data/planet_feeds.json` | Every Planet item: release summaries from `scripts/summarize_releases.py`, plus YouTube, arXiv, Reddit, blogs, connpass and the tenstorrent.com developer blog (read from its public Sanity dataset, since the site has no feed) from `scripts/fetch_planet_feeds.py`. One record per item, keyed by URL, sorted newest first by `dateISO`. |
 | `src/_data/planet_declined.json` | URLs reviewed and rejected, so no fetcher proposes them again. Add to it with `scripts/decline_planet_item.py`. |
 | `scripts/llm_client.py`, `prompts/*.prompt.yml` | The LLM front door and its prompts. The backend is chosen by the `SUMMARY_PROVIDER` repository variable. |
 | `.eleventy.js` | All rendering logic, written as filters so tests can call them. `planetItems` builds the Planet page; `buildFeedContentHtml` builds every feed's rich content. |
