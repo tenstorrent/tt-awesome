@@ -464,6 +464,7 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
     mkRel("v0.17.0-alpha"),               // tt-buda pattern: -alpha
     mkRel("v1.0.0-beta2"),                // -beta<digits>
     mkRel("7.67.0-strength-49763"),       // sfpi CI experiment tag
+    mkRel("7.92.0-stov"),                 // sfpi branch build: version + bare branch word, no run number
   ];
   const stableRel = mkRel("v1.0.0");
   const items = planetItems([], [...devRels, stableRel], []);
@@ -471,6 +472,25 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   assert.strictEqual(releaseItems.length, 1, "only stable release should appear");
   assert.strictEqual(releaseItems[0].label, "v1.0.0");
   console.log("✓ planetItems: excludes dev/rc/qa/alpha/beta/CI-experiment release tags");
+}
+
+// Test 24b: a branch build with no run number, on its own. sfpi cut
+// "7.92.0-stov" from nsidwell/stov with an empty name and body and the
+// prerelease flag off; the summarizer skipped it as sparse, so the fallback
+// card here was the only thing rendering it ("New release: SFPI 7.92.0-stov").
+// Checked alone because Test 24 shares one project and date across its
+// releases, so the run grouper would fold a leaked card into the stable one.
+{
+  const rel = {
+    entryId: "sfpi", entryName: "SFPI", affiliation: "official",
+    tagName: "7.92.0-stov", publishedAt: "2026-10-28T01:47:55Z",
+    url: "https://github.com/tenstorrent/sfpi/releases/tag/7.92.0-stov",
+    repoUrl: "https://github.com/tenstorrent/sfpi",
+  };
+  const items = planetItems([], [rel], []);
+  assert.strictEqual(items.filter((i) => i.type === "release").length, 0,
+    "branch build tag must not get a fallback release card");
+  console.log("✓ planetItems: excludes branch-build tags with no run number");
 }
 
 // Test 25: approved external items appear

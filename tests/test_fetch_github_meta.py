@@ -7,7 +7,7 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
-from fetch_github_meta import fetch_repo, fetch_releases
+from fetch_github_meta import fetch_repo, fetch_releases, PRE_RELEASE_TAG
 
 
 def _mock_response(data):
@@ -370,3 +370,15 @@ def test_format_renames_md_lists_each_rename_with_a_checklist():
     assert "entries/riscv-arch/tt-sim.json" in md
     for word in ("name", "previous_ids", "description", "author", "affiliation", "packages"):
         assert word in md
+
+
+def test_pre_release_tag_catches_branch_builds():
+    """Tags cut from a work branch are dev noise even when GitHub marks them
+    non-prerelease. sfpi publishes both shapes: a branch word plus CI run
+    number ("7.67.0-strength-49763") and a bare branch word ("7.92.0-stov",
+    cut from nsidwell/stov with an empty name and body)."""
+    for tag in ("7.67.0-strength-49763", "7.92.0-stov", "7.91.0-raw-61960"):
+        assert PRE_RELEASE_TAG.search(tag), tag
+    # Ordinary version tags, with or without a product prefix, stay stable.
+    for tag in ("7.92.0", "v0.72.0", "ttkmd-2.9.0", "demo-2026-08-29", "pre_perfmodel_merge"):
+        assert not PRE_RELEASE_TAG.search(tag), tag

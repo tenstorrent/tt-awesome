@@ -789,9 +789,10 @@ module.exports = function (eleventyConfig) {
     // Keep in sync with PRE_RELEASE_TAG in src/_data/entries.js.
     // dev: "1.2.0.dev20260530", "v0.72.0-dev20260529"  RC: "v0.72.0-rc4"  QA: "v1.0-qa1"
     // alpha/beta: "v0.17.0-alpha"
-    // CI experiment tags: "7.67.0-strength-49763" (version-branchword-runnumber)
+    // branch builds: "7.67.0-strength-49763" (version-branchword-runnumber) and
+    // "7.92.0-stov" (version-branchword, no run number)
     for (const rel of recentReleases || []) {
-      if (/[\.\-]dev[\.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+-\d+$/i.test(rel.tagName || "")) continue;
+      if (/[\.\-]dev[\.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+(?:-\d+)?$/i.test(rel.tagName || "")) continue;
       if (seenUrls.has(rel.url)) continue;
       seenUrls.add(rel.url);
       const dateStr = rel.publishedAt ? rel.publishedAt.slice(0, 10) : "1970-01-01";

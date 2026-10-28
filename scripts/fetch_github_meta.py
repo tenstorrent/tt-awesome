@@ -109,10 +109,11 @@ def fetch_readme_image(repo: str, default_branch: str = "main") -> str | None:
 
 
 ASSET_EXTS = re.compile(r'\.(deb|whl|tar\.gz|tgz|zip|rpm|dmg|exe|AppImage)$', re.IGNORECASE)
-# The trailing alternative catches CI experiment tags like sfpi's
-# "7.67.0-strength-49763" (version + branch word + run number) — GitHub marks
-# these non-prerelease, so only the tag shape identifies them.
-PRE_RELEASE_TAG = re.compile(r"[.\-]dev[.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+-\d+$", re.IGNORECASE)
+# The trailing alternative catches builds cut from a work branch, like sfpi's
+# "7.67.0-strength-49763" (version + branch word + CI run number) and
+# "7.92.0-stov" (version + branch word) — GitHub marks these non-prerelease,
+# so only the tag shape identifies them.
+PRE_RELEASE_TAG = re.compile(r"[.\-]dev[.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+(?:-\d+)?$", re.IGNORECASE)
 CHANGELOG_NAMES = ("CHANGELOG.md", "CHANGELOG", "CHANGES.md", "CHANGES", "HISTORY.md")
 CHANGELOG_MAX = 3000
 
