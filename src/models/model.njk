@@ -24,12 +24,13 @@ eleventyComputed:
   <div class="mp-main">
     <div class="kind">
       {%- if kindUrl %}<a href="{{ kindUrl | url }}">{{ m.kind }}</a>{% else %}<span>{{ m.kind }}</span>{% endif %}{% if m.kindInferred %}<span class="m-pill">kind inferred</span>{% endif %}
-      <span class="m-pill{{ ' tt' if m.inSpec }}" title="{{ 'Listed in the tt-inference-server release spec' if m.inSpec else 'Published as a tt-model bundle. Not in the tt-inference-server release spec' }}">{{ "Official" if m.inSpec else "Community model" }}</span>
+      <span class="m-pill{{ ' tt' if m.inSpec }}" title="{{ 'Listed in the tt-inference-server release spec' if m.inSpec else 'Published as a tt-model bundle, not in the tt-inference-server release spec. Not reviewed by Tenstorrent. Serve at your own risk.' }}">{{ "Official" if m.inSpec else "Community model" }}</span>
       {%- if familyUrl %}<a class="m-pill" href="{{ familyUrl | url }}">{{ m.family }} family</a>{% endif %}
     </div>
     <h1 class="m-title">{{ m.name }}</h1>
     {%- if m.upstream %}<div class="upstream">{% set up = m.upstream | hfUrl %}{% if up %}<a href="{{ up }}" target="_blank" rel="noopener noreferrer">{{ m.upstream }}</a>{% else %}{{ m.upstream }}{% endif %}</div>{% endif %}
     <p class="m-blurb">{{ m.summary }}</p>
+    {%- if not m.inSpec %}<p class="m-warn"><strong>Community model.</strong> It is published as a tt-model bundle and is not in tt-inference-server's release spec. Tenstorrent has not reviewed the model or its bundle{{ "s" if m.bundles.length > 1 }}. Serve at your own risk.</p>{% endif %}
 
     {%- if m.rows.length %}
     <h2 class="m-h">In tt-inference-server</h2>
@@ -69,7 +70,7 @@ eleventyComputed:
       </tr>
       {%- endfor %}
     </table></div>
-    <p class="m-note">From <code>tt-model search --catalog</code> and each bundle's manifest (<code>tt-model info</code>). A bundle lists every hardware profile its manifest defines.</p>
+    <p class="m-note">From <code>tt-model search --catalog</code> and each bundle's manifest (<code>tt-model info</code>). A bundle lists every hardware profile its manifest defines. Each bundle is published by its owner, and Tenstorrent has not reviewed it. Serve at your own risk.</p>
     {%- else %}
     <p class="m-none">No tt-model bundle has been published for this model.</p>
     {%- endif %}
@@ -94,6 +95,7 @@ eleventyComputed:
     {#- A model whose upstream is a bare label (the forge CNNs) has no Hub weights: tt model pull refuses it, and tt serve fetches the container image. -#}
     {%- if m.inSpec and "/" not in m.upstream %}<p class="m-note">Nothing to download first. Its weights ship inside the container image, and <code>tt serve</code> fetches the image.</p>
     {%- else %}{{ command("Download the weights" + ("" if m.inSpec else " and the bundle"), "tt model pull " + m.serve) }}{% endif %}
+    {%- if not m.inSpec %}<p class="m-warn sm">Not reviewed by Tenstorrent. Serve at your own risk.</p>{% endif %}
     {{ command("Serve it on this machine", "tt serve " + m.serve) }}
     {%- if not m.inSpec %}<p class="m-note">A tt-model bundle, so <code>tt serve</code> runs it through tt-model. If a bundle needs hardware you do not have, tt says so.</p>{% endif %}
     {%- if m.bundles.length and m.inSpec %}<p class="m-note">To serve one of its tt-model bundles instead, use the Copy serve button beside it.</p>{% endif %}

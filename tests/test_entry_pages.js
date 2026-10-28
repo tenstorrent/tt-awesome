@@ -283,3 +283,40 @@ console.log(
   }
   console.log(`ok — releases-official.xml: ${entries.length} entries, all official, all in releases.xml`);
 }
+
+// ── Community models carry a "not reviewed by Tenstorrent, serve at your own
+//    risk" notice: on their own page (body and the install panel), on every
+//    list page that contains one, and in the card pill's tooltip. Official
+//    models and the official-only list carry none. ─────────────────────────
+{
+  const modelsSite = require("../src/_data/modelsSite.js");
+  const read = (u) => fs.readFileSync(path.join(outDir, u.replace(/^\//, ""), "index.html"), "utf8");
+  const NOTICE = "Serve at your own risk";
+  const community = modelsSite.models.find((m) => !m.inSpec);
+  const official = modelsSite.models.find((m) => m.inSpec && !m.bundles.length);
+  assert(community && official, "need one community model and one official model with no bundle");
+
+  const ch = read(community.url);
+  assert(/<p class="m-warn"><strong>Community model\.<\/strong>[^<]*has not reviewed[^<]*Serve at your own risk\./.test(ch),
+    `community model page ${community.url} should carry the notice under the summary`);
+  assert(/<p class="m-warn sm">Not reviewed by Tenstorrent\. Serve at your own risk\.<\/p>\s*<div class="m-cmd">/.test(ch),
+    `community model page ${community.url} should carry the short notice directly above the serve command`);
+  assert(!read(official.url).includes(NOTICE), `official model page ${official.url} must carry no notice`);
+
+  const page = (slug) => modelsSite.pages.find((p) => p.group === "collections" && p.slug === slug);
+  for (const slug of ["all", "has-bundle", "newest-bundles"]) {
+    assert(read(page(slug).url).includes(NOTICE), `list page ${slug} should carry the notice`);
+  }
+  assert(!read(page("in-tt-inference-server").url).includes(NOTICE), "official-only list carries no notice");
+  // Families, kinds and hardware pages use the same rule: any community model in the list, one notice.
+  for (const group of ["families", "kinds", "hardware"]) {
+    const mixed = modelsSite.pages.find((p) => p.group === group && p.community > 0);
+    const pure = modelsSite.pages.find((p) => p.group === group && p.community === 0);
+    assert(mixed, `no ${group} page holds a community model`);
+    assert(read(mixed.url).includes(NOTICE), `${group} page ${mixed.url} should carry the notice`);
+    if (pure) assert(!read(pure.url).includes(NOTICE), `${group} page ${pure.url} holds no community model and must carry no notice`);
+  }
+  // The card pill tooltip, on a list page that holds a community model.
+  assert(/title="[^"]*not reviewed[^"]*"/i.test(read(page("has-bundle").url)), "community card pill tooltip mentions the review status");
+  console.log("✓ community models and lists carry the not-reviewed notice");
+}
