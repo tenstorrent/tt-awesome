@@ -17,7 +17,7 @@ eleventyComputed:
 <nav class="m-crumb" aria-label="Breadcrumb"><a href="{{ '/' | url }}">tt-awesome</a><span>/</span><a href="{{ '/models/' | url }}">Models</a><span>/</span><span>{{ g.groupLabel }}</span><span>/</span><span aria-current="page">{{ g.title }}</span></nav>
 <h1 class="m-title">{{ g.title }}</h1>
 <p class="m-blurb">{{ g.blurb }}</p>
-{%- if g.community %}<p class="m-warn">{% if g.community == g.count %}{{ "This model is a" if g.count == 1 else "These models are" }} <strong>community model{{ "s" if g.count > 1 }}</strong>{% else %}<strong>{{ g.community }} of these {{ g.count }} models {{ "is a community model" if g.community == 1 else "are community models" }}</strong>{% endif %}, published as tt-model bundles by their owners and not in tt-inference-server's release spec. Tenstorrent has not reviewed them. Serve at your own risk.</p>{% endif %}
+{%- if g.community %}<p class="m-warn"><strong>Community models</strong> are tt-model bundles published by their owners and are not in tt-inference-server's release spec. Tenstorrent has not reviewed them. Serve at your own risk.</p>{% endif %}
 <div class="m-bar">
   <span id="m-count" data-total="{{ g.count }}">{{ g.count }} {{ "model" if g.count == 1 else "models" }}</span>
   <label>Filter <input type="search" id="m-filter" placeholder="Filter this list" aria-label="Filter this list" autocomplete="off"></label>

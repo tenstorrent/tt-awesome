@@ -32,8 +32,8 @@ function addSet(group, label, intro) {
   sets.push(set);
   return (key, title, blurb, list) => {
     if (!list.length) return;
-    // community: how many of the list are tt-model bundles outside the release spec. A page with any
-    // shows the not-reviewed notice (src/models/group.njk).
+    // community: how many of the list are tt-model bundles outside the release spec. Only used as a flag:
+    // a page with any shows the not-reviewed notice (src/models/group.njk).
     const page = { group, groupLabel: label, slug: slug(key), title, blurb, models: list, count: list.length,
                    community: list.filter((m) => !m.inSpec).length, url: `/models/${group}/${slug(key)}/` };
     set.pages.push(page);
