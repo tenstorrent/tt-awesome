@@ -1,0 +1,201 @@
+{
+ "_about": "Kinds for tt-model bundles whose card gives no Hugging Face task tag. This is an inference, made by reading the weights repo name, the publisher and the bundle manifest, and each entry says why. The builder applies an entry only when no task tag is stated, and the site marks the kind as inferred. A model not listed here stays 'task not stated'. Keyed by the weights repo in the manifest, lower case. Kinds reuse the names already on the site (LLM, Image generation, Video generation, Text to audio, Robotics, Object detection, Image segmentation) and add Depth and 3D geometry and Computer vision.",
+ "kinds": {
+  "ace-step/ace-step1.5": {
+   "kind": "Text to audio",
+   "basis": "ACE-Step is a music-generation model."
+  },
+  "allenai/olmo-3.1-32b-instruct": {
+   "kind": "LLM",
+   "basis": "An instruct language model; the bundle names an olmo3_tt tool-call parser."
+  },
+  "aslp-lab/diffrhythm-1_2-full": {
+   "kind": "Text to audio",
+   "basis": "DiffRhythm generates songs from lyrics and a style prompt."
+  },
+  "black-forest-labs/flux.2-dev": {
+   "kind": "Image generation",
+   "basis": "FLUX.2 is an image-generation model."
+  },
+  "black-forest-labs/flux.2-klein-4b": {
+   "kind": "Image generation",
+   "basis": "FLUX.2 is an image-generation model."
+  },
+  "changh95/gaze-lle-weights": {
+   "kind": "Computer vision",
+   "basis": "Gaze-LLE estimates where a person in an image is looking."
+  },
+  "changh95/hamer-weights": {
+   "kind": "Computer vision",
+   "basis": "HaMeR reconstructs 3D hand meshes from images."
+  },
+  "comfy-org/qwen-image-edit_comfyui": {
+   "kind": "Image generation",
+   "basis": "Qwen-Image-Edit edits images from a prompt."
+  },
+  "comfy-org/wan_2.2_comfyui_repackaged": {
+   "kind": "Video generation",
+   "basis": "Wan 2.2 is a video-generation model."
+  },
+  "deepseek-ai/deepseek-v4.1-flash": {
+   "kind": "LLM",
+   "basis": "DeepSeek-V4.1-Flash is a language model. The bundle's manifest says tt-dit-server, which does not match."
+  },
+  "depth-anything/da3metric-large": {
+   "kind": "Depth and 3D geometry",
+   "basis": "Depth Anything 3 estimates metric depth."
+  },
+  "facebook/sam3": {
+   "kind": "Image segmentation",
+   "basis": "SAM 3 segments objects in images."
+  },
+  "facebook/vggt-1b": {
+   "kind": "Depth and 3D geometry",
+   "basis": "VGGT predicts camera pose, depth and 3D points from images."
+  },
+  "hidream-ai/hidream-o1-image": {
+   "kind": "Image generation",
+   "basis": "HiDream is an image-generation model."
+  },
+  "huggingfacetb/smollm2-135m-instruct": {
+   "kind": "LLM",
+   "basis": "The bundle's card calls it a decoder-only chat model."
+  },
+  "lerobot/pi05_base": {
+   "kind": "Robotics",
+   "basis": "pi0.5 is a robot policy, from the lerobot repo."
+  },
+  "lerobot/xvla-base": {
+   "kind": "Robotics",
+   "basis": "X-VLA is a robot policy, from the lerobot repo."
+  },
+  "lgai-exaone/exaone-4.5-33b": {
+   "kind": "LLM",
+   "basis": "EXAONE is LG's language-model family; the bundle names a hermes tool-call parser."
+  },
+  "liquidai/lfm2.5-24b-a2b": {
+   "kind": "LLM",
+   "basis": "The bundle's card calls it an instruct model for chat, tool calling and reasoning."
+  },
+  "magic-leap-community/superpoint": {
+   "kind": "Computer vision",
+   "basis": "SuperPoint detects and describes image keypoints."
+  },
+  "mistralai/mistral-small-4-119b-2603": {
+   "kind": "LLM",
+   "basis": "Mistral Small is a language-model family, served with vLLM."
+  },
+  "moonshotai/kimi-linear-48b-a3b-instruct": {
+   "kind": "LLM",
+   "basis": "An instruct language model; the bundle names a kimi_k2 tool-call parser."
+  },
+  "motif-technologies/motif-3": {
+   "kind": "LLM",
+   "basis": "Motif is a language-model family; the bundle names a motif tool-call parser and a motif reasoning parser."
+  },
+  "naver/dust3r_vitlarge_basedecoder_512_dpt": {
+   "kind": "Depth and 3D geometry",
+   "basis": "DUSt3R reconstructs 3D geometry from images."
+  },
+  "nvidia/alpamayo2-super": {
+   "kind": "Robotics",
+   "basis": "Alpamayo is NVIDIA's vision-language-action model for driving."
+  },
+  "nvidia/gr00t-n1.5-3b": {
+   "kind": "Robotics",
+   "basis": "GR00T is NVIDIA's robot foundation model."
+  },
+  "nvidia/gr00t-n1.6-3b": {
+   "kind": "Robotics",
+   "basis": "GR00T is NVIDIA's robot foundation model."
+  },
+  "nvidia/gr00t-n1.7-3b": {
+   "kind": "Robotics",
+   "basis": "GR00T is NVIDIA's robot foundation model."
+  },
+  "nvidia/locateanything-3b": {
+   "kind": "Object detection",
+   "basis": "LocateAnything finds objects in an image from a text prompt."
+  },
+  "nvidia/nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4": {
+   "kind": "LLM",
+   "basis": "The bundle's card calls it a reasoning chat model."
+  },
+  "ornith-ai/ornith-1.5-35b-a3b": {
+   "kind": "LLM",
+   "basis": "A language model; the bundle names a qwen3_xml tool-call parser."
+  },
+  "ornith-ai/ornith-1.5-122b": {
+   "kind": "LLM",
+   "basis": "The bundle's card gives no task tag. It is a 122B mixture-of-experts model served with vLLM, and it names a qwen3_xml tool-call parser and a qwen3 reasoning parser."
+  },
+  "ornith-ai/ornith-1.5-9b": {
+   "kind": "LLM",
+   "basis": "The bundle's card no longer gives a task tag. It is served with vLLM and names a qwen3_xml tool-call parser and a qwen3 reasoning parser."
+  },
+  "poolside/laguna-s-2.1": {
+   "kind": "LLM",
+   "basis": "Poolside's Laguna is a coding language model, served with vLLM."
+  },
+  "qwen/qwen-image-2.1": {
+   "kind": "Image generation",
+   "basis": "Qwen-Image is an image-generation model."
+  },
+  "qwen/qwen3-coder-30b-a3b-instruct": {
+   "kind": "LLM",
+   "basis": "A coding language model, with a qwen3_coder tool-call parser."
+  },
+  "qwen/qwen3-coder-next": {
+   "kind": "LLM",
+   "basis": "A coding language model, with a qwen3_coder tool-call parser."
+  },
+  "qwen/qwen3.5-122b-a10b": {
+   "kind": "LLM",
+   "basis": "A Qwen language model; the bundle names a qwen3_xml tool-call parser."
+  },
+  "qwen/qwen3.6-35b-a3b": {
+   "kind": "LLM",
+   "basis": "A Qwen language model; the bundle names a qwen3_xml tool-call parser."
+  },
+  "rlwrld/rldx-1-pt": {
+   "kind": "Robotics",
+   "basis": "RLDX-1 is a robot model from RLWRLD."
+  },
+  "rlwrld/rldx-1-pt-img": {
+   "kind": "Robotics",
+   "basis": "RLDX-1 is a robot model from RLWRLD."
+  },
+  "roboflow/rf-detr-base": {
+   "kind": "Object detection",
+   "basis": "RF-DETR is an object detector."
+  },
+  "ruicheng/moge-2-vitl-normal": {
+   "kind": "Depth and 3D geometry",
+   "basis": "MoGe-2 estimates geometry (points, depth, normals) from one image."
+  },
+  "thakicloud/rag-gate-27b": {
+   "kind": "Decision model",
+   "basis": "The bundle's README (episod/rag-gate-27b-p300) says it sits after retrieval and picks one action, Answer, Retrieve or Stop, from the first generated token. The bundle's manifest has no card, so this comes from the README and not from tt-model."
+  },
+  "upstage/solar-open-100b": {
+   "kind": "LLM",
+   "basis": "Solar is a language-model family; the bundle names a solar_open tool-call parser."
+  },
+  "weiboai/vibethinker-3b": {
+   "kind": "LLM",
+   "basis": "A small reasoning language model, served with vLLM."
+  },
+  "xiaomimimo/mimo-v2.6-distill-qwen-9b": {
+   "kind": "LLM",
+   "basis": "A distilled Qwen-based language model, served with vLLM."
+  },
+  "zai-org/glm-4.5-air": {
+   "kind": "LLM",
+   "basis": "GLM is a language-model family; the bundle names a glm45 tool-call parser."
+  },
+  "zai-org/glm-5.3-flash": {
+   "kind": "LLM",
+   "basis": "GLM is a language-model family; the bundle names a glm47 tool-call parser."
+  }
+ }
+}

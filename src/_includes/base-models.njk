@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ pageDescription | truncate(300) }}">
+  <link rel="canonical" href="{{ site.baseUrl }}{{ canonicalPath }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="tt-awesome">
+  <meta property="og:title" content="{{ pageTitle }}">
+  <meta property="og:description" content="{{ pageDescription | truncate(300) }}">
+  <meta property="og:image" content="{{ site.baseUrl }}assets/og-card.svg">
+  <style>{% inlineFile "src/assets/style.css" %}</style>
+  <style>{% inlineFile "src/assets/models.css" %}</style>
+  {%- include "analytics.njk" %}
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="logo" href="{{ '/' | url }}">⚡ tt-awesome</a>
+    <span class="mobile-title models-topbar-title">Models</span>
+    <button type="button" class="hamburger" id="hamburger" aria-label="Open menu">☰</button>
+    <a class="topbar-github" href="https://github.com/tenstorrent/tt-awesome" target="_blank" rel="noopener noreferrer" aria-label="tt-awesome on GitHub">
+      <svg height="20" width="20" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
+  </header>
+  <div class="panes">
+    {%- include "models-sidebar.njk" -%}
+    <main class="models-main" id="models-main">
+      {{ content | safe }}
+    </main>
+  </div>
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+</div>
+<script>{% inlineFile "src/assets/models-page.js" %}</script>
+</body>
+</html>

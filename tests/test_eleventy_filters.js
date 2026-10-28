@@ -1094,3 +1094,20 @@ console.log("\nAll eleventy filter tests passed ✓");
   assert.deepStrictEqual(officialOnly([null]), [], "officialOnly tolerates null items");
   console.log("officialOnly filter tests passed ✓");
 }
+
+// ── hfUrl and safeHttpsUrl ───────────────────────────────────────────────────
+// Links on the Models pages are built from data files, so each one goes through a shape check.
+{
+  const { hfUrl, safeHttpsUrl } = filters;
+  assert(typeof hfUrl === "function" && typeof safeHttpsUrl === "function", "link filters are registered");
+  assert.strictEqual(hfUrl("openai/gpt-oss-120b"), "https://huggingface.co/openai/gpt-oss-120b");
+  assert.strictEqual(hfUrl("a/b.c_d-1"), "https://huggingface.co/a/b.c_d-1");
+  for (const bad of ["javascript:alert(1)", "a/b/c", "a b/c", "../x", "owner/", "/name", "", null, undefined, 5, "a/b?x=1", "a/b#h", 'a/"onmouseover=x']) {
+    assert.strictEqual(hfUrl(bad), "", `hfUrl rejects ${JSON.stringify(bad)}`);
+  }
+  assert.strictEqual(safeHttpsUrl("https://github.com/tenstorrent/tt-metal/tree/805f43d/models"), "https://github.com/tenstorrent/tt-metal/tree/805f43d/models");
+  for (const bad of ["javascript:alert(1)", "http://example.com", "data:text/html,x", "//evil.example", "not a url", "", null, undefined, "https://"]) {
+    assert.strictEqual(safeHttpsUrl(bad), "", `safeHttpsUrl rejects ${JSON.stringify(bad)}`);
+  }
+  console.log("link filter tests passed ✓");
+}

@@ -9,6 +9,7 @@
      onclick="selectReleases('all'); return false;">
     🏷 Recent Releases
   </a>
+  <a class="sidebar-item" href="{{ '/models/' | url }}">🧠 Models <span class="sidebar-count">{{ modelsSite.count }}</span></a>
   <hr class="sidebar-hr">
   <div class="sidebar-label">Categories</div>
   {%- for cat in categories %}

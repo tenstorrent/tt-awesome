@@ -1,0 +1,41 @@
+{#- Pieces shared by the Models pages. -#}
+
+{#- A command with a Copy button. models-page.js copies the data-copy text. -#}
+{% macro command(label, text) -%}
+<div class="m-cmd">
+  <div class="lbl">{{ label }}</div>
+  <code>{{ text }}</code>
+  <button type="button" class="m-copy" data-copy="{{ text }}" aria-label="Copy: {{ text }}">Copy</button>
+</div>
+{%- endmacro %}
+
+{#- One model as a link card. -#}
+{% macro card(m, modelsSite) -%}
+<a class="m-card" href="{{ m.url | url }}" data-search="{{ (m.name ~ ' ' ~ (m.upstream or '') ~ ' ' ~ m.kind ~ ' ' ~ m.family ~ ' ' ~ m.hardware | join(' ')) | lower }}">
+  <div class="kind"><span>{{ m.kind }}{% if m.kindInferred %} (inferred){% endif %}</span><span class="m-pill{{ ' tt' if m.inSpec }}" title="{{ 'Listed in the tt-inference-server release spec' if m.inSpec else 'Published as a tt-model bundle. Not in the tt-inference-server release spec' }}">{{ "Official" if m.inSpec else "Community model" }}</span></div>
+  <h3>{{ m.name }}</h3>
+  <div class="upstream">{{ m.upstream }}</div>
+  <p class="sum">{{ m.summary }}</p>
+  <dl class="m-facts">
+    <dt>Runs on</dt>
+    <dd{{ ' class="none"' | safe if not m.hardware.length }}>
+      {%- if m.hardware.length %}{% for h in m.hardware %}{% if loop.index <= 3 %}{{ ", " if not loop.first }}{{ h }}{% endif %}{% endfor %}{% if m.hardware.length > 3 %} +{{ m.hardware.length - 3 }}{% endif %}{% else %}Not stated{% endif -%}
+    </dd>
+    {%- if m.perf %}
+    <dt>Speed</dt>
+    <dd class="m-perf" title="{{ ('Target in tt-inference-server\'s release spec for this status: tokens per second per user and time to first token, 128 tokens in and 128 out, one user. Not a measurement.' if not m.perf.measured else 'Tokens per second per user' ~ (' and time to first token (128-token prompt)' if m.perf.ttftText else '') ~ ' at one user, from the bundle card.') }}">
+      <span class="fig">{{ "≥ " if not m.perf.measured }}{{ m.perf.decodeText }}<small> tok/s</small></span>{% if m.perf.ttftText %}<span class="fig">{{ "≤ " if not m.perf.measured }}{{ m.perf.ttftText }}</span>{% endif %}
+      <span class="where">{{ (m.perf.chips ~ (" chip" if m.perf.chips == 1 else " chips")) if (m.perf.chips and m.perf.measured) else m.perf.hardware }}</span>
+    </dd>
+    {%- endif %}
+    <dt>Status</dt>
+    <dd{{ ' class="none"' | safe if not m.status }}>{{ m.status or "Not in the release spec" }}</dd>
+    <dt>tt launch</dt>
+    <dd{{ ' class="none"' | safe if not m.clients.length }}>{{ (m.clients.length ~ (" client" if m.clients.length == 1 else " clients")) if m.clients.length else "None" }}</dd>
+  </dl>
+  <div class="m-foot">
+    {%- if m.params %}<span>{{ m.params }} parameters</span>{% endif %}
+    {%- if m.bundles.length %}<span>{{ m.bundles.length }} tt-model {{ "bundle" if m.bundles.length == 1 else "bundles" }}</span>{% endif %}
+  </div>
+</a>
+{%- endmacro %}

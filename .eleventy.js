@@ -179,6 +179,24 @@ module.exports = function (eleventyConfig) {
   // agentic consumers; publish it at the site root alongside data.json.
   eleventyConfig.addPassthroughCopy({ "AGENTS.md": "AGENTS.md" });
 
+  // Links on the Models pages come from data files. A link is built only from a value that has the expected
+  // shape, so a bad value in the data becomes no link instead of a javascript: or odd-host URL.
+  // hfUrl: "owner/name" -> https://huggingface.co/owner/name, else "".
+  eleventyConfig.addFilter("hfUrl", (repo) =>
+    typeof repo === "string" && /^[A-Za-z0-9._-]+\/[A-Za-z0-9._-]+$/.test(repo) && !repo.split("/").some((p) => /^\.+$/.test(p))
+      ? "https://huggingface.co/" + repo.split("/").map(encodeURIComponent).join("/")
+      : ""
+  );
+  // safeHttpsUrl: the URL itself when it is a well-formed https URL, else "".
+  eleventyConfig.addFilter("safeHttpsUrl", (url) => {
+    try {
+      const u = new URL(url);
+      return u.protocol === "https:" && u.hostname ? u.href : "";
+    } catch (_) {
+      return "";
+    }
+  });
+
   eleventyConfig.addFilter("truncate", (str, len) =>
     str && str.length > len ? str.slice(0, len) + "…" : str
   );
