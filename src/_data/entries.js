@@ -79,10 +79,11 @@ module.exports = function () {
     //      fetched from /releases/latest (may lie beyond the 5-release window).
     //   3. If recent releases have clean version tags but GitHub mis-labels them
     //      prerelease, use the most recent clean-tagged one as effective stable.
-    // The trailing alternative catches CI experiment tags like sfpi's
-    // "7.67.0-strength-49763" (version + branch word + run number) — GitHub
-    // marks these non-prerelease, so only the tag shape identifies them.
-    const PRE_RELEASE_TAG = /[.\-]dev[.\d]|[-.]rc\d+|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+-\d+$/i;
+    // The trailing alternative catches builds cut from a work branch, like
+    // sfpi's "7.67.0-strength-49763" (version + branch word + CI run number)
+    // and "7.92.0-stov" (version + branch word) — GitHub marks these
+    // non-prerelease, so only the tag shape identifies them.
+    const PRE_RELEASE_TAG = /[.\-]dev[.\d]|[-.]rc\d+|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+(?:-\d+)?$/i;
     // A tag that actually names a version. Repos also cut dated, non-version
     // tags for things that are not builds at all — tt-finetune publishes
     // `demo-2026-08-29`, a screen recording, one day *after* v0.2.1. Those are

@@ -143,6 +143,7 @@ def test_main_skips_prerelease_tags(tmp_path, monkeypatch):
     # QA:  "v1.0.0-qa1"
     # alpha/beta: "v0.17.0-alpha" (tt-buda), "v1.0.0-beta2"
     # CI experiment tags: "7.67.0-strength-49763" (sfpi)
+    # branch builds without a run number: "7.92.0-stov" (sfpi, cut from nsidwell/stov)
     prerelease_tags = [
         "1.3.0.dev20260609002802",
         "v0.73.0-dev20260610",
@@ -153,6 +154,7 @@ def test_main_skips_prerelease_tags(tmp_path, monkeypatch):
         "v0.17.0-alpha",
         "v1.0.0-beta2",
         "7.67.0-strength-49763",
+        "7.92.0-stov",
     ]
     releases = [
         {"tagName": t, "name": t, "publishedAt": "2026-06-01T00:00:00Z",

@@ -30,6 +30,11 @@ Module._load = function (request, parent, isMain) {
         stars: 5,
         updatedAt: "2026-01-01T00:00:00Z",
         releases: [
+          // sfpi shape: a build cut from a work branch, tagged version + branch
+          // word, with GitHub's prerelease flag left off. Only the tag says
+          // it is not a stable release.
+          { tagName: "0.2.0-stov", name: "0.2.0-stov", publishedAt: "2026-03-02T00:00:00Z",
+            url: "https://github.com/test/preonly/releases/tag/0.2.0-stov", prerelease: false },
           { tagName: "v0.1.0-alpha", name: "alpha", publishedAt: "2026-03-01T00:00:00Z",
             url: "https://github.com/test/preonly/releases/tag/v0.1.0-alpha", prerelease: true },
         ],

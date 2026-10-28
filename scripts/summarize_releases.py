@@ -648,9 +648,10 @@ def main(argv: list | None = None):
             # RC:    "v0.72.0-rc4", "ttkmd-2.9.0-rc1"
             # QA:    "v1.0.0-qa1"
             # alpha/beta: "v0.17.0-alpha" (tt-buda)
-            # CI experiment tags: "7.67.0-strength-49763" (version + branch
-            # word + run number) — non-prerelease on GitHub, noise regardless.
-            if re.search(r"[.\-]dev[.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+-\d+$", tag, re.IGNORECASE):
+            # branch builds: "7.67.0-strength-49763" (version + branch word +
+            # CI run number) and "7.92.0-stov" (version + branch word) —
+            # non-prerelease on GitHub, noise regardless.
+            if re.search(r"[.\-]dev[.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+(?:-\d+)?$", tag, re.IGNORECASE):
                 print(f"  SKIP {repo}@{tag}: pre-release build")
                 continue
 
