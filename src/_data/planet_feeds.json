@@ -14,6 +14,20 @@
     "affiliation": "affiliated"
   },
   {
+    "type": "paper",
+    "source": "arxiv",
+    "approved": true,
+    "title": "Kernel Performance Engineering under Physical Non-Idealities",
+    "url": "https://arxiv.org/abs/2610.37466v1",
+    "description": "Physical non-idealities in integrated circuit (IC) design and fabrication are concealed by conventional hardware abstractions, yet they can limit kernel performance and obscure optimization opportunities. Using distributed shared memory (DSMEM) on NVIDIA H100 GPUs as a case study, we show how floorsweeping restricts hardware resources available for clustered execution, potentially offsetting the benefits of reduced data movement enabled by DSMEM. Guided by these insights, we develop a wave-aware clustering strategy that accounts for these resource constraints to improve kernel performance.",
+    "date": "2026-10-27",
+    "dateISO": "2026-10-27T16:00:56Z",
+    "label": "arXiv:2610.37466",
+    "projectName": "arXiv",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
