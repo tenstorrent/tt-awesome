@@ -10915,6 +10915,117 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "ornith-ai/Ornith-1.5-122B (122B total / 10B active MoE: 256 experts, top-8 + shared expert, 48 layers of Gated DeltaNet + gated attention, vision tower) on four Blackhole dies through vLLM and the Tenstorrent plugin, served by the…",
+     "bundleKind": "vllm-plugin",
+     "context": "256K",
+     "decision": false,
+     "devices": 4,
+     "hardware": [
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": null,
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "raahemnabeel/ornith-1.5-122b",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": "qwen3_xml",
+     "updated": "2026-10-28"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Ornith",
+   "hardware": [
+    "BH 4xP150",
+    "BH QuietBox 2"
+   ],
+   "id": "ornith-1-5-122b",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "an inference: The bundle's card gives no task tag. It is a 122B mixture-of-experts model served with vLLM, and it names a qwen3_xml tool-call parser and a qwen3 reasoning parser.",
+   "kindInferred": true,
+   "licenses": [],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Ornith-1.5-122B",
+   "newest": "2026-10-28",
+   "params": null,
+   "perf": null,
+   "reasoningParser": "qwen3",
+   "rows": [],
+   "serve": "raahemnabeel/ornith-1.5-122b",
+   "singleCard": false,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "ornith-ai/Ornith-1.5-122B (122B total / 10B active MoE: 256 experts, top-8 + shared expert, 48 layers of Gated DeltaNet + gated attention, vision tower) on four Blackhole dies through vLLM and the Tenstorrent plugin, served by the…",
+   "toolParser": "qwen3_xml",
+   "upstream": "ornith-ai/Ornith-1.5-122B",
+   "weights": "ornith-ai/Ornith-1.5-122B"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "Ornith-1.5-35B-A3B (35B total / 3B active MoE: 256 experts, top-8 + shared expert, 40 layers of Gated DeltaNet + gated attention, vision tower, MTP head) on Blackhole through vLLM and the Tenstorrent plugin, with a fused decode step: the…",
      "bundleKind": "vllm-plugin",
      "context": "256K",
@@ -10973,7 +11084,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-27"
+     "updated": "2026-10-28"
     },
     {
      "arch": "blackhole",
@@ -11097,7 +11208,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Ornith-1.5-35B-A3B",
-   "newest": "2026-10-27",
+   "newest": "2026-10-28",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -13762,7 +13873,7 @@
   }
  ],
  "spec": {
-  "commit": "",
+  "commit": "4f529a6c1",
   "release": "0.25.0"
  },
  "unclassified": [],

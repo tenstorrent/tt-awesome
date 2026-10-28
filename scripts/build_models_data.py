@@ -45,7 +45,7 @@ ap.add_argument("--isrv", required=True, help="tt-inference-server checkout (rel
 ap.add_argument("--catalog", required=True, help="JSON from `tt-model search --catalog --json`")
 ap.add_argument("--limit", type=int, default=0,
                 help="the --limit given to tt-model search; a catalog with exactly this many rows was cut off")
-ap.add_argument("--spec-commit", default="", help="commit of the checkout; read from git when left out")
+ap.add_argument("--spec-commit", default="", help="commit of the checkout; read from .git/HEAD when left out, and required when --isrv has no .git directory")
 ap.add_argument("--manifests", default="", help="JSON cache of `tt-model info` output. Read when it exists; written after a fetch.")
 ap.add_argument("--out", default=str(HERE.parent / "src/_data/models.json"))
 args = ap.parse_args()
@@ -536,6 +536,8 @@ def checkout_commit(root):
 
 
 commit = args.spec_commit or checkout_commit(ISRV)
+if not commit:
+    die("could not read the tt-inference-server commit (no .git directory in --isrv?); pass --spec-commit")
 out = dict(models=all_models, hardware=hardware_names,
            spec=dict(commit=commit, release=spec["release_version"]), unreadableBundles=unreadable,
            unclassified=sorted(m["name"] for m in all_models if "task not stated" in m["kind"].lower()))

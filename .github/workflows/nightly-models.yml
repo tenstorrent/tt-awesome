@@ -59,10 +59,8 @@ jobs:
 
       # tt-model, for `tt-model search`. It only lists Hub repos; it opens no device.
       - name: Install tt-model at a pinned commit
-        env:
-          SOURCE_TOKEN: ${{ secrets.MODELS_SOURCE_TOKEN || github.token }}
         run: |
-          pip install "git+https://x-access-token:${SOURCE_TOKEN}@github.com/tenstorrent/tt-model-manager.git@${TT_MODEL_COMMIT}"
+          pip install "git+https://github.com/tenstorrent/tt-model-manager.git@${TT_MODEL_COMMIT}"
           tt-model --help > /dev/null
 
       - name: Read the tt-model catalog
@@ -74,7 +72,8 @@ jobs:
         run: |
           python3 scripts/build_models_data.py \
             --isrv .tt-inference-server --catalog catalog.json --limit "$CATALOG_LIMIT" \
-            --manifests manifests.json
+            --manifests manifests.json \
+            --spec-commit "$(git -C .tt-inference-server rev-parse --short=9 HEAD)"
           git --no-pager diff --stat -- src/_data/models.json || true
 
       # The same inputs in another catalog order must give the same file, or the nightly PR would show changes
@@ -84,7 +83,8 @@ jobs:
           python3 -c "import json; c = json.load(open('catalog.json')); json.dump(c[::-1], open('catalog_reversed.json', 'w'))"
           python3 scripts/build_models_data.py \
             --isrv .tt-inference-server --catalog catalog_reversed.json --limit "$CATALOG_LIMIT" \
-            --manifests manifests.json --out models_reversed.json
+            --manifests manifests.json --out models_reversed.json \
+            --spec-commit "$(git -C .tt-inference-server rev-parse --short=9 HEAD)"
           cmp src/_data/models.json models_reversed.json
 
       - uses: actions/upload-artifact@v4
