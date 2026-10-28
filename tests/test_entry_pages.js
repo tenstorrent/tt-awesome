@@ -297,9 +297,10 @@ console.log(
   assert(community && official, "need one community model and one official model with no bundle");
 
   const ch = read(community.url);
-  assert((ch.match(/Serve at your own risk/g) || []).length >= 2,
-    `community model page ${community.url} should carry the notice in the body and the install panel`);
-  assert(/has not reviewed/.test(ch), "community model page says Tenstorrent has not reviewed it");
+  assert(/<p class="m-warn"><strong>Community model\.<\/strong>[^<]*has not reviewed[^<]*Serve at your own risk\./.test(ch),
+    `community model page ${community.url} should carry the notice under the summary`);
+  assert(/<p class="m-warn sm">Not reviewed by Tenstorrent\. Serve at your own risk\.<\/p>\s*<div class="m-cmd">/.test(ch),
+    `community model page ${community.url} should carry the short notice directly above the serve command`);
   assert(!read(official.url).includes(NOTICE), `official model page ${official.url} must carry no notice`);
 
   const page = (slug) => modelsSite.pages.find((p) => p.group === "collections" && p.slug === slug);
@@ -307,6 +308,14 @@ console.log(
     assert(read(page(slug).url).includes(NOTICE), `list page ${slug} should carry the notice`);
   }
   assert(!read(page("in-tt-inference-server").url).includes(NOTICE), "official-only list carries no notice");
+  // Families, kinds and hardware pages use the same rule: any community model in the list, one notice.
+  for (const group of ["families", "kinds", "hardware"]) {
+    const mixed = modelsSite.pages.find((p) => p.group === group && p.community > 0);
+    const pure = modelsSite.pages.find((p) => p.group === group && p.community === 0);
+    assert(mixed, `no ${group} page holds a community model`);
+    assert(read(mixed.url).includes(NOTICE), `${group} page ${mixed.url} should carry the notice`);
+    if (pure) assert(!read(pure.url).includes(NOTICE), `${group} page ${pure.url} holds no community model and must carry no notice`);
+  }
   // The card pill tooltip, on a list page that holds a community model.
   assert(/title="[^"]*not reviewed[^"]*"/i.test(read(page("has-bundle").url)), "community card pill tooltip mentions the review status");
   console.log("✓ community models and lists carry the not-reviewed notice");

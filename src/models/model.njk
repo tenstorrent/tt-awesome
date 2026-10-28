@@ -30,7 +30,7 @@ eleventyComputed:
     <h1 class="m-title">{{ m.name }}</h1>
     {%- if m.upstream %}<div class="upstream">{% set up = m.upstream | hfUrl %}{% if up %}<a href="{{ up }}" target="_blank" rel="noopener noreferrer">{{ m.upstream }}</a>{% else %}{{ m.upstream }}{% endif %}</div>{% endif %}
     <p class="m-blurb">{{ m.summary }}</p>
-    {%- if not m.inSpec %}<p class="m-warn"><strong>Community model.</strong> It is published as a tt-model bundle by its owner{{ "s" if m.bundles.length > 1 }} and is not in tt-inference-server's release spec. Tenstorrent has not reviewed the model or its bundle{{ "s" if m.bundles.length > 1 }}. Serve at your own risk.</p>{% endif %}
+    {%- if not m.inSpec %}<p class="m-warn"><strong>Community model.</strong> It is published as a tt-model bundle and is not in tt-inference-server's release spec. Tenstorrent has not reviewed the model or its bundle{{ "s" if m.bundles.length > 1 }}. Serve at your own risk.</p>{% endif %}
 
     {%- if m.rows.length %}
     <h2 class="m-h">In tt-inference-server</h2>
