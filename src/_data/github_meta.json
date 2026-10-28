@@ -16,8 +16,8 @@
     "updatedAt": "2026-04-18T02:36:58Z"
   },
   "https://github.com/Thatch-cloud/Tenstorrent.Blackhole-Qwen3.8-27B": {
-    "stars": 11,
-    "updatedAt": "2026-10-21T06:38:57Z"
+    "stars": 12,
+    "updatedAt": "2026-10-28T18:11:38Z"
   },
   "https://github.com/palisurf/cjllm-harness": {
     "stars": 0,
@@ -204,7 +204,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 126,
-    "updatedAt": "2026-10-28T02:58:22Z",
+    "updatedAt": "2026-10-28T17:56:45Z",
     "releases": [
       {
         "tagName": "v0.25.0",
@@ -306,7 +306,7 @@
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 20,
-    "updatedAt": "2026-10-25T17:33:35Z"
+    "updatedAt": "2026-10-28T10:29:09Z"
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 63,
@@ -363,7 +363,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 79,
-    "updatedAt": "2026-10-27T20:33:15Z",
+    "updatedAt": "2026-10-28T16:42:46Z",
     "releases": [
       {
         "tagName": "v0.25.0",
@@ -857,8 +857,8 @@
     "updatedAt": "2026-09-09T15:10:37Z"
   },
   "https://github.com/scaleresearch/tt-rl": {
-    "stars": 3,
-    "updatedAt": "2026-10-27T21:57:48Z",
+    "stars": 4,
+    "updatedAt": "2026-10-28T14:12:41Z",
     "preview_image": "https://raw.githubusercontent.com/scaleresearch/tt-rl/master/assets/pong_learning.gif"
   },
   "https://github.com/tenstorrent/tt-studio": {
@@ -908,12 +908,12 @@
   },
   "https://github.com/tenstorrent/tt-transformers": {
     "stars": 2,
-    "updatedAt": "2026-10-23T08:30:40Z",
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n  The Qwen3-32B T3K trace region grows from 120 MB to 150 MB: its batch-32\n  cases gain three prefix-cached 1024 traces and need up to 125 MB.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
+    "updatedAt": "2026-10-28T10:38:33Z",
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- `get_device_name` gives a Quasar device the Blackhole names (`P150`, `P300`,\n  `P150x4`, `P150x8`, `BHGLX`), so code keyed on those names runs on Quasar.\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n  The Qwen3-32B T3K trace region grows from 120 MB to 150 MB: its batch-32\n  cases gain three prefix-cached 1024 traces and need up to 125 MB.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/localai-org/vllm.cpp": {
-    "stars": 464,
-    "updatedAt": "2026-10-28T03:06:34Z",
+    "stars": 466,
+    "updatedAt": "2026-10-28T13:57:31Z",
     "preview_image": "https://raw.githubusercontent.com/localai-org/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -993,8 +993,8 @@
     "updatedAt": "2026-10-27T12:45:43Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2292,
-    "updatedAt": "2026-10-27T18:14:54Z",
+    "stars": 2293,
+    "updatedAt": "2026-10-28T17:55:09Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1199,8 +1199,15 @@
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 13,
-    "updatedAt": "2026-10-26T17:18:32Z",
+    "updatedAt": "2026-10-28T09:39:13Z",
     "releases": [
+      {
+        "tagName": "v0.1.4",
+        "name": "libtt v0.1.4",
+        "publishedAt": "2026-10-28T18:12:50Z",
+        "url": "https://github.com/pcmoritz/libtt/releases/tag/v0.1.4",
+        "prerelease": false
+      },
       {
         "tagName": "v0.1.3",
         "name": "libtt v0.1.3",
@@ -1421,8 +1428,8 @@
     ]
   },
   "https://github.com/tenstorrent/tt-forge": {
-    "stars": 376,
-    "updatedAt": "2026-10-25T23:53:59Z",
+    "stars": 377,
+    "updatedAt": "2026-10-28T12:40:29Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
       {
@@ -1743,7 +1750,7 @@
   },
   "https://github.com/Syllo/nvtop": {
     "stars": 11109,
-    "updatedAt": "2026-10-28T05:05:27Z",
+    "updatedAt": "2026-10-28T11:57:44Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1877,7 +1884,7 @@
   },
   "https://github.com/tenstorrent/tt-cli": {
     "stars": 7,
-    "updatedAt": "2026-10-26T20:18:57Z",
+    "updatedAt": "2026-10-28T17:58:28Z",
     "releases": [
       {
         "tagName": "v1.2.1",
@@ -1987,7 +1994,7 @@
   },
   "https://github.com/tenstorrent/tt-exalens": {
     "stars": 21,
-    "updatedAt": "2026-10-27T17:40:34Z",
+    "updatedAt": "2026-10-28T09:33:42Z",
     "releases": [
       {
         "tagName": "v0.4.2",
@@ -2274,7 +2281,7 @@
   },
   "https://github.com/tenstorrent/tt-perf-report": {
     "stars": 11,
-    "updatedAt": "2026-10-22T14:11:35Z",
+    "updatedAt": "2026-10-28T16:00:08Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-perf-report/main/images/example_perf_report.png"
   },
   "https://github.com/tsingletaryTT/tt-warp": {
@@ -2311,9 +2318,23 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 59,
-    "updatedAt": "2026-10-27T18:53:01Z",
+    "updatedAt": "2026-10-28T17:52:13Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
+      {
+        "tagName": "v0.109.0",
+        "name": "v0.109.0",
+        "publishedAt": "2026-10-28T17:52:40Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.109.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "ttnn_visualizer-0.109.0-py3-none-any.whl",
+            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.109.0/ttnn_visualizer-0.109.0-py3-none-any.whl",
+            "size": 3432688
+          }
+        ]
+      },
       {
         "tagName": "v0.108.0",
         "name": "v0.108.0",
@@ -2367,20 +2388,6 @@
             "name": "ttnn_visualizer-0.105.0-py3-none-any.whl",
             "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.105.0/ttnn_visualizer-0.105.0-py3-none-any.whl",
             "size": 3084606
-          }
-        ]
-      },
-      {
-        "tagName": "v0.104.0",
-        "name": "v0.104.0",
-        "publishedAt": "2026-09-23T19:49:32Z",
-        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.104.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "ttnn_visualizer-0.104.0-py3-none-any.whl",
-            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.104.0/ttnn_visualizer-0.104.0-py3-none-any.whl",
-            "size": 3054255
           }
         ]
       }
@@ -2686,7 +2693,7 @@
   },
   "https://github.com/tetsuh/tt-metal-community-distro-matrix": {
     "stars": 2,
-    "updatedAt": "2026-10-20T22:34:27Z",
+    "updatedAt": "2026-10-28T16:20:52Z",
     "preview_image": "https://raw.githubusercontent.com/tetsuh/tt-metal-community-distro-matrix/main/history/compatibility-history.svg"
   },
   "https://github.com/party4bread/tt-blackhole-fan-win": {
@@ -3198,9 +3205,38 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 45,
-    "updatedAt": "2026-10-26T18:41:54Z",
+    "updatedAt": "2026-10-28T17:16:10Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
+      {
+        "tagName": "v19.17.1-rc1",
+        "name": "v19.17.1-rc1",
+        "publishedAt": "2026-10-28T18:18:35Z",
+        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.17.1-rc1",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "fw-pack-v19.17.1-rc1-recovery.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.17.1-rc1/fw-pack-v19.17.1-rc1-recovery.tar.gz",
+            "size": 7741781
+          },
+          {
+            "name": "manufacturing-artifacts-v19.17.1-rc1.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.17.1-rc1/manufacturing-artifacts-v19.17.1-rc1.tar.gz",
+            "size": 888748
+          },
+          {
+            "name": "tt-firmware_19.17.1-rc1-ubuntu.1_all.deb",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.17.1-rc1/tt-firmware_19.17.1-rc1-ubuntu.1_all.deb",
+            "size": 5637090
+          },
+          {
+            "name": "tt-system-firmware-v19.17.1-rc1.zip",
+            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.17.1-rc1/tt-system-firmware-v19.17.1-rc1.zip",
+            "size": 111027368
+          }
+        ]
+      },
       {
         "tagName": "v19.17.0",
         "name": "v19.17.0",
@@ -3314,35 +3350,6 @@
             "name": "tt-system-firmware-v19.16.0-rc3.zip",
             "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.16.0-rc3/tt-system-firmware-v19.16.0-rc3.zip",
             "size": 110567272
-          }
-        ]
-      },
-      {
-        "tagName": "v19.16.0-rc2",
-        "name": "v19.16.0-rc2",
-        "publishedAt": "2026-10-02T19:09:24Z",
-        "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.16.0-rc2",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "fw-pack-v19.16.0-rc2-recovery.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.16.0-rc2/fw-pack-v19.16.0-rc2-recovery.tar.gz",
-            "size": 7706925
-          },
-          {
-            "name": "manufacturing-artifacts-v19.16.0-rc2.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.16.0-rc2/manufacturing-artifacts-v19.16.0-rc2.tar.gz",
-            "size": 891945
-          },
-          {
-            "name": "tt-firmware_19.16.0-rc2-ubuntu.1_all.deb",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.16.0-rc2/tt-firmware_19.16.0-rc2-ubuntu.1_all.deb",
-            "size": 5541058
-          },
-          {
-            "name": "tt-system-firmware-v19.16.0-rc2.zip",
-            "url": "https://github.com/tenstorrent/tt-system-firmware/releases/download/v19.16.0-rc2/tt-system-firmware-v19.16.0-rc2.zip",
-            "size": 110959324
           }
         ]
       }
@@ -3954,7 +3961,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 50,
-    "updatedAt": "2026-10-27T22:52:42Z",
+    "updatedAt": "2026-10-28T14:57:35Z",
     "releases": [
       {
         "tagName": "v0.9.15",
@@ -4426,6 +4433,25 @@
     "updatedAt": "2026-10-27T20:14:14Z",
     "releases": [
       {
+        "tagName": "7.92.0-cmp-53144",
+        "name": "7.92.0-cmp-53144",
+        "publishedAt": "2026-10-28T18:23:41Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.92.0-cmp-53144",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.92.0-cmp-53144_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0-cmp-53144/sfpi_7.92.0-cmp-53144_x86_64_debian.deb",
+            "size": 134657258
+          },
+          {
+            "name": "sfpi_7.92.0-cmp-53144_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0-cmp-53144/sfpi_7.92.0-cmp-53144_x86_64_fedora.rpm",
+            "size": 134206044
+          }
+        ]
+      },
+      {
         "tagName": "7.92.0-stov",
         "name": "7.92.0-stov",
         "publishedAt": "2026-10-28T01:47:55Z",
@@ -4510,25 +4536,6 @@
             "size": 134195618
           }
         ]
-      },
-      {
-        "tagName": "7.90.0-stov",
-        "name": "7.90.0-stov",
-        "publishedAt": "2026-10-26T15:47:04Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.90.0-stov",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.90.0-stov_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.90.0-stov/sfpi_7.90.0-stov_x86_64_debian.deb",
-            "size": 134655706
-          },
-          {
-            "name": "sfpi_7.90.0-stov_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.90.0-stov/sfpi_7.90.0-stov_x86_64_fedora.rpm",
-            "size": 134203196
-          }
-        ]
       }
     ]
   },
@@ -4565,8 +4572,8 @@
     "updatedAt": "2026-10-17T11:55:44Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1728,
-    "updatedAt": "2026-10-28T06:23:45Z",
+    "stars": 1729,
+    "updatedAt": "2026-10-28T14:53:41Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5413,8 +5420,8 @@
     "forkParentUrl": "https://github.com/qemu/qemu"
   },
   "https://github.com/tenstorrent/ttsim": {
-    "stars": 167,
-    "updatedAt": "2026-10-27T23:57:19Z",
+    "stars": 168,
+    "updatedAt": "2026-10-28T07:10:00Z",
     "releases": [
       {
         "tagName": "v1.15.0",
