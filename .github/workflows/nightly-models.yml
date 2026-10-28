@@ -122,4 +122,6 @@ jobs:
 
             Status, context and users are copied from the release spec. Nothing is measured.
             A model that exists only as a tt-model bundle takes its kind from the task tag on its card. A bundle
-            with no tag is listed as "task not stated".
+            with no tag takes its kind from `scripts/data/model_kinds_inferred.json` when that file has an entry
+            for its weights repo, and the page says the kind was inferred. A bundle with neither is listed as
+            "task not stated" and needs an entry in that file.

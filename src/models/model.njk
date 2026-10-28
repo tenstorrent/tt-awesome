@@ -34,7 +34,7 @@ eleventyComputed:
     {%- if m.rows.length %}
     <h2 class="m-h">In tt-inference-server</h2>
     <div class="m-scroll"><table class="m-table">
-      <tr><th>Hardware</th><th>Engine and implementation</th><th>Status</th><th>Context</th><th>Users</th><th>Support page</th></tr>
+      <tr><th>Hardware</th><th>Engine and implementation</th><th>Status</th><th>Context</th><th>Users</th><th>Build</th><th>Support page</th></tr>
       {%- for r in m.rows %}
       <tr>
         <td>{% if modelsSite.urls.hardware[r.hardware] %}<a href="{{ modelsSite.urls.hardware[r.hardware] | url }}">{{ r.hardware }}</a>{% else %}{{ r.hardware }}{% endif %}<div class="m-sub"><code>{{ r.deviceKey }}</code></div></td>
@@ -42,11 +42,16 @@ eleventyComputed:
         <td>{{ r.status }}</td>
         <td class="num">{{ r.context or "-" }}</td>
         <td class="num">{{ r.users if r.users != null else "-" }}</td>
+        <td class="m-build">{%- set cl = r.codeLink | safeHttpsUrl %}{% if cl %}<div class="m-sub">Code: <a href="{{ cl }}" target="_blank" rel="noopener noreferrer">{{ cl }}</a></div>{% elif r.codeLink %}<div class="m-sub">Code: {{ r.codeLink }}</div>{% endif %}
+          {%- if r.ttMetal %}<div class="m-sub">tt-metal <code>{{ r.ttMetal }}</code></div>{% endif %}
+          {%- if r.vllm %}<div class="m-sub">vLLM <code>{{ r.vllm }}</code></div>{% endif %}
+          {%- if r.image %}<div class="m-sub">Image <code class="wrap">{{ r.image }}</code></div>{% endif %}
+          {%- if not (r.codeLink or r.ttMetal or r.vllm or r.image) %}-{% endif %}</td>
         <td>{% set du = r.docUrl | safeHttpsUrl %}{% if du %}<a href="{{ du }}" target="_blank" rel="noopener noreferrer">Open</a>{% else %}-{% endif %}</td>
       </tr>
       {%- endfor %}
     </table></div>
-    <p class="m-note">Status, context and users are copied from tt-inference-server's release spec (commit <code>{{ modelsSite.spec.commit }}</code>, release {{ modelsSite.spec.release }}). Context is the longest prompt plus reply the entry allows. Users is its highest concurrency. Nothing on this page is measured.</p>
+    <p class="m-note">Status, context and users are copied from tt-inference-server's release spec (commit <code>{{ modelsSite.spec.commit }}</code>, release {{ modelsSite.spec.release }}). Context is the longest prompt plus reply the entry allows. Users is its highest concurrency. Each row carries its own code link, tt-metal and vLLM commits and image, because they differ between hardware. Nothing on this page is measured.</p>
     {%- endif %}
 
     <h2 class="m-h">tt-model bundles</h2>
@@ -75,10 +80,6 @@ eleventyComputed:
       {%- if m.params %}<tr><td>Parameters</td><td>{{ m.params }}</td></tr>{% endif %}
       <tr><td>Family</td><td>{{ m.family }} <span class="m-sub">(from the start of the name)</span></td></tr>
       {%- if m.impls.length %}<tr><td>Implementation</td><td>{{ m.impls | join(", ") }}</td></tr>{% endif %}
-      {%- if m.rows[0] and m.rows[0].codeLink %}<tr><td>Code</td><td>{% set cl = m.rows[0].codeLink | safeHttpsUrl %}{% if cl %}<a href="{{ cl }}" target="_blank" rel="noopener noreferrer">{{ cl }}</a>{% else %}{{ m.rows[0].codeLink }}{% endif %}</td></tr>{% endif %}
-      {%- if m.rows[0] and m.rows[0].ttMetal %}<tr><td>tt-metal commit</td><td><code>{{ m.rows[0].ttMetal }}</code></td></tr>{% endif %}
-      {%- if m.rows[0] and m.rows[0].vllm %}<tr><td>vLLM commit</td><td><code>{{ m.rows[0].vllm }}</code></td></tr>{% endif %}
-      {%- if m.rows[0] and m.rows[0].image %}<tr><td>Docker image</td><td><code class="wrap">{{ m.rows[0].image }}</code></td></tr>{% endif %}
       {%- if m.minDiskGb %}<tr><td>Disk needed</td><td>{{ m.minDiskGb }} GB</td></tr>{% endif %}
       {%- if m.minRamGb %}<tr><td>RAM needed</td><td>{{ m.minRamGb }} GB</td></tr>{% endif %}
       {%- if m.toolParser %}<tr><td>Tool-call parser</td><td><code>{{ m.toolParser }}</code></td></tr>{% endif %}
