@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
 
+import re
 import sys
 from pathlib import Path
 import pytest
@@ -143,12 +144,17 @@ def test_every_valid_category_is_rendered_by_both_generators():
     """The site, validate.py, the README generator, data.json and add_entry.py each
     keep their own category list. A slug accepted by validate.py but missing from a
     generator silently drops every entry in that category from the README or the
-    API export (this happened with `blogs`). Pin the four lists to each other."""
+    API export (this happened with `blogs`). Pin the five lists to each other."""
     from validate import VALID_CATEGORY_SLUGS as VALID_CATEGORIES
     import generate_data_json
     import add_entry
     readme_slugs = {slug for slug, _ in __import__("generate_readme").CATEGORIES}
     data_slugs = {slug for slug, _ in generate_data_json.CATEGORIES}
+    # The site's list is JavaScript; pull its slugs out with a regex rather than
+    # running node, so this stays a plain pytest.
+    site_js = (Path(__file__).parent.parent / "src" / "_data" / "categories.js").read_text()
+    site_slugs = set(re.findall(r'slug:\s*"([a-z0-9-]+)"', site_js))
+    assert site_slugs == set(VALID_CATEGORIES)
     assert readme_slugs == set(VALID_CATEGORIES)
     assert data_slugs == set(VALID_CATEGORIES)
     assert set(add_entry.CATEGORIES) == set(VALID_CATEGORIES)

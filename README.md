@@ -773,9 +773,9 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 
 ## 🎨 Media: Image, Video & Audio
 
-- **[stable-diffusion.cpp on Tenstorrent](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+- **[stable-diffusion.cpp on Tenstorrent](https://github.com/jw910731/stable-diffusion.cpp)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@jw910731](https://github.com/jw910731) — A fork of stable-diffusion.cpp whose tt-support branch runs Z-Image Turbo and Qwen Image 2.1 on a Blackhole card through the community ggml Metalium backend, adding the operators those models need, routing flash attention to TTNN prefill SDPA and emitting ttnn-visualizer memory reports.
-  [📦 tt-support branch](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)
+  [📦 repo](https://github.com/jw910731/stable-diffusion.cpp) · [🌐 tt-support branch](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)
 
 - **[ComfyUI-Tenstorrent](https://github.com/stisiTT/ComfyUI-Tenstorrent)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by Sam Tisi — ComfyUI custom nodes for running Stable Diffusion XL, SD3.5, Wan 2.2, LTX-2.3 and MiniMax-H3 on Tenstorrent hardware. The nodes start and supervise a tt-metal FastAPI inference server that ships in the package, so CLIP, the UNet or DiT and the VAE all run on the device while ComfyUI keeps its own environment.
