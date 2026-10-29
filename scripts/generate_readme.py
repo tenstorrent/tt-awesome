@@ -24,6 +24,7 @@ CATEGORIES = [
     ("research",    "🔬 Research & Papers"),
     ("games-demos", "🎮 Games & Demos"),
     ("guides",      "📚 Guides, Tutorials & Education"),
+    ("blogs",       "✍️ Blogs"),
 ]
 
 # Ordering for affiliation tiers: lower value = higher in the list

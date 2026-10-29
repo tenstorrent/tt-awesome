@@ -35,6 +35,7 @@ CATEGORIES = [
     ("research",        "Research & Papers"),
     ("games-demos",     "Games & Demos"),
     ("guides",          "Guides, Tutorials & Education"),
+    ("blogs",           "Blogs"),
 ]
 
 # Same tier ordering as generate_readme.py so both outputs are consistent.

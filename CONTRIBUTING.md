@@ -140,6 +140,7 @@ are skipped rather than guessed at.
 | `research` | 🔬 Research & Papers |
 | `games-demos` | 🎮 Games & Demos |
 | `guides` | 📚 Guides, Tutorials & Education |
+| `blogs` | ✍️ Blogs |
 
 ## CI validation
 

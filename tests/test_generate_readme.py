@@ -137,3 +137,18 @@ def test_install_cmd_and_url_agree_on_channel():
     pkg = {"type": "conda", "name": "pkg", "channel": "bioconda"}
     assert "bioconda" in pkg_install_cmd(pkg)
     assert "bioconda" in pkg_url(pkg)
+
+
+def test_every_valid_category_is_rendered_by_both_generators():
+    """The site, validate.py, the README generator, data.json and add_entry.py each
+    keep their own category list. A slug accepted by validate.py but missing from a
+    generator silently drops every entry in that category from the README or the
+    API export (this happened with `blogs`). Pin the four lists to each other."""
+    from validate import VALID_CATEGORY_SLUGS as VALID_CATEGORIES
+    import generate_data_json
+    import add_entry
+    readme_slugs = {slug for slug, _ in __import__("generate_readme").CATEGORIES}
+    data_slugs = {slug for slug, _ in generate_data_json.CATEGORIES}
+    assert readme_slugs == set(VALID_CATEGORIES)
+    assert data_slugs == set(VALID_CATEGORIES)
+    assert set(add_entry.CATEGORIES) == set(VALID_CATEGORIES)

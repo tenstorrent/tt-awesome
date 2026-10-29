@@ -20,6 +20,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - [🔬 Research & Papers](#research-papers)
 - [🎮 Games & Demos](#games-demos)
 - [📚 Guides, Tutorials & Education](#guides-tutorials-education)
+- [✍️ Blogs](#blogs)
 
 ## 🤖 AI & Models
 
@@ -854,6 +855,16 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **[tt-vscode-toolkit](https://github.com/tenstorrent/tt-vscode-toolkit)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   48 interactive lessons covering the full Tenstorrent developer path — from hardware detection to custom training — with click-to-run commands and hardware auto-detection. Available in VSCode and code-server.
   [📦 repo](https://github.com/tenstorrent/tt-vscode-toolkit) · [📖 All 48 lessons](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons) · [📖 RISC-V Programming Guide](https://docs.tenstorrent.com/tt-vscode-toolkit/riscv-guide/)
+
+## ✍️ Blogs
+
+- **dev.to/mando222 — Tenstorrent & AI Blog** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by Eric Zietlow — Eric Zietlow's blog covering Tenstorrent hardware, Metalium programming, and AI topics, sharing practical experience with Blackhole and the broader TT ecosystem from our developer relations team.
+  [🌐 dev.to/mando222](https://dev.to/mando222)
+
+- **Tenstorrent Developer Blog** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
+  by [@Tenstorrent](https://github.com/Tenstorrent) — Tenstorrent's official developer blog at tenstorrent.com/developers. Engineering write-ups from the teams building the stack: serving models with tt-cli and community bundles, prefill and decode disaggregation for agentic workloads, running AnimateDiff on Blackhole, and agentic coding from a Mac backed by a QuietBox. New posts also appear on the Planet.
+  [🌐 tenstorrent.com/developers](https://tenstorrent.com/developers) · [📝 Deploying Community Models with the Tenstorrent CLI](https://tenstorrent.com/developers/blog/tt-cli-and-community-model-bundles) · [📝 Serving prefill and decode for agentic AI](https://tenstorrent.com/developers/blog/serving-prefill-and-decode-for-agentic-ai)
 
 ## Feeds & Resources
 
