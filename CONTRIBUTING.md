@@ -130,6 +130,7 @@ are skipped rather than guessed at.
 |---|---|
 | `getting-started` | 🚀 Getting Started |
 | `ai-models` | 🤖 AI & Models |
+| `media` | 🎨 Media: Image, Video & Audio |
 | `agents` | 🕵️ AI Agents |
 | `kernels` | ⚙️ Custom Kernels & Low-Level |
 | `compilers` | 🔨 Compilers & Frontends |

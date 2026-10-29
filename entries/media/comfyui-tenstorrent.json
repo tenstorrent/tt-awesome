@@ -4,6 +4,7 @@
   "description": "ComfyUI custom nodes for running Stable Diffusion XL, SD3.5, Wan 2.2, LTX-2.3 and MiniMax-H3 on Tenstorrent hardware. The nodes start and supervise a tt-metal FastAPI inference server that ships in the package, so CLIP, the UNet or DiT and the VAE all run on the device while ComfyUI keeps its own environment.",
   "affiliation": "affiliated",
   "categories": [
+    "media",
     "ai-models",
     "games-demos"
   ],

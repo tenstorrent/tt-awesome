@@ -4,6 +4,7 @@
   "description": "A fork of stable-diffusion.cpp whose tt-support branch runs Z-Image Turbo and Qwen Image 2.1 on a Blackhole card through the community ggml Metalium backend, adding the operators those models need, routing flash attention to TTNN prefill SDPA and emitting ttnn-visualizer memory reports.",
   "affiliation": "community",
   "categories": [
+    "media",
     "ai-models",
     "kernels"
   ],

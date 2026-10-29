@@ -10,6 +10,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - [🚀 Getting Started](#getting-started)
 - [🤖 AI & Models](#ai-models)
+- [🎨 Media: Image, Video & Audio](#media-image-video-audio)
 - [🕵️ AI Agents](#ai-agents)
 - [⚙️ Custom Kernels & Low-Level](#custom-kernels-low-level)
 - [🔨 Compilers & Frontends](#compilers-frontends)
@@ -48,10 +49,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@Codys12](https://github.com/Codys12) — A TTNN bring-up of `meta-models/Muse-Glimmer-30B` for batch-1 inference on a single Blackhole P150, with 2,048-token chunked prefill into a paged KV cache, the checkpoint's native DFlash drafter for speculative decoding, and an OpenAI-compatible server with streaming and tool calls. The author reports 119.99 AR tok/s at short context and 1,549 prompt tok/s on a 128,000-token prefill, and defines `ar_decode_tokens_per_second` narrowly: it excludes tokenization, prefill and tool parsing, and DFlash rate varies with draft acceptance. Weights are BFP8 for attention and BFP4 for MLPs, decode replays three captured device traces, and parity tests compare against the Transformers reference. Its custom `packed_kv_update` kernel was upstreamed into TTNN as `ttnn.experimental.indexed_fused_update_cache`.
   [📦 repo](https://github.com/Codys12/MuseGlimmer)
 
-- **[stable-diffusion.cpp on Tenstorrent](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@jw910731](https://github.com/jw910731) — A fork of stable-diffusion.cpp whose tt-support branch runs Z-Image Turbo and Qwen Image 2.1 on a Blackhole card through the community ggml Metalium backend, adding the operators those models need, routing flash attention to TTNN prefill SDPA and emitting ttnn-visualizer memory reports.
-  [📦 tt-support branch](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)
-
 - **[DeepSeek-V4.1-Flash on Wormhole](https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-deepseek-v41-flash)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@Veso-AI-Open-Source](https://github.com/Veso-AI-Open-Source) — A correctness-first bring-up of DeepSeek-V4.1-Flash (552B plus a 196B Engram) on four n300 cards (8 Wormhole chips). Every model FLOP runs on device, and the host serves as a 449 GB expert store of pre-packed `.tensorbin` tiles behind an on-device LRU pool. Every stage is gated against DeepSeek's official `model.py` run on the CPU, reaching 0.985 decisive top-1 over a 2048-token prefill, with traced decode, 128K context, persistent prefix state and vision input. Speeds are stated honestly: decode is 1.68 tok/s (1.42 served), prefill is 95 tok/s, and DSpark speculation measured 0.48x so it is off. `CEILING.md` attributes the gap to about 7,200 ops per token of device-side dispatch, and `FINDINGS.md` lists 20 traps.
   [📦 repo](https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-deepseek-v41-flash)
@@ -83,10 +80,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **Video Generation on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Three lesson-projects covering on-device video synthesis: frame-by-frame diffusion with tt-local-generator, native AnimateDiff video animation, and video generation on QuietBox 2. All run entirely on TT hardware with no cloud dependency.
   [📖 Video Generation via Frame-by-Frame Diffusion](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/video-generation-ttmetal/) · [📖 Native Video Animation with AnimateDiff](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/animatediff-video-generation/) · [📖 Video Generation on QuietBox 2](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-video-generation/)
-
-- **[ComfyUI-Tenstorrent](https://github.com/stisiTT/ComfyUI-Tenstorrent)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  by Sam Tisi — ComfyUI custom nodes for running Stable Diffusion XL, SD3.5, Wan 2.2, LTX-2.3 and MiniMax-H3 on Tenstorrent hardware. The nodes start and supervise a tt-metal FastAPI inference server that ships in the package, so CLIP, the UNet or DiT and the VAE all run on the device while ComfyUI keeps its own environment.
-  [📦 repo](https://github.com/stisiTT/ComfyUI-Tenstorrent)
 
 - **[dflash](https://github.com/zoecarver/dflash)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@zoecarver](https://github.com/zoecarver) — DFlash: Block Diffusion for Flash Speculative Decoding on Tenstorrent hardware using tt-lang. Combines block diffusion with speculative decoding for faster inference.
@@ -175,6 +168,16 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[vllm-tt-plugin](https://github.com/tenstorrent/vllm-tt-plugin)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent backend for vLLM, built on vLLM's standard plugin mechanism — install it alongside vLLM and TT hardware registers itself as a platform whenever `ttnn` is importable. Self-contained: model registration, platform detection, scheduling, worker execution, model loading, async decode, and data-parallel/multi-lane execution all live in the plugin, so nothing Tenstorrent-specific has to land in vLLM core.
   [📦 repo](https://github.com/tenstorrent/vllm-tt-plugin) · [📝 vLLM blog post](https://vllm.ai/blog/2026-09-07-vllm-tt-plugin)
+
+## 🎨 Media: Image, Video & Audio
+
+- **[stable-diffusion.cpp on Tenstorrent](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@jw910731](https://github.com/jw910731) — A fork of stable-diffusion.cpp whose tt-support branch runs Z-Image Turbo and Qwen Image 2.1 on a Blackhole card through the community ggml Metalium backend, adding the operators those models need, routing flash attention to TTNN prefill SDPA and emitting ttnn-visualizer memory reports.
+  [📦 tt-support branch](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)
+
+- **[ComfyUI-Tenstorrent](https://github.com/stisiTT/ComfyUI-Tenstorrent)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by Sam Tisi — ComfyUI custom nodes for running Stable Diffusion XL, SD3.5, Wan 2.2, LTX-2.3 and MiniMax-H3 on Tenstorrent hardware. The nodes start and supervise a tt-metal FastAPI inference server that ships in the package, so CLIP, the UNet or DiT and the VAE all run on the device while ComfyUI keeps its own environment.
+  [📦 repo](https://github.com/stisiTT/ComfyUI-Tenstorrent)
 
 ## 🕵️ AI Agents
 
