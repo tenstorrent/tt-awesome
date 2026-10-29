@@ -130,7 +130,6 @@ are skipped rather than guessed at.
 |---|---|
 | `getting-started` | 🚀 Getting Started |
 | `ai-models` | 🤖 AI & Models |
-| `media` | 🎨 Media: Image, Video & Audio |
 | `agents` | 🕵️ AI Agents |
 | `kernels` | ⚙️ Custom Kernels & Low-Level |
 | `compilers` | 🔨 Compilers & Frontends |
@@ -140,6 +139,7 @@ are skipped rather than guessed at.
 | `riscv-arch` | 🔩 RISC-V & Architecture |
 | `research` | 🔬 Research & Papers |
 | `games-demos` | 🎮 Games & Demos |
+| `media` | 🎨 Media: Image, Video & Audio |
 | `guides` | 📚 Guides, Tutorials & Education |
 | `blogs` | ✍️ Blogs |
 

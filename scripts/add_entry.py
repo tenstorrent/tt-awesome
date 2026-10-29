@@ -15,8 +15,8 @@ ENTRIES_DIR = ROOT / "entries"
 AFFILIATIONS = ["community", "affiliated", "official"]
 CATEGORIES = [
     "getting-started",
-    "ai-models", "media", "agents", "kernels", "compilers", "dev-tools",
-    "hw-system", "cloud-infra", "riscv-arch", "research", "games-demos", "guides",
+    "ai-models", "agents", "kernels", "compilers", "dev-tools",
+    "hw-system", "cloud-infra", "riscv-arch", "research", "games-demos", "media", "guides",
     "blogs",
 ]
 LINK_TYPES = ["repo", "article", "talk", "video", "website", "demo", "lesson", "paper"]

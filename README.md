@@ -10,7 +10,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 - [🚀 Getting Started](#getting-started)
 - [🤖 AI & Models](#ai-models)
-- [🎨 Media: Image, Video & Audio](#media-image-video-audio)
 - [🕵️ AI Agents](#ai-agents)
 - [⚙️ Custom Kernels & Low-Level](#custom-kernels-low-level)
 - [🔨 Compilers & Frontends](#compilers-frontends)
@@ -20,6 +19,7 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - [🔩 RISC-V & Architecture](#risc-v-architecture)
 - [🔬 Research & Papers](#research-papers)
 - [🎮 Games & Demos](#games-demos)
+- [🎨 Media: Image, Video & Audio](#media-image-video-audio)
 - [📚 Guides, Tutorials & Education](#guides-tutorials-education)
 - [✍️ Blogs](#blogs)
 
@@ -168,16 +168,6 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[vllm-tt-plugin](https://github.com/tenstorrent/vllm-tt-plugin)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Tenstorrent backend for vLLM, built on vLLM's standard plugin mechanism — install it alongside vLLM and TT hardware registers itself as a platform whenever `ttnn` is importable. Self-contained: model registration, platform detection, scheduling, worker execution, model loading, async decode, and data-parallel/multi-lane execution all live in the plugin, so nothing Tenstorrent-specific has to land in vLLM core.
   [📦 repo](https://github.com/tenstorrent/vllm-tt-plugin) · [📝 vLLM blog post](https://vllm.ai/blog/2026-09-07-vllm-tt-plugin)
-
-## 🎨 Media: Image, Video & Audio
-
-- **[stable-diffusion.cpp on Tenstorrent](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@jw910731](https://github.com/jw910731) — A fork of stable-diffusion.cpp whose tt-support branch runs Z-Image Turbo and Qwen Image 2.1 on a Blackhole card through the community ggml Metalium backend, adding the operators those models need, routing flash attention to TTNN prefill SDPA and emitting ttnn-visualizer memory reports.
-  [📦 tt-support branch](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)
-
-- **[ComfyUI-Tenstorrent](https://github.com/stisiTT/ComfyUI-Tenstorrent)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  by Sam Tisi — ComfyUI custom nodes for running Stable Diffusion XL, SD3.5, Wan 2.2, LTX-2.3 and MiniMax-H3 on Tenstorrent hardware. The nodes start and supervise a tt-metal FastAPI inference server that ships in the package, so CLIP, the UNet or DiT and the VAE all run on the device while ComfyUI keeps its own environment.
-  [📦 repo](https://github.com/stisiTT/ComfyUI-Tenstorrent)
 
 ## 🕵️ AI Agents
 
@@ -780,6 +770,16 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **Tenstorrent Cookbook: Conway's Game of Life** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — TT-Metalium implementation of Conway's Game of Life as a cookbook recipe. Each generation is a full parallel kernel dispatch over the grid — a clean introduction to stateful compute on Tensix cores.
   [📖 Cookbook Recipe 1: Conway's Game of Life](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/cookbook-game-of-life/)
+
+## 🎨 Media: Image, Video & Audio
+
+- **[stable-diffusion.cpp on Tenstorrent](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@jw910731](https://github.com/jw910731) — A fork of stable-diffusion.cpp whose tt-support branch runs Z-Image Turbo and Qwen Image 2.1 on a Blackhole card through the community ggml Metalium backend, adding the operators those models need, routing flash attention to TTNN prefill SDPA and emitting ttnn-visualizer memory reports.
+  [📦 tt-support branch](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)
+
+- **[ComfyUI-Tenstorrent](https://github.com/stisiTT/ComfyUI-Tenstorrent)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by Sam Tisi — ComfyUI custom nodes for running Stable Diffusion XL, SD3.5, Wan 2.2, LTX-2.3 and MiniMax-H3 on Tenstorrent hardware. The nodes start and supervise a tt-metal FastAPI inference server that ships in the package, so CLIP, the UNet or DiT and the VAE all run on the device while ComfyUI keeps its own environment.
+  [📦 repo](https://github.com/stisiTT/ComfyUI-Tenstorrent)
 
 ## 📚 Guides, Tutorials & Education
 

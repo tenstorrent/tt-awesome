@@ -4,7 +4,6 @@
 module.exports = [
   { slug: "getting-started", label: "🚀 Getting Started",              description: "The essential first steps — installer, core SDKs, and guided onboarding" },
   { slug: "ai-models",   label: "🤖 AI & Models",                   description: "Running, serving, and experimenting with AI models" },
-  { slug: "media",       label: "🎨 Media: Image, Video & Audio",   sidebarLabel: "🎨 Media",             description: "Generating and processing images, video, music and speech on TT hardware" },
   { slug: "agents",      label: "🕵️ AI Agents",                     description: "Agentic systems and AI assistants running on TT hardware" },
   { slug: "kernels",     label: "⚙️ Custom Kernels & Low-Level",     sidebarLabel: "⚙️ Custom Kernels",    description: "Metalium/tt-lang kernel authoring; anything sub-compiler" },
   { slug: "compilers",   label: "🔨 Compilers & Frontends",          description: "Getting PyTorch/JAX/ONNX/CUDA models onto TT hardware" },
@@ -14,6 +13,7 @@ module.exports = [
   { slug: "riscv-arch",  label: "🔩 RISC-V & Architecture",          description: "ISA, simulation, and running Linux on TT silicon" },
   { slug: "research",    label: "🔬 Research & Papers",               description: "Academic papers, theses, and HPC experiments" },
   { slug: "games-demos", label: "🎮 Games & Demos",                  description: "Creative, playful, and proof-of-concept projects" },
+  { slug: "media",       label: "🎨 Media: Image, Video & Audio",   sidebarLabel: "🎨 Media",             description: "Generating and processing images, video, music and speech on TT hardware" },
   { slug: "guides",      label: "📚 Guides, Tutorials & Education",  sidebarLabel: "📚 Guides & Tutorials", description: "Getting-started content, blog posts, lessons, courses" },
   { slug: "blogs",       label: "✍️ Blogs",                           description: "Community and affiliated blogs covering Tenstorrent hardware, software, and AI" },
 ];

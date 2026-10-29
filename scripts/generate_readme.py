@@ -14,7 +14,6 @@ ENTRIES_DIR = ROOT / "entries"
 CATEGORIES = [
     ("getting-started", "🚀 Getting Started"),
     ("ai-models",   "🤖 AI & Models"),
-    ("media",       "🎨 Media: Image, Video & Audio"),
     ("agents",      "🕵️ AI Agents"),
     ("kernels",     "⚙️ Custom Kernels & Low-Level"),
     ("compilers",   "🔨 Compilers & Frontends"),
@@ -24,6 +23,7 @@ CATEGORIES = [
     ("riscv-arch",  "🔩 RISC-V & Architecture"),
     ("research",    "🔬 Research & Papers"),
     ("games-demos", "🎮 Games & Demos"),
+    ("media",       "🎨 Media: Image, Video & Audio"),
     ("guides",      "📚 Guides, Tutorials & Education"),
     ("blogs",       "✍️ Blogs"),
 ]
