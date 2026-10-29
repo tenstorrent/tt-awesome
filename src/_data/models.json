@@ -1634,7 +1634,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "openai",
-     "updated": "2026-10-14"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [
@@ -1708,7 +1708,7 @@
    ],
    "modelType": "LLM",
    "name": "gpt-oss-120b",
-   "newest": "2026-10-16",
+   "newest": "2026-10-29",
    "params": "120B",
    "perf": {
     "chips": null,
@@ -5194,7 +5194,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "qwen3_coder",
-     "updated": "2026-10-14"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [
@@ -5264,7 +5264,7 @@
    ],
    "modelType": "LLM",
    "name": "Qwen3.6-27B",
-   "newest": "2026-10-14",
+   "newest": "2026-10-29",
    "params": "27B",
    "perf": null,
    "reasoningParser": "qwen3",
@@ -5385,7 +5385,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "qwen3_coder",
-     "updated": "2026-10-14"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [
@@ -5456,7 +5456,7 @@
    ],
    "modelType": "LLM",
    "name": "Qwen3.8-27B",
-   "newest": "2026-10-14",
+   "newest": "2026-10-29",
    "params": "27B",
    "perf": {
     "chips": null,
@@ -7105,7 +7105,7 @@
     },
     {
      "arch": "blackhole",
-     "blurb": "Clef is a 27B multimodal decision model from Cloudflare, post-trained from Qwen/Qwen3.8-27B.",
+     "blurb": "Clef is a 27B-parameter multimodal decision model from Cloudflare: a Qwen3.8-27B backbone (64 layers, 48 Gated DeltaNet and 16 full-attention, hidden size 5120) with its 27-block vision tower, and a 65M-parameter joint schema head.",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": true,
@@ -7131,7 +7131,7 @@
      "schema": "5.1",
      "task": "image-text-to-text",
      "toolParser": null,
-     "updated": "2026-10-06"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [],
@@ -7153,17 +7153,17 @@
    "modalities": null,
    "modelType": null,
    "name": "clef",
-   "newest": "2026-10-07",
+   "newest": "2026-10-29",
    "params": null,
    "perf": null,
    "reasoningParser": null,
    "rows": [],
-   "serve": "episod/clef-p300",
+   "serve": "tt-hous/clef",
    "singleCard": false,
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Clef is a 27B multimodal decision model from Cloudflare, post-trained from Qwen/Qwen3.8-27B.",
+   "summary": "Clef is a 27B-parameter multimodal decision model from Cloudflare: a Qwen3.8-27B backbone (64 layers, 48 Gated DeltaNet and 16 full-attention, hidden size 5120) with its 27-block vision tower, and a 65M-parameter joint schema head.",
    "toolParser": null,
    "upstream": "Cloudflare/clef",
    "weights": "Cloudflare/clef"
@@ -7172,7 +7172,7 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "CLM-v0.1-8B (Contrastive Language Model) is a System One verifier and ranker: a frozen Qwen3-8B encoder with last-token pooling plus two 9.4M-parameter projection heads trained with InfoNCE.",
+     "blurb": "CLM-v0.1-8B is a System One verifier and ranker: a frozen Qwen3-8B encoder (36 layers, last-token pooling) with two 9.4M-parameter MLP projection heads (4096-1536-1536-512), a state head and an action head, trained with a bidirectional…",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": true,
@@ -7204,7 +7204,7 @@
      "schema": "5.1",
      "task": "text-ranking",
      "toolParser": null,
-     "updated": "2026-10-06"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [],
@@ -7227,7 +7227,7 @@
    "modalities": null,
    "modelType": null,
    "name": "clm-v0.1-8b",
-   "newest": "2026-10-06",
+   "newest": "2026-10-29",
    "params": null,
    "perf": null,
    "reasoningParser": null,
@@ -7237,7 +7237,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "CLM-v0.1-8B (Contrastive Language Model) is a System One verifier and ranker: a frozen Qwen3-8B encoder with last-token pooling plus two 9.4M-parameter projection heads trained with InfoNCE.",
+   "summary": "CLM-v0.1-8B is a System One verifier and ranker: a frozen Qwen3-8B encoder (36 layers, last-token pooling) with two 9.4M-parameter MLP projection heads (4096-1536-1536-512), a state head and an action head, trained with a bidirectional…",
    "toolParser": null,
    "upstream": "Qwen/Qwen3-8B",
    "weights": "Qwen/Qwen3-8B"
@@ -8036,6 +8036,145 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "Gemma 4 26B A4B instruction-tuned, a 25.2B-parameter mixture-of-experts model (3.8B active parameters; 30 layers; 128 experts with 8 active plus 1 shared), served with vLLM for chat, reasoning and tool calling on text input.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "devices": 2,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "tt-hous",
+     "perf": {
+      "board": "p150",
+      "chips": 1,
+      "decode": 36.9,
+      "measured": true,
+      "ttft": 175.0
+     },
+     "readable": true,
+     "reasoningParser": "gemma4",
+     "repo": "tt-hous/gemma-4-26b-a4b-it",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "gemma4",
+     "updated": "2026-10-29"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "gemma",
+   "hardware": [
+    "BH 4xP150",
+    "p150",
+    "p150x2"
+   ],
+   "id": "gemma-4-26b-a4b-it",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "gemma-4-26B-A4B-it",
+   "newest": "2026-10-29",
+   "params": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 36.9,
+    "decodeText": "37",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": 175.0,
+    "ttftText": "175 ms"
+   },
+   "reasoningParser": "gemma4",
+   "rows": [],
+   "serve": "tt-hous/gemma-4-26b-a4b-it",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Gemma 4 26B A4B instruction-tuned, a 25.2B-parameter mixture-of-experts model (3.8B active parameters; 30 layers; 128 experts with 8 active plus 1 shared), served with vLLM for chat, reasoning and tool calling on text input.",
+   "toolParser": "gemma4",
+   "upstream": "google/gemma-4-26B-A4B-it",
+   "weights": "google/gemma-4-26B-A4B-it"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "128K",
@@ -8420,7 +8559,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "openai",
-     "updated": "2026-10-14"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [
@@ -8489,26 +8628,26 @@
    "modalities": null,
    "modelType": null,
    "name": "gpt-oss-20b",
-   "newest": "2026-10-19",
+   "newest": "2026-10-29",
    "params": null,
    "perf": {
-    "board": "p150x4",
-    "chips": 4,
-    "decode": 94.2,
-    "decodeText": "94",
-    "hardware": "BH 4xP150",
+    "board": "p150",
+    "chips": 1,
+    "decode": 48.5,
+    "decodeText": "48",
+    "hardware": "p150",
     "measured": true,
-    "ttft": 83.0,
-    "ttftText": "83 ms"
+    "ttft": 209.0,
+    "ttftText": "209 ms"
    },
    "reasoningParser": "openai_gptoss",
    "rows": [],
-   "serve": "jashansinghTT/gpt-oss-20b-blackhole-fast",
+   "serve": "tt-hous/gpt-oss-20b",
    "singleCard": true,
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Same model, same serving stack and the same six profiles as tt-hous/gpt-oss-20b-p150, with faster decode: a lone request on P150x4, P150x2, P150 decodes through fused, DRAM-streaming decode ops (from tenstorrent/tt-metal60161, adapted to…",
+   "summary": "gpt-oss-20b, OpenAI's 21B-parameter mixture-of-experts reasoning model (3.6B active parameters), served with vLLM for chat, reasoning and function calling.",
    "toolParser": "openai",
    "upstream": "openai/gpt-oss-20b",
    "weights": "openai/gpt-oss-20b"
@@ -9112,7 +9251,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "poolside_v1",
-     "updated": "2026-10-14"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [
@@ -9178,7 +9317,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Laguna-XS-2.1",
-   "newest": "2026-10-14",
+   "newest": "2026-10-29",
    "params": null,
    "perf": {
     "board": "p150x2",
@@ -9206,7 +9345,7 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "Laya is a non-LLM calibrated decision model: a ModernBERT-large encoder with an option-marker decision head (421M parameters).",
+     "blurb": "Laya is a 421M-parameter non-LLM calibrated decision model: a ModernBERT-large encoder (28 layers, 1024 hidden, GeGLU, dual-theta RoPE, one global attention layer per three) with a 2-layer decision head that has an option-marker scorer and…",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": true,
@@ -9238,7 +9377,7 @@
      "schema": "5.1",
      "task": "text-classification",
      "toolParser": null,
-     "updated": "2026-10-06"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [],
@@ -9261,7 +9400,7 @@
    "modalities": null,
    "modelType": null,
    "name": "laya",
-   "newest": "2026-10-06",
+   "newest": "2026-10-29",
    "params": null,
    "perf": null,
    "reasoningParser": null,
@@ -9271,7 +9410,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Laya is a non-LLM calibrated decision model: a ModernBERT-large encoder with an option-marker decision head (421M parameters).",
+   "summary": "Laya is a 421M-parameter non-LLM calibrated decision model: a ModernBERT-large encoder (28 layers, 1024 hidden, GeGLU, dual-theta RoPE, one global attention layer per three) with a 2-layer decision head that has an option-marker scorer and…",
    "toolParser": null,
    "upstream": "convaiinnovations/laya",
    "weights": "convaiinnovations/laya"
@@ -9280,7 +9419,7 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "Laya typed-decisions is the authors' fine-tune of Laya (ModernBERT-large encoder with an option-marker decision head, 421M parameters) on the LocalLLaMA/typed-decisions train split, with a 1024-token context and a 256-token head budget.",
+     "blurb": "Laya typed-decisions is the authors' fine-tune of Laya on the LocalLLaMA/typed-decisions train split: a 421M-parameter ModernBERT-large encoder (28 layers, 1024 hidden, GeGLU, dual-theta RoPE, one global attention layer per three) with a…",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": true,
@@ -9312,7 +9451,7 @@
      "schema": "5.1",
      "task": "text-classification",
      "toolParser": null,
-     "updated": "2026-10-06"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [],
@@ -9335,7 +9474,7 @@
    "modalities": null,
    "modelType": null,
    "name": "laya-typed-decisions",
-   "newest": "2026-10-06",
+   "newest": "2026-10-29",
    "params": null,
    "perf": null,
    "reasoningParser": null,
@@ -9345,7 +9484,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Laya typed-decisions is the authors' fine-tune of Laya (ModernBERT-large encoder with an option-marker decision head, 421M parameters) on the LocalLLaMA/typed-decisions train split, with a 1024-token context and a 256-token head budget.",
+   "summary": "Laya typed-decisions is the authors' fine-tune of Laya on the LocalLLaMA/typed-decisions train split: a 421M-parameter ModernBERT-large encoder (28 layers, 1024 hidden, GeGLU, dual-theta RoPE, one global attention layer per three) with a…",
    "toolParser": null,
    "upstream": "convaiinnovations/laya-typed-decisions",
    "weights": "convaiinnovations/laya-typed-decisions"
@@ -10558,7 +10697,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "muse_glimmer",
-     "updated": "2026-10-14"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [
@@ -10623,7 +10762,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Muse-Glimmer-30B",
-   "newest": "2026-10-14",
+   "newest": "2026-10-29",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -10761,7 +10900,7 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "Olmo 3.1 32B Instruct, a fully open 32B dense decoder with hybrid sliding-window / full attention and 65k context, served with vLLM.",
      "bundleKind": "vllm-plugin",
      "context": null,
      "decision": false,
@@ -10786,16 +10925,26 @@
        "raw": "p300x2"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
      "owner": "jashansinghTT",
-     "perf": null,
+     "perf": {
+      "board": "p150",
+      "chips": 1,
+      "decode": 10.8,
+      "measured": true,
+      "ttft": 177.0
+     },
      "readable": true,
      "reasoningParser": null,
      "repo": "jashansinghTT/olmo-3.1-32b-instruct-blackhole",
      "schema": "5.1",
-     "task": null,
+     "task": "text-generation",
      "toolParser": "olmo3_tt",
-     "updated": "2026-10-08"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [
@@ -10852,17 +11001,28 @@
    "impls": [],
    "inSpec": false,
    "kind": "LLM",
-   "kindFrom": "an inference: An instruct language model; the bundle names an olmo3_tt tool-call parser.",
-   "kindInferred": true,
-   "licenses": [],
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "Olmo-3.1-32B-Instruct",
-   "newest": "2026-10-08",
+   "newest": "2026-10-29",
    "params": null,
-   "perf": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 10.8,
+    "decodeText": "11",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": 177.0,
+    "ttftText": "177 ms"
+   },
    "reasoningParser": null,
    "rows": [],
    "serve": "jashansinghTT/olmo-3.1-32b-instruct-blackhole",
@@ -10870,7 +11030,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by jashansinghTT.",
+   "summary": "Olmo 3.1 32B Instruct, a fully open 32B dense decoder with hybrid sliding-window / full attention and 65k context, served with vLLM.",
    "toolParser": "olmo3_tt",
    "upstream": "allenai/Olmo-3.1-32B-Instruct",
    "weights": "allenai/Olmo-3.1-32B-Instruct"
@@ -10929,7 +11089,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-19"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [
@@ -10997,7 +11157,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Ornith-1.0-35B",
-   "newest": "2026-10-19",
+   "newest": "2026-10-29",
    "params": null,
    "perf": {
     "board": "p150",
@@ -11367,7 +11527,7 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "Ornith-1.5-9B ported to Tenstorrent Blackhole, served through upstream vLLM with the standalone Tenstorrent plugin.",
+     "blurb": "Ornith-1.5-9B, a 9B-parameter dense reasoning and coding model, served with vLLM with tool calling and separated reasoning output.",
      "bundleKind": "vllm-plugin",
      "context": "256K",
      "decision": false,
@@ -11392,7 +11552,11 @@
        "raw": "p150x4"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "mit",
+      "link": null,
+      "name": null
+     },
      "owner": "tt-hous",
      "perf": {
       "board": "p150",
@@ -11405,9 +11569,9 @@
      "reasoningParser": "qwen3",
      "repo": "tt-hous/ornith-1.5-9b",
      "schema": "5.1",
-     "task": null,
+     "task": "text-generation",
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-23"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [
@@ -11464,15 +11628,17 @@
    "impls": [],
    "inSpec": false,
    "kind": "LLM",
-   "kindFrom": "an inference: The bundle's card no longer gives a task tag. It is served with vLLM and names a qwen3_xml tool-call parser and a qwen3 reasoning parser.",
-   "kindInferred": true,
-   "licenses": [],
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "mit"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "Ornith-1.5-9B",
-   "newest": "2026-10-23",
+   "newest": "2026-10-29",
    "params": null,
    "perf": {
     "board": "p150",
@@ -11491,7 +11657,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Ornith-1.5-9B ported to Tenstorrent Blackhole, served through upstream vLLM with the standalone Tenstorrent plugin.",
+   "summary": "Ornith-1.5-9B, a 9B-parameter dense reasoning and coding model, served with vLLM with tool calling and separated reasoning output.",
    "toolParser": "qwen3_xml",
    "upstream": "ornith-ai/Ornith-1.5-9B",
    "weights": "ornith-ai/Ornith-1.5-9B"
@@ -12701,7 +12867,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-14"
+     "updated": "2026-10-29"
     }
    ],
    "clients": [
@@ -12769,7 +12935,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3.8-Flash-Next",
-   "newest": "2026-10-14",
+   "newest": "2026-10-29",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -14010,7 +14176,7 @@
   }
  ],
  "spec": {
-  "commit": "75943ed94",
+  "commit": "2db98e38c",
   "release": "0.25.0"
  },
  "unclassified": [],
