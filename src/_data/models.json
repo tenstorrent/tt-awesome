@@ -9870,6 +9870,116 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "llm-jp/llm-jp-4.1-8b-thinking (LLM-jp-4.1 8B, thinking) served by vLLM and the Tenstorrent vLLM plugin on one Blackhole P150 chip (p150a).",
+     "bundleKind": "vllm-plugin",
+     "context": "64K",
+     "decision": false,
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "tomo-o",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "llmjp4",
+     "repo": "tomo-o/llm-jp-4.1-8b-thinking-p150",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "llmjp4",
+     "updated": "2026-10-29"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: llmjp4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: llmjp4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: llmjp4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: llmjp4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: llmjp4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "llm",
+   "hardware": [
+    "p150"
+   ],
+   "id": "llm-jp-4-1-8b-thinking",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "llm-jp-4.1-8b-thinking",
+   "newest": "2026-10-29",
+   "params": null,
+   "perf": null,
+   "reasoningParser": "llmjp4",
+   "rows": [],
+   "serve": "tomo-o/llm-jp-4.1-8b-thinking-p150",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "llm-jp/llm-jp-4.1-8b-thinking (LLM-jp-4.1 8B, thinking) served by vLLM and the Tenstorrent vLLM plugin on one Blackhole P150 chip (p150a).",
+   "toolParser": "llmjp4",
+   "upstream": "llm-jp/llm-jp-4.1-8b-thinking",
+   "weights": "llm-jp/llm-jp-4.1-8b-thinking"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
@@ -10915,7 +11025,7 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "ornith-ai/Ornith-1.5-122B (122B total / 10B active MoE: 256 experts, top-8 + shared expert, 48 layers of Gated DeltaNet + gated attention, vision tower) on four Blackhole dies through vLLM and the Tenstorrent plugin, served by the…",
+     "blurb": "Ornith-1.5-122B, a 122B-parameter mixture-of-experts model with 10B parameters active per token (256 experts, top-8 plus a shared expert; 48 layers mixing Gated DeltaNet linear attention with gated full attention; the Qwen3.5-122B-A10B…",
      "bundleKind": "vllm-plugin",
      "context": "256K",
      "decision": false,
@@ -10934,9 +11044,19 @@
        "raw": "p300x2"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "mit",
+      "link": null,
+      "name": null
+     },
      "owner": "raahemnabeel",
-     "perf": null,
+     "perf": {
+      "board": "p300x2",
+      "chips": 4,
+      "decode": 133.1,
+      "measured": true,
+      "ttft": 230.0
+     },
      "readable": true,
      "reasoningParser": "qwen3",
      "repo": "raahemnabeel/ornith-1.5-122b",
@@ -11001,7 +11121,9 @@
    "kind": "LLM",
    "kindFrom": "an inference: The bundle's card gives no task tag. It is a 122B mixture-of-experts model served with vLLM, and it names a qwen3_xml tool-call parser and a qwen3 reasoning parser.",
    "kindInferred": true,
-   "licenses": [],
+   "licenses": [
+    "mit"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
@@ -11009,7 +11131,16 @@
    "name": "Ornith-1.5-122B",
    "newest": "2026-10-28",
    "params": null,
-   "perf": null,
+   "perf": {
+    "board": "p300x2",
+    "chips": 4,
+    "decode": 133.1,
+    "decodeText": "133",
+    "hardware": "BH QuietBox 2",
+    "measured": true,
+    "ttft": 230.0,
+    "ttftText": "230 ms"
+   },
    "reasoningParser": "qwen3",
    "rows": [],
    "serve": "raahemnabeel/ornith-1.5-122b",
@@ -11017,7 +11148,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "ornith-ai/Ornith-1.5-122B (122B total / 10B active MoE: 256 experts, top-8 + shared expert, 48 layers of Gated DeltaNet + gated attention, vision tower) on four Blackhole dies through vLLM and the Tenstorrent plugin, served by the…",
+   "summary": "Ornith-1.5-122B, a 122B-parameter mixture-of-experts model with 10B parameters active per token (256 experts, top-8 plus a shared expert; 48 layers mixing Gated DeltaNet linear attention with gated full attention; the Qwen3.5-122B-A10B…",
    "toolParser": "qwen3_xml",
    "upstream": "ornith-ai/Ornith-1.5-122B",
    "weights": "ornith-ai/Ornith-1.5-122B"
@@ -11839,7 +11970,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_coder",
-     "updated": "2026-10-27"
+     "updated": "2026-10-28"
     }
    ],
    "clients": [
@@ -11905,7 +12036,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3-Coder-Next",
-   "newest": "2026-10-27",
+   "newest": "2026-10-28",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -12134,7 +12265,7 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "Qwen3.5-122B-A10B (122B total / 10B active MoE: 256 experts, top-8 + shared expert, 48 layers of Gated DeltaNet + gated attention, vision tower, MTP head) on four Blackhole dies through vLLM and the Tenstorrent plugin, with a fused decode…",
+     "blurb": "Qwen3.5-122B-A10B, a 122B-parameter mixture-of-experts model with 10B parameters active per token (256 experts, top-8 plus a shared expert; 48 layers mixing Gated DeltaNet linear attention with gated full attention) and a vision encoder,…",
      "bundleKind": "vllm-plugin",
      "context": "256K",
      "decision": false,
@@ -12153,7 +12284,11 @@
        "raw": "p300x2"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
      "owner": "raahemnabeel",
      "perf": {
       "board": "p300x2",
@@ -12168,7 +12303,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-27"
+     "updated": "2026-10-28"
     }
    ],
    "clients": [
@@ -12226,13 +12361,15 @@
    "kind": "LLM",
    "kindFrom": "an inference: A Qwen language model; the bundle names a qwen3_xml tool-call parser.",
    "kindInferred": true,
-   "licenses": [],
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "Qwen3.5-122B-A10B",
-   "newest": "2026-10-27",
+   "newest": "2026-10-28",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -12251,7 +12388,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Qwen3.5-122B-A10B (122B total / 10B active MoE: 256 experts, top-8 + shared expert, 48 layers of Gated DeltaNet + gated attention, vision tower, MTP head) on four Blackhole dies through vLLM and the Tenstorrent plugin, with a fused decode…",
+   "summary": "Qwen3.5-122B-A10B, a 122B-parameter mixture-of-experts model with 10B parameters active per token (256 experts, top-8 plus a shared expert; 48 layers mixing Gated DeltaNet linear attention with gated full attention) and a vision encoder,…",
    "toolParser": "qwen3_xml",
    "upstream": "Qwen/Qwen3.5-122B-A10B",
    "weights": "Qwen/Qwen3.5-122B-A10B"
@@ -13873,7 +14010,7 @@
   }
  ],
  "spec": {
-  "commit": "4f529a6c1",
+  "commit": "75943ed94",
   "release": "0.25.0"
  },
  "unclassified": [],
