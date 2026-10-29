@@ -1,0 +1,35 @@
+{
+  "id": "autoresearch-tenstorrent",
+  "name": "autoresearch-tenstorrent",
+  "description": "A single-device TT-XLA port of karpathy/autoresearch: an AI agent edits a small GPT training script, trains for a fixed five minutes on a Wormhole card, keeps the change if validation bits-per-byte improves, and repeats overnight. Adds device glue so the code never branches on CUDA.",
+  "affiliation": "community",
+  "categories": [
+    "agents",
+    "ai-models"
+  ],
+  "tags": [
+    "autoresearch",
+    "karpathy",
+    "agent",
+    "training",
+    "tt-xla",
+    "gpt",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/bro4all/autoresearch-tenstorrent"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "related": [
+    "tt-xla"
+  ],
+  "author": "Omar Habra",
+  "language": "Python",
+  "license": "MIT",
+  "added_at": "2026-10-29"
+}

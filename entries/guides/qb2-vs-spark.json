@@ -1,0 +1,37 @@
+{
+  "id": "qb2-vs-spark",
+  "name": "QuietBox 2 vs DGX Spark",
+  "description": "Justin Garrison's benchmark harness and results page comparing a Tenstorrent QuietBox 2 against one and two NVIDIA DGX Sparks on open-weight models: time to first token, decode speed per user, total throughput, wall power and running cost under coding-agent-shaped traffic, with quality scores from the Artificial Analysis index.",
+  "affiliation": "community",
+  "categories": [
+    "guides",
+    "hw-system"
+  ],
+  "tags": [
+    "benchmark",
+    "quietbox",
+    "dgx-spark",
+    "power",
+    "cost",
+    "tokens-per-joule",
+    "open-weight"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/rothgar/qb2-vs-spark"
+    },
+    {
+      "type": "website",
+      "url": "https://rothgar.github.io/qb2-vs-spark/",
+      "label": "Results"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "author": "Justin Garrison",
+  "language": "HTML",
+  "added_at": "2026-10-29"
+}

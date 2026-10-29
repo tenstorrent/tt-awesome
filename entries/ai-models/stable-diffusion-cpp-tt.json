@@ -1,0 +1,38 @@
+{
+  "id": "stable-diffusion-cpp-tt",
+  "name": "stable-diffusion.cpp on Tenstorrent",
+  "description": "A fork of stable-diffusion.cpp whose tt-support branch runs Z-Image Turbo and Qwen Image 2.1 on a Blackhole card through the community ggml Metalium backend, adding the operators those models need, routing flash attention to TTNN prefill SDPA and emitting ttnn-visualizer memory reports.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "kernels"
+  ],
+  "tags": [
+    "stable-diffusion-cpp",
+    "ggml",
+    "metalium",
+    "z-image",
+    "qwen-image",
+    "diffusion",
+    "cpp",
+    "fork"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support",
+      "label": "tt-support branch"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "related": [
+    "ttrope",
+    "ttprm"
+  ],
+  "author": "jw910731",
+  "language": "C++",
+  "license": "MIT",
+  "added_at": "2026-10-29"
+}

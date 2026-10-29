@@ -31,6 +31,14 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
   by [@palisurf](https://github.com/palisurf) — A lightweight, single-file, zero-framework Python CLI inference and search-augmented generation harness ([cjllm.py](https://github.com/palisurf/cjllm-harness/blob/main/cjllm.py)) built for OpenAI-compatible vLLM endpoints running on local AI workstations and accelerator appliances (including Tenstorrent QuietBox 2 (p300x2 Blackhole)
   [📦 repo](https://github.com/palisurf/cjllm-harness)
 
+- **[DFloat11-TT](https://github.com/tom-peter12/dfloat11_tt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Tomas Petros — DFloat11 lossless LLM weight compression ported to Blackhole. Huffman-codes only the exponent field of BFloat16 weights, cutting them to about 70% of their size with bit-for-bit identical outputs, with a C++ extension built against tt-metal, a compressor and an on-device evaluation path.
+  [📦 repo](https://github.com/tom-peter12/dfloat11_tt) · [📄 DFloat11 paper](https://arxiv.org/abs/2504.11651)
+
+- **[granite-4.1-tt-metal](https://github.com/unnowataru/granite-4.1-tt-metal)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Unno Wataru — A community port of IBM Granite 4.1-8B to Wormhole through tt-metal and the Tenstorrent vLLM plugin, with the porting code, a verification harness and measured performance results. The author states the project is not affiliated with IBM, Tenstorrent or Networld.
+  [📦 repo](https://github.com/unnowataru/granite-4.1-tt-metal)
+
 - **[TT-Granite](https://github.com/quandvucl/granite-4-ttnn)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@quandvucl](https://github.com/quandvucl) — A TTNN port of IBM's Granite-4.0-H hybrid Mamba2/attention/MoE models (tiny and small) to Wormhole, written as a UCL thesis project and run on submeshes of a Galaxy. Includes two custom TT-Metal kernels, `ssm_update` and `conv1d_decode`, that fuse the Mamba2 decode step, plus decode trace capture and benchmark scripts against HuggingFace CPU/CUDA baselines. With trace enabled the author reports 10.65–10.69 tok/s for tiny on 4 chips (about 18% above an A100) and 5.84–5.89 tok/s for small on 8 chips (about 20% below the A100); all numbers are batch 1, and the fused kernels add only about 1–2%. The thesis PDF documents the porting challenges: quantization, SSM state across chunked prefill, and expert-parallel sharding.
   [📦 repo](https://github.com/quandvucl/granite-4-ttnn) · [📄 paper](https://github.com/quandvucl/granite-4-ttnn/blob/main/COMP0251_TLVH1.pdf)
@@ -38,6 +46,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[MuseGlimmer](https://github.com/Codys12/MuseGlimmer)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@Codys12](https://github.com/Codys12) — A TTNN bring-up of `meta-models/Muse-Glimmer-30B` for batch-1 inference on a single Blackhole P150, with 2,048-token chunked prefill into a paged KV cache, the checkpoint's native DFlash drafter for speculative decoding, and an OpenAI-compatible server with streaming and tool calls. The author reports 119.99 AR tok/s at short context and 1,549 prompt tok/s on a 128,000-token prefill, and defines `ar_decode_tokens_per_second` narrowly: it excludes tokenization, prefill and tool parsing, and DFlash rate varies with draft acceptance. Weights are BFP8 for attention and BFP4 for MLPs, decode replays three captured device traces, and parity tests compare against the Transformers reference. Its custom `packed_kv_update` kernel was upstreamed into TTNN as `ttnn.experimental.indexed_fused_update_cache`.
   [📦 repo](https://github.com/Codys12/MuseGlimmer)
+
+- **[stable-diffusion.cpp on Tenstorrent](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@jw910731](https://github.com/jw910731) — A fork of stable-diffusion.cpp whose tt-support branch runs Z-Image Turbo and Qwen Image 2.1 on a Blackhole card through the community ggml Metalium backend, adding the operators those models need, routing flash attention to TTNN prefill SDPA and emitting ttnn-visualizer memory reports.
+  [📦 tt-support branch](https://github.com/jw910731/stable-diffusion.cpp/tree/tt-support)
 
 - **[DeepSeek-V4.1-Flash on Wormhole](https://github.com/Veso-AI-Open-Source/tenstorrent-wormhole-deepseek-v41-flash)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@Veso-AI-Open-Source](https://github.com/Veso-AI-Open-Source) — A correctness-first bring-up of DeepSeek-V4.1-Flash (552B plus a 196B Engram) on four n300 cards (8 Wormhole chips). Every model FLOP runs on device, and the host serves as a 449 GB expert store of pre-packed `.tensorbin` tiles behind an on-device LRU pool. Every stage is gated against DeepSeek's official `model.py` run on the CPU, reaching 0.985 decisive top-1 over a 2048-token prefill, with traced decode, 128K context, persistent prefix state and vision input. Speeds are stated honestly: decode is 1.68 tok/s (1.42 served), prefill is 95 tok/s, and DSpark speculation measured 0.48x so it is off. `CEILING.md` attributes the gap to about 7,200 ops per token of device-side dispatch, and `FINDINGS.md` lists 20 traps.
@@ -70,6 +82,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **Video Generation on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Three lesson-projects covering on-device video synthesis: frame-by-frame diffusion with tt-local-generator, native AnimateDiff video animation, and video generation on QuietBox 2. All run entirely on TT hardware with no cloud dependency.
   [📖 Video Generation via Frame-by-Frame Diffusion](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/video-generation-ttmetal/) · [📖 Native Video Animation with AnimateDiff](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/animatediff-video-generation/) · [📖 Video Generation on QuietBox 2](https://docs.tenstorrent.com/tt-vscode-toolkit/lessons/qb2-video-generation/)
+
+- **[ComfyUI-Tenstorrent](https://github.com/stisiTT/ComfyUI-Tenstorrent)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by Sam Tisi — ComfyUI custom nodes for running Stable Diffusion XL, SD3.5, Wan 2.2, LTX-2.3 and MiniMax-H3 on Tenstorrent hardware. The nodes start and supervise a tt-metal FastAPI inference server that ships in the package, so CLIP, the UNet or DiT and the VAE all run on the device while ComfyUI keeps its own environment.
+  [📦 repo](https://github.com/stisiTT/ComfyUI-Tenstorrent)
 
 - **[dflash](https://github.com/zoecarver/dflash)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@zoecarver](https://github.com/zoecarver) — DFlash: Block Diffusion for Flash Speculative Decoding on Tenstorrent hardware using tt-lang. Combines block diffusion with speculative decoding for faster inference.
@@ -161,6 +177,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 
 ## 🕵️ AI Agents
 
+- **[autoresearch-tenstorrent](https://github.com/bro4all/autoresearch-tenstorrent)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Omar Habra — A single-device TT-XLA port of karpathy/autoresearch: an AI agent edits a small GPT training script, trains for a fixed five minutes on a Wormhole card, keeps the change if validation bits-per-byte improves, and repeats overnight. Adds device glue so the code never branches on CUDA.
+  [📦 repo](https://github.com/bro4all/autoresearch-tenstorrent)
+
 - **[Tenstorrent Console Skill](https://github.com/aldegad/tenstorrent)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@aldegad](https://github.com/aldegad) — An agent skill (SKILL.md) that teaches Claude Code, Codex, and the Agent SDK how to drive the console.tenstorrent.com inference API: OpenAI-compatible chat with DeepSeek-R1 and Qwen3, async image jobs, and Wan 2.2 text-to-video. Ships runnable curl examples and a mock-curl test harness; documentation is bilingual Korean/English.
   [📦 repo](https://github.com/aldegad/tenstorrent)
@@ -190,6 +210,10 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - **[tt-tiny](https://github.com/geohot/tt-tiny)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@geohot](https://github.com/geohot) — Minimal Python code to access and program the Tenstorrent Blackhole chip directly — George Hotz's exploration of TT hardware programmability with pointed commentary on the architecture.
   [📦 repo](https://github.com/geohot/tt-tiny)
+
+- **[baretile](https://github.com/baretile/baretile)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@baretile](https://github.com/baretile) — A compiler and runtime for Tenstorrent Blackhole written in about 2,700 lines of standard-library Python. You write tensor operations and it compiles them to Tensix instructions, loads its own worker firmware and drives the card over PCIe from userspace, with no dependency on tt-metal, tt-umd or LLK. Developed against the ttsim simulator; untested on a card so far.
+  [📦 repo](https://github.com/baretile/baretile) · [🌐 baretile.com](https://baretile.com)
 
 - **[current](https://github.com/seansiddens/current)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@seansiddens](https://github.com/seansiddens) — High-level parallel programming framework for Tenstorrent accelerators, abstracting TT-Metal into a research-oriented programming model for parallel computation.
@@ -351,9 +375,17 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by [@Syllo](https://github.com/Syllo) — htop-style process monitor for GPUs and AI accelerators. Supports AMD, Apple, Huawei, Intel, NVIDIA, Qualcomm — and Tenstorrent. Real-time utilization, memory, and process info in a terminal UI.
   [📦 repo](https://github.com/Syllo/nvtop)
 
+- **[bhtop](https://github.com/dtsunami/tt-baremetal)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@dtsunami](https://github.com/dtsunami) — A top for the Blackhole network-on-chip: live NoC telemetry read straight from the per-tile NIU hardware performance counters, drawn as a die floorplan in the terminal, plus a web cockpit with a device tree, a code editor and a live engine pane for bare-metal L2CPU x280 work.
+  [📦 repo](https://github.com/dtsunami/tt-baremetal)
+
 - **[libtt-metal-cxx](https://github.com/Knight-Ops/libtt-metal-cxx)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@Knight-Ops](https://github.com/Knight-Ops) — Rust crate that exposes the TT-Metal host API through a C++ bridge via cxx.rs — covering device management, program/kernel creation (from source file or inline string), circular buffers, semaphores, runtime arguments, sharded buffers, and MeshDevice workflows, with hardware-backed integration tests.
   [📦 repo](https://github.com/Knight-Ops/libtt-metal-cxx)
+
+- **[SimBricks component-tenstorrent](https://github.com/FreakyPenguin/component-tenstorrent)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Antoine Kaufmann — SimBricks integration for Tenstorrent's ttsim chip model, from MPI-SWS. About 700 lines of C++ present libttsim as a SimBricks PCIe device, so a simulated host can boot Linux, load the real tt-kmd driver and run a PyTorch workload on a simulated Wormhole or Blackhole. The chip model is loaded at runtime and left unmodified.
+  [📦 repo](https://github.com/FreakyPenguin/component-tenstorrent)
 
 - **[tenstorrent-cli](https://github.com/aldegad/tenstorrent-cli)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@aldegad](https://github.com/aldegad) — A TypeScript/Bun terminal client for console.tenstorrent.com. Opens a chat REPL across DeepSeek-R1, Qwen3-32B, Qwen3-VL, and Gemma, with slash commands that submit image, Wan 2.2 video, TTS, and STT jobs, poll them, and save the results under ./output. Reads its API key only from the TENSTORRENT_KEY environment variable — never from disk.
@@ -390,6 +422,10 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **[ttperf](https://github.com/Aswincloud/ttperf)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@Aswincloud](https://github.com/Aswincloud) — A CLI wrapper that turns TT-Metal performance profiling into one command. Runs a pytest target under Tenstorrent's profiler, streams progress live, then parses the resulting CSV and reports total device kernel duration. Supports profiling by operation name (`ttperf add`) as well as by test path, and installs from PyPI.
   [📦 repo](https://github.com/Aswincloud/ttperf) · [🌐 ttperf.aswincloud.com](https://ttperf.aswincloud.com) · [🐍 `pip install ttperf`](https://pypi.org/project/ttperf/)
+
+- **[xpustat](https://github.com/Bekhouche/xpustat)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Salah Eddine Bekhouche — A unified accelerator stat tool in the style of gpustat that covers every vendor it can find a CLI for. Tenstorrent Wormhole and Blackhole cards are read through tt-smi alongside NVIDIA, AMD, Intel, Huawei, AWS Neuron and TPU backends.
+  [📦 repo](https://github.com/Bekhouche/xpustat)
 
 - **[tensix-viz](https://github.com/tsingletaryTT/tensix-viz)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Hardware topology visualizer for Tenstorrent chips — from individual chip to full cluster. Interactive JavaScript visualization of Tensix core layout and NoC connections.
@@ -543,9 +579,17 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by [@koyeb](https://github.com/koyeb) — Example applications and deployment configurations for running AI workloads on Tenstorrent hardware via Koyeb's cloud platform.
   [📦 repo](https://github.com/koyeb/tenstorrent-examples) · [🌐 Koyeb blog post](https://www.koyeb.com/blog/tenstorrent-cloud-instances-unveiling-next-gen-ai-accelerators)
 
+- **[M-Stack](https://github.com/Multicorewareinc/M-Stack)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@MultiCoreWare](https://github.com/MultiCoreWare) — MultiCoreWare's declarative Python SDK for building AI inference platforms on Kubernetes, from bare machines to a served model. Tenstorrent is a first-class accelerator type: the Helm layer installs the tt-operator chart and the serving layer exposes OpenAI-compatible endpoints over vLLM.
+  [📦 repo](https://github.com/Multicorewareinc/M-Stack)
+
 - **[Tenstorrent Kubernetes DRA driver](https://github.com/varrahan/tenstorrent-dra-framework)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@varrahan](https://github.com/varrahan) — A Kubernetes 1.34 Dynamic Resource Allocation driver that publishes each node's Tenstorrent cards as exclusive whole-card devices, mixing Wormhole and Blackhole on one node. Ships a Helm chart with a node DaemonSet, a leader-elected controller that validates the cluster fabric graph, DeviceClasses, CRDs, health and metrics endpoints, and a TenstorrentWorkload resource that places distributed rank Pods on connected rings. Inventory comes from tt-kmd and PCI sysfs, and the ttsim QEMU VM is the validation target.
   [📦 repo](https://github.com/varrahan/tenstorrent-dra-framework)
+
+- **[tt-metrics-exporter](https://github.com/varrahan/tt-metrics-exporter)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Varrahan Uthayan — A Kubernetes metrics exporter for Tenstorrent Wormhole and Blackhole clusters, written in Python. Runs as a node-local DaemonSet, reads telemetry through sysfs and the tt-kmd device paths, and optionally reports DRA state. Includes a QEMU ttsim VM setup for testing without hardware.
+  [📦 repo](https://github.com/varrahan/tt-metrics-exporter)
 
 - **TT Console** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   Browser-based cloud console for exploring AI on Tenstorrent hardware. Run LLM inference, image and video generation, and browse the supported model catalog in-browser — backed by Tenstorrent accelerators. Cloud hardware access and advanced workflows (deployments, agents) available in staged rollout.
@@ -572,6 +616,10 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **[Wolfpine](https://github.com/hedgehope/wolfpine)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@mesham](https://github.com/mesham) — A pure-Python framework for building cycle-approximate simulators of AI accelerators, with Wormhole and Blackhole backends written from the public Tenstorrent ISA documentation. Runs real tt-metal programs unmodified on the full worker grid (72 cores on Wormhole, 130 on Blackhole) with no hardware, and because it is Python throughout, a driver script can inspect simulator state directly. The `wolfpine run` CLI switches a tt-metal build between simulated Wormhole, simulated Blackhole and real silicon. Not cycle accurate by design. Formerly tt-sim; renamed to Wolfpine in 2026 and unrelated to Tenstorrent's official `ttsim`.
   [📦 repo](https://github.com/hedgehope/wolfpine) · [🐍 `pip install wolfpine`](https://pypi.org/project/wolfpine/)
+
+- **[Tenstorrent Wormhole Series (corsix.org)](https://github.com/corsix/wormhole-vector)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Peter Cawley — Peter Cawley's eight-part reverse-engineering series on Wormhole: physical layout and disabled rows, NoC propagation delay, Ethernet, the insides of a Tensix tile, the vector instruction set, bits of the matmul unit and a closing reference. The companion repo is a functional description of the vector instructions.
+  [📝 Part 1: Physicalities](https://www.corsix.org/content/tt-wh-part1) · [📝 Part 6: Vector instruction set](https://www.corsix.org/content/tt-wh-part6) · [📝 Part 8: Reference](https://www.corsix.org/content/tt-wh-part8) · [📦 wormhole-vector repo](https://github.com/corsix/wormhole-vector)
 
 - **All in RISC-V, RISC-V All in AI — FOSDEM 2026** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Martin Chang — Martin Chang and Danfeng Zhang on solving real AI compute problems with open hardware, spanning AI PC / edge devices and AI servers: pairing high-performance RISC-V CPUs with NPUs, and Tenstorrent's RISC-V cores and scalable mesh for AI workloads. The speaker's companion write-up covers the Tensix programming model in depth — the five RISC-V cores per tile, Dst register double-buffering, and the macro-recording hardware that lets control cores run ahead of the math engine.
@@ -627,6 +675,14 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by [@LSC-Unicamp](https://github.com/LSC-Unicamp) — Reference implementation for the CARLA 2026 paper "Shift Matrices and Single-Batch Halos: Optimizing 3D Stencils on Tenstorrent Blackhole Architecture". A TT-Metalium 3D Jacobi stencil kernel for the p150a that uses shift matrices and single-batch halo exchange, with build and run scripts for reproducing the paper's results.
   [📦 repo](https://github.com/LSC-Unicamp/carla_2026_tenstorrent_stencil)
 
+- **[HPCCG on Tenstorrent (Daisytuner)](https://github.com/daisytuner/HPCCG)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@Daisytuner](https://github.com/Daisytuner) — Daisytuner's case study porting the HPCCG conjugate-gradient mini-app to Wormhole and Blackhole: the SPMV, WAXPBY and DDOT kernels run on Tensix cores over an ELLPACK matrix layout, with the Daisytuner Optimizing Compiler Collection (DOCC) handling parallelisation and offload.
+  [📦 repo](https://github.com/daisytuner/HPCCG) · [🌐 Daisytuner runs](https://app.daisytuner.com/daisytuner/HPCCG/runs)
+
+- **[OpenFOAM-TT](https://github.com/daisytuner/OpenFOAM-TT)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@Daisytuner](https://github.com/Daisytuner) — Daisytuner's build of OpenFOAM's core libOpenFOAM as a standalone CMake project, with symbol-equivalent replacements that offload its sparse matrix operations to Tenstorrent hardware. The result drops into the original OpenFOAM driver via LD_LIBRARY_PATH, so offloading strategies can be explored without touching the solvers.
+  [📦 repo](https://github.com/daisytuner/OpenFOAM-TT)
+
 - **Attention in SRAM on Tenstorrent Grayskull** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Moritz Thüning — A fused kernel for the Grayskull architecture implementing Transformer self-attention entirely within SRAM. Combines matrix multiply, attention score scaling, and Softmax without DRAM accesses, achieving significant speedups over non-fused implementations.
   [📄 arXiv:2407.13885](https://arxiv.org/abs/2407.13885)
@@ -678,6 +734,10 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **[Block-Sparse Linear Algebra on Tenstorrent Wormhole](https://github.com/salmanra/Tenstorrent-WH-BlockSpMM)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Rahmy Salman — Artifact for the paper "Leveraging Network-on-Chip Architecture for Block-Sparse Linear Algebra on Tenstorrent": block-sparse SpMM and SDDMM kernels for the Wormhole n150 in several data-movement variants, plus scripts that reproduce every n150 figure and table. Builds as a submodule inside a tt-metal checkout.
   [📦 repo](https://github.com/salmanra/Tenstorrent-WH-BlockSpMM)
+
+- **[tt-fluid](https://github.com/moritztng/tt-fluid)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
+  by Moritz Thüning — OpenFOAM's steady incompressible solver (simpleFoam with k-omega SST) running entirely on Blackhole and Wormhole chips. Reads an ordinary OpenFOAM case, keeps every SIMPLE iteration resident on the Tensix grid with halo exchange between cores, and writes OpenFOAM time directories back. On the HPC motorbike benchmark a QuietBox 2 comes in at 2.34x lower cost per case than an 8x H100 server, with drag within the reference uncertainty.
+  [📦 repo](https://github.com/moritztng/tt-fluid) · [🌐 Docs](https://github.com/moritztng/tt-fluid/tree/main/docs)
 
 - **[polaris](https://github.com/tenstorrent/tt-polaris)** ![official](https://img.shields.io/badge/official-607D8B?style=flat-square)
   A high-level AI simulator from Tenstorrent for modeling and exploring AI accelerator and workload performance.
@@ -742,6 +802,10 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **Tenstorrent Architecture — W&M CSCI654 Advanced Computer Architecture** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Yifan & GPU / William & Mary — Lecture 20 from William & Mary's graduate Computer Architecture course. Frames Tenstorrent in the landscape between GPUs and TPUs, draws comparisons to Cerebras and SambaNova, then dives deep into the Wormhole chip and Tensix core: the 5 RISC-V core design, SFPU, NoC, and dataflow execution model.
   [🎥 Lecture 20 — Tenstorrent Architecture (YouTube)](https://www.youtube.com/watch?v=CixEFPc8oxg)
+
+- **[QuietBox 2 vs DGX Spark](https://github.com/rothgar/qb2-vs-spark)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Justin Garrison — Justin Garrison's benchmark harness and results page comparing a Tenstorrent QuietBox 2 against one and two NVIDIA DGX Sparks on open-weight models: time to first token, decode speed per user, total throughput, wall power and running cost under coding-agent-shaped traffic, with quality scores from the Artificial Analysis index.
+  [📦 repo](https://github.com/rothgar/qb2-vs-spark) · [🌐 Results](https://rothgar.github.io/qb2-vs-spark/)
 
 - **[Tensix Field Guide](https://github.com/OrangeTangy/tensix-field-guide)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Tanay Anand — A ten-chapter, plain-English tour of Tenstorrent's Tensix architecture written for someone who knows what a CPU and a GPU are and nothing else: the chip-level grid and NoC, the five RISC-V baby cores, the matrix engine and its LoFi/HiFi fidelity trade-off, the SFPU, L1 and circular buffers, and why everything is 32x32 tile-shaped. The goal is to get a newcomer to the point of reading tt-metal kernel code in one sitting. Self-described draft; every claim traces back to tt-metal tech reports, tt-llk docs, or METALIUM_GUIDE.

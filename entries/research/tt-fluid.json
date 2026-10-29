@@ -1,0 +1,42 @@
+{
+  "id": "tt-fluid",
+  "name": "tt-fluid",
+  "description": "OpenFOAM's steady incompressible solver (simpleFoam with k-omega SST) running entirely on Blackhole and Wormhole chips. Reads an ordinary OpenFOAM case, keeps every SIMPLE iteration resident on the Tensix grid with halo exchange between cores, and writes OpenFOAM time directories back. On the HPC motorbike benchmark a QuietBox 2 comes in at 2.34x lower cost per case than an 8x H100 server, with drag within the reference uncertainty.",
+  "affiliation": "affiliated",
+  "categories": [
+    "research",
+    "kernels"
+  ],
+  "tags": [
+    "openfoam",
+    "cfd",
+    "rans",
+    "simplefoam",
+    "hpc",
+    "turbulence",
+    "cpp"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/moritztng/tt-fluid"
+    },
+    {
+      "type": "website",
+      "url": "https://github.com/moritztng/tt-fluid/tree/main/docs",
+      "label": "Docs"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "quietbox"
+  ],
+  "related": [
+    "daisytuner-openfoam-tt"
+  ],
+  "author": "Moritz Thüning",
+  "language": "C++",
+  "license": "GPL-3.0",
+  "added_at": "2026-10-29"
+}

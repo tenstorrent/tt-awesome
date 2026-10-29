@@ -1,0 +1,48 @@
+{
+  "id": "corsix-wormhole-series",
+  "name": "Tenstorrent Wormhole Series (corsix.org)",
+  "description": "Peter Cawley's eight-part reverse-engineering series on Wormhole: physical layout and disabled rows, NoC propagation delay, Ethernet, the insides of a Tensix tile, the vector instruction set, bits of the matmul unit and a closing reference. The companion repo is a functional description of the vector instructions.",
+  "affiliation": "community",
+  "categories": [
+    "riscv-arch",
+    "kernels",
+    "blogs"
+  ],
+  "tags": [
+    "wormhole",
+    "reverse-engineering",
+    "tensix",
+    "vector-isa",
+    "noc",
+    "matmul",
+    "blog",
+    "planet"
+  ],
+  "links": [
+    {
+      "type": "article",
+      "url": "https://www.corsix.org/content/tt-wh-part1",
+      "label": "Part 1: Physicalities"
+    },
+    {
+      "type": "article",
+      "url": "https://www.corsix.org/content/tt-wh-part6",
+      "label": "Part 6: Vector instruction set"
+    },
+    {
+      "type": "article",
+      "url": "https://www.corsix.org/content/tt-wh-part8",
+      "label": "Part 8: Reference"
+    },
+    {
+      "type": "repo",
+      "url": "https://github.com/corsix/wormhole-vector",
+      "label": "wormhole-vector repo"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "author": "Peter Cawley",
+  "added_at": "2026-10-29"
+}

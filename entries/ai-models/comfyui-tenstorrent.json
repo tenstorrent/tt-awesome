@@ -1,0 +1,38 @@
+{
+  "id": "comfyui-tenstorrent",
+  "name": "ComfyUI-Tenstorrent",
+  "description": "ComfyUI custom nodes for running Stable Diffusion XL, SD3.5, Wan 2.2, LTX-2.3 and MiniMax-H3 on Tenstorrent hardware. The nodes start and supervise a tt-metal FastAPI inference server that ships in the package, so CLIP, the UNet or DiT and the VAE all run on the device while ComfyUI keeps its own environment.",
+  "affiliation": "affiliated",
+  "categories": [
+    "ai-models",
+    "games-demos"
+  ],
+  "tags": [
+    "comfyui",
+    "stable-diffusion",
+    "sdxl",
+    "sd3",
+    "wan",
+    "ltx",
+    "video",
+    "diffusion",
+    "tt-metal",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/stisiTT/ComfyUI-Tenstorrent"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "quietbox",
+    "galaxy"
+  ],
+  "author": "Sam Tisi",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-29"
+}

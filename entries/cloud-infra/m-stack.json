@@ -1,0 +1,33 @@
+{
+  "id": "m-stack",
+  "name": "M-Stack",
+  "description": "MultiCoreWare's declarative Python SDK for building AI inference platforms on Kubernetes, from bare machines to a served model. Tenstorrent is a first-class accelerator type: the Helm layer installs the tt-operator chart and the serving layer exposes OpenAI-compatible endpoints over vLLM.",
+  "affiliation": "community",
+  "categories": [
+    "cloud-infra"
+  ],
+  "tags": [
+    "kubernetes",
+    "helm",
+    "tt-operator",
+    "vllm",
+    "kserve",
+    "inference",
+    "sdk",
+    "python",
+    "multicoreware"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Multicorewareinc/M-Stack"
+    }
+  ],
+  "related": [
+    "tt-operator"
+  ],
+  "author": "MultiCoreWare",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-29"
+}

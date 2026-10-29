@@ -1,0 +1,33 @@
+{
+  "id": "simbricks-component-tenstorrent",
+  "name": "SimBricks component-tenstorrent",
+  "description": "SimBricks integration for Tenstorrent's ttsim chip model, from MPI-SWS. About 700 lines of C++ present libttsim as a SimBricks PCIe device, so a simulated host can boot Linux, load the real tt-kmd driver and run a PyTorch workload on a simulated Wormhole or Blackhole. The chip model is loaded at runtime and left unmodified.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools",
+    "research"
+  ],
+  "tags": [
+    "simbricks",
+    "ttsim",
+    "simulation",
+    "pcie",
+    "tt-kmd",
+    "cpp"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/FreakyPenguin/component-tenstorrent"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "ttsim"
+  ],
+  "author": "Antoine Kaufmann",
+  "language": "C++",
+  "license": "MIT",
+  "added_at": "2026-10-29"
+}

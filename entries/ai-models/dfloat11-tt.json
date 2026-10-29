@@ -1,0 +1,36 @@
+{
+  "id": "dfloat11-tt",
+  "name": "DFloat11-TT",
+  "description": "DFloat11 lossless LLM weight compression ported to Blackhole. Huffman-codes only the exponent field of BFloat16 weights, cutting them to about 70% of their size with bit-for-bit identical outputs, with a C++ extension built against tt-metal, a compressor and an on-device evaluation path.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "kernels"
+  ],
+  "tags": [
+    "dfloat11",
+    "compression",
+    "huffman",
+    "bfloat16",
+    "llm",
+    "tt-metal",
+    "cpp"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/tom-peter12/dfloat11_tt"
+    },
+    {
+      "type": "paper",
+      "url": "https://arxiv.org/abs/2504.11651",
+      "label": "DFloat11 paper"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "Tomas Petros",
+  "language": "Python",
+  "added_at": "2026-10-29"
+}
