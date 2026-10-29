@@ -23,7 +23,9 @@ CATEGORIES = [
     ("riscv-arch",  "🔩 RISC-V & Architecture"),
     ("research",    "🔬 Research & Papers"),
     ("games-demos", "🎮 Games & Demos"),
+    ("media",       "🎨 Media: Image, Video & Audio"),
     ("guides",      "📚 Guides, Tutorials & Education"),
+    ("blogs",       "✍️ Blogs"),
 ]
 
 # Ordering for affiliation tiers: lower value = higher in the list

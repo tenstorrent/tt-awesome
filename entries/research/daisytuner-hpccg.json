@@ -1,0 +1,41 @@
+{
+  "id": "daisytuner-hpccg",
+  "name": "HPCCG on Tenstorrent (Daisytuner)",
+  "description": "Daisytuner's case study porting the HPCCG conjugate-gradient mini-app to Wormhole and Blackhole: the SPMV, WAXPBY and DDOT kernels run on Tensix cores over an ELLPACK matrix layout, with the Daisytuner Optimizing Compiler Collection (DOCC) handling parallelisation and offload.",
+  "affiliation": "community",
+  "categories": [
+    "research",
+    "kernels"
+  ],
+  "tags": [
+    "hpc",
+    "sparse",
+    "spmv",
+    "conjugate-gradient",
+    "ellpack",
+    "daisytuner",
+    "cpp"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/daisytuner/HPCCG"
+    },
+    {
+      "type": "website",
+      "url": "https://app.daisytuner.com/daisytuner/HPCCG/runs",
+      "label": "Daisytuner runs"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "related": [
+    "daisytuner-openfoam-tt"
+  ],
+  "author": "Daisytuner",
+  "language": "C++",
+  "license": "BSD-3-Clause",
+  "added_at": "2026-10-29"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "baretile",
+  "name": "baretile",
+  "description": "A compiler and runtime for Tenstorrent Blackhole written in about 2,700 lines of standard-library Python. You write tensor operations and it compiles them to Tensix instructions, loads its own worker firmware and drives the card over PCIe from userspace, with no dependency on tt-metal, tt-umd or LLK. Developed against the ttsim simulator; untested on a card so far.",
+  "affiliation": "community",
+  "categories": [
+    "kernels",
+    "compilers",
+    "hw-system"
+  ],
+  "tags": [
+    "compiler",
+    "runtime",
+    "python",
+    "blackhole",
+    "tensix",
+    "pcie",
+    "ttsim",
+    "bare-metal"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/baretile/baretile"
+    },
+    {
+      "type": "website",
+      "url": "https://baretile.com",
+      "label": "baretile.com"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "ttsim"
+  ],
+  "author": "baretile",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-29"
+}

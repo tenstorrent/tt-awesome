@@ -16,7 +16,8 @@ AFFILIATIONS = ["community", "affiliated", "official"]
 CATEGORIES = [
     "getting-started",
     "ai-models", "agents", "kernels", "compilers", "dev-tools",
-    "hw-system", "cloud-infra", "riscv-arch", "research", "games-demos", "guides",
+    "hw-system", "cloud-infra", "riscv-arch", "research", "games-demos", "media", "guides",
+    "blogs",
 ]
 LINK_TYPES = ["repo", "article", "talk", "video", "website", "demo", "lesson", "paper"]
 HARDWARE = ["grayskull", "wormhole", "blackhole", "quietbox", "galaxy", "ttsim"]

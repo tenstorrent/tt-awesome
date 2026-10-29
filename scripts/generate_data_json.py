@@ -34,7 +34,9 @@ CATEGORIES = [
     ("riscv-arch",      "RISC-V & Architecture"),
     ("research",        "Research & Papers"),
     ("games-demos",     "Games & Demos"),
+    ("media",           "Media: Image, Video & Audio"),
     ("guides",          "Guides, Tutorials & Education"),
+    ("blogs",           "Blogs"),
 ]
 
 # Same tier ordering as generate_readme.py so both outputs are consistent.

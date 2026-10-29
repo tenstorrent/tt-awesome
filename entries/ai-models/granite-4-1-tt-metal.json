@@ -1,0 +1,33 @@
+{
+  "id": "granite-4-1-tt-metal",
+  "name": "granite-4.1-tt-metal",
+  "description": "A community port of IBM Granite 4.1-8B to Wormhole through tt-metal and the Tenstorrent vLLM plugin, with the porting code, a verification harness and measured performance results. The author states the project is not affiliated with IBM, Tenstorrent or Networld.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models"
+  ],
+  "tags": [
+    "granite",
+    "ibm",
+    "llm",
+    "vllm",
+    "tt-metal",
+    "port",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/unnowataru/granite-4.1-tt-metal"
+    }
+  ],
+  "hardware": [
+    "wormhole"
+  ],
+  "related": [
+    "granite-4-ttnn"
+  ],
+  "author": "Unno Wataru",
+  "language": "Python",
+  "added_at": "2026-10-29"
+}

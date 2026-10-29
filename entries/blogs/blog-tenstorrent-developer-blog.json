@@ -1,0 +1,45 @@
+{
+  "id": "blog-tenstorrent-developer-blog",
+  "name": "Tenstorrent Developer Blog",
+  "description": "Tenstorrent's official developer blog at tenstorrent.com/developers. Engineering write-ups from the teams building the stack: serving models with tt-cli and community bundles, prefill and decode disaggregation for agentic workloads, running AnimateDiff on Blackhole, and agentic coding from a Mac backed by a QuietBox. New posts also appear on the Planet.",
+  "affiliation": "official",
+  "categories": [
+    "blogs"
+  ],
+  "tags": [
+    "blog",
+    "official",
+    "tt-cli",
+    "tt-model",
+    "vllm",
+    "blackhole",
+    "quietbox",
+    "planet"
+  ],
+  "links": [
+    {
+      "type": "website",
+      "url": "https://tenstorrent.com/developers",
+      "label": "tenstorrent.com/developers"
+    },
+    {
+      "type": "article",
+      "url": "https://tenstorrent.com/developers/blog/tt-cli-and-community-model-bundles",
+      "label": "Deploying Community Models with the Tenstorrent CLI"
+    },
+    {
+      "type": "article",
+      "url": "https://tenstorrent.com/developers/blog/serving-prefill-and-decode-for-agentic-ai",
+      "label": "Serving prefill and decode for agentic AI"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "quietbox",
+    "galaxy"
+  ],
+  "author": "Tenstorrent",
+  "featured": true,
+  "added_at": "2026-10-29"
+}

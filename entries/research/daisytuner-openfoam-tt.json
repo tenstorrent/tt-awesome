@@ -1,0 +1,36 @@
+{
+  "id": "daisytuner-openfoam-tt",
+  "name": "OpenFOAM-TT",
+  "description": "Daisytuner's build of OpenFOAM's core libOpenFOAM as a standalone CMake project, with symbol-equivalent replacements that offload its sparse matrix operations to Tenstorrent hardware. The result drops into the original OpenFOAM driver via LD_LIBRARY_PATH, so offloading strategies can be explored without touching the solvers.",
+  "affiliation": "community",
+  "categories": [
+    "research",
+    "kernels"
+  ],
+  "tags": [
+    "openfoam",
+    "cfd",
+    "hpc",
+    "sparse",
+    "spmv",
+    "daisytuner",
+    "cpp"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/daisytuner/OpenFOAM-TT"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "related": [
+    "daisytuner-hpccg",
+    "tt-fluid"
+  ],
+  "author": "Daisytuner",
+  "language": "C++",
+  "added_at": "2026-10-29"
+}

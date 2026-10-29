@@ -139,7 +139,9 @@ are skipped rather than guessed at.
 | `riscv-arch` | 🔩 RISC-V & Architecture |
 | `research` | 🔬 Research & Papers |
 | `games-demos` | 🎮 Games & Demos |
+| `media` | 🎨 Media: Image, Video & Audio |
 | `guides` | 📚 Guides, Tutorials & Education |
+| `blogs` | ✍️ Blogs |
 
 ## CI validation
 

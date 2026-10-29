@@ -1,0 +1,33 @@
+{
+  "id": "bhtop",
+  "name": "bhtop",
+  "description": "A top for the Blackhole network-on-chip: live NoC telemetry read straight from the per-tile NIU hardware performance counters, drawn as a die floorplan in the terminal, plus a web cockpit with a device tree, a code editor and a live engine pane for bare-metal L2CPU x280 work.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools",
+    "hw-system",
+    "riscv-arch"
+  ],
+  "tags": [
+    "noc",
+    "telemetry",
+    "top",
+    "bare-metal",
+    "l2cpu",
+    "x280",
+    "monitoring",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/dtsunami/tt-baremetal"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "dtsunami",
+  "language": "Python",
+  "added_at": "2026-10-29"
+}

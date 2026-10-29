@@ -1,0 +1,31 @@
+{
+  "id": "xpustat",
+  "name": "xpustat",
+  "description": "A unified accelerator stat tool in the style of gpustat that covers every vendor it can find a CLI for. Tenstorrent Wormhole and Blackhole cards are read through tt-smi alongside NVIDIA, AMD, Intel, Huawei, AWS Neuron and TPU backends.",
+  "affiliation": "community",
+  "categories": [
+    "dev-tools"
+  ],
+  "tags": [
+    "gpustat",
+    "tt-smi",
+    "monitoring",
+    "multi-vendor",
+    "cli",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/Bekhouche/xpustat"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole"
+  ],
+  "author": "Salah Eddine Bekhouche",
+  "language": "Python",
+  "license": "MIT",
+  "added_at": "2026-10-29"
+}

@@ -12,7 +12,7 @@ VALID_AFFILIATIONS = {"official", "affiliated", "community"}
 VALID_CATEGORY_SLUGS = {
     "getting-started",
     "ai-models", "agents", "kernels", "compilers", "dev-tools",
-    "hw-system", "cloud-infra", "riscv-arch", "research", "games-demos", "guides", "blogs",
+    "hw-system", "cloud-infra", "riscv-arch", "research", "games-demos", "media", "guides", "blogs",
 }
 VALID_LINK_TYPES = {"repo", "article", "talk", "video", "website", "demo", "lesson", "paper"}
 VALID_HARDWARE = {"grayskull", "wormhole", "blackhole", "quietbox", "galaxy", "ttsim"}

@@ -13,6 +13,7 @@ module.exports = [
   { slug: "riscv-arch",  label: "🔩 RISC-V & Architecture",          description: "ISA, simulation, and running Linux on TT silicon" },
   { slug: "research",    label: "🔬 Research & Papers",               description: "Academic papers, theses, and HPC experiments" },
   { slug: "games-demos", label: "🎮 Games & Demos",                  description: "Creative, playful, and proof-of-concept projects" },
+  { slug: "media",       label: "🎨 Media: Image, Video & Audio",   sidebarLabel: "🎨 Media",             description: "Generating and processing images, video, music and speech on TT hardware" },
   { slug: "guides",      label: "📚 Guides, Tutorials & Education",  sidebarLabel: "📚 Guides & Tutorials", description: "Getting-started content, blog posts, lessons, courses" },
   { slug: "blogs",       label: "✍️ Blogs",                           description: "Community and affiliated blogs covering Tenstorrent hardware, software, and AI" },
 ];

@@ -1,0 +1,35 @@
+{
+  "id": "tt-metrics-exporter",
+  "name": "tt-metrics-exporter",
+  "description": "A Kubernetes metrics exporter for Tenstorrent Wormhole and Blackhole clusters, written in Python. Runs as a node-local DaemonSet, reads telemetry through sysfs and the tt-kmd device paths, and optionally reports DRA state. Includes a QEMU ttsim VM setup for testing without hardware.",
+  "affiliation": "community",
+  "categories": [
+    "cloud-infra",
+    "dev-tools"
+  ],
+  "tags": [
+    "kubernetes",
+    "metrics",
+    "exporter",
+    "daemonset",
+    "telemetry",
+    "dra",
+    "ttsim",
+    "python"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/varrahan/tt-metrics-exporter"
+    }
+  ],
+  "hardware": [
+    "wormhole",
+    "blackhole",
+    "ttsim"
+  ],
+  "author": "Varrahan Uthayan",
+  "language": "Python",
+  "license": "Apache-2.0",
+  "added_at": "2026-10-29"
+}
