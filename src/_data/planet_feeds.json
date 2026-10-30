@@ -3,6 +3,20 @@
     "type": "release",
     "source": "github",
     "approved": true,
+    "title": "tt-flash v4.2.0",
+    "url": "https://github.com/tenstorrent/tt-flash/releases/tag/v4.2.0",
+    "description": "This release improves Galaxy (GLX) flashing reliability by preferring the no-retimer IPMI reset path during BMC operations, which simplifies the reset sequence and reduces potential points of failure when flashing these boards. If you're working with GLX hardware in production, this should make your flashing workflows more consistent.",
+    "date": "2026-10-30",
+    "dateISO": "2026-10-30T01:58:52Z",
+    "label": "tenstorrent/tt-flash",
+    "projectName": "tt-flash",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
     "title": "tt-system-firmware v19.17.1",
     "url": "https://github.com/tenstorrent/tt-system-firmware/releases/tag/v19.17.1",
     "description": "v19.17.1 patches a GDDR stability issue on Galaxy systems by disabling MRISC powerdown—a necessary tradeoff that raises idle power consumption by 1.6 kW. The underlying v19.17.0 release brings significant improvements across Blackhole and Grendel: Blackhole's Ethernet firmware now trains UBB retimer ports at 330G (when auto-train is enabled), fixes signal integrity on quad-SPI reads, and adds execution-stage visibility into the Ethernet pipeline via `eth_status.eth_fw_stage`; Galaxy 2 DMC now handles missing PSU sense GPIOs gracefully; and Grendel gains a new QSR1.A1 board definition, I3C controller and target drivers for pre-D2D chiplet communication, and improved boot stability. See the [19.17 Migration Guide](https://github.com/tenstorrent/tt-system-firmware/tree/main/doc/release/migration-guide-19.17.md) for upgrade details.",
@@ -143,6 +157,20 @@
     "type": "release",
     "source": "github",
     "approved": true,
+    "title": "xpustat v0.6.0",
+    "url": "https://github.com/Bekhouche/xpustat/releases/tag/v0.6.0",
+    "description": "The web UI is the headline: `xpustat --ui` now serves a self-contained browser dashboard on `http://127.0.0.1:9400/` that shows utilization, memory, temperature, power, and other per-device metrics with sparklines, plus clickable detail views for each GPU—and for cluster operators, `--ssh node1 node2 ...` puts all hosts on one page with a live summary of free devices, throttle states, and host health, all polled and cached by the server so multiple tabs don't fan out. The addition costs no new dependencies, the Prometheus endpoint lives on the same port alongside `/json` and `/cluster`, and the release ships with CI on Ubuntu, macOS, and Windows plus fixes for textual P-states in Prometheus output and handling of missing data across several hardware platforms (Apple silicon, NVIDIA L4, AMD Radeon, and CPU-only systems). Upgrade with `pip install -U xpustat`.",
+    "date": "2026-10-27",
+    "dateISO": "2026-10-27T13:55:51Z",
+    "label": "Bekhouche/xpustat",
+    "projectName": "xpustat",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
     "title": "sfpi 7.91.0",
     "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.91.0",
     "description": "The SFPI team has removed the deprecated `sfpi::lut` API entirely and marked macro wrappers for synthesizable builtins as deprecated, clearing technical debt that was blocking optimization work. More immediately useful: rocc builtins are now tagged as non-memory operations, which lets the compiler apply more aggressive optimizations to kernels that rely on them. The synthesis renumber pass has also been reimplemented for better performance across the board, so compilation should feel snappier on existing code without any changes needed on your end.",
@@ -166,6 +194,34 @@
     "projectName": "tt-umd",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "xpustat v0.5.0",
+    "url": "https://github.com/Bekhouche/xpustat/releases/tag/v0.5.0",
+    "description": "Bekhouche's xpustat now treats the host CPU as a first-class device alongside GPUs and accelerators, with per-process utilization, container attribution (Docker, Kubernetes, SLURM), and health metrics like throttle reasons and ECC status—ship it with `--cpu` or `include_cpu=True`. The release also opens a cluster view via `--hosts` and `--ssh`, adds diagnostics with `--doctor`, records and replays sessions to JSON, brings Apple Silicon sensors to userland without sudo, and lands support for Rebellions and FuriosaAI NPUs alongside native Windows operation. Optional bindings to `amdsmi` and `nvidia-ml-py` no longer break imports on driver mismatches, making xpustat more resilient across heterogeneous labs.",
+    "date": "2026-10-27",
+    "dateISO": "2026-10-27T09:53:13Z",
+    "label": "Bekhouche/xpustat",
+    "projectName": "xpustat",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "xpustat v0.4.0",
+    "url": "https://github.com/Bekhouche/xpustat/releases/tag/v0.4.0",
+    "description": "xpustat 0.4.0 adds device selection for job scheduling—use `xpustat --select N` to pick your best N devices and export the right environment variables (`CUDA_VISIBLE_DEVICES`, `TPU_VISIBLE_CHIPS`, `TT_VISIBLE_DEVICES`, and friends) in one command, or call `xpustat.visible_devices_env()` from Python. The release also brings Jetson support via `tegrastats` for edge deployments, NVIDIA MIG compute instance reporting, and a plugin system so vendors outside the package can register backends through the `xpustat.backends` entry point or `xpustat.register_backend()` at runtime. A new query cache (`max_age` parameter and `--cache-ttl` flag) smooths out scrape timing mismatches—handy when Prometheus hits faster than your GPU tools can answer. See [docs/contributing.md](https://github.com/Bekhouche/xpustat/blob/0.4.0/docs/contributing.md) for the plugin contract if you're adding a vendor.",
+    "date": "2026-10-27",
+    "dateISO": "2026-10-27T08:51:50Z",
+    "label": "Bekhouche/xpustat",
+    "projectName": "xpustat",
+    "projectId": null,
+    "affiliation": "community"
   },
   {
     "type": "article",
@@ -384,6 +440,20 @@
     "projectName": "tt-metal",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "xpustat v0.3.0",
+    "url": "https://github.com/Bekhouche/xpustat/releases/tag/v0.3.0",
+    "description": "xpustat 0.3.0 lands support for four new accelerator backends—Apple Silicon, AWS Neuron, Google Cloud TPU, and Tenstorrent—plus a vendor-neutral device picker that lets training scripts ask \"which GPU should I use?\" and get back a `torch_device` string that respects the framework's visibility environment variables. That means you can write `model.to(xpustat.pick_device()[0].torch_device)` once and have it work across NVIDIA, AMD, Apple, and other vendors without conditional logic. The release also ships a built-in [Prometheus exporter](https://github.com/Bekhouche/xpustat/tree/0.3.0/docs) for monitoring, fixes indexing on device collections and concurrent vendor queries (cutting query time by ~30% on multi-GPU setups), and includes fresh [documentation](https://github.com/Bekhouche/xpustat/tree/0.3.0/docs) covering the new API. The three new cloud-TPU backends haven't been tested on hardware yet—the maintainers welcome PRs if you have access to run them.",
+    "date": "2026-10-23",
+    "dateISO": "2026-10-23T21:37:42Z",
+    "label": "Bekhouche/xpustat",
+    "projectName": "xpustat",
+    "projectId": null,
+    "affiliation": "community"
   },
   {
     "type": "video",
@@ -622,6 +692,20 @@
     "projectName": "ttsim",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "tt-fluid v0.1.0",
+    "url": "https://github.com/moritztng/tt-fluid/releases/tag/v0.1.0",
+    "description": "tt-fluid now brings OpenFOAM's steady incompressible SIMPLE solver to Tenstorrent hardware, with every iteration running on-device and fields validated against OpenFOAM v2412 to within 0.4–0.8 %. On the industry-standard HPC_motorbike benchmark (8.66M cells), a QuietBox 2 achieves 2.3–3.2× better cost-per-case than H100 or B200 clusters running SPUMA, with drag predictions within the reference's measurement uncertainty—a meaningful result for anyone evaluating CFD workloads. The `ttfluid run` command takes ordinary OpenFOAM cases directly; `ttfluid check` lets you validate logic on CPU before touching silicon. Comprehensive test coverage against OpenFOAM references, a full tutorial, and [performance methodology docs](https://github.com/moritztng/tt-fluid/blob/tt-fluid-0.1.0) round out a release that's ready for steady-state incompressible k-ω SST flows in fp32 on Blackhole and QuietBox hardware.",
+    "date": "2026-10-19",
+    "dateISO": "2026-10-19T04:03:24Z",
+    "label": "moritztng/tt-fluid",
+    "projectName": "tt-fluid",
+    "projectId": null,
+    "affiliation": "affiliated"
   },
   {
     "type": "release",
@@ -1364,6 +1448,20 @@
     "projectName": "ttnn-visualizer",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "xpustat v0.2.0",
+    "url": "https://github.com/Bekhouche/xpustat/releases/tag/v0.2.0",
+    "description": "xpustat 0.2.0 restores AMD GPU detection on ROCm 10 after silent failures when `amd-smi` returned `\"N/A\"` fields or reported idle GPUs' process lists as strings—a fix that matters especially on systems with both iGPU and discrete cards. The watch mode (`-i`) also stops flickering by rendering frames in memory and drawing to the terminal's alternate screen, keeping your view steady while preserving normal piped output. Grab it with `pip install -U xpustat` and see the [full changelog](https://github.com/Bekhouche/xpustat/compare/v0.1.0...v0.2.0).",
+    "date": "2026-09-30",
+    "dateISO": "2026-09-30T14:06:02Z",
+    "label": "Bekhouche/xpustat",
+    "projectName": "xpustat",
+    "projectId": null,
+    "affiliation": "community"
   },
   {
     "type": "release",
@@ -4360,6 +4458,34 @@
     "projectName": "sfpi",
     "projectId": null,
     "affiliation": "official"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "granite-4.1-tt-metal v0.1.1",
+    "url": "https://github.com/unnowataru/granite-4.1-tt-metal/releases/tag/v0.1.1",
+    "description": "This release adds Japanese translations to the most-visited docs sections—the Hugging Face model card, both READMEs, and the quickstart guide—while keeping English as the canonical source and ensuring disclaimers about the project's independence are equally clear in both languages. If you're building with Granite 4.1 on TT-Metal and rely on these docs to get started, you'll now find the same guidance available in JA alongside EN, with no changes to code or measurements from v0.1.0.",
+    "date": "2026-07-15",
+    "dateISO": "2026-07-15T00:54:30Z",
+    "label": "unnowataru/granite-4.1-tt-metal",
+    "projectName": "granite-4.1-tt-metal",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "granite-4.1-tt-metal v0.1.0",
+    "url": "https://github.com/unnowataru/granite-4.1-tt-metal/releases/tag/v0.1.0",
+    "description": "Granite 4.1 is now available for tt-metal, offering a production-ready serving stack on Wormhole hardware with validated accuracy and measured throughput—up to 46 tok/s aggregate at c=3 on N300 (msq=4, mml=8192). Single-device inference achieves PCC 0.999410, byte-exact chat templates round-trip correctly, and structured tool calls work end-to-end including streaming, though multi-device inference and batched prompts remain on the roadmap. Performance scales well with concurrency (1.76× speedup at c=2 baseline configuration), making this a solid foundation for building Granite applications on Tenstorrent.",
+    "date": "2026-07-14",
+    "dateISO": "2026-07-14T16:28:29Z",
+    "label": "unnowataru/granite-4.1-tt-metal",
+    "projectName": "granite-4.1-tt-metal",
+    "projectId": null,
+    "affiliation": "community"
   },
   {
     "type": "release",
