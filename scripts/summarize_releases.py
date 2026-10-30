@@ -34,6 +34,7 @@ ROOT = Path(__file__).parent.parent
 ENTRIES_DIR = ROOT / "entries"
 META_IN = ROOT / "src" / "_data" / "github_meta.json"
 FEEDS_OUT = ROOT / "src" / "_data" / "planet_feeds.json"
+DECLINED = ROOT / "src" / "_data" / "planet_declined.json"
 
 import llm_client
 import pr_digest
@@ -71,6 +72,18 @@ def load_known_urls(feeds_path: Path) -> set:
     except Exception as e:
         print(f"  WARN: could not read {feeds_path}: {e}", file=sys.stderr)
         return set()
+
+
+def load_declined(path: Path) -> list:
+    """Rows from planet_declined.json; releases a maintainer chose not to publish."""
+    if not path.exists():
+        return []
+    try:
+        rows = json.loads(path.read_text())
+    except Exception as e:
+        print(f"  WARN: could not read {path}: {e}", file=sys.stderr)
+        return []
+    return [r for r in rows if isinstance(r, dict)]
 
 
 def release_key(title: str) -> str:
@@ -600,6 +613,12 @@ def main(argv: list | None = None):
     # Second line of defence for repos that were renamed or moved orgs; see
     # release_key() for why the URL alone is not enough.
     known_release_keys = load_known_release_keys(FEEDS_OUT)
+    # Declined releases stay unpublished: a decline must survive the next run.
+    for row in load_declined(DECLINED):
+        if row.get("url"):
+            known_urls.add(row["url"])
+            if "/releases/tag/" in row["url"] and row.get("title"):
+                known_release_keys.add(release_key(row["title"]))
 
     # The current contents of planet_feeds.json (used when writing back merged output).
     existing_feeds = []
