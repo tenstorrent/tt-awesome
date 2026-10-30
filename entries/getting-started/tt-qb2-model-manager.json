@@ -1,0 +1,22 @@
+{
+  "id": "tt-qb2-model-manager",
+  "name": "tt-qb2-model-manager",
+  "description": "tt-qb2-model-manager is a fast, zero-GUI-dependency CLI and interactive terminal appliance manager purpose-built for the Tenstorrent QuietBox 2 (P300X2 — 4× p300c PCIe boards / 8× Blackhole ASICs / 128 GB GDDR6).\n\nIt unifies deep hardware/container forensics, an automated Hugging Face Frontier Proximity % benchmark ranker, local .safetensors and config.json architecture inspection, tt-metal warm/cold cache analysis, safe multi-chip resets (tt-smi -r), and a deterministic 5-phase bring-up progress tracker into a single command (./qb2_model_manager). \n\nDirect YAML Catalog Parsing: Reads /home/ttuser/.local/lib/tt-inference-server/workflows/model_specs/prod/llm.yaml (and dev/llm.yaml + dev/vlm.yaml with --dev), preserving multiple engine implementations per model (tt-transformers vs. tt-forge-vllm).\n\nExperimental & Dev-Catalog Model Loading (--dev) unlocks 16 additional experimental P300X2 LLM and VLM configurations from dev/llm.yaml and dev/vlm.yaml that are omitted from prod and model_spec.json",
+  "affiliation": "community",
+  "categories": [
+    "getting-started",
+    "ai-models",
+    "dev-tools"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/palisurf/tt-qb2-model-manager"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "author": "palisurf"
+}
