@@ -1,11 +1,18 @@
 {
+  "https://github.com/bro4all/autoresearch-tenstorrent": {
+    "stars": 8,
+    "updatedAt": "2026-06-21T00:41:29Z",
+    "isFork": true,
+    "forkParent": "karpathy/autoresearch",
+    "forkParentUrl": "https://github.com/karpathy/autoresearch"
+  },
   "https://github.com/aldegad/tenstorrent": {
     "stars": 15,
     "updatedAt": "2026-10-06T04:59:44Z"
   },
   "https://github.com/tenstorrent/skills": {
-    "stars": 15,
-    "updatedAt": "2026-10-23T07:46:24Z"
+    "stars": 16,
+    "updatedAt": "2026-10-29T18:24:21Z"
   },
   "https://github.com/moritztng/tt-bio-bringup": {
     "stars": 0,
@@ -20,8 +27,8 @@
     "updatedAt": "2026-10-28T18:11:38Z"
   },
   "https://github.com/palisurf/cjllm-harness": {
-    "stars": 0,
-    "updatedAt": "2026-10-29T15:55:43Z"
+    "stars": 1,
+    "updatedAt": "2026-10-30T00:53:29Z"
   },
   "https://github.com/zoecarver/dflash": {
     "stars": 0,
@@ -29,6 +36,10 @@
     "isFork": true,
     "forkParent": "z-lab/dflash",
     "forkParentUrl": "https://github.com/z-lab/dflash"
+  },
+  "https://github.com/tom-peter12/dfloat11_tt": {
+    "stars": 0,
+    "updatedAt": "2026-04-26T20:55:30Z"
   },
   "https://github.com/zoecarver/diamond": {
     "stars": 1,
@@ -48,6 +59,27 @@
   "https://github.com/zoecarver/gemma4": {
     "stars": 1,
     "updatedAt": "2026-05-22T20:18:42Z"
+  },
+  "https://github.com/unnowataru/granite-4.1-tt-metal": {
+    "stars": 0,
+    "updatedAt": "2026-07-15T00:54:12Z",
+    "releases": [
+      {
+        "tagName": "v0.1.1",
+        "name": "v0.1.1 \u2014 docs: JA/EN bilingual",
+        "publishedAt": "2026-07-15T00:54:30Z",
+        "url": "https://github.com/unnowataru/granite-4.1-tt-metal/releases/tag/v0.1.1",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.1.0",
+        "name": "v0.1.0 \u2014 Initial public release",
+        "publishedAt": "2026-07-14T16:28:29Z",
+        "url": "https://github.com/unnowataru/granite-4.1-tt-metal/releases/tag/v0.1.0",
+        "prerelease": false
+      }
+    ],
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to this repository are recorded here. This file follows the\nspirit of Keep-a-Changelog and Semantic Versioning, adapted for a hardware-port\nproject (each entry names the compatibility surface it affects).\n\nSections used per release:\n\n- **Compatibility** \u2014 supported stack changes (tt-metal commit, FW, KMD, container).\n- **Serving** \u2014 runtime behavior of `scripts/serving/` and `overlays/`.\n- **Validation** \u2014 new gates, new evidence, or shifted validation scope.\n- **Performance** \u2014 measured numbers change or new configurations characterized.\n- **Known limitations** \u2014 new or removed items from the open-gaps list.\n\n## [Unreleased]\n\n- **Backlog (from private-side operational baseline)**: the maintainer's private setup has since\n  upgraded to `MESH_DEVICE=N300, max_num_seqs=2, max_model_len=32768, chunk=16` on 2026-07-15,\n  with OpenClaw agent end-to-end measured. This upgrade is **not yet reflected in v0.1.x** \u2014 it\n  will land in a subsequent MINOR (0.2.0) release once the new configuration is characterized in\n  the public evidence + validation docs. The v0.1.0 baseline (msq=4, mml=8192, 2026-07-11\n  measurement) is preserved as the initial published snapshot.\n\n## [0.1.1] \u2014 2026-07-15 (docs)\n\n- **Docs**: added Japanese (JA/EN bilingual) to the four highest-signal sections only,\n  keeping the English body as canonical:\n  - HF Model Card: Card-only / no-weights warning.\n  - Both READMEs: Non-affiliated disclaimer (IBM / Tenstorrent / Networld \u2014 no involvement,\n    no endorsement).\n  - GitHub README: `Status at a glance` table (single bilingual table so numbers are not\n    duplicated).\n  - GitHub README: Quickstart intro + preflight legend.\n- **No changes**: to code, scripts, overlays, measured values, pinned stack, or validation\n  scope. The v0.1.0 evidence remains authoritative.\n\n## [0.1.0] \u2014 2026-07-15 (initial public release)\n\n- **Compatibility**: `tt-metal 805f43d` / container image\n  `0.12.0-805f43d-a45c614` @ sha256:6cbb9532... / FW 19.6.0 / KMD 2.7.0 / Wormhole b0.\n- **Serving**: N300 msq=4 mml=8192 with `--tool-call-parser hermes`. `msq` restricted\n  to `{1,2,4,8,16,32}` by upstream tt_transformers.\n- **Validation**: N150 single-device, single-prompt PCC 0.999410 with top1 match\n  and top5 4/5. Byte-exact chat_template round-trip on N300. Structured tool-call\n  round-trip on N300 (turn 1 name/JSON/city + turn 2 tool-result reflection + streaming).\n- **Performance**: N300 baseline (msq=2, mml=4096) 23.5 tok/s single, 41.3 tok/s\n  aggregate at c=2 (1.76\u00d7). Operational (msq=4, mml=8192) 24.8 tok/s single,\n  46.0 tok/s aggregate at c=3.\n- **Known limitations**: no multi-device teacher-forced PCC, no multi-prompt\n  statistics, no T3K measurements, no p50/p95 latency. See [`docs/validation.md`](docs/validation.md)."
   },
   "https://github.com/quandvucl/granite-4-ttnn": {
     "stars": 0,
@@ -204,7 +236,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 126,
-    "updatedAt": "2026-10-29T18:14:45Z",
+    "updatedAt": "2026-10-30T06:04:39Z",
     "releases": [
       {
         "tagName": "v0.26.1",
@@ -913,7 +945,7 @@
   },
   "https://github.com/localai-org/vllm.cpp": {
     "stars": 471,
-    "updatedAt": "2026-10-29T15:15:44Z",
+    "updatedAt": "2026-10-29T23:34:28Z",
     "preview_image": "https://raw.githubusercontent.com/localai-org/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -993,8 +1025,8 @@
     "updatedAt": "2026-10-27T12:45:43Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2295,
-    "updatedAt": "2026-10-29T16:01:27Z",
+    "stars": 2296,
+    "updatedAt": "2026-10-30T06:07:06Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1038,9 +1070,18 @@
     "stars": 20,
     "updatedAt": "2026-09-10T08:48:31Z"
   },
+  "https://github.com/Multicorewareinc/M-Stack": {
+    "stars": 22,
+    "updatedAt": "2026-10-26T04:31:08Z",
+    "changelog_excerpt": "# Changelog\n\nNotable changes to this SDK. Format follows\n[Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow\n[Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\nNothing has been released yet, so everything below is unreleased and the\npublic surface is still free to move.\n\n## [Unreleased]\n\n### Added\n\n- **The capability pattern.** The capability is the class and the\n  implementation is data: `Storage(type=\"longhorn\")` rather than\n  `LonghornStorage`. `multistack/capability.py` holds the shared\n  machinery \u2014 type validation, typed `options` matched against `type`,\n  namespace defaulting, driver dispatch and caching \u2014 so a new capability\n  declares its choices and its own fields rather than reimplementing any\n  of it. `docs/structure.md` describes the shape and how to extend it.\n- **`multistack.stack.Stack`**, a composition root. States which cluster\n  once, explicitly, and threads it into every spec; publishes what each\n  layer produced for the next (`record()`), and refuses to build a spec\n  whose `REQUIRES` name a capability that has published nothing. Not\n  ambient \u2014 nothing is read from the environment, and `stack.outputs`\n  shows exactly what will be filled in. Specs remain usable standalone.\n- **Declared dependencies.** Every spec carries `REQUIRES`:\n  `RKE2Cluster ()`, `Storage (\"cluster\",)`,\n  `MinIOTenant (\"cluster\", \"storage\")`, `VLLMService (\"cluster\",)`.\n  Machine-readable, so a composer can order operations.\n- **Volume claims** \u2014 `VolumeClaim` plus `StorageBackend.create_claim`,\n  `resize_claim`, `delete_claim`. Implemented on the capability, not per\n  driver, since a claim names a StorageClass and every implementation\n  produces one. Refuses to shrink, refuses a class without\n  `allowVolumeExpansion`, and waits for `Bound` by default.\n- **A Helm layer** at `multistack/helm/`. `HelmRunner` is synchronous; the\n  async dependency stops behind it, so no driver or example writes\n  `await`. Ships `redact()`, atomic upgrades by default, chart-name\n  resolution with a cached index, and a values check that reports unknown\n  paths rather than refusing them.\n- `HelmRunner.get_release()` \u2014 the same lookup as `status()`, returning\n  `None` instead of raising when there is no such release. From the\n  `helm-manager-sdk` branch (Nikhil Rai, 89869a7), reimplemented on the\n  direct revision lookup rather than a full release listing.\n- **Shared cluster primitives** in `multistack/kube.py`: `require_cluster`,\n  `require_storage_class`, `require_cli`, `run_local`, `kubectl`, `apply`,\n  `wait_for`, `wait_for_job`, `wait_for_phase`, `wait_for_absent`,\n  `node_name_for`.\n- `VLLMService.runtime_class`, needed for GPU serving on RKE2 before CDI \u2014\n  without `runtimeClassName: nvidia` the pod schedules and then finds no\n  GPU.\n- Guards for the things nothing was checking: every example and every\n  ```python doc snippet must parse and its imports must resolve; markdown\n  links and paths named in examples must exist; `SUPPORTED_TYPES`"
+  },
   "https://github.com/varrahan/tenstorrent-dra-framework": {
     "stars": 1,
     "updatedAt": "2026-08-16T04:44:30Z"
+  },
+  "https://github.com/varrahan/tt-metrics-exporter": {
+    "stars": 0,
+    "updatedAt": "2026-07-31T04:04:35Z"
   },
   "https://github.com/tenstorrent/tt-operator": {
     "stars": 5,
@@ -1199,7 +1240,7 @@
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 13,
-    "updatedAt": "2026-10-29T17:37:10Z",
+    "updatedAt": "2026-10-30T04:50:23Z",
     "releases": [
       {
         "tagName": "v0.1.4",
@@ -1391,6 +1432,13 @@
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
+        "tagName": "1.5.0.dev20261030003927",
+        "name": "1.5.0.dev20261030003927",
+        "publishedAt": "2026-10-30T00:58:55Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261030003927",
+        "prerelease": false
+      },
+      {
         "tagName": "1.5.0.dev20261029010136",
         "name": "1.5.0.dev20261029010136",
         "publishedAt": "2026-10-29T01:39:45Z",
@@ -1416,13 +1464,6 @@
         "name": "1.5.0.dev20261026010441",
         "publishedAt": "2026-10-26T01:27:45Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261026010441",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20261025011329",
-        "name": "1.5.0.dev20261025011329",
-        "publishedAt": "2026-10-25T01:32:40Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261025011329",
         "prerelease": false
       }
     ]
@@ -1744,6 +1785,11 @@
       }
     ]
   },
+  "https://github.com/dtsunami/tt-baremetal": {
+    "stars": 0,
+    "updatedAt": "2026-07-12T00:21:43Z",
+    "preview_image": "https://raw.githubusercontent.com/dtsunami/tt-baremetal/main/pics/bhtop.png"
+  },
   "https://github.com/Knight-Ops/libtt-metal-cxx": {
     "stars": 3,
     "updatedAt": "2026-07-03T16:23:34Z"
@@ -1825,6 +1871,10 @@
       }
     ]
   },
+  "https://github.com/FreakyPenguin/component-tenstorrent": {
+    "stars": 0,
+    "updatedAt": "2026-08-31T14:16:20Z"
+  },
   "https://github.com/tsingletaryTT/tensix-viz": {
     "stars": 0,
     "updatedAt": "2026-09-28T20:00:08Z",
@@ -1884,7 +1934,7 @@
   },
   "https://github.com/tenstorrent/tt-cli": {
     "stars": 7,
-    "updatedAt": "2026-10-29T16:32:29Z",
+    "updatedAt": "2026-10-29T19:46:54Z",
     "releases": [
       {
         "tagName": "v1.2.1",
@@ -2310,11 +2360,11 @@
   },
   "https://github.com/Aswincloud/ttnn-ops-coverage": {
     "stars": 0,
-    "updatedAt": "2026-10-29T01:58:22Z"
+    "updatedAt": "2026-10-30T01:25:53Z"
   },
   "https://github.com/Aswincloud/ttnn-performance-dashboard": {
     "stars": 1,
-    "updatedAt": "2026-10-29T01:37:12Z"
+    "updatedAt": "2026-10-30T01:10:48Z"
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 59,
@@ -2402,9 +2452,62 @@
     "updatedAt": "2026-09-19T04:41:08Z",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## [0.1.6] - 2025-01-14\n\n### Added\n- **Memory Configuration Support**: New command-line options for tensor memory configuration\n- `--memory-config CONFIG`: General option with choices `[dram, l1]`\n- `--dram`: Shortcut flag for DRAM memory (default)\n- `--l1`: Shortcut flag for L1 memory\n- Memory configuration extraction from CSV profiler output\n- Memory config display in test result summaries\n\n### Changed\n- **Default tensor shape reduced from `[1, 1, 1024, 1024]` to `[1, 1, 32, 32]` for better performance**\n- Enhanced `create_test_tensor()` function to accept memory_config parameter\n- Updated all `ttnn.from_torch()` calls to use memory_config parameter\n- Improved CSV extraction to read memory configuration from profiler output\n- Enhanced debug output to show memory configuration\n\n### Technical\n- Added `validate_memory_config()` function with alias support\n- Extended environment variable system with `TTPERF_CUSTOM_MEMORY_CONFIG`\n- Updated operation_configs.json to include memory_config field\n- Enhanced test file configuration parsing to handle memory settings\n- Improved result reporting to include memory configuration details\n\n## [0.1.4] - 2025-01-14\n\n### Changed\n- **Major Improvement**: Configuration extraction now reads from CSV profiler output instead of parsing text with regex\n- Replaced 50+ complex regex patterns with structured CSV data parsing\n- Enhanced `extract_test_config_and_status()` function to prioritize CSV data over text parsing\n- Added new `extract_config_from_csv()` function for reliable configuration extraction\n\n### Fixed\n- More accurate shape, dtype, and layout detection from profiler results\n- Improved reliability of configuration reporting in test summaries\n- Better handling of tensor dimension parsing (e.g., \"32[32]\" format)\n\n### Technical\n- CSV-based extraction provides structured, consistent data vs. unreliable text parsing\n- Maintains backward compatibility with text parsing as fallback\n- Cleaner, more maintainable codebase with reduced complexity\n\n## [0.1.0] - 2025-07-14\n\n### Added\n- Initial release of ttperf CLI tool\n- Support for profiling TT-Metal tests with pytest\n- Automatic CSV path extraction from profiler output\n- Device kernel duration calculation\n- Real-time output streaming\n- Flexible command-line argument parsing\n- Support for named profiles\n- Comprehensive error handling\n\n### Features\n- Simple CLI interface: `ttperf [name] [pytest] <test_path>`\n- Automatic detection of test files and paths\n- Integration with TT-Metal profiler tools\n- CSV parsing for performance metrics\n- Real-time progress monitoring\n\n### Dependencies\n- pandas for CSV processing\n- Python 3.7+ support\n- TT-Metal development environment\n\n## [Unreleased]\n\n### Planned\n- Enhanced error messages\n\n##"
   },
+  "https://github.com/Bekhouche/xpustat": {
+    "stars": 4,
+    "updatedAt": "2026-10-29T18:26:17Z",
+    "releases": [
+      {
+        "tagName": "v0.6.0",
+        "name": "xpustat 0.6.0",
+        "publishedAt": "2026-10-27T13:55:51Z",
+        "url": "https://github.com/Bekhouche/xpustat/releases/tag/v0.6.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "xpustat-0.6.0-py3-none-any.whl",
+            "url": "https://github.com/Bekhouche/xpustat/releases/download/v0.6.0/xpustat-0.6.0-py3-none-any.whl",
+            "size": 108923
+          },
+          {
+            "name": "xpustat-0.6.0.tar.gz",
+            "url": "https://github.com/Bekhouche/xpustat/releases/download/v0.6.0/xpustat-0.6.0.tar.gz",
+            "size": 120819
+          }
+        ]
+      },
+      {
+        "tagName": "v0.5.0",
+        "name": "xpustat 0.5.0",
+        "publishedAt": "2026-10-27T09:53:13Z",
+        "url": "https://github.com/Bekhouche/xpustat/releases/tag/v0.5.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.4.0",
+        "name": "xpustat 0.4.0",
+        "publishedAt": "2026-10-27T08:51:50Z",
+        "url": "https://github.com/Bekhouche/xpustat/releases/tag/v0.4.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.3.0",
+        "name": "xpustat 0.3.0",
+        "publishedAt": "2026-10-23T21:37:42Z",
+        "url": "https://github.com/Bekhouche/xpustat/releases/tag/v0.3.0",
+        "prerelease": false
+      },
+      {
+        "tagName": "v0.2.0",
+        "name": "xpustat 0.2.0",
+        "publishedAt": "2026-09-30T14:06:02Z",
+        "url": "https://github.com/Bekhouche/xpustat/releases/tag/v0.2.0",
+        "prerelease": false
+      }
+    ]
+  },
   "https://github.com/tsingletaryTT/tensixinet": {
     "stars": 0,
-    "updatedAt": "2026-10-29T17:26:40Z",
+    "updatedAt": "2026-10-29T19:39:41Z",
     "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tensixinet/main/docs/media/demo-frame.png"
   },
   "https://github.com/tsingletaryTT/tt-bio-demo": {
@@ -2565,6 +2668,10 @@
   "https://github.com/mstojkovicTT/kernel-tutorials": {
     "stars": 0,
     "updatedAt": "2026-08-24T23:34:08Z"
+  },
+  "https://github.com/rothgar/qb2-vs-spark": {
+    "stars": 0,
+    "updatedAt": "2026-10-29T20:38:15Z"
   },
   "https://github.com/OrangeTangy/tensix-field-guide": {
     "stars": 1,
@@ -2900,8 +3007,22 @@
   },
   "https://github.com/tenstorrent/tt-flash": {
     "stars": 14,
-    "updatedAt": "2026-10-02T19:04:30Z",
+    "updatedAt": "2026-10-30T01:59:06Z",
     "releases": [
+      {
+        "tagName": "v4.2.0",
+        "name": "v4.2.0",
+        "publishedAt": "2026-10-30T01:58:52Z",
+        "url": "https://github.com/tenstorrent/tt-flash/releases/tag/v4.2.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt_flash-4.2.0-py3-none-any.whl",
+            "url": "https://github.com/tenstorrent/tt-flash/releases/download/v4.2.0/tt_flash-4.2.0-py3-none-any.whl",
+            "size": 85414
+          }
+        ]
+      },
       {
         "tagName": "v4.1.0",
         "name": "v4.1.0",
@@ -2955,20 +3076,6 @@
             "name": "tt_flash-3.11.0rc1-py3-none-any.whl",
             "url": "https://github.com/tenstorrent/tt-flash/releases/download/v3.11.0-rc.1/tt_flash-3.11.0rc1-py3-none-any.whl",
             "size": 65748
-          }
-        ]
-      },
-      {
-        "tagName": "v3.10.0",
-        "name": "v3.10.0",
-        "publishedAt": "2026-06-23T19:59:38Z",
-        "url": "https://github.com/tenstorrent/tt-flash/releases/tag/v3.10.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt_flash-3.10.0-py3-none-any.whl",
-            "url": "https://github.com/tenstorrent/tt-flash/releases/download/v3.10.0/tt_flash-3.10.0-py3-none-any.whl",
-            "size": 46237
           }
         ]
       }
@@ -3118,8 +3225,8 @@
     ]
   },
   "https://github.com/tsingletaryTT/tt-qb-lights": {
-    "stars": 2,
-    "updatedAt": "2026-07-14T23:21:16Z"
+    "stars": 3,
+    "updatedAt": "2026-10-30T01:41:56Z"
   },
   "https://github.com/tenstorrent/tt-quietbox2-guide": {
     "stars": 2,
@@ -3205,7 +3312,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 45,
-    "updatedAt": "2026-10-29T15:43:03Z",
+    "updatedAt": "2026-10-29T19:48:41Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -3961,7 +4068,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 50,
-    "updatedAt": "2026-10-29T15:49:02Z",
+    "updatedAt": "2026-10-29T22:59:58Z",
     "releases": [
       {
         "tagName": "v0.9.15",
@@ -4416,6 +4523,11 @@
     "updatedAt": "2026-10-28T03:33:42Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent-riscv-software/wallabmc/main/img/web-ui-thumbnail.png"
   },
+  "https://github.com/baretile/baretile": {
+    "stars": 2,
+    "updatedAt": "2026-10-30T04:26:37Z",
+    "changelog_excerpt": "# Changelog\n\nbaretile is pre-alpha. Everything below is tested on Tenstorrent's ttsim\nsimulator; nothing has run on a P150a yet.\n\n## 0.0.3\n\nThe first release that runs models from an installed package:\n\n```sh\npython3 -m pip install 'baretile[models]'\npython3 -m baretile.chip ttsim\npython3 -m baretile.models.serve HuggingFaceTB/SmolLM-135M 8000\n```\n\n### Added\n\n- The models, the OpenAI-compatible server and the tinygrad adapter are in the\n  package, as `baretile.models` and `baretile.adapters`. The `models` extra adds\n  NumPy, which they need; baretile itself still needs only the standard library.\n- `python3 -m baretile.models.serve` serves a model by its Hugging Face ID.\n- `python3 -m baretile.chip ttsim` downloads the tested ttsim release, so\n  `TTSIM` is optional.\n- `python3 -m baretile.chip check` checks clang, lld, NumPy, and the simulator\n  or the card, and says how to fix what's missing.\n- `python3 -m baretile.viz -m module` runs a module under the launch viewer.\n- The supported model families are listed in\n  [docs/models.md](docs/models.md#running-a-model), each compared against\n  transformers on ttsim. Other model types are refused at load.\n\n### Changed\n\n- `from models import llama` is now `from baretile.models import llama`, and\n  `adapters.tinygrad_baretile` is `baretile.adapters.tinygrad_device`. The\n  commands run as `python3 -m baretile.models.serve`, `.llama`, `.gpt2` and\n  `.cost`.\n- A device has one opener at a time. A second `Chip` on the same chip raises\n  `RuntimeError`.\n- Closing a runtime lets its running launch finish, for up to two seconds,\n  instead of stopping workers inside a Tensix program.\n- The server sends a stream's usage chunk only when\n  `stream_options.include_usage` asks for it, reads `max_completion_tokens`,\n  and takes message content as a list of text parts.\n- A jit replay gives each input's gradient back to the caller.\n\n### Fixed\n\n- A matmul split along K dropped its fused scalars, so `(x @ w) * 0.5` was\n  wrong for long K.\n- fp32 `exp`, `exp2`, `reciprocal` and `where` mishandled NaNs with the sign\n  bit set.\n- jit replays could read and write the same storage when an input shared it\n  with a result or with something the replay writes.\n- A runtime stopped in the middle of a Tensix kernel left its workers blocked\n  for the next runtime.\n- The tokenizer took quadratic time on long words, and its cache grew without\n  bound.\n- The server could drop a slow client without a 408, kept generating for a\n  client that had hung up, failed on padded vocabularies, and lost the text of\n  a tool call that was cut short.\n- Turning on a card's bus mastering cleared its PCI error bits.\n- `baretile.viz` crashed when the script closed or replaced its runtime.\n\n## 0.0.2 and earlier\n\nThe device, the runtime, Tensix code generation, the kernels and `Tensor`,\nwithout the models."
+  },
   "https://github.com/seansiddens/current": {
     "stars": 5,
     "updatedAt": "2025-12-22T16:54:43Z"
@@ -4430,8 +4542,32 @@
   },
   "https://github.com/tenstorrent/sfpi": {
     "stars": 16,
-    "updatedAt": "2026-10-29T00:38:34Z",
+    "updatedAt": "2026-10-30T01:01:01Z",
     "releases": [
+      {
+        "tagName": "7.93.0",
+        "name": "SFPI Update",
+        "publishedAt": "2026-10-30T02:07:44Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.93.0",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "sfpi_7.93.0_aarch64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0/sfpi_7.93.0_aarch64_debian.deb",
+            "size": 129556746
+          },
+          {
+            "name": "sfpi_7.93.0_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0/sfpi_7.93.0_x86_64_debian.deb",
+            "size": 134661232
+          },
+          {
+            "name": "sfpi_7.93.0_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0/sfpi_7.93.0_x86_64_fedora.rpm",
+            "size": 134216133
+          }
+        ]
+      },
       {
         "tagName": "7.92.0-replay-41386",
         "name": "7.92.0-replay-41386",
@@ -4507,36 +4643,36 @@
             "size": 134194730
           }
         ]
-      },
-      {
-        "tagName": "7.92.0",
-        "name": "Compiler Update",
-        "publishedAt": "2026-10-28T00:28:51Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.92.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.92.0_aarch64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0/sfpi_7.92.0_aarch64_debian.deb",
-            "size": 129550890
-          },
-          {
-            "name": "sfpi_7.92.0_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0/sfpi_7.92.0_x86_64_debian.deb",
-            "size": 134650388
-          },
-          {
-            "name": "sfpi_7.92.0_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0/sfpi_7.92.0_x86_64_fedora.rpm",
-            "size": 134196444
-          }
-        ]
       }
-    ]
+    ],
+    "latestStableRelease": {
+      "tagName": "7.92.0",
+      "name": "Compiler Update",
+      "publishedAt": "2026-10-28T00:28:51Z",
+      "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.92.0",
+      "prerelease": false,
+      "assets": [
+        {
+          "name": "sfpi_7.92.0_aarch64_debian.deb",
+          "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0/sfpi_7.92.0_aarch64_debian.deb",
+          "size": 129550890
+        },
+        {
+          "name": "sfpi_7.92.0_x86_64_debian.deb",
+          "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0/sfpi_7.92.0_x86_64_debian.deb",
+          "size": 134650388
+        },
+        {
+          "name": "sfpi_7.92.0_x86_64_fedora.rpm",
+          "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0/sfpi_7.92.0_x86_64_fedora.rpm",
+          "size": 134196444
+        }
+      ]
+    }
   },
   "https://github.com/tanaymihani/tensixfuse": {
     "stars": 1,
-    "updatedAt": "2026-10-26T20:54:56Z",
+    "updatedAt": "2026-10-30T06:03:57Z",
     "releases": [
       {
         "tagName": "data-v1",
@@ -4567,8 +4703,8 @@
     "updatedAt": "2026-10-29T14:49:24Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1731,
-    "updatedAt": "2026-10-29T18:18:27Z",
+    "stars": 1732,
+    "updatedAt": "2026-10-30T06:33:46Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5157,9 +5293,33 @@
     "stars": 3,
     "updatedAt": "2026-09-10T05:35:22Z"
   },
+  "https://github.com/stisiTT/ComfyUI-Tenstorrent": {
+    "stars": 1,
+    "updatedAt": "2026-10-27T02:55:41Z"
+  },
+  "https://github.com/jw910731/stable-diffusion.cpp": {
+    "stars": 1,
+    "updatedAt": "2026-09-29T16:22:35Z",
+    "isFork": true,
+    "forkParent": "leejet/stable-diffusion.cpp",
+    "forkParentUrl": "https://github.com/leejet/stable-diffusion.cpp",
+    "preview_image": "https://contrib.rocks/image?repo=leejet/stable-diffusion.cpp"
+  },
   "https://github.com/LSC-Unicamp/carla_2026_tenstorrent_stencil": {
     "stars": 0,
     "updatedAt": "2026-10-11T13:11:32Z"
+  },
+  "https://github.com/daisytuner/HPCCG": {
+    "stars": 5,
+    "updatedAt": "2026-10-29T16:59:00Z",
+    "isFork": true,
+    "forkParent": "Mantevo/HPCCG",
+    "forkParentUrl": "https://github.com/Mantevo/HPCCG",
+    "preview_image": "https://raw.githubusercontent.com/daisytuner/HPCCG/master/figures/tenstorrent-wormhole-logical-noc-diagram.webp"
+  },
+  "https://github.com/daisytuner/OpenFOAM-TT": {
+    "stars": 5,
+    "updatedAt": "2026-03-18T01:26:45Z"
   },
   "https://github.com/EngineerCharlie/TenstorrentAllreduce": {
     "stars": 4,
@@ -5191,14 +5351,33 @@
       }
     ]
   },
+  "https://github.com/moritztng/tt-fluid": {
+    "stars": 0,
+    "updatedAt": "2026-10-19T04:03:22Z",
+    "preview_image": "https://raw.githubusercontent.com/moritztng/tt-fluid/main/docs/figures/headline.svg",
+    "releases": [
+      {
+        "tagName": "v0.1.0",
+        "name": "tt-fluid 0.1.0",
+        "publishedAt": "2026-10-19T04:03:24Z",
+        "url": "https://github.com/moritztng/tt-fluid/releases/tag/v0.1.0",
+        "prerelease": false
+      }
+    ],
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to this project are documented here. The format follows\n[Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [semantic versioning](https://semver.org/).\n\n## [0.1.0] - 2026-10-19\n\nFirst public release.\n\n### Added\n- `ttfluid` package and CLI: `ttfluid run` (device, after an emulator reference) and `ttfluid check` (CPU emulator only)\n  for OpenFOAM simpleFoam cases with k-omega SST.\n- numpy SimpleFoam (SIMPLE/SIMPLEC, k-omega SST) with a face-based and a device-layout (ELL) operator backend.\n- Resident machine: tracing, RCB partition over chips and cores, scheduling, fusion, encoding, CPU emulator.\n- Device runner and persistent kernels for Blackhole (p150, p300) and Wormhole, 1 to 32 chips, ttnn 0.68.0 (verified for this release on a p300, 1 and 2 chips).\n- Large-case route: per-chip images, starting states from OpenFOAM time directories.\n- OpenFOAM's pitzDaily tutorial, ready to run.\n- CPU test suite against OpenFOAM v2412 references; CI with ruff, pytest and gitleaks.\n- `bench/per_dollar.py` and the GPU baseline scripts (SPUMA build, run, bound() fix, Cd graders), with the raw data\n  behind every published number in `results/`.\n- Documentation: getting started, tutorial, architecture, performance methodology, accuracy, FAQ.\n\n### Fixed before release (found by the clean-clone device check)\n- `pip install -e '.[tenstorrent]'` now installs torch: the ttnn 0.68.0 wheel does not depend on it, and the device\n  runner needs it.\n- `ttfluid run --chips 2` on a p300 uses Ethernet links 0 and 1; the Wormhole default asked for link 3 and failed.\n- pitzDaily did not converge on the device: the register allocator could place a neighbour gather's result on the\n  tile it was still reading from, which the emulator cannot see. A gather's result now never shares a tile with a\n  source, and lowering asserts it.\n- A case whose `turbulenceProperties` selects a model other than kOmegaSST is refused; it used to run as SST.\n\n[0.1.0]: https://github.com/moritztng/tt-fluid/releases/tag/v0.1.0"
+  },
   "https://github.com/tenstorrent/tt-isa-documentation": {
-    "stars": 135,
-    "updatedAt": "2026-10-25T01:05:42Z"
+    "stars": 136,
+    "updatedAt": "2026-10-30T02:10:15Z"
   },
   "https://github.com/olofj/bhx": {
     "stars": 6,
     "updatedAt": "2026-09-23T15:59:57Z",
     "changelog_excerpt": "# Changelog\n\nNotable changes per release. Format loosely follows\n[Keep a Changelog](https://keepachangelog.com/en/1.1.0/);\nthis project does not yet promise SemVer compatibility on the RPC\nwire format or library API surface (we're not 1.0).\n\n## Unreleased\n\nV2 virtio-dispatch redesign. The kick ring + completion ring + host-\nside throttle that grew up around #184 are gone; in their place is a\nper-(slot, queue) dirty bitmap in BRISC L1. The bitmap is level-\nsensitive \u2014 guest QUEUE_NOTIFY storms coalesce into a single set\nbyte, so the dispatch path can't fall behind under any burst. Wire\nincompatible with 0.9.0; `TENSIX_PROTOCOL_VERSION` bumped 4 \u2192 5.\n\n### Added\n\n- **V2 dirty-bitmap dispatch** (`#187` / `#188` / `#189`). BRISC\n  writes 1 to `CTRL_OFF_DIRTY[slot][queue]` on every guest\n  QUEUE_NOTIFY; the daemon's `Dispatcher` clears the byte and\n  dispatches each pass. Replaces V1's 2048-entry kick ring +\n  daemon-side `consume_kick_ring_pass` consumer.\n- **V2 processed-cursor table** at `CTRL_OFF_PROCESSED`. Daemon\n  publishes `used.idx` after each successful dispatch so\n  warm-resume reads cursors directly without re-probing guest\n  DRAM.\n- **`bhx_notify_events_total`, `bhx_dispatch_passes_total`,\n  `bhx_dispatch_queues_drained`** Prometheus counters surface the\n  new dispatch path. The burst regression test (`scripts/\n  soak_virtio_burst.py`) asserts `dispatch_passes_total > 0` to\n  confirm the workload reached the new path.\n- **`scripts/soak_virtio_burst.py`** \u2014 multi-queue burst regression\n  test. Sustains 16-job direct=1 fio randwrite + a tight\n  `printf` loop to `/dev/console`, samples `/metrics` every 1 s,\n  and verifies the daemon log contains zero\n  `kick.*drop|rescue|throttle.*ENGAGE` matches.\n- **`DaemonState.chip_reset_this_session`** flag \u2014 gates\n  `maybe_opportunistic_reset_board` so 4-way parallel cold boots\n  reset the chip exactly once, not once per L2CPU. Without this\n  the second-and-later resets blip the chip while earlier-booted\n  L2CPUs hold mmap pages, SIGBUSing their workers.\n- **`Dispatcher` (was `KickPoller`)** with documented testability\n  seam (`CtrlL1Access` trait); `drain_dirty_bitmap` is unit-tested\n  against an in-memory L1 fake covering all five visit/clear\n  semantics cases plus the address-formula pins.\n\n### Changed\n\n- **`KickPoller` \u2192 `Dispatcher`**, plus `kick_poller` \u2192 `dispatcher`\n  field on `DaemonState`, `tensix-kick-poller` \u2192 `tensix-dispatcher`\n  thread name, `[kick-poller]` \u2192 `[dispatcher]` log tag,\n  `kicks_consumed` \u2192 `dispatches_total`,\n  `last_kick_slot_queue` \u2192 `last_dispatch_slot_queue`. Pure\n  rename; no behavior change. V1 vocabulary scrubbed throughout\n  the codebase (firmware, daemon, scripts, docs).\n- **`CTRL_SIZE` shrinks 36 KiB \u2192 4 KiB**. V2 footprint is ~1.5 KiB;\n  the rest is reserved for future fields.\n- **Stats-page offsets repacked** \u2014 V1 `STATS_OFF_KICK_DROPS`,\n  `STATS_OFF_COMPL_EVENTS`, `STATS_OFF_LAST_COMPL` retired with\n  V1 (#190); deprecated PRECAP / BLINDCAP / POSTCAP slots dropp"
+  },
+  "https://github.com/corsix/wormhole-vector": {
+    "stars": 6,
+    "updatedAt": "2026-01-13T11:43:05Z"
   },
   "https://github.com/tenstorrent/riescue": {
     "stars": 72,
