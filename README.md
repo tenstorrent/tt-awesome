@@ -23,6 +23,18 @@ A curated directory of projects, tools, models, and research for Tenstorrent har
 - [📚 Guides, Tutorials & Education](#guides-tutorials-education)
 - [✍️ Blogs](#blogs)
 
+## 🚀 Getting Started
+
+- **[tt-qb2-model-manager](https://github.com/palisurf/tt-qb2-model-manager)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@palisurf](https://github.com/palisurf) — tt-qb2-model-manager is a fast, zero-GUI-dependency CLI and interactive terminal appliance manager purpose-built for the Tenstorrent QuietBox 2 (P300X2 — 4× p300c PCIe boards / 8× Blackhole ASICs / 128 GB GDDR6).
+
+It unifies deep hardware/container forensics, an automated Hugging Face Frontier Proximity % benchmark ranker, local .safetensors and config.json architecture inspection, tt-metal warm/cold cache analysis, safe multi-chip resets (tt-smi -r), and a deterministic 5-phase bring-up progress tracker into a single command (./qb2_model_manager). 
+
+Direct YAML Catalog Parsing: Reads /home/ttuser/.local/lib/tt-inference-server/workflows/model_specs/prod/llm.yaml (and dev/llm.yaml + dev/vlm.yaml with --dev), preserving multiple engine implementations per model (tt-transformers vs. tt-forge-vllm).
+
+Experimental & Dev-Catalog Model Loading (--dev) unlocks 16 additional experimental P300X2 LLM and VLM configurations from dev/llm.yaml and dev/vlm.yaml that are omitted from prod and model_spec.json
+  [📦 repo](https://github.com/palisurf/tt-qb2-model-manager)
+
 ## 🤖 AI & Models
 
 - **[Qwen3.8-27B on two Blackhole P150A](https://github.com/Thatch-cloud/Tenstorrent.Blackhole-Qwen3.8-27B)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
