@@ -11,8 +11,8 @@
     "updatedAt": "2026-10-06T04:59:44Z"
   },
   "https://github.com/tenstorrent/skills": {
-    "stars": 16,
-    "updatedAt": "2026-10-29T18:24:21Z"
+    "stars": 17,
+    "updatedAt": "2026-10-31T18:14:32Z"
   },
   "https://github.com/moritztng/tt-bio-bringup": {
     "stars": 0,
@@ -236,7 +236,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 126,
-    "updatedAt": "2026-10-30T18:04:50Z",
+    "updatedAt": "2026-10-31T17:45:17Z",
     "releases": [
       {
         "tagName": "v0.26.1",
@@ -334,7 +334,7 @@
         ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n## [0.26.1] - 2026-10-29\n\n### Fixed\n- **ESMFold2 no longer runs out of device memory on a worker that has folded many different inputs.** A worker keeps\n  its chip open across jobs, and the compiled programs for every input shape it has folded stay in device memory.\n  After about ten hours of mixed lengths a Wormhole chip had too little room left for a 722-residue fold, and JapanFold\n  failed up to 65 % of such tasks with \"Ran out of device memory\". A fold that is refused memory while programs are\n  cached now drops them and runs again; folds that fit are unchanged. Seen on JapanFold with 0.25.0 and 0.26.0.\n\n## [0.26.0] - 2026-10-29\n\n### Changed\n- **ESMFold2 and ESMFold2-Fast normal mode on Wormhole run the token attention as one fused program.** A 512-residue\n  fold on a Wormhole Galaxy chip drops about 0.85 s (ESMFold2 25.9 -> 25.0 s, ESMFold2-Fast 16.0 -> 15.1 s). Structures\n  change at the precision level: graded over 44 paired folds per model in normal mode, accuracy and docking success\n  unchanged. Blackhole and `--fast` already ran it.\n- **BoltzGen normal mode on Wormhole conditions its diffusion steps ahead of time.** A 514-token design on a\n  Galaxy chip at 1000 MHz drops from 43.3 to 40.9 s. Designs change at the precision level: graded over 64 paired\n  designs, design pTM, ipTM and complex pLDDT unchanged within the seed-to-seed spread.\n\n## [0.25.0] - 2026-10-28\n\n### Changed\n- **BoltzGen's token diffusion transformer does less attention work.** In normal mode its pair bias was padded to\n  768 tokens for a 544-token design; it now pads to 576, and on Blackhole the attention runs as one fused program\n  in both modes. A 514-token design drops about 1.2 s on a Wormhole Galaxy chip (46 -> 45 s) and on a Blackhole\n  chip about 2 s in normal mode (22.9 -> 21 s) and 1.5 s with `--fast`. Designs change at the precision level:\n  graded over 64 paired designs per arch in normal mode and 32 with `--fast`, confidence metrics and filter pass\n  counts unchanged. Other models keep their padding.\n- **BoltzGen normal mode on Blackhole replays the diffusion step from a device trace by default.** Output is\n  identical, the 1831-residue size ceiling holds, and with the triangle-multiplication change above a 514-token\n  design on a p300 chip drops from 25.2 to 23.0 s. `--no_diffusion_trace` restores the eager step. `--fast` replays it too, and\n  computes each step's conditioning inside the trace instead of several steps ahead: a 514-token fast design on a\n  p300 chip drops from 32.4 to 23.3 s on a host-bound machine.\n\n## [0.24.0] - 2026-10-27\n\n### Changed\n- **RoseTTAFold3 on Wormhole runs the fast triangle and transition kernels in normal mode.** A 512-residue fold\n  on a Galaxy chip drops from 55.2 to 38.1 s. Structures change at the precis"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Changed\n- **ESMFold2 on Blackhole runs the MSA outer product's output projection on the shared pair-projection path.** A\n  748-residue fold with a deep MSA on a p150a drops about 0.7 s in both modes (36.04 -> 35.36 s normal, 34.09 -> 33.36 s\n  --fast), and the 512-residue page fold about 0.3 s. Graded over 44 paired folds per mode: normal CA-lDDT -0.0005\n  [-0.0042, +0.0037], --fast +0.0024 [+0.0001, +0.0057]. Wormhole is unchanged.\n- **ESMFold2 and ESMFold2-Fast send a smaller language-model dropout mask for lengths off the 16-residue grid.** The\n  mask now crosses to the device bit-packed at every length (at 748 residues 18 MB a loop instead of 286 MB). A\n  748-residue fold on a Blackhole p150a drops about 0.5 s (ESMFold2 normal 0.47 s, ESMFold2-Fast normal 0.57 s).\n  Off-grid lengths draw a different dropout mask, so their structures change at the seed level: graded over 44 paired\n  folds in normal mode, accuracy and docking success unchanged. Lengths on the grid are unchanged.\n- **ESMFold2 folds with deep MSAs run faster.** When the MSA is deeper than 1024 rows, ESMFold2 re-encodes it every\n  recycle, and those encoder transitions now run on the same fused kernel as the trunk's. A 748-residue complex with a\n  4096-row MSA drops about 7 s on Blackhole `--fast` (40.9 -> 33.9 s); a 512-residue fold with the same MSA drops about\n  3.5 s on a Wormhole chip, normal mode (36.9 -> 33.3 s), and 2.9 s with `--fast`. Blackhole normal mode is unchanged.\n- **ESMFold2 and ESMFold2-Fast normal mode on Wormhole build the pair representation on the device.** A 512-residue\n  fold drops about 1 s (ESMFold2 24.6 -> 23.5 s, ESMFold2-Fast 14.7 -> 13.7 s); `--fast` already did this.\n  Structures stay within the accuracy bar for both changes.\n\n## [0.26.1] - 2026-10-29\n\n### Fixed\n- **ESMFold2 no longer runs out of device memory on a worker that has folded many different inputs.** A worker keeps\n  its chip open across jobs, and the compiled programs for every input shape it has folded stay in device memory.\n  After about ten hours of mixed lengths a Wormhole chip had too little room left for a 722-residue fold, and JapanFold\n  failed up to 65 % of such tasks with \"Ran out of device memory\". A fold that is refused memory while programs are\n  cached now drops them and runs again; folds that fit are unchanged. Seen on JapanFold with 0.25.0 and 0.26.0.\n\n## [0.26.0] - 2026-10-29\n\n### Changed\n- **ESMFold2 and ESMFold2-Fast normal mode on Wormhole run the token attention as one fused program.** A 512-residue\n  fold on a Wormhole Galaxy chip drops about 0.85 s (ESMFold2 25.9 -> 25.0 s, ESMFold2-Fast 16.0 -> 15.1 s). Structures\n  change at the precision level: graded over 44 paired folds per model in normal mode, accuracy and docking success\n  unchanged. Bl"
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 20,
@@ -889,8 +889,8 @@
     "updatedAt": "2026-09-09T15:10:37Z"
   },
   "https://github.com/scaleresearch/tt-rl": {
-    "stars": 5,
-    "updatedAt": "2026-10-29T17:32:13Z",
+    "stars": 6,
+    "updatedAt": "2026-10-30T22:41:15Z",
     "preview_image": "https://raw.githubusercontent.com/scaleresearch/tt-rl/master/assets/pong_learning.gif"
   },
   "https://github.com/tenstorrent/tt-studio": {
@@ -944,8 +944,8 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- `get_device_name` gives a Quasar device the Blackhole names (`P150`, `P300`,\n  `P150x4`, `P150x8`, `BHGLX`), so code keyed on those names runs on Quasar.\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n  The Qwen3-32B T3K trace region grows from 120 MB to 190 MB: its batch-32\n  cases gain three prefix-cached 1024 traces and a penalised twin of every\n  sampled warmup case, and need up to 157 MB.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n- vLLM serving of Qwen2.5-72B (T3K) and Qwen2.5-7B (N300) prefills prompts in\n  the 128-token bucket in fixed waves of four rows, padding a partial wave, and\n  warms exactly that shape. Under many concurrent short prompts, time to first\n  token falls by more than half against one prompt per pass; a lone short\n  prompt waits 85\u2013106 ms longer. Greedy output on these prompts is\n  deterministic but is the four-row pass's text, so it differs from one-row\n  prefill and from TTTv1: pinned greedy texts for these two models move once.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/localai-org/vllm.cpp": {
-    "stars": 472,
-    "updatedAt": "2026-10-30T10:58:16Z",
+    "stars": 474,
+    "updatedAt": "2026-10-31T10:33:26Z",
     "preview_image": "https://raw.githubusercontent.com/localai-org/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -1025,8 +1025,8 @@
     "updatedAt": "2026-10-27T12:45:43Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2296,
-    "updatedAt": "2026-10-30T14:23:16Z",
+    "stars": 2298,
+    "updatedAt": "2026-10-31T04:04:51Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1129,8 +1129,8 @@
     "updatedAt": "2026-09-21T09:25:48Z"
   },
   "https://github.com/Zaneham/Booth": {
-    "stars": 1753,
-    "updatedAt": "2026-10-29T12:08:49Z",
+    "stars": 1755,
+    "updatedAt": "2026-10-31T09:18:50Z",
     "releases": [
       {
         "tagName": "v0.6.1",
@@ -1240,8 +1240,15 @@
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 13,
-    "updatedAt": "2026-10-30T11:33:29Z",
+    "updatedAt": "2026-10-31T10:12:00Z",
     "releases": [
+      {
+        "tagName": "v0.1.5",
+        "name": "libtt v0.1.5",
+        "publishedAt": "2026-10-31T10:02:47Z",
+        "url": "https://github.com/pcmoritz/libtt/releases/tag/v0.1.5",
+        "prerelease": false
+      },
       {
         "tagName": "v0.1.4",
         "name": "libtt v0.1.4",
@@ -1432,6 +1439,13 @@
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
+        "tagName": "1.5.0.dev20261031010131",
+        "name": "1.5.0.dev20261031010131",
+        "publishedAt": "2026-10-31T01:19:23Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261031010131",
+        "prerelease": false
+      },
+      {
         "tagName": "1.5.0.dev20261030003927",
         "name": "1.5.0.dev20261030003927",
         "publishedAt": "2026-10-30T00:58:55Z",
@@ -1457,13 +1471,6 @@
         "name": "1.5.0.dev20261027022338",
         "publishedAt": "2026-10-27T02:43:17Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261027022338",
-        "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20261026010441",
-        "name": "1.5.0.dev20261026010441",
-        "publishedAt": "2026-10-26T01:27:45Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261026010441",
         "prerelease": false
       }
     ]
@@ -1795,8 +1802,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 11111,
-    "updatedAt": "2026-10-30T17:04:12Z",
+    "stars": 11113,
+    "updatedAt": "2026-10-31T14:11:56Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -1934,7 +1941,7 @@
   },
   "https://github.com/tenstorrent/tt-cli": {
     "stars": 7,
-    "updatedAt": "2026-10-29T19:46:54Z",
+    "updatedAt": "2026-10-30T18:56:48Z",
     "releases": [
       {
         "tagName": "v1.2.1",
@@ -2309,11 +2316,27 @@
   },
   "https://github.com/tsingletaryTT/tt-gozer": {
     "stars": 0,
-    "updatedAt": "2026-10-30T16:21:17Z"
+    "updatedAt": "2026-10-30T21:03:39Z",
+    "releases": [
+      {
+        "tagName": "v0.4.0",
+        "name": "v0.4.0 - stay puft stoicism",
+        "publishedAt": "2026-10-30T21:07:47Z",
+        "url": "https://github.com/tsingletaryTT/tt-gozer/releases/tag/v0.4.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt-gozer_0.4.0_all.deb",
+            "url": "https://github.com/tsingletaryTT/tt-gozer/releases/download/v0.4.0/tt-gozer_0.4.0_all.deb",
+            "size": 91420
+          }
+        ]
+      }
+    ]
   },
   "https://github.com/tenstorrent/tt-model-manager": {
-    "stars": 9,
-    "updatedAt": "2026-10-26T18:41:04Z"
+    "stars": 10,
+    "updatedAt": "2026-10-31T18:17:25Z"
   },
   "https://github.com/tsingletaryTT/tt-model-runner": {
     "stars": 1,
@@ -2360,11 +2383,11 @@
   },
   "https://github.com/Aswincloud/ttnn-ops-coverage": {
     "stars": 0,
-    "updatedAt": "2026-10-30T01:25:53Z"
+    "updatedAt": "2026-10-31T01:05:14Z"
   },
   "https://github.com/Aswincloud/ttnn-performance-dashboard": {
     "stars": 1,
-    "updatedAt": "2026-10-30T12:20:15Z"
+    "updatedAt": "2026-10-31T00:46:00Z"
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 59,
@@ -2507,8 +2530,17 @@
   },
   "https://github.com/tsingletaryTT/tensixinet": {
     "stars": 0,
-    "updatedAt": "2026-10-29T19:39:41Z",
-    "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tensixinet/main/docs/media/demo-frame.png"
+    "updatedAt": "2026-10-31T17:00:17Z",
+    "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tensixinet/main/docs/media/demo-frame.png",
+    "releases": [
+      {
+        "tagName": "v0.3.1",
+        "name": "tensixinet 0.3.1: the first release",
+        "publishedAt": "2026-10-31T17:00:29Z",
+        "url": "https://github.com/tsingletaryTT/tensixinet/releases/tag/v0.3.1",
+        "prerelease": false
+      }
+    ]
   },
   "https://github.com/tsingletaryTT/tt-bio-demo": {
     "stars": 1,
@@ -2676,7 +2708,7 @@
   },
   "https://github.com/rothgar/qb2-vs-spark": {
     "stars": 0,
-    "updatedAt": "2026-10-30T16:43:12Z"
+    "updatedAt": "2026-10-31T06:02:30Z"
   },
   "https://github.com/OrangeTangy/tensix-field-guide": {
     "stars": 1,
@@ -2746,8 +2778,8 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to the TT-VSCode-Toolkit will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n---\n\n## [0.1.29] - 2026-09-07\n\nCorrectness pass on what a TT-QuietBox 2 actually ships. The three-path venv\nactivation blocks added in 0.1.25 offered `~/.tenstorrent-venv` as the \"QB2\npre-installed\" environment for TT-NN and vLLM, and described a QB2 as \"4\nindependent single-chip devices\". Neither claim is true, and this release\ncorrects both everywhere they were found \u2014 including in this repo's own\n`CLAUDE.md`, `llms.txt`, and two lessons outside the original diff\n(`content/pages/FAQ.md`, `monkeypatch-ttnn.md`) that had never been touched\nby the earlier topology/venv corrections this built on.\n\nVerified against `tt-installer`'s `install.m4`, the published `tt-metalium`/\n`tt-metalium-models` GHCR image configs, `tt-inference-server`'s `run.py`,\nand tt-metal `main` \u2014 plus live end-to-end testing on a QB2-equivalent\nboard \u2014 rather than other Tenstorrent docs, which largely descend from the\nsame stale source note this release supersedes.\n\n### Fixed\n\n**`~/.tenstorrent-venv` is not a TT-NN or vLLM environment.** `tt-installer`\nonly ever installs `tt-smi`, `tt-flash` and (opt-in) `tt-topology` into it, so\n`import ttnn` and `import vllm` both fail there. TT-NN lives **only** inside\nthe TT-Metalium container (`tt-metalium`, where `python3` is\n`/opt/venv/bin/python3`); vLLM runs in a container `tt-inference-server`\nlaunches. Corrected everywhere this was asserted or assumed:\n- The \"QB2 pre-installed image\" activation line in all 11 TT-NN blocks across\n  `explore-metalium`, `video-generation-ttmetal`, `animatediff-video-generation`,\n  `cookbook-game-of-life`, `cookbook-mandelbrot`, `cookbook-particle-life`,\n  `cookbook-image-filters`, `cookbook-audio-processor`, and the four lessons\n  that used it as a premise (`lfs-00-intro`, `lfs-05-train-and-run`,\n  `ct1-understanding-training`, `ct4-finetuning-basics` \u2014 their `ttml`-needs-a-\n  source-tree conclusions were already correct; only the premise changed).\n- `tt-installer`'s own \"may not include the container wrapper\" framing \u2014\n  backwards: a QB2 *has* the wrapper (it's the only way to reach TT-NN) and\n  has no host-side TT-NN. Its \"Test TT-Metalium\" button and pytest demo\n  example were also broken independent of this: missing `-c` (so `bash` tried\n  to run the whole command string as a filename), a bare `ttnn.__version__`\n  that doesn't exist on the built package (now `getattr(ttnn, \"__version__\",\n  \"import OK\")`), and \u2014 for the demo \u2014 the wrong container and a Blackhole\n  demo path that moved in tt-metal's January 2026 reorg (now\n  `tt-metalium-models` + `models/demos/vision/segmentation/ufld_v2/blackhole`,\n  with `--install-metalium-models-container` named as off-by-default).\n- `vllm-production`'s new \"On a QB2 \u2014 read this first\" section (pointing a"
   },
   "https://github.com/boopdotpng/blackhole-py": {
-    "stars": 23,
-    "updatedAt": "2026-10-25T15:16:43Z",
+    "stars": 24,
+    "updatedAt": "2026-10-31T09:25:20Z",
     "releases": [
       {
         "tagName": "hcq-v1",
@@ -2759,8 +2791,8 @@
     ]
   },
   "https://github.com/tenstorrent/luwen": {
-    "stars": 34,
-    "updatedAt": "2026-10-22T14:18:26Z",
+    "stars": 35,
+    "updatedAt": "2026-10-31T18:15:49Z",
     "releases": [
       {
         "tagName": "bh-mod-v2.4.0",
@@ -3716,8 +3748,8 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## 1.4.17 - 02/07/2025\n\n### Changed\n- Loosened requirements on pyproject.toml to make it more compatible in different venvs\n\n## 1.4.15 - 05/05/2025\n\n### Changed\n- parse\\_reset\\_json now returns a ResetInput with stricter typing\n\n## 1.4.14 - 04/02/2025\n\n### Added\n- New flags in reset config file generation to disable sw\\_version reporting\n\n## 1.4.13 - 23/1/2025\n\n- Removed nr\\_hugepages count from compatibility, as hugepages allocation is tricky\n  and deserves its own widget elsewhere.\n\n## 1.4.12 - 16/1/2025\n\n- Added TTHostCompatibilityMenu to replace Host Info and Compatibility boxes\n- Added a count of nr\\_hugepages to the TTHostCompatibilityMenu\n\n## 1.4.11 - 30/12/2025\n\n- Updated Luwen version to fix Maturin issue\n\n## 1.4.10 - 16/12/2024\n\n### Changed\n- detect\\_chips\\_with\\_callback now takes a print\\_status arg\n\n## 1.4.9 - 11/12/2024\n\n### Changed\n- A failed reset now results in a fail exit code on BH\n\n## 1.4.8 - 11/10/2024\n\n### Changed\n- Updated reset completion logic to handle the case where the bmfw needs to upgrade itself\n\n## 1.4.7 - 11/10/2024\n\n### Added\n- Implemented m3 reset option for Blackhole\n\n### Fixed\n- Fixed crash during driver version dection when the \"extraversion\" field is used\n    - i.e. 1.28-bh\n\n## 1.4.6 - 17/07/2024\n\n### Added\n- Reset support of Blackhole\n\n## 1.4.5 - 11/07/2024\n\n### Added\n- Bump pyluwen library version (v0.3.8 -> v0.3.11)\n- Moved pyluwen v0.3.11 to optional dependencies in pyproject.toml\n\n## 1.4.4 - 21/06/2024\n\n### Added\n- Version bump of python dependencies in pyproject.toml (dependabot)\n    - requests (2.31.0 -> 2.32.0)\n    - tqdm (4.66.1 -> 4.66.3)\n- Pydantic library version bump (1.* -> >=1.2) to resolve: [TT-SMI issue #27](https://github.com/tenstorrent/tt-smi/issues/27)\n\n## 1.4.3 - 14/05/2024\n\n### Added\n- Arm platform check and warning for WH device resets in compatibility menu\n- Added check for WH device init after reset and prompt user to reboot host if chips are still non recoverable\n- Bumped textual (0.59.0) and luwen (0.3.8) lib versions\n\n## 1.4.2 - 04/04/2024\n\n### Added\n- Added \"silent\" flag to WH and GS resets to make them more versatile for use in other tools\n\n## 1.4.1 - 22/03/2024\n\n### Fixed\n- removed pyluwen version to avoid dependency issues in other repos\n\n## 1.4.0 - 19/03/2024\n\n### Added\n- detect_device_fallible that will provide feedback about chip state during init\n\n### Fixed\n- Update min driver version to 1.26 to perform lds reset\n- Reset config file uses dev/tenstorrent id\n- Catch JSON errors in reset config parsing\n- Make nested dirs when initializing reset config path\n\n## 1.3.0 - 06/03/2024\n\n### Added\n- Migrated GS Tensix reset to tools_common\n- Migrated all related GS data files\n- Functions to fetch arc and eth fw versions from telemetry"
   },
   "https://github.com/tenstorrent/tt-toplike": {
-    "stars": 15,
-    "updatedAt": "2026-10-16T17:55:06Z",
+    "stars": 16,
+    "updatedAt": "2026-10-31T18:17:34Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-toplike/main/assets/tt-toplike-arcade.gif",
     "releases": [
       {
@@ -4073,7 +4105,7 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 50,
-    "updatedAt": "2026-10-30T17:20:59Z",
+    "updatedAt": "2026-10-30T22:17:43Z",
     "releases": [
       {
         "tagName": "v0.9.15",
@@ -4530,8 +4562,15 @@
   },
   "https://github.com/baretile/baretile": {
     "stars": 2,
-    "updatedAt": "2026-10-30T18:05:30Z",
+    "updatedAt": "2026-10-31T18:16:18Z",
     "releases": [
+      {
+        "tagName": "v0.0.5",
+        "name": "baretile 0.0.5",
+        "publishedAt": "2026-10-31T16:51:28Z",
+        "url": "https://github.com/baretile/baretile/releases/tag/v0.0.5",
+        "prerelease": true
+      },
       {
         "tagName": "v0.0.4",
         "name": "baretile 0.0.4",
@@ -4547,7 +4586,7 @@
         "prerelease": true
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nbaretile is pre-alpha. Everything below is tested on Tenstorrent's ttsim\nsimulator; nothing has run on a P150a yet.\n\n## 0.0.4\n\nThe first release that can open a card without root, and that trains a model from scratch:\n\n```sh\npython3 -m pip install 'baretile[models]'\npython3 -m baretile.models.train train.bin val.bin layers=2 dim=64 heads=2 ctx=32 accum=2 steps=10 warmup=2\n```\n\n### Added\n\n- On a card that tt-kmd drives, baretile opens it through kmd's device file, `/dev/tenstorrent/N`. That needs no\n  root, needs no `iommu=pt` when the IOMMU translates, and leaves the card to tt-smi too. It needs tt-kmd 2.0 or\n  later, and 2.11 for an explicit `Chip.arc_msg`.\n- `python3 -m baretile.models.train` trains GPT-2 from scratch on GPT-2 tokens in llm.c's `.bin` shards, such as\n  FineWeb's. By default that's GPT-2 124M with nanoGPT's recipe: AdamW, a warmup and cosine schedule, and clipping.\n  [Training](docs/models.md#training) shows how to get the tokens.\n- `BARETILE_DUMP=folder` writes the C programs of each kernel a runtime launches, one file for each core, and\n  `baretile.viz` shows them beside the kernel's launches.\n\n### Changed\n\n- With tt-kmd driving the card, baretile no longer unbinds it. It opens the card through sysfs as root, as before,\n  only when tt-kmd doesn't drive it, and `python3 -m baretile.chip check` reports what that path needs.\n- The Llama families keep the residual stream between blocks in fp32. SmolLM-135M now passes the first workload's\n  bf16 logit gate, at 2.72% at worst where it was 4.16%. A decode step takes more launches, which #57 would fuse back.\n- The core, from the PCIe driver to the tensors, has a size budget: under 4,500 lines of code at 120 columns, with\n  every line within 120 columns.\n\n## 0.0.3\n\nThe first release that runs models from an installed package:\n\n```sh\npython3 -m pip install 'baretile[models]'\npython3 -m baretile.chip ttsim\npython3 -m baretile.models.serve HuggingFaceTB/SmolLM-135M 8000\n```\n\n### Added\n\n- The models, the OpenAI-compatible server and the tinygrad adapter are in the\n  package, as `baretile.models` and `baretile.adapters`. The `models` extra adds\n  NumPy, which they need; baretile itself still needs only the standard library.\n- `python3 -m baretile.models.serve` serves a model by its Hugging Face ID.\n- `python3 -m baretile.chip ttsim` downloads the tested ttsim release, so\n  `TTSIM` is optional.\n- `python3 -m baretile.chip check` checks clang, lld, NumPy, and the simulator\n  or the card, and says how to fix what's missing.\n- `python3 -m baretile.viz -m module` runs a module under the launch viewer.\n- The supported model families are listed in\n  [docs/models.md](docs/models.md#running-a-model), each compared against\n  transformers on ttsim. Other model types are refused at load.\n\n### Changed\n\n- `from models import llama` is now `from baretile.models import llama`, and\n  `adapters.tinygrad_baretile` is `baretile.adapters.tinygrad_device`. The\n  commands run as `python3 -m baretile."
+    "changelog_excerpt": "# Changelog\n\nbaretile is pre-alpha. Everything below is tested on Tenstorrent's ttsim\nsimulator; nothing has run on a P150a yet.\n\n## 0.0.5\n\nThe first release whose tensors have more than three dimensions, and whose Qwen3-0.6B passes the generation check:\n\n```python\nfrom baretile import pci\nfrom baretile.chip import Chip\nfrom baretile.runtime import Runtime\nfrom baretile.tensor import Tensor\n\nrt = Runtime(Chip(pci.open_device()))\nx = Tensor.of(rt, [[[[1.0, 2.0]], [[3.0, 4.0]]], [[[5.0, 6.0]], [[7.0, 8.0]]]])  # (2, 2, 1, 2)\nprint(x.sum(1).tolist())\n# [[[[4.0, 6.0]]], [[[12.0, 14.0]]]]\n```\n\n### Added\n\n- A tensor has up to five dimensions: up to three leading ones, which fold into the batch, then the matrices' rows and\n  columns. Elementwise ops and matmuls broadcast over them as NumPy does, reading an operand in place where its leading\n  sizes are one run of the result's, and `sum`, `max`, `mean` and `softmax` reduce over any of them in one kernel.\n  Movement and slicing take every dimension, a reshape of the leading sizes is a view, and gradients come back through\n  all of them. [The public API](docs/api.md#tensors-and-memory) lists the ops that still take three.\n- A kernel's programs can `print(fmt, ...)` a string literal and up to six words. The host shows each line after\n  `wait()`, with the worker, core and launch that printed it, and a hang's report ends with the last three lines of\n  each of the stuck worker's cores. Each core keeps its last 127 lines.\n- The tinygrad adapter makes a view a tensor in one move over up to five axes, where a permute or padding on two axes\n  of a group took several moves or a copy through the host, so a `TinyJit` replays such calls too.\n\n### Changed\n\n- Qwen3 and Qwen3.5 run the q and k norm in fp32 and round once for RoPE. Qwen3-0.6B now passes the first workload's\n  bf16 logit gate, at 2.95% at worst where it was 4.40%, in the same launches.\n- A reshape that regroups whole tile rows into other matrices, like `(2, 64, cols)` into `(128, cols)`, is a view.\n- Each kernel image holds `kmain` once: 153 of the suite's programs held its body twice.\n- Loaded kernels get 16 KiB less room in L1, which the print rings take.\n\n### Fixed\n\n- An operand broadcast into a result whose gradient was broadcast too, as a sum's is, got that gradient once instead\n  of once for each copy: `(a + c).sum()` gave `c` a gradient of 1 where it's the number of copies.\n\n## 0.0.4\n\nThe first release that can open a card without root, and that trains a model from scratch:\n\n```sh\npython3 -m pip install 'baretile[models]'\npython3 -m baretile.models.train train.bin val.bin layers=2 dim=64 heads=2 ctx=32 accum=2 steps=10 warmup=2\n```\n\n### Added\n\n- On a card that tt-kmd drives, baretile opens it through kmd's device file, `/dev/tenstorrent/N`. That needs no\n  root, needs no `iommu=pt` when the IOMMU translates, and leaves the card to tt-smi too. It needs tt-kmd 2.0 or\n  later, and 2.11 for an explicit `Chip.arc_msg`.\n- `python3 -m baretile.models.train"
   },
   "https://github.com/seansiddens/current": {
     "stars": 5,
@@ -4565,6 +4604,63 @@
     "stars": 16,
     "updatedAt": "2026-10-30T15:17:03Z",
     "releases": [
+      {
+        "tagName": "7.93.0-replay-41386",
+        "name": "7.93.0-replay-41386",
+        "publishedAt": "2026-10-31T01:54:12Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.93.0-replay-41386",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.93.0-replay-41386_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0-replay-41386/sfpi_7.93.0-replay-41386_x86_64_debian.deb",
+            "size": 134667948
+          },
+          {
+            "name": "sfpi_7.93.0-replay-41386_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0-replay-41386/sfpi_7.93.0-replay-41386_x86_64_fedora.rpm",
+            "size": 134230869
+          }
+        ]
+      },
+      {
+        "tagName": "7.93.0-iptr-63431",
+        "name": "7.93.0-iptr-63431",
+        "publishedAt": "2026-10-30T19:41:37Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.93.0-iptr-63431",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.93.0-iptr-63431_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0-iptr-63431/sfpi_7.93.0-iptr-63431_x86_64_debian.deb",
+            "size": 134678414
+          },
+          {
+            "name": "sfpi_7.93.0-iptr-63431_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0-iptr-63431/sfpi_7.93.0-iptr-63431_x86_64_fedora.rpm",
+            "size": 134228268
+          }
+        ]
+      },
+      {
+        "tagName": "7.93.0-stov",
+        "name": "7.93.0-stov",
+        "publishedAt": "2026-10-30T18:57:03Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.93.0-stov",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.93.0-stov_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0-stov/sfpi_7.93.0-stov_x86_64_debian.deb",
+            "size": 134665648
+          },
+          {
+            "name": "sfpi_7.93.0-stov_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0-stov/sfpi_7.93.0-stov_x86_64_fedora.rpm",
+            "size": 134226895
+          }
+        ]
+      },
       {
         "tagName": "7.92.0",
         "name": "SFPI update",
@@ -4612,68 +4708,6 @@
             "size": 134216133
           }
         ]
-      },
-      {
-        "tagName": "7.92.0-stov",
-        "name": "7.92.0-stov",
-        "publishedAt": "2026-10-28T01:47:55Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.92.0-stov",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.92.0-stov_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0-stov/sfpi_7.92.0-stov_x86_64_debian.deb",
-            "size": 134656758
-          },
-          {
-            "name": "sfpi_7.92.0-stov_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0-stov/sfpi_7.92.0-stov_x86_64_fedora.rpm",
-            "size": 134194730
-          }
-        ]
-      },
-      {
-        "tagName": "7.90.0-newlib-update",
-        "name": "7.90.0-newlib-update",
-        "publishedAt": "2026-10-27T19:53:16Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.90.0-newlib-update",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.90.0-newlib-update_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.90.0-newlib-update/sfpi_7.90.0-newlib-update_x86_64_debian.deb",
-            "size": 134657898
-          },
-          {
-            "name": "sfpi_7.90.0-newlib-update_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.90.0-newlib-update/sfpi_7.90.0-newlib-update_x86_64_fedora.rpm",
-            "size": 134198545
-          }
-        ]
-      },
-      {
-        "tagName": "7.91.0",
-        "name": "SFPI Update",
-        "publishedAt": "2026-10-27T13:39:56Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.91.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.91.0_aarch64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.91.0/sfpi_7.91.0_aarch64_debian.deb",
-            "size": 129571450
-          },
-          {
-            "name": "sfpi_7.91.0_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.91.0/sfpi_7.91.0_x86_64_debian.deb",
-            "size": 134664206
-          },
-          {
-            "name": "sfpi_7.91.0_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.91.0/sfpi_7.91.0_x86_64_fedora.rpm",
-            "size": 134195618
-          }
-        ]
       }
     ]
   },
@@ -4696,14 +4730,14 @@
     "updatedAt": "2026-04-15T08:40:22Z"
   },
   "https://github.com/tenstorrent/tt-lang": {
-    "stars": 67,
-    "updatedAt": "2026-10-28T22:59:17Z",
+    "stars": 68,
+    "updatedAt": "2026-10-31T18:13:59Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
   "https://github.com/palisurf/tt-ldpc-qb2-sim": {
     "stars": 2,
-    "updatedAt": "2026-10-30T17:37:58Z",
+    "updatedAt": "2026-10-30T18:43:46Z",
     "preview_image": "https://raw.githubusercontent.com/palisurf/tt-ldpc-qb2-sim/main/docs/figures/tensix_ldpc_dataflow_block_diagram.png"
   },
   "https://github.com/tenstorrent/tt-llk": {
@@ -4711,10 +4745,114 @@
     "updatedAt": "2026-10-29T14:49:24Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1732,
-    "updatedAt": "2026-10-30T17:37:14Z",
+    "stars": 1734,
+    "updatedAt": "2026-10-31T16:34:38Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
+      {
+        "tagName": "v0.81.1-rc5",
+        "name": "v0.81.1-rc5",
+        "publishedAt": "2026-10-31T04:45:11Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.81.1-rc5",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "tt-metalium-dev_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium-dev_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "size": 1227000
+          },
+          {
+            "name": "tt-metalium-dev_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium-dev_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "size": 1225978
+          },
+          {
+            "name": "tt-metalium-examples_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium-examples_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "size": 85626
+          },
+          {
+            "name": "tt-metalium-examples_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium-examples_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "size": 85642
+          },
+          {
+            "name": "tt-metalium-jit_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium-jit_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "size": 134171548
+          },
+          {
+            "name": "tt-metalium-jit_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium-jit_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "size": 134168908
+          },
+          {
+            "name": "tt-metalium-validation_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium-validation_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "size": 4993874
+          },
+          {
+            "name": "tt-metalium-validation_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium-validation_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "size": 5048030
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium.tar.gz",
+            "size": 226138418
+          },
+          {
+            "name": "tt-metalium_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "size": 28483798
+          },
+          {
+            "name": "tt-metalium_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-metalium_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "size": 28452976
+          },
+          {
+            "name": "tt-nn-dev_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-nn-dev_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "size": 248248
+          },
+          {
+            "name": "tt-nn-dev_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-nn-dev_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "size": 248226
+          },
+          {
+            "name": "tt-nn-examples_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-nn-examples_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "size": 1410
+          },
+          {
+            "name": "tt-nn-examples_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-nn-examples_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "size": 1412
+          },
+          {
+            "name": "tt-nn-validation_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-nn-validation_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "size": 3318978
+          },
+          {
+            "name": "tt-nn-validation_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-nn-validation_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "size": 3389130
+          },
+          {
+            "name": "tt-nn_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-nn_0.81.1.rc5.ubuntu22.04_amd64.deb",
+            "size": 21744768
+          },
+          {
+            "name": "tt-nn_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc5/tt-nn_0.81.1.rc5.ubuntu24.04_amd64.deb",
+            "size": 21386270
+          }
+        ]
+      },
       {
         "tagName": "v0.82.0-dev20261030",
         "name": "v0.82.0-dev20261030",
@@ -5038,110 +5176,6 @@
             "name": "tt-nn_0.81.1.rc4.ubuntu22.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc4/tt-nn_0.81.1.rc4.ubuntu22.04_amd64.deb",
             "size": 21757600
-          }
-        ]
-      },
-      {
-        "tagName": "v0.81.1-rc3",
-        "name": "v0.81.1-rc3",
-        "publishedAt": "2026-10-27T02:54:09Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.81.1-rc3",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "tt-metalium-dev_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium-dev_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "size": 1226886
-          },
-          {
-            "name": "tt-metalium-dev_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium-dev_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "size": 1225944
-          },
-          {
-            "name": "tt-metalium-examples_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium-examples_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "size": 85630
-          },
-          {
-            "name": "tt-metalium-examples_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium-examples_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "size": 85648
-          },
-          {
-            "name": "tt-metalium-jit_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium-jit_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "size": 134174552
-          },
-          {
-            "name": "tt-metalium-jit_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium-jit_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "size": 134165242
-          },
-          {
-            "name": "tt-metalium-validation_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium-validation_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "size": 4993878
-          },
-          {
-            "name": "tt-metalium-validation_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium-validation_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "size": 5047794
-          },
-          {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium.tar.gz",
-            "size": 225985575
-          },
-          {
-            "name": "tt-metalium_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "size": 28495704
-          },
-          {
-            "name": "tt-metalium_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-metalium_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "size": 28446026
-          },
-          {
-            "name": "tt-nn-dev_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-nn-dev_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "size": 248224
-          },
-          {
-            "name": "tt-nn-dev_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-nn-dev_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "size": 248298
-          },
-          {
-            "name": "tt-nn-examples_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-nn-examples_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "size": 1410
-          },
-          {
-            "name": "tt-nn-examples_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-nn-examples_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "size": 1410
-          },
-          {
-            "name": "tt-nn-validation_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-nn-validation_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "size": 3318980
-          },
-          {
-            "name": "tt-nn-validation_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-nn-validation_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "size": 3389128
-          },
-          {
-            "name": "tt-nn_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-nn_0.81.1.rc3.ubuntu22.04_amd64.deb",
-            "size": 21760970
-          },
-          {
-            "name": "tt-nn_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.81.1-rc3/tt-nn_0.81.1.rc3.ubuntu24.04_amd64.deb",
-            "size": 21381304
           }
         ]
       }
@@ -5477,8 +5511,8 @@
     ]
   },
   "https://github.com/tenstorrent/riscv-ocelot": {
-    "stars": 264,
-    "updatedAt": "2026-10-08T13:12:48Z",
+    "stars": 265,
+    "updatedAt": "2026-10-31T17:53:31Z",
     "isFork": true,
     "forkParent": "riscv-boom/riscv-boom",
     "forkParentUrl": "https://github.com/riscv-boom/riscv-boom",
@@ -5603,7 +5637,7 @@
   },
   "https://github.com/tenstorrent/ttsim": {
     "stars": 169,
-    "updatedAt": "2026-10-29T15:26:12Z",
+    "updatedAt": "2026-10-31T18:13:48Z",
     "releases": [
       {
         "tagName": "v1.15.0",
