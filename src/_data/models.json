@@ -1359,7 +1359,16 @@
    "name": "gemma-4-12B-it",
    "newest": "2026-10-21",
    "params": "12B",
-   "perf": null,
+   "perf": {
+    "chips": null,
+    "decode": 22.095,
+    "decodeText": "22",
+    "hardware": "BH Galaxy",
+    "measured": false,
+    "tier": "complete",
+    "ttft": 144.0,
+    "ttftText": "144 ms"
+   },
    "reasoningParser": "gemma4",
    "rows": [
     {
@@ -1372,7 +1381,12 @@
      "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.25.0-978f93b-a723030",
      "impl": "tt-transformers",
      "listed": true,
-     "perf": null,
+     "perf": {
+      "decode": 22.095,
+      "measured": false,
+      "tier": "complete",
+      "ttft": 144.0
+     },
      "status": "Complete",
      "ttMetal": "978f93b",
      "users": 128,
@@ -1389,7 +1403,12 @@
      "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.25.0-978f93b-a723030",
      "impl": "tt-transformers",
      "listed": true,
-     "perf": null,
+     "perf": {
+      "decode": 26.365,
+      "measured": false,
+      "tier": "complete",
+      "ttft": 140.2
+     },
      "status": "Complete",
      "ttMetal": "978f93b",
      "users": 32,
@@ -1406,6 +1425,173 @@
    "toolParser": "gemma4",
    "upstream": "google/gemma-4-12B-it",
    "weights": "google/gemma-4-12B-it"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Gemma 4 26B A4B instruction-tuned, a 25.2B-parameter mixture-of-experts model (3.8B active parameters; 30 layers; 128 experts with 8 active plus 1 shared), served with vLLM for chat, reasoning and tool calling on text input.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "devices": 2,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "tt-hous",
+     "perf": {
+      "board": "p150",
+      "chips": 1,
+      "decode": 36.9,
+      "measured": true,
+      "ttft": 175.0
+     },
+     "readable": true,
+     "reasoningParser": "gemma4",
+     "repo": "tt-hous/gemma-4-26b-a4b-it",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "gemma4",
+     "updated": "2026-10-29"
+    }
+   ],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "gemma",
+   "hardware": [
+    "BH 4xP150",
+    "BH QuietBox 2",
+    "p150",
+    "p150x2"
+   ],
+   "id": "gemma-4-26b-a4b-it",
+   "impls": [
+    "gemma4-26b-a4b-qb2"
+   ],
+   "inSpec": true,
+   "kind": "LLM",
+   "kindFrom": "tt-inference-server model type",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": 28,
+   "minRamGb": 10.0,
+   "modalities": [
+    "text"
+   ],
+   "modelType": "LLM",
+   "name": "gemma-4-26B-A4B-it",
+   "newest": "2026-10-29",
+   "params": "4B",
+   "perf": {
+    "chips": null,
+    "decode": 22.400000000000002,
+    "decodeText": "22",
+    "hardware": "BH QuietBox 2",
+    "measured": false,
+    "tier": "functional",
+    "ttft": 240.0,
+    "ttftText": "240 ms"
+   },
+   "reasoningParser": "gemma4",
+   "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/demos/gemma4_26b_a4b_qb2",
+     "context": "256K",
+     "deviceKey": "P300X2",
+     "doc": "llm/gemma-4-26B-A4B-it_p300x2.md",
+     "engine": "vLLM",
+     "hardware": "BH QuietBox 2",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "gemma4-26b-a4b-qb2",
+     "listed": true,
+     "perf": {
+      "decode": 22.400000000000002,
+      "measured": false,
+      "tier": "functional",
+      "ttft": 240.0
+     },
+     "status": "Functional",
+     "ttMetal": "09acccb",
+     "users": 1,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    }
+   ],
+   "serve": "gemma-4-26B-A4B-it",
+   "singleCard": true,
+   "source": "tt-inference-server",
+   "status": "Functional",
+   "studio": "Chat",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Functional. 1 tt-model bundle also published.",
+   "toolParser": "gemma4",
+   "upstream": "google/gemma-4-26B-A4B-it",
+   "weights": "google/gemma-4-26B-A4B-it"
   },
   {
    "bundles": [],
@@ -1477,7 +1663,16 @@
    "name": "gemma-4-31B-it",
    "newest": "",
    "params": "31B",
-   "perf": null,
+   "perf": {
+    "chips": null,
+    "decode": 12.705,
+    "decodeText": "13",
+    "hardware": "BH Galaxy",
+    "measured": false,
+    "tier": "complete",
+    "ttft": 236.4,
+    "ttftText": "236 ms"
+   },
    "reasoningParser": "gemma4",
    "rows": [
     {
@@ -1490,7 +1685,12 @@
      "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.25.0-978f93b-a723030",
      "impl": "tt-transformers",
      "listed": true,
-     "perf": null,
+     "perf": {
+      "decode": 12.705,
+      "measured": false,
+      "tier": "complete",
+      "ttft": 236.4
+     },
      "status": "Complete",
      "ttMetal": "978f93b",
      "users": 128,
@@ -1507,7 +1707,12 @@
      "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.23.0-2fd9445-7250ddf",
      "impl": "gemma4-31b-qb2",
      "listed": true,
-     "perf": null,
+     "perf": {
+      "decode": 15.1,
+      "measured": false,
+      "tier": "complete",
+      "ttft": 239.6
+     },
      "status": "Complete",
      "ttMetal": "2fd9445",
      "users": 1,
@@ -1524,7 +1729,12 @@
      "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.25.0-978f93b-a723030",
      "impl": "tt-transformers",
      "listed": true,
-     "perf": null,
+     "perf": {
+      "decode": 15.1,
+      "measured": false,
+      "tier": "complete",
+      "ttft": 239.6
+     },
      "status": "Complete",
      "ttMetal": "978f93b",
      "users": 32,
@@ -1815,6 +2025,315 @@
    "toolParser": "openai",
    "upstream": "openai/gpt-oss-120b",
    "weights": "openai/gpt-oss-120b"
+  },
+  {
+   "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "granite",
+   "hardware": [
+    "BH QuietBox 2"
+   ],
+   "id": "granite-4-2-30b",
+   "impls": [
+    "granite42-30b-qb2"
+   ],
+   "inSpec": true,
+   "kind": "LLM",
+   "kindFrom": "tt-inference-server model type",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": 80,
+   "minRamGb": 75.0,
+   "modalities": [
+    "text"
+   ],
+   "modelType": "LLM",
+   "name": "granite-4.2-30b",
+   "newest": "",
+   "params": "30B",
+   "perf": {
+    "chips": null,
+    "decode": 6.5,
+    "decodeText": "6.5",
+    "hardware": "BH QuietBox 2",
+    "measured": false,
+    "tier": "functional",
+    "ttft": 680.0,
+    "ttftText": "680 ms"
+   },
+   "reasoningParser": "qwen3",
+   "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/demos/granite42_30b_qb2",
+     "context": "128K",
+     "deviceKey": "P300X2",
+     "doc": "llm/granite-4.2-30b_p300x2.md",
+     "engine": "vLLM",
+     "hardware": "BH QuietBox 2",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "granite42-30b-qb2",
+     "listed": true,
+     "perf": {
+      "decode": 6.5,
+      "measured": false,
+      "tier": "functional",
+      "ttft": 680.0
+     },
+     "status": "Functional",
+     "ttMetal": "09acccb",
+     "users": 16,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    }
+   ],
+   "serve": "granite-4.2-30b",
+   "singleCard": false,
+   "source": "tt-inference-server",
+   "status": "Functional",
+   "studio": "Chat",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Functional.",
+   "toolParser": "qwen3_xml",
+   "upstream": "ibm-granite/granite-4.2-30b",
+   "weights": "ibm-granite/granite-4.2-30b"
+  },
+  {
+   "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: k2_horizon",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: k2_horizon",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: k2_horizon",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: k2_horizon",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: k2_horizon",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "K",
+   "hardware": [
+    "BH QuietBox 2"
+   ],
+   "id": "k2-horizon-7b",
+   "impls": [
+    "k2-horizon-7b-qb2"
+   ],
+   "inSpec": true,
+   "kind": "LLM",
+   "kindFrom": "tt-inference-server model type",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": 34,
+   "minRamGb": 17.5,
+   "modalities": [
+    "text"
+   ],
+   "modelType": "LLM",
+   "name": "K2-Horizon-7B",
+   "newest": "",
+   "params": "7B",
+   "perf": {
+    "chips": null,
+    "decode": 14.100000000000001,
+    "decodeText": "14",
+    "hardware": "BH QuietBox 2",
+    "measured": false,
+    "tier": "functional",
+    "ttft": 150.0,
+    "ttftText": "150 ms"
+   },
+   "reasoningParser": "k2_horizon",
+   "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/demos/k2_horizon_7b_qb2",
+     "context": "512K",
+     "deviceKey": "P300X2",
+     "doc": "llm/K2-Horizon-7B_p300x2.md",
+     "engine": "vLLM",
+     "hardware": "BH QuietBox 2",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "k2-horizon-7b-qb2",
+     "listed": true,
+     "perf": {
+      "decode": 14.100000000000001,
+      "measured": false,
+      "tier": "functional",
+      "ttft": 150.0
+     },
+     "status": "Experimental",
+     "ttMetal": "09acccb",
+     "users": 32,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    }
+   ],
+   "serve": "K2-Horizon-7B",
+   "singleCard": false,
+   "source": "tt-inference-server",
+   "status": "Experimental",
+   "studio": "Chat",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Experimental.",
+   "toolParser": "k2_horizon",
+   "upstream": "IFM/K2-Horizon-7B",
+   "weights": "IFM/K2-Horizon-7B"
+  },
+  {
+   "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Kolibri",
+   "hardware": [
+    "BH QuietBox 2"
+   ],
+   "id": "kolibri-1-bf16",
+   "impls": [
+    "kolibri-1-qb2"
+   ],
+   "inSpec": true,
+   "kind": "LLM",
+   "kindFrom": "tt-inference-server model type",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": 180,
+   "minRamGb": 128,
+   "modalities": [
+    "text"
+   ],
+   "modelType": "LLM",
+   "name": "Kolibri-1-BF16",
+   "newest": "",
+   "params": null,
+   "perf": {
+    "chips": null,
+    "decode": 35.800000000000004,
+    "decodeText": "36",
+    "hardware": "BH QuietBox 2",
+    "measured": false,
+    "tier": "functional",
+    "ttft": 60.0,
+    "ttftText": "60 ms"
+   },
+   "reasoningParser": "kolibri1",
+   "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/autoports/aleph_alpha_kolibri_1_bf16",
+     "context": "256K",
+     "deviceKey": "P300X2",
+     "doc": "llm/Kolibri-1-BF16_p300x2.md",
+     "engine": "vLLM",
+     "hardware": "BH QuietBox 2",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "kolibri-1-qb2",
+     "listed": true,
+     "perf": {
+      "decode": 35.800000000000004,
+      "measured": false,
+      "tier": "functional",
+      "ttft": 60.0
+     },
+     "status": "Experimental",
+     "ttMetal": "09acccb",
+     "users": 32,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    }
+   ],
+   "serve": "Kolibri-1-BF16",
+   "singleCard": false,
+   "source": "tt-inference-server",
+   "status": "Experimental",
+   "studio": "Chat",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Experimental.",
+   "toolParser": null,
+   "upstream": "Aleph-Alpha/Kolibri-1-BF16",
+   "weights": "Aleph-Alpha/Kolibri-1-BF16"
   },
   {
    "bundles": [],
@@ -4032,6 +4551,242 @@
    "weights": "genmo/mochi-1-preview"
   },
   {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Muse-Glimmer-30B, a dense transformer of about 29.6B parameters including its vision encoder, served with vLLM as a text-only endpoint for long-context agentic coding with tool calling and separated reasoning output.",
+     "bundleKind": "vllm-plugin",
+     "context": "128K",
+     "decision": false,
+     "devices": 4,
+     "hardware": [
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "tt-hous",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 42.4,
+      "measured": true,
+      "ttft": 70.0
+     },
+     "readable": true,
+     "reasoningParser": "muse_glimmer",
+     "repo": "tt-hous/muse-glimmer-30b",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "muse_glimmer",
+     "updated": "2026-10-29"
+    }
+   ],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: muse_glimmer",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: muse_glimmer",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: muse_glimmer",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: muse_glimmer",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: muse_glimmer",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Muse",
+   "hardware": [
+    "BH QuietBox 2"
+   ],
+   "id": "muse-glimmer-30b",
+   "impls": [
+    "muse-glimmer-30b-qb2"
+   ],
+   "inSpec": true,
+   "kind": "LLM",
+   "kindFrom": "tt-inference-server model type",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": 80,
+   "minRamGb": 75.0,
+   "modalities": [
+    "text"
+   ],
+   "modelType": "LLM",
+   "name": "Muse-Glimmer-30B",
+   "newest": "2026-10-29",
+   "params": "30B",
+   "perf": {
+    "chips": null,
+    "decode": 4.2,
+    "decodeText": "4.2",
+    "hardware": "BH QuietBox 2",
+    "measured": false,
+    "tier": "functional",
+    "ttft": 500.0,
+    "ttftText": "500 ms"
+   },
+   "reasoningParser": "muse_glimmer",
+   "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/demos/muse_glimmer_30b_qb2",
+     "context": "128K",
+     "deviceKey": "P300X2",
+     "doc": "llm/Muse-Glimmer-30B_p300x2.md",
+     "engine": "vLLM",
+     "hardware": "BH QuietBox 2",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "muse-glimmer-30b-qb2",
+     "listed": true,
+     "perf": {
+      "decode": 4.2,
+      "measured": false,
+      "tier": "functional",
+      "ttft": 500.0
+     },
+     "status": "Experimental",
+     "ttMetal": "09acccb",
+     "users": 32,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    }
+   ],
+   "serve": "Muse-Glimmer-30B",
+   "singleCard": false,
+   "source": "tt-inference-server",
+   "status": "Experimental",
+   "studio": "Chat",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Experimental. 1 tt-model bundle also published.",
+   "toolParser": "muse_glimmer",
+   "upstream": "meta-models/Muse-Glimmer-30B",
+   "weights": "meta-models/Muse-Glimmer-30B"
+  },
+  {
+   "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "olmOCR",
+   "hardware": [
+    "WH LoudBox/QuietBox"
+   ],
+   "id": "olmocr-2-7b-1025",
+   "impls": [
+    "tt-transformers"
+   ],
+   "inSpec": true,
+   "kind": "VLM",
+   "kindFrom": "tt-inference-server model type",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": 34,
+   "minRamGb": 17.5,
+   "modalities": [
+    "text",
+    "image"
+   ],
+   "modelType": "VLM",
+   "name": "olmOCR-2-7B-1025",
+   "newest": "",
+   "params": "7B",
+   "perf": {
+    "chips": null,
+    "decode": 22.400000000000002,
+    "decodeText": "22",
+    "hardware": "WH LoudBox/QuietBox",
+    "measured": false,
+    "tier": "complete",
+    "ttft": 212.5,
+    "ttftText": "212 ms"
+   },
+   "reasoningParser": null,
+   "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "T3K",
+     "doc": "vlm/olmOCR-2-7B-1025_t3k.md",
+     "engine": "vLLM",
+     "hardware": "WH LoudBox/QuietBox",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": {
+      "decode": 22.400000000000002,
+      "measured": false,
+      "tier": "complete",
+      "ttft": 212.5
+     },
+     "status": "Complete",
+     "ttMetal": "09acccb",
+     "users": 32,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    }
+   ],
+   "serve": "olmOCR-2-7B-1025",
+   "singleCard": false,
+   "source": "tt-inference-server",
+   "status": "Complete",
+   "studio": "Chat, with image input",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Complete.",
+   "toolParser": null,
+   "upstream": "allenai/olmOCR-2-7B-1025",
+   "weights": "allenai/olmOCR-2-7B-1025"
+  },
+  {
    "bundles": [],
    "clients": [
     {
@@ -4336,6 +5091,371 @@
    "toolParser": "hermes",
    "upstream": "Qwen/Qwen2.5-72B-Instruct",
    "weights": "Qwen/Qwen2.5-72B-Instruct"
+  },
+  {
+   "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Qwen",
+   "hardware": [
+    "WH LoudBox/QuietBox"
+   ],
+   "id": "qwen2-5-vl-32b-instruct",
+   "impls": [
+    "tt-transformers"
+   ],
+   "inSpec": true,
+   "kind": "VLM",
+   "kindFrom": "tt-inference-server model type",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": 84,
+   "minRamGb": 80.0,
+   "modalities": [
+    "text",
+    "image"
+   ],
+   "modelType": "VLM",
+   "name": "Qwen2.5-VL-32B-Instruct",
+   "newest": "",
+   "params": "32B",
+   "perf": {
+    "chips": null,
+    "decode": 4.2,
+    "decodeText": "4.2",
+    "hardware": "WH LoudBox/QuietBox",
+    "measured": false,
+    "tier": "functional",
+    "ttft": 630.0,
+    "ttftText": "630 ms"
+   },
+   "reasoningParser": null,
+   "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "T3K",
+     "doc": "vlm/Qwen2.5-VL-32B-Instruct_t3k.md",
+     "engine": "vLLM",
+     "hardware": "WH LoudBox/QuietBox",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": {
+      "decode": 4.2,
+      "measured": false,
+      "tier": "functional",
+      "ttft": 630.0
+     },
+     "status": "Experimental",
+     "ttMetal": "09acccb",
+     "users": 32,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    }
+   ],
+   "serve": "Qwen2.5-VL-32B-Instruct",
+   "singleCard": false,
+   "source": "tt-inference-server",
+   "status": "Experimental",
+   "studio": "Chat, with image input",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Experimental.",
+   "toolParser": "hermes",
+   "upstream": "Qwen/Qwen2.5-VL-32B-Instruct",
+   "weights": "Qwen/Qwen2.5-VL-32B-Instruct"
+  },
+  {
+   "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Qwen",
+   "hardware": [
+    "WH LoudBox/QuietBox"
+   ],
+   "id": "qwen2-5-vl-72b-instruct",
+   "impls": [
+    "tt-transformers"
+   ],
+   "inSpec": true,
+   "kind": "VLM",
+   "kindFrom": "tt-inference-server model type",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": 164,
+   "minRamGb": 180.0,
+   "modalities": [
+    "text",
+    "image"
+   ],
+   "modelType": "VLM",
+   "name": "Qwen2.5-VL-72B-Instruct",
+   "newest": "",
+   "params": "72B",
+   "perf": {
+    "chips": null,
+    "decode": 2.0,
+    "decodeText": "2.0",
+    "hardware": "WH LoudBox/QuietBox",
+    "measured": false,
+    "tier": "functional",
+    "ttft": 3120.0,
+    "ttftText": "3.1 s"
+   },
+   "reasoningParser": null,
+   "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/tt_transformers",
+     "context": "96K",
+     "deviceKey": "T3K",
+     "doc": "vlm/Qwen2.5-VL-72B-Instruct_t3k.md",
+     "engine": "vLLM",
+     "hardware": "WH LoudBox/QuietBox",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": {
+      "decode": 2.0,
+      "measured": false,
+      "tier": "functional",
+      "ttft": 3120.0
+     },
+     "status": "Functional",
+     "ttMetal": "09acccb",
+     "users": 32,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    }
+   ],
+   "serve": "Qwen2.5-VL-72B-Instruct",
+   "singleCard": false,
+   "source": "tt-inference-server",
+   "status": "Functional",
+   "studio": "Chat, with image input",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Functional.",
+   "toolParser": "hermes",
+   "upstream": "Qwen/Qwen2.5-VL-72B-Instruct",
+   "weights": "Qwen/Qwen2.5-VL-72B-Instruct"
+  },
+  {
+   "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Qwen",
+   "hardware": [
+    "WH Galaxy",
+    "WH LoudBox/QuietBox"
+   ],
+   "id": "qwen2-5-vl-7b-instruct",
+   "impls": [
+    "tt-transformers"
+   ],
+   "inSpec": true,
+   "kind": "VLM",
+   "kindFrom": "tt-inference-server model type",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": 34,
+   "minRamGb": 17.5,
+   "modalities": [
+    "text",
+    "image"
+   ],
+   "modelType": "VLM",
+   "name": "Qwen2.5-VL-7B-Instruct",
+   "newest": "",
+   "params": "7B",
+   "perf": {
+    "chips": null,
+    "decode": 21.6,
+    "decodeText": "22",
+    "hardware": "WH Galaxy",
+    "measured": false,
+    "tier": "complete",
+    "ttft": 100.0,
+    "ttftText": "100 ms"
+   },
+   "reasoningParser": null,
+   "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "GALAXY",
+     "doc": "vlm/Qwen2.5-VL-7B-Instruct_galaxy.md",
+     "engine": "vLLM",
+     "hardware": "WH Galaxy",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": {
+      "decode": 21.6,
+      "measured": false,
+      "tier": "complete",
+      "ttft": 100.0
+     },
+     "status": "Complete",
+     "ttMetal": "09acccb",
+     "users": 128,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    },
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/tt_transformers",
+     "context": "128K",
+     "deviceKey": "T3K",
+     "doc": "vlm/Qwen2.5-VL-7B-Instruct_t3k.md",
+     "engine": "vLLM",
+     "hardware": "WH LoudBox/QuietBox",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "tt-transformers",
+     "listed": true,
+     "perf": {
+      "decode": 430.40000000000003,
+      "measured": false,
+      "tier": "complete",
+      "ttft": 33.75
+     },
+     "status": "Complete",
+     "ttMetal": "09acccb",
+     "users": 32,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    }
+   ],
+   "serve": "Qwen2.5-VL-7B-Instruct",
+   "singleCard": false,
+   "source": "tt-inference-server",
+   "status": "Complete",
+   "studio": "Chat, with image input",
+   "summary": "Listed in tt-inference-server on 2 hardware types; best status Complete.",
+   "toolParser": "hermes",
+   "upstream": "Qwen/Qwen2.5-VL-7B-Instruct",
+   "weights": "Qwen/Qwen2.5-VL-7B-Instruct"
   },
   {
    "bundles": [
@@ -5159,6 +6279,105 @@
    "weights": "Qwen/Qwen3-VL-32B-Instruct"
   },
   {
+   "bundles": [],
+   "clients": [
+    {
+     "checked": true,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "pi",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "aider",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": true,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": true,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Qwen",
+   "hardware": [
+    "BH 4xP150"
+   ],
+   "id": "qwen3-5-27b",
+   "impls": [
+    "qwen36-blackhole"
+   ],
+   "inSpec": true,
+   "kind": "LLM",
+   "kindFrom": "tt-inference-server model type",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": 74,
+   "minRamGb": 67.5,
+   "modalities": [
+    "text"
+   ],
+   "modelType": "LLM",
+   "name": "Qwen3.5-27B",
+   "newest": "",
+   "params": "27B",
+   "perf": null,
+   "reasoningParser": "qwen3",
+   "rows": [
+    {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/demos/blackhole/qwen36",
+     "context": "256K",
+     "deviceKey": "P150X4",
+     "doc": "llm/Qwen3.5-27B_p150x4.md",
+     "engine": "vLLM",
+     "hardware": "BH 4xP150",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "qwen36-blackhole",
+     "listed": true,
+     "perf": null,
+     "status": "Experimental",
+     "ttMetal": "09acccb",
+     "users": 32,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    }
+   ],
+   "serve": "Qwen3.5-27B",
+   "singleCard": false,
+   "source": "tt-inference-server",
+   "status": "Experimental",
+   "studio": "Chat",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Experimental.",
+   "toolParser": "qwen3_coder",
+   "upstream": "Qwen/Qwen3.5-27B",
+   "weights": "Qwen/Qwen3.5-27B"
+  },
+  {
    "bundles": [
     {
      "arch": "blackhole",
@@ -5270,6 +6489,23 @@
    "reasoningParser": "qwen3",
    "rows": [
     {
+     "codeLink": "https://github.com/tenstorrent/tt-metal/tree/09acccb/models/demos/blackhole/qwen36",
+     "context": "256K",
+     "deviceKey": "P150X4",
+     "doc": "llm/Qwen3.6-27B_p150x4.md",
+     "engine": "vLLM",
+     "hardware": "BH 4xP150",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "impl": "qwen36-blackhole",
+     "listed": true,
+     "perf": null,
+     "status": "Experimental",
+     "ttMetal": "09acccb",
+     "users": 32,
+     "version": "0.26.0",
+     "vllm": "6098002"
+    },
+    {
      "codeLink": "https://github.com/tenstorrent/tt-metal/tree/de59f8a/models/demos/blackhole/qwen36",
      "context": "256K",
      "deviceKey": "P300X2",
@@ -5292,7 +6528,7 @@
    "source": "tt-inference-server",
    "status": "Experimental",
    "studio": "Chat",
-   "summary": "Listed in tt-inference-server on 1 hardware type; best status Experimental. 1 tt-model bundle also published.",
+   "summary": "Listed in tt-inference-server on 2 hardware types; best status Experimental. 1 tt-model bundle also published.",
    "toolParser": "qwen3_coder",
    "upstream": "Qwen/Qwen3.6-27B",
    "weights": "Qwen/Qwen3.6-27B"
@@ -8036,145 +9272,6 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "Gemma 4 26B A4B instruction-tuned, a 25.2B-parameter mixture-of-experts model (3.8B active parameters; 30 layers; 128 experts with 8 active plus 1 shared), served with vLLM for chat, reasoning and tool calling on text input.",
-     "bundleKind": "vllm-plugin",
-     "context": null,
-     "decision": false,
-     "devices": 2,
-     "hardware": [
-      {
-       "key": "P150",
-       "listed": true,
-       "product": "p150",
-       "raw": "p150"
-      },
-      {
-       "key": null,
-       "listed": false,
-       "product": "p150x2",
-       "raw": "p150x2"
-      },
-      {
-       "key": "P150X4",
-       "listed": true,
-       "product": "BH 4xP150",
-       "raw": "p150x4"
-      }
-     ],
-     "license": {
-      "id": "apache-2.0",
-      "link": null,
-      "name": null
-     },
-     "owner": "tt-hous",
-     "perf": {
-      "board": "p150",
-      "chips": 1,
-      "decode": 36.9,
-      "measured": true,
-      "ttft": 175.0
-     },
-     "readable": true,
-     "reasoningParser": "gemma4",
-     "repo": "tt-hous/gemma-4-26b-a4b-it",
-     "schema": "5.1",
-     "task": "text-generation",
-     "toolParser": "gemma4",
-     "updated": "2026-10-29"
-    }
-   ],
-   "clients": [
-    {
-     "checked": false,
-     "id": "opencode",
-     "note": "Tool calling: gemma4",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "pi",
-     "note": "Tool calling: gemma4",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "aider",
-     "note": "Tool calling: gemma4",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "qwencode",
-     "note": "Tool calling: gemma4",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "hermes",
-     "note": "Tool calling: gemma4",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "openwebui",
-     "note": "Any chat model",
-     "type": "Web service"
-    },
-    {
-     "checked": false,
-     "id": "anythingllm",
-     "note": "Any chat model",
-     "type": "Web service"
-    }
-   ],
-   "family": "gemma",
-   "hardware": [
-    "BH 4xP150",
-    "p150",
-    "p150x2"
-   ],
-   "id": "gemma-4-26b-a4b-it",
-   "impls": [],
-   "inSpec": false,
-   "kind": "LLM",
-   "kindFrom": "the task tag on the bundle's card",
-   "kindInferred": false,
-   "licenses": [
-    "apache-2.0"
-   ],
-   "minDiskGb": null,
-   "minRamGb": null,
-   "modalities": null,
-   "modelType": null,
-   "name": "gemma-4-26B-A4B-it",
-   "newest": "2026-10-29",
-   "params": null,
-   "perf": {
-    "board": "p150",
-    "chips": 1,
-    "decode": 36.9,
-    "decodeText": "37",
-    "hardware": "p150",
-    "measured": true,
-    "ttft": 175.0,
-    "ttftText": "175 ms"
-   },
-   "reasoningParser": "gemma4",
-   "rows": [],
-   "serve": "tt-hous/gemma-4-26b-a4b-it",
-   "singleCard": true,
-   "source": "tt-model bundle",
-   "status": null,
-   "studio": null,
-   "summary": "Gemma 4 26B A4B instruction-tuned, a 25.2B-parameter mixture-of-experts model (3.8B active parameters; 30 layers; 128 experts with 8 active plus 1 shared), served with vLLM for chat, reasoning and tool calling on text input.",
-   "toolParser": "gemma4",
-   "upstream": "google/gemma-4-26B-A4B-it",
-   "weights": "google/gemma-4-26B-A4B-it"
-  },
-  {
-   "bundles": [
-    {
-     "arch": "blackhole",
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "128K",
@@ -10665,131 +11762,6 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "Muse-Glimmer-30B, a dense transformer of about 29.6B parameters including its vision encoder, served with vLLM as a text-only endpoint for long-context agentic coding with tool calling and separated reasoning output.",
-     "bundleKind": "vllm-plugin",
-     "context": "128K",
-     "decision": false,
-     "devices": 4,
-     "hardware": [
-      {
-       "key": "P300X2",
-       "listed": true,
-       "product": "BH QuietBox 2",
-       "raw": "p300x2"
-      }
-     ],
-     "license": {
-      "id": "apache-2.0",
-      "link": null,
-      "name": null
-     },
-     "owner": "tt-hous",
-     "perf": {
-      "board": null,
-      "chips": null,
-      "decode": 42.4,
-      "measured": true,
-      "ttft": 70.0
-     },
-     "readable": true,
-     "reasoningParser": "muse_glimmer",
-     "repo": "tt-hous/muse-glimmer-30b",
-     "schema": "5.1",
-     "task": "text-generation",
-     "toolParser": "muse_glimmer",
-     "updated": "2026-10-29"
-    }
-   ],
-   "clients": [
-    {
-     "checked": false,
-     "id": "opencode",
-     "note": "Tool calling: muse_glimmer",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "pi",
-     "note": "Tool calling: muse_glimmer",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "aider",
-     "note": "Tool calling: muse_glimmer",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "qwencode",
-     "note": "Tool calling: muse_glimmer",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "hermes",
-     "note": "Tool calling: muse_glimmer",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "openwebui",
-     "note": "Any chat model",
-     "type": "Web service"
-    },
-    {
-     "checked": false,
-     "id": "anythingllm",
-     "note": "Any chat model",
-     "type": "Web service"
-    }
-   ],
-   "family": "Muse",
-   "hardware": [
-    "BH QuietBox 2"
-   ],
-   "id": "muse-glimmer-30b",
-   "impls": [],
-   "inSpec": false,
-   "kind": "LLM",
-   "kindFrom": "the task tag on the bundle's card",
-   "kindInferred": false,
-   "licenses": [
-    "apache-2.0"
-   ],
-   "minDiskGb": null,
-   "minRamGb": null,
-   "modalities": null,
-   "modelType": null,
-   "name": "Muse-Glimmer-30B",
-   "newest": "2026-10-29",
-   "params": null,
-   "perf": {
-    "board": "p300x2",
-    "chips": 4,
-    "decode": 42.4,
-    "decodeText": "42",
-    "hardware": "BH QuietBox 2",
-    "measured": true,
-    "ttft": 70.0,
-    "ttftText": "70 ms"
-   },
-   "reasoningParser": "muse_glimmer",
-   "rows": [],
-   "serve": "tt-hous/muse-glimmer-30b",
-   "singleCard": false,
-   "source": "tt-model bundle",
-   "status": null,
-   "studio": null,
-   "summary": "Muse-Glimmer-30B, a dense transformer of about 29.6B parameters including its vision encoder, served with vLLM as a text-only endpoint for long-context agentic coding with tool calling and separated reasoning output.",
-   "toolParser": "muse_glimmer",
-   "upstream": "meta-models/Muse-Glimmer-30B",
-   "weights": "meta-models/Muse-Glimmer-30B"
-  },
-  {
-   "bundles": [
-    {
-     "arch": "blackhole",
      "blurb": "NVIDIA Nemotron 3.5 Lightning 30B-A3B (NVFP4 checkpoint), a hybrid Mamba-Transformer mixture-of-experts reasoning model with a 1,048,576-token context, ported to Tenstorrent Blackhole and served through stock vLLM 0.26.0 plus the…",
      "bundleKind": "vllm-plugin",
      "context": "1024K",
@@ -11223,7 +12195,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-28"
+     "updated": "2026-10-31"
     }
    ],
    "clients": [
@@ -11289,7 +12261,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Ornith-1.5-122B",
-   "newest": "2026-10-28",
+   "newest": "2026-10-31",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -12469,7 +13441,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-28"
+     "updated": "2026-10-31"
     }
    ],
    "clients": [
@@ -12535,7 +13507,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3.5-122B-A10B",
-   "newest": "2026-10-28",
+   "newest": "2026-10-31",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -14176,8 +15148,8 @@
   }
  ],
  "spec": {
-  "commit": "2db98e38c",
-  "release": "0.25.0"
+  "commit": "5ebf2d8a0",
+  "release": "0.26.0"
  },
  "unclassified": [],
  "unreadableBundles": []
