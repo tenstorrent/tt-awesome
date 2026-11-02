@@ -13202,6 +13202,101 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "Qwen3-Reranker-4B, a text reranker for 100+ languages and code: it scores how well a document answers a query by reading logit(\"yes\") - logit(\"no\") at the end of the model card's prompt, served as a Cohere / Jina / vLLM-style /v1/rerank…",
+     "bundleKind": "tt-dit-server",
+     "context": null,
+     "decision": false,
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300",
+       "listed": true,
+       "product": "BH P300",
+       "raw": "p300"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "raahemnabeel/qwen3-reranker-4b",
+     "schema": "5.1",
+     "task": "text-ranking",
+     "toolParser": null,
+     "updated": "2026-11-02"
+    }
+   ],
+   "clients": [],
+   "family": "Qwen",
+   "hardware": [
+    "BH 4xP150",
+    "BH P300",
+    "BH QuietBox 2",
+    "p150",
+    "p150x2"
+   ],
+   "id": "qwen3-reranker-4b",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Text ranking",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Qwen3-Reranker-4B",
+   "newest": "2026-11-02",
+   "params": null,
+   "perf": null,
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "raahemnabeel/qwen3-reranker-4b",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Qwen3-Reranker-4B, a text reranker for 100+ languages and code: it scores how well a document answers a query by reading logit(\"yes\") - logit(\"no\") at the end of the model card's prompt, served as a Cohere / Jina / vLLM-style /v1/rerank…",
+   "toolParser": null,
+   "upstream": "Qwen/Qwen3-Reranker-4B",
+   "weights": "Qwen/Qwen3-Reranker-4B"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "Qwen3-TTS 1.7B Base, a text-to-speech model that clones the voice of a 3 to 10 s reference clip, in ten languages.",
      "bundleKind": "http-server",
      "context": null,
@@ -13398,6 +13493,196 @@
    "toolParser": null,
    "upstream": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
    "weights": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Qwen3-VL-Embedding-8B, a multimodal embedding model: text, images, screenshots, video, or a mix, map to one L2-normalised 4096-dimensional vector in a shared space (Matryoshka dimensions down to 64), served as an OpenAI-style…",
+     "bundleKind": "tt-dit-server",
+     "context": null,
+     "decision": false,
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300",
+       "listed": true,
+       "product": "BH P300",
+       "raw": "p300"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "raahemnabeel/qwen3-vl-embedding-8b",
+     "schema": "5.1",
+     "task": "feature-extraction",
+     "toolParser": null,
+     "updated": "2026-11-02"
+    }
+   ],
+   "clients": [],
+   "family": "Qwen",
+   "hardware": [
+    "BH 4xP150",
+    "BH P300",
+    "BH QuietBox 2",
+    "p150",
+    "p150x2"
+   ],
+   "id": "qwen3-vl-embedding-8b",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Embedding",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Qwen3-VL-Embedding-8B",
+   "newest": "2026-11-02",
+   "params": null,
+   "perf": null,
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "raahemnabeel/qwen3-vl-embedding-8b",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Qwen3-VL-Embedding-8B, a multimodal embedding model: text, images, screenshots, video, or a mix, map to one L2-normalised 4096-dimensional vector in a shared space (Matryoshka dimensions down to 64), served as an OpenAI-style…",
+   "toolParser": null,
+   "upstream": "Qwen/Qwen3-VL-Embedding-8B",
+   "weights": "Qwen/Qwen3-VL-Embedding-8B"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Qwen3-VL-Reranker-8B, a multimodal reranker: it scores how well a document answers a query, where either side can be text, images, screenshots, video or a mix.",
+     "bundleKind": "tt-dit-server",
+     "context": null,
+     "decision": false,
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300",
+       "listed": true,
+       "product": "BH P300",
+       "raw": "p300"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "raahemnabeel/qwen3-vl-reranker-8b",
+     "schema": "5.1",
+     "task": "text-ranking",
+     "toolParser": null,
+     "updated": "2026-11-02"
+    }
+   ],
+   "clients": [],
+   "family": "Qwen",
+   "hardware": [
+    "BH 4xP150",
+    "BH P300",
+    "BH QuietBox 2",
+    "p150",
+    "p150x2"
+   ],
+   "id": "qwen3-vl-reranker-8b",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Text ranking",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Qwen3-VL-Reranker-8B",
+   "newest": "2026-11-02",
+   "params": null,
+   "perf": null,
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "raahemnabeel/qwen3-vl-reranker-8b",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Qwen3-VL-Reranker-8B, a multimodal reranker: it scores how well a document answers a query, where either side can be text, images, screenshots, video or a mix.",
+   "toolParser": null,
+   "upstream": "Qwen/Qwen3-VL-Reranker-8B",
+   "weights": "Qwen/Qwen3-VL-Reranker-8B"
   },
   {
    "bundles": [
@@ -15148,7 +15433,7 @@
   }
  ],
  "spec": {
-  "commit": "5ebf2d8a0",
+  "commit": "7b7693030",
   "release": "0.26.0"
  },
  "unclassified": [],
