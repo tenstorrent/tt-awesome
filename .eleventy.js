@@ -667,8 +667,10 @@ module.exports = function (eleventyConfig) {
 
   // Builds the Planet Tenstorrent item list from three sources:
   //   entries        — article-type links from curated entry JSONs
-  //   recentReleases — stable releases (dev builds filtered out)
-  //   externalFeeds  — approved items from planet_feeds.json (YouTube, arXiv, etc.)
+  //   recentReleases — accepted for signature compatibility; no longer a
+  //                    card source (see the note below the feed loop)
+  //   externalFeeds  — approved items from planet_feeds.json (YouTube, arXiv,
+  //                    and every summarized release)
   // Returns items sorted newest-first; URLs are deduplicated across all sources.
   // Bursts of same-project releases are collapsed into single cards — see
   // groupReleaseRuns above.
@@ -762,9 +764,9 @@ module.exports = function (eleventyConfig) {
       if (repoLink && repoLink.url) entryByRepoUrl[repoLink.url] = entry;
     }
 
-    // Approved external feed items first (YouTube, arXiv, Reddit, community blogs,
-    // and summarized releases). Processed before recentReleases so that summarized
-    // release items from planet_feeds.json win the URL dedup over the generic fallback.
+    // Approved external feed items (YouTube, arXiv, Reddit, community blogs,
+    // and summarized releases). This is the only source of release cards —
+    // see the note on recentReleases below.
     // approved=false items stay in planet_feeds.json for PR review but don't render.
     for (const item of externalFeeds || []) {
       if (!item.approved) continue;
@@ -784,31 +786,24 @@ module.exports = function (eleventyConfig) {
       items.push(item);
     }
 
-    // Stable releases from recentReleases — skip pre-release builds and any release
-    // already covered by a summarized item in externalFeeds (seenUrls handles dedup).
-    // Keep in sync with PRE_RELEASE_TAG in src/_data/entries.js.
-    // dev: "1.2.0.dev20260530", "v0.72.0-dev20260529"  RC: "v0.72.0-rc4"  QA: "v1.0-qa1"
-    // alpha/beta: "v0.17.0-alpha"
-    // branch builds: "7.67.0-strength-49763" (version-branchword-runnumber) and
-    // "7.92.0-stov" (version-branchword, no run number)
-    for (const rel of recentReleases || []) {
-      if (/[\.\-]dev[\.\d]|[-.]rc\d|[-.]alpha|[-.]beta|[-.]qa[\d.]|\d-[a-z]+(?:-\d+)?$/i.test(rel.tagName || "")) continue;
-      if (seenUrls.has(rel.url)) continue;
-      seenUrls.add(rel.url);
-      const dateStr = rel.publishedAt ? rel.publishedAt.slice(0, 10) : "1970-01-01";
-      items.push({
-        type:        "release",
-        title:       `${rel.entryName} ${rel.tagName}`,
-        url:         rel.url,
-        description: `New release: ${rel.entryName} ${rel.tagName}`,
-        date:        dateStr,
-        dateISO:     rel.publishedAt || dateStr + "T00:00:00Z",
-        projectName: rel.entryName,
-        projectId:   rel.entryId,
-        affiliation: rel.affiliation || "",
-        label:       rel.tagName,
-      });
-    }
+    // recentReleases is deliberately NOT a source of cards. Until 2026-11-03
+    // every stable release in it that planet_feeds.json did not cover got a
+    // synthesized "New release: X vY" placeholder card. That looked like a
+    // safety net, but github_meta.json and planet_feeds.json are written by
+    // the same nightly run, so an uncovered release is one the summarizer
+    // chose to skip: an empty body (sfpi 7.92.0-binutils-update, whisper
+    // r1.866), notes under SPARSE_LIMIT (Tenstorrent-WH-BlockSpMM v1.0.0 at
+    // 68 chars), a maintainer decline in planet_declined.json (xpustat v0.6.0,
+    // tt-fluid v0.1.0, granite-4.1-tt-metal v0.1.1), or a release already
+    // published under the repo's previous name (vllm.cpp v0.0.2, published as
+    // mudler/vllm.cpp). The placeholder re-published every one of those as a
+    // bodyless card, and the tag regex that tried to hold it back needed a
+    // new clause each time a new branch-build shape appeared (-strength-NNNNN,
+    // then -stov, then -binutils-update). Release cards come only from
+    // summarized items above; recentReleases still feeds the sidebar and the
+    // releases Atom feed (src/_data/recentReleases.js), which keep their own
+    // one-line fallback because a releases feed should list every release.
+    void recentReleases;
 
     // Collapse bursts of same-project releases into one card each. Done after
     // every source has contributed and been URL-deduplicated, so a run made of

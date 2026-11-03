@@ -331,16 +331,22 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: article links included with correct shape");
 }
 
-// Test 17: releases appear with type "release"
+// Test 17: a release that the summarizer never published gets NO card.
+//
+// planetItems used to synthesize a "New release: X vY" placeholder for every
+// stable release in recentReleases that planet_feeds.json did not cover. But
+// github_meta.json and planet_feeds.json are written by the same nightly run,
+// so an uncovered release is one the summarizer deliberately skipped — empty
+// body (sfpi 7.92.0-binutils-update, whisper r1.866), under SPARSE_LIMIT
+// (Tenstorrent-WH-BlockSpMM v1.0.0 at 68 chars), declined by a maintainer
+// (xpustat v0.6.0, tt-fluid v0.1.0), or already published under a renamed
+// repo (vllm.cpp v0.0.2). Each of those rendered a bodyless card on the
+// planet on 2026-11-03. Release cards now come only from summarized items.
 {
   const rel = makeRelease();
   const items = planetItems([], [rel], []);
-  assert.strictEqual(items.length, 1);
-  assert.strictEqual(items[0].type, "release");
-  assert.strictEqual(items[0].projectId, "test-entry");
-  assert.ok(items[0].title.includes("v1.0.0"));
-  assert.ok(items[0].date.match(/^\d{4}-\d{2}-\d{2}$/), "date should be YYYY-MM-DD");
-  console.log("✓ planetItems: releases included with correct shape");
+  assert.strictEqual(items.length, 0, "unsummarized release must not get a placeholder card");
+  console.log("✓ planetItems: unsummarized releases get no fallback card");
 }
 
 // Test 18: output sorted newest-first
@@ -450,47 +456,42 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ monthLabel: guards out-of-range month numbers");
 }
 
-// Test 24: planetItems excludes dev releases (all known patterns)
+// Test 24: recentReleases contributes nothing on its own; the summarized
+// item is the only source of a release card, and it appears exactly once.
+//
+// History: this test used to assert that dev/rc/alpha/beta/branch-build tags
+// were filtered out of the fallback cards, and grew a regex clause each time a
+// new tag shape leaked ("7.67.0-strength-49763", then "7.92.0-stov"). The
+// third leak, "7.92.0-binutils-update" (two branch words), showed the regex
+// was guarding the wrong layer: the summarizer already skips every such
+// release, and the fallback card was re-inventing what it had skipped.
 {
-  const mkRel = (tagName, url) => ({
+  const mkRel = (tagName) => ({
     entryId: "x", entryName: "X", affiliation: "official",
     tagName, publishedAt: "2026-05-30T00:00:00Z",
-    url: `https://github.com/test/x/releases/tag/${url || tagName}`, repoUrl: "https://github.com/test/x",
+    url: `https://github.com/test/x/releases/tag/${tagName}`, repoUrl: "https://github.com/test/x",
   });
-  const devRels = [
-    mkRel("1.2.0.dev20260530"),          // forge pattern: .dev<digits>
-    mkRel("v0.72.0-dev20260529"),         // tt-metal pattern: -dev<digits>
-    mkRel("v0.9.5-dev.260424"),           // tt-metal pattern: -dev.<digits>
-    mkRel("v0.17.0-alpha"),               // tt-buda pattern: -alpha
-    mkRel("v1.0.0-beta2"),                // -beta<digits>
-    mkRel("7.67.0-strength-49763"),       // sfpi CI experiment tag
-    mkRel("7.92.0-stov"),                 // sfpi branch build: version + bare branch word, no run number
+  const rels = [
+    mkRel("7.92.0-binutils-update"),      // branch build, two words: slipped every tag regex
+    mkRel("7.92.0-stov"),                 // branch build, one word
+    mkRel("v0.72.0-dev20260529"),         // dev build
+    mkRel("v1.0.0"),                      // stable, summarized below
+    mkRel("v0.9.0"),                      // stable, empty body → summarizer skipped it
   ];
-  const stableRel = mkRel("v1.0.0");
-  const items = planetItems([], [...devRels, stableRel], []);
-  const releaseItems = items.filter((i) => i.type === "release");
-  assert.strictEqual(releaseItems.length, 1, "only stable release should appear");
-  assert.strictEqual(releaseItems[0].label, "v1.0.0");
-  console.log("✓ planetItems: excludes dev/rc/qa/alpha/beta/CI-experiment release tags");
-}
-
-// Test 24b: a branch build with no run number, on its own. sfpi cut
-// "7.92.0-stov" from nsidwell/stov with an empty name and body and the
-// prerelease flag off; the summarizer skipped it as sparse, so the fallback
-// card here was the only thing rendering it ("New release: SFPI 7.92.0-stov").
-// Checked alone because Test 24 shares one project and date across its
-// releases, so the run grouper would fold a leaked card into the stable one.
-{
-  const rel = {
-    entryId: "sfpi", entryName: "SFPI", affiliation: "official",
-    tagName: "7.92.0-stov", publishedAt: "2026-10-28T01:47:55Z",
-    url: "https://github.com/tenstorrent/sfpi/releases/tag/7.92.0-stov",
-    repoUrl: "https://github.com/tenstorrent/sfpi",
+  const summarized = {
+    type: "release", source: "github", approved: true,
+    title: "x v1.0.0", url: "https://github.com/test/x/releases/tag/v1.0.0",
+    description: "Real summary.", date: "2026-05-30", dateISO: "2026-05-30T00:00:00Z",
+    label: "test/x", projectName: "x", projectId: null, affiliation: "official",
   };
-  const items = planetItems([], [rel], []);
-  assert.strictEqual(items.filter((i) => i.type === "release").length, 0,
-    "branch build tag must not get a fallback release card");
-  console.log("✓ planetItems: excludes branch-build tags with no run number");
+  const items = planetItems([], rels, [summarized]);
+  const releaseItems = items.filter((i) => i.type === "release");
+  assert.strictEqual(releaseItems.length, 1, "only the summarized release should appear");
+  assert.strictEqual(releaseItems[0].url, summarized.url);
+  assert.strictEqual(releaseItems[0].description, "Real summary.");
+  assert.ok(!items.some((i) => /^New release:/.test(i.description || "")),
+    "no placeholder descriptions anywhere");
+  console.log("✓ planetItems: release cards come only from summarized items");
 }
 
 // Test 25: approved external items appear
