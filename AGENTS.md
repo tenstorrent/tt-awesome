@@ -136,6 +136,13 @@ template uses them.
   a chained three-day window into one card.
 * Release bodies shorter than `SPARSE_LIMIT` characters are skipped, unless
   they point at a changelog file or a compare link, which the script follows.
+* A release the script skipped or a maintainer declined does not appear on the
+  Planet page at all. `planetItems` renders release cards only from
+  `planet_feeds.json`; it no longer invents a "New release: X vY" card from
+  `github_meta.json` (removed 2026-11-03, after sfpi 7.92.0-binutils-update,
+  whisper r1.866 and five declined or sparse releases rendered as bodyless
+  cards). The sidebar and the releases Atom feed still list every stable
+  release with a one-line fallback.
 * The LLM API key exists only in CI. To add a release item locally, write it
   by hand to the same schema and follow `prompts/summarize-release.prompt.yml`.
 
