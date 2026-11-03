@@ -28,6 +28,20 @@
     "affiliation": "official"
   },
   {
+    "type": "paper",
+    "source": "arxiv",
+    "approved": true,
+    "title": "Introducing Cluster Efficiency to LLM Serving: Pooling Economical Accelerators over Fast Interconnects",
+    "url": "https://arxiv.org/abs/2611.02975v1",
+    "description": "Long-context large language model (LLM) serving places substantial demands on compute, memory capacity, and memory bandwidth. Economical accelerators can offer these resources at lower cost, but their limited per-device capacity requires pooling across devices, making communication overhead critical. We study cluster efficiency, measured in tokens per dollar and per joule, and show how low-latency, high-bandwidth interconnects enable economical accelerators to retain their cost advantage. Guided by a characterization of coding-agent workloads and accelerator scaling, we realize this design on the Tenstorrent Galaxy, a cluster of Blackhole chips. The serving stack combines integrated communication engines, pipelined ring transfers, communication-computation overlap, and device-side decode…",
+    "date": "2026-11-02",
+    "dateISO": "2026-11-02T11:43:55Z",
+    "label": "arXiv:2611.02975",
+    "projectName": "arXiv",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
