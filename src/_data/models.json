@@ -8825,7 +8825,43 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "llmjp_harmony",
-     "updated": "2026-10-22"
+     "updated": "2026-11-03"
+    },
+    {
+     "arch": "blackhole",
+     "blurb": "elyza/ELYZA-Thinking-1.0-llm-jp-4-33b (ELYZA-Thinking 1.0, a reasoning model post-trained by ELYZA on llm-jp/llm-jp-4-33b-base) served by vLLM and the Tenstorrent vLLM plugin on a QuietBox 2 (two p300c boards, four Blackhole chips, mesh…",
+     "bundleKind": "vllm-plugin",
+     "context": "64K",
+     "decision": false,
+     "devices": 4,
+     "hardware": [
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "tomo-o",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 20.7,
+      "measured": true,
+      "ttft": 293.0
+     },
+     "readable": true,
+     "reasoningParser": "llmjp4",
+     "repo": "tomo-o/elyza-thinking-1.0-llm-jp-4-33b-p300x2-fast",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "llmjp_harmony",
+     "updated": "2026-11-03"
     }
    ],
    "clients": [
@@ -8890,7 +8926,7 @@
    "modalities": null,
    "modelType": null,
    "name": "ELYZA-Thinking-1.0-llm-jp-4-33b",
-   "newest": "2026-10-22",
+   "newest": "2026-11-03",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -8904,7 +8940,7 @@
    },
    "reasoningParser": "llmjp4",
    "rows": [],
-   "serve": "tomo-o/elyza-thinking-1.0-llm-jp-4-33b-p300x2",
+   "serve": "tomo-o/elyza-thinking-1.0-llm-jp-4-33b-p300x2-fast",
    "singleCard": false,
    "source": "tt-model bundle",
    "status": null,
@@ -12195,7 +12231,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-31"
+     "updated": "2026-11-03"
     }
    ],
    "clients": [
@@ -12261,7 +12297,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Ornith-1.5-122B",
-   "newest": "2026-10-31",
+   "newest": "2026-11-03",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -12289,7 +12325,7 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "Ornith-1.5-35B-A3B (35B total / 3B active MoE: 256 experts, top-8 + shared expert, 40 layers of Gated DeltaNet + gated attention, vision tower, MTP head) on Blackhole through vLLM and the Tenstorrent plugin, with a fused decode step: the…",
+     "blurb": "Ornith-1.5-35B-A3B, a 35B-parameter mixture-of-experts model with 3B parameters active per token (256 experts, top-8 plus a shared expert; 40 layers mixing Gated DeltaNet linear attention with gated full attention) and a vision encoder,…",
      "bundleKind": "vllm-plugin",
      "context": "256K",
      "decision": false,
@@ -12332,7 +12368,11 @@
        "raw": "p300x2"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "mit",
+      "link": null,
+      "name": null
+     },
      "owner": "raahemnabeel",
      "perf": {
       "board": "p300x2",
@@ -12347,63 +12387,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-28"
-    },
-    {
-     "arch": "blackhole",
-     "blurb": "",
-     "bundleKind": "vllm-plugin",
-     "context": "256K",
-     "decision": false,
-     "devices": 2,
-     "hardware": [
-      {
-       "key": "P100",
-       "listed": true,
-       "product": "p100",
-       "raw": "p100"
-      },
-      {
-       "key": "P150",
-       "listed": true,
-       "product": "p150",
-       "raw": "p150"
-      },
-      {
-       "key": null,
-       "listed": false,
-       "product": "p150x2",
-       "raw": "p150x2"
-      },
-      {
-       "key": "P150X4",
-       "listed": true,
-       "product": "BH 4xP150",
-       "raw": "p150x4"
-      },
-      {
-       "key": "P300",
-       "listed": true,
-       "product": "BH P300",
-       "raw": "p300"
-      },
-      {
-       "key": "P300X2",
-       "listed": true,
-       "product": "BH QuietBox 2",
-       "raw": "p300x2"
-      }
-     ],
-     "license": null,
-     "owner": "raahemnabeel",
-     "perf": null,
-     "readable": true,
-     "reasoningParser": "qwen3",
-     "repo": "raahemnabeel/ornith-1.5-35b-a3b-v1",
-     "schema": "5.1",
-     "task": null,
-     "toolParser": "qwen3_xml",
-     "updated": "2026-10-16"
+     "updated": "2026-11-03"
     }
    ],
    "clients": [
@@ -12465,13 +12449,15 @@
    "kind": "LLM",
    "kindFrom": "an inference: A language model; the bundle names a qwen3_xml tool-call parser.",
    "kindInferred": true,
-   "licenses": [],
+   "licenses": [
+    "mit"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "Ornith-1.5-35B-A3B",
-   "newest": "2026-10-28",
+   "newest": "2026-11-03",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -12490,7 +12476,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Ornith-1.5-35B-A3B (35B total / 3B active MoE: 256 experts, top-8 + shared expert, 40 layers of Gated DeltaNet + gated attention, vision tower, MTP head) on Blackhole through vLLM and the Tenstorrent plugin, with a fused decode step: the…",
+   "summary": "Ornith-1.5-35B-A3B, a 35B-parameter mixture-of-experts model with 3B parameters active per token (256 experts, top-8 plus a shared expert; 40 layers mixing Gated DeltaNet linear attention with gated full attention) and a vision encoder,…",
    "toolParser": "qwen3_xml",
    "upstream": "ornith-ai/Ornith-1.5-35B-A3B",
    "weights": "ornith-ai/Ornith-1.5-35B-A3B"
@@ -13726,7 +13712,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_xml",
-     "updated": "2026-10-31"
+     "updated": "2026-11-03"
     }
    ],
    "clients": [
@@ -13792,7 +13778,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3.5-122B-A10B",
-   "newest": "2026-10-31",
+   "newest": "2026-11-03",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -14060,9 +14046,9 @@
     },
     {
      "arch": "blackhole",
-     "blurb": "",
-     "bundleKind": "tt-dit-server",
-     "context": null,
+     "blurb": "Qwen3.8-Flash-Next, a 125B-parameter mixture-of-experts model with about 6B parameters active per token (48 layers mixing gated delta-net and sparse attention, 512 routed experts, top-10 plus one shared expert, a 51B-parameter n-gram…",
+     "bundleKind": "http-server",
+     "context": "31K",
      "decision": false,
      "devices": 4,
      "hardware": [
@@ -14071,24 +14057,28 @@
        "listed": true,
        "product": "BH 4xP150",
        "raw": "p150x4"
-      },
-      {
-       "key": "P300X2",
-       "listed": true,
-       "product": "BH QuietBox 2",
-       "raw": "p300x2"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/blob/main/LICENSE",
+      "name": "qwen-community-1.0"
+     },
      "owner": "sjettTT",
-     "perf": null,
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 1.0,
+      "measured": true,
+      "ttft": 1.0
+     },
      "readable": true,
      "reasoningParser": null,
      "repo": "sjettTT/qwen3.8-flash-next_p150x4",
      "schema": "5.1",
-     "task": null,
+     "task": "image-text-to-text",
      "toolParser": null,
-     "updated": "2026-09-29"
+     "updated": "2026-11-02"
     },
     {
      "arch": "blackhole",
@@ -14180,7 +14170,7 @@
    "id": "qwen3-8-flash-next",
    "impls": [],
    "inSpec": false,
-   "kind": "LLM",
+   "kind": "VLM",
    "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
    "licenses": [
@@ -14192,26 +14182,26 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3.8-Flash-Next",
-   "newest": "2026-10-29",
+   "newest": "2026-11-02",
    "params": null,
    "perf": {
-    "board": "p300x2",
+    "board": "p150x4",
     "chips": 4,
-    "decode": 24.3,
-    "decodeText": "24",
-    "hardware": "BH QuietBox 2",
+    "decode": 1.0,
+    "decodeText": "1.0",
+    "hardware": "BH 4xP150",
     "measured": true,
-    "ttft": 340.0,
-    "ttftText": "340 ms"
+    "ttft": 1.0,
+    "ttftText": "1 ms"
    },
    "reasoningParser": "qwen3",
    "rows": [],
-   "serve": "tt-hous/qwen3.8-flash-next",
+   "serve": "sjettTT/qwen3.8-flash-next_p150x4",
    "singleCard": false,
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Qwen3.8-Flash-Next, a mixture-of-experts model with 125B parameters (about 6B active per token) plus a 51B n-gram embedding table, served with vLLM as a text-only chat and completion endpoint with tool calling and separated reasoning…",
+   "summary": "Qwen3.8-Flash-Next, a 125B-parameter mixture-of-experts model with about 6B parameters active per token (48 layers mixing gated delta-net and sparse attention, 512 routed experts, top-10 plus one shared expert, a 51B-parameter n-gram…",
    "toolParser": "qwen3_xml",
    "upstream": "Qwen/Qwen3.8-Flash-Next",
    "weights": "Qwen/Qwen3.8-Flash-Next"
@@ -15433,7 +15423,7 @@
   }
  ],
  "spec": {
-  "commit": "7b7693030",
+  "commit": "ad14f4182",
   "release": "0.26.0"
  },
  "unclassified": [],
