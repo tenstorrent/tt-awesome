@@ -11,8 +11,8 @@
     "updatedAt": "2026-10-06T04:59:44Z"
   },
   "https://github.com/tenstorrent/skills": {
-    "stars": 17,
-    "updatedAt": "2026-10-31T18:14:32Z"
+    "stars": 18,
+    "updatedAt": "2026-11-03T07:49:27Z"
   },
   "https://github.com/moritztng/tt-bio-bringup": {
     "stars": 0,
@@ -236,7 +236,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 126,
-    "updatedAt": "2026-11-03T05:09:11Z",
+    "updatedAt": "2026-11-03T18:02:47Z",
     "releases": [
       {
         "tagName": "v0.26.1",
@@ -395,8 +395,22 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 79,
-    "updatedAt": "2026-11-02T20:50:07Z",
+    "updatedAt": "2026-11-03T09:32:07Z",
     "releases": [
+      {
+        "tagName": "v0.26.1",
+        "name": "v0.26.1",
+        "publishedAt": "2026-11-03T09:32:11Z",
+        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.26.1",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "v0.26.1-release_artifacts.zip",
+            "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.26.1/v0.26.1-release_artifacts.zip",
+            "size": 12052913
+          }
+        ]
+      },
       {
         "tagName": "v0.26.0",
         "name": "v0.26.0",
@@ -450,20 +464,6 @@
             "name": "v0.23.0-release_artifacts.zip",
             "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.23.0/v0.23.0-release_artifacts.zip",
             "size": 394797
-          }
-        ]
-      },
-      {
-        "tagName": "v0.22.0",
-        "name": "v0.22.0",
-        "publishedAt": "2026-09-15T11:31:30Z",
-        "url": "https://github.com/tenstorrent/tt-inference-server/releases/tag/v0.22.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "v0.22.0-release_artifacts.zip",
-            "url": "https://github.com/tenstorrent/tt-inference-server/releases/download/v0.22.0/v0.22.0-release_artifacts.zip",
-            "size": 27094
           }
         ]
       }
@@ -940,12 +940,12 @@
   },
   "https://github.com/tenstorrent/tt-transformers": {
     "stars": 3,
-    "updatedAt": "2026-11-02T21:30:31Z",
+    "updatedAt": "2026-11-03T08:38:19Z",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- `get_device_name` gives a Quasar device the Blackhole names (`P150`, `P300`,\n  `P150x4`, `P150x8`, `BHGLX`), so code keyed on those names runs on Quasar.\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n  The Qwen3-32B T3K trace region grows from 120 MB to 250 MB: its batch-32\n  cases gain three prefix-cached 1024 traces and a penalised twin of every\n  sampled warmup case, 23 traces in all, and need about 210 MB.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n- vLLM serving of Qwen2.5-72B (T3K) and Qwen2.5-7B (N300) prefills prompts in\n  the 128-token bucket in fixed waves of four rows, padding a partial wave, and\n  warms exactly that shape. Under many concurrent short prompts, time to first\n  token falls by more than half against one prompt per pass; a lone short\n  prompt waits 85\u2013106 ms longer. Greedy output on these prompts is\n  deterministic but is the four-row pass's text, so it differs from one-row\n  prefill and from TTTv1: pinned greedy texts for these two models move once.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/localai-org/vllm.cpp": {
     "stars": 477,
-    "updatedAt": "2026-11-02T20:13:57Z",
+    "updatedAt": "2026-11-03T06:40:47Z",
     "preview_image": "https://raw.githubusercontent.com/localai-org/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -1022,11 +1022,11 @@
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 19,
-    "updatedAt": "2026-11-02T16:09:30Z"
+    "updatedAt": "2026-11-03T15:05:14Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2301,
-    "updatedAt": "2026-11-03T04:55:06Z",
+    "stars": 2303,
+    "updatedAt": "2026-11-03T12:20:57Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1129,8 +1129,8 @@
     "updatedAt": "2026-09-21T09:25:48Z"
   },
   "https://github.com/Zaneham/Booth": {
-    "stars": 1755,
-    "updatedAt": "2026-10-31T09:18:50Z",
+    "stars": 1754,
+    "updatedAt": "2026-11-03T13:07:14Z",
     "releases": [
       {
         "tagName": "v0.6.1",
@@ -1240,7 +1240,7 @@
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 13,
-    "updatedAt": "2026-11-03T06:16:46Z",
+    "updatedAt": "2026-11-03T09:56:19Z",
     "releases": [
       {
         "tagName": "v0.1.5",
@@ -1526,7 +1526,7 @@
   },
   "https://github.com/swote-git/tt-iree": {
     "stars": 14,
-    "updatedAt": "2026-10-29T10:01:29Z"
+    "updatedAt": "2026-11-03T14:58:54Z"
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 318,
@@ -1752,7 +1752,7 @@
   },
   "https://github.com/zk4x/zyx": {
     "stars": 74,
-    "updatedAt": "2026-10-29T05:10:19Z",
+    "updatedAt": "2026-11-03T09:34:09Z",
     "preview_image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
     "releases": [
       {
@@ -1802,8 +1802,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 11121,
-    "updatedAt": "2026-11-03T03:29:21Z",
+    "stars": 11122,
+    "updatedAt": "2026-11-03T17:59:10Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -2051,7 +2051,7 @@
   },
   "https://github.com/tenstorrent/tt-exalens": {
     "stars": 21,
-    "updatedAt": "2026-10-30T13:59:25Z",
+    "updatedAt": "2026-11-03T14:28:29Z",
     "releases": [
       {
         "tagName": "v0.4.2",
@@ -2391,7 +2391,7 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 59,
-    "updatedAt": "2026-11-02T21:25:53Z",
+    "updatedAt": "2026-11-03T16:48:43Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -2779,7 +2779,7 @@
   },
   "https://github.com/boopdotpng/blackhole-py": {
     "stars": 23,
-    "updatedAt": "2026-11-01T11:16:15Z",
+    "updatedAt": "2026-11-03T06:50:15Z",
     "releases": [
       {
         "tagName": "hcq-v1",
@@ -3349,7 +3349,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 45,
-    "updatedAt": "2026-11-02T23:16:10Z",
+    "updatedAt": "2026-11-03T16:46:44Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -4105,8 +4105,97 @@
   },
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 50,
-    "updatedAt": "2026-11-02T13:39:58Z",
+    "updatedAt": "2026-11-03T15:49:15Z",
     "releases": [
+      {
+        "tagName": "v0.9.16",
+        "name": "Release v0.9.16",
+        "publishedAt": "2026-11-03T12:07:29Z",
+        "url": "https://github.com/tenstorrent/tt-umd/releases/tag/v0.9.16",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "tt_umd-0.9.16-cp310-cp310-manylinux_2_28_aarch64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-cp310-cp310-manylinux_2_28_aarch64.whl",
+            "size": 2514694
+          },
+          {
+            "name": "tt_umd-0.9.16-cp310-cp310-manylinux_2_28_x86_64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-cp310-cp310-manylinux_2_28_x86_64.whl",
+            "size": 2854608
+          },
+          {
+            "name": "tt_umd-0.9.16-cp311-cp311-manylinux_2_28_aarch64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-cp311-cp311-manylinux_2_28_aarch64.whl",
+            "size": 2514903
+          },
+          {
+            "name": "tt_umd-0.9.16-cp311-cp311-manylinux_2_28_x86_64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-cp311-cp311-manylinux_2_28_x86_64.whl",
+            "size": 2854997
+          },
+          {
+            "name": "tt_umd-0.9.16-cp312-cp312-manylinux_2_28_aarch64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-cp312-cp312-manylinux_2_28_aarch64.whl",
+            "size": 2514349
+          },
+          {
+            "name": "tt_umd-0.9.16-cp312-cp312-manylinux_2_28_x86_64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-cp312-cp312-manylinux_2_28_x86_64.whl",
+            "size": 2854435
+          },
+          {
+            "name": "tt_umd-0.9.16-cp313-cp313-manylinux_2_28_aarch64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-cp313-cp313-manylinux_2_28_aarch64.whl",
+            "size": 2514576
+          },
+          {
+            "name": "tt_umd-0.9.16-cp313-cp313-manylinux_2_28_x86_64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-cp313-cp313-manylinux_2_28_x86_64.whl",
+            "size": 2854306
+          },
+          {
+            "name": "tt_umd-0.9.16-cp39-cp39-manylinux_2_28_aarch64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-cp39-cp39-manylinux_2_28_aarch64.whl",
+            "size": 2515151
+          },
+          {
+            "name": "tt_umd-0.9.16-cp39-cp39-manylinux_2_28_x86_64.whl",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-cp39-cp39-manylinux_2_28_x86_64.whl",
+            "size": 2854981
+          },
+          {
+            "name": "tt_umd-0.9.16-Linux-umd-dev.deb",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-Linux-umd-dev.deb",
+            "size": 157644
+          },
+          {
+            "name": "tt_umd-0.9.16-Linux-umd-dev.rpm",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-Linux-umd-dev.rpm",
+            "size": 150305
+          },
+          {
+            "name": "tt_umd-0.9.16-Linux-umd-python.deb",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-Linux-umd-python.deb",
+            "size": 249042
+          },
+          {
+            "name": "tt_umd-0.9.16-Linux-umd-python.rpm",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-Linux-umd-python.rpm",
+            "size": 215568
+          },
+          {
+            "name": "tt_umd-0.9.16-Linux-umd-runtime.deb",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-Linux-umd-runtime.deb",
+            "size": 1329436
+          },
+          {
+            "name": "tt_umd-0.9.16-Linux-umd-runtime.rpm",
+            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.16/tt_umd-0.9.16-Linux-umd-runtime.rpm",
+            "size": 982443
+          }
+        ]
+      },
       {
         "tagName": "v0.9.15",
         "name": "Release v0.9.15",
@@ -4462,95 +4551,6 @@
             "size": 955323
           }
         ]
-      },
-      {
-        "tagName": "v0.9.10",
-        "name": "Release v0.9.10",
-        "publishedAt": "2026-09-09T10:09:22Z",
-        "url": "https://github.com/tenstorrent/tt-umd/releases/tag/v0.9.10",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "tt_umd-0.9.10-cp310-cp310-manylinux_2_28_aarch64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-cp310-cp310-manylinux_2_28_aarch64.whl",
-            "size": 2307832
-          },
-          {
-            "name": "tt_umd-0.9.10-cp310-cp310-manylinux_2_28_x86_64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-cp310-cp310-manylinux_2_28_x86_64.whl",
-            "size": 2596401
-          },
-          {
-            "name": "tt_umd-0.9.10-cp311-cp311-manylinux_2_28_aarch64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-cp311-cp311-manylinux_2_28_aarch64.whl",
-            "size": 2307896
-          },
-          {
-            "name": "tt_umd-0.9.10-cp311-cp311-manylinux_2_28_x86_64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-cp311-cp311-manylinux_2_28_x86_64.whl",
-            "size": 2596741
-          },
-          {
-            "name": "tt_umd-0.9.10-cp312-cp312-manylinux_2_28_aarch64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-cp312-cp312-manylinux_2_28_aarch64.whl",
-            "size": 2307678
-          },
-          {
-            "name": "tt_umd-0.9.10-cp312-cp312-manylinux_2_28_x86_64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-cp312-cp312-manylinux_2_28_x86_64.whl",
-            "size": 2596482
-          },
-          {
-            "name": "tt_umd-0.9.10-cp313-cp313-manylinux_2_28_aarch64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-cp313-cp313-manylinux_2_28_aarch64.whl",
-            "size": 2307399
-          },
-          {
-            "name": "tt_umd-0.9.10-cp313-cp313-manylinux_2_28_x86_64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-cp313-cp313-manylinux_2_28_x86_64.whl",
-            "size": 2596470
-          },
-          {
-            "name": "tt_umd-0.9.10-cp39-cp39-manylinux_2_28_aarch64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-cp39-cp39-manylinux_2_28_aarch64.whl",
-            "size": 2308134
-          },
-          {
-            "name": "tt_umd-0.9.10-cp39-cp39-manylinux_2_28_x86_64.whl",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-cp39-cp39-manylinux_2_28_x86_64.whl",
-            "size": 2596779
-          },
-          {
-            "name": "tt_umd-0.9.10-Linux-umd-dev.deb",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-Linux-umd-dev.deb",
-            "size": 149054
-          },
-          {
-            "name": "tt_umd-0.9.10-Linux-umd-dev.rpm",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-Linux-umd-dev.rpm",
-            "size": 144395
-          },
-          {
-            "name": "tt_umd-0.9.10-Linux-umd-python.deb",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-Linux-umd-python.deb",
-            "size": 240586
-          },
-          {
-            "name": "tt_umd-0.9.10-Linux-umd-python.rpm",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-Linux-umd-python.rpm",
-            "size": 209209
-          },
-          {
-            "name": "tt_umd-0.9.10-Linux-umd-runtime.deb",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-Linux-umd-runtime.deb",
-            "size": 1302968
-          },
-          {
-            "name": "tt_umd-0.9.10-Linux-umd-runtime.rpm",
-            "url": "https://github.com/tenstorrent/tt-umd/releases/download/v0.9.10/tt_umd-0.9.10-Linux-umd-runtime.rpm",
-            "size": 960743
-          }
-        ]
       }
     ],
     "changelog_excerpt": "# Changelog\n\n## [0.9.13] - 2026-10-02\n\n### Changed\n\nRTL simulator IP partitioning: one simulator run serving several chips via ip_layout.yaml.\nRiscReset component interface.\nHost memory channels set automatically based on topology.\nIPMI reset improvements.\n\n## [0.9.12] - 2026-09-28\n\n### Changed\n\nSimulator topology discovered through the silicon path.\nIoOrdering parameter on Cluster read and write.\nQuasar ATT address map.\nSimulation servers whose host is gone are no longer reported.\n\n## [0.9.11] - 2026-09-21\n\n### Changed\n\nTLBManager removed in favor of IoWindow; per-arch silicon TTDevice subclasses deleted.\nRuntime telemetry and clock queries served by DeviceFirmware.\nOptional cluster_id in the cluster descriptor.\nLatest supported CMFW raised to 19.14.\n\n## [0.9.10] - 2026-09-09\n\n### Changed\n\nBase API alignment: TTDeviceModel, DeviceFirmware, DmaInterface, IoWindow, MutexInterface, SystemMemoryAllocator.\nSysmemBuffer ownership and host copy APIs; dma-buf export for RDMA.\nLocks backed by KMD resource locks; tt-kmd-lib extracted.\nStateless NOC across TTDevice and SocDescriptor; xy_pair overloads removed.\nShared simulation server (sim_server) with client/host mode over sockets.\n\n## [0.9.9] - 2026-07-09\n\n### Changed\n\nBlackhole runtime telemetry buffer accessors.\nPrecise ETH_LIVE_STATUS based APIs and Blackhole harvesting utility.\nTTSim cluster descriptor discovered from simulator directory.\n\n## [0.9.8] - 2026-07-01\n\n### Changed\n\nPer-op MMIO timeout for TLB-mapped device access.\nset_power_state renamed to set_clock_state in TTDevice.\nSimulation client mode over SimulationClient.\n\n## [0.9.7] - 2026-06-26\n\n### Changed\n\nDevice health errors returned from TopologyDiscovery.\nDedicated EthernetBroadcast and noc_multicast for remote chips.\nDeviceTimeoutError exception type.\nDRAM retrain on BIST failure.\n\n## [0.9.6] - 2026-06-03\n\n### Changed\n\nARM (aarch64) builds and fixes.\nTTSimChip and RtlSimulationChip merged into SimulationChip, with multichip support.\nTensixSoftResetOptions removed.\nWarm reset with remote IO failure recovery.\n\n## [0.9.5] - 2026-05-12\n\n### Changed\n\nHardware hang detection for NOC and PCIe.\nTracy profiler integration with instrumentation across TLB, PCIe and sysmem paths.\nDeviceProtocol ported to TTDevice, including DMA migration.\nSocDescriptor split into static (SocArchDescriptor) and runtime parts.\nLITERAL coordinate system in CoreCoord.\nMulticast to all TENSIX cores.\nSMN support.\nSWEmuleChip software emulation chip and Quasar simulation support (incl. 4GB TLB).\nUnified UmdException/UMD_ASSERT/UMD_THROW error handling across the codebase.\n\n## [0.9.4] - 2026-03-18\n\n### Changed\n\nTopologyDiscoveryOptions refactoring.\nTopologyDiscoveryOption to retrain ETH links on 6u.\nTLBs for TTsim.\nDRAM retrain support.\nDeviceProtocol changes.\nSimulator in TTDevice changes.\nETH heartbeat check.\n\n## [0.9.3] - 2026-02-24\n\n### Changed\n\nSigbus safe read write API.\nRemove 4U related code.\nImplement BH SPI as well, so full SPI support.\nP150 expects harvested core"
@@ -4712,8 +4712,8 @@
     "updatedAt": "2026-11-01T11:16:10Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1740,
-    "updatedAt": "2026-11-03T06:29:36Z",
+    "stars": 1741,
+    "updatedAt": "2026-11-03T18:25:34Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5467,7 +5467,7 @@
   },
   "https://github.com/tenstorrent/tt-isa-documentation": {
     "stars": 135,
-    "updatedAt": "2026-11-03T04:05:07Z"
+    "updatedAt": "2026-11-03T14:22:55Z"
   },
   "https://github.com/olofj/bhx": {
     "stars": 6,
@@ -5735,7 +5735,7 @@
   },
   "https://github.com/tenstorrent/whisper": {
     "stars": 99,
-    "updatedAt": "2026-11-03T01:57:01Z",
+    "updatedAt": "2026-11-03T14:50:19Z",
     "isFork": true,
     "forkParent": "chipsalliance/VeeR-ISS",
     "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS",
