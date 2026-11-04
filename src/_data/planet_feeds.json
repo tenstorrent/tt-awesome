@@ -14,6 +14,20 @@
     "affiliation": "official"
   },
   {
+    "type": "paper",
+    "source": "arxiv",
+    "approved": true,
+    "title": "A RISC-V Simulator for the Tenstorrent Tensix Architecture",
+    "url": "https://arxiv.org/abs/2611.04740v1",
+    "description": "RISC-V based AI accelerators have become popular and not only for AI and ML, but also as vehicles for exploring HPC workloads more generally. Tenstorrent are one example, and whilst they document their Tensix architecture in detail and develop their software stack openly, running code has historically required a physical card, and their recently released simulator targets hardware equivalence rather than introspection. In this paper we present Wolfpine, a community developed RISC-V simulator for the Tensix architecture, supporting both the Wormhole and Blackhole generations and integrating seamlessly with the TT-Metal software stack. Constructed entirely from publicly available documentation, open source software and measurements on physical hardware, Wolfpine is written in pure Python…",
+    "date": "2026-11-03",
+    "dateISO": "2026-11-03T11:57:36Z",
+    "label": "arXiv:2611.04740",
+    "projectName": "arXiv",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
@@ -356,6 +370,20 @@
     "title": "Kernel Performance Engineering under Physical Non-Idealities",
     "url": "https://arxiv.org/abs/2610.37466v1",
     "description": "Physical non-idealities in integrated circuit (IC) design and fabrication are concealed by conventional hardware abstractions, yet they can limit kernel performance and obscure optimization opportunities. Using distributed shared memory (DSMEM) on NVIDIA H100 GPUs as a case study, we show how floorsweeping restricts hardware resources available for clustered execution, potentially offsetting the benefits of reduced data movement enabled by DSMEM. Guided by these insights, we develop a wave-aware clustering strategy that accounts for these resource constraints to improve kernel performance.",
+    "date": "2026-10-27",
+    "dateISO": "2026-10-27T16:00:56Z",
+    "label": "arXiv:2610.37466",
+    "projectName": "arXiv",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "paper",
+    "source": "arxiv",
+    "approved": true,
+    "title": "Demystifying the Impact of Physical Non-Idealities on Kernel Performance",
+    "url": "https://arxiv.org/abs/2610.37466v2",
+    "description": "Physical non-idealities in integrated circuit (IC) design, fabrication, and operation are concealed by conventional hardware abstractions, causing unexpected performance variations in kernels. For large-scale workloads, such as AI training and inference, performance unpredictability can lead to substantial losses. We investigate this problem in NVIDIA H100 GPUs with their distributed shared memory (DSMEM) architectural feature that reduces data movement from the L2 cache to Streaming Multiprocessors (SMs) with multicast loads, and uncover that floorsweeping restricts the number of SMs usable for clustered execution, increasing the number of execution waves of kernels. To alleviate this performance penalty, we introduce the wave-aware clustering strategy that accounts for these resource…",
     "date": "2026-10-27",
     "dateISO": "2026-10-27T16:00:56Z",
     "label": "arXiv:2610.37466",
