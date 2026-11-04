@@ -2209,13 +2209,13 @@
    "params": "7B",
    "perf": {
     "chips": null,
-    "decode": 14.100000000000001,
-    "decodeText": "14",
+    "decode": 70.5,
+    "decodeText": "70",
     "hardware": "BH QuietBox 2",
     "measured": false,
-    "tier": "functional",
-    "ttft": 150.0,
-    "ttftText": "150 ms"
+    "tier": "complete",
+    "ttft": 30.0,
+    "ttftText": "30 ms"
    },
    "reasoningParser": "k2_horizon",
    "rows": [
@@ -2226,28 +2226,28 @@
      "doc": "llm/K2-Horizon-7B_p300x2.md",
      "engine": "vLLM",
      "hardware": "BH QuietBox 2",
-     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.1-09acccb-6098002",
      "impl": "k2-horizon-7b-qb2",
      "listed": true,
      "perf": {
-      "decode": 14.100000000000001,
+      "decode": 70.5,
       "measured": false,
-      "tier": "functional",
-      "ttft": 150.0
+      "tier": "complete",
+      "ttft": 30.0
      },
-     "status": "Experimental",
+     "status": "Complete",
      "ttMetal": "09acccb",
      "users": 32,
-     "version": "0.26.0",
+     "version": "0.26.1",
      "vllm": "6098002"
     }
    ],
    "serve": "K2-Horizon-7B",
    "singleCard": false,
    "source": "tt-inference-server",
-   "status": "Experimental",
+   "status": "Complete",
    "studio": "Chat",
-   "summary": "Listed in tt-inference-server on 1 hardware type; best status Experimental.",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Complete.",
    "toolParser": "k2_horizon",
    "upstream": "IFM/K2-Horizon-7B",
    "weights": "IFM/K2-Horizon-7B"
@@ -4659,13 +4659,13 @@
    "params": "30B",
    "perf": {
     "chips": null,
-    "decode": 4.2,
-    "decodeText": "4.2",
+    "decode": 21.0,
+    "decodeText": "21",
     "hardware": "BH QuietBox 2",
     "measured": false,
-    "tier": "functional",
-    "ttft": 500.0,
-    "ttftText": "500 ms"
+    "tier": "complete",
+    "ttft": 100.0,
+    "ttftText": "100 ms"
    },
    "reasoningParser": "muse_glimmer",
    "rows": [
@@ -4676,28 +4676,28 @@
      "doc": "llm/Muse-Glimmer-30B_p300x2.md",
      "engine": "vLLM",
      "hardware": "BH QuietBox 2",
-     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.0-09acccb-6098002",
+     "image": "ghcr.io/tenstorrent/tt-inference-server/vllm-tt-metal-src-release-ubuntu-22.04-amd64:0.26.1-09acccb-6098002",
      "impl": "muse-glimmer-30b-qb2",
      "listed": true,
      "perf": {
-      "decode": 4.2,
+      "decode": 21.0,
       "measured": false,
-      "tier": "functional",
-      "ttft": 500.0
+      "tier": "complete",
+      "ttft": 100.0
      },
-     "status": "Experimental",
+     "status": "Complete",
      "ttMetal": "09acccb",
      "users": 32,
-     "version": "0.26.0",
+     "version": "0.26.1",
      "vllm": "6098002"
     }
    ],
    "serve": "Muse-Glimmer-30B",
    "singleCard": false,
    "source": "tt-inference-server",
-   "status": "Experimental",
+   "status": "Complete",
    "studio": "Chat",
-   "summary": "Listed in tt-inference-server on 1 hardware type; best status Experimental. 1 tt-model bundle also published.",
+   "summary": "Listed in tt-inference-server on 1 hardware type; best status Complete. 1 tt-model bundle also published.",
    "toolParser": "muse_glimmer",
    "upstream": "meta-models/Muse-Glimmer-30B",
    "weights": "meta-models/Muse-Glimmer-30B"
@@ -8861,7 +8861,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "llmjp_harmony",
-     "updated": "2026-11-03"
+     "updated": "2026-11-04"
     }
    ],
    "clients": [
@@ -8926,7 +8926,7 @@
    "modalities": null,
    "modelType": null,
    "name": "ELYZA-Thinking-1.0-llm-jp-4-33b",
-   "newest": "2026-11-03",
+   "newest": "2026-11-04",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -11602,6 +11602,144 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "MiroThinker-1.7-mini, a deep-research agent model: Qwen3-30B-A3B (30B-parameter mixture of experts, 3B active per token: 128 experts, top-8, 48 layers) trained for long-horizon search, browsing and tool use (up to 300 tool calls per task).",
+     "bundleKind": "vllm-plugin",
+     "context": "250K",
+     "decision": false,
+     "devices": 2,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300",
+       "listed": true,
+       "product": "BH P300",
+       "raw": "p300"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "raahemnabeel/mirothinker-1.7-mini",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": "hermes",
+     "updated": "2026-11-03"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "MiroThinker",
+   "hardware": [
+    "BH 4xP150",
+    "BH P300",
+    "BH QuietBox 2",
+    "p150",
+    "p150x2"
+   ],
+   "id": "mirothinker-1-7-mini",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Served with vLLM, task not stated",
+   "kindFrom": "the tt-model bundle manifest",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "MiroThinker-1.7-mini",
+   "newest": "2026-11-03",
+   "params": null,
+   "perf": null,
+   "reasoningParser": "qwen3",
+   "rows": [],
+   "serve": "raahemnabeel/mirothinker-1.7-mini",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "MiroThinker-1.7-mini, a deep-research agent model: Qwen3-30B-A3B (30B-parameter mixture of experts, 3B active per token: 128 experts, top-8, 48 layers) trained for long-horizon search, browsing and tool use (up to 300 tool calls per task).",
+   "toolParser": "hermes",
+   "upstream": "miromind-ai/MiroThinker-1.7-mini",
+   "weights": "miromind-ai/MiroThinker-1.7-mini"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "1024K",
@@ -12774,6 +12912,151 @@
    "toolParser": null,
    "upstream": "AutowareFoundation/ptv3",
    "weights": "AutowareFoundation/ptv3"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "QUEST-35B-RL, a deep-research agent model: Qwen3.5-35B-A3B (35B-parameter mixture of experts, 3B active per token: 256 experts, top-8 plus a shared expert; 40 layers mixing Gated DeltaNet linear attention with gated full attention; vision…",
+     "bundleKind": "vllm-plugin",
+     "context": "256K",
+     "decision": false,
+     "devices": 2,
+     "hardware": [
+      {
+       "key": "P100",
+       "listed": true,
+       "product": "p100",
+       "raw": "p100"
+      },
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300",
+       "listed": true,
+       "product": "BH P300",
+       "raw": "p300"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "raahemnabeel/quest-35b-rl",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": "qwen3_xml",
+     "updated": "2026-11-03"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "QUEST",
+   "hardware": [
+    "BH 4xP150",
+    "BH P300",
+    "BH QuietBox 2",
+    "p100",
+    "p150",
+    "p150x2"
+   ],
+   "id": "quest-35b-rl",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Served with vLLM, task not stated",
+   "kindFrom": "the tt-model bundle manifest",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "QUEST-35B-RL",
+   "newest": "2026-11-03",
+   "params": null,
+   "perf": null,
+   "reasoningParser": "qwen3",
+   "rows": [],
+   "serve": "raahemnabeel/quest-35b-rl",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "QUEST-35B-RL, a deep-research agent model: Qwen3.5-35B-A3B (35B-parameter mixture of experts, 3B active per token: 256 experts, top-8 plus a shared expert; 40 layers mixing Gated DeltaNet linear attention with gated full attention; vision…",
+   "toolParser": "qwen3_xml",
+   "upstream": "osunlp/QUEST-35B-RL",
+   "weights": "osunlp/QUEST-35B-RL"
   },
   {
    "bundles": [
@@ -14078,7 +14361,7 @@
      "schema": "5.1",
      "task": "image-text-to-text",
      "toolParser": null,
-     "updated": "2026-11-02"
+     "updated": "2026-11-03"
     },
     {
      "arch": "blackhole",
@@ -14182,7 +14465,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3.8-Flash-Next",
-   "newest": "2026-11-02",
+   "newest": "2026-11-03",
    "params": null,
    "perf": {
     "board": "p150x4",
@@ -14691,6 +14974,80 @@
    "toolParser": null,
    "upstream": "changh95/sceneseg-p150",
    "weights": "changh95/sceneseg-p150"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "",
+     "bundleKind": "vllm",
+     "context": "256K",
+     "decision": false,
+     "devices": 2,
+     "hardware": [
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "P150x2"
+      }
+     ],
+     "license": null,
+     "owner": "episod",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "episod/sensenova-6.8-code2video-p300",
+     "schema": "6",
+     "task": null,
+     "toolParser": null,
+     "updated": "2026-11-03"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "SenseNova",
+   "hardware": [
+    "p150x2"
+   ],
+   "id": "sensenova-6-8-code2video",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Served with vLLM, task not stated",
+   "kindFrom": "the tt-model bundle manifest",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "SenseNova-6.8-Code2Video",
+   "newest": "2026-11-03",
+   "params": null,
+   "perf": null,
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "episod/sensenova-6.8-code2video-p300",
+   "singleCard": false,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Published as 1 tt-model bundle by episod.",
+   "toolParser": null,
+   "upstream": "sensenova/SenseNova-6.8-Code2Video",
+   "weights": "sensenova/SenseNova-6.8-Code2Video"
   },
   {
    "bundles": [
@@ -15423,9 +15780,13 @@
   }
  ],
  "spec": {
-  "commit": "ad14f4182",
-  "release": "0.26.0"
+  "commit": "02df589cb",
+  "release": "0.26.1"
  },
- "unclassified": [],
+ "unclassified": [
+  "MiroThinker-1.7-mini",
+  "QUEST-35B-RL",
+  "SenseNova-6.8-Code2Video"
+ ],
  "unreadableBundles": []
 }
