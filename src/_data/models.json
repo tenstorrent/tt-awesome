@@ -1808,7 +1808,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "openai",
-     "updated": "2026-10-16"
+     "updated": "2026-11-04"
     },
     {
      "arch": "blackhole",
@@ -1918,7 +1918,7 @@
    ],
    "modelType": "LLM",
    "name": "gpt-oss-120b",
-   "newest": "2026-10-29",
+   "newest": "2026-11-04",
    "params": "120B",
    "perf": {
     "chips": null,
@@ -11602,6 +11602,151 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "MIRA-SFT-35B-A3B, a multimodal deep-research agent model: Qwen3.6-35B-A3B (35B-parameter mixture of experts, 3B active per token: 256 experts, top-8 plus a shared expert; 40 layers mixing Gated DeltaNet linear attention with gated full…",
+     "bundleKind": "vllm-plugin",
+     "context": "256K",
+     "decision": false,
+     "devices": 2,
+     "hardware": [
+      {
+       "key": "P100",
+       "listed": true,
+       "product": "p100",
+       "raw": "p100"
+      },
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300",
+       "listed": true,
+       "product": "BH P300",
+       "raw": "p300"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "raahemnabeel/mira-sft-35b-a3b",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": "qwen3_xml",
+     "updated": "2026-11-04"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "MIRA",
+   "hardware": [
+    "BH 4xP150",
+    "BH P300",
+    "BH QuietBox 2",
+    "p100",
+    "p150",
+    "p150x2"
+   ],
+   "id": "mira-sft-35b-a3b",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Served with vLLM, task not stated",
+   "kindFrom": "the tt-model bundle manifest",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "MIRA-SFT-35B-A3B",
+   "newest": "2026-11-04",
+   "params": null,
+   "perf": null,
+   "reasoningParser": "qwen3",
+   "rows": [],
+   "serve": "raahemnabeel/mira-sft-35b-a3b",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "MIRA-SFT-35B-A3B, a multimodal deep-research agent model: Qwen3.6-35B-A3B (35B-parameter mixture of experts, 3B active per token: 256 experts, top-8 plus a shared expert; 40 layers mixing Gated DeltaNet linear attention with gated full…",
+   "toolParser": "qwen3_xml",
+   "upstream": "MIRA-MMDeepResearch/MIRA-SFT-35B-A3B",
+   "weights": "MIRA-MMDeepResearch/MIRA-SFT-35B-A3B"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "MiroThinker-1.7-mini, a deep-research agent model: Qwen3-30B-A3B (30B-parameter mixture of experts, 3B active per token: 128 experts, top-8, 48 layers) trained for long-horizon search, browsing and tool use (up to 300 tool calls per task).",
      "bundleKind": "vllm-plugin",
      "context": "250K",
@@ -15445,6 +15590,144 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "Tongyi DeepResearch, an agent model for long-horizon, deep information seeking: a 30B-parameter mixture of experts with 3B active per token (Qwen3-30B-A3B architecture: 128 experts, top-8, 48 layers), trained with agentic continual…",
+     "bundleKind": "vllm-plugin",
+     "context": "128K",
+     "decision": false,
+     "devices": 2,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300",
+       "listed": true,
+       "product": "BH P300",
+       "raw": "p300"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "raahemnabeel/tongyi-deepresearch-30b-a3b",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": "hermes",
+     "updated": "2026-11-04"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: hermes",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Tongyi",
+   "hardware": [
+    "BH 4xP150",
+    "BH P300",
+    "BH QuietBox 2",
+    "p150",
+    "p150x2"
+   ],
+   "id": "tongyi-deepresearch-30b-a3b",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Served with vLLM, task not stated",
+   "kindFrom": "the tt-model bundle manifest",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Tongyi-DeepResearch-30B-A3B",
+   "newest": "2026-11-04",
+   "params": null,
+   "perf": null,
+   "reasoningParser": "qwen3",
+   "rows": [],
+   "serve": "raahemnabeel/tongyi-deepresearch-30b-a3b",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Tongyi DeepResearch, an agent model for long-horizon, deep information seeking: a 30B-parameter mixture of experts with 3B active per token (Qwen3-30B-A3B architecture: 128 experts, top-8, 48 layers), trained with agentic continual…",
+   "toolParser": "hermes",
+   "upstream": "Alibaba-NLP/Tongyi-DeepResearch-30B-A3B",
+   "weights": "Alibaba-NLP/Tongyi-DeepResearch-30B-A3B"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "",
      "bundleKind": "tt-dit-server",
      "context": null,
@@ -15780,13 +16063,15 @@
   }
  ],
  "spec": {
-  "commit": "02df589cb",
+  "commit": "40c618d0a",
   "release": "0.26.1"
  },
  "unclassified": [
+  "MIRA-SFT-35B-A3B",
   "MiroThinker-1.7-mini",
   "QUEST-35B-RL",
-  "SenseNova-6.8-Code2Video"
+  "SenseNova-6.8-Code2Video",
+  "Tongyi-DeepResearch-30B-A3B"
  ],
  "unreadableBundles": []
 }
