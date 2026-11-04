@@ -236,7 +236,7 @@
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 126,
-    "updatedAt": "2026-11-04T17:54:11Z",
+    "updatedAt": "2026-11-04T23:19:04Z",
     "releases": [
       {
         "tagName": "v0.26.1",
@@ -940,7 +940,7 @@
   },
   "https://github.com/tenstorrent/tt-transformers": {
     "stars": 3,
-    "updatedAt": "2026-11-04T14:48:20Z",
+    "updatedAt": "2026-11-04T21:51:08Z",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- `get_device_name` gives a Quasar device the Blackhole names (`P150`, `P300`,\n  `P150x4`, `P150x8`, `BHGLX`), so code keyed on those names runs on Quasar.\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n  The Qwen3-32B T3K trace region grows from 120 MB to 250 MB: its batch-32\n  cases gain three prefix-cached 1024 traces and a penalised twin of every\n  sampled warmup case, 23 traces in all, and need about 210 MB.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n- vLLM serving of Qwen2.5-72B (T3K) and Qwen2.5-7B (N300) prefills prompts in\n  the 128-token bucket in fixed waves of four rows, padding a partial wave, and\n  warms exactly that shape. Under many concurrent short prompts, time to first\n  token falls by more than half against one prompt per pass; a lone short\n  prompt waits 85\u2013106 ms longer. Greedy output on these prompts is\n  deterministic but is the four-row pass's text, so it differs from one-row\n  prefill and from TTTv1: pinned greedy texts for these two models move once.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/localai-org/vllm.cpp": {
@@ -1025,8 +1025,8 @@
     "updatedAt": "2026-11-04T12:36:55Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2302,
-    "updatedAt": "2026-11-04T12:50:56Z",
+    "stars": 2303,
+    "updatedAt": "2026-11-04T21:59:49Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1240,7 +1240,7 @@
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 13,
-    "updatedAt": "2026-11-04T09:28:29Z",
+    "updatedAt": "2026-11-04T18:54:15Z",
     "releases": [
       {
         "tagName": "v0.1.5",
@@ -1802,8 +1802,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 11122,
-    "updatedAt": "2026-11-03T17:59:10Z",
+    "stars": 11123,
+    "updatedAt": "2026-11-04T23:17:05Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -2405,9 +2405,23 @@
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 59,
-    "updatedAt": "2026-11-04T18:12:00Z",
+    "updatedAt": "2026-11-04T20:11:25Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
+      {
+        "tagName": "v0.110.0",
+        "name": "v0.110.0",
+        "publishedAt": "2026-11-04T19:49:02Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.110.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "ttnn_visualizer-0.110.0-py3-none-any.whl",
+            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.110.0/ttnn_visualizer-0.110.0-py3-none-any.whl",
+            "size": 3607200
+          }
+        ]
+      },
       {
         "tagName": "v0.109.0",
         "name": "v0.109.0",
@@ -2461,20 +2475,6 @@
             "name": "ttnn_visualizer-0.106.0-py3-none-any.whl",
             "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.106.0/ttnn_visualizer-0.106.0-py3-none-any.whl",
             "size": 3118238
-          }
-        ]
-      },
-      {
-        "tagName": "v0.105.0",
-        "name": "v0.105.0",
-        "publishedAt": "2026-09-30T19:38:50Z",
-        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.105.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "ttnn_visualizer-0.105.0-py3-none-any.whl",
-            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.105.0/ttnn_visualizer-0.105.0-py3-none-any.whl",
-            "size": 3084606
           }
         ]
       }
@@ -3375,7 +3375,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 46,
-    "updatedAt": "2026-11-04T16:55:29Z",
+    "updatedAt": "2026-11-04T19:04:39Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -4603,6 +4603,25 @@
     "updatedAt": "2026-11-04T13:29:49Z",
     "releases": [
       {
+        "tagName": "7.95.0-replay-63570",
+        "name": "7.95.0-replay-63570",
+        "publishedAt": "2026-11-04T18:30:12Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.95.0-replay-63570",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.95.0-replay-63570_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0-replay-63570/sfpi_7.95.0-replay-63570_x86_64_debian.deb",
+            "size": 135058470
+          },
+          {
+            "name": "sfpi_7.95.0-replay-63570_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0-replay-63570/sfpi_7.95.0-replay-63570_x86_64_fedora.rpm",
+            "size": 134700693
+          }
+        ]
+      },
+      {
         "tagName": "7.95.0-const0_rtx",
         "name": "7.95.0-const0_rtx",
         "publishedAt": "2026-11-04T16:55:41Z",
@@ -4650,7 +4669,7 @@
         "name": "SFPI Update",
         "publishedAt": "2026-11-02T21:32:05Z",
         "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.94.0",
-        "prerelease": true,
+        "prerelease": false,
         "assets": [
           {
             "name": "sfpi_7.94.0_aarch64_debian.deb",
@@ -4670,40 +4689,26 @@
         ]
       },
       {
-        "tagName": "7.92.0-binutils-update",
-        "name": "7.92.0-binutils-update",
-        "publishedAt": "2026-11-02T20:57:29Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.92.0-binutils-update",
+        "tagName": "7.93.0",
+        "name": "SFPI Update",
+        "publishedAt": "2026-10-30T02:07:44Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.93.0",
         "prerelease": false,
         "assets": [
           {
-            "name": "sfpi_7.92.0-binutils-update_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0-binutils-update/sfpi_7.92.0-binutils-update_x86_64_debian.deb",
-            "size": 135041136
+            "name": "sfpi_7.93.0_aarch64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0/sfpi_7.93.0_aarch64_debian.deb",
+            "size": 129556746
           },
           {
-            "name": "sfpi_7.92.0-binutils-update_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.92.0-binutils-update/sfpi_7.92.0-binutils-update_x86_64_fedora.rpm",
-            "size": 134693077
-          }
-        ]
-      },
-      {
-        "tagName": "7.93.0-replay-63570",
-        "name": "7.93.0-replay-63570",
-        "publishedAt": "2026-11-02T19:09:54Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.93.0-replay-63570",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.93.0-replay-63570_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0-replay-63570/sfpi_7.93.0-replay-63570_x86_64_debian.deb",
-            "size": 134690772
+            "name": "sfpi_7.93.0_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0/sfpi_7.93.0_x86_64_debian.deb",
+            "size": 134661232
           },
           {
-            "name": "sfpi_7.93.0-replay-63570_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0-replay-63570/sfpi_7.93.0-replay-63570_x86_64_fedora.rpm",
-            "size": 134235674
+            "name": "sfpi_7.93.0_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.93.0/sfpi_7.93.0_x86_64_fedora.rpm",
+            "size": 134216133
           }
         ]
       }
@@ -4744,7 +4749,7 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1742,
-    "updatedAt": "2026-11-04T18:04:21Z",
+    "updatedAt": "2026-11-04T22:27:47Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5498,7 +5503,7 @@
   },
   "https://github.com/tenstorrent/tt-isa-documentation": {
     "stars": 136,
-    "updatedAt": "2026-11-04T18:09:02Z"
+    "updatedAt": "2026-11-04T23:30:38Z"
   },
   "https://github.com/olofj/bhx": {
     "stars": 6,
