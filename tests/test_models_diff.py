@@ -170,3 +170,112 @@ def test_write_pr_body_leaves_no_file_when_empty(tmp_path):
     assert not out.exists()
     assert md.write_pr_body(rich_diff(), out, template) is True
     assert out.read_text().startswith("### ")
+
+
+# ── The weekly roundup ──────────────────────────────────────────────────────
+
+import json  # noqa: E402
+from datetime import date, datetime, timezone  # noqa: E402
+
+import llm_client  # noqa: E402
+
+WEEK_END = date(2026, 11, 5)   # a Thursday
+NOW = datetime(2026, 11, 5, 7, 50, 0, tzinfo=timezone.utc)
+
+
+def test_week_fragment_uses_iso_week():
+    assert md.week_fragment(date(2026, 11, 5)) == "week-2026-W45"
+    assert md.week_fragment(date(2027, 1, 1)) == "week-2026-W53"   # ISO year differs from the calendar year
+
+
+def test_title_counts_both_sources_and_omits_zero():
+    d = rich_diff()   # Fresh on tt-inference-server, Bundled as a bundle, plus Kept's new bundle o/kept-v2
+    assert md.roundup_title(d) == "Models this week: 1 new on tt-inference-server, 2 new tt-model bundles"
+    only_spec = md.diff_models(doc([]), doc([model("A", source="tt-inference-server", inSpec=True, status="Complete")]))
+    assert md.roundup_title(only_spec) == "Models this week: 1 new on tt-inference-server"
+    only_status = md.diff_models(doc([model("m", status="Functional", inSpec=True, source="tt-inference-server")]),
+                                 doc([model("m", status="Complete", inSpec=True, source="tt-inference-server")]))
+    assert md.roundup_title(only_status) == "Models this week: 1 change"
+
+
+def test_build_manifest_is_capped():
+    d = md.diff_models(doc([]), doc([model(f"m{i:02}") for i in range(50)]))
+    text = md.build_manifest(d, cap=10)
+    assert text.count("\n") == 10 and text.endswith("… and 40 more")
+
+
+def test_fallback_paragraph_names_models_per_section():
+    p = md.fallback_paragraph(rich_diff())
+    assert "Fresh" in p and "tt-inference-server" in p
+    assert "Bundled" in p and "o/kept-v2" in p
+    assert "Kept" in p and "Complete" in p
+    assert p.endswith(".") and "\n" not in p
+
+
+def test_link_models_links_whole_names_longest_first():
+    models = [dict(id="qwen3-5-27b", name="Qwen3.5-27B"), dict(id="qwen3-5-27b-instruct", name="Qwen3.5-27B-Instruct")]
+    out = md.link_models("Qwen3.5-27B-Instruct joins Qwen3.5-27B this week; Qwen3.5-27B again.", models)
+    assert out == ("[Qwen3.5-27B-Instruct](https://docs.tenstorrent.com/tt-awesome/models/qwen3-5-27b-instruct/) joins "
+                   "[Qwen3.5-27B](https://docs.tenstorrent.com/tt-awesome/models/qwen3-5-27b/) this week; Qwen3.5-27B again.")
+
+
+def test_link_models_skips_text_already_inside_a_link():
+    models = [dict(id="laya", name="Laya")]
+    text = "See [Laya](https://example.com/laya) and Laya."
+    assert md.link_models(text, models) == "See [Laya](https://example.com/laya) and [Laya](https://docs.tenstorrent.com/tt-awesome/models/laya/)."
+
+
+def test_build_roundup_item_shape_and_new_sentence_when_paragraph_is_thin():
+    d = rich_diff()
+    item = md.build_roundup(d, WEEK_END, "A quiet week with nothing named.", NOW)
+    assert item["type"] == "article" and item["source"] == "models-roundup" and item["approved"] is True
+    assert item["title"] == md.roundup_title(d)
+    assert item["url"] == "https://docs.tenstorrent.com/tt-awesome/models/#week-2026-W45"
+    assert item["date"] == "2026-11-05" and item["dateISO"] == "2026-11-05T07:50:00Z"
+    assert item["label"] == "Models this week" and item["projectName"] == "Models" and item["projectId"] is None
+    assert item["affiliation"] == "official"
+    # The paragraph named none of the two added models, so the mechanical sentence follows it, with links.
+    assert item["description"].startswith("A quiet week with nothing named. New: ")
+    assert "[Bundled](https://docs.tenstorrent.com/tt-awesome/models/Bundled/)" in item["description"]
+    assert "[Fresh](https://docs.tenstorrent.com/tt-awesome/models/Fresh/)" in item["description"]
+    # A paragraph that names them all gets no extra sentence, and the names become links.
+    full = md.build_roundup(d, WEEK_END, "Fresh landed on tt-inference-server and Bundled as a bundle.", NOW)
+    assert "New:" not in full["description"]
+    assert full["description"].startswith("[Fresh](https://docs.tenstorrent.com/tt-awesome/models/Fresh/) landed")
+
+
+def test_request_paragraph_degrades_to_empty(monkeypatch):
+    def boom(*a, **k):
+        raise RuntimeError("backend down")
+    monkeypatch.setattr(llm_client, "complete", boom)
+    assert md.request_roundup_paragraph("manifest", week="the week ending 2026-11-05") == ""
+    monkeypatch.setattr(llm_client, "complete", lambda *a, **k: "## Heading\nThe paragraph.")
+    assert md.request_roundup_paragraph("manifest", week="the week ending 2026-11-05") == "The paragraph."
+
+
+def test_request_paragraph_passes_the_prompt_file_and_variables(monkeypatch):
+    seen = {}
+    def fake(name, variables, **kw):
+        seen.update(name=name, variables=variables)
+        return "Text."
+    monkeypatch.setattr(llm_client, "complete", fake)
+    md.request_roundup_paragraph("the manifest", week="the week ending 2026-11-05")
+    assert seen["name"] == "models-roundup"
+    assert seen["variables"] == {"week": "the week ending 2026-11-05", "manifest": "the manifest"}
+    # The prompt file exists and renders without PyYAML errors.
+    prompt = llm_client.load_prompt("models-roundup")
+    assert any("{{ manifest }}" in m["content"] for m in prompt["messages"])
+
+
+def test_write_roundup_inserts_in_date_order_and_dedups_by_url(tmp_path):
+    feeds = tmp_path / "planet_feeds.json"
+    feeds.write_text(json.dumps([
+        dict(url="https://a", dateISO="2026-11-06T00:00:00Z"),
+        dict(url="https://b", dateISO="2026-11-01T00:00:00Z"),
+    ]))
+    item = md.build_roundup(rich_diff(), WEEK_END, "Paragraph.", NOW)
+    assert md.write_roundup(item, feeds) is True
+    urls = [i["url"] for i in json.loads(feeds.read_text())]
+    assert urls == ["https://a", item["url"], "https://b"]
+    assert md.write_roundup(item, feeds) is False            # same Thursday again: nothing written twice
+    assert len(json.loads(feeds.read_text())) == 3

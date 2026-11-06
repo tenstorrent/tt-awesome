@@ -35,6 +35,15 @@ Usage (CLI, see main()):
 
 from __future__ import annotations
 
+import json
+import re
+import sys
+from datetime import date, datetime, timezone
+from pathlib import Path
+
+import llm_client
+import pr_digest
+
 
 # ── The change set ──────────────────────────────────────────────────────────
 
@@ -180,9 +189,211 @@ def write_pr_body(diff: dict, out, template) -> bool:
     No file on an empty diff is deliberate: peter-evans/create-pull-request then falls back to the
     template the workflow copies into place, exactly as nightly.yml does.
     """
-    from pathlib import Path
     body = render_pr_body(diff, Path(template).read_text())
     if not body:
         return False
     Path(out).write_text(body)
+    return True
+
+
+# ── The Thursday Planet roundup ─────────────────────────────────────────────
+
+# Where a model's page lives; the planet item and its links point here. The site's canonical host,
+# see src/_data/site.js. The week fragment makes each roundup's URL unique, which is what the
+# planet's URL dedup and write_roundup key on.
+SITE = "https://docs.tenstorrent.com/tt-awesome/"
+MODELS_URL = SITE + "models/"
+
+MODEL = "claude-haiku-4-5-20251001"  # Anthropic-direct default; the foundry path uses llm_client's default
+MANIFEST_CAP = 40                    # lines of the change list handed to the model
+
+
+def week_fragment(week_end: date) -> str:
+    """"week-2026-W45": the ISO week the roundup covers, named by its last day."""
+    year, week, _ = week_end.isocalendar()
+    return f"week-{year}-W{week:02d}"
+
+
+def _new_spec_models(diff: dict) -> list:
+    return [m for m in diff["added"] if m["source"] == "tt-inference-server"] + [
+        dict(m, source="tt-inference-server") for m in diff["entered_spec"]]
+
+
+def _new_bundles(diff: dict) -> int:
+    """Bundles that are new this week: on brand-new bundle-only models and on models already listed."""
+    return sum(1 for m in diff["added"] if m["source"] != "tt-inference-server") + len(diff["bundles_added"])
+
+
+def _count_changes(diff: dict) -> int:
+    lists = ("added", "removed", "status", "entered_spec", "bundles_added", "bundles_removed", "kind", "hardware")
+    return sum(len(diff[k]) for k in lists) + sum(len(v) for v in diff["unreadable"].values())
+
+
+def roundup_title(diff: dict) -> str:
+    """"Models this week: 8 new on tt-inference-server, 7 new tt-model bundles"; zero counts are left out."""
+    parts = []
+    n_spec, n_bundles = len(_new_spec_models(diff)), _new_bundles(diff)
+    if n_spec:
+        parts.append(f"{n_spec} new on tt-inference-server")
+    if n_bundles:
+        parts.append(f"{_plural(n_bundles, 'new tt-model bundle')}")
+    if not parts:
+        parts.append(_plural(_count_changes(diff), "change"))
+    return "Models this week: " + ", ".join(parts)
+
+
+def _manifest_lines(diff: dict) -> list:
+    lines = []
+    for m in diff["added"]:
+        if m["source"] == "tt-inference-server":
+            where = (" on " + ", ".join(m["hardware"])) if m["hardware"] else ""
+            lines.append(f"new on tt-inference-server: {m['name']} ({m['kind']}, {m['status']}){where}")
+        else:
+            by = (" by " + ", ".join(m["owners"])) if m["owners"] else ""
+            lines.append(f"new tt-model bundle: {m['name']} ({m['kind']}){by}")
+    for m in diff["entered_spec"]:
+        lines.append(f"now on tt-inference-server: {m['name']} ({m['status']})")
+    for m in diff["status"]:
+        if not any(e["id"] == m["id"] for e in diff["entered_spec"]):
+            lines.append(f"status: {m['name']} {m['old'] or 'not in spec'} → {m['new'] or 'not in spec'}")
+    for b in diff["bundles_added"]:
+        lines.append(f"new bundle for {b['model']}: {b['repo']}")
+    for b in diff["bundles_removed"]:
+        lines.append(f"bundle withdrawn from {b['model']}: {b['repo']}")
+    for m in diff["removed"]:
+        lines.append(f"removed: {m['name']}")
+    for m in diff["kind"]:
+        lines.append(f"kind: {m['name']} {m['old']} → {m['new']}")
+    for m in diff["hardware"]:
+        lines.append(f"new hardware for {m['name']}: {', '.join(m['added'])}")
+    old_rel, new_rel = diff["spec"]["old"].get("release"), diff["spec"]["new"].get("release")
+    if old_rel != new_rel:
+        lines.append(f"tt-inference-server spec: {old_rel} → {new_rel}")
+    return lines
+
+
+def build_manifest(diff: dict, cap: int = MANIFEST_CAP) -> str:
+    """The change list as plain text for the model, one line per change, cut at `cap` lines."""
+    lines = _manifest_lines(diff)
+    if len(lines) > cap:
+        lines = lines[:cap] + [f"… and {len(lines) - cap} more"]
+    return "\n".join(lines)
+
+
+def request_roundup_paragraph(manifest: str, *, week: str, anthropic_api_key: str = "",
+                              github_token: str = "", foundry_api_key: str = "") -> str:
+    """The one model call: the roundup paragraph, or "" on any failure. Never raises."""
+    try:
+        text = llm_client.complete(
+            "models-roundup", {"week": week, "manifest": manifest},
+            anthropic_model=MODEL, anthropic_api_key=anthropic_api_key,
+            github_token=github_token, foundry_api_key=foundry_api_key,
+        )
+    except Exception as e:  # noqa: BLE001 — the item ships with the fallback paragraph instead
+        print(f"  WARN models_diff: roundup paragraph unavailable ({e})", file=sys.stderr)
+        return ""
+    if not text:
+        print("  WARN models_diff: provider returned no paragraph; using the fallback", file=sys.stderr)
+        return ""
+    # Strip a leading heading the prompt forbade, as pr_digest does with its lede.
+    return pr_digest._LEADING_HEADING_RE.sub("", text, count=1).strip()
+
+
+def _join(names: list) -> str:
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
+def fallback_paragraph(diff: dict) -> str:
+    """One sentence per kind of change, for a week whose model call failed. Plain prose, one line."""
+    sentences = []
+    spec = [m["name"] for m in _new_spec_models(diff)]
+    if spec:
+        sentences.append(f"New on tt-inference-server: {_join(spec)}.")
+    bundled = [m["name"] for m in diff["added"] if m["source"] != "tt-inference-server"]
+    if bundled:
+        sentences.append(f"New as tt-model bundles: {_join(bundled)}.")
+    more = [f"{b['repo']} for {b['model']}" for b in diff["bundles_added"]]
+    if more:
+        sentences.append(f"New bundles for listed models: {_join(more)}.")
+    promoted = [f"{m['name']} to {m['new']}" for m in diff["status"]
+                if m["new"] and not any(e["id"] == m["id"] for e in diff["entered_spec"])]
+    if promoted:
+        sentences.append(f"Status changes: {_join(promoted)}.")
+    removed = [m["name"] for m in diff["removed"]]
+    if removed:
+        sentences.append(f"Removed: {_join(removed)}.")
+    old_rel, new_rel = diff["spec"]["old"].get("release"), diff["spec"]["new"].get("release")
+    if old_rel != new_rel:
+        sentences.append(f"tt-inference-server moved from {old_rel} to {new_rel}.")
+    return " ".join(sentences)
+
+
+def link_models(text: str, models: list) -> str:
+    """The first whole-word mention of each model's name becomes a link to its page.
+
+    Longest names first, so "Qwen3.5-27B-Instruct" is linked as itself and not as "Qwen3.5-27B"
+    plus a suffix. A mention already inside a markdown link is left alone.
+    """
+    for m in sorted(models, key=lambda m: -len(m["name"])):
+        name = m["name"]
+        # Not preceded by a word character, "[" (link text) or "/" (inside a URL); not followed by a word
+        # character or "-" (a longer name) or "/" or "]" (a URL or link text). A period after the name is a
+        # sentence end and must still match.
+        pattern = re.compile(r"(?<![\w\[/-])" + re.escape(name) + r"(?![\w\]/-])")
+        pos = 0
+        while True:
+            hit = pattern.search(text, pos)
+            if not hit:
+                break
+            # Inside "[...](...)" already? Then this mention is link text or a URL; look further.
+            open_br = text.rfind("[", 0, hit.start())
+            if open_br != -1 and "]" not in text[open_br:hit.start()] and "](" in text[hit.end():hit.end() + 2]:
+                pos = hit.end()
+                continue
+            if text[hit.end():hit.end() + 2] == "](":
+                pos = hit.end()
+                continue
+            text = text[:hit.start()] + f"[{name}]({MODELS_URL}{m['id']}/)" + text[hit.end():]
+            break
+    return text
+
+
+def build_roundup(diff: dict, week_end: date, paragraph: str, now: datetime) -> dict:
+    """The Planet item for the week ending `week_end`, with `paragraph` as its body.
+
+    `paragraph` is the model's reply or the fallback. When it names fewer than half of the week's
+    new models, one mechanical "New: ..." sentence follows it so every new model is reachable from
+    the card. Model names in the whole description become links to their pages.
+    """
+    new = _new_spec_models(diff) + [m for m in diff["added"] if m["source"] != "tt-inference-server"]
+    named = [m for m in new if re.search(r"(?<![\w-])" + re.escape(m["name"]) + r"(?![\w-])", paragraph)]
+    description = paragraph.strip()
+    if new and len(named) * 2 < len(new):
+        description = (description + " " if description else "") + "New: " + _join([m["name"] for m in new]) + "."
+    description = link_models(description, new + diff["status"] + diff["entered_spec"])
+    return dict(
+        type="article",
+        source="models-roundup",
+        approved=True,
+        title=roundup_title(diff),
+        url=f"{MODELS_URL}#{week_fragment(week_end)}",
+        description=description,
+        date=week_end.isoformat(),
+        dateISO=now.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        label="Models this week",
+        projectName="Models",
+        projectId=None,
+        affiliation="official",
+    )
+
+
+def write_roundup(item: dict, feeds_path) -> bool:
+    """Insert the item into planet_feeds.json in dateISO order. False, and no write, when its URL is already there."""
+    path = Path(feeds_path)
+    items = json.loads(path.read_text()) if path.exists() else []
+    if any(i.get("url") == item["url"] for i in items):
+        return False
+    items.append(item)
+    items.sort(key=lambda i: i.get("dateISO") or "", reverse=True)
+    path.write_text(json.dumps(items, indent=2, ensure_ascii=False) + "\n")
     return True
