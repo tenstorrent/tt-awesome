@@ -536,3 +536,34 @@ def test_prompt_test_data_carries_no_repo_ids():
     for case in spec["testData"]:
         for line in case["manifest"].splitlines():
             assert not re.search(r"\S+/\S+", line), line
+
+
+# ── First forced run on main (2026-11-06, run 42314783741) ──────────────────
+
+def test_request_paragraph_keeps_only_the_lede(monkeypatch):
+    # The first real reply opened with four sentences, then wrote its own table with a "Delivery" column
+    # that maxTokens cut off mid-row. build_roundup adds the tables itself, so anything after the first
+    # block of prose is dropped: a blank line, or a line that starts a table, heading, bullet or label.
+    reply = ("Qwen2.5-VL arrives through tt-inference-server. Three agents arrive as bundles.\n\n"
+             "| Model | Kind | Status | Hardware | Delivery |\n|---|---|---|---|---|\n| granite | LLM | Functional")
+    monkeypatch.setattr(llm_client, "complete", lambda *a, **k: reply)
+    assert md.request_roundup_paragraph("m", week="w") == \
+        "Qwen2.5-VL arrives through tt-inference-server. Three agents arrive as bundles."
+    monkeypatch.setattr(llm_client, "complete", lambda *a, **k: "One sentence.\n| a | b |\n**Also**\n- bullet")
+    assert md.request_roundup_paragraph("m", week="w") == "One sentence."
+
+
+def test_request_paragraph_replaces_em_dashes(monkeypatch):
+    # House style forbids em-dashes; the model used a pair to set off a list. Each becomes a comma.
+    reply = "Three agents arrive as bundles—MIRA, QUEST and Tongyi—alongside Qwen3 tools. A dash — here too."
+    monkeypatch.setattr(llm_client, "complete", lambda *a, **k: reply)
+    assert md.request_roundup_paragraph("m", week="w") == \
+        "Three agents arrive as bundles, MIRA, QUEST and Tongyi, alongside Qwen3 tools. A dash, here too."
+
+
+def test_link_models_matches_a_name_regardless_of_case():
+    # The model wrote "Gemma-4-26B-A4B-it" for gemma-4-26B-A4B-it and the mention went unlinked. The link
+    # keeps the model's own spelling as its text.
+    models = [dict(id="g", name="gemma-4-26B-A4B-it", url="https://huggingface.co/google/gemma-4-26B-A4B-it")]
+    assert md.link_models("Gemma-4-26B-A4B-it advances to Functional.", models) == \
+        "[Gemma-4-26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) advances to Functional."
