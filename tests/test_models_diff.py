@@ -50,7 +50,7 @@ def test_status_change_and_entering_spec():
     new = doc([model("m", source="tt-inference-server", inSpec=True, status="Functional", bundles=[bundle("o/m")])])
     d = md.diff_models(old, new)
     assert d["status"] == [dict(id="m", name="m", old=None, new="Functional")]
-    assert d["entered_spec"] == [dict(id="m", name="m", status="Functional")]
+    assert d["entered_spec"] == [dict(id="m", name="m", status="Functional", kind="LLM", hardware=[])]
     assert d["added"] == [] and d["removed"] == []
 
 
@@ -225,31 +225,74 @@ def test_link_models_skips_text_already_inside_a_link():
     assert md.link_models(text, models) == "See [Laya](https://example.com/laya) and [Laya](https://docs.tenstorrent.com/tt-awesome/models/laya/)."
 
 
-def test_build_roundup_item_shape_and_new_sentence_when_paragraph_is_thin():
+def test_build_roundup_item_shape():
     d = rich_diff()
-    item = md.build_roundup(d, WEEK_END, "A quiet week with nothing named.", NOW)
+    item = md.build_roundup(d, WEEK_END, "A paragraph.", NOW)
     assert item["type"] == "article" and item["source"] == "models-roundup" and item["approved"] is True
+    assert item["body"] == "markdown"            # planet-item.njk renders this one with block markdown
     assert item["title"] == md.roundup_title(d)
     assert item["url"] == "https://docs.tenstorrent.com/tt-awesome/models/#week-2026-W45"
     assert item["date"] == "2026-11-05" and item["dateISO"] == "2026-11-05T07:50:00Z"
     assert item["label"] == "Models this week" and item["projectName"] == "Models" and item["projectId"] is None
     assert item["affiliation"] == "official"
-    # The paragraph named none of the two added models, so the mechanical sentence follows it, with links.
-    assert item["description"].startswith("A quiet week with nothing named. New: ")
-    assert "[Bundled](https://docs.tenstorrent.com/tt-awesome/models/Bundled/)" in item["description"]
-    assert "[Fresh](https://docs.tenstorrent.com/tt-awesome/models/Fresh/)" in item["description"]
-    # A paragraph that names them all gets no extra sentence, and the names become links.
-    full = md.build_roundup(d, WEEK_END, "Fresh landed on tt-inference-server and Bundled as a bundle.", NOW)
-    assert "New:" not in full["description"]
-    assert full["description"].startswith("[Fresh](https://docs.tenstorrent.com/tt-awesome/models/Fresh/) landed")
+
+
+def test_build_roundup_body_has_paragraph_tables_and_bullets():
+    # The lede is the model's (or fallback) paragraph; everything else is mechanical and complete, so the
+    # paragraph never needs a "New: ..." tail and a reader can scan kind, status and hardware in a table.
+    d = rich_diff()
+    body = md.build_roundup(d, WEEK_END, "Fresh landed on tt-inference-server.", NOW)["description"]
+    sections = body.split("\n\n")
+    assert sections[0] == "[Fresh](https://docs.tenstorrent.com/tt-awesome/models/Fresh/) landed on tt-inference-server."
+    assert "**New on tt-inference-server**" in sections
+    assert ("| Model | Kind | Status | Hardware |\n|---|---|---|---|\n"
+            "| [Fresh](https://docs.tenstorrent.com/tt-awesome/models/Fresh/) | LLM | Experimental | Galaxy |") in body
+    assert "**New tt-model bundles**" in sections
+    assert ("| Model | Kind | Bundle | Hardware |\n|---|---|---|---|\n"
+            "| [Bundled](https://docs.tenstorrent.com/tt-awesome/models/Bundled/) | LLM | u/bundled-p150 | — |") in body
+    assert "**Also this week**" in sections
+    bullets = sections[sections.index("**Also this week**") + 1].splitlines()
+    kept = "[Kept](https://docs.tenstorrent.com/tt-awesome/models/Kept/)"
+    assert f"- {kept}: Functional → Complete" in bullets
+    assert f"- {kept}: new bundle o/kept-v2" in bullets
+    assert f"- {kept}: bundle o/kept-v1 withdrawn" in bullets
+    assert f"- {kept}: reclassified LLM → VLM" in bullets
+    assert f"- {kept}: now also on BH QuietBox 2" in bullets
+    assert "- tt-inference-server spec 0.25.0 → 0.26.1" in bullets
+    assert "- Bundle manifest now unreadable: o/broken" in bullets and "- Bundle manifest readable again: o/fixed" in bullets
+    assert "New:" not in body
+
+
+def test_build_roundup_omits_empty_sections_and_lists_several_bundles():
+    new = doc([model("Solo", source="tt-inference-server", inSpec=True, status="Complete", kind="VLM", hardware=["Galaxy"]),
+               model("Multi", kind="LLM", hardware=["p150"], bundles=[bundle("a/multi-p150"), bundle("b/multi-qb2")])])
+    body = md.build_roundup(md.diff_models(doc([]), new), WEEK_END, "", NOW)["description"]
+    assert "**Also this week**" not in body
+    assert body.startswith("**New on tt-inference-server**")   # an empty paragraph leaves no blank lead
+    assert "| [Multi](https://docs.tenstorrent.com/tt-awesome/models/Multi/) | LLM | a/multi-p150, b/multi-qb2 | p150 |" in body
+
+
+def test_entered_spec_models_sit_in_the_spec_table():
+    old = doc([model("Gem", kind="LLM", bundles=[bundle("o/gem")])])
+    new = doc([model("Gem", source="tt-inference-server", inSpec=True, status="Functional", kind="LLM",
+                     hardware=["BH QuietBox 2"], bundles=[bundle("o/gem")])])
+    body = md.build_roundup(md.diff_models(old, new), WEEK_END, "", NOW)["description"]
+    assert "| [Gem](https://docs.tenstorrent.com/tt-awesome/models/Gem/) | LLM | Functional | BH QuietBox 2 |" in body
+    assert "**Also this week**" not in body     # entering the spec is the table row, not a second bullet
 
 
 def test_build_roundup_links_a_model_that_only_gained_a_bundle():
     old = doc([model("Elyza", bundles=[bundle("o/elyza-v1")])])
     new = doc([model("Elyza", bundles=[bundle("o/elyza-v1"), bundle("t/elyza-fast")])])
-    diff = md.diff_models(old, new)
-    item = md.build_roundup(diff, WEEK_END, md.fallback_paragraph(diff), NOW)
-    assert item["description"] == "New bundles for listed models: t/elyza-fast for [Elyza](https://docs.tenstorrent.com/tt-awesome/models/Elyza/)."
+    body = md.build_roundup(md.diff_models(old, new), WEEK_END, "", NOW)["description"]
+    assert "- [Elyza](https://docs.tenstorrent.com/tt-awesome/models/Elyza/): new bundle t/elyza-fast" in body
+
+
+def test_manifest_and_paragraph_inputs_name_no_publishers():
+    # Taylor: the prose must not single out who published a bundle. Owners stay out of what the model sees.
+    manifest = md.build_manifest(rich_diff())
+    assert " by u" not in manifest and "u/bundled-p150" not in manifest
+    assert "new tt-model bundle: Bundled (LLM)" in manifest
 
 
 def test_request_paragraph_degrades_to_empty(monkeypatch):
@@ -395,8 +438,9 @@ def test_a_new_model_with_several_bundles_counts_each_bundle():
     assert d["added"][0]["bundles"] == ["a/gpt-oss-20b-p150", "b/gpt-oss-20b-galaxy", "b/gpt-oss-20b-qb2"]
     assert md.roundup_title(d) == "Models this week: 3 new tt-model bundles"
     manifest = md.build_manifest(d)
-    assert "new tt-model bundles: gpt-oss-20b (LLM) by a, b: a/gpt-oss-20b-p150, b/gpt-oss-20b-galaxy, b/gpt-oss-20b-qb2" in manifest
-    assert "a/gpt-oss-20b-p150" in md.fallback_paragraph(d)
+    assert "new tt-model bundles: gpt-oss-20b (LLM), 3 bundles" in manifest
+    assert "a/gpt-oss-20b-p150" not in md.fallback_paragraph(d)   # repo ids live in the table, publishers never in prose
+    assert "a/gpt-oss-20b-p150, b/gpt-oss-20b-galaxy, b/gpt-oss-20b-qb2" in md.build_roundup(d, WEEK_END, "", NOW)["description"]
 
 
 def test_write_roundup_honours_a_declined_url(tmp_path):
@@ -413,3 +457,28 @@ def test_write_roundup_honours_a_declined_url(tmp_path):
     branch.write_text(json.dumps([item]))
     assert md.carry_forward(branch, feeds) == 0
     assert json.loads(feeds.read_text()) == []
+
+
+def test_write_roundup_replace_overwrites_the_week(tmp_path):
+    # A dispatch with roundup=true is how a week gets regenerated after a prompt change; it replaces.
+    feeds = tmp_path / "planet_feeds.json"
+    first = md.build_roundup(rich_diff(), WEEK_END, "First paragraph.", NOW)
+    feeds.write_text(json.dumps([first, dict(url="https://b", dateISO="2026-11-01T00:00:00Z")]))
+    second = dict(first, description="Second paragraph.")
+    assert md.write_roundup(second, feeds) is False
+    assert md.write_roundup(second, feeds, replace=True) is True
+    items = json.loads(feeds.read_text())
+    assert [i["url"] for i in items] == [first["url"], "https://b"]
+    assert items[0]["description"] == "Second paragraph."
+
+
+def test_cli_roundup_replace_flag(tmp_path, monkeypatch):
+    old, new = _write_docs(tmp_path)
+    feeds = tmp_path / "planet_feeds.json"
+    feeds.write_text("[]")
+    monkeypatch.setattr(md, "request_roundup_paragraph", lambda *a, **k: "One.")
+    md.main(["roundup", "--old", str(old), "--new", str(new), "--week-end", "2026-11-05", "--feeds", str(feeds)])
+    monkeypatch.setattr(md, "request_roundup_paragraph", lambda *a, **k: "Two.")
+    md.main(["roundup", "--old", str(old), "--new", str(new), "--week-end", "2026-11-05", "--feeds", str(feeds), "--replace"])
+    items = json.loads(feeds.read_text())
+    assert len(items) == 1 and items[0]["description"].startswith("Two.")

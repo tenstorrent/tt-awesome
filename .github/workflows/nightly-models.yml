@@ -14,7 +14,7 @@ on:
         type: boolean
         default: false
       roundup:
-        description: "Also write this week's 'Models this week' Planet item, whatever the weekday"
+        description: "Write (or rewrite) this week's 'Models this week' Planet item, whatever the weekday"
         type: boolean
         default: false
 # Nothing is written to the repo with a token that has run downloaded code. The "build" job installs
@@ -166,7 +166,10 @@ jobs:
             exit 0
           fi
           git show "$OLD:src/_data/models.json" > old-week.json
-          python3 scripts/models_diff.py roundup --old old-week.json --new new/models.json --week-end "$(date -u +%F)"
+          # A forced run is how a week is regenerated after a prompt change, so it replaces.
+          REPLACE=""
+          if [ "$FORCE" = "true" ]; then REPLACE="--replace"; fi
+          python3 scripts/models_diff.py roundup --old old-week.json --new new/models.json --week-end "$(date -u +%F)" $REPLACE
 
       - name: Prepare PR body
         run: |

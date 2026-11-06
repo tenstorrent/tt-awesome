@@ -151,7 +151,11 @@ template uses them.
   ISO-week fragment (`models/#week-2026-W45`), which is what keeps a rerun
   from publishing the same week twice. Its paragraph is the one LLM call the
   models workflow makes; a failed call ships the mechanical paragraph instead.
-  A week with no change produces no item.
+  The item is block markdown (`body: "markdown"`): the paragraph, a table of
+  the models new on tt-inference-server, a table of the new bundles, and an
+  "Also this week" list. A week with no change produces no item. Dispatching
+  the workflow with `roundup: true` rewrites the current week's item, which is
+  how a prompt change is tried out; the scheduled Thursday run never rewrites.
 
 ### Generated and bot-owned files
 

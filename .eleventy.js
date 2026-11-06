@@ -208,6 +208,15 @@ module.exports = function (eleventyConfig) {
     str ? mdInline.renderInline(str) : ""
   );
 
+  // Render block markdown (paragraphs, tables, lists) for the few planet items
+  // whose description is more than one paragraph: the weekly models roundup
+  // (scripts/models_diff.py build_roundup, which sets body: "markdown"). Same
+  // safety posture as markdownInline: no raw HTML, no images, no relative
+  // links. Must be paired with `| safe`; "" for falsy input.
+  eleventyConfig.addFilter("markdownBlock", (str) =>
+    str ? mdBlock.render(str) : ""
+  );
+
   // Render the full rich HTML content block for a feed item. Pair with
   // `| cdataSafe | safe` in Atom templates. See buildFeedContentHtml above.
   eleventyConfig.addFilter("feedContentHtml", (item) => buildFeedContentHtml(item));

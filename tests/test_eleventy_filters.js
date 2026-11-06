@@ -523,6 +523,24 @@ assert(typeof monthKey     === "function", "monthKey filter not registered");
   console.log("✓ planetItems: approved external items included, unapproved excluded");
 }
 
+// ── markdownBlock tests ─────────────────────────────────────────────────────
+// Block markdown for the few planet items whose description is more than one
+// paragraph: the weekly models roundup carries a lede, two tables and a bullet
+// list (scripts/models_diff.py build_roundup sets body: "markdown"). Same
+// safety posture as markdownInline: no raw HTML, no images, no relative links.
+const markdownBlock = filters["markdownBlock"];
+assert(typeof markdownBlock === "function", "markdownBlock filter not registered");
+{
+  const html = markdownBlock("Lede.\n\n| Model | Kind |\n|---|---|\n| [A](https://x/a/) | VLM |\n\n- one\n- two\n");
+  assert.ok(html.includes("<p>Lede.</p>"), "paragraph rendered");
+  assert.ok(html.includes("<table>") && html.includes("<th>Model</th>") && html.includes('<a href="https://x/a/">A</a>'), "table with link rendered");
+  assert.ok(html.includes("<ul>") && html.includes("<li>one</li>"), "list rendered");
+  assert.strictEqual(markdownBlock("<script>x</script>"), "<p>&lt;script&gt;x&lt;/script&gt;</p>\n", "raw HTML escaped");
+  assert.ok(!markdownBlock("![alt](https://x/i.png)").includes("<img"), "images disabled");
+  assert.strictEqual(markdownBlock(""), "", "empty input gives empty string");
+  console.log("✓ markdownBlock: renders tables, lists and paragraphs; escapes HTML; no images");
+}
+
 // ── markdownInline tests ────────────────────────────────────────────────────
 const markdownInline = filters["markdownInline"];
 assert(typeof markdownInline === "function", "markdownInline filter not registered");

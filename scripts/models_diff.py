@@ -30,7 +30,7 @@ Design notes:
 
 Usage (CLI, see main()):
     models_diff.py pr-body --old OLD.json --new NEW.json --out pr-body.md [--template T.md]
-    models_diff.py roundup --old OLD.json --new NEW.json --week-end YYYY-MM-DD [--feeds F] [--dry-run]
+    models_diff.py roundup --old OLD.json --new NEW.json --week-end YYYY-MM-DD [--feeds F] [--dry-run] [--replace]
     models_diff.py carry-forward --from BRANCH_FEEDS.json [--feeds F]
 """
 
@@ -95,7 +95,9 @@ def diff_models(old: dict, new: dict) -> dict:
         if o.get("status") != m.get("status"):
             d["status"].append(dict(id=mid, name=name, old=o.get("status"), new=m.get("status")))
         if m.get("inSpec") and not o.get("inSpec"):
-            d["entered_spec"].append(dict(id=mid, name=name, status=m.get("status")))
+            # kind and hardware ride along so the roundup can seat it in the tt-inference-server table.
+            d["entered_spec"].append(dict(id=mid, name=name, status=m.get("status"), kind=m.get("kind") or "",
+                                          hardware=list(m.get("hardware") or [])))
         ob = {b["repo"] for b in o.get("bundles") or [] if b.get("repo")}
         nb = {b["repo"] for b in m.get("bundles") or [] if b.get("repo")}
         d["bundles_added"] += [dict(model=name, id=mid, repo=r) for r in sorted(nb - ob)]
@@ -257,10 +259,11 @@ def _manifest_lines(diff: dict) -> list:
             where = (" on " + ", ".join(m["hardware"])) if m["hardware"] else ""
             lines.append(f"new on tt-inference-server: {m['name']} ({m['kind']}, {m['status']}){where}")
         else:
-            by = (" by " + ", ".join(m["owners"])) if m["owners"] else ""
-            repos = m.get("bundles") or []
-            lines.append(f"new tt-model {'bundles' if len(repos) > 1 else 'bundle'}: {m['name']} ({m['kind']}){by}"
-                         + (f": {', '.join(repos)}" if repos else ""))
+            # No owners and no repo ids: the paragraph is about models, and Taylor asked that it never
+            # single out who published a bundle. The table under the paragraph carries the repo ids.
+            n_b = len(m.get("bundles") or [])
+            lines.append(f"new tt-model {'bundles' if n_b > 1 else 'bundle'}: {m['name']} ({m['kind']})"
+                         + (f", {n_b} bundles" if n_b > 1 else ""))
     for m in diff["entered_spec"]:
         lines.append(f"now on tt-inference-server: {m['name']} ({m['status']})")
     for m in diff["status"]:
@@ -319,8 +322,9 @@ def fallback_paragraph(diff: dict) -> str:
     spec = [m["name"] for m in _new_spec_models(diff)]
     if spec:
         sentences.append(f"New on tt-inference-server: {_join(spec)}.")
-    bundled = [m["name"] + (f" ({', '.join(m['bundles'])})" if len(m.get("bundles") or []) > 1 else "")
-               for m in diff["added"] if m["source"] != "tt-inference-server"]
+    # Names only: the bundle table under the paragraph carries the repo ids, and the prose never names a
+    # publisher (see _manifest_lines).
+    bundled = [m["name"] for m in diff["added"] if m["source"] != "tt-inference-server"]
     if bundled:
         sentences.append(f"New as tt-model bundles: {_join(bundled)}.")
     more = [f"{b['repo']} for {b['model']}" for b in diff["bundles_added"]]
@@ -387,30 +391,87 @@ def link_models(text: str, models: list) -> str:
     return text
 
 
-def build_roundup(diff: dict, week_end: date, paragraph: str, now: datetime) -> dict:
-    """The Planet item for the week ending `week_end`, with `paragraph` as its body.
+def _link(m: dict) -> str:
+    return f"[{m['name']}]({MODELS_URL}{m['id']}/)"
 
-    `paragraph` is the model's reply or the fallback. When it names fewer than half of the week's
-    new models, one mechanical "New: ..." sentence follows it so every new model is reachable from
-    the card. Model names in the whole description become links to their pages.
+
+def _cell(text: str) -> str:
+    """A table cell: never empty (an em dash stands for "none"), never a stray pipe."""
+    return (text or "—").replace("|", "\\|")
+
+
+def _spec_table(models: list) -> str:
+    rows = [f"| {_link(m)} | {_cell(m.get('kind'))} | {_cell(m.get('status'))} | {_cell(', '.join(m.get('hardware') or []))} |"
+            for m in models]
+    return "| Model | Kind | Status | Hardware |\n|---|---|---|---|\n" + "\n".join(rows)
+
+
+def _bundle_table(models: list) -> str:
+    rows = [f"| {_link(m)} | {_cell(m.get('kind'))} | {_cell(', '.join(m.get('bundles') or []))} "
+            f"| {_cell(', '.join(m.get('hardware') or []))} |" for m in models]
+    return "| Model | Kind | Bundle | Hardware |\n|---|---|---|---|\n" + "\n".join(rows)
+
+
+def _also_bullets(diff: dict) -> list:
+    """Everything that is neither a new model nor a model entering the spec, one bullet each."""
+    entered = {e["id"] for e in diff["entered_spec"]}
+    bullets = []
+    for m in diff["status"]:
+        if m["id"] not in entered:
+            bullets.append(f"- {_link(m)}: {m['old'] or 'not in spec'} → {m['new'] or 'not in spec'}")
+    for b in diff["bundles_added"]:
+        bullets.append(f"- {_link(dict(id=b['id'], name=b['model']))}: new bundle {b['repo']}")
+    for b in diff["bundles_removed"]:
+        bullets.append(f"- {_link(dict(id=b['id'], name=b['model']))}: bundle {b['repo']} withdrawn")
+    for m in diff["removed"]:
+        bullets.append(f"- {m['name']}: removed from the list")
+    for m in diff["kind"]:
+        bullets.append(f"- {_link(m)}: reclassified {m['old']} → {m['new']}")
+    for m in diff["hardware"]:
+        if m["id"] not in entered:   # the table row of a model entering the spec already shows its hardware
+            bullets.append(f"- {_link(m)}: now also on {', '.join(m['added'])}")
+    for r in diff["unreadable"]["now_unreadable"]:
+        bullets.append(f"- Bundle manifest now unreadable: {r}")
+    for r in diff["unreadable"]["now_readable"]:
+        bullets.append(f"- Bundle manifest readable again: {r}")
+    old_rel, new_rel = diff["spec"]["old"].get("release"), diff["spec"]["new"].get("release")
+    if old_rel != new_rel:
+        bullets.append(f"- tt-inference-server spec {old_rel} → {new_rel}")
+    return bullets
+
+
+def build_roundup(diff: dict, week_end: date, paragraph: str, now: datetime) -> dict:
+    """The Planet item for the week ending `week_end`, written as block markdown.
+
+    The body is `paragraph` (the model's reply or the fallback) with model names linked, then the
+    mechanical part that makes the item complete whatever the paragraph said: a table of the models
+    new on tt-inference-server (kind, status, hardware), a table of the new tt-model bundles (kind,
+    bundle repo, hardware), and an "Also this week" bullet list for status, bundle, kind, hardware and
+    spec changes. Empty sections are left out. The item carries body: "markdown" so planet-item.njk
+    renders it with block markdown instead of the one-paragraph inline filter.
     """
-    new = _new_spec_models(diff) + [m for m in diff["added"] if m["source"] != "tt-inference-server"]
-    named = [m for m in new if re.search(r"(?<![\w-])" + re.escape(m["name"]) + r"(?![\w-])", paragraph)]
-    description = paragraph.strip()
-    if new and len(named) * 2 < len(new):
-        description = (description + " " if description else "") + "New: " + _join([m["name"] for m in new]) + "."
-    # Every model the description can mention: new ones, status changes, and the listed models that
-    # gained or lost a bundle (those carry the name under "model" rather than "name").
-    mentioned = (new + diff["status"] + diff["entered_spec"] + diff["kind"] + diff["hardware"]
+    spec_new = _new_spec_models(diff)
+    bundle_new = [m for m in diff["added"] if m["source"] != "tt-inference-server"]
+    mentioned = (spec_new + bundle_new + diff["status"] + diff["kind"] + diff["hardware"]
                  + [dict(id=b["id"], name=b["model"]) for b in diff["bundles_added"] + diff["bundles_removed"]])
-    description = link_models(description, mentioned)
+    sections = []
+    if paragraph.strip():
+        sections.append(link_models(paragraph.strip(), mentioned))
+    if spec_new:
+        sections += ["**New on tt-inference-server**", _spec_table(spec_new)]
+    if bundle_new:
+        sections += ["**New tt-model bundles**", _bundle_table(bundle_new)]
+    bullets = _also_bullets(diff)
+    if bullets:
+        sections += ["**Also this week**", "\n".join(bullets)]
     return dict(
         type="article",
         source="models-roundup",
         approved=True,
         title=roundup_title(diff),
         url=f"{MODELS_URL}#{week_fragment(week_end)}",
-        description=description,
+        description="\n\n".join(sections),
+        body="markdown",
         date=week_end.isoformat(),
         dateISO=now.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         label="Models this week",
@@ -438,17 +499,20 @@ def _declined_urls(feeds_path: Path) -> set:
     return {r["url"] for r in rows if isinstance(r, dict) and r.get("url")}
 
 
-def write_roundup(item: dict, feeds_path) -> bool:
+def write_roundup(item: dict, feeds_path, replace: bool = False) -> bool:
     """Insert the item into planet_feeds.json in dateISO order.
 
-    False, and no write, when its URL is already in the feed or on the declined list."""
+    False, and no write, when its URL is on the declined list, or already in the feed unless
+    `replace` is set (a dispatch with roundup=true regenerates the week after a prompt change)."""
     path = Path(feeds_path)
     if item["url"] in _declined_urls(path):
         print(f"  SKIP roundup {item['url']}: declined by a maintainer (planet_declined.json)")
         return False
     items = json.loads(path.read_text()) if path.exists() else []
     if any(i.get("url") == item["url"] for i in items):
-        return False
+        if not replace:
+            return False
+        items = [i for i in items if i.get("url") != item["url"]]
     items.append(item)
     items.sort(key=lambda i: i.get("dateISO") or "", reverse=True)
     path.write_text(json.dumps(items, indent=2, ensure_ascii=False) + "\n")
@@ -503,6 +567,7 @@ def main(argv: list | None = None) -> int:
     ru.add_argument("--week-end", required=True, help="the Thursday the week ends on, YYYY-MM-DD")
     ru.add_argument("--feeds", default=str(FEEDS_DEFAULT))
     ru.add_argument("--dry-run", action="store_true", help="print the item instead of writing it")
+    ru.add_argument("--replace", action="store_true", help="overwrite the week's item if the feed already has one")
 
     cf = sub.add_parser("carry-forward", help="keep the roundup items of an unmerged PR branch in planet_feeds.json")
     cf.add_argument("--from", dest="branch_feeds", required=True, help="planet_feeds.json as on the PR branch")
@@ -540,8 +605,8 @@ def main(argv: list | None = None) -> int:
         print(f"--- DRY RUN: roundup item for {week_fragment(week_end)} ---")
         print(json.dumps(item, indent=2, ensure_ascii=False))
         return 0
-    if write_roundup(item, args.feeds):
-        print(f"added roundup {item['url']} to {args.feeds}")
+    if write_roundup(item, args.feeds, replace=args.replace):
+        print(f"{'replaced' if args.replace else 'added'} roundup {item['url']} in {args.feeds}")
     else:
         print(f"roundup {item['url']} already in {args.feeds}; nothing written")
     return 0
