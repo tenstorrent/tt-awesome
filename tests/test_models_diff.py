@@ -397,3 +397,19 @@ def test_a_new_model_with_several_bundles_counts_each_bundle():
     manifest = md.build_manifest(d)
     assert "new tt-model bundles: gpt-oss-20b (LLM) by a, b: a/gpt-oss-20b-p150, b/gpt-oss-20b-galaxy, b/gpt-oss-20b-qb2" in manifest
     assert "a/gpt-oss-20b-p150" in md.fallback_paragraph(d)
+
+
+def test_write_roundup_honours_a_declined_url(tmp_path):
+    # decline_planet_item.py moves a rejected item's URL to planet_declined.json next to the feed file.
+    # A forced rerun, or a stale PR branch handed to carry_forward, must not bring the week back.
+    feeds = tmp_path / "planet_feeds.json"
+    feeds.write_text("[]")
+    item = md.build_roundup(rich_diff(), WEEK_END, "Paragraph.", NOW)
+    (tmp_path / "planet_declined.json").write_text(json.dumps([
+        dict(url=item["url"], title=item["title"], date="2026-11-05", source="models-roundup", reason="quiet week")]))
+    assert md.write_roundup(item, feeds) is False
+    assert json.loads(feeds.read_text()) == []
+    branch = tmp_path / "branch_feeds.json"
+    branch.write_text(json.dumps([item]))
+    assert md.carry_forward(branch, feeds) == 0
+    assert json.loads(feeds.read_text()) == []

@@ -420,9 +420,32 @@ def build_roundup(diff: dict, week_end: date, paragraph: str, now: datetime) -> 
     )
 
 
+def _declined_urls(feeds_path: Path) -> set:
+    """URLs in planet_declined.json, kept next to the feed file by scripts/decline_planet_item.py.
+
+    A maintainer who declined a week's roundup moved its URL there, and the item must stay gone: a
+    forced rerun of the roundup, or a stale PR branch handed to carry_forward, would otherwise put it
+    back with approved: true. Same rule as fetch_planet_feeds.load_declined_urls.
+    """
+    path = feeds_path.with_name("planet_declined.json")
+    if not path.exists():
+        return set()
+    try:
+        rows = json.loads(path.read_text())
+    except ValueError as e:
+        print(f"  WARN models_diff: could not read {path}: {e}", file=sys.stderr)
+        return set()
+    return {r["url"] for r in rows if isinstance(r, dict) and r.get("url")}
+
+
 def write_roundup(item: dict, feeds_path) -> bool:
-    """Insert the item into planet_feeds.json in dateISO order. False, and no write, when its URL is already there."""
+    """Insert the item into planet_feeds.json in dateISO order.
+
+    False, and no write, when its URL is already in the feed or on the declined list."""
     path = Path(feeds_path)
+    if item["url"] in _declined_urls(path):
+        print(f"  SKIP roundup {item['url']}: declined by a maintainer (planet_declined.json)")
+        return False
     items = json.loads(path.read_text()) if path.exists() else []
     if any(i.get("url") == item["url"] for i in items):
         return False
