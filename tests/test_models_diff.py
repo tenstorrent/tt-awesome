@@ -109,3 +109,64 @@ def test_spec_bump_alone_is_not_empty_but_no_lists_is_empty():
     assert md.is_empty(md.diff_models(same, same))
     bumped = doc([model("m")], release="0.27.0", commit="abcdef012")
     assert not md.is_empty(md.diff_models(same, bumped))
+
+
+# ── render_pr_body / write_pr_body ──────────────────────────────────────────
+
+BOILERPLATE = "<!-- tt-awesome-digest-boilerplate -->\nNightly rebuild of `src/_data/models.json`.\n"
+
+
+def rich_diff():
+    old = doc([model("Kept", source="tt-inference-server", inSpec=True, status="Functional", kind="LLM",
+                     hardware=["Galaxy"], bundles=[bundle("o/kept-v1")]),
+               model("Dropped")],
+              release="0.25.0", commit="2db98e38c", unreadable=["o/fixed"])
+    new = doc([model("Kept", source="tt-inference-server", inSpec=True, status="Complete", kind="VLM",
+                     hardware=["Galaxy", "BH QuietBox 2"], bundles=[bundle("o/kept-v2")]),
+               model("Fresh", source="tt-inference-server", inSpec=True, status="Experimental", kind="LLM",
+                     hardware=["Galaxy"]),
+               model("Bundled", bundles=[bundle("u/bundled-p150")])],
+              release="0.26.1", commit="0ad0f4be9", unreadable=["o/broken"])
+    return md.diff_models(old, new)
+
+
+def test_render_pr_body_is_empty_for_no_changes():
+    same = doc([model("m")])
+    assert md.render_pr_body(md.diff_models(same, same), BOILERPLATE) == ""
+
+
+def test_render_pr_body_sections_and_boilerplate_marker():
+    body = md.render_pr_body(rich_diff(), BOILERPLATE)
+    assert "### 🆕 2 new models" in body
+    assert "- **Bundled** (tt-model bundle, LLM) — bundles by u" in body
+    assert "- **Fresh** (tt-inference-server, LLM, Experimental) — Galaxy" in body
+    assert "### ➖ 1 model removed" in body and "- **Dropped**" in body
+    assert "### 📈 1 status change" in body and "- **Kept**: Functional → Complete" in body
+    assert "### 📦 1 new bundle" in body and "- **Kept**: o/kept-v2" in body
+    assert "### 📦 1 bundle withdrawn" in body and "- **Kept**: o/kept-v1" in body
+    assert "### 🔁 1 kind change" in body and "- **Kept**: LLM → VLM" in body
+    assert "### 🖥 1 hardware addition" in body and "- **Kept**: BH QuietBox 2" in body
+    assert "### ⚠ Unreadable bundles" in body and "- now unreadable: o/broken" in body and "- readable again: o/fixed" in body
+    assert "tt-inference-server spec: 0.25.0 → 0.26.1" in body
+    assert body.count("<!-- tt-awesome-digest-boilerplate -->") == 1
+    assert body.rstrip().endswith("Nightly rebuild of `src/_data/models.json`.")
+    # Headings appear only for non-empty sections.
+    assert "entered the spec" not in body
+
+
+def test_render_pr_body_entered_spec_section():
+    old = doc([model("m", bundles=[bundle("o/m")])])
+    new = doc([model("m", source="tt-inference-server", inSpec=True, status="Functional", bundles=[bundle("o/m")])])
+    body = md.render_pr_body(md.diff_models(old, new), BOILERPLATE)
+    assert "### 🚀 1 model entered the spec" in body and "- **m** (Functional)" in body
+
+
+def test_write_pr_body_leaves_no_file_when_empty(tmp_path):
+    same = doc([model("m")])
+    template = tmp_path / "models.md"
+    template.write_text(BOILERPLATE)
+    out = tmp_path / "pr-body.md"
+    assert md.write_pr_body(md.diff_models(same, same), out, template) is False
+    assert not out.exists()
+    assert md.write_pr_body(rich_diff(), out, template) is True
+    assert out.read_text().startswith("### ")

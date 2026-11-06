@@ -109,3 +109,80 @@ def is_empty(diff: dict) -> bool:
     if any(diff["unreadable"].values()):
         return False
     return diff["spec"]["old"].get("release") == diff["spec"]["new"].get("release")
+
+
+# ── The nightly PR body ─────────────────────────────────────────────────────
+
+# The marker the workflow's comment step strips from (sed '/tt-awesome-digest-boilerplate/,$d'), so the
+# comment is just this run's changes. It is the first line of .github/pr-templates/models.md, and
+# nightly.yml's pr_digest.py uses the same marker for the metadata PR.
+BOILERPLATE_MARKER = "<!-- tt-awesome-digest-boilerplate -->"
+
+
+def _plural(n: int, one: str, many: str | None = None) -> str:
+    return f"{n} {one if n == 1 else (many or one + 's')}"
+
+
+def _card_line(m: dict) -> str:
+    """One bullet for an added or removed model: name, source, kind, status when it has one, then where it runs."""
+    facts = [m["source"], m["kind"]] + ([m["status"]] if m.get("status") else [])
+    where = ", ".join(m.get("hardware") or [])
+    if not where and m.get("owners"):
+        where = "bundles by " + ", ".join(m["owners"])
+    return f"- **{m['name']}** ({', '.join(f for f in facts if f)})" + (f" — {where}" if where else "")
+
+
+def render_pr_body(diff: dict, boilerplate: str) -> str:
+    """The PR body for a nightly refresh: one `###` section per kind of change, then the boilerplate.
+
+    "" when nothing changed, so the workflow falls back to the bare template. The boilerplate is
+    passed in (the template file's text) rather than read here, so tests need no file.
+    """
+    if is_empty(diff):
+        return ""
+    sections = []
+
+    def section(title, lines):
+        if lines:
+            sections.append(f"### {title}\n" + "\n".join(lines))
+
+    section(f"🆕 {_plural(len(diff['added']), 'new model')}", [_card_line(m) for m in diff["added"]])
+    section(f"➖ {_plural(len(diff['removed']), 'model removed', 'models removed')}", [_card_line(m) for m in diff["removed"]])
+    section(f"🚀 {_plural(len(diff['entered_spec']), 'model entered the spec', 'models entered the spec')}",
+            [f"- **{m['name']}** ({m['status']})" for m in diff["entered_spec"]])
+    section(f"📈 {_plural(len(diff['status']), 'status change')}",
+            [f"- **{m['name']}**: {m['old'] or 'not in spec'} → {m['new'] or 'not in spec'}" for m in diff["status"]])
+    section(f"📦 {_plural(len(diff['bundles_added']), 'new bundle')}",
+            [f"- **{b['model']}**: {b['repo']}" for b in diff["bundles_added"]])
+    section(f"📦 {_plural(len(diff['bundles_removed']), 'bundle withdrawn', 'bundles withdrawn')}",
+            [f"- **{b['model']}**: {b['repo']}" for b in diff["bundles_removed"]])
+    section(f"🔁 {_plural(len(diff['kind']), 'kind change')}",
+            [f"- **{m['name']}**: {m['old']} → {m['new']}" for m in diff["kind"]])
+    section(f"🖥 {_plural(len(diff['hardware']), 'hardware addition')}",
+            [f"- **{m['name']}**: {', '.join(m['added'])}" for m in diff["hardware"]])
+    unreadable = diff["unreadable"]
+    section("⚠ Unreadable bundles",
+            [f"- now unreadable: {r}" for r in unreadable["now_unreadable"]]
+            + [f"- readable again: {r}" for r in unreadable["now_readable"]])
+
+    old_rel, new_rel = diff["spec"]["old"].get("release"), diff["spec"]["new"].get("release")
+    if old_rel != new_rel:
+        sections.append(f"tt-inference-server spec: {old_rel} → {new_rel}")
+
+    body = "\n\n".join(sections) + "\n\n"
+    return body + (boilerplate if boilerplate.lstrip().startswith(BOILERPLATE_MARKER)
+                   else BOILERPLATE_MARKER + "\n" + boilerplate)
+
+
+def write_pr_body(diff: dict, out, template) -> bool:
+    """Write the PR body to `out` and return True; write nothing and return False when nothing changed.
+
+    No file on an empty diff is deliberate: peter-evans/create-pull-request then falls back to the
+    template the workflow copies into place, exactly as nightly.yml does.
+    """
+    from pathlib import Path
+    body = render_pr_body(diff, Path(template).read_text())
+    if not body:
+        return False
+    Path(out).write_text(body)
+    return True
