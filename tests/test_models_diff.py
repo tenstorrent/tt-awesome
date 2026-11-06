@@ -41,7 +41,7 @@ def test_added_and_removed_models():
                                 hardware=["BH QuietBox 2"], bundles=[bundle("x/b-p300")])])
     d = md.diff_models(old, new)
     assert d["added"] == [dict(id="b", name="b", source="tt-inference-server", kind="VLM", status="Functional",
-                               hardware=["BH QuietBox 2"], owners=["x"])]
+                               hardware=["BH QuietBox 2"], owners=["x"], bundles=["x/b-p300"])]
     assert [m["id"] for m in d["removed"]] == ["gone"]
 
 
@@ -384,3 +384,16 @@ def test_cli_carry_forward(tmp_path, capsys):
     assert md.main(["carry-forward", "--from", str(branch), "--feeds", str(feeds)]) == 0
     assert "carried 1 roundup" in capsys.readouterr().out
     assert len(json.loads(feeds.read_text())) == 1
+
+
+def test_a_new_model_with_several_bundles_counts_each_bundle():
+    # Models are grouped by weights repo, so a bundle-only model can arrive with several bundles at once
+    # (gpt-oss-20b has four). The title counts bundles, and the manifest and fallback name each repo.
+    new = doc([model("gpt-oss-20b", kind="LLM", bundles=[bundle("a/gpt-oss-20b-p150"), bundle("b/gpt-oss-20b-qb2"),
+                                                          bundle("b/gpt-oss-20b-galaxy")])])
+    d = md.diff_models(doc([]), new)
+    assert d["added"][0]["bundles"] == ["a/gpt-oss-20b-p150", "b/gpt-oss-20b-galaxy", "b/gpt-oss-20b-qb2"]
+    assert md.roundup_title(d) == "Models this week: 3 new tt-model bundles"
+    manifest = md.build_manifest(d)
+    assert "new tt-model bundles: gpt-oss-20b (LLM) by a, b: a/gpt-oss-20b-p150, b/gpt-oss-20b-galaxy, b/gpt-oss-20b-qb2" in manifest
+    assert "a/gpt-oss-20b-p150" in md.fallback_paragraph(d)

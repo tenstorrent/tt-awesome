@@ -39,6 +39,21 @@ messages:
       title. Do not use hype words like "exciting", "major", or "powerful". Do not invent
       details that are not in the list. Plain prose only: no bullet points, no headings, no
       line breaks.
+
+      House style, for every sentence:
+      State the finding. Do not frame it against a strawman ("X, not Y",
+      "rather than", "instead of"); if the "not Y" half carries no
+      information, drop it. No aphoristic closers, and no metaphor doing the
+      work of a claim (load-bearing, opens the door, carries the story, a way
+      in): say the plain thing. A number does not "read as" anything and is
+      never "honest": say what it does or measures. No ranking by flourish
+      ("the one that matters", "the single hardest", "which is why"): state
+      the fact and let the reader rank it. Short sentences, one idea each; a
+      label with a colon is not a sentence. No em-dashes: use a period or a
+      comma. Names as the house writes them in prose: Tenstorrent, Wormhole,
+      Blackhole, Tensix, vLLM, TT-Metalium; board IDs lowercase (n150, p150).
+      Quote a source's own phrase verbatim or not at all.
+
   - role: user
     content: |-
       Changes to the Models pages in {{ week }}:

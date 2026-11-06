@@ -273,3 +273,24 @@ def test_error_detail_handles_every_shape():
     assert lc._error_detail(err(b'{"error":"flat string"}')) == "flat string"
     assert lc._error_detail(err(b"not json at all")) == "not json at all"
     assert lc._error_detail(err(b"")) == ""
+
+
+# ── House style block ───────────────────────────────────────────────────────
+
+def test_every_prompt_carries_the_same_house_style_block():
+    """The plain-English rules (Taylor's global CLAUDE.md, "Writing for people") are the same text in
+    every prompt that writes copy for people: the release summary, the PR digest lede and the weekly
+    models roundup. One block per file, identical, so a rule added to one cannot drift from the others."""
+    from pathlib import Path
+    prompts_dir = Path(__file__).parent.parent / "prompts"
+    blocks = {}
+    for name in ("summarize-release", "pr-digest", "models-roundup"):
+        text = (prompts_dir / f"{name}.prompt.yml").read_text()
+        start = text.find("House style, for every sentence:")
+        assert start != -1, f"{name}: no house-style block"
+        end = text.find("\n\n", start)
+        blocks[name] = text[start:end if end != -1 else None]
+    assert len(set(blocks.values())) == 1, "house-style blocks differ between prompts"
+    block = next(iter(blocks.values()))
+    for rule in ("strawman", "aphoristic", "metaphor", "read as", "em-dash", "one idea", "Wormhole", "vLLM"):
+        assert rule in block, f"house-style block lacks the {rule!r} rule"

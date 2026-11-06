@@ -368,7 +368,7 @@ def blurb(text, n=240):
     if not s:
         return ""
     if len(s) <= n:
-        return s
+        return _end_sentence(s)  # a card with no final stop still gets one
     s = _drop_parentheticals(s)
     if len(s) <= n:
         return _end_sentence(s)

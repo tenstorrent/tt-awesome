@@ -151,7 +151,8 @@ jobs:
       # across tt-inference-server and tt-model bundles. The item is keyed by ISO week in its URL, so
       # a second run on the same Thursday (or a dispatch with roundup=true) writes nothing twice.
       - name: Weekly roundup (Thursdays)
-        if: ${{ env.FOUNDRY_API_KEY != '' && (inputs.roundup || github.event_name == 'schedule') }}
+        # Either credential: SUMMARY_PROVIDER=anthropic with only ANTHROPIC_API_KEY set must still run.
+        if: ${{ (env.FOUNDRY_API_KEY != '' || env.ANTHROPIC_API_KEY != '') && (inputs.roundup || github.event_name == 'schedule') }}
         env:
           FORCE: ${{ inputs.roundup }}
         run: |

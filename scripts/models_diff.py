@@ -59,9 +59,13 @@ def _sorted_by_name(rows: list) -> list:
 
 def _card(m: dict) -> dict:
     """The fields of a model that the digest and roundup quote for an added or removed model."""
+    bundles = [b["repo"] for b in m.get("bundles") or [] if b.get("repo")]
     return dict(id=m["id"], name=m.get("name") or m["id"], source=m.get("source") or "",
                 kind=m.get("kind") or "", status=m.get("status"), hardware=list(m.get("hardware") or []),
-                owners=sorted({b.get("owner") or b.get("repo", "").split("/")[0] for b in m.get("bundles") or []}))
+                owners=sorted({b.get("owner") or b.get("repo", "").split("/")[0] for b in m.get("bundles") or []}),
+                # Models are grouped by weights repo, so one new model can arrive as several bundles
+                # (gpt-oss-20b has four). Kept so the roundup can count and name each one.
+                bundles=sorted(bundles))
 
 
 def diff_models(old: dict, new: dict) -> dict:
@@ -222,8 +226,10 @@ def _new_spec_models(diff: dict) -> list:
 
 
 def _new_bundles(diff: dict) -> int:
-    """Bundles that are new this week: on brand-new bundle-only models and on models already listed."""
-    return sum(1 for m in diff["added"] if m["source"] != "tt-inference-server") + len(diff["bundles_added"])
+    """Bundles that are new this week: every bundle of a brand-new bundle-only model, plus bundles added to
+    models already listed."""
+    return (sum(max(1, len(m.get("bundles") or [])) for m in diff["added"] if m["source"] != "tt-inference-server")
+            + len(diff["bundles_added"]))
 
 
 def _count_changes(diff: dict) -> int:
@@ -252,7 +258,9 @@ def _manifest_lines(diff: dict) -> list:
             lines.append(f"new on tt-inference-server: {m['name']} ({m['kind']}, {m['status']}){where}")
         else:
             by = (" by " + ", ".join(m["owners"])) if m["owners"] else ""
-            lines.append(f"new tt-model bundle: {m['name']} ({m['kind']}){by}")
+            repos = m.get("bundles") or []
+            lines.append(f"new tt-model {'bundles' if len(repos) > 1 else 'bundle'}: {m['name']} ({m['kind']}){by}"
+                         + (f": {', '.join(repos)}" if repos else ""))
     for m in diff["entered_spec"]:
         lines.append(f"now on tt-inference-server: {m['name']} ({m['status']})")
     for m in diff["status"]:
@@ -311,7 +319,8 @@ def fallback_paragraph(diff: dict) -> str:
     spec = [m["name"] for m in _new_spec_models(diff)]
     if spec:
         sentences.append(f"New on tt-inference-server: {_join(spec)}.")
-    bundled = [m["name"] for m in diff["added"] if m["source"] != "tt-inference-server"]
+    bundled = [m["name"] + (f" ({', '.join(m['bundles'])})" if len(m.get("bundles") or []) > 1 else "")
+               for m in diff["added"] if m["source"] != "tt-inference-server"]
     if bundled:
         sentences.append(f"New as tt-model bundles: {_join(bundled)}.")
     more = [f"{b['repo']} for {b['model']}" for b in diff["bundles_added"]]

@@ -70,3 +70,7 @@ def test_a_bullet_list_after_the_first_sentence_is_not_part_of_it():
             "Intelligence on one Tenstorrent Blackhole p150a.\n\n- Supports the following configurations:\n"
             "  - num_cameras: 1/2/3/4\n  - Prompt bucket: 32/64/128/224\n")
     assert blurb(card) == "This package runs the Pi-0.5 VLA model of Physical Intelligence on one Tenstorrent Blackhole p150a."
+
+
+def test_a_description_with_no_final_punctuation_still_ends_with_a_period():
+    assert blurb("A model card with no final stop") == "A model card with no final stop."
