@@ -1,0 +1,551 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2026 Tenstorrent USA, Inc.
+
+"""What changed between two models.json documents, and the two things written from that.
+
+src/_data/models.json is rebuilt every night by .github/workflows/nightly-models.yml from
+tt-inference-server's release spec and the tt-model catalog (scripts/build_models_data.py). Two
+consumers read the change set this module computes:
+
+  1. The nightly PR body. The refresh PR used to carry a fixed paragraph, so a reviewer had to
+     read a 1 MB JSON diff to learn what the run changed. `render_pr_body` lists it instead:
+     models added and removed, status changes, models entering the spec, new and withdrawn
+     bundles, kind and hardware changes, the spec release bump. Mechanical, no model call.
+
+  2. The Thursday Planet roundup. Once a week the same diff, taken over the seven days ending
+     that Thursday (models.json on main a week ago against the file the run just built), becomes
+     one Planet item: "Models this week: ...". Its paragraph is the one LLM call in this module
+     (`request_roundup_paragraph`); `fallback_paragraph` stands in when the call fails, so the
+     item ships either way. A week with no changes produces no item and no call.
+
+Design notes:
+
+* Both sides are plain dicts in the shape build_models_data.py writes. Keys that an older file
+  lacks (a model with no `hardware`, a document with no `unreadableBundles`) read as empty, so a
+  week-old file from before a schema change still diffs.
+* A model that leaves the release spec but keeps a bundle is a status change (X -> None), not a
+  removal: it is still on the Models pages.
+* Lists are sorted by model name so the same change set renders the same text every time.
+
+Usage (CLI, see main()):
+    models_diff.py pr-body --old OLD.json --new NEW.json --out pr-body.md [--template T.md]
+    models_diff.py roundup --old OLD.json --new NEW.json --week-end YYYY-MM-DD [--feeds F] [--dry-run]
+    models_diff.py carry-forward --from BRANCH_FEEDS.json [--feeds F]
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import re
+import sys
+from datetime import date, datetime, timezone
+from pathlib import Path
+
+import llm_client
+import pr_digest
+
+
+# ── The change set ──────────────────────────────────────────────────────────
+
+def _by_id(document: dict) -> dict:
+    return {m["id"]: m for m in document.get("models") or [] if m.get("id")}
+
+
+def _sorted_by_name(rows: list) -> list:
+    return sorted(rows, key=lambda r: (str(r.get("name") or r.get("model") or "").lower(), r.get("repo") or ""))
+
+
+def _card(m: dict) -> dict:
+    """The fields of a model that the digest and roundup quote for an added or removed model."""
+    bundles = [b["repo"] for b in m.get("bundles") or [] if b.get("repo")]
+    return dict(id=m["id"], name=m.get("name") or m["id"], source=m.get("source") or "",
+                kind=m.get("kind") or "", status=m.get("status"), hardware=list(m.get("hardware") or []),
+                owners=sorted({b.get("owner") or b.get("repo", "").split("/")[0] for b in m.get("bundles") or []}),
+                # Models are grouped by weights repo, so one new model can arrive as several bundles
+                # (gpt-oss-20b has four). Kept so the roundup can count and name each one.
+                bundles=sorted(bundles))
+
+
+def diff_models(old: dict, new: dict) -> dict:
+    """The change set from `old` to `new`, two models.json documents.
+
+    Returns a dict with these keys; every list is sorted by model name.
+      spec            {"old": {release, commit}, "new": {release, commit}}
+      added, removed  [{id, name, source, kind, status, hardware, owners}]
+      status          [{id, name, old, new}]       best status changed, None on either side allowed
+      entered_spec    [{id, name, status}]         was bundle-only, now in the release spec
+      bundles_added, bundles_removed  [{model, id, repo}]
+      kind            [{id, name, old, new}]
+      hardware        [{id, name, added: [...]}]   hardware names the model gained
+      unreadable      {"now_unreadable": [...], "now_readable": [...]}  bundle repos whose manifest state flipped
+    """
+    om, nm = _by_id(old), _by_id(new)
+    d = dict(spec=dict(old=dict(old.get("spec") or {}), new=dict(new.get("spec") or {})),
+             added=[], removed=[], status=[], entered_spec=[], bundles_added=[], bundles_removed=[],
+             kind=[], hardware=[])
+
+    for mid, m in nm.items():
+        if mid not in om:
+            d["added"].append(_card(m))
+            continue
+        o = om[mid]
+        name = m.get("name") or mid
+        if o.get("status") != m.get("status"):
+            d["status"].append(dict(id=mid, name=name, old=o.get("status"), new=m.get("status")))
+        if m.get("inSpec") and not o.get("inSpec"):
+            d["entered_spec"].append(dict(id=mid, name=name, status=m.get("status")))
+        ob = {b["repo"] for b in o.get("bundles") or [] if b.get("repo")}
+        nb = {b["repo"] for b in m.get("bundles") or [] if b.get("repo")}
+        d["bundles_added"] += [dict(model=name, id=mid, repo=r) for r in sorted(nb - ob)]
+        d["bundles_removed"] += [dict(model=name, id=mid, repo=r) for r in sorted(ob - nb)]
+        if (o.get("kind") or "") != (m.get("kind") or ""):
+            d["kind"].append(dict(id=mid, name=name, old=o.get("kind"), new=m.get("kind")))
+        gained = sorted(set(m.get("hardware") or []) - set(o.get("hardware") or []))
+        if gained:
+            d["hardware"].append(dict(id=mid, name=name, added=gained))
+
+    d["removed"] = [_card(m) for mid, m in om.items() if mid not in nm]
+
+    ou, nu = set(old.get("unreadableBundles") or []), set(new.get("unreadableBundles") or [])
+    d["unreadable"] = dict(now_unreadable=sorted(nu - ou), now_readable=sorted(ou - nu))
+
+    for key in ("added", "removed", "status", "entered_spec", "bundles_added", "bundles_removed", "kind", "hardware"):
+        d[key] = _sorted_by_name(d[key])
+    return d
+
+
+def is_empty(diff: dict) -> bool:
+    """True when nothing changed: every list empty, no manifest flipped, and the spec release the same."""
+    lists = ("added", "removed", "status", "entered_spec", "bundles_added", "bundles_removed", "kind", "hardware")
+    if any(diff.get(key) for key in lists):
+        return False
+    if any(diff["unreadable"].values()):
+        return False
+    return diff["spec"]["old"].get("release") == diff["spec"]["new"].get("release")
+
+
+# ── The nightly PR body ─────────────────────────────────────────────────────
+
+# The marker the workflow's comment step strips from (sed '/tt-awesome-digest-boilerplate/,$d'), so the
+# comment is just this run's changes. It is the first line of .github/pr-templates/models.md, and
+# nightly.yml's pr_digest.py uses the same marker for the metadata PR.
+BOILERPLATE_MARKER = "<!-- tt-awesome-digest-boilerplate -->"
+
+
+def _plural(n: int, one: str, many: str | None = None) -> str:
+    return f"{n} {one if n == 1 else (many or one + 's')}"
+
+
+def _card_line(m: dict) -> str:
+    """One bullet for an added or removed model: name, source, kind, status when it has one, then where it runs."""
+    facts = [m["source"], m["kind"]] + ([m["status"]] if m.get("status") else [])
+    where = ", ".join(m.get("hardware") or [])
+    if not where and m.get("owners"):
+        where = "bundles by " + ", ".join(m["owners"])
+    return f"- **{m['name']}** ({', '.join(f for f in facts if f)})" + (f" — {where}" if where else "")
+
+
+def render_pr_body(diff: dict, boilerplate: str) -> str:
+    """The PR body for a nightly refresh: one `###` section per kind of change, then the boilerplate.
+
+    "" when nothing changed, so the workflow falls back to the bare template. The boilerplate is
+    passed in (the template file's text) rather than read here, so tests need no file.
+    """
+    if is_empty(diff):
+        return ""
+    sections = []
+
+    def section(title, lines):
+        if lines:
+            sections.append(f"### {title}\n" + "\n".join(lines))
+
+    section(f"🆕 {_plural(len(diff['added']), 'new model')}", [_card_line(m) for m in diff["added"]])
+    section(f"➖ {_plural(len(diff['removed']), 'model removed', 'models removed')}", [_card_line(m) for m in diff["removed"]])
+    section(f"🚀 {_plural(len(diff['entered_spec']), 'model entered the spec', 'models entered the spec')}",
+            [f"- **{m['name']}** ({m['status']})" for m in diff["entered_spec"]])
+    section(f"📈 {_plural(len(diff['status']), 'status change')}",
+            [f"- **{m['name']}**: {m['old'] or 'not in spec'} → {m['new'] or 'not in spec'}" for m in diff["status"]])
+    section(f"📦 {_plural(len(diff['bundles_added']), 'new bundle')}",
+            [f"- **{b['model']}**: {b['repo']}" for b in diff["bundles_added"]])
+    section(f"📦 {_plural(len(diff['bundles_removed']), 'bundle withdrawn', 'bundles withdrawn')}",
+            [f"- **{b['model']}**: {b['repo']}" for b in diff["bundles_removed"]])
+    section(f"🔁 {_plural(len(diff['kind']), 'kind change')}",
+            [f"- **{m['name']}**: {m['old']} → {m['new']}" for m in diff["kind"]])
+    section(f"🖥 {_plural(len(diff['hardware']), 'hardware addition')}",
+            [f"- **{m['name']}**: {', '.join(m['added'])}" for m in diff["hardware"]])
+    unreadable = diff["unreadable"]
+    section("⚠ Unreadable bundles",
+            [f"- now unreadable: {r}" for r in unreadable["now_unreadable"]]
+            + [f"- readable again: {r}" for r in unreadable["now_readable"]])
+
+    old_rel, new_rel = diff["spec"]["old"].get("release"), diff["spec"]["new"].get("release")
+    if old_rel != new_rel:
+        sections.append(f"tt-inference-server spec: {old_rel} → {new_rel}")
+
+    body = "\n\n".join(sections) + "\n\n"
+    return body + (boilerplate if boilerplate.lstrip().startswith(BOILERPLATE_MARKER)
+                   else BOILERPLATE_MARKER + "\n" + boilerplate)
+
+
+def write_pr_body(diff: dict, out, template) -> bool:
+    """Write the PR body to `out` and return True; write nothing and return False when nothing changed.
+
+    No file on an empty diff is deliberate: peter-evans/create-pull-request then falls back to the
+    template the workflow copies into place, exactly as nightly.yml does.
+    """
+    body = render_pr_body(diff, Path(template).read_text())
+    if not body:
+        return False
+    Path(out).write_text(body)
+    return True
+
+
+# ── The Thursday Planet roundup ─────────────────────────────────────────────
+
+# Where a model's page lives; the planet item and its links point here. The site's canonical host,
+# see src/_data/site.js. The week fragment makes each roundup's URL unique, which is what the
+# planet's URL dedup and write_roundup key on.
+SITE = "https://docs.tenstorrent.com/tt-awesome/"
+MODELS_URL = SITE + "models/"
+
+MODEL = "claude-haiku-4-5-20251001"  # Anthropic-direct default; the foundry path uses llm_client's default
+MANIFEST_CAP = 40                    # lines of the change list handed to the model
+
+
+def week_fragment(week_end: date) -> str:
+    """"week-2026-W45": the ISO week the roundup covers, named by its last day."""
+    year, week, _ = week_end.isocalendar()
+    return f"week-{year}-W{week:02d}"
+
+
+def _new_spec_models(diff: dict) -> list:
+    return [m for m in diff["added"] if m["source"] == "tt-inference-server"] + [
+        dict(m, source="tt-inference-server") for m in diff["entered_spec"]]
+
+
+def _new_bundles(diff: dict) -> int:
+    """Bundles that are new this week: every bundle of a brand-new bundle-only model, plus bundles added to
+    models already listed."""
+    return (sum(max(1, len(m.get("bundles") or [])) for m in diff["added"] if m["source"] != "tt-inference-server")
+            + len(diff["bundles_added"]))
+
+
+def _count_changes(diff: dict) -> int:
+    lists = ("added", "removed", "status", "entered_spec", "bundles_added", "bundles_removed", "kind", "hardware")
+    return sum(len(diff[k]) for k in lists) + sum(len(v) for v in diff["unreadable"].values())
+
+
+def roundup_title(diff: dict) -> str:
+    """"Models this week: 8 new on tt-inference-server, 7 new tt-model bundles"; zero counts are left out."""
+    parts = []
+    n_spec, n_bundles = len(_new_spec_models(diff)), _new_bundles(diff)
+    if n_spec:
+        parts.append(f"{n_spec} new on tt-inference-server")
+    if n_bundles:
+        parts.append(f"{_plural(n_bundles, 'new tt-model bundle')}")
+    if not parts:
+        parts.append(_plural(_count_changes(diff), "change"))
+    return "Models this week: " + ", ".join(parts)
+
+
+def _manifest_lines(diff: dict) -> list:
+    lines = []
+    for m in diff["added"]:
+        if m["source"] == "tt-inference-server":
+            where = (" on " + ", ".join(m["hardware"])) if m["hardware"] else ""
+            lines.append(f"new on tt-inference-server: {m['name']} ({m['kind']}, {m['status']}){where}")
+        else:
+            by = (" by " + ", ".join(m["owners"])) if m["owners"] else ""
+            repos = m.get("bundles") or []
+            lines.append(f"new tt-model {'bundles' if len(repos) > 1 else 'bundle'}: {m['name']} ({m['kind']}){by}"
+                         + (f": {', '.join(repos)}" if repos else ""))
+    for m in diff["entered_spec"]:
+        lines.append(f"now on tt-inference-server: {m['name']} ({m['status']})")
+    for m in diff["status"]:
+        if not any(e["id"] == m["id"] for e in diff["entered_spec"]):
+            lines.append(f"status: {m['name']} {m['old'] or 'not in spec'} → {m['new'] or 'not in spec'}")
+    for b in diff["bundles_added"]:
+        lines.append(f"new bundle for {b['model']}: {b['repo']}")
+    for b in diff["bundles_removed"]:
+        lines.append(f"bundle withdrawn from {b['model']}: {b['repo']}")
+    for m in diff["removed"]:
+        lines.append(f"removed: {m['name']}")
+    for m in diff["kind"]:
+        lines.append(f"kind: {m['name']} {m['old']} → {m['new']}")
+    for m in diff["hardware"]:
+        lines.append(f"new hardware for {m['name']}: {', '.join(m['added'])}")
+    old_rel, new_rel = diff["spec"]["old"].get("release"), diff["spec"]["new"].get("release")
+    if old_rel != new_rel:
+        lines.append(f"tt-inference-server spec: {old_rel} → {new_rel}")
+    return lines
+
+
+def build_manifest(diff: dict, cap: int = MANIFEST_CAP) -> str:
+    """The change list as plain text for the model, one line per change, cut at `cap` lines."""
+    lines = _manifest_lines(diff)
+    if len(lines) > cap:
+        lines = lines[:cap] + [f"… and {len(lines) - cap} more"]
+    return "\n".join(lines)
+
+
+def request_roundup_paragraph(manifest: str, *, week: str, anthropic_api_key: str = "",
+                              github_token: str = "", foundry_api_key: str = "") -> str:
+    """The one model call: the roundup paragraph, or "" on any failure. Never raises."""
+    try:
+        text = llm_client.complete(
+            "models-roundup", {"week": week, "manifest": manifest},
+            anthropic_model=MODEL, anthropic_api_key=anthropic_api_key,
+            github_token=github_token, foundry_api_key=foundry_api_key,
+        )
+    except Exception as e:  # noqa: BLE001 — the item ships with the fallback paragraph instead
+        print(f"  WARN models_diff: roundup paragraph unavailable ({e})", file=sys.stderr)
+        return ""
+    if not text:
+        print("  WARN models_diff: provider returned no paragraph; using the fallback", file=sys.stderr)
+        return ""
+    # Strip a leading heading the prompt forbade, as pr_digest does with its lede.
+    return pr_digest._LEADING_HEADING_RE.sub("", text, count=1).strip()
+
+
+def _join(names: list) -> str:
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
+def fallback_paragraph(diff: dict) -> str:
+    """One sentence per kind of change, for a week whose model call failed. Plain prose, one line."""
+    sentences = []
+    spec = [m["name"] for m in _new_spec_models(diff)]
+    if spec:
+        sentences.append(f"New on tt-inference-server: {_join(spec)}.")
+    bundled = [m["name"] + (f" ({', '.join(m['bundles'])})" if len(m.get("bundles") or []) > 1 else "")
+               for m in diff["added"] if m["source"] != "tt-inference-server"]
+    if bundled:
+        sentences.append(f"New as tt-model bundles: {_join(bundled)}.")
+    more = [f"{b['repo']} for {b['model']}" for b in diff["bundles_added"]]
+    if more:
+        sentences.append(f"New bundles for listed models: {_join(more)}.")
+    promoted = [f"{m['name']} to {m['new']}" for m in diff["status"]
+                if m["new"] and not any(e["id"] == m["id"] for e in diff["entered_spec"])]
+    if promoted:
+        sentences.append(f"Status changes: {_join(promoted)}.")
+    left = [m["name"] for m in diff["status"] if m["old"] and not m["new"]]
+    if left:
+        sentences.append(f"{_join(left)} left tt-inference-server but {'stays' if len(left) == 1 else 'stay'} listed as "
+                         f"{'a bundle' if len(left) == 1 else 'bundles'}.")
+    withdrawn = [f"{b['repo']} from {b['model']}" for b in diff["bundles_removed"]]
+    if withdrawn:
+        sentences.append(f"Bundles withdrawn: {_join(withdrawn)}.")
+    removed = [m["name"] for m in diff["removed"]]
+    if removed:
+        sentences.append(f"Removed: {_join(removed)}.")
+    kinds = [f"{m['name']} from {m['old']} to {m['new']}" for m in diff["kind"]]
+    if kinds:
+        sentences.append(f"Reclassified: {_join(kinds)}.")
+    hardware = [f"{m['name']} on {_join(m['added'])}" for m in diff["hardware"]]
+    if hardware:
+        sentences.append(f"Now also runs: {_join(hardware)}.")
+    unreadable = diff["unreadable"]
+    if unreadable["now_unreadable"]:
+        sentences.append(f"Manifests that could not be read this week: {_join(unreadable['now_unreadable'])}.")
+    if unreadable["now_readable"]:
+        sentences.append(f"Readable again: {_join(unreadable['now_readable'])}.")
+    old_rel, new_rel = diff["spec"]["old"].get("release"), diff["spec"]["new"].get("release")
+    if old_rel != new_rel:
+        sentences.append(f"tt-inference-server moved from {old_rel} to {new_rel}.")
+    return " ".join(sentences)
+
+
+def link_models(text: str, models: list) -> str:
+    """The first whole-word mention of each model's name becomes a link to its page.
+
+    Longest names first, so "Qwen3.5-27B-Instruct" is linked as itself and not as "Qwen3.5-27B"
+    plus a suffix. A mention already inside a markdown link is left alone.
+    """
+    for m in sorted(models, key=lambda m: -len(m["name"])):
+        name = m["name"]
+        # Not preceded by a word character, "[" (link text) or "/" (inside a URL); not followed by a word
+        # character or "-" (a longer name) or "/" or "]" (a URL or link text). A period after the name is a
+        # sentence end and must still match.
+        pattern = re.compile(r"(?<![\w\[/-])" + re.escape(name) + r"(?![\w\]/-])")
+        pos = 0
+        while True:
+            hit = pattern.search(text, pos)
+            if not hit:
+                break
+            # Inside "[...](...)" already? Then this mention is link text or a URL; look further.
+            open_br = text.rfind("[", 0, hit.start())
+            if open_br != -1 and "]" not in text[open_br:hit.start()] and "](" in text[hit.end():hit.end() + 2]:
+                pos = hit.end()
+                continue
+            if text[hit.end():hit.end() + 2] == "](":
+                pos = hit.end()
+                continue
+            text = text[:hit.start()] + f"[{name}]({MODELS_URL}{m['id']}/)" + text[hit.end():]
+            break
+    return text
+
+
+def build_roundup(diff: dict, week_end: date, paragraph: str, now: datetime) -> dict:
+    """The Planet item for the week ending `week_end`, with `paragraph` as its body.
+
+    `paragraph` is the model's reply or the fallback. When it names fewer than half of the week's
+    new models, one mechanical "New: ..." sentence follows it so every new model is reachable from
+    the card. Model names in the whole description become links to their pages.
+    """
+    new = _new_spec_models(diff) + [m for m in diff["added"] if m["source"] != "tt-inference-server"]
+    named = [m for m in new if re.search(r"(?<![\w-])" + re.escape(m["name"]) + r"(?![\w-])", paragraph)]
+    description = paragraph.strip()
+    if new and len(named) * 2 < len(new):
+        description = (description + " " if description else "") + "New: " + _join([m["name"] for m in new]) + "."
+    # Every model the description can mention: new ones, status changes, and the listed models that
+    # gained or lost a bundle (those carry the name under "model" rather than "name").
+    mentioned = (new + diff["status"] + diff["entered_spec"] + diff["kind"] + diff["hardware"]
+                 + [dict(id=b["id"], name=b["model"]) for b in diff["bundles_added"] + diff["bundles_removed"]])
+    description = link_models(description, mentioned)
+    return dict(
+        type="article",
+        source="models-roundup",
+        approved=True,
+        title=roundup_title(diff),
+        url=f"{MODELS_URL}#{week_fragment(week_end)}",
+        description=description,
+        date=week_end.isoformat(),
+        dateISO=now.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        label="Models this week",
+        projectName="Models",
+        projectId=None,
+        affiliation="official",
+    )
+
+
+def _declined_urls(feeds_path: Path) -> set:
+    """URLs in planet_declined.json, kept next to the feed file by scripts/decline_planet_item.py.
+
+    A maintainer who declined a week's roundup moved its URL there, and the item must stay gone: a
+    forced rerun of the roundup, or a stale PR branch handed to carry_forward, would otherwise put it
+    back with approved: true. Same rule as fetch_planet_feeds.load_declined_urls.
+    """
+    path = feeds_path.with_name("planet_declined.json")
+    if not path.exists():
+        return set()
+    try:
+        rows = json.loads(path.read_text())
+    except ValueError as e:
+        print(f"  WARN models_diff: could not read {path}: {e}", file=sys.stderr)
+        return set()
+    return {r["url"] for r in rows if isinstance(r, dict) and r.get("url")}
+
+
+def write_roundup(item: dict, feeds_path) -> bool:
+    """Insert the item into planet_feeds.json in dateISO order.
+
+    False, and no write, when its URL is already in the feed or on the declined list."""
+    path = Path(feeds_path)
+    if item["url"] in _declined_urls(path):
+        print(f"  SKIP roundup {item['url']}: declined by a maintainer (planet_declined.json)")
+        return False
+    items = json.loads(path.read_text()) if path.exists() else []
+    if any(i.get("url") == item["url"] for i in items):
+        return False
+    items.append(item)
+    items.sort(key=lambda i: i.get("dateISO") or "", reverse=True)
+    path.write_text(json.dumps(items, indent=2, ensure_ascii=False) + "\n")
+    return True
+
+
+def carry_forward(branch_feeds, feeds_path) -> int:
+    """Copy the roundup items an unmerged PR branch holds into `feeds_path`; returns how many were added.
+
+    peter-evans/create-pull-request rebuilds the PR branch from main plus the run's own tree on every
+    run, so a Thursday item that has not been merged by Friday would vanish from the PR. The Friday
+    run therefore reads the branch's planet_feeds.json first and keeps every "models-roundup" item
+    whose URL main does not have. Only roundup items are carried: anything else on the branch is
+    the previous run's models.json business, which this run rebuilds itself.
+    """
+    branch_path = Path(branch_feeds)
+    if not branch_path.exists():
+        return 0
+    added = 0
+    for item in json.loads(branch_path.read_text()):
+        if item.get("source") == "models-roundup" and item.get("url") and write_roundup(item, feeds_path):
+            added += 1
+    return added
+
+
+# ── CLI ─────────────────────────────────────────────────────────────────────
+
+ROOT = Path(__file__).resolve().parent.parent
+FEEDS_DEFAULT = ROOT / "src" / "_data" / "planet_feeds.json"
+TEMPLATE_DEFAULT = ROOT / ".github" / "pr-templates" / "models.md"
+
+
+def _load(path) -> dict:
+    return json.loads(Path(path).read_text())
+
+
+def main(argv: list | None = None) -> int:
+    """`pr-body` writes the nightly PR body; `roundup` adds the week's Planet item. See the module docstring."""
+    import argparse
+    ap = argparse.ArgumentParser(description="What changed between two models.json documents.")
+    sub = ap.add_subparsers(dest="command", required=True)
+
+    pb = sub.add_parser("pr-body", help="write the nightly PR body, or nothing when the files are the same")
+    pb.add_argument("--old", required=True, help="models.json as committed")
+    pb.add_argument("--new", required=True, help="models.json the run just built")
+    pb.add_argument("--out", required=True, help="where to write the body (left absent when nothing changed)")
+    pb.add_argument("--template", default=str(TEMPLATE_DEFAULT), help="the boilerplate appended under the digest")
+
+    ru = sub.add_parser("roundup", help="add the week's 'Models this week' item to planet_feeds.json")
+    ru.add_argument("--old", required=True, help="models.json as of a week ago")
+    ru.add_argument("--new", required=True, help="models.json the run just built")
+    ru.add_argument("--week-end", required=True, help="the Thursday the week ends on, YYYY-MM-DD")
+    ru.add_argument("--feeds", default=str(FEEDS_DEFAULT))
+    ru.add_argument("--dry-run", action="store_true", help="print the item instead of writing it")
+
+    cf = sub.add_parser("carry-forward", help="keep the roundup items of an unmerged PR branch in planet_feeds.json")
+    cf.add_argument("--from", dest="branch_feeds", required=True, help="planet_feeds.json as on the PR branch")
+    cf.add_argument("--feeds", default=str(FEEDS_DEFAULT))
+
+    args = ap.parse_args(sys.argv[1:] if argv is None else argv)
+
+    if args.command == "carry-forward":
+        n = carry_forward(args.branch_feeds, args.feeds)
+        print(f"carried {n} roundup item{'s' if n != 1 else ''} forward from the PR branch")
+        return 0
+
+    diff = diff_models(_load(args.old), _load(args.new))
+
+    if args.command == "pr-body":
+        if write_pr_body(diff, args.out, args.template):
+            print(f"wrote {args.out}")
+        else:
+            print("no changes; no PR body written")
+        return 0
+
+    # roundup
+    if is_empty(diff):
+        print("no changes this week; no roundup item")
+        return 0
+    week_end = date.fromisoformat(args.week_end)
+    paragraph = request_roundup_paragraph(
+        build_manifest(diff), week=f"the week ending {week_end.isoformat()}",
+        anthropic_api_key=os.environ.get("ANTHROPIC_API_KEY", ""),
+        github_token=os.environ.get("GITHUB_TOKEN", ""),
+        foundry_api_key=os.environ.get("FOUNDRY_API_KEY", ""),
+    ) or fallback_paragraph(diff)
+    item = build_roundup(diff, week_end, paragraph, datetime.now(timezone.utc))
+    if args.dry_run:
+        print(f"--- DRY RUN: roundup item for {week_fragment(week_end)} ---")
+        print(json.dumps(item, indent=2, ensure_ascii=False))
+        return 0
+    if write_roundup(item, args.feeds):
+        print(f"added roundup {item['url']} to {args.feeds}")
+    else:
+        print(f"roundup {item['url']} already in {args.feeds}; nothing written")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
