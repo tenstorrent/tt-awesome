@@ -211,7 +211,7 @@ def test_build_manifest_is_capped():
 def test_fallback_paragraph_names_models_per_section():
     p = md.fallback_paragraph(rich_diff())
     assert "Fresh" in p and "tt-inference-server" in p
-    assert "Bundled" in p and "o/kept-v2" in p
+    assert "Bundled" in p and "New bundles for Kept." in p and "o/kept-v2" not in p
     assert "Kept" in p and "Complete" in p
     assert p.endswith(".") and "\n" not in p
 
@@ -409,7 +409,7 @@ def test_fallback_paragraph_covers_every_kind_of_change():
     new = doc([model("Gone", kind="VLM", hardware=["Galaxy", "p150"], bundles=[])], unreadable=["o/broken"])
     p = md.fallback_paragraph(md.diff_models(old, new))
     assert "Gone" in p and "left tt-inference-server" in p
-    assert "o/gone-v1" in p and "withdrawn" in p
+    assert "Bundles withdrawn from Gone." in p and "o/gone-v1" not in p   # repo ids live in the bullets
     assert "LLM to VLM" in p
     assert "p150" in p
     assert "o/broken" in p and "o/fixed" in p
@@ -506,3 +506,33 @@ def test_kind_cell_shows_only_the_purpose_when_the_kind_is_already_specific():
     assert md._kind_text(dict(kind="VLM", purpose="deep-research agent")) == "VLM, deep-research agent"
     assert md._kind_text(dict(kind="LLM", purpose=None)) == "LLM"
     assert md._kind_text(dict(kind="Object detection", purpose=None)) == "Object detection"
+
+
+# ── Copilot review on PR #314 (2026-11-06) ──────────────────────────────────
+
+def test_bundle_changes_reach_the_model_and_the_fallback_without_repo_ids():
+    # A bundle gained or lost by a model already listed used to go into the manifest and the fallback
+    # paragraph as "owner/name", so the prose could still single out a publisher. Names only, both places;
+    # the "Also this week" bullets carry the repo ids.
+    old = doc([model("Kept", bundles=[bundle("o/kept-v1")]), model("Lost", bundles=[bundle("p/lost-a"), bundle("p/lost-b")])])
+    new = doc([model("Kept", bundles=[bundle("o/kept-v1"), bundle("t/kept-fast"), bundle("t/kept-slow")]),
+               model("Lost", bundles=[bundle("p/lost-a")])])
+    d = md.diff_models(old, new)
+    manifest = md.build_manifest(d)
+    assert "2 new bundles for Kept" in manifest and "bundle withdrawn from Lost" in manifest
+    assert "/" not in manifest
+    p = md.fallback_paragraph(d)
+    assert "New bundles for Kept." in p and "Bundles withdrawn from Lost." in p
+    assert "/" not in p
+    body = md.build_roundup(d, WEEK_END, "", NOW)["description"]
+    assert "[t/kept-fast](https://huggingface.co/t/kept-fast)" in body and "p/lost-b withdrawn" in body
+
+
+def test_prompt_test_data_carries_no_repo_ids():
+    # The prompt's own example manifest is what a maintainer reads to learn the contract; it must show
+    # the shape the code produces, which names no bundle repo.
+    import re, yaml
+    spec = yaml.safe_load((Path(__file__).parent.parent / "prompts" / "models-roundup.prompt.yml").read_text())
+    for case in spec["testData"]:
+        for line in case["manifest"].splitlines():
+            assert not re.search(r"\S+/\S+", line), line

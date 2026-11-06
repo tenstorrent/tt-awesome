@@ -391,7 +391,7 @@ a.pkg-dot:hover { filter: brightness(1.3); }
 .release-history-toggle::-webkit-details-marker { display: none; }
 .release-history-toggle::before { content: "▸"; font-size: 8px; transition: transform 140ms ease; }
 .release-history-details[open] .release-history-toggle::before { transform: rotate(90deg); }
-.release-history-details[open] .release-history-toggle { color: var(--fg1); }
+.release-history-details[open] .release-history-toggle { color: var(--text); }
 
 .release-history-list { margin: 4px 0 2px; }
 .rel-hist-row { display: flex; align-items: center; gap: 8px; padding: 4px 0;
@@ -434,7 +434,7 @@ a.pkg-dot:hover { filter: brightness(1.3); }
                  background: rgba(0,0,0,0.25); border-radius: 5px;
                  font-size: 10px; line-height: 1.55; white-space: pre-wrap;
                  word-break: break-word; max-height: 320px; overflow-y: auto;
-                 color: var(--fg1); border: 1px solid rgba(255,255,255,0.06); }
+                 color: var(--text); border: 1px solid rgba(255,255,255,0.06); }
 
 /* ── Mobile-only elements (hidden on desktop) ──────────────────────────── */
 .mobile-back      { display: none; }

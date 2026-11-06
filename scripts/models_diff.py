@@ -83,12 +83,14 @@ def diff_models(old: dict, new: dict) -> dict:
 
     Returns a dict with these keys; every list is sorted by model name.
       spec            {"old": {release, commit}, "new": {release, commit}}
-      added, removed  [{id, name, source, kind, status, hardware, owners}]
-      status          [{id, name, old, new}]       best status changed, None on either side allowed
-      entered_spec    [{id, name, status}]         was bundle-only, now in the release spec
-      bundles_added, bundles_removed  [{model, id, repo}]
-      kind            [{id, name, old, new}]
-      hardware        [{id, name, added: [...]}]   hardware names the model gained
+      added, removed  [{id, name, source, kind, status, hardware, owners, bundles, weights, purpose, url}]
+      status          [{id, name, old, new, url}]  best status changed, None on either side allowed
+      entered_spec    [{id, name, status, kind, hardware, purpose, url}]  was bundle-only, now in the release
+                                                   spec; kind and hardware seat it in the roundup's spec table
+      bundles_added, bundles_removed  [{model, id, repo, url}]
+      kind            [{id, name, old, new, url}]
+      hardware        [{id, name, added: [...], url}]  hardware names the model gained
+    `url` is the model's Hugging Face card, or its tt-awesome page when it has no weights repo.
       unreadable      {"now_unreadable": [...], "now_readable": [...]}  bundle repos whose manifest state flipped
     """
     om, nm = _by_id(old), _by_id(new)
@@ -289,10 +291,11 @@ def _manifest_lines(diff: dict) -> list:
     for m in diff["status"]:
         if not any(e["id"] == m["id"] for e in diff["entered_spec"]):
             lines.append(f"status: {m['name']} {m['old'] or 'not in spec'} → {m['new'] or 'not in spec'}")
-    for b in diff["bundles_added"]:
-        lines.append(f"new bundle for {b['model']}: {b['repo']}")
-    for b in diff["bundles_removed"]:
-        lines.append(f"bundle withdrawn from {b['model']}: {b['repo']}")
+    # Bundle changes to a listed model: counted per model, never by repo id, for the same reason as above.
+    for model_name, n in _per_model(diff["bundles_added"]).items():
+        lines.append(f"new bundle for {model_name}" if n == 1 else f"{n} new bundles for {model_name}")
+    for model_name, n in _per_model(diff["bundles_removed"]).items():
+        lines.append(f"bundle withdrawn from {model_name}" if n == 1 else f"{n} bundles withdrawn from {model_name}")
     for m in diff["removed"]:
         lines.append(f"removed: {m['name']}")
     for m in diff["kind"]:
@@ -303,6 +306,14 @@ def _manifest_lines(diff: dict) -> list:
     if old_rel != new_rel:
         lines.append(f"tt-inference-server spec: {old_rel} → {new_rel}")
     return lines
+
+
+def _per_model(changes: list) -> dict:
+    """{model name: how many bundle entries}, in the order the diff lists them."""
+    counts: dict = {}
+    for b in changes:
+        counts[b["model"]] = counts.get(b["model"], 0) + 1
+    return counts
 
 
 def build_manifest(diff: dict, cap: int = MANIFEST_CAP) -> str:
@@ -347,9 +358,9 @@ def fallback_paragraph(diff: dict) -> str:
     bundled = [m["name"] for m in diff["added"] if m["source"] != "tt-inference-server"]
     if bundled:
         sentences.append(f"New as tt-model bundles: {_join(bundled)}.")
-    more = [f"{b['repo']} for {b['model']}" for b in diff["bundles_added"]]
+    more = list(_per_model(diff["bundles_added"]))
     if more:
-        sentences.append(f"New bundles for listed models: {_join(more)}.")
+        sentences.append(f"New bundles for {_join(more)}.")
     promoted = [f"{m['name']} to {m['new']}" for m in diff["status"]
                 if m["new"] and not any(e["id"] == m["id"] for e in diff["entered_spec"])]
     if promoted:
@@ -358,9 +369,9 @@ def fallback_paragraph(diff: dict) -> str:
     if left:
         sentences.append(f"{_join(left)} left tt-inference-server but {'stays' if len(left) == 1 else 'stay'} listed as "
                          f"{'a bundle' if len(left) == 1 else 'bundles'}.")
-    withdrawn = [f"{b['repo']} from {b['model']}" for b in diff["bundles_removed"]]
+    withdrawn = list(_per_model(diff["bundles_removed"]))
     if withdrawn:
-        sentences.append(f"Bundles withdrawn: {_join(withdrawn)}.")
+        sentences.append(f"Bundles withdrawn from {_join(withdrawn)}.")
     removed = [m["name"] for m in diff["removed"]]
     if removed:
         sentences.append(f"Removed: {_join(removed)}.")

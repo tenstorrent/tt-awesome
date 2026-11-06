@@ -4,15 +4,17 @@
 # plain-text list of what changed on the Models pages that week. This is the only model call
 # the models job makes; the item still ships with a mechanical paragraph when it fails.
 #
-# The reply is the card's whole body on Planet Tenstorrent, rendered as one paragraph of inline
-# markdown, so it must be plain prose: no heading, no bullets, no bold labels. Model names must
-# appear exactly as given, because a pass afterwards turns each first mention into a link to the
-# model's page.
+# The reply is the lede of the card on Planet Tenstorrent: 2 to 4 sentences of plain prose, with
+# no heading, bullets or bold labels. models_diff.build_roundup places it above the tables of new
+# models and the "Also this week" bullets it writes itself, so the paragraph never lists every
+# model. Model names must appear exactly as given, because a pass afterwards turns each first
+# mention into a link to the model's Hugging Face card. The manifest names no bundle publisher or
+# repo id, so the paragraph cannot either.
 name: Planet Tenstorrent weekly models roundup
 description: >-
-  Writes the 3-5 sentence paragraph of the weekly "Models this week" Planet item from the
-  week's change list across tt-inference-server and tt-model bundles. Run by
-  scripts/models_diff.py.
+  Writes the 2-4 sentence lede of the weekly "Models this week" Planet item from the week's
+  change list across tt-inference-server and tt-model bundles; the tables and bullets under
+  it are written mechanically. Run by scripts/models_diff.py.
 model: openai/gpt-4.1-mini
 modelParameters:
   maxTokens: 500
@@ -76,5 +78,5 @@ testData:
       new on tt-inference-server: K2-Horizon-7B (LLM, Complete) on Galaxy
       new tt-model bundle: Qwen3-Reranker-4B (Text ranking)
       status: gemma-4-26B-A4B-it not in spec → Functional
-      new bundle for ELYZA-Thinking-1.0-llm-jp-4-33b: tomo-o/elyza-thinking-1.0-llm-jp-4-33b-p300x2-fast
+      new bundle for ELYZA-Thinking-1.0-llm-jp-4-33b
       tt-inference-server spec: 0.25.0 → 0.26.1
