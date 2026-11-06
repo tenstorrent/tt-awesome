@@ -235,9 +235,28 @@
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Atom are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut only from a commit that has passed the on-hardware release gate \u2014 accuracy\nparity, no OOM across the supported size range, no perf or UX regression, and a clean install\nsmoke (see `RELEASING.md`).\n\n## [Unreleased]\n\nBehaviour changes are all in the knobs and the caches, not in the models: every numeric path is\nbyte-identical to 0.3.0.\n\n### Fixed\n- The release gate's perf leg no longer decides by luck. It took one measurement per model against\n  a fixed 15% threshold, and on a p150a the throughput spread between runs reaches that threshold\n  on its own: in the gate run that closed this entry, `uma-s-1-omol-batch` drew 88.9, 104.4 and\n  104.8 sys/s, and the first of those alone is a 20% shortfall against the baseline. The leg now\n  waits for every other process to let go of a card and gates the median of three independent\n  runs, printing all three. With no quiet window it measures anyway and reports a shortfall as\n  `GAP`, since a contended run is not evidence of a regression.\n- `benchmarks/_harness.host_quiet()` reported the host busy forever. It grepped process command\n  lines for `tt_bio`, which matches any agent whose own arguments merely mention it; it asks the\n  kernel who holds a `/dev/tenstorrent` node now. The three benchmarks that wait for a quiet host\n  used to burn their full 40-minute budget and stop without measuring.\n- The edge-bucketing speedup in the README and `docs/orb-port.md` is re-measured and now names the\n  environment it was taken in. It said 1.4x cold wall-clock on a 20-system screening stream; two\n  draws on the pinned tt-metal source build give **1.11x and 1.14x** (235.1 / 236.5 s unbucketed\n  against 210.9 / 207.6 s bucketed). What bucketing saves is compiles, and that is unchanged and\n  exact: 20 distinct edge shapes collapse to 7 buckets and 2350 fewer kernel files are built,\n  identical to the file across both draws. The wall-clock ratio fell because a compile costs about\n  half what it did in whatever environment produced the earlier number \u2014 which that log does not\n  record, so the three subprocess benchmarks now stamp `ttnn_version` next to `git_sha`.\n- `benchmarks/_harness.sandbox_env` resolves the sandbox `$HOME`. A relative `--workdir` reached\n  the child as a relative `$HOME`, and tt-metal resolves that against the child's own working\n  directory: it died deep in the JIT build with \"Failed to open compile failure log file\" and a\n  path that reads as correct. `bench_compile_pain.py` also defaulted to `--card 3`, a card that\n  does not exist on the host this repo is routed to.\n- `TT_ATOM_SCATTER_THRESHOLD` is documented. It is the node count above which UMA's dense one-hot\n  scatter gives way to the linear path, and therefore what bounds DRAM on a large cell, but it\n  appeared in no doc.\n- The release gate reads `OVERALL: PASS` again. Both Orb perf rows were seeded on a stock `ttnn`\n  0.68."
   },
   "https://github.com/moritztng/tt-bio": {
-    "stars": 127,
-    "updatedAt": "2026-11-05T17:54:53Z",
+    "stars": 126,
+    "updatedAt": "2026-11-06T05:44:42Z",
     "releases": [
+      {
+        "tagName": "v0.27.0",
+        "name": "v0.27.0",
+        "publishedAt": "2026-11-06T03:21:39Z",
+        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.27.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt_bio-0.27.0-py3-none-any.whl",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.27.0/tt_bio-0.27.0-py3-none-any.whl",
+            "size": 7200485
+          },
+          {
+            "name": "tt_bio-0.27.0.tar.gz",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.27.0/tt_bio-0.27.0.tar.gz",
+            "size": 7978858
+          }
+        ]
+      },
       {
         "tagName": "v0.26.1",
         "name": "v0.26.1",
@@ -313,28 +332,9 @@
             "size": 5656358
           }
         ]
-      },
-      {
-        "tagName": "v0.23.0",
-        "name": "v0.23.0",
-        "publishedAt": "2026-10-26T02:21:29Z",
-        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.23.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt_bio-0.23.0-py3-none-any.whl",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.23.0/tt_bio-0.23.0-py3-none-any.whl",
-            "size": 4889897
-          },
-          {
-            "name": "tt_bio-0.23.0.tar.gz",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.23.0/tt_bio-0.23.0.tar.gz",
-            "size": 5628396
-          }
-        ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Added\n- **A PPI grade says when it could not score the binder's pose.** The two binder-pose RMSDs under\n  `ppi_refolding` align on the target's absolute conditioned coordinates, so a design whose target was pinned with\n  `C_CRDGRP` (an internal coordinate group, RFD4's recommended binder recipe) has nothing to align on and the `ppi`\n  criterion comes back `pass = 0` with `all_metrics_present = 0`. That is upstream's behaviour and it reads exactly\n  like a design that was scored and failed. `tt-bio evaluate` now names those designs and the columns it could not\n  compute, and `docs/rfd4-design.md` says which conditioning to use if you intend to grade a binder's pose.\n- **RFD4-Proteina on the benchmarks page.** 3.74 s per design on one Blackhole p150a at batch 40, against 1.12 s on\n  a B200, 1.48 s on an H200 and 3.50 s on an A100, each NVIDIA card at its own best batch. A Galaxy Blackhole\n  delivers 4.2x a DGX B200's designs per dollar of purchase price.\n- **Mol-1 (`--model mol1`).** Molence Bio's Protenix-derived structure model folds protein, DNA, RNA, ligand and ion\n  complexes on the Protenix engine. It reads upstream's job-list JSON unchanged, writes upstream's per-seed output\n  layout with its summary and full-data confidence files, and defaults to upstream's 20 recycles, 200 steps and 5\n  samples. For Protenix and Mol-1 job JSON, `--use_seeds_in_json` runs every seed in a job's\n  `modelSeeds` instead of `--seed`, one result per seed. The weights download on first use; Molence has not stated a\n  licence for them yet. On a Wormhole Galaxy chip it takes up to 1024 tokens and refuses larger inputs before\n  opening a device. See `docs/mol1.md`.\n- Mol-1's mmCIF now carries upstream's `_entry`, `_chem_comp`, `_entity`, `_entity_poly`, `_entity_poly_seq` and\n  `_struct_conn` and groups the copies of one input entry into one entity, as Mol-1's does. DockQ v2 read no\n  interface of the old atom_site-only file.\n- **`tt-bio json`** turns PDB and mmCIF structures into Protenix / Mol-1 job JSON with Mol-1's own converter\n  (`mol json`), so the output is identical to upstream's. `--altloc` picks the alternate location, `--assembly_id`\n  expands to a biological assembly and `--include_discont_poly_poly_bonds` keeps bonds between non-consecutive polymer\n  residues (disulfides, cyclic peptides), as upstream's options of the same names do. The first run downloads the\n  Chemical Component Dictionary.\n- **`tt-bio prep`** searches the MSAs of a Protenix / Mol-1 job JSON or a FASTA ahead of the fold and writes them\n  where upstream's `mol msa` does, so a prepared job folds without searching. With `--use_template` and\n  `--use_rna_msa` it also runs upstream's template and RNA MSA searches, which is `mol prep`. Needs no device.\n- **Failed inputs"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Added\n- **A PPI grade says when it could not score the binder's pose.** The two binder-pose RMSDs under\n  `ppi_refolding` align on the target's absolute conditioned coordinates, so a design whose target was pinned with\n  `C_CRDGRP` (an internal coordinate group, RFD4's recommended binder recipe) has nothing to align on and the `ppi`\n  criterion comes back `pass = 0` with `all_metrics_present = 0`. That is upstream's behaviour and it reads exactly\n  like a design that was scored and failed. `tt-bio evaluate` now names those designs and the columns it could not\n  compute, and `docs/rfd4-design.md` says which conditioning to use if you intend to grade a binder's pose.\n### Fixed\n- **An RFD4 grade scores the designed chain again.** Every metric defined on the chain of interest\n  (`refolded_target_aligned_binder_rmsd`, `refolded_target_backbone_aligned_binder_rmsd`) was computed over an\n  empty atom subset, because the evaluate path matched the oracle's chain label against a chain instance id it\n  synthesised itself: `B_1` against the `B` the oracle wrote. The subset is no longer empty, and a confidence JSON\n  written with either spelling now resolves to the same chain. A refold also inherits its design's `C_CRD` and\n  `SA_CRDSRC` masks, which an oracle's plain output structure does not carry, so metrics aligned on them are\n  scored rather than dropped.\n\n## [0.27.0] - 2026-11-06\n\n### Added\n- **Mol-1 on the benchmarks page.** 49.6 s per 512-residue fold (20 recycles, 200 sampling steps) on one Blackhole\n  p150a, against 18.0 s on a B200, 24.0 s on an H200 and 50.1 s on an A100, each NVIDIA card on Mol-1's fastest shipped\n  option. A Galaxy Blackhole delivers 5.1x a DGX B200's folds per dollar of purchase price.\n- **RFD4-Proteina on the benchmarks page.** 3.74 s per design on one Blackhole p150a at batch 40, against 1.12 s on\n  a B200, 1.48 s on an H200 and 3.50 s on an A100, each NVIDIA card at its own best batch. A Galaxy Blackhole\n  delivers 4.2x a DGX B200's designs per dollar of purchase price.\n- **Mol-1 (`--model mol1`).** Molence Bio's Protenix-derived structure model folds protein, DNA, RNA, ligand and ion\n  complexes on the Protenix engine. It reads upstream's job-list JSON unchanged, writes upstream's per-seed output\n  layout with its summary and full-data confidence files, and defaults to upstream's 20 recycles, 200 steps and 5\n  samples. For Protenix and Mol-1 job JSON, `--use_seeds_in_json` runs every seed in a job's\n  `modelSeeds` instead of `--seed`, one result per seed. The weights download on first use; Molence has not stated a\n  licence for them yet. On a Wormhole Galaxy chip it takes up to 1024 tokens and refuses larger inputs before\n  opening a device. See `docs/mol1.md`.\n- Mol-1's mmCIF now carries upstream's `_en"
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 20,
@@ -395,7 +395,7 @@
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 79,
-    "updatedAt": "2026-11-05T15:16:26Z",
+    "updatedAt": "2026-11-06T04:48:07Z",
     "releases": [
       {
         "tagName": "v0.26.1",
@@ -945,7 +945,7 @@
   },
   "https://github.com/localai-org/vllm.cpp": {
     "stars": 479,
-    "updatedAt": "2026-11-05T00:38:15Z",
+    "updatedAt": "2026-11-06T06:08:06Z",
     "preview_image": "https://raw.githubusercontent.com/localai-org/vllm.cpp/main/benchmarks/media/concurrency_race.gif",
     "releases": [
       {
@@ -1025,8 +1025,8 @@
     "updatedAt": "2026-11-05T14:35:17Z"
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2302,
-    "updatedAt": "2026-11-05T14:02:16Z",
+    "stars": 2304,
+    "updatedAt": "2026-11-06T04:45:58Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1240,7 +1240,7 @@
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 13,
-    "updatedAt": "2026-11-05T10:19:05Z",
+    "updatedAt": "2026-11-06T02:08:51Z",
     "releases": [
       {
         "tagName": "v0.1.5",
@@ -1439,6 +1439,13 @@
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
+        "tagName": "1.5.0.dev20261106003422",
+        "name": "1.5.0.dev20261106003422",
+        "publishedAt": "2026-11-06T00:53:29Z",
+        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261106003422",
+        "prerelease": false
+      },
+      {
         "tagName": "1.5.0.dev20261105015438",
         "name": "1.5.0.dev20261105015438",
         "publishedAt": "2026-11-05T02:25:34Z",
@@ -1465,19 +1472,12 @@
         "publishedAt": "2026-11-02T01:21:24Z",
         "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261102003700",
         "prerelease": false
-      },
-      {
-        "tagName": "1.5.0.dev20261101003846",
-        "name": "1.5.0.dev20261101003846",
-        "publishedAt": "2026-11-01T00:57:35Z",
-        "url": "https://github.com/tenstorrent/tt-forge-onnx/releases/tag/1.5.0.dev20261101003846",
-        "prerelease": false
       }
     ]
   },
   "https://github.com/tenstorrent/tt-forge": {
-    "stars": 381,
-    "updatedAt": "2026-11-04T13:24:07Z",
+    "stars": 382,
+    "updatedAt": "2026-11-06T00:35:23Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
       {
@@ -1941,7 +1941,7 @@
   },
   "https://github.com/tenstorrent/tt-cli": {
     "stars": 7,
-    "updatedAt": "2026-11-02T20:06:03Z",
+    "updatedAt": "2026-11-05T22:04:32Z",
     "releases": [
       {
         "tagName": "v1.2.1",
@@ -2397,11 +2397,11 @@
   },
   "https://github.com/Aswincloud/ttnn-ops-coverage": {
     "stars": 0,
-    "updatedAt": "2026-11-05T03:20:32Z"
+    "updatedAt": "2026-11-06T02:20:11Z"
   },
   "https://github.com/Aswincloud/ttnn-performance-dashboard": {
     "stars": 1,
-    "updatedAt": "2026-11-05T03:17:47Z"
+    "updatedAt": "2026-11-06T02:03:23Z"
   },
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 59,
@@ -2722,7 +2722,7 @@
   },
   "https://github.com/boopdotpng/tenstorrent-docs": {
     "stars": 6,
-    "updatedAt": "2026-11-05T09:03:05Z"
+    "updatedAt": "2026-11-05T21:45:08Z"
   },
   "https://github.com/mdragulaTT/cache-me-if-you-can": {
     "stars": 6,
@@ -2805,7 +2805,7 @@
   },
   "https://github.com/boopdotpng/blackhole-py": {
     "stars": 23,
-    "updatedAt": "2026-11-05T08:03:42Z",
+    "updatedAt": "2026-11-05T21:45:06Z",
     "releases": [
       {
         "tagName": "hcq-v1",
@@ -3188,7 +3188,7 @@
   },
   "https://github.com/tenstorrent/tt-kmd": {
     "stars": 75,
-    "updatedAt": "2026-11-03T21:51:18Z",
+    "updatedAt": "2026-11-05T20:05:37Z",
     "releases": [
       {
         "tagName": "ttkmd-2.12.0",
@@ -3375,7 +3375,7 @@
   },
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 46,
-    "updatedAt": "2026-11-05T18:20:48Z",
+    "updatedAt": "2026-11-05T19:42:39Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -4612,12 +4612,12 @@
           {
             "name": "sfpi_7.95.0-replay-63570_x86_64_debian.deb",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0-replay-63570/sfpi_7.95.0-replay-63570_x86_64_debian.deb",
-            "size": 135059186
+            "size": 135061704
           },
           {
             "name": "sfpi_7.95.0-replay-63570_x86_64_fedora.rpm",
             "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0-replay-63570/sfpi_7.95.0-replay-63570_x86_64_fedora.rpm",
-            "size": 134708620
+            "size": 134713331
           }
         ]
       },
@@ -4716,7 +4716,7 @@
   },
   "https://github.com/tanaymihani/tensixfuse": {
     "stars": 1,
-    "updatedAt": "2026-11-05T15:19:43Z",
+    "updatedAt": "2026-11-05T22:05:28Z",
     "preview_image": "https://raw.githubusercontent.com/tanaymihani/tensixfuse/main/docs/img/demo.gif",
     "releases": [
       {
@@ -4755,8 +4755,8 @@
     "updatedAt": "2026-11-01T11:16:10Z"
   },
   "https://github.com/tenstorrent/tt-metal": {
-    "stars": 1744,
-    "updatedAt": "2026-11-05T16:29:54Z",
+    "stars": 1746,
+    "updatedAt": "2026-11-06T06:03:04Z",
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5469,7 +5469,7 @@
   },
   "https://github.com/tenstorrent/tt-polaris": {
     "stars": 48,
-    "updatedAt": "2026-11-05T16:45:08Z",
+    "updatedAt": "2026-11-06T05:24:18Z",
     "releases": [
       {
         "tagName": "pre_perfmodel_merge",
@@ -5510,7 +5510,7 @@
   },
   "https://github.com/tenstorrent/tt-isa-documentation": {
     "stars": 136,
-    "updatedAt": "2026-11-05T15:25:38Z"
+    "updatedAt": "2026-11-06T01:04:51Z"
   },
   "https://github.com/olofj/bhx": {
     "stars": 6,
