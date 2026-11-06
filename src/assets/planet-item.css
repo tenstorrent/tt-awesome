@@ -149,6 +149,39 @@
   -webkit-line-clamp: unset;
   overflow: visible;
 }
+/* Block-markdown descriptions (the weekly models roundup): a lede, bold
+   section labels, tables of the new models and a bullet list. Never clamped. */
+.planet-item-rich {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow-x: auto;
+}
+.planet-item-rich p { margin: 0 0 10px; }
+.planet-item-rich p:last-child { margin-bottom: 0; }
+.planet-item-rich strong { color: var(--text); }
+.planet-item-rich ul { margin: 0 0 10px; padding-left: 18px; }
+.planet-item-rich li { margin: 2px 0; }
+.planet-item-rich table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 6px 0 12px;
+  font-size: 12px;
+}
+.planet-item-rich th,
+.planet-item-rich td {
+  text-align: left;
+  vertical-align: top;
+  padding: 4px 10px 4px 0;
+  border-bottom: 1px solid var(--bg2);
+}
+.planet-item-rich th {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 /* Papers: show more of the abstract */
 .planet-item[data-type="paper"] .planet-item-desc {
   -webkit-line-clamp: 10;

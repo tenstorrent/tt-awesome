@@ -67,7 +67,12 @@
       paragraph; `item.description` still holds the newest release's summary for
       any non-template consumer, so guard on `releases` to avoid showing it
       twice. -#}
-  {%- if item.description and not item.releases %}
+  {#- body: "markdown" marks a description written as block markdown (a lede,
+      tables, bullets): the weekly models roundup. Everything else is one
+      paragraph of inline markdown. -#}
+  {%- if item.description and not item.releases and item.body == "markdown" %}
+  <div class="planet-item-desc planet-item-rich">{{ item.description | markdownBlock | safe }}</div>
+  {%- elif item.description and not item.releases %}
   <p class="planet-item-desc">{{ item.description | markdownInline | safe }}</p>
   {%- endif %}
 

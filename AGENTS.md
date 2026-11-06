@@ -151,7 +151,27 @@ template uses them.
   ISO-week fragment (`models/#week-2026-W45`), which is what keeps a rerun
   from publishing the same week twice. Its paragraph is the one LLM call the
   models workflow makes; a failed call ships the mechanical paragraph instead.
-  A week with no change produces no item.
+  The item is block markdown (`body: "markdown"`): the paragraph, a table of
+  the models new on tt-inference-server, a table of the new bundles, and an
+  "Also this week" list. A week with no change produces no item. Dispatching
+  the workflow with `roundup: true` rewrites the current week's item, which is
+  how a prompt change is tried out; the scheduled Thursday run never rewrites.
+
+### Models
+
+* A model's kind comes from, in order: tt-inference-server's model type; the
+  task tag on the bundle's card; `scripts/data/model_kinds_inferred.json`; the
+  pipeline tag on the original model's Hugging Face card (its weights repo,
+  read by the nightly build with `--hf-cards`). Only a model none of those
+  cover is listed as "task not stated".
+* A model's `purpose` ("deep-research agent", "multimodal reranker") comes
+  from the tags on that Hugging Face card, else the "<Name>, a <phrase>
+  model" opening of the bundle card's description when the phrase names a
+  task, else words in the name (Thinker, DeepResearch, Coder). The model page
+  shows it with its source; the weekly roundup shows it in the Kind column.
+* Links to a model from the Planet roundup go to the original model's Hugging
+  Face card, and a bundle id links to the bundle's own card. The tt-awesome
+  model page is linked only for a model with no weights repo.
 
 ### Generated and bot-owned files
 

@@ -14,7 +14,7 @@ on:
         type: boolean
         default: false
       roundup:
-        description: "Also write this week's 'Models this week' Planet item, whatever the weekday"
+        description: "Write (or rewrite) this week's 'Models this week' Planet item, whatever the weekday"
         type: boolean
         default: false
 # Nothing is written to the repo with a token that has run downloaded code. The "build" job installs
@@ -72,11 +72,15 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: tt-model search --catalog --json --limit "$CATALOG_LIMIT" > catalog.json
 
+      # --hf-cards: each original model's Hugging Face card (pipeline tag, tags), a source of kind and
+      # purpose for bundles whose card states no task. Cached so the order check below reads the same.
       - name: Build models.json
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python3 scripts/build_models_data.py \
             --isrv .tt-inference-server --catalog catalog.json --limit "$CATALOG_LIMIT" \
-            --manifests manifests.json \
+            --manifests manifests.json --hf-cards hf_cards.json \
             --spec-commit "$(git -C .tt-inference-server rev-parse --short=9 HEAD)"
           git --no-pager diff --stat -- src/_data/models.json || true
 
@@ -87,7 +91,7 @@ jobs:
           python3 -c "import json; c = json.load(open('catalog.json')); json.dump(c[::-1], open('catalog_reversed.json', 'w'))"
           python3 scripts/build_models_data.py \
             --isrv .tt-inference-server --catalog catalog_reversed.json --limit "$CATALOG_LIMIT" \
-            --manifests manifests.json --out models_reversed.json \
+            --manifests manifests.json --hf-cards hf_cards.json --out models_reversed.json \
             --spec-commit "$(git -C .tt-inference-server rev-parse --short=9 HEAD)"
           cmp src/_data/models.json models_reversed.json
 
@@ -148,8 +152,9 @@ jobs:
           fi
 
       # Once a week, one Planet item: the models that arrived over the seven days ending today,
-      # across tt-inference-server and tt-model bundles. The item is keyed by ISO week in its URL, so
-      # a second run on the same Thursday (or a dispatch with roundup=true) writes nothing twice.
+      # across tt-inference-server and tt-model bundles. The item is keyed by ISO week in its URL. A
+      # second scheduled run in the same week writes nothing; a dispatch with roundup=true replaces
+      # the week's item, which is how a week is regenerated after a prompt or data change.
       - name: Weekly roundup (Thursdays)
         # Either credential: SUMMARY_PROVIDER=anthropic with only ANTHROPIC_API_KEY set must still run.
         if: ${{ (env.FOUNDRY_API_KEY != '' || env.ANTHROPIC_API_KEY != '') && (inputs.roundup || github.event_name == 'schedule') }}
@@ -166,7 +171,10 @@ jobs:
             exit 0
           fi
           git show "$OLD:src/_data/models.json" > old-week.json
-          python3 scripts/models_diff.py roundup --old old-week.json --new new/models.json --week-end "$(date -u +%F)"
+          # A forced run is how a week is regenerated after a prompt change, so it replaces.
+          REPLACE=""
+          if [ "$FORCE" = "true" ]; then REPLACE="--replace"; fi
+          python3 scripts/models_diff.py roundup --old old-week.json --new new/models.json --week-end "$(date -u +%F)" $REPLACE
 
       - name: Prepare PR body
         run: |

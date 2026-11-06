@@ -43,3 +43,4 @@ jobs:
       - run: node tests/test_data_files.js
       - run: node tests/test_eleventy_filters.js
       - run: node tests/test_recent_releases.js
+      - run: node tests/test_css_tokens.js

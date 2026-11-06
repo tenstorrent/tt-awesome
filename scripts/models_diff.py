@@ -30,7 +30,7 @@ Design notes:
 
 Usage (CLI, see main()):
     models_diff.py pr-body --old OLD.json --new NEW.json --out pr-body.md [--template T.md]
-    models_diff.py roundup --old OLD.json --new NEW.json --week-end YYYY-MM-DD [--feeds F] [--dry-run]
+    models_diff.py roundup --old OLD.json --new NEW.json --week-end YYYY-MM-DD [--feeds F] [--dry-run] [--replace]
     models_diff.py carry-forward --from BRANCH_FEEDS.json [--feeds F]
 """
 
@@ -57,6 +57,16 @@ def _sorted_by_name(rows: list) -> list:
     return sorted(rows, key=lambda r: (str(r.get("name") or r.get("model") or "").lower(), r.get("repo") or ""))
 
 
+HF_URL = "https://huggingface.co/"
+
+
+def _model_url(m: dict) -> str:
+    """Where a model's name links: the original model's Hugging Face card (its weights repo), which credits
+    the authors and is where a reader learns what the model is; the tt-awesome page only when the record
+    has no weights repo (a decision model named after its bundle)."""
+    return HF_URL + m["weights"] if m.get("weights") else f"{MODELS_URL}{m['id']}/"
+
+
 def _card(m: dict) -> dict:
     """The fields of a model that the digest and roundup quote for an added or removed model."""
     bundles = [b["repo"] for b in m.get("bundles") or [] if b.get("repo")]
@@ -65,7 +75,7 @@ def _card(m: dict) -> dict:
                 owners=sorted({b.get("owner") or b.get("repo", "").split("/")[0] for b in m.get("bundles") or []}),
                 # Models are grouped by weights repo, so one new model can arrive as several bundles
                 # (gpt-oss-20b has four). Kept so the roundup can count and name each one.
-                bundles=sorted(bundles))
+                bundles=sorted(bundles), weights=m.get("weights"), purpose=m.get("purpose"), url=_model_url(m))
 
 
 def diff_models(old: dict, new: dict) -> dict:
@@ -73,12 +83,14 @@ def diff_models(old: dict, new: dict) -> dict:
 
     Returns a dict with these keys; every list is sorted by model name.
       spec            {"old": {release, commit}, "new": {release, commit}}
-      added, removed  [{id, name, source, kind, status, hardware, owners}]
-      status          [{id, name, old, new}]       best status changed, None on either side allowed
-      entered_spec    [{id, name, status}]         was bundle-only, now in the release spec
-      bundles_added, bundles_removed  [{model, id, repo}]
-      kind            [{id, name, old, new}]
-      hardware        [{id, name, added: [...]}]   hardware names the model gained
+      added, removed  [{id, name, source, kind, status, hardware, owners, bundles, weights, purpose, url}]
+      status          [{id, name, old, new, url}]  best status changed, None on either side allowed
+      entered_spec    [{id, name, status, kind, hardware, purpose, url}]  was bundle-only, now in the release
+                                                   spec; kind and hardware seat it in the roundup's spec table
+      bundles_added, bundles_removed  [{model, id, repo, url}]
+      kind            [{id, name, old, new, url}]
+      hardware        [{id, name, added: [...], url}]  hardware names the model gained
+    `url` is the model's Hugging Face card, or its tt-awesome page when it has no weights repo.
       unreadable      {"now_unreadable": [...], "now_readable": [...]}  bundle repos whose manifest state flipped
     """
     om, nm = _by_id(old), _by_id(new)
@@ -91,20 +103,22 @@ def diff_models(old: dict, new: dict) -> dict:
             d["added"].append(_card(m))
             continue
         o = om[mid]
-        name = m.get("name") or mid
+        name, url = m.get("name") or mid, _model_url(m)
         if o.get("status") != m.get("status"):
-            d["status"].append(dict(id=mid, name=name, old=o.get("status"), new=m.get("status")))
+            d["status"].append(dict(id=mid, name=name, old=o.get("status"), new=m.get("status"), url=url))
         if m.get("inSpec") and not o.get("inSpec"):
-            d["entered_spec"].append(dict(id=mid, name=name, status=m.get("status")))
+            # kind, hardware and purpose ride along so the roundup can seat it in the tt-inference-server table.
+            d["entered_spec"].append(dict(id=mid, name=name, status=m.get("status"), kind=m.get("kind") or "",
+                                          hardware=list(m.get("hardware") or []), purpose=m.get("purpose"), url=url))
         ob = {b["repo"] for b in o.get("bundles") or [] if b.get("repo")}
         nb = {b["repo"] for b in m.get("bundles") or [] if b.get("repo")}
-        d["bundles_added"] += [dict(model=name, id=mid, repo=r) for r in sorted(nb - ob)]
-        d["bundles_removed"] += [dict(model=name, id=mid, repo=r) for r in sorted(ob - nb)]
+        d["bundles_added"] += [dict(model=name, id=mid, repo=r, url=url) for r in sorted(nb - ob)]
+        d["bundles_removed"] += [dict(model=name, id=mid, repo=r, url=url) for r in sorted(ob - nb)]
         if (o.get("kind") or "") != (m.get("kind") or ""):
-            d["kind"].append(dict(id=mid, name=name, old=o.get("kind"), new=m.get("kind")))
+            d["kind"].append(dict(id=mid, name=name, old=o.get("kind"), new=m.get("kind"), url=url))
         gained = sorted(set(m.get("hardware") or []) - set(o.get("hardware") or []))
         if gained:
-            d["hardware"].append(dict(id=mid, name=name, added=gained))
+            d["hardware"].append(dict(id=mid, name=name, added=gained, url=url))
 
     d["removed"] = [_card(m) for mid, m in om.items() if mid not in nm]
 
@@ -214,6 +228,16 @@ MODEL = "claude-haiku-4-5-20251001"  # Anthropic-direct default; the foundry pat
 MANIFEST_CAP = 40                    # lines of the change list handed to the model
 
 
+def _kind_text(m: dict) -> str:
+    """What a model is: "VLM, deep-research agent" for the two families (LLM, VLM), where the purpose says
+    what this member is for; the purpose alone for a specific kind, since "Embedding, multimodal embedding"
+    says it twice; the kind alone when the builder inferred no purpose."""
+    kind, purpose = m.get("kind") or "", m.get("purpose")
+    if not purpose:
+        return kind
+    return f"{kind}, {purpose}" if kind in ("LLM", "VLM") else purpose
+
+
 def week_fragment(week_end: date) -> str:
     """"week-2026-W45": the ISO week the roundup covers, named by its last day."""
     year, week, _ = week_end.isocalendar()
@@ -255,21 +279,23 @@ def _manifest_lines(diff: dict) -> list:
     for m in diff["added"]:
         if m["source"] == "tt-inference-server":
             where = (" on " + ", ".join(m["hardware"])) if m["hardware"] else ""
-            lines.append(f"new on tt-inference-server: {m['name']} ({m['kind']}, {m['status']}){where}")
+            lines.append(f"new on tt-inference-server: {m['name']} ({_kind_text(m)}, {m['status']}){where}")
         else:
-            by = (" by " + ", ".join(m["owners"])) if m["owners"] else ""
-            repos = m.get("bundles") or []
-            lines.append(f"new tt-model {'bundles' if len(repos) > 1 else 'bundle'}: {m['name']} ({m['kind']}){by}"
-                         + (f": {', '.join(repos)}" if repos else ""))
+            # No owners and no repo ids: the paragraph is about models, and Taylor asked that it never
+            # single out who published a bundle. The table under the paragraph carries the repo ids.
+            n_b = len(m.get("bundles") or [])
+            lines.append(f"new tt-model {'bundles' if n_b > 1 else 'bundle'}: {m['name']} ({_kind_text(m)})"
+                         + (f", {n_b} bundles" if n_b > 1 else ""))
     for m in diff["entered_spec"]:
         lines.append(f"now on tt-inference-server: {m['name']} ({m['status']})")
     for m in diff["status"]:
         if not any(e["id"] == m["id"] for e in diff["entered_spec"]):
             lines.append(f"status: {m['name']} {m['old'] or 'not in spec'} → {m['new'] or 'not in spec'}")
-    for b in diff["bundles_added"]:
-        lines.append(f"new bundle for {b['model']}: {b['repo']}")
-    for b in diff["bundles_removed"]:
-        lines.append(f"bundle withdrawn from {b['model']}: {b['repo']}")
+    # Bundle changes to a listed model: counted per model, never by repo id, for the same reason as above.
+    for model_name, n in _per_model(diff["bundles_added"]).items():
+        lines.append(f"new bundle for {model_name}" if n == 1 else f"{n} new bundles for {model_name}")
+    for model_name, n in _per_model(diff["bundles_removed"]).items():
+        lines.append(f"bundle withdrawn from {model_name}" if n == 1 else f"{n} bundles withdrawn from {model_name}")
     for m in diff["removed"]:
         lines.append(f"removed: {m['name']}")
     for m in diff["kind"]:
@@ -280,6 +306,14 @@ def _manifest_lines(diff: dict) -> list:
     if old_rel != new_rel:
         lines.append(f"tt-inference-server spec: {old_rel} → {new_rel}")
     return lines
+
+
+def _per_model(changes: list) -> dict:
+    """{model name: how many bundle entries}, in the order the diff lists them."""
+    counts: dict = {}
+    for b in changes:
+        counts[b["model"]] = counts.get(b["model"], 0) + 1
+    return counts
 
 
 def build_manifest(diff: dict, cap: int = MANIFEST_CAP) -> str:
@@ -319,13 +353,14 @@ def fallback_paragraph(diff: dict) -> str:
     spec = [m["name"] for m in _new_spec_models(diff)]
     if spec:
         sentences.append(f"New on tt-inference-server: {_join(spec)}.")
-    bundled = [m["name"] + (f" ({', '.join(m['bundles'])})" if len(m.get("bundles") or []) > 1 else "")
-               for m in diff["added"] if m["source"] != "tt-inference-server"]
+    # Names only: the bundle table under the paragraph carries the repo ids, and the prose never names a
+    # publisher (see _manifest_lines).
+    bundled = [m["name"] for m in diff["added"] if m["source"] != "tt-inference-server"]
     if bundled:
         sentences.append(f"New as tt-model bundles: {_join(bundled)}.")
-    more = [f"{b['repo']} for {b['model']}" for b in diff["bundles_added"]]
+    more = list(_per_model(diff["bundles_added"]))
     if more:
-        sentences.append(f"New bundles for listed models: {_join(more)}.")
+        sentences.append(f"New bundles for {_join(more)}.")
     promoted = [f"{m['name']} to {m['new']}" for m in diff["status"]
                 if m["new"] and not any(e["id"] == m["id"] for e in diff["entered_spec"])]
     if promoted:
@@ -334,9 +369,9 @@ def fallback_paragraph(diff: dict) -> str:
     if left:
         sentences.append(f"{_join(left)} left tt-inference-server but {'stays' if len(left) == 1 else 'stay'} listed as "
                          f"{'a bundle' if len(left) == 1 else 'bundles'}.")
-    withdrawn = [f"{b['repo']} from {b['model']}" for b in diff["bundles_removed"]]
+    withdrawn = list(_per_model(diff["bundles_removed"]))
     if withdrawn:
-        sentences.append(f"Bundles withdrawn: {_join(withdrawn)}.")
+        sentences.append(f"Bundles withdrawn from {_join(withdrawn)}.")
     removed = [m["name"] for m in diff["removed"]]
     if removed:
         sentences.append(f"Removed: {_join(removed)}.")
@@ -382,35 +417,97 @@ def link_models(text: str, models: list) -> str:
             if text[hit.end():hit.end() + 2] == "](":
                 pos = hit.end()
                 continue
-            text = text[:hit.start()] + f"[{name}]({MODELS_URL}{m['id']}/)" + text[hit.end():]
+            text = text[:hit.start()] + _link(m) + text[hit.end():]
             break
     return text
 
 
-def build_roundup(diff: dict, week_end: date, paragraph: str, now: datetime) -> dict:
-    """The Planet item for the week ending `week_end`, with `paragraph` as its body.
+def _link(m: dict) -> str:
+    return f"[{m['name']}]({m.get('url') or MODELS_URL + m['id'] + '/'})"
 
-    `paragraph` is the model's reply or the fallback. When it names fewer than half of the week's
-    new models, one mechanical "New: ..." sentence follows it so every new model is reachable from
-    the card. Model names in the whole description become links to their pages.
+
+def _bundle_link(repo: str) -> str:
+    """A bundle id linked to its own Hugging Face card: the thing `tt model pull` takes."""
+    return f"[{repo}]({HF_URL}{repo})"
+
+
+def _cell(text: str) -> str:
+    """A table cell: never empty (an em dash stands for "none"), never a stray pipe."""
+    return (text or "—").replace("|", "\\|")
+
+
+def _spec_table(models: list) -> str:
+    rows = [f"| {_link(m)} | {_cell(_kind_text(m))} | {_cell(m.get('status'))} | {_cell(', '.join(m.get('hardware') or []))} |"
+            for m in models]
+    return "| Model | Kind | Status | Hardware |\n|---|---|---|---|\n" + "\n".join(rows)
+
+
+def _bundle_table(models: list) -> str:
+    rows = [f"| {_link(m)} | {_cell(_kind_text(m))} | {_cell(', '.join(_bundle_link(r) for r in m.get('bundles') or []))} "
+            f"| {_cell(', '.join(m.get('hardware') or []))} |" for m in models]
+    return "| Model | Kind | Bundle | Hardware |\n|---|---|---|---|\n" + "\n".join(rows)
+
+
+def _also_bullets(diff: dict) -> list:
+    """Everything that is neither a new model nor a model entering the spec, one bullet each."""
+    entered = {e["id"] for e in diff["entered_spec"]}
+    bullets = []
+    for m in diff["status"]:
+        if m["id"] not in entered:
+            bullets.append(f"- {_link(m)}: {m['old'] or 'not in spec'} → {m['new'] or 'not in spec'}")
+    for b in diff["bundles_added"]:
+        bullets.append(f"- {_link(dict(id=b['id'], name=b['model'], url=b.get('url')))}: new bundle {_bundle_link(b['repo'])}")
+    for b in diff["bundles_removed"]:
+        bullets.append(f"- {_link(dict(id=b['id'], name=b['model'], url=b.get('url')))}: bundle {b['repo']} withdrawn")
+    for m in diff["removed"]:
+        bullets.append(f"- {m['name']}: removed from the list")
+    for m in diff["kind"]:
+        bullets.append(f"- {_link(m)}: reclassified {m['old']} → {m['new']}")
+    for m in diff["hardware"]:
+        if m["id"] not in entered:   # the table row of a model entering the spec already shows its hardware
+            bullets.append(f"- {_link(m)}: now also on {', '.join(m['added'])}")
+    for r in diff["unreadable"]["now_unreadable"]:
+        bullets.append(f"- Bundle manifest now unreadable: {r}")
+    for r in diff["unreadable"]["now_readable"]:
+        bullets.append(f"- Bundle manifest readable again: {r}")
+    old_rel, new_rel = diff["spec"]["old"].get("release"), diff["spec"]["new"].get("release")
+    if old_rel != new_rel:
+        bullets.append(f"- tt-inference-server spec {old_rel} → {new_rel}")
+    return bullets
+
+
+def build_roundup(diff: dict, week_end: date, paragraph: str, now: datetime) -> dict:
+    """The Planet item for the week ending `week_end`, written as block markdown.
+
+    The body is `paragraph` (the model's reply or the fallback) with model names linked, then the
+    mechanical part that makes the item complete whatever the paragraph said: a table of the models
+    new on tt-inference-server (kind, status, hardware), a table of the new tt-model bundles (kind,
+    bundle repo, hardware), and an "Also this week" bullet list for status, bundle, kind, hardware and
+    spec changes. Empty sections are left out. The item carries body: "markdown" so planet-item.njk
+    renders it with block markdown instead of the one-paragraph inline filter.
     """
-    new = _new_spec_models(diff) + [m for m in diff["added"] if m["source"] != "tt-inference-server"]
-    named = [m for m in new if re.search(r"(?<![\w-])" + re.escape(m["name"]) + r"(?![\w-])", paragraph)]
-    description = paragraph.strip()
-    if new and len(named) * 2 < len(new):
-        description = (description + " " if description else "") + "New: " + _join([m["name"] for m in new]) + "."
-    # Every model the description can mention: new ones, status changes, and the listed models that
-    # gained or lost a bundle (those carry the name under "model" rather than "name").
-    mentioned = (new + diff["status"] + diff["entered_spec"] + diff["kind"] + diff["hardware"]
-                 + [dict(id=b["id"], name=b["model"]) for b in diff["bundles_added"] + diff["bundles_removed"]])
-    description = link_models(description, mentioned)
+    spec_new = _new_spec_models(diff)
+    bundle_new = [m for m in diff["added"] if m["source"] != "tt-inference-server"]
+    mentioned = (spec_new + bundle_new + diff["status"] + diff["kind"] + diff["hardware"]
+                 + [dict(id=b["id"], name=b["model"], url=b.get("url")) for b in diff["bundles_added"] + diff["bundles_removed"]])
+    sections = []
+    if paragraph.strip():
+        sections.append(link_models(paragraph.strip(), mentioned))
+    if spec_new:
+        sections += ["**New on tt-inference-server**", _spec_table(spec_new)]
+    if bundle_new:
+        sections += ["**New tt-model bundles**", _bundle_table(bundle_new)]
+    bullets = _also_bullets(diff)
+    if bullets:
+        sections += ["**Also this week**", "\n".join(bullets)]
     return dict(
         type="article",
         source="models-roundup",
         approved=True,
         title=roundup_title(diff),
         url=f"{MODELS_URL}#{week_fragment(week_end)}",
-        description=description,
+        description="\n\n".join(sections),
+        body="markdown",
         date=week_end.isoformat(),
         dateISO=now.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         label="Models this week",
@@ -438,17 +535,20 @@ def _declined_urls(feeds_path: Path) -> set:
     return {r["url"] for r in rows if isinstance(r, dict) and r.get("url")}
 
 
-def write_roundup(item: dict, feeds_path) -> bool:
+def write_roundup(item: dict, feeds_path, replace: bool = False) -> bool:
     """Insert the item into planet_feeds.json in dateISO order.
 
-    False, and no write, when its URL is already in the feed or on the declined list."""
+    False, and no write, when its URL is on the declined list, or already in the feed unless
+    `replace` is set (a dispatch with roundup=true regenerates the week after a prompt change)."""
     path = Path(feeds_path)
     if item["url"] in _declined_urls(path):
         print(f"  SKIP roundup {item['url']}: declined by a maintainer (planet_declined.json)")
         return False
     items = json.loads(path.read_text()) if path.exists() else []
     if any(i.get("url") == item["url"] for i in items):
-        return False
+        if not replace:
+            return False
+        items = [i for i in items if i.get("url") != item["url"]]
     items.append(item)
     items.sort(key=lambda i: i.get("dateISO") or "", reverse=True)
     path.write_text(json.dumps(items, indent=2, ensure_ascii=False) + "\n")
@@ -503,6 +603,7 @@ def main(argv: list | None = None) -> int:
     ru.add_argument("--week-end", required=True, help="the Thursday the week ends on, YYYY-MM-DD")
     ru.add_argument("--feeds", default=str(FEEDS_DEFAULT))
     ru.add_argument("--dry-run", action="store_true", help="print the item instead of writing it")
+    ru.add_argument("--replace", action="store_true", help="overwrite the week's item if the feed already has one")
 
     cf = sub.add_parser("carry-forward", help="keep the roundup items of an unmerged PR branch in planet_feeds.json")
     cf.add_argument("--from", dest="branch_feeds", required=True, help="planet_feeds.json as on the PR branch")
@@ -540,8 +641,8 @@ def main(argv: list | None = None) -> int:
         print(f"--- DRY RUN: roundup item for {week_fragment(week_end)} ---")
         print(json.dumps(item, indent=2, ensure_ascii=False))
         return 0
-    if write_roundup(item, args.feeds):
-        print(f"added roundup {item['url']} to {args.feeds}")
+    if write_roundup(item, args.feeds, replace=args.replace):
+        print(f"{'replaced' if args.replace else 'added'} roundup {item['url']} in {args.feeds}")
     else:
         print(f"roundup {item['url']} already in {args.feeds}; nothing written")
     return 0

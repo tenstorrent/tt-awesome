@@ -78,6 +78,7 @@ eleventyComputed:
     <h2 class="m-h">Details</h2>
     <table class="m-table m-dl">
       <tr><td>Kind</td><td>{{ m.kind }} <span class="m-sub">({% if m.kindInferred %}{{ m.kindFrom }}{% else %}from {{ m.kindFrom }}{% endif %})</span></td></tr>
+      {%- if m.purpose %}<tr><td>Purpose</td><td>{{ m.purpose }} <span class="m-sub">(from {{ m.purposeFrom }})</span></td></tr>{% endif %}
       {%- if m.params %}<tr><td>Parameters</td><td>{{ m.params }}</td></tr>{% endif %}
       <tr><td>Family</td><td>{{ m.family }} <span class="m-sub">(from the start of the name)</span></td></tr>
       {%- if m.impls.length %}<tr><td>Implementation</td><td>{{ m.impls | join(", ") }}</td></tr>{% endif %}
