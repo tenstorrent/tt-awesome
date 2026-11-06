@@ -145,11 +145,20 @@ template uses them.
   release with a one-line fallback.
 * The LLM API key exists only in CI. To add a release item locally, write it
   by hand to the same schema and follow `prompts/summarize-release.prompt.yml`.
+* Every Thursday the models workflow adds one `article` item, "Models this
+  week", built by `scripts/models_diff.py` from the change in `models.json`
+  over the previous seven days of `main`. Its URL is the Models page with an
+  ISO-week fragment (`models/#week-2026-W45`), which is what keeps a rerun
+  from publishing the same week twice. Its paragraph is the one LLM call the
+  models workflow makes; a failed call ships the mechanical paragraph instead.
+  A week with no change produces no item.
 
 ### Generated and bot-owned files
 
-* The nightly workflows own `github_meta.json` and `planet_feeds.json` and open
-  pull requests with the changes. To add one repo by hand, import the
+* The nightly workflows own `github_meta.json`, `models.json` and
+  `planet_feeds.json` and open pull requests with the changes. The models PR
+  body is the diff of `models.json` (`scripts/models_diff.py pr-body`); a run
+  that changed nothing opens no PR. To add one repo by hand, import the
   functions from `scripts/fetch_github_meta.py` and write only that record.
   Running `main()` rewrites every record and buries the change in star churn.
 * Regenerate `README.md` and commit it with any entry change. Do not commit

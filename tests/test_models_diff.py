@@ -244,6 +244,14 @@ def test_build_roundup_item_shape_and_new_sentence_when_paragraph_is_thin():
     assert full["description"].startswith("[Fresh](https://docs.tenstorrent.com/tt-awesome/models/Fresh/) landed")
 
 
+def test_build_roundup_links_a_model_that_only_gained_a_bundle():
+    old = doc([model("Elyza", bundles=[bundle("o/elyza-v1")])])
+    new = doc([model("Elyza", bundles=[bundle("o/elyza-v1"), bundle("t/elyza-fast")])])
+    diff = md.diff_models(old, new)
+    item = md.build_roundup(diff, WEEK_END, md.fallback_paragraph(diff), NOW)
+    assert item["description"] == "New bundles for listed models: t/elyza-fast for [Elyza](https://docs.tenstorrent.com/tt-awesome/models/Elyza/)."
+
+
 def test_request_paragraph_degrades_to_empty(monkeypatch):
     def boom(*a, **k):
         raise RuntimeError("backend down")
@@ -279,3 +287,56 @@ def test_write_roundup_inserts_in_date_order_and_dedups_by_url(tmp_path):
     assert urls == ["https://a", item["url"], "https://b"]
     assert md.write_roundup(item, feeds) is False            # same Thursday again: nothing written twice
     assert len(json.loads(feeds.read_text())) == 3
+
+
+# ── CLI ─────────────────────────────────────────────────────────────────────
+
+def _write_docs(tmp_path):
+    old, new = tmp_path / "old.json", tmp_path / "new.json"
+    old.write_text(json.dumps(doc([model("m")], release="0.25.0")))
+    new.write_text(json.dumps(doc([model("m"), model("Fresh", source="tt-inference-server", inSpec=True,
+                                                         status="Complete", hardware=["Galaxy"])])))
+    return old, new
+
+
+def test_cli_pr_body_writes_file(tmp_path):
+    old, new = _write_docs(tmp_path)
+    template = tmp_path / "models.md"
+    template.write_text(BOILERPLATE)
+    out = tmp_path / "pr-body.md"
+    assert md.main(["pr-body", "--old", str(old), "--new", str(new), "--out", str(out), "--template", str(template)]) == 0
+    assert "### 🆕 1 new model" in out.read_text()
+
+
+def test_cli_roundup_dry_run_prints_item_and_writes_nothing(tmp_path, monkeypatch, capsys):
+    old, new = _write_docs(tmp_path)
+    feeds = tmp_path / "planet_feeds.json"
+    feeds.write_text("[]")
+    monkeypatch.setattr(md, "request_roundup_paragraph", lambda *a, **k: "A paragraph naming Fresh.")
+    rc = md.main(["roundup", "--old", str(old), "--new", str(new), "--week-end", "2026-11-05",
+                  "--feeds", str(feeds), "--dry-run"])
+    assert rc == 0
+    printed = json.loads(capsys.readouterr().out.split("--- DRY RUN", 1)[1].split("\n", 1)[1])
+    assert printed["url"].endswith("#week-2026-W45") and printed["description"].startswith("A paragraph naming [Fresh]")
+    assert feeds.read_text() == "[]"
+
+
+def test_cli_roundup_writes_the_item(tmp_path, monkeypatch):
+    old, new = _write_docs(tmp_path)
+    feeds = tmp_path / "planet_feeds.json"
+    feeds.write_text("[]")
+    monkeypatch.setattr(md, "request_roundup_paragraph", lambda *a, **k: "")   # backend down: fallback paragraph
+    assert md.main(["roundup", "--old", str(old), "--new", str(new), "--week-end", "2026-11-05",
+                    "--feeds", str(feeds)]) == 0
+    items = json.loads(feeds.read_text())
+    assert len(items) == 1 and items[0]["description"].startswith("New on tt-inference-server: [Fresh]")
+
+
+def test_cli_roundup_no_changes(tmp_path, capsys):
+    same = tmp_path / "same.json"
+    same.write_text(json.dumps(doc([model("m")])))
+    feeds = tmp_path / "planet_feeds.json"
+    assert md.main(["roundup", "--old", str(same), "--new", str(same), "--week-end", "2026-11-05",
+                    "--feeds", str(feeds)]) == 0
+    assert "no changes this week" in capsys.readouterr().out
+    assert not feeds.exists()

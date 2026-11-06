@@ -13,6 +13,10 @@ on:
         description: "Dry run: build the list and print the diff, open no PR"
         type: boolean
         default: false
+      roundup:
+        description: "Also write this week's 'Models this week' Planet item, whatever the weekday"
+        type: boolean
+        default: false
 # Nothing is written to the repo with a token that has run downloaded code. The "build" job installs
 # and runs tt-model with a read-only token and hands models.json over as an artifact. The "pr" job has
 # write access and runs only this repo's own files.
@@ -100,28 +104,96 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    env:
+      # The weekly roundup's one model call (scripts/models_diff.py), wired like nightly.yml's. The
+      # roundup step is skipped when the credential is absent. Only this job sees it: the build job
+      # runs tt-model, which is downloaded code.
+      FOUNDRY_API_KEY: ${{ secrets.FOUNDRY_API_KEY }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The roundup reads models.json as it was a week ago out of history (24 MB, ~370 commits).
+          fetch-depth: 0
 
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install pyyaml  # prompts/*.prompt.yml parsing (scripts/llm_client.py)
+
+      # Into new/, not src/_data: the committed file must stay on disk as the "old" side of the
+      # nightly diff below.
       - uses: actions/download-artifact@v4
         with:
           name: models-json
-          path: src/_data
+          path: new
+
+      # pr-body.md lists what the run changed (models added, status changes, new bundles, ...). It is
+      # left absent when nothing changed, and the "Prepare PR body" step then uses the bare template.
+      - name: Describe the changes for the PR body
+        run: python3 scripts/models_diff.py pr-body --old src/_data/models.json --new new/models.json --out pr-body.md
+
+      # Once a week, one Planet item: the models that arrived over the seven days ending today,
+      # across tt-inference-server and tt-model bundles. The item is keyed by ISO week in its URL, so
+      # a second run on the same Thursday (or a dispatch with roundup=true) writes nothing twice.
+      - name: Weekly roundup (Thursdays)
+        if: ${{ env.FOUNDRY_API_KEY != '' && (inputs.roundup || github.event_name == 'schedule') }}
+        env:
+          FORCE: ${{ inputs.roundup }}
+        run: |
+          if [ "$FORCE" != "true" ] && [ "$(date -u +%u)" != "4" ]; then
+            echo "Not Thursday; no roundup."
+            exit 0
+          fi
+          OLD=$(git rev-list -1 --before="7 days ago" HEAD)
+          if [ -z "$OLD" ]; then
+            echo "No commit older than 7 days; no roundup."
+            exit 0
+          fi
+          git show "$OLD:src/_data/models.json" > old-week.json
+          python3 scripts/models_diff.py roundup --old old-week.json --new new/models.json --week-end "$(date -u +%F)"
+
+      - name: Prepare PR body
+        run: |
+          cp new/models.json src/_data/models.json
+          if [ ! -f pr-body.md ]; then
+            cp .github/pr-templates/models.md pr-body.md
+          fi
 
       - name: Create pull request if changed
+        id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
-          add-paths: src/_data/models.json
+          add-paths: |
+            src/_data/models.json
+            src/_data/planet_feeds.json
           commit-message: "chore: refresh models list"
           branch: "chore/nightly-models"
           delete-branch: true
           title: "chore: refresh models list"
-          body: |
-            Nightly rebuild of `src/_data/models.json` from tt-inference-server (main branch) and tt-model
-            (`scripts/build_models_data.py`).
+          # The run's digest, or the bare template when nothing changed. The boilerplate lives in
+          # .github/pr-templates/models.md so there is one copy of it.
+          body-path: pr-body.md
 
-            Status, context and users are copied from the release spec. Nothing is measured.
-            A model that exists only as a tt-model bundle takes its kind from the task tag on its card. A bundle
-            with no tag takes its kind from `scripts/data/model_kinds_inferred.json` when that file has an entry
-            for its weights repo, and the page says the kind was inferred. A bundle with neither is listed as
-            "task not stated" and needs an entry in that file.
+      # The branch is reused across runs, so each run's body-path REPLACES the previous run's
+      # digest. Post it as a comment too: a PR that accumulates several runs before merge then
+      # keeps the history of what each one changed. Same step as nightly.yml.
+      - name: Comment this run's digest on the PR
+        if: ${{ steps.cpr.outputs.pull-request-number && hashFiles('pr-body.md') != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          # Only comment when this run actually produced a digest — the bare template carries no
+          # heading and is not worth a notification.
+          if ! grep -q '^### ' pr-body.md; then
+            echo "No digest in pr-body.md (nothing changed); skipping comment."
+            exit 0
+          fi
+          {
+            echo "<!-- tt-awesome-digest run:${GITHUB_RUN_ID} -->"
+            echo "🤖 Run [\`${GITHUB_RUN_ID}\`](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}) changed:"
+            echo
+            # Strip the shared boilerplate (everything from the marker in the template) so the
+            # comment is just this run's changes.
+            sed '/tt-awesome-digest-boilerplate/,$d' pr-body.md
+          } > digest-comment.md
+          gh pr comment "$PR" --body-file digest-comment.md

@@ -36,6 +36,7 @@ Usage (CLI, see main()):
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from datetime import date, datetime, timezone
@@ -370,7 +371,11 @@ def build_roundup(diff: dict, week_end: date, paragraph: str, now: datetime) -> 
     description = paragraph.strip()
     if new and len(named) * 2 < len(new):
         description = (description + " " if description else "") + "New: " + _join([m["name"] for m in new]) + "."
-    description = link_models(description, new + diff["status"] + diff["entered_spec"])
+    # Every model the description can mention: new ones, status changes, and the listed models that
+    # gained or lost a bundle (those carry the name under "model" rather than "name").
+    mentioned = (new + diff["status"] + diff["entered_spec"] + diff["kind"] + diff["hardware"]
+                 + [dict(id=b["id"], name=b["model"]) for b in diff["bundles_added"] + diff["bundles_removed"]])
+    description = link_models(description, mentioned)
     return dict(
         type="article",
         source="models-roundup",
@@ -397,3 +402,70 @@ def write_roundup(item: dict, feeds_path) -> bool:
     items.sort(key=lambda i: i.get("dateISO") or "", reverse=True)
     path.write_text(json.dumps(items, indent=2, ensure_ascii=False) + "\n")
     return True
+
+
+# ── CLI ─────────────────────────────────────────────────────────────────────
+
+ROOT = Path(__file__).resolve().parent.parent
+FEEDS_DEFAULT = ROOT / "src" / "_data" / "planet_feeds.json"
+TEMPLATE_DEFAULT = ROOT / ".github" / "pr-templates" / "models.md"
+
+
+def _load(path) -> dict:
+    return json.loads(Path(path).read_text())
+
+
+def main(argv: list | None = None) -> int:
+    """`pr-body` writes the nightly PR body; `roundup` adds the week's Planet item. See the module docstring."""
+    import argparse
+    ap = argparse.ArgumentParser(description="What changed between two models.json documents.")
+    sub = ap.add_subparsers(dest="command", required=True)
+
+    pb = sub.add_parser("pr-body", help="write the nightly PR body, or nothing when the files are the same")
+    pb.add_argument("--old", required=True, help="models.json as committed")
+    pb.add_argument("--new", required=True, help="models.json the run just built")
+    pb.add_argument("--out", required=True, help="where to write the body (left absent when nothing changed)")
+    pb.add_argument("--template", default=str(TEMPLATE_DEFAULT), help="the boilerplate appended under the digest")
+
+    ru = sub.add_parser("roundup", help="add the week's 'Models this week' item to planet_feeds.json")
+    ru.add_argument("--old", required=True, help="models.json as of a week ago")
+    ru.add_argument("--new", required=True, help="models.json the run just built")
+    ru.add_argument("--week-end", required=True, help="the Thursday the week ends on, YYYY-MM-DD")
+    ru.add_argument("--feeds", default=str(FEEDS_DEFAULT))
+    ru.add_argument("--dry-run", action="store_true", help="print the item instead of writing it")
+
+    args = ap.parse_args(sys.argv[1:] if argv is None else argv)
+    diff = diff_models(_load(args.old), _load(args.new))
+
+    if args.command == "pr-body":
+        if write_pr_body(diff, args.out, args.template):
+            print(f"wrote {args.out}")
+        else:
+            print("no changes; no PR body written")
+        return 0
+
+    # roundup
+    if is_empty(diff):
+        print("no changes this week; no roundup item")
+        return 0
+    week_end = date.fromisoformat(args.week_end)
+    paragraph = request_roundup_paragraph(
+        build_manifest(diff), week=f"the week ending {week_end.isoformat()}",
+        anthropic_api_key=os.environ.get("ANTHROPIC_API_KEY", ""),
+        github_token=os.environ.get("GITHUB_TOKEN", ""),
+        foundry_api_key=os.environ.get("FOUNDRY_API_KEY", ""),
+    ) or fallback_paragraph(diff)
+    item = build_roundup(diff, week_end, paragraph, datetime.now(timezone.utc))
+    if args.dry_run:
+        print(f"--- DRY RUN: roundup item for {week_fragment(week_end)} ---")
+        print(json.dumps(item, indent=2, ensure_ascii=False))
+        return 0
+    if write_roundup(item, args.feeds):
+        print(f"added roundup {item['url']} to {args.feeds}")
+    else:
+        print(f"roundup {item['url']} already in {args.feeds}; nothing written")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
