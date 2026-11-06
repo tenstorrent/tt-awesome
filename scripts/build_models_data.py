@@ -328,8 +328,13 @@ _SENTENCE_END = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9\"'(])")
 
 
 def _clean_markdown(text):
-    """Inline markdown and emphasis stripped, whitespace collapsed. Links keep their text."""
-    return re.sub(r"\s+", " ", re.sub(r"[`*_#>]|\[([^\]]*)\]\([^)]*\)", r"\1", text or "")).strip()
+    """Inline markdown and emphasis stripped, whitespace collapsed. Links keep their text.
+
+    A list item that follows the opening sentence ("...p150a.\n\n- Supports ...") is a new sentence, so
+    a line-leading bullet marker becomes a sentence break the splitter recognises instead of being
+    collapsed onto the period as " - Supports", which the splitter's capital-letter lookahead would skip."""
+    t = re.sub(r"(?m)^\s*[-*+•]\s+", "\n", text or "")
+    return re.sub(r"\s+", " ", re.sub(r"[`*_#>]|\[([^\]]*)\]\([^)]*\)", r"\1", t)).strip()
 
 
 def split_first_sentence(text):

@@ -61,3 +61,12 @@ def test_markdown_is_stripped():
 
 def test_empty_description_gives_empty_blurb():
     assert blurb(None) == "" and blurb("") == ""
+
+
+def test_a_bullet_list_after_the_first_sentence_is_not_part_of_it():
+    # The Pi-0.5 card: a one-sentence opener, then a markdown list. Collapsing whitespace used to glue
+    # "- Supports ..." onto the sentence, because the splitter wanted a capital after the period.
+    card = ("This package runs the [Pi-0.5](https://huggingface.co/lerobot/pi05_base) VLA model of Physical "
+            "Intelligence on one Tenstorrent Blackhole p150a.\n\n- Supports the following configurations:\n"
+            "  - num_cameras: 1/2/3/4\n  - Prompt bucket: 32/64/128/224\n")
+    assert blurb(card) == "This package runs the Pi-0.5 VLA model of Physical Intelligence on one Tenstorrent Blackhole p150a."

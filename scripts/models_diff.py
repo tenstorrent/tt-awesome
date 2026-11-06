@@ -31,6 +31,7 @@ Design notes:
 Usage (CLI, see main()):
     models_diff.py pr-body --old OLD.json --new NEW.json --out pr-body.md [--template T.md]
     models_diff.py roundup --old OLD.json --new NEW.json --week-end YYYY-MM-DD [--feeds F] [--dry-run]
+    models_diff.py carry-forward --from BRANCH_FEEDS.json [--feeds F]
 """
 
 from __future__ import annotations
@@ -320,9 +321,27 @@ def fallback_paragraph(diff: dict) -> str:
                 if m["new"] and not any(e["id"] == m["id"] for e in diff["entered_spec"])]
     if promoted:
         sentences.append(f"Status changes: {_join(promoted)}.")
+    left = [m["name"] for m in diff["status"] if m["old"] and not m["new"]]
+    if left:
+        sentences.append(f"{_join(left)} left tt-inference-server but {'stays' if len(left) == 1 else 'stay'} listed as "
+                         f"{'a bundle' if len(left) == 1 else 'bundles'}.")
+    withdrawn = [f"{b['repo']} from {b['model']}" for b in diff["bundles_removed"]]
+    if withdrawn:
+        sentences.append(f"Bundles withdrawn: {_join(withdrawn)}.")
     removed = [m["name"] for m in diff["removed"]]
     if removed:
         sentences.append(f"Removed: {_join(removed)}.")
+    kinds = [f"{m['name']} from {m['old']} to {m['new']}" for m in diff["kind"]]
+    if kinds:
+        sentences.append(f"Reclassified: {_join(kinds)}.")
+    hardware = [f"{m['name']} on {_join(m['added'])}" for m in diff["hardware"]]
+    if hardware:
+        sentences.append(f"Now also runs: {_join(hardware)}.")
+    unreadable = diff["unreadable"]
+    if unreadable["now_unreadable"]:
+        sentences.append(f"Manifests that could not be read this week: {_join(unreadable['now_unreadable'])}.")
+    if unreadable["now_readable"]:
+        sentences.append(f"Readable again: {_join(unreadable['now_readable'])}.")
     old_rel, new_rel = diff["spec"]["old"].get("release"), diff["spec"]["new"].get("release")
     if old_rel != new_rel:
         sentences.append(f"tt-inference-server moved from {old_rel} to {new_rel}.")
@@ -404,6 +423,25 @@ def write_roundup(item: dict, feeds_path) -> bool:
     return True
 
 
+def carry_forward(branch_feeds, feeds_path) -> int:
+    """Copy the roundup items an unmerged PR branch holds into `feeds_path`; returns how many were added.
+
+    peter-evans/create-pull-request rebuilds the PR branch from main plus the run's own tree on every
+    run, so a Thursday item that has not been merged by Friday would vanish from the PR. The Friday
+    run therefore reads the branch's planet_feeds.json first and keeps every "models-roundup" item
+    whose URL main does not have. Only roundup items are carried: anything else on the branch is
+    the previous run's models.json business, which this run rebuilds itself.
+    """
+    branch_path = Path(branch_feeds)
+    if not branch_path.exists():
+        return 0
+    added = 0
+    for item in json.loads(branch_path.read_text()):
+        if item.get("source") == "models-roundup" and item.get("url") and write_roundup(item, feeds_path):
+            added += 1
+    return added
+
+
 # ── CLI ─────────────────────────────────────────────────────────────────────
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -434,7 +472,17 @@ def main(argv: list | None = None) -> int:
     ru.add_argument("--feeds", default=str(FEEDS_DEFAULT))
     ru.add_argument("--dry-run", action="store_true", help="print the item instead of writing it")
 
+    cf = sub.add_parser("carry-forward", help="keep the roundup items of an unmerged PR branch in planet_feeds.json")
+    cf.add_argument("--from", dest="branch_feeds", required=True, help="planet_feeds.json as on the PR branch")
+    cf.add_argument("--feeds", default=str(FEEDS_DEFAULT))
+
     args = ap.parse_args(sys.argv[1:] if argv is None else argv)
+
+    if args.command == "carry-forward":
+        n = carry_forward(args.branch_feeds, args.feeds)
+        print(f"carried {n} roundup item{'s' if n != 1 else ''} forward from the PR branch")
+        return 0
+
     diff = diff_models(_load(args.old), _load(args.new))
 
     if args.command == "pr-body":

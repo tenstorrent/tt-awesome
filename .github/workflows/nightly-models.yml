@@ -105,10 +105,15 @@ jobs:
       contents: write
       pull-requests: write
     env:
-      # The weekly roundup's one model call (scripts/models_diff.py), wired like nightly.yml's. The
-      # roundup step is skipped when the credential is absent. Only this job sees it: the build job
-      # runs tt-model, which is downloaded code.
+      # The weekly roundup's one model call (scripts/models_diff.py), wired exactly like nightly.yml's
+      # summarization so a backend switch there carries over here. The roundup step is skipped when
+      # the credential is absent. Only this job sees these: the build job runs tt-model, which is
+      # downloaded code.
       FOUNDRY_API_KEY: ${{ secrets.FOUNDRY_API_KEY }}
+      FOUNDRY_ENDPOINT: ${{ vars.FOUNDRY_ENDPOINT }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      SUMMARY_PROVIDER: ${{ vars.SUMMARY_PROVIDER }}
+      SUMMARY_MODEL: ${{ vars.SUMMARY_MODEL }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -130,6 +135,17 @@ jobs:
       # left absent when nothing changed, and the "Prepare PR body" step then uses the bare template.
       - name: Describe the changes for the PR body
         run: python3 scripts/models_diff.py pr-body --old src/_data/models.json --new new/models.json --out pr-body.md
+
+      # create-pull-request rebuilds the PR branch from main plus this run's tree, so a Thursday
+      # roundup that is still unmerged on Friday would silently fall out of the PR. Keep it.
+      - name: Carry forward an unmerged roundup
+        run: |
+          if git fetch --quiet origin chore/nightly-models 2>/dev/null; then
+            git show origin/chore/nightly-models:src/_data/planet_feeds.json > branch-feeds.json
+            python3 scripts/models_diff.py carry-forward --from branch-feeds.json
+          else
+            echo "No open PR branch; nothing to carry forward."
+          fi
 
       # Once a week, one Planet item: the models that arrived over the seven days ending today,
       # across tt-inference-server and tt-model bundles. The item is keyed by ISO week in its URL, so

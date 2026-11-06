@@ -340,3 +340,47 @@ def test_cli_roundup_no_changes(tmp_path, capsys):
                     "--feeds", str(feeds)]) == 0
     assert "no changes this week" in capsys.readouterr().out
     assert not feeds.exists()
+
+
+# ── Fix pass after the whole-branch review (2026-11-06) ─────────────────────
+
+def test_fallback_paragraph_covers_every_kind_of_change():
+    # A week with only a demotion, a withdrawn bundle, a kind change, a hardware addition and a manifest
+    # flip is not empty, so an item is built; its fallback must say something for each.
+    old = doc([model("Gone", source="tt-inference-server", inSpec=True, status="Complete", kind="LLM",
+                     hardware=["Galaxy"], bundles=[bundle("o/gone-v1")])], unreadable=["o/fixed"])
+    new = doc([model("Gone", kind="VLM", hardware=["Galaxy", "p150"], bundles=[])], unreadable=["o/broken"])
+    p = md.fallback_paragraph(md.diff_models(old, new))
+    assert "Gone" in p and "left tt-inference-server" in p
+    assert "o/gone-v1" in p and "withdrawn" in p
+    assert "LLM to VLM" in p
+    assert "p150" in p
+    assert "o/broken" in p and "o/fixed" in p
+    assert p.endswith(".")
+
+
+def test_carry_forward_keeps_an_unmerged_roundup(tmp_path):
+    # Friday's run rebuilds the PR branch from main plus its own tree; Thursday's item lives only on the
+    # branch until merged. Carrying it forward keeps it (and its one paid-for paragraph) in the PR.
+    branch = tmp_path / "branch_feeds.json"
+    main_feeds = tmp_path / "planet_feeds.json"
+    thursday = dict(url="https://docs.tenstorrent.com/tt-awesome/models/#week-2026-W45", source="models-roundup",
+                    dateISO="2026-11-05T07:50:00Z", title="Models this week: 1 change")
+    other = dict(url="https://x/branch-only-release", source="github", dateISO="2026-11-05T00:00:00Z")
+    branch.write_text(json.dumps([thursday, other]))
+    main_feeds.write_text(json.dumps([dict(url="https://a", dateISO="2026-11-06T00:00:00Z")]))
+    assert md.carry_forward(branch, main_feeds) == 1
+    urls = [i["url"] for i in json.loads(main_feeds.read_text())]
+    assert urls == ["https://a", thursday["url"]]           # the roundup only, in dateISO order
+    assert md.carry_forward(branch, main_feeds) == 0         # idempotent
+
+
+def test_cli_carry_forward(tmp_path, capsys):
+    branch = tmp_path / "branch_feeds.json"
+    feeds = tmp_path / "planet_feeds.json"
+    branch.write_text(json.dumps([dict(url="https://docs.tenstorrent.com/tt-awesome/models/#week-2026-W45",
+                                       source="models-roundup", dateISO="2026-11-05T07:50:00Z")]))
+    feeds.write_text("[]")
+    assert md.main(["carry-forward", "--from", str(branch), "--feeds", str(feeds)]) == 0
+    assert "carried 1 roundup" in capsys.readouterr().out
+    assert len(json.loads(feeds.read_text())) == 1
