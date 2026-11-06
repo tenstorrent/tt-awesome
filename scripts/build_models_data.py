@@ -312,10 +312,66 @@ if len(unreadable) > len(catalog) / 2:
     die(f"{len(unreadable)} of {len(catalog)} manifests could not be read; is tt-model working?")
 
 
-def first_sentence(text, n=240):
-    t = re.sub(r"\s+", " ", re.sub(r"[`*_#>]|\[([^\]]*)\]\([^)]*\)", r"\1", text or "")).strip()
-    cut = re.search(r"(?<=[.!?])\s", t[:n * 2])
-    return t[:cut.start()] if cut and cut.start() <= n else (t[:n].rsplit(" ", 1)[0] + "…" if len(t) > n else t)
+# ---- Card blurbs
+# The one line a Models card shows for a bundle, taken from the card's description. Descriptions are long single
+# sentences (median 776 characters over the 31 bundle cards read on 2026-11-06), so a fixed-width cut landed
+# mid-clause and ended in "…". The rule keeps whole sentences instead:
+#   1. the first sentence, when it fits in n characters;
+#   2. else that sentence without its parenthetical asides, which is where the architecture detail lives;
+#   3. else a cut at the last clause boundary (": ", "; " or ", ") before n, ended with a period.
+# A blurb therefore always ends in sentence punctuation and never in an ellipsis. (Changing this rule rewrites every
+# blurb on the next nightly run; models.json is never edited by hand.)
+
+# A sentence ends at ., ! or ? followed by whitespace and a capital, digit, quote or bracket. The lookahead keeps
+# "v5.0 planner" and "0.17 m voxels" in one sentence: their period is followed by a digit with no space.
+_SENTENCE_END = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9\"'(])")
+
+
+def _clean_markdown(text):
+    """Inline markdown and emphasis stripped, whitespace collapsed. Links keep their text."""
+    return re.sub(r"\s+", " ", re.sub(r"[`*_#>]|\[([^\]]*)\]\([^)]*\)", r"\1", text or "")).strip()
+
+
+def split_first_sentence(text):
+    """The first sentence of already-cleaned text, punctuation included; the whole text when it has no end."""
+    m = _SENTENCE_END.search(text)
+    return text[:m.start()] if m else text
+
+
+def _drop_parentheticals(text):
+    """The text without any (...) group, nested groups included, with the punctuation around the gap tidied."""
+    out, depth = [], 0
+    for ch in text:
+        if ch == "(":
+            depth += 1
+        elif ch == ")" and depth:
+            depth -= 1
+        elif depth == 0:
+            out.append(ch)
+    t = re.sub(r"\s+", " ", "".join(out))
+    t = re.sub(r"\s+([,.;:])", r"\1", t)     # "detector , run" -> "detector, run"
+    return re.sub(r",\s*,", ",", t).strip()  # ", ," left by a dropped group between two commas
+
+
+def _end_sentence(text):
+    return text if text.endswith((".", "!", "?")) else text + "."
+
+
+def blurb(text, n=240):
+    """A whole-sentence blurb of at most n characters (plus its final period) from a card description."""
+    s = split_first_sentence(_clean_markdown(text))
+    if not s:
+        return ""
+    if len(s) <= n:
+        return s
+    s = _drop_parentheticals(s)
+    if len(s) <= n:
+        return _end_sentence(s)
+    head = s[:n]
+    cut = max(head.rfind(": "), head.rfind("; "), head.rfind(", "))
+    if cut < n // 2:  # no clause boundary in the second half: fall back to a word boundary
+        cut = head.rfind(" ")
+    return head[:cut].rstrip(" ,;:.") + "."
 
 
 # A decision model answers typed questions (choice, score, noul) with probabilities and generates no text. Its card
@@ -367,7 +423,7 @@ def bundle_facts(c):
         hardware=[hardware(h) for h in sorted({str(h) for h in names if h}, key=str.lower)],
         context=k(serve.get("max_model_len") or (mf.get("resources") or {}).get("max_model_len")),
         toolParser=caps.get("tool_parser"), reasoningParser=caps.get("reasoning_parser"),
-        task=card.get("pipeline_tag"), license=card.get("license"), blurb=first_sentence(card.get("description")),
+        task=card.get("pipeline_tag"), license=card.get("license"), blurb=blurb(card.get("description")),
         perf=bundle_perf(card.get("performance")),
         decision=bool(DECISION.search(" ".join(str(card.get(f) or "") for f in ("description", "intended_use")))))
     return b, (mf.get("weights") or {}).get("repo_id") or repo, mf
@@ -470,8 +526,12 @@ for m in all_models:
     m["newest"] = max([b["updated"] for b in m["bundles"]] or [""])
     n = len(m["bundles"])
     if m["inSpec"]:
-        nh = len({x["hardware"] for x in m["rows"]})
-        m["summary"] = (f"Listed in tt-inference-server on {nh} hardware type{'s' if nh != 1 else ''}; best status {m['status']}."
+        # Name the hardware rather than count it: "on WH LoudBox/QuietBox and Galaxy" tells a reader more than "on 2
+        # hardware types". Only the spec rows count here, since the sentence is about tt-inference-server; bundles
+        # get their own sentence below.
+        hw = sorted({x["hardware"] for x in m["rows"]})
+        names = hw[0] if len(hw) == 1 else ", ".join(hw[:-1]) + " and " + hw[-1]
+        m["summary"] = (f"Runs through tt-inference-server on {names}; status {m['status']}."
                         + (f" {n} tt-model {'bundle' if n == 1 else 'bundles'} also published." if n else ""))
     else:
         blurb = next((b["blurb"] for b in sorted(m["bundles"], key=lambda b: (b["updated"], b["repo"]), reverse=True) if b.get("blurb")), "")
