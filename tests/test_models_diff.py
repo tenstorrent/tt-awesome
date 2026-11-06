@@ -19,7 +19,7 @@ import models_diff as md  # noqa: E402
 def model(id, **kw):
     """A models.json model record with the keys the diff reads, in the shape build_models_data.py writes."""
     m = dict(id=id, name=id, source="tt-model bundle", kind="LLM", status=None, inSpec=False,
-             hardware=[], bundles=[])
+             hardware=[], bundles=[], weights=f"org/{id}", purpose=None)
     m.update(kw)
     return m
 
@@ -41,7 +41,8 @@ def test_added_and_removed_models():
                                 hardware=["BH QuietBox 2"], bundles=[bundle("x/b-p300")])])
     d = md.diff_models(old, new)
     assert d["added"] == [dict(id="b", name="b", source="tt-inference-server", kind="VLM", status="Functional",
-                               hardware=["BH QuietBox 2"], owners=["x"], bundles=["x/b-p300"])]
+                               hardware=["BH QuietBox 2"], owners=["x"], bundles=["x/b-p300"],
+                               weights="org/b", purpose=None, url="https://huggingface.co/org/b")]
     assert [m["id"] for m in d["removed"]] == ["gone"]
 
 
@@ -49,8 +50,9 @@ def test_status_change_and_entering_spec():
     old = doc([model("m", bundles=[bundle("o/m")])])
     new = doc([model("m", source="tt-inference-server", inSpec=True, status="Functional", bundles=[bundle("o/m")])])
     d = md.diff_models(old, new)
-    assert d["status"] == [dict(id="m", name="m", old=None, new="Functional")]
-    assert d["entered_spec"] == [dict(id="m", name="m", status="Functional", kind="LLM", hardware=[])]
+    assert d["status"] == [dict(id="m", name="m", old=None, new="Functional", url="https://huggingface.co/org/m")]
+    assert d["entered_spec"] == [dict(id="m", name="m", status="Functional", kind="LLM", hardware=[], purpose=None,
+                                      url="https://huggingface.co/org/m")]
     assert d["added"] == [] and d["removed"] == []
 
 
@@ -59,7 +61,7 @@ def test_leaving_spec_is_a_status_change_not_a_removal():
     new = doc([model("m", bundles=[bundle("o/m")])])
     d = md.diff_models(old, new)
     assert d["removed"] == []
-    assert d["status"] == [dict(id="m", name="m", old="Complete", new=None)]
+    assert d["status"] == [dict(id="m", name="m", old="Complete", new=None, url="https://huggingface.co/org/m")]
     assert d["entered_spec"] == []
 
 
@@ -67,16 +69,17 @@ def test_bundle_added_and_removed_on_an_existing_model():
     old = doc([model("m", bundles=[bundle("o/m-v1")])])
     new = doc([model("m", bundles=[bundle("o/m-v2"), bundle("p/m-fast")])])
     d = md.diff_models(old, new)
-    assert d["bundles_added"] == [dict(model="m", id="m", repo="o/m-v2"), dict(model="m", id="m", repo="p/m-fast")]
-    assert d["bundles_removed"] == [dict(model="m", id="m", repo="o/m-v1")]
+    u = "https://huggingface.co/org/m"
+    assert d["bundles_added"] == [dict(model="m", id="m", repo="o/m-v2", url=u), dict(model="m", id="m", repo="p/m-fast", url=u)]
+    assert d["bundles_removed"] == [dict(model="m", id="m", repo="o/m-v1", url=u)]
 
 
 def test_kind_and_hardware_changes():
     old = doc([model("m", kind="LLM", hardware=["BH QuietBox 2"])])
     new = doc([model("m", kind="VLM", hardware=["BH QuietBox 2", "Galaxy"])])
     d = md.diff_models(old, new)
-    assert d["kind"] == [dict(id="m", name="m", old="LLM", new="VLM")]
-    assert d["hardware"] == [dict(id="m", name="m", added=["Galaxy"])]
+    assert d["kind"] == [dict(id="m", name="m", old="LLM", new="VLM", url="https://huggingface.co/org/m")]
+    assert d["hardware"] == [dict(id="m", name="m", added=["Galaxy"], url="https://huggingface.co/org/m")]
 
 
 def test_unreadable_bundles_both_ways():
@@ -90,10 +93,11 @@ def test_missing_keys_in_the_old_document_are_empty():
     # A week-old file from before a schema change: no unreadableBundles, a model with no hardware or bundles key.
     old = dict(models=[dict(id="m", name="m", source="tt-model bundle", kind="LLM", status=None, inSpec=False)],
                spec=dict(release="0.25.0", commit="2db98e38c"))
-    new = doc([model("m", hardware=["Galaxy"], bundles=[bundle("o/m")])])
+    new = doc([model("m", hardware=["Galaxy"], bundles=[bundle("o/m")], weights=None)])
     d = md.diff_models(old, new)
-    assert d["hardware"] == [dict(id="m", name="m", added=["Galaxy"])]
-    assert d["bundles_added"] == [dict(model="m", id="m", repo="o/m")]
+    # A model with no weights repo falls back to its tt-awesome page.
+    assert d["hardware"] == [dict(id="m", name="m", added=["Galaxy"], url="https://docs.tenstorrent.com/tt-awesome/models/m/")]
+    assert d["bundles_added"] == [dict(model="m", id="m", repo="o/m", url="https://docs.tenstorrent.com/tt-awesome/models/m/")]
     assert d["unreadable"] == dict(now_unreadable=[], now_readable=[])
     assert d["spec"] == dict(old=dict(release="0.25.0", commit="2db98e38c"), new=dict(release="0.26.1", commit="0ad0f4be9"))
 
@@ -243,18 +247,19 @@ def test_build_roundup_body_has_paragraph_tables_and_bullets():
     d = rich_diff()
     body = md.build_roundup(d, WEEK_END, "Fresh landed on tt-inference-server.", NOW)["description"]
     sections = body.split("\n\n")
-    assert sections[0] == "[Fresh](https://docs.tenstorrent.com/tt-awesome/models/Fresh/) landed on tt-inference-server."
+    # Every model name links to the original model's Hugging Face card; a bundle id links to the bundle's card.
+    assert sections[0] == "[Fresh](https://huggingface.co/org/Fresh) landed on tt-inference-server."
     assert "**New on tt-inference-server**" in sections
     assert ("| Model | Kind | Status | Hardware |\n|---|---|---|---|\n"
-            "| [Fresh](https://docs.tenstorrent.com/tt-awesome/models/Fresh/) | LLM | Experimental | Galaxy |") in body
+            "| [Fresh](https://huggingface.co/org/Fresh) | LLM | Experimental | Galaxy |") in body
     assert "**New tt-model bundles**" in sections
     assert ("| Model | Kind | Bundle | Hardware |\n|---|---|---|---|\n"
-            "| [Bundled](https://docs.tenstorrent.com/tt-awesome/models/Bundled/) | LLM | u/bundled-p150 | — |") in body
+            "| [Bundled](https://huggingface.co/org/Bundled) | LLM | [u/bundled-p150](https://huggingface.co/u/bundled-p150) | — |") in body
     assert "**Also this week**" in sections
     bullets = sections[sections.index("**Also this week**") + 1].splitlines()
-    kept = "[Kept](https://docs.tenstorrent.com/tt-awesome/models/Kept/)"
+    kept = "[Kept](https://huggingface.co/org/Kept)"
     assert f"- {kept}: Functional → Complete" in bullets
-    assert f"- {kept}: new bundle o/kept-v2" in bullets
+    assert f"- {kept}: new bundle [o/kept-v2](https://huggingface.co/o/kept-v2)" in bullets
     assert f"- {kept}: bundle o/kept-v1 withdrawn" in bullets
     assert f"- {kept}: reclassified LLM → VLM" in bullets
     assert f"- {kept}: now also on BH QuietBox 2" in bullets
@@ -269,7 +274,16 @@ def test_build_roundup_omits_empty_sections_and_lists_several_bundles():
     body = md.build_roundup(md.diff_models(doc([]), new), WEEK_END, "", NOW)["description"]
     assert "**Also this week**" not in body
     assert body.startswith("**New on tt-inference-server**")   # an empty paragraph leaves no blank lead
-    assert "| [Multi](https://docs.tenstorrent.com/tt-awesome/models/Multi/) | LLM | a/multi-p150, b/multi-qb2 | p150 |" in body
+    assert ("| [Multi](https://huggingface.co/org/Multi) | LLM | [a/multi-p150](https://huggingface.co/a/multi-p150), "
+            "[b/multi-qb2](https://huggingface.co/b/multi-qb2) | p150 |") in body
+
+
+def test_kind_cell_carries_the_inferred_purpose():
+    new = doc([model("MIRA", kind="VLM", purpose="deep-research agent", hardware=["p150"], bundles=[bundle("r/mira")])])
+    body = md.build_roundup(md.diff_models(doc([]), new), WEEK_END, "", NOW)["description"]
+    assert "| [MIRA](https://huggingface.co/org/MIRA) | VLM, deep-research agent | [r/mira](https://huggingface.co/r/mira) | p150 |" in body
+    manifest = md.build_manifest(md.diff_models(doc([]), new))
+    assert "new tt-model bundle: MIRA (VLM, deep-research agent)" in manifest
 
 
 def test_entered_spec_models_sit_in_the_spec_table():
@@ -277,7 +291,7 @@ def test_entered_spec_models_sit_in_the_spec_table():
     new = doc([model("Gem", source="tt-inference-server", inSpec=True, status="Functional", kind="LLM",
                      hardware=["BH QuietBox 2"], bundles=[bundle("o/gem")])])
     body = md.build_roundup(md.diff_models(old, new), WEEK_END, "", NOW)["description"]
-    assert "| [Gem](https://docs.tenstorrent.com/tt-awesome/models/Gem/) | LLM | Functional | BH QuietBox 2 |" in body
+    assert "| [Gem](https://huggingface.co/org/Gem) | LLM | Functional | BH QuietBox 2 |" in body
     assert "**Also this week**" not in body     # entering the spec is the table row, not a second bullet
 
 
@@ -285,7 +299,7 @@ def test_build_roundup_links_a_model_that_only_gained_a_bundle():
     old = doc([model("Elyza", bundles=[bundle("o/elyza-v1")])])
     new = doc([model("Elyza", bundles=[bundle("o/elyza-v1"), bundle("t/elyza-fast")])])
     body = md.build_roundup(md.diff_models(old, new), WEEK_END, "", NOW)["description"]
-    assert "- [Elyza](https://docs.tenstorrent.com/tt-awesome/models/Elyza/): new bundle t/elyza-fast" in body
+    assert "- [Elyza](https://huggingface.co/org/Elyza): new bundle [t/elyza-fast](https://huggingface.co/t/elyza-fast)" in body
 
 
 def test_manifest_and_paragraph_inputs_name_no_publishers():
@@ -360,7 +374,7 @@ def test_cli_roundup_dry_run_prints_item_and_writes_nothing(tmp_path, monkeypatc
                   "--feeds", str(feeds), "--dry-run"])
     assert rc == 0
     printed = json.loads(capsys.readouterr().out.split("--- DRY RUN", 1)[1].split("\n", 1)[1])
-    assert printed["url"].endswith("#week-2026-W45") and printed["description"].startswith("A paragraph naming [Fresh]")
+    assert printed["url"].endswith("#week-2026-W45") and printed["description"].startswith("A paragraph naming [Fresh](https://huggingface.co/org/Fresh)")
     assert feeds.read_text() == "[]"
 
 
@@ -440,7 +454,7 @@ def test_a_new_model_with_several_bundles_counts_each_bundle():
     manifest = md.build_manifest(d)
     assert "new tt-model bundles: gpt-oss-20b (LLM), 3 bundles" in manifest
     assert "a/gpt-oss-20b-p150" not in md.fallback_paragraph(d)   # repo ids live in the table, publishers never in prose
-    assert "a/gpt-oss-20b-p150, b/gpt-oss-20b-galaxy, b/gpt-oss-20b-qb2" in md.build_roundup(d, WEEK_END, "", NOW)["description"]
+    assert "[a/gpt-oss-20b-p150](https://huggingface.co/a/gpt-oss-20b-p150)" in md.build_roundup(d, WEEK_END, "", NOW)["description"]
 
 
 def test_write_roundup_honours_a_declined_url(tmp_path):
@@ -482,3 +496,13 @@ def test_cli_roundup_replace_flag(tmp_path, monkeypatch):
     md.main(["roundup", "--old", str(old), "--new", str(new), "--week-end", "2026-11-05", "--feeds", str(feeds), "--replace"])
     items = json.loads(feeds.read_text())
     assert len(items) == 1 and items[0]["description"].startswith("Two.")
+
+
+def test_kind_cell_shows_only_the_purpose_when_the_kind_is_already_specific():
+    # "Embedding, multimodal embedding" says it twice; "VLM, deep-research agent" does not, since LLM and VLM
+    # are families and the purpose says what this member is for.
+    assert md._kind_text(dict(kind="Embedding", purpose="multimodal embedding")) == "multimodal embedding"
+    assert md._kind_text(dict(kind="Text ranking", purpose="text reranker for 100+ languages and code")) == "text reranker for 100+ languages and code"
+    assert md._kind_text(dict(kind="VLM", purpose="deep-research agent")) == "VLM, deep-research agent"
+    assert md._kind_text(dict(kind="LLM", purpose=None)) == "LLM"
+    assert md._kind_text(dict(kind="Object detection", purpose=None)) == "Object detection"

@@ -72,11 +72,15 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: tt-model search --catalog --json --limit "$CATALOG_LIMIT" > catalog.json
 
+      # --hf-cards: each original model's Hugging Face card (pipeline tag, tags), a source of kind and
+      # purpose for bundles whose card states no task. Cached so the order check below reads the same.
       - name: Build models.json
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python3 scripts/build_models_data.py \
             --isrv .tt-inference-server --catalog catalog.json --limit "$CATALOG_LIMIT" \
-            --manifests manifests.json \
+            --manifests manifests.json --hf-cards hf_cards.json \
             --spec-commit "$(git -C .tt-inference-server rev-parse --short=9 HEAD)"
           git --no-pager diff --stat -- src/_data/models.json || true
 
@@ -87,7 +91,7 @@ jobs:
           python3 -c "import json; c = json.load(open('catalog.json')); json.dump(c[::-1], open('catalog_reversed.json', 'w'))"
           python3 scripts/build_models_data.py \
             --isrv .tt-inference-server --catalog catalog_reversed.json --limit "$CATALOG_LIMIT" \
-            --manifests manifests.json --out models_reversed.json \
+            --manifests manifests.json --hf-cards hf_cards.json --out models_reversed.json \
             --spec-commit "$(git -C .tt-inference-server rev-parse --short=9 HEAD)"
           cmp src/_data/models.json models_reversed.json
 

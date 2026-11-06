@@ -33,10 +33,12 @@ import argparse
 import ast
 import concurrent.futures as cf
 import json
+import os
 import pathlib
 import re
 import subprocess
 import sys
+import urllib.request
 from collections import Counter
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -47,6 +49,8 @@ ap.add_argument("--limit", type=int, default=0,
                 help="the --limit given to tt-model search; a catalog with exactly this many rows was cut off")
 ap.add_argument("--spec-commit", default="", help="commit of the checkout; read from .git/HEAD when left out, and required when --isrv has no .git directory")
 ap.add_argument("--manifests", default="", help="JSON cache of `tt-model info` output. Read when it exists; written after a fetch.")
+ap.add_argument("--hf-cards", default="", help="JSON cache of each original model's Hugging Face card metadata (pipeline tag, "
+                "tags). Read when it exists; written after a fetch. HF_TOKEN is used when set.")
 ap.add_argument("--out", default=str(HERE.parent / "src/_data/models.json"))
 args = ap.parse_args()
 ISRV = pathlib.Path(args.isrv)
@@ -385,6 +389,78 @@ def blurb(text, n=240):
 DECISION = re.compile(r"system ?one|noul", re.I)
 
 
+# ---- Purpose inference
+# What a model is for, beyond its task tag. A bundle with no task tag used to be listed as "Served with vLLM, task
+# not stated", which is what every deep-research and thinking model published in November 2026 got. Three more
+# sources say what such a model is for, tried in this order:
+#   1. the tags on the original model's Hugging Face card (the weights repo the bundle points at);
+#   2. the "<Name>, a <phrase> model: ..." opening of the bundle card's description, when the phrase says more
+#      than a size ("a multimodal deep-research agent model" yes, "a 122B-parameter mixture-of-experts model" no);
+#   3. words in the model's name (Thinker, DeepResearch, Coder).
+# The same Hugging Face card's pipeline tag also supplies the kind when the bundle card has no task tag.
+HF_API = "https://huggingface.co/api/models/"
+
+
+def kind_from_hf_card(card):
+    """The kind named by the original model's Hugging Face pipeline tag, or None when the card has none."""
+    tag = (card or {}).get("pipeline_tag")
+    return (TAG_KIND.get(tag) or tag.replace("-", " ").capitalize()) if tag else None
+
+
+# Hugging Face tags that say what a model is for, most specific first: the first that matches is the purpose.
+PURPOSE_TAGS = [("deep-research", "deep-research agent"), ("code-video", "code to video"),
+                ("video-generation", "video generation"), ("tool-use", "agent with tool calling"), ("agent", "agent"),
+                ("reasoning", "reasoning"), ("thinking", "reasoning"), ("code", "code"), ("math", "math"),
+                ("medical", "medical"), ("ocr", "OCR"), ("translation", "translation")]
+# Words in a name that say the same, in the same order of specificity.
+PURPOSE_NAMES = [(r"deep-?research", "deep-research agent"), (r"think|reason", "reasoning"), (r"coder|\bcode\b", "code"),
+                 (r"\bmath\b", "math"), (r"\bocr\b", "OCR"), (r"rerank", "reranking"), (r"embed", "embedding")]
+# A description phrase is a purpose only when it names one of these; a phrase that is all size and architecture
+# ("122B-parameter mixture-of-experts") is not.
+PURPOSE_WORDS = {"agent", "research", "reasoning", "thinking", "code", "coder", "math", "detector", "detection",
+                 "planner", "planning", "segmentation", "ranker", "reranker", "reranking", "embedding", "speech",
+                 "text-to-speech", "tts", "music", "video", "image", "ocr", "decision", "verifier", "translation",
+                 "vision", "perception", "depth", "pose", "generation", "generator", "synthesis", "transcription",
+                 "recognition", "forecasting", "classification", "retrieval", "seeking", "assistant", "chat"}
+_PHRASE_RE = re.compile(r"^[^,:(]+, an? (.+?)(?=:|\(|\.\s|\.$|$)")
+_PARAM_RE = re.compile(r"\b\d[\d.]*[BMK]?-parameter\s*", re.I)
+
+
+def _purpose_from_description(description):
+    m = _PHRASE_RE.match(re.sub(r"\s+", " ", description or "").strip())
+    if not m:
+        return None
+    phrase = _PARAM_RE.sub("", m.group(1)).strip(" ,")
+    if len(phrase) > 70 or not (set(re.findall(r"[a-z-]+", phrase.lower())) & PURPOSE_WORDS):
+        return None
+    return re.sub(r"\s+model$", "", phrase)
+
+
+def infer_purpose(name, hf_card, description):
+    """(purpose, basis) for a model, or (None, None) when nothing says what it is for."""
+    tags = set((hf_card or {}).get("tags") or [])
+    for tag, purpose in PURPOSE_TAGS:
+        if tag in tags:
+            return purpose, "the tags on the original model's Hugging Face card"
+    phrase = _purpose_from_description(description)
+    if phrase:
+        return phrase, "the bundle card's description"
+    for pattern, purpose in PURPOSE_NAMES:
+        if re.search(pattern, name or "", re.I):
+            return purpose, "the model's name"
+    return None, None
+
+
+def fetch_hf_card(repo):
+    """pipeline_tag and tags of a Hugging Face model repo; an _error record when it cannot be read."""
+    headers = {"Authorization": f"Bearer {os.environ['HF_TOKEN']}"} if os.environ.get("HF_TOKEN") else {}
+    try:
+        with urllib.request.urlopen(urllib.request.Request(HF_API + repo, headers=headers), timeout=30) as r:
+            j = json.load(r)
+        return {"pipeline_tag": j.get("pipeline_tag"), "tags": [t for t in j.get("tags") or [] if isinstance(t, str)]}
+    except Exception as e:  # a model whose card cannot be read keeps the kind the bundle gives it
+        return {"_error": str(e)[:120]}
+
 def manifest_hardware_names(mf):
     """The hardware names a manifest gives: its serve profiles, else its mesh device names."""
     cont = mf.get("container") or {}
@@ -429,6 +505,8 @@ def bundle_facts(c):
         context=k(serve.get("max_model_len") or (mf.get("resources") or {}).get("max_model_len")),
         toolParser=caps.get("tool_parser"), reasoningParser=caps.get("reasoning_parser"),
         task=card.get("pipeline_tag"), license=card.get("license"), blurb=blurb(card.get("description")),
+        # The opening of the card's description, for infer_purpose; not shown on the site.
+        descriptionHead=re.sub(r"\s+", " ", card.get("description") or "")[:240],
         perf=bundle_perf(card.get("performance")),
         decision=bool(DECISION.search(" ".join(str(card.get(f) or "") for f in ("description", "intended_use")))))
     return b, (mf.get("weights") or {}).get("repo_id") or repo, mf
@@ -451,6 +529,24 @@ for c in catalog:
         serve=None, toolParser=None, reasoningParser=None, impls=[], studio=None))
     m["bundles"].append(b)
 
+# The original model's Hugging Face card, for every model with a weights repo: a second source of kind for a
+# bundle with no task tag, and the first source of purpose for every model. Cached like the manifests.
+hf_cache = pathlib.Path(args.hf_cards) if args.hf_cards else None
+hf_cards = json.loads(hf_cache.read_text()) if hf_cache and hf_cache.exists() else {}
+want = sorted({m["weights"] for m in list(models.values()) + list(only.values()) if m.get("weights")} - set(hf_cards))
+if want:
+    with cf.ThreadPoolExecutor(8) as ex:
+        for repo, card in zip(want, ex.map(fetch_hf_card, want)):
+            hf_cards[repo] = card
+    if hf_cache:
+        hf_cache.write_text(json.dumps(hf_cards))
+
+
+def hf_card_for(m):
+    card = hf_cards.get(m.get("weights") or "") or {}
+    return {} if "_error" in card else card
+
+
 for m in only.values():
     newest = sorted(m["bundles"], key=lambda b: (b["updated"], b["repo"]), reverse=True)
     tag = next((b["task"] for b in newest if b.get("task")), None)
@@ -468,6 +564,9 @@ for m in only.values():
     if guess and not tag:
         m["kind"], m["kindInferred"] = guess["kind"], True
         m["kindFrom"] = "an inference: " + guess["basis"]
+    elif not tag and kind_from_hf_card(hf_card_for(m)):
+        m["kind"] = kind_from_hf_card(hf_card_for(m))
+        m["kindFrom"] = "the task tag on the original model's Hugging Face card"
     m["serve"] = newest[0]["repo"]
     m["toolParser"] = next((b.get("toolParser") for b in newest if b.get("toolParser")), None)
     m["reasoningParser"] = next((b.get("reasoningParser") for b in newest if b.get("reasoningParser")), None)
@@ -530,6 +629,8 @@ for m in all_models:
     m["singleCard"] = bool(hws & single_products)
     m["newest"] = max([b["updated"] for b in m["bundles"]] or [""])
     n = len(m["bundles"])
+    newest_bundle = max(m["bundles"], key=lambda b: (b["updated"], b["repo"]), default={})
+    m["purpose"], m["purposeFrom"] = infer_purpose(m["name"], hf_card_for(m), newest_bundle.get("descriptionHead"))
     if m["inSpec"]:
         # Name the hardware rather than count it: "on WH LoudBox/QuietBox and Galaxy" tells a reader more than "on 2
         # hardware types". Only the spec rows count here, since the sentence is about tt-inference-server; bundles

@@ -57,6 +57,16 @@ def _sorted_by_name(rows: list) -> list:
     return sorted(rows, key=lambda r: (str(r.get("name") or r.get("model") or "").lower(), r.get("repo") or ""))
 
 
+HF_URL = "https://huggingface.co/"
+
+
+def _model_url(m: dict) -> str:
+    """Where a model's name links: the original model's Hugging Face card (its weights repo), which credits
+    the authors and is where a reader learns what the model is; the tt-awesome page only when the record
+    has no weights repo (a decision model named after its bundle)."""
+    return HF_URL + m["weights"] if m.get("weights") else f"{MODELS_URL}{m['id']}/"
+
+
 def _card(m: dict) -> dict:
     """The fields of a model that the digest and roundup quote for an added or removed model."""
     bundles = [b["repo"] for b in m.get("bundles") or [] if b.get("repo")]
@@ -65,7 +75,7 @@ def _card(m: dict) -> dict:
                 owners=sorted({b.get("owner") or b.get("repo", "").split("/")[0] for b in m.get("bundles") or []}),
                 # Models are grouped by weights repo, so one new model can arrive as several bundles
                 # (gpt-oss-20b has four). Kept so the roundup can count and name each one.
-                bundles=sorted(bundles))
+                bundles=sorted(bundles), weights=m.get("weights"), purpose=m.get("purpose"), url=_model_url(m))
 
 
 def diff_models(old: dict, new: dict) -> dict:
@@ -91,22 +101,22 @@ def diff_models(old: dict, new: dict) -> dict:
             d["added"].append(_card(m))
             continue
         o = om[mid]
-        name = m.get("name") or mid
+        name, url = m.get("name") or mid, _model_url(m)
         if o.get("status") != m.get("status"):
-            d["status"].append(dict(id=mid, name=name, old=o.get("status"), new=m.get("status")))
+            d["status"].append(dict(id=mid, name=name, old=o.get("status"), new=m.get("status"), url=url))
         if m.get("inSpec") and not o.get("inSpec"):
-            # kind and hardware ride along so the roundup can seat it in the tt-inference-server table.
+            # kind, hardware and purpose ride along so the roundup can seat it in the tt-inference-server table.
             d["entered_spec"].append(dict(id=mid, name=name, status=m.get("status"), kind=m.get("kind") or "",
-                                          hardware=list(m.get("hardware") or [])))
+                                          hardware=list(m.get("hardware") or []), purpose=m.get("purpose"), url=url))
         ob = {b["repo"] for b in o.get("bundles") or [] if b.get("repo")}
         nb = {b["repo"] for b in m.get("bundles") or [] if b.get("repo")}
-        d["bundles_added"] += [dict(model=name, id=mid, repo=r) for r in sorted(nb - ob)]
-        d["bundles_removed"] += [dict(model=name, id=mid, repo=r) for r in sorted(ob - nb)]
+        d["bundles_added"] += [dict(model=name, id=mid, repo=r, url=url) for r in sorted(nb - ob)]
+        d["bundles_removed"] += [dict(model=name, id=mid, repo=r, url=url) for r in sorted(ob - nb)]
         if (o.get("kind") or "") != (m.get("kind") or ""):
-            d["kind"].append(dict(id=mid, name=name, old=o.get("kind"), new=m.get("kind")))
+            d["kind"].append(dict(id=mid, name=name, old=o.get("kind"), new=m.get("kind"), url=url))
         gained = sorted(set(m.get("hardware") or []) - set(o.get("hardware") or []))
         if gained:
-            d["hardware"].append(dict(id=mid, name=name, added=gained))
+            d["hardware"].append(dict(id=mid, name=name, added=gained, url=url))
 
     d["removed"] = [_card(m) for mid, m in om.items() if mid not in nm]
 
@@ -216,6 +226,16 @@ MODEL = "claude-haiku-4-5-20251001"  # Anthropic-direct default; the foundry pat
 MANIFEST_CAP = 40                    # lines of the change list handed to the model
 
 
+def _kind_text(m: dict) -> str:
+    """What a model is: "VLM, deep-research agent" for the two families (LLM, VLM), where the purpose says
+    what this member is for; the purpose alone for a specific kind, since "Embedding, multimodal embedding"
+    says it twice; the kind alone when the builder inferred no purpose."""
+    kind, purpose = m.get("kind") or "", m.get("purpose")
+    if not purpose:
+        return kind
+    return f"{kind}, {purpose}" if kind in ("LLM", "VLM") else purpose
+
+
 def week_fragment(week_end: date) -> str:
     """"week-2026-W45": the ISO week the roundup covers, named by its last day."""
     year, week, _ = week_end.isocalendar()
@@ -257,12 +277,12 @@ def _manifest_lines(diff: dict) -> list:
     for m in diff["added"]:
         if m["source"] == "tt-inference-server":
             where = (" on " + ", ".join(m["hardware"])) if m["hardware"] else ""
-            lines.append(f"new on tt-inference-server: {m['name']} ({m['kind']}, {m['status']}){where}")
+            lines.append(f"new on tt-inference-server: {m['name']} ({_kind_text(m)}, {m['status']}){where}")
         else:
             # No owners and no repo ids: the paragraph is about models, and Taylor asked that it never
             # single out who published a bundle. The table under the paragraph carries the repo ids.
             n_b = len(m.get("bundles") or [])
-            lines.append(f"new tt-model {'bundles' if n_b > 1 else 'bundle'}: {m['name']} ({m['kind']})"
+            lines.append(f"new tt-model {'bundles' if n_b > 1 else 'bundle'}: {m['name']} ({_kind_text(m)})"
                          + (f", {n_b} bundles" if n_b > 1 else ""))
     for m in diff["entered_spec"]:
         lines.append(f"now on tt-inference-server: {m['name']} ({m['status']})")
@@ -386,13 +406,18 @@ def link_models(text: str, models: list) -> str:
             if text[hit.end():hit.end() + 2] == "](":
                 pos = hit.end()
                 continue
-            text = text[:hit.start()] + f"[{name}]({MODELS_URL}{m['id']}/)" + text[hit.end():]
+            text = text[:hit.start()] + _link(m) + text[hit.end():]
             break
     return text
 
 
 def _link(m: dict) -> str:
-    return f"[{m['name']}]({MODELS_URL}{m['id']}/)"
+    return f"[{m['name']}]({m.get('url') or MODELS_URL + m['id'] + '/'})"
+
+
+def _bundle_link(repo: str) -> str:
+    """A bundle id linked to its own Hugging Face card: the thing `tt model pull` takes."""
+    return f"[{repo}]({HF_URL}{repo})"
 
 
 def _cell(text: str) -> str:
@@ -401,13 +426,13 @@ def _cell(text: str) -> str:
 
 
 def _spec_table(models: list) -> str:
-    rows = [f"| {_link(m)} | {_cell(m.get('kind'))} | {_cell(m.get('status'))} | {_cell(', '.join(m.get('hardware') or []))} |"
+    rows = [f"| {_link(m)} | {_cell(_kind_text(m))} | {_cell(m.get('status'))} | {_cell(', '.join(m.get('hardware') or []))} |"
             for m in models]
     return "| Model | Kind | Status | Hardware |\n|---|---|---|---|\n" + "\n".join(rows)
 
 
 def _bundle_table(models: list) -> str:
-    rows = [f"| {_link(m)} | {_cell(m.get('kind'))} | {_cell(', '.join(m.get('bundles') or []))} "
+    rows = [f"| {_link(m)} | {_cell(_kind_text(m))} | {_cell(', '.join(_bundle_link(r) for r in m.get('bundles') or []))} "
             f"| {_cell(', '.join(m.get('hardware') or []))} |" for m in models]
     return "| Model | Kind | Bundle | Hardware |\n|---|---|---|---|\n" + "\n".join(rows)
 
@@ -420,9 +445,9 @@ def _also_bullets(diff: dict) -> list:
         if m["id"] not in entered:
             bullets.append(f"- {_link(m)}: {m['old'] or 'not in spec'} → {m['new'] or 'not in spec'}")
     for b in diff["bundles_added"]:
-        bullets.append(f"- {_link(dict(id=b['id'], name=b['model']))}: new bundle {b['repo']}")
+        bullets.append(f"- {_link(dict(id=b['id'], name=b['model'], url=b.get('url')))}: new bundle {_bundle_link(b['repo'])}")
     for b in diff["bundles_removed"]:
-        bullets.append(f"- {_link(dict(id=b['id'], name=b['model']))}: bundle {b['repo']} withdrawn")
+        bullets.append(f"- {_link(dict(id=b['id'], name=b['model'], url=b.get('url')))}: bundle {b['repo']} withdrawn")
     for m in diff["removed"]:
         bullets.append(f"- {m['name']}: removed from the list")
     for m in diff["kind"]:
@@ -453,7 +478,7 @@ def build_roundup(diff: dict, week_end: date, paragraph: str, now: datetime) -> 
     spec_new = _new_spec_models(diff)
     bundle_new = [m for m in diff["added"] if m["source"] != "tt-inference-server"]
     mentioned = (spec_new + bundle_new + diff["status"] + diff["kind"] + diff["hardware"]
-                 + [dict(id=b["id"], name=b["model"]) for b in diff["bundles_added"] + diff["bundles_removed"]])
+                 + [dict(id=b["id"], name=b["model"], url=b.get("url")) for b in diff["bundles_added"] + diff["bundles_removed"]])
     sections = []
     if paragraph.strip():
         sections.append(link_models(paragraph.strip(), mentioned))
