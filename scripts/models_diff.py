@@ -343,8 +343,8 @@ def request_roundup_paragraph(manifest: str, *, week: str, anthropic_api_key: st
     return _lede_only(pr_digest._LEADING_HEADING_RE.sub("", text, count=1))
 
 
-# A line that starts block markdown: a table row, a heading, a bullet or a bold label.
-_BLOCK_LINE_RE = re.compile(r"^\s*(\||#|[-*]\s|\*\*)")
+# A line that starts block markdown: a table row, a heading, a bullet, an ordered-list item or a bold label.
+_BLOCK_LINE_RE = re.compile(r"^\s*(\||#|[-*]\s|\d+[.)]\s|\*\*)")
 # An em-dash with whatever spacing the model gave it. House style forbids em-dashes.
 _EM_DASH_RE = re.compile(r"\s*—\s*")
 

@@ -551,6 +551,11 @@ def test_request_paragraph_keeps_only_the_lede(monkeypatch):
         "Qwen2.5-VL arrives through tt-inference-server. Three agents arrive as bundles."
     monkeypatch.setattr(llm_client, "complete", lambda *a, **k: "One sentence.\n| a | b |\n**Also**\n- bullet")
     assert md.request_roundup_paragraph("m", week="w") == "One sentence."
+    # Ordered lists too (Copilot on #315): "1. " and "1) " start a block, "7B models" does not.
+    monkeypatch.setattr(llm_client, "complete", lambda *a, **k: "One sentence.\n1. Qwen\n2) Gemma")
+    assert md.request_roundup_paragraph("m", week="w") == "One sentence."
+    monkeypatch.setattr(llm_client, "complete", lambda *a, **k: "One sentence on\n7B models.")
+    assert md.request_roundup_paragraph("m", week="w") == "One sentence on 7B models."
 
 
 def test_request_paragraph_replaces_em_dashes(monkeypatch):
