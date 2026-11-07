@@ -340,7 +340,28 @@ def request_roundup_paragraph(manifest: str, *, week: str, anthropic_api_key: st
         print("  WARN models_diff: provider returned no paragraph; using the fallback", file=sys.stderr)
         return ""
     # Strip a leading heading the prompt forbade, as pr_digest does with its lede.
-    return pr_digest._LEADING_HEADING_RE.sub("", text, count=1).strip()
+    return _lede_only(pr_digest._LEADING_HEADING_RE.sub("", text, count=1))
+
+
+# A line that starts block markdown: a table row, a heading, a bullet, an ordered-list item or a bold label.
+_BLOCK_LINE_RE = re.compile(r"^\s*(\||#|[-*]\s|\d+[.)]\s|\*\*)")
+# An em-dash with whatever spacing the model gave it. House style forbids em-dashes.
+_EM_DASH_RE = re.compile(r"\s*—\s*")
+
+
+def _lede_only(text: str) -> str:
+    """The first block of prose from a model reply, with its em-dashes turned into commas.
+
+    The first real reply (2026-11-06) wrote four sentences and then its own table, which maxTokens cut off
+    mid-row. build_roundup writes the tables, so the reply is cut at its first blank line or at the first
+    line that starts a table, heading, bullet or bold label.
+    """
+    kept = []
+    for line in text.strip().splitlines():
+        if not line.strip() or _BLOCK_LINE_RE.match(line):
+            break
+        kept.append(line.strip())
+    return _EM_DASH_RE.sub(", ", " ".join(kept)).strip()
 
 
 def _join(names: list) -> str:
@@ -396,14 +417,16 @@ def link_models(text: str, models: list) -> str:
     """The first whole-word mention of each model's name becomes a link to its page.
 
     Longest names first, so "Qwen3.5-27B-Instruct" is linked as itself and not as "Qwen3.5-27B"
-    plus a suffix. A mention already inside a markdown link is left alone.
+    plus a suffix. A mention already inside a markdown link is left alone. The match ignores case
+    (the model wrote "Gemma-4-26B-A4B-it" for gemma-4-26B-A4B-it) and the link text keeps the
+    spelling found in the paragraph.
     """
     for m in sorted(models, key=lambda m: -len(m["name"])):
         name = m["name"]
         # Not preceded by a word character, "[" (link text) or "/" (inside a URL); not followed by a word
         # character or "-" (a longer name) or "/" or "]" (a URL or link text). A period after the name is a
         # sentence end and must still match.
-        pattern = re.compile(r"(?<![\w\[/-])" + re.escape(name) + r"(?![\w\]/-])")
+        pattern = re.compile(r"(?<![\w\[/-])" + re.escape(name) + r"(?![\w\]/-])", re.IGNORECASE)
         pos = 0
         while True:
             hit = pattern.search(text, pos)
@@ -417,13 +440,13 @@ def link_models(text: str, models: list) -> str:
             if text[hit.end():hit.end() + 2] == "](":
                 pos = hit.end()
                 continue
-            text = text[:hit.start()] + _link(m) + text[hit.end():]
+            text = text[:hit.start()] + _link(m, hit.group(0)) + text[hit.end():]
             break
     return text
 
 
-def _link(m: dict) -> str:
-    return f"[{m['name']}]({m.get('url') or MODELS_URL + m['id'] + '/'})"
+def _link(m: dict, text: str = "") -> str:
+    return f"[{text or m['name']}]({m.get('url') or MODELS_URL + m['id'] + '/'})"
 
 
 def _bundle_link(repo: str) -> str:

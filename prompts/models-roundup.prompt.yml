@@ -31,8 +31,9 @@ messages:
       published by community members and staff on Hugging Face. Say which way each model you
       mention arrived, because that tells a reader how to run it.
 
-      Write 2 to 4 sentences of plain prose. A table of every new model, with its kind, status
-      and hardware, follows your paragraph, so you do not need to list them all: lead with the
+      Write 2 to 4 sentences of plain prose, and nothing after them. A table of every new model,
+      with its kind, status and hardware, is written for you and placed under your paragraph, so
+      do not write a table of your own and do not list every model: lead with the
       most useful change for a developer and name it, then give the shape of the week (which
       kinds of model, which hardware, whether one family dominates). Mention a status promotion
       when a model reached Complete. Use model names exactly as written in the list, since they
@@ -48,7 +49,7 @@ messages:
       Do not open with a heading, a bullet, or a bold label. Do not restate the counts from the
       title. Do not use hype words like "exciting", "major", "significantly" or "powerful". Do
       not invent details that are not in the list. Plain prose only: no bullet points, no
-      headings, no line breaks.
+      headings, no tables, no line breaks. Anything after the paragraph is discarded.
 
       House style, for every sentence:
       State the finding. Do not frame it against a strawman ("X, not Y",
