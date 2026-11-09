@@ -61,7 +61,7 @@
     "approved": true,
     "title": "tt-bio-demo v0.8.3",
     "url": "https://github.com/tsingletaryTT/tt-bio-demo/releases/tag/v0.8.3",
-    "description": "tt-bio-demo now ships tt-bio 0.27.0, which adds optional keyword arguments (`draws=`, `return_logits=`, `size_levers=`, `conformer_table=`, `esm_on_device=`) to the inference API without breaking the signature of any function your code already calls. The timing harness passed all 49 assertions on a two-chip test run with no timeouts, confirming the update holds under the current workload. Manifest timing figures remain from v0.18.0 pending a full re-measurement pass; if you're comparing wall-clock numbers against published baselines, allow 0.2–2.4 seconds of variation on first-frame latency.",
+    "description": "tt-bio-demo now ships tt-bio 0.27.0, which adds optional keyword arguments (`draws=`, `return_logits=`, `size_levers=`, `conformer_table=`, `esm_on_device=`) to the inference API without breaking the signature of any function your code already calls.",
     "date": "2026-11-07",
     "dateISO": "2026-11-07T00:57:18Z",
     "label": "tsingletaryTT/tt-bio-demo",
