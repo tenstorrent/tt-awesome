@@ -12,7 +12,8 @@
   },
   "https://github.com/tenstorrent/skills": {
     "stars": 18,
-    "updatedAt": "2026-11-09T10:26:59Z"
+    "updatedAt": "2026-11-09T10:26:59Z",
+    "starsReported": 12
   },
   "https://github.com/moritztng/tt-bio-bringup": {
     "stars": 0,
@@ -66,20 +67,20 @@
     "releases": [
       {
         "tagName": "v0.1.1",
-        "name": "v0.1.1 — docs: JA/EN bilingual",
+        "name": "v0.1.1 \u2014 docs: JA/EN bilingual",
         "publishedAt": "2026-07-15T00:54:30Z",
         "url": "https://github.com/unnowataru/granite-4.1-tt-metal/releases/tag/v0.1.1",
         "prerelease": false
       },
       {
         "tagName": "v0.1.0",
-        "name": "v0.1.0 — Initial public release",
+        "name": "v0.1.0 \u2014 Initial public release",
         "publishedAt": "2026-07-14T16:28:29Z",
         "url": "https://github.com/unnowataru/granite-4.1-tt-metal/releases/tag/v0.1.0",
         "prerelease": false
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to this repository are recorded here. This file follows the\nspirit of Keep-a-Changelog and Semantic Versioning, adapted for a hardware-port\nproject (each entry names the compatibility surface it affects).\n\nSections used per release:\n\n- **Compatibility** — supported stack changes (tt-metal commit, FW, KMD, container).\n- **Serving** — runtime behavior of `scripts/serving/` and `overlays/`.\n- **Validation** — new gates, new evidence, or shifted validation scope.\n- **Performance** — measured numbers change or new configurations characterized.\n- **Known limitations** — new or removed items from the open-gaps list.\n\n## [Unreleased]\n\n- **Backlog (from private-side operational baseline)**: the maintainer's private setup has since\n  upgraded to `MESH_DEVICE=N300, max_num_seqs=2, max_model_len=32768, chunk=16` on 2026-07-15,\n  with OpenClaw agent end-to-end measured. This upgrade is **not yet reflected in v0.1.x** — it\n  will land in a subsequent MINOR (0.2.0) release once the new configuration is characterized in\n  the public evidence + validation docs. The v0.1.0 baseline (msq=4, mml=8192, 2026-07-11\n  measurement) is preserved as the initial published snapshot.\n\n## [0.1.1] — 2026-07-15 (docs)\n\n- **Docs**: added Japanese (JA/EN bilingual) to the four highest-signal sections only,\n  keeping the English body as canonical:\n  - HF Model Card: Card-only / no-weights warning.\n  - Both READMEs: Non-affiliated disclaimer (IBM / Tenstorrent / Networld — no involvement,\n    no endorsement).\n  - GitHub README: `Status at a glance` table (single bilingual table so numbers are not\n    duplicated).\n  - GitHub README: Quickstart intro + preflight legend.\n- **No changes**: to code, scripts, overlays, measured values, pinned stack, or validation\n  scope. The v0.1.0 evidence remains authoritative.\n\n## [0.1.0] — 2026-07-15 (initial public release)\n\n- **Compatibility**: `tt-metal 805f43d` / container image\n  `0.12.0-805f43d-a45c614` @ sha256:6cbb9532... / FW 19.6.0 / KMD 2.7.0 / Wormhole b0.\n- **Serving**: N300 msq=4 mml=8192 with `--tool-call-parser hermes`. `msq` restricted\n  to `{1,2,4,8,16,32}` by upstream tt_transformers.\n- **Validation**: N150 single-device, single-prompt PCC 0.999410 with top1 match\n  and top5 4/5. Byte-exact chat_template round-trip on N300. Structured tool-call\n  round-trip on N300 (turn 1 name/JSON/city + turn 2 tool-result reflection + streaming).\n- **Performance**: N300 baseline (msq=2, mml=4096) 23.5 tok/s single, 41.3 tok/s\n  aggregate at c=2 (1.76×). Operational (msq=4, mml=8192) 24.8 tok/s single,\n  46.0 tok/s aggregate at c=3.\n- **Known limitations**: no multi-device teacher-forced PCC, no multi-prompt\n  statistics, no T3K measurements, no p50/p95 latency. See [`docs/validation.md`](docs/validation.md)."
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to this repository are recorded here. This file follows the\nspirit of Keep-a-Changelog and Semantic Versioning, adapted for a hardware-port\nproject (each entry names the compatibility surface it affects).\n\nSections used per release:\n\n- **Compatibility** \u2014 supported stack changes (tt-metal commit, FW, KMD, container).\n- **Serving** \u2014 runtime behavior of `scripts/serving/` and `overlays/`.\n- **Validation** \u2014 new gates, new evidence, or shifted validation scope.\n- **Performance** \u2014 measured numbers change or new configurations characterized.\n- **Known limitations** \u2014 new or removed items from the open-gaps list.\n\n## [Unreleased]\n\n- **Backlog (from private-side operational baseline)**: the maintainer's private setup has since\n  upgraded to `MESH_DEVICE=N300, max_num_seqs=2, max_model_len=32768, chunk=16` on 2026-07-15,\n  with OpenClaw agent end-to-end measured. This upgrade is **not yet reflected in v0.1.x** \u2014 it\n  will land in a subsequent MINOR (0.2.0) release once the new configuration is characterized in\n  the public evidence + validation docs. The v0.1.0 baseline (msq=4, mml=8192, 2026-07-11\n  measurement) is preserved as the initial published snapshot.\n\n## [0.1.1] \u2014 2026-07-15 (docs)\n\n- **Docs**: added Japanese (JA/EN bilingual) to the four highest-signal sections only,\n  keeping the English body as canonical:\n  - HF Model Card: Card-only / no-weights warning.\n  - Both READMEs: Non-affiliated disclaimer (IBM / Tenstorrent / Networld \u2014 no involvement,\n    no endorsement).\n  - GitHub README: `Status at a glance` table (single bilingual table so numbers are not\n    duplicated).\n  - GitHub README: Quickstart intro + preflight legend.\n- **No changes**: to code, scripts, overlays, measured values, pinned stack, or validation\n  scope. The v0.1.0 evidence remains authoritative.\n\n## [0.1.0] \u2014 2026-07-15 (initial public release)\n\n- **Compatibility**: `tt-metal 805f43d` / container image\n  `0.12.0-805f43d-a45c614` @ sha256:6cbb9532... / FW 19.6.0 / KMD 2.7.0 / Wormhole b0.\n- **Serving**: N300 msq=4 mml=8192 with `--tool-call-parser hermes`. `msq` restricted\n  to `{1,2,4,8,16,32}` by upstream tt_transformers.\n- **Validation**: N150 single-device, single-prompt PCC 0.999410 with top1 match\n  and top5 4/5. Byte-exact chat_template round-trip on N300. Structured tool-call\n  round-trip on N300 (turn 1 name/JSON/city + turn 2 tool-result reflection + streaming).\n- **Performance**: N300 baseline (msq=2, mml=4096) 23.5 tok/s single, 41.3 tok/s\n  aggregate at c=2 (1.76\u00d7). Operational (msq=4, mml=8192) 24.8 tok/s single,\n  46.0 tok/s aggregate at c=3.\n- **Known limitations**: no multi-device teacher-forced PCC, no multi-prompt\n  statistics, no T3K measurements, no p50/p95 latency. See [`docs/validation.md`](docs/validation.md)."
   },
   "https://github.com/quandvucl/granite-4-ttnn": {
     "stars": 0,
@@ -111,6 +112,7 @@
   "https://github.com/tenstorrent/tt-animatediff": {
     "stars": 2,
     "updatedAt": "2026-11-09T00:10:20Z",
+    "starsReported": 0,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-animatediff/main/docs/images/tt-animatediff-loop-generation-stages.svg",
     "releases": [
       {
@@ -232,7 +234,7 @@
         ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Atom are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut only from a commit that has passed the on-hardware release gate — accuracy\nparity, no OOM across the supported size range, no perf or UX regression, and a clean install\nsmoke (see `RELEASING.md`).\n\n## [Unreleased]\n\nBehaviour changes are all in the knobs and the caches, not in the models: every numeric path is\nbyte-identical to 0.3.0.\n\n### Fixed\n- The release gate's perf leg no longer decides by luck. It took one measurement per model against\n  a fixed 15% threshold, and on a p150a the throughput spread between runs reaches that threshold\n  on its own: in the gate run that closed this entry, `uma-s-1-omol-batch` drew 88.9, 104.4 and\n  104.8 sys/s, and the first of those alone is a 20% shortfall against the baseline. The leg now\n  waits for every other process to let go of a card and gates the median of three independent\n  runs, printing all three. With no quiet window it measures anyway and reports a shortfall as\n  `GAP`, since a contended run is not evidence of a regression.\n- `benchmarks/_harness.host_quiet()` reported the host busy forever. It grepped process command\n  lines for `tt_bio`, which matches any agent whose own arguments merely mention it; it asks the\n  kernel who holds a `/dev/tenstorrent` node now. The three benchmarks that wait for a quiet host\n  used to burn their full 40-minute budget and stop without measuring.\n- The edge-bucketing speedup in the README and `docs/orb-port.md` is re-measured and now names the\n  environment it was taken in. It said 1.4x cold wall-clock on a 20-system screening stream; two\n  draws on the pinned tt-metal source build give **1.11x and 1.14x** (235.1 / 236.5 s unbucketed\n  against 210.9 / 207.6 s bucketed). What bucketing saves is compiles, and that is unchanged and\n  exact: 20 distinct edge shapes collapse to 7 buckets and 2350 fewer kernel files are built,\n  identical to the file across both draws. The wall-clock ratio fell because a compile costs about\n  half what it did in whatever environment produced the earlier number — which that log does not\n  record, so the three subprocess benchmarks now stamp `ttnn_version` next to `git_sha`.\n- `benchmarks/_harness.sandbox_env` resolves the sandbox `$HOME`. A relative `--workdir` reached\n  the child as a relative `$HOME`, and tt-metal resolves that against the child's own working\n  directory: it died deep in the JIT build with \"Failed to open compile failure log file\" and a\n  path that reads as correct. `bench_compile_pain.py` also defaulted to `--card 3`, a card that\n  does not exist on the host this repo is routed to.\n- `TT_ATOM_SCATTER_THRESHOLD` is documented. It is the node count above which UMA's dense one-hot\n  scatter gives way to the linear path, and therefore what bounds DRAM on a large cell, but it\n  appeared in no doc.\n- The release gate reads `OVERALL: PASS` again. Both Orb perf rows were seeded on a stock `ttnn`\n  0.68."
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Atom are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut only from a commit that has passed the on-hardware release gate \u2014 accuracy\nparity, no OOM across the supported size range, no perf or UX regression, and a clean install\nsmoke (see `RELEASING.md`).\n\n## [Unreleased]\n\nBehaviour changes are all in the knobs and the caches, not in the models: every numeric path is\nbyte-identical to 0.3.0.\n\n### Fixed\n- The release gate's perf leg no longer decides by luck. It took one measurement per model against\n  a fixed 15% threshold, and on a p150a the throughput spread between runs reaches that threshold\n  on its own: in the gate run that closed this entry, `uma-s-1-omol-batch` drew 88.9, 104.4 and\n  104.8 sys/s, and the first of those alone is a 20% shortfall against the baseline. The leg now\n  waits for every other process to let go of a card and gates the median of three independent\n  runs, printing all three. With no quiet window it measures anyway and reports a shortfall as\n  `GAP`, since a contended run is not evidence of a regression.\n- `benchmarks/_harness.host_quiet()` reported the host busy forever. It grepped process command\n  lines for `tt_bio`, which matches any agent whose own arguments merely mention it; it asks the\n  kernel who holds a `/dev/tenstorrent` node now. The three benchmarks that wait for a quiet host\n  used to burn their full 40-minute budget and stop without measuring.\n- The edge-bucketing speedup in the README and `docs/orb-port.md` is re-measured and now names the\n  environment it was taken in. It said 1.4x cold wall-clock on a 20-system screening stream; two\n  draws on the pinned tt-metal source build give **1.11x and 1.14x** (235.1 / 236.5 s unbucketed\n  against 210.9 / 207.6 s bucketed). What bucketing saves is compiles, and that is unchanged and\n  exact: 20 distinct edge shapes collapse to 7 buckets and 2350 fewer kernel files are built,\n  identical to the file across both draws. The wall-clock ratio fell because a compile costs about\n  half what it did in whatever environment produced the earlier number \u2014 which that log does not\n  record, so the three subprocess benchmarks now stamp `ttnn_version` next to `git_sha`.\n- `benchmarks/_harness.sandbox_env` resolves the sandbox `$HOME`. A relative `--workdir` reached\n  the child as a relative `$HOME`, and tt-metal resolves that against the child's own working\n  directory: it died deep in the JIT build with \"Failed to open compile failure log file\" and a\n  path that reads as correct. `bench_compile_pain.py` also defaulted to `--card 3`, a card that\n  does not exist on the host this repo is routed to.\n- `TT_ATOM_SCATTER_THRESHOLD` is documented. It is the node count above which UMA's dense one-hot\n  scatter gives way to the linear path, and therefore what bounds DRAM on a large cell, but it\n  appeared in no doc.\n- The release gate reads `OVERALL: PASS` again. Both Orb perf rows were seeded on a stock `ttnn`\n  0.68."
   },
   "https://github.com/moritztng/tt-bio": {
     "stars": 128,
@@ -338,15 +340,18 @@
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 20,
-    "updatedAt": "2026-11-09T03:52:57Z"
+    "updatedAt": "2026-11-09T03:52:57Z",
+    "starsReported": 3
   },
   "https://github.com/tenstorrent/tt-buda-demos": {
     "stars": 63,
-    "updatedAt": "2026-11-09T00:04:05Z"
+    "updatedAt": "2026-11-09T00:04:05Z",
+    "starsReported": 3
   },
   "https://github.com/tenstorrent/tt-example-apps": {
     "stars": 13,
-    "updatedAt": "2026-11-09T00:05:05Z"
+    "updatedAt": "2026-11-09T00:05:05Z",
+    "starsReported": 1
   },
   "https://github.com/danielisraeli2409-jpg/tt-finetune": {
     "stars": 4,
@@ -391,11 +396,13 @@
   },
   "https://github.com/tenstorrent/tt-forge-models": {
     "stars": 14,
-    "updatedAt": "2026-11-09T03:53:03Z"
+    "updatedAt": "2026-11-09T03:53:03Z",
+    "starsReported": 3
   },
   "https://github.com/tenstorrent/tt-inference-server": {
     "stars": 79,
     "updatedAt": "2026-11-09T03:52:01Z",
+    "starsReported": 10,
     "releases": [
       {
         "tagName": "v0.26.1",
@@ -475,7 +482,8 @@
   },
   "https://github.com/tenstorrent/tt-lab": {
     "stars": 4,
-    "updatedAt": "2026-11-09T00:05:21Z"
+    "updatedAt": "2026-11-09T00:05:21Z",
+    "starsReported": 2
   },
   "https://github.com/zoecarver/tt-lang-models": {
     "stars": 8,
@@ -485,6 +493,7 @@
   "https://github.com/tenstorrent/tt-local-generator": {
     "stars": 4,
     "updatedAt": "2026-11-09T00:07:46Z",
+    "starsReported": 1,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-local-generator/main/assets/library-browse.png",
     "releases": [
       {
@@ -896,6 +905,7 @@
   "https://github.com/tenstorrent/tt-studio": {
     "stars": 52,
     "updatedAt": "2026-11-09T00:09:53Z",
+    "starsReported": 12,
     "releases": [
       {
         "tagName": "v2.13.0",
@@ -941,7 +951,8 @@
   "https://github.com/tenstorrent/tt-transformers": {
     "stars": 3,
     "updatedAt": "2026-11-09T00:08:30Z",
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- `get_device_name` gives a Quasar device the Blackhole names (`P150`, `P300`,\n  `P150x4`, `P150x8`, `BHGLX`), so code keyed on those names runs on Quasar.\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n  The Qwen3-32B T3K trace region grows from 120 MB to 250 MB: its batch-32\n  cases gain three prefix-cached 1024 traces and a penalised twin of every\n  sampled warmup case, 23 traces in all, and need about 210 MB.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n- vLLM serving of Qwen2.5-72B (T3K) and Qwen2.5-7B (N300) prefills prompts in\n  the 128-token bucket in fixed waves of four rows, padding a partial wave, and\n  warms exactly that shape. Under many concurrent short prompts, time to first\n  token falls by more than half against one prompt per pass; a lone short\n  prompt waits 85–106 ms longer. Greedy output on these prompts is\n  deterministic but is the four-row pass's text, so it differs from one-row\n  prefill and from TTTv1: pinned greedy texts for these two models move once.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
+    "starsReported": 1,
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to this project will be documented here.\n\n## 2.0.0.dev0\n\n- `get_device_name` gives a Quasar device the Blackhole names (`P150`, `P300`,\n  `P150x4`, `P150x8`, `BHGLX`), so code keyed on those names runs on Quasar.\n- Establish `tt-transformers` as the standalone package for TTTv2 modules,\n  runtime components, sampling, and twelve experimental model families.\n- Add reproducible package builds and CPython 3.10/3.12 host validation.\n- Add serialized Wormhole and Blackhole hardware qualification policy.\n- Require `ttnn==0.79.0`. Trace capture now acknowledges its allocations to\n  ttnn's trace allocation tracker (tenstorrent/tt-metal#53735).\n- Rename the warmup override `trace_prefill_warmup_seq_lens` to\n  `prefill_warmup_seq_lens`.\n- Remove the TTTv1 sampler surface from `tt_transformers.sampling`\n  (`generator`, `tt_sampling`, `tt_penalties`). Use\n  `tt_transformers.modules.sampling`.\n- With any trace mode, a prefill bucket that has no captured trace is served\n  eager instead of failing. The first eager request per bucket logs one\n  warning, and the load logs which buckets are traced.\n- A traced configuration whose warmup lengths leave a servable prefill bucket\n  uncompiled is refused at load with a `ValueError`.\n- A `max_seq_len` that isn't a prefill bucket boundary now warms the bucket it\n  pads to.\n- Warmup compiles the prefix-cached variant of every prefill bucket a cached\n  prompt can reach, including the top one. A configuration whose `max_seq_len`\n  is itself the top bucket gains one such case per sampling path, captured as a\n  trace where that bucket is traced; the Llama-3.1-8B N300 trace region grows\n  to 70 MB for it.\n  The Qwen3-32B T3K trace region grows from 120 MB to 250 MB: its batch-32\n  cases gain three prefix-cached 1024 traces and a penalised twin of every\n  sampled warmup case, 23 traces in all, and need about 210 MB.\n- Default KV-cache sizing leaves room for the decode page table. A paged KV\n  cache narrower than the decode page table is refused at load with a\n  `ValueError`, instead of failing on the first decode step.\n- On-device greedy sampling breaks an exact logit tie by the lowest token id,\n  as host argmax does. Before, the pick depended on the batch slot and could\n  vary between runs.\n- vLLM serving of Qwen2.5-72B (T3K) and Qwen2.5-7B (N300) prefills prompts in\n  the 128-token bucket in fixed waves of four rows, padding a partial wave, and\n  warms exactly that shape. Under many concurrent short prompts, time to first\n  token falls by more than half against one prompt per pass; a lone short\n  prompt waits 85\u2013106 ms longer. Greedy output on these prompts is\n  deterministic but is the four-row pass's text, so it differs from one-row\n  prefill and from TTTv1: pinned greedy texts for these two models move once.\n\nThis is a developer preview. No model is promoted beyond the support status in\n`SUPPORT.md` and its example manifest."
   },
   "https://github.com/localai-org/vllm.cpp": {
     "stars": 485,
@@ -1022,7 +1033,8 @@
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 20,
-    "updatedAt": "2026-11-09T13:40:14Z"
+    "updatedAt": "2026-11-09T13:40:14Z",
+    "starsReported": 5
   },
   "https://github.com/dstackai/dstack": {
     "stars": 2310,
@@ -1073,7 +1085,7 @@
   "https://github.com/Multicorewareinc/M-Stack": {
     "stars": 22,
     "updatedAt": "2026-10-26T04:31:08Z",
-    "changelog_excerpt": "# Changelog\n\nNotable changes to this SDK. Format follows\n[Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow\n[Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\nNothing has been released yet, so everything below is unreleased and the\npublic surface is still free to move.\n\n## [Unreleased]\n\n### Added\n\n- **The capability pattern.** The capability is the class and the\n  implementation is data: `Storage(type=\"longhorn\")` rather than\n  `LonghornStorage`. `multistack/capability.py` holds the shared\n  machinery — type validation, typed `options` matched against `type`,\n  namespace defaulting, driver dispatch and caching — so a new capability\n  declares its choices and its own fields rather than reimplementing any\n  of it. `docs/structure.md` describes the shape and how to extend it.\n- **`multistack.stack.Stack`**, a composition root. States which cluster\n  once, explicitly, and threads it into every spec; publishes what each\n  layer produced for the next (`record()`), and refuses to build a spec\n  whose `REQUIRES` name a capability that has published nothing. Not\n  ambient — nothing is read from the environment, and `stack.outputs`\n  shows exactly what will be filled in. Specs remain usable standalone.\n- **Declared dependencies.** Every spec carries `REQUIRES`:\n  `RKE2Cluster ()`, `Storage (\"cluster\",)`,\n  `MinIOTenant (\"cluster\", \"storage\")`, `VLLMService (\"cluster\",)`.\n  Machine-readable, so a composer can order operations.\n- **Volume claims** — `VolumeClaim` plus `StorageBackend.create_claim`,\n  `resize_claim`, `delete_claim`. Implemented on the capability, not per\n  driver, since a claim names a StorageClass and every implementation\n  produces one. Refuses to shrink, refuses a class without\n  `allowVolumeExpansion`, and waits for `Bound` by default.\n- **A Helm layer** at `multistack/helm/`. `HelmRunner` is synchronous; the\n  async dependency stops behind it, so no driver or example writes\n  `await`. Ships `redact()`, atomic upgrades by default, chart-name\n  resolution with a cached index, and a values check that reports unknown\n  paths rather than refusing them.\n- `HelmRunner.get_release()` — the same lookup as `status()`, returning\n  `None` instead of raising when there is no such release. From the\n  `helm-manager-sdk` branch (Nikhil Rai, 89869a7), reimplemented on the\n  direct revision lookup rather than a full release listing.\n- **Shared cluster primitives** in `multistack/kube.py`: `require_cluster`,\n  `require_storage_class`, `require_cli`, `run_local`, `kubectl`, `apply`,\n  `wait_for`, `wait_for_job`, `wait_for_phase`, `wait_for_absent`,\n  `node_name_for`.\n- `VLLMService.runtime_class`, needed for GPU serving on RKE2 before CDI —\n  without `runtimeClassName: nvidia` the pod schedules and then finds no\n  GPU.\n- Guards for the things nothing was checking: every example and every\n  ```python doc snippet must parse and its imports must resolve; markdown\n  links and paths named in examples must exist; `SUPPORTED_TYPES`"
+    "changelog_excerpt": "# Changelog\n\nNotable changes to this SDK. Format follows\n[Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow\n[Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\nNothing has been released yet, so everything below is unreleased and the\npublic surface is still free to move.\n\n## [Unreleased]\n\n### Added\n\n- **The capability pattern.** The capability is the class and the\n  implementation is data: `Storage(type=\"longhorn\")` rather than\n  `LonghornStorage`. `multistack/capability.py` holds the shared\n  machinery \u2014 type validation, typed `options` matched against `type`,\n  namespace defaulting, driver dispatch and caching \u2014 so a new capability\n  declares its choices and its own fields rather than reimplementing any\n  of it. `docs/structure.md` describes the shape and how to extend it.\n- **`multistack.stack.Stack`**, a composition root. States which cluster\n  once, explicitly, and threads it into every spec; publishes what each\n  layer produced for the next (`record()`), and refuses to build a spec\n  whose `REQUIRES` name a capability that has published nothing. Not\n  ambient \u2014 nothing is read from the environment, and `stack.outputs`\n  shows exactly what will be filled in. Specs remain usable standalone.\n- **Declared dependencies.** Every spec carries `REQUIRES`:\n  `RKE2Cluster ()`, `Storage (\"cluster\",)`,\n  `MinIOTenant (\"cluster\", \"storage\")`, `VLLMService (\"cluster\",)`.\n  Machine-readable, so a composer can order operations.\n- **Volume claims** \u2014 `VolumeClaim` plus `StorageBackend.create_claim`,\n  `resize_claim`, `delete_claim`. Implemented on the capability, not per\n  driver, since a claim names a StorageClass and every implementation\n  produces one. Refuses to shrink, refuses a class without\n  `allowVolumeExpansion`, and waits for `Bound` by default.\n- **A Helm layer** at `multistack/helm/`. `HelmRunner` is synchronous; the\n  async dependency stops behind it, so no driver or example writes\n  `await`. Ships `redact()`, atomic upgrades by default, chart-name\n  resolution with a cached index, and a values check that reports unknown\n  paths rather than refusing them.\n- `HelmRunner.get_release()` \u2014 the same lookup as `status()`, returning\n  `None` instead of raising when there is no such release. From the\n  `helm-manager-sdk` branch (Nikhil Rai, 89869a7), reimplemented on the\n  direct revision lookup rather than a full release listing.\n- **Shared cluster primitives** in `multistack/kube.py`: `require_cluster`,\n  `require_storage_class`, `require_cli`, `run_local`, `kubectl`, `apply`,\n  `wait_for`, `wait_for_job`, `wait_for_phase`, `wait_for_absent`,\n  `node_name_for`.\n- `VLLMService.runtime_class`, needed for GPU serving on RKE2 before CDI \u2014\n  without `runtimeClassName: nvidia` the pod schedules and then finds no\n  GPU.\n- Guards for the things nothing was checking: every example and every\n  ```python doc snippet must parse and its imports must resolve; markdown\n  links and paths named in examples must exist; `SUPPORTED_TYPES`"
   },
   "https://github.com/varrahan/tenstorrent-dra-framework": {
     "stars": 1,
@@ -1086,6 +1098,7 @@
   "https://github.com/tenstorrent/tt-operator": {
     "stars": 5,
     "updatedAt": "2026-11-09T00:06:05Z",
+    "starsReported": 3,
     "releases": [
       {
         "tagName": "v0.3.0",
@@ -1236,7 +1249,7 @@
         "prerelease": false
       }
     ],
-    "changelog_excerpt": "Booth — Changelog\n=================\n\n## Booth 0.6.1\n\n### Backends\n\n- `--nvidia-cubin` puts every kernel of a module into the one cubin, so\n  ggml-cuda files with several kernels no longer stop at E600\n  (Zane Hambly, 2026-10-26)\n\n- `--nvidia-cubin` lowers local loads and stores, half and bfloat16\n  conversions, rounding, votes, membar, nanosleep, 16-bit parameters and\n  constant divisors, and sizes each kernel's registers from its own counts\n  (Zane Hambly, 2026-10-26)\n\n- `--nvidia-cubin` holds a register only where its value is live, places join\n  barriers by the blocks a region covers, and lowers wmma load, store and mma\n  to scalar SASS, so topk-moe and lightning-indexer build (Zane Hambly,\n  2026-10-26)\n\n- `--nvidia-cubin` lowers cvta.local and cvta.global, so cumsum and quantize\n  get as far as their vprintf call (Zane Hambly, 2026-10-26)\n\n- `--nvidia-cubin` spills values to the local frame when a kernel needs more\n  registers than SASS has, so mmvq gets past E603 (Zane Hambly, 2026-10-26)\n\n- `--cuda-host` and `--cuda-exe` emit the host half of a CUDA compile, so kath\n  builds a whole program the way nvcc does: the source back out with the device\n  definitions removed, each launch through `__cudaPushCallConfiguration` and a\n  stub calling `cudaLaunchKernel`, the kernels registered from a constructor out\n  of a fatbin carrying both the cubin and the PTX, and the system C++ compiler\n  driven to link it. Clean-room `cuda.h`, `cuda_runtime.h`, `cuda_fp16.h`,\n  `cuda_bf16.h` and `cublas_v2.h` under `runtime/include` (Zane Hambly,\n  2026-10-26)\n\n- `--cuda-host` writes each kernel's stub where the kernel stood and keys a\n  launch on the instantiation rather than its position, so a kernel launched\n  from inside a host template or through a macro reaches the right one, and it\n  spells enum, struct, vector and function template arguments, so ggml-cuda\n  files get through the host pass (Zane Hambly, 2026-10-26)\n\n- `--cuda-host` writes out a variadic template argument pack, spells a function\n  template-id argument rather than the symbol it lowered to, keeps a launch\n  whose callee ends in `>>`, registers up to 4096 kernels and refuses with E622\n  above that instead of falling silent, and `kath cuda` finds Booth's own\n  `runtime/include` from the binary rather than the working directory, so\n  binbcast and cpy get through (Zane Hambly, 2026-10-26)\n- `--cuda-host` carries const on the BIR type itself, so a kernel taking\n  `const float *` registers the instantiation its launch actually names\n  rather than one spelled without the qualifier (Zane Hambly, 2026-10-26)\n\n- `kath cuda -c` compiles one `.cu` to one relocatable object rather than a\n  whole program, with `-fPIC` for a shared library, each object carrying its\n  own fatbin and registration constructor the way nvcc does, so many\n  translation units link into one library (Zane Hambly, 2026-10-26)\n\n- `kath cuda` takes `-Idir` written up against the flag as well as `-I dir`,\n  rather than dropping it and c"
+    "changelog_excerpt": "Booth \u2014 Changelog\n=================\n\n## Booth 0.6.1\n\n### Backends\n\n- `--nvidia-cubin` puts every kernel of a module into the one cubin, so\n  ggml-cuda files with several kernels no longer stop at E600\n  (Zane Hambly, 2026-10-26)\n\n- `--nvidia-cubin` lowers local loads and stores, half and bfloat16\n  conversions, rounding, votes, membar, nanosleep, 16-bit parameters and\n  constant divisors, and sizes each kernel's registers from its own counts\n  (Zane Hambly, 2026-10-26)\n\n- `--nvidia-cubin` holds a register only where its value is live, places join\n  barriers by the blocks a region covers, and lowers wmma load, store and mma\n  to scalar SASS, so topk-moe and lightning-indexer build (Zane Hambly,\n  2026-10-26)\n\n- `--nvidia-cubin` lowers cvta.local and cvta.global, so cumsum and quantize\n  get as far as their vprintf call (Zane Hambly, 2026-10-26)\n\n- `--nvidia-cubin` spills values to the local frame when a kernel needs more\n  registers than SASS has, so mmvq gets past E603 (Zane Hambly, 2026-10-26)\n\n- `--cuda-host` and `--cuda-exe` emit the host half of a CUDA compile, so kath\n  builds a whole program the way nvcc does: the source back out with the device\n  definitions removed, each launch through `__cudaPushCallConfiguration` and a\n  stub calling `cudaLaunchKernel`, the kernels registered from a constructor out\n  of a fatbin carrying both the cubin and the PTX, and the system C++ compiler\n  driven to link it. Clean-room `cuda.h`, `cuda_runtime.h`, `cuda_fp16.h`,\n  `cuda_bf16.h` and `cublas_v2.h` under `runtime/include` (Zane Hambly,\n  2026-10-26)\n\n- `--cuda-host` writes each kernel's stub where the kernel stood and keys a\n  launch on the instantiation rather than its position, so a kernel launched\n  from inside a host template or through a macro reaches the right one, and it\n  spells enum, struct, vector and function template arguments, so ggml-cuda\n  files get through the host pass (Zane Hambly, 2026-10-26)\n\n- `--cuda-host` writes out a variadic template argument pack, spells a function\n  template-id argument rather than the symbol it lowered to, keeps a launch\n  whose callee ends in `>>`, registers up to 4096 kernels and refuses with E622\n  above that instead of falling silent, and `kath cuda` finds Booth's own\n  `runtime/include` from the binary rather than the working directory, so\n  binbcast and cpy get through (Zane Hambly, 2026-10-26)\n- `--cuda-host` carries const on the BIR type itself, so a kernel taking\n  `const float *` registers the instantiation its launch actually names\n  rather than one spelled without the qualifier (Zane Hambly, 2026-10-26)\n\n- `kath cuda -c` compiles one `.cu` to one relocatable object rather than a\n  whole program, with `-fPIC` for a shared library, each object carrying its\n  own fatbin and registration constructor the way nvcc does, so many\n  translation units link into one library (Zane Hambly, 2026-10-26)\n\n- `kath cuda` takes `-Idir` written up against the flag as well as `-I dir`,\n  rather than dropping it and c"
   },
   "https://github.com/pcmoritz/libtt": {
     "stars": 17,
@@ -1286,6 +1299,7 @@
   "https://github.com/tenstorrent/tt-buda": {
     "stars": 314,
     "updatedAt": "2026-11-09T00:03:59Z",
+    "starsReported": 13,
     "releases": [
       {
         "tagName": "v0.19.3",
@@ -1438,11 +1452,12 @@
     "stars": 0,
     "updatedAt": "2026-06-30T22:30:28Z",
     "preview_image": "https://raw.githubusercontent.com/tsingletaryTT/tt-forge-compiletron/main/docs/demo.gif",
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to tt-forge-compiletron are documented here.\n\n## [Unreleased]\n\n### Added\n- `docs/kv-cache-bench.md` — teaching companion for the StaticCache KV cache\n  benchmark, explaining the two-graph pattern and why static shapes matter\n\n---\n\n## [1.6.0] — 2026-06-30\n\n### Added\n- **StaticCache KV cache decode benchmarking** — `bench_decode.py` now compiles\n  a second forge graph for the decode step using `transformers.StaticCache`.\n  The StaticCache is embedded in `KVDecodeWrapper` as a submodule so forge\n  traces K/V tensors as model state and emits `FillCache`/`UpdateCache` ops.\n  Falls back to full-recompute for models that don't support `cache_position`.\n- `_try_kv_decode()` function — detects model dtype to avoid bfloat16/float32\n  mismatches, resolves tokenizer from loader or AutoTokenizer, pre-fills cache\n  on CPU before forge compilation.\n- Bestiary `decode_note` field now records the method used per model\n  (\"StaticCache KV cache\" vs \"no KV cache — full recompute per step\").\n\n### Changed\n- Decode results updated for all 5 stages — GPT-2 2.30→5.52 tok/s, OPT\n  3.98→5.05 tok/s, Phi-2 1.48 tok/s (new), Falcon 3.30 tok/s (new),\n  LLaMA-LoRA 2.86 tok/s (new), Gemma-LoRA 2.40 tok/s (new), and more.\n\n---\n\n## [1.5.0] — 2026-06-30\n\n### Added\n- **`scripts/bench_decode.py`** — dedicated LLM decode benchmark measuring\n  TTFT, prefill tok/s, and decode tok/s for all compiled causal LMs.\n  Subprocess isolation + tt-smi health check prevent hardware lockups.\n- **Leaderboard columns** — TTFT, Prefill tok/s, Decode tok/s, Params (M)\n  replace the old Infer p50 / Throughput columns in `docs/leaderboard.html`.\n- 5 benchmark stages: Stage 1 (GPT-2, OPT), Stage 2 (Phi-2, BLOOM, CodeGen),\n  Stage 3 (Falcon, Allam, LLaMA-LoRA, Gemma-LoRA), Stage 4 (Qwen 2.5,\n  Phi-1 LoRA), Stage 5 (DeepCogito, DeepSeek Coder, frontier models).\n- `params_m` field added to all benchmarked bestiary entries.\n- `hf:` loader prefix for frontier HuggingFace models loaded without a\n  tt-forge-models seed loader.\n\n### Changed\n- Bestiary `throughput_unit` relabeled from generic `tok/s` → `prefill_tok/s`\n  for all 54 causal LM entries to prevent confusion with decode throughput.\n\n---\n\n## [1.4.0] — 2026-06-29\n\n### Added\n- **`scripts/install.sh`** — turn-key smart installer: hardware pre-check,\n  hugepages, disk space, forge venv, XLA venv, mesh descriptor probe,\n  tt-forge-models clone, stale-shm cleanup. Outputs color-coded summary table.\n- **RAM/DRAM budget calculator** — skips models whose weights exceed available\n  system RAM + per-chip DRAM; prevents OOM crashes at load time.\n- **`scripts/setup-venvs.sh`** — minimal venv setup script for clean Ubuntu\n  24.04 installs on Tenstorrent Blackhole hardware.\n- Self-contained patches directory — tt-forge-models fixes applied at\n  expedition startup without modifying upstream.\n- `--ephemeral` / `--evict-failures` flags — evict HF weight cache after\n  each model to reclaim disk space on small-storage machines.\n\n### Changed"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to tt-forge-compiletron are documented here.\n\n## [Unreleased]\n\n### Added\n- `docs/kv-cache-bench.md` \u2014 teaching companion for the StaticCache KV cache\n  benchmark, explaining the two-graph pattern and why static shapes matter\n\n---\n\n## [1.6.0] \u2014 2026-06-30\n\n### Added\n- **StaticCache KV cache decode benchmarking** \u2014 `bench_decode.py` now compiles\n  a second forge graph for the decode step using `transformers.StaticCache`.\n  The StaticCache is embedded in `KVDecodeWrapper` as a submodule so forge\n  traces K/V tensors as model state and emits `FillCache`/`UpdateCache` ops.\n  Falls back to full-recompute for models that don't support `cache_position`.\n- `_try_kv_decode()` function \u2014 detects model dtype to avoid bfloat16/float32\n  mismatches, resolves tokenizer from loader or AutoTokenizer, pre-fills cache\n  on CPU before forge compilation.\n- Bestiary `decode_note` field now records the method used per model\n  (\"StaticCache KV cache\" vs \"no KV cache \u2014 full recompute per step\").\n\n### Changed\n- Decode results updated for all 5 stages \u2014 GPT-2 2.30\u21925.52 tok/s, OPT\n  3.98\u21925.05 tok/s, Phi-2 1.48 tok/s (new), Falcon 3.30 tok/s (new),\n  LLaMA-LoRA 2.86 tok/s (new), Gemma-LoRA 2.40 tok/s (new), and more.\n\n---\n\n## [1.5.0] \u2014 2026-06-30\n\n### Added\n- **`scripts/bench_decode.py`** \u2014 dedicated LLM decode benchmark measuring\n  TTFT, prefill tok/s, and decode tok/s for all compiled causal LMs.\n  Subprocess isolation + tt-smi health check prevent hardware lockups.\n- **Leaderboard columns** \u2014 TTFT, Prefill tok/s, Decode tok/s, Params (M)\n  replace the old Infer p50 / Throughput columns in `docs/leaderboard.html`.\n- 5 benchmark stages: Stage 1 (GPT-2, OPT), Stage 2 (Phi-2, BLOOM, CodeGen),\n  Stage 3 (Falcon, Allam, LLaMA-LoRA, Gemma-LoRA), Stage 4 (Qwen 2.5,\n  Phi-1 LoRA), Stage 5 (DeepCogito, DeepSeek Coder, frontier models).\n- `params_m` field added to all benchmarked bestiary entries.\n- `hf:` loader prefix for frontier HuggingFace models loaded without a\n  tt-forge-models seed loader.\n\n### Changed\n- Bestiary `throughput_unit` relabeled from generic `tok/s` \u2192 `prefill_tok/s`\n  for all 54 causal LM entries to prevent confusion with decode throughput.\n\n---\n\n## [1.4.0] \u2014 2026-06-29\n\n### Added\n- **`scripts/install.sh`** \u2014 turn-key smart installer: hardware pre-check,\n  hugepages, disk space, forge venv, XLA venv, mesh descriptor probe,\n  tt-forge-models clone, stale-shm cleanup. Outputs color-coded summary table.\n- **RAM/DRAM budget calculator** \u2014 skips models whose weights exceed available\n  system RAM + per-chip DRAM; prevents OOM crashes at load time.\n- **`scripts/setup-venvs.sh`** \u2014 minimal venv setup script for clean Ubuntu\n  24.04 installs on Tenstorrent Blackhole hardware.\n- Self-contained patches directory \u2014 tt-forge-models fixes applied at\n  expedition startup without modifying upstream.\n- `--ephemeral` / `--evict-failures` flags \u2014 evict HF weight cache after\n  each model to reclaim disk space on small-storage machines.\n\n### Changed"
   },
   "https://github.com/tenstorrent/tt-forge-onnx": {
     "stars": 68,
     "updatedAt": "2026-11-09T15:06:59Z",
+    "starsReported": 14,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge-onnx/main/docs/source/imgs/tt_refresh_forge-onnx_w_logo_purple.png",
     "releases": [
       {
@@ -1485,6 +1500,7 @@
   "https://github.com/tenstorrent/tt-forge": {
     "stars": 382,
     "updatedAt": "2026-11-11T02:27:04Z",
+    "starsReported": 18,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-forge/main/docs/public/images/tt-sw-overview.png",
     "releases": [
       {
@@ -1538,6 +1554,7 @@
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 320,
     "updatedAt": "2026-11-09T03:51:49Z",
+    "starsReported": 26,
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1618,6 +1635,7 @@
   "https://github.com/tenstorrent/tt-torch": {
     "stars": 26,
     "updatedAt": "2026-11-09T03:52:55Z",
+    "starsReported": 7,
     "releases": [
       {
         "tagName": "0.5.0.dev20251008",
@@ -1707,11 +1725,13 @@
   },
   "https://github.com/tenstorrent/tt-tvm": {
     "stars": 31,
-    "updatedAt": "2026-11-09T03:52:34Z"
+    "updatedAt": "2026-11-09T03:52:34Z",
+    "starsReported": 0
   },
   "https://github.com/tenstorrent/tt-xla": {
     "stars": 77,
     "updatedAt": "2026-11-09T00:01:15Z",
+    "starsReported": 11,
     "releases": [
       {
         "tagName": "1.5.0.dev20260831000501",
@@ -1939,7 +1959,7 @@
         "prerelease": false
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to tensix-viz are documented here.\n\n## [1.3.2] - 2026-09-28\n\n### Fixed\n\n- **Cluster views no longer collapse to their caption's width**\n  (`src/cluster.js`). Cluster tiles are empty divs with no width of their own,\n  so a shrink-to-fit parent sized the whole widget to its one-line spec text —\n  Galaxy SC's 128 chips rendered as 2.7px dots. The tile grid now gets a\n  preferred width from its column count (32px tiles, or 10px dots above 64\n  chips) and `max-width: 100%`, so it still shrinks on phones.\n- **Zoomed cluster breadcrumb no longer covers the spec caption**\n  (`tensix-viz.css`). `.tv-cluster.tv-zoomed-in` reserves room at the top for\n  the \"Cluster › Server N\" breadcrumb.\n\n### Docs site (landing page)\n\n- Hero and two-column sections now stack at 1120px instead of 900px. Between\n  those widths the QB2 hero chips were squeezed to ~120px and the Memory code\n  block hid up to ~140px of each line; the hero now gets full 340px chips there.\n- Code blocks wrap at ≤800px instead of hiding most of each line in a sideways\n  scroll box (the Quick-start block hid ~400px per line on a phone).\n- Phones: tighter padding around the hero system (chips 85px → 119px at\n  375px wide), and `kernel_dispatch` may wrap so the mode table fits.\n\n## [1.3.1] - 2026-09-28\n\n### Fixed\n\n- **Chips in a card/system no longer come out at different sizes**\n  (`src/card.js`, `src/chip.js`). `TensixViz` caps its drawing size to its\n  parent's `clientWidth` once, at construction. `CardViz` builds chips one at a\n  time into a flex row, so each chip measured the room its predecessors had\n  left — on the docs hero, QB2's second chip in each card rendered at roughly\n  half the size of the first. Card chips now pass the new\n  `fitContainer: false` option and keep their full logical size; CSS fits them\n  (`.tv-chip-wrapper { flex: 0 1 auto; min-width: 0 }`).\n- **Shrunk canvases are no longer squished.** The inline `style.height = Hpx`\n  overrode `.tv-chip-wrapper canvas { height: auto }`, so whenever\n  `max-width: 100%` narrowed a canvas its height stayed put (aspect ratio 0.8\n  instead of 1.42). Canvases now get `max-width: 100%`, `height: auto` and an\n  explicit `aspect-ratio`, so they scale cleanly after construction too.\n- `.tv-card`, `.tv-system`, `.tv-card-wrapper` and `.tv-cluster` can shrink to\n  their container (`max-width: 100%` / `min-width: 0`).\n\n### Docs site\n\n- Hero and \"chip anatomy\" grids use `minmax(0, 1fr)` tracks; a bare `1fr`\n  couldn't shrink below the Memory section's `<pre>`, which pushed the page\n  sideways even on desktop.\n- The mode reference table scrolls inside its own box on phones.\n- Hero theme buttons are grouped with the canvas they theme (they were a stray\n  third grid cell under the hero text).\n- Examples: demo cards can shrink below their canvas's preferred width, page\n  padding scales down on phones, and the theme toolbar wraps.\n\n## [1.3.0] - 2026-09-24\n\n### Added\n\n- **`setActivity(value)` and `setProgress(value)`**"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to tensix-viz are documented here.\n\n## [1.3.2] - 2026-09-28\n\n### Fixed\n\n- **Cluster views no longer collapse to their caption's width**\n  (`src/cluster.js`). Cluster tiles are empty divs with no width of their own,\n  so a shrink-to-fit parent sized the whole widget to its one-line spec text \u2014\n  Galaxy SC's 128 chips rendered as 2.7px dots. The tile grid now gets a\n  preferred width from its column count (32px tiles, or 10px dots above 64\n  chips) and `max-width: 100%`, so it still shrinks on phones.\n- **Zoomed cluster breadcrumb no longer covers the spec caption**\n  (`tensix-viz.css`). `.tv-cluster.tv-zoomed-in` reserves room at the top for\n  the \"Cluster \u203a Server N\" breadcrumb.\n\n### Docs site (landing page)\n\n- Hero and two-column sections now stack at 1120px instead of 900px. Between\n  those widths the QB2 hero chips were squeezed to ~120px and the Memory code\n  block hid up to ~140px of each line; the hero now gets full 340px chips there.\n- Code blocks wrap at \u2264800px instead of hiding most of each line in a sideways\n  scroll box (the Quick-start block hid ~400px per line on a phone).\n- Phones: tighter padding around the hero system (chips 85px \u2192 119px at\n  375px wide), and `kernel_dispatch` may wrap so the mode table fits.\n\n## [1.3.1] - 2026-09-28\n\n### Fixed\n\n- **Chips in a card/system no longer come out at different sizes**\n  (`src/card.js`, `src/chip.js`). `TensixViz` caps its drawing size to its\n  parent's `clientWidth` once, at construction. `CardViz` builds chips one at a\n  time into a flex row, so each chip measured the room its predecessors had\n  left \u2014 on the docs hero, QB2's second chip in each card rendered at roughly\n  half the size of the first. Card chips now pass the new\n  `fitContainer: false` option and keep their full logical size; CSS fits them\n  (`.tv-chip-wrapper { flex: 0 1 auto; min-width: 0 }`).\n- **Shrunk canvases are no longer squished.** The inline `style.height = Hpx`\n  overrode `.tv-chip-wrapper canvas { height: auto }`, so whenever\n  `max-width: 100%` narrowed a canvas its height stayed put (aspect ratio 0.8\n  instead of 1.42). Canvases now get `max-width: 100%`, `height: auto` and an\n  explicit `aspect-ratio`, so they scale cleanly after construction too.\n- `.tv-card`, `.tv-system`, `.tv-card-wrapper` and `.tv-cluster` can shrink to\n  their container (`max-width: 100%` / `min-width: 0`).\n\n### Docs site\n\n- Hero and \"chip anatomy\" grids use `minmax(0, 1fr)` tracks; a bare `1fr`\n  couldn't shrink below the Memory section's `<pre>`, which pushed the page\n  sideways even on desktop.\n- The mode reference table scrolls inside its own box on phones.\n- Hero theme buttons are grouped with the canvas they theme (they were a stray\n  third grid cell under the hero text).\n- Examples: demo cards can shrink below their canvas's preferred width, page\n  padding scales down on phones, and the theme toolbar wraps.\n\n## [1.3.0] - 2026-09-24\n\n### Added\n\n- **`setActivity(value)` and `setProgress(value)`**"
   },
   "https://github.com/aldegad/tenstorrent-cli": {
     "stars": 6,
@@ -1949,7 +1969,7 @@
     "stars": 9,
     "updatedAt": "2026-08-27T08:11:06Z",
     "preview_image": "https://raw.githubusercontent.com/thatdspguy/tenstorrent_playground/dev/assets/digit_recognition_demo.gif",
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to the Tenstorrent Simulator Playground will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## [1.4.0] - 2026-01-27\n\n### Added\n\n- **Updated Demo Assets**\n  - New digit recognition demo GIF with improved visualization\n\n### Fixed\n\n- **Docker Desktop Compatibility**\n  - Fixed 500 Internal Server Error when running digit recognition in Docker containers\n  - Implemented native Docker inference that runs Python directly instead of attempting WSL calls\n  - Proper environment variable handling for containerized ttsim execution\n  - Automatic SOC descriptor selection for Wormhole/Blackhole chips in Docker\n\n## [1.3.0] - 2026-01-27\n\n### Added\n\n- **Enhanced Network Visualization**\n  - 28×28 pixel grid visualization for input layer displaying the actual drawn digit\n  - Vertical output column showing all 10 digit classes (0-9) with labels\n  - Green ring highlight indicator for the predicted digit\n  - Pixel data pass-through from drawing canvas to network visualization\n\n### Changed\n\n- **Performance Statistics Display**\n  - Average throughput now displays with 2 decimal places for precision\n\n## [1.2.0] - 2026-01-27\n\n### Added\n\n- **Digit Recognition Page**\n  - Interactive drawing canvas for handwritten digit input (0-9)\n  - Real-time MNIST neural network inference on Tenstorrent simulator\n  - Network architecture visualization showing layer activations and connections\n  - Performance statistics tracking (average latency and throughput)\n  - Confidence display with horizontal bar chart for all 10 digit classes\n  - Trained 2-layer MLP model (784→128→10) achieving ~98% accuracy\n  - New digit recognition API endpoints (`/api/digit/predict`, `/api/digit/model-info`)\n\n- **Simple 2-Layer MLP Operation**\n  - Configurable neural network architecture editor\n  - Interactive network diagram showing input, hidden, and output layers\n  - Configurable sizes: input (32/64), hidden (32/64), output (16/32/64), batch (16/32/64)\n  - Parameter count display with real-time updates\n  - Visual representation of layer connections and ReLU activation\n\n- **Matrix Multiplication Operation**\n  - Support for 32×32 and 64×64 matrix operations\n  - Optimized for TTNN performance benchmarking\n  - Added matrix multiply icon to operation selector\n\n- **React Router Integration**\n  - Separate pages for Digit Recognition (/) and Mathematical Operations (/math-operations)\n  - Clean URL structure with browser navigation support\n  - Navigation sidebar with page links\n\n### Changed\n\n- **UI Redesign**\n  - Non-collapsible sidebar with fixed width (256px) for better text display\n  - Simplified branding: \"TTSim Playground\" with chip icon\n  - Mathematical Operations page header now matches Digit Recognition style\n  - Operation selector reorganized into 4×3 grid by category\n  - Updated icons for subtract (circle with line) and matrix"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to the Tenstorrent Simulator Playground will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## [1.4.0] - 2026-01-27\n\n### Added\n\n- **Updated Demo Assets**\n  - New digit recognition demo GIF with improved visualization\n\n### Fixed\n\n- **Docker Desktop Compatibility**\n  - Fixed 500 Internal Server Error when running digit recognition in Docker containers\n  - Implemented native Docker inference that runs Python directly instead of attempting WSL calls\n  - Proper environment variable handling for containerized ttsim execution\n  - Automatic SOC descriptor selection for Wormhole/Blackhole chips in Docker\n\n## [1.3.0] - 2026-01-27\n\n### Added\n\n- **Enhanced Network Visualization**\n  - 28\u00d728 pixel grid visualization for input layer displaying the actual drawn digit\n  - Vertical output column showing all 10 digit classes (0-9) with labels\n  - Green ring highlight indicator for the predicted digit\n  - Pixel data pass-through from drawing canvas to network visualization\n\n### Changed\n\n- **Performance Statistics Display**\n  - Average throughput now displays with 2 decimal places for precision\n\n## [1.2.0] - 2026-01-27\n\n### Added\n\n- **Digit Recognition Page**\n  - Interactive drawing canvas for handwritten digit input (0-9)\n  - Real-time MNIST neural network inference on Tenstorrent simulator\n  - Network architecture visualization showing layer activations and connections\n  - Performance statistics tracking (average latency and throughput)\n  - Confidence display with horizontal bar chart for all 10 digit classes\n  - Trained 2-layer MLP model (784\u2192128\u219210) achieving ~98% accuracy\n  - New digit recognition API endpoints (`/api/digit/predict`, `/api/digit/model-info`)\n\n- **Simple 2-Layer MLP Operation**\n  - Configurable neural network architecture editor\n  - Interactive network diagram showing input, hidden, and output layers\n  - Configurable sizes: input (32/64), hidden (32/64), output (16/32/64), batch (16/32/64)\n  - Parameter count display with real-time updates\n  - Visual representation of layer connections and ReLU activation\n\n- **Matrix Multiplication Operation**\n  - Support for 32\u00d732 and 64\u00d764 matrix operations\n  - Optimized for TTNN performance benchmarking\n  - Added matrix multiply icon to operation selector\n\n- **React Router Integration**\n  - Separate pages for Digit Recognition (/) and Mathematical Operations (/math-operations)\n  - Clean URL structure with browser navigation support\n  - Navigation sidebar with page links\n\n### Changed\n\n- **UI Redesign**\n  - Non-collapsible sidebar with fixed width (256px) for better text display\n  - Simplified branding: \"TTSim Playground\" with chip icon\n  - Mathematical Operations page header now matches Digit Recognition style\n  - Operation selector reorganized into 4\u00d73 grid by category\n  - Updated icons for subtract (circle with line) and matrix"
   },
   "https://github.com/daniel-geon-park/torpedo": {
     "stars": 0,
@@ -1958,6 +1978,7 @@
   "https://github.com/tenstorrent/tt-cli": {
     "stars": 7,
     "updatedAt": "2026-11-12T13:54:49Z",
+    "starsReported": 4,
     "releases": [
       {
         "tagName": "v1.2.1",
@@ -2063,11 +2084,13 @@
   },
   "https://github.com/tenstorrent/tt-emule": {
     "stars": 5,
-    "updatedAt": "2026-11-09T03:53:25Z"
+    "updatedAt": "2026-11-09T03:53:25Z",
+    "starsReported": 1
   },
   "https://github.com/tenstorrent/tt-exalens": {
     "stars": 21,
     "updatedAt": "2026-11-09T03:52:56Z",
+    "starsReported": 7,
     "releases": [
       {
         "tagName": "v0.4.3",
@@ -2366,7 +2389,8 @@
   },
   "https://github.com/tenstorrent/tt-model-manager": {
     "stars": 10,
-    "updatedAt": "2026-11-09T00:06:08Z"
+    "updatedAt": "2026-11-09T00:06:08Z",
+    "starsReported": 4
   },
   "https://github.com/tsingletaryTT/tt-model-runner": {
     "stars": 1,
@@ -2380,11 +2404,13 @@
   "https://github.com/tenstorrent/tt-npe": {
     "stars": 19,
     "updatedAt": "2026-11-11T18:00:27Z",
+    "starsReported": 2,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-npe/main/img/npe_workload_diag.png"
   },
   "https://github.com/tenstorrent/tt-perf-report": {
     "stars": 11,
     "updatedAt": "2026-11-09T03:53:03Z",
+    "starsReported": 1,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-perf-report/main/images/example_perf_report.png"
   },
   "https://github.com/tsingletaryTT/tt-warp": {
@@ -2422,6 +2448,7 @@
   "https://github.com/tenstorrent/ttnn-visualizer": {
     "stars": 59,
     "updatedAt": "2026-11-09T03:52:33Z",
+    "starsReported": 13,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
@@ -2780,7 +2807,8 @@
   },
   "https://github.com/tenstorrent/tt-low-level-documentation": {
     "stars": 6,
-    "updatedAt": "2026-11-09T03:53:24Z"
+    "updatedAt": "2026-11-09T03:53:24Z",
+    "starsReported": 2
   },
   "https://github.com/JushBJJ/TT-Metal-Mini-Template": {
     "stars": 7,
@@ -2801,6 +2829,7 @@
   "https://github.com/tenstorrent/tt-vscode-toolkit": {
     "stars": 12,
     "updatedAt": "2026-11-09T00:18:44Z",
+    "starsReported": 1,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-vscode-toolkit/main/assets/img/screenshot.png",
     "releases": [
       {
@@ -2857,6 +2886,7 @@
   "https://github.com/tenstorrent/luwen": {
     "stars": 35,
     "updatedAt": "2026-11-09T00:05:08Z",
+    "starsReported": 2,
     "releases": [
       {
         "tagName": "bh-mod-v2.4.1",
@@ -2911,6 +2941,7 @@
   "https://github.com/tenstorrent/tt-burnin": {
     "stars": 4,
     "updatedAt": "2026-11-09T00:04:27Z",
+    "starsReported": 0,
     "releases": [
       {
         "tagName": "v0.4.5",
@@ -3063,11 +3094,13 @@
   "https://github.com/tenstorrent/tt-CableGen": {
     "stars": 4,
     "updatedAt": "2026-11-09T00:07:26Z",
+    "starsReported": 2,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-CableGen/main/static/img/8x16-bh.png"
   },
   "https://github.com/tenstorrent/tt-firmware": {
     "stars": 24,
     "updatedAt": "2026-11-09T00:36:47Z",
+    "starsReported": 2,
     "releases": [
       {
         "tagName": "v19.6.0",
@@ -3109,6 +3142,7 @@
   "https://github.com/tenstorrent/tt-flash": {
     "stars": 14,
     "updatedAt": "2026-11-09T00:04:20Z",
+    "starsReported": 4,
     "releases": [
       {
         "tagName": "v4.2.0",
@@ -3186,6 +3220,7 @@
   "https://github.com/tenstorrent/tt-installer": {
     "stars": 24,
     "updatedAt": "2026-11-09T00:36:48Z",
+    "starsReported": 6,
     "releases": [
       {
         "tagName": "v3.6.3",
@@ -3227,6 +3262,7 @@
   "https://github.com/tenstorrent/tt-kmd": {
     "stars": 75,
     "updatedAt": "2026-11-12T14:13:37Z",
+    "starsReported": 9,
     "releases": [
       {
         "tagName": "ttkmd-2.12.0",
@@ -3331,11 +3367,13 @@
   },
   "https://github.com/tenstorrent/tt-quietbox2-guide": {
     "stars": 2,
-    "updatedAt": "2026-11-09T00:07:57Z"
+    "updatedAt": "2026-11-09T00:07:57Z",
+    "starsReported": 0
   },
   "https://github.com/tenstorrent/tt-smi": {
     "stars": 68,
     "updatedAt": "2026-11-09T00:06:58Z",
+    "starsReported": 11,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-smi/main/images/tt_smi.png",
     "releases": [
       {
@@ -3414,6 +3452,7 @@
   "https://github.com/tenstorrent/tt-system-firmware": {
     "stars": 46,
     "updatedAt": "2026-11-12T14:17:53Z",
+    "starsReported": 12,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-system-firmware/main/doc/images/shell.gif",
     "releases": [
       {
@@ -3566,6 +3605,7 @@
   "https://github.com/tenstorrent/tt-system-tools": {
     "stars": 5,
     "updatedAt": "2026-11-09T00:06:15Z",
+    "starsReported": 0,
     "releases": [
       {
         "tagName": "v1.4.1",
@@ -3662,6 +3702,7 @@
   "https://github.com/tenstorrent/tt-tools-common": {
     "stars": 7,
     "updatedAt": "2026-11-09T00:07:18Z",
+    "starsReported": 0,
     "releases": [
       {
         "tagName": "v1.6.0",
@@ -3814,6 +3855,7 @@
   "https://github.com/tenstorrent/tt-toplike": {
     "stars": 16,
     "updatedAt": "2026-11-09T00:19:20Z",
+    "starsReported": 0,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-toplike/main/assets/tt-toplike-arcade.gif",
     "releases": [
       {
@@ -4012,11 +4054,12 @@
         ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nThe **canonical, complete release log lives in [`debian/changelog`](debian/changelog)** —\nthat's the file the `.deb` packages are built from and where every release is\nrecorded in full. This file is a friendly pointer plus a summary of the most\nrecent releases; it deliberately does not duplicate the whole history.\n\nTo see everything:\n\n```bash\nless debian/changelog          # full history\ngit tag                        # released versions\n```\n\n## Recent releases\n\nReleases 0.11.1 through 0.13.9 are recorded only in `debian/changelog`; this\nlist is a summary and is not kept for every release.\n\n### 0.13.17\n- **Fix**: review findings on the lanes and atmosphere. No false flares when stats drop\n  out or lanes reorder, a fresh load clock after a reload, a forge that starts over\n  per model, and trainer discovery moved off the render thread (with retries for\n  a Python script that imports `ttml` late). The atmosphere's smoothed gauges\n  restart when another model is featured, and a reused pid no longer keeps the\n  previous training run attached or its cached `ttml` answer.\n\n### 0.13.16\n- **Change**: chips stay the ones a server holds open; `TT_METAL_VISIBLE_DEVICES`\n  is not used to narrow them (it indexes the runtime's order, not the host's).\n- **Add**: demo scenes `arcade-lanes` and `inference-music`.\n\n### 0.13.14\n- **Fix**: the MiniMax-Music3 audio server shows jobs in flight and finished\n  requests (from `/v1/health`) and is labelled `MiniMax-Music3` (from\n  `/v1/models`).\n\n### 0.13.13\n- **Fix**: a model server with no `/health` route (the MiniMax-Music3 audio\n  server) shows as serving. The Inference view also asks `/v1/health`.\n\n### 0.13.12\n- **Add**: Arcade activity lanes. While a training run, a model load or a model\n  serving is active, the top starfield rows show up to two lanes (name,\n  progress, rate, `[t]`/`[i]` to open the full view); the stars tint by kind and\n  flare per step or request.\n- **Add**: an atmosphere behind the Inference view's snake: a forge while\n  loading, a storm while a prompt is read, an aurora with comets, rain and a\n  KV-cache tide while generating, a forming canvas for diffusion jobs.\n- **Fix**: models launched from a weights path are labelled by their run\n  (`rag-gate-27b`), not `model-dir` or `bundle`.\n\n### 0.13.11\n- **Fix**: on hosts that run the STIG or CIS audit rules, tt-toplike wrote\n  4 to 6 GB of audit log per hour. The process scans opened `/proc/<pid>`\n  files that only the owning user can read, and each refused open became an\n  audit event. The scans now check ownership first and remember pids that\n  refuse access. Thanks to Eugene Valkov, who reported it and wrote the first\n  fix (issue 35).\n\n### 0.13.10\n- **Add**: Inference view (`i`) shows the port and chips each model runs on,\n  for example `:8000 · chips 0,1`, on each roster row or in a header line for a\n  single model.\n- **Add**: `--tt-smi-reset-behavior` (`ignore`, `inform` default, `dazzle`,\n  `demo`). A `tt-smi -r` in another terminal"
+    "changelog_excerpt": "# Changelog\n\nThe **canonical, complete release log lives in [`debian/changelog`](debian/changelog)** \u2014\nthat's the file the `.deb` packages are built from and where every release is\nrecorded in full. This file is a friendly pointer plus a summary of the most\nrecent releases; it deliberately does not duplicate the whole history.\n\nTo see everything:\n\n```bash\nless debian/changelog          # full history\ngit tag                        # released versions\n```\n\n## Recent releases\n\nReleases 0.11.1 through 0.13.9 are recorded only in `debian/changelog`; this\nlist is a summary and is not kept for every release.\n\n### 0.13.17\n- **Fix**: review findings on the lanes and atmosphere. No false flares when stats drop\n  out or lanes reorder, a fresh load clock after a reload, a forge that starts over\n  per model, and trainer discovery moved off the render thread (with retries for\n  a Python script that imports `ttml` late). The atmosphere's smoothed gauges\n  restart when another model is featured, and a reused pid no longer keeps the\n  previous training run attached or its cached `ttml` answer.\n\n### 0.13.16\n- **Change**: chips stay the ones a server holds open; `TT_METAL_VISIBLE_DEVICES`\n  is not used to narrow them (it indexes the runtime's order, not the host's).\n- **Add**: demo scenes `arcade-lanes` and `inference-music`.\n\n### 0.13.14\n- **Fix**: the MiniMax-Music3 audio server shows jobs in flight and finished\n  requests (from `/v1/health`) and is labelled `MiniMax-Music3` (from\n  `/v1/models`).\n\n### 0.13.13\n- **Fix**: a model server with no `/health` route (the MiniMax-Music3 audio\n  server) shows as serving. The Inference view also asks `/v1/health`.\n\n### 0.13.12\n- **Add**: Arcade activity lanes. While a training run, a model load or a model\n  serving is active, the top starfield rows show up to two lanes (name,\n  progress, rate, `[t]`/`[i]` to open the full view); the stars tint by kind and\n  flare per step or request.\n- **Add**: an atmosphere behind the Inference view's snake: a forge while\n  loading, a storm while a prompt is read, an aurora with comets, rain and a\n  KV-cache tide while generating, a forming canvas for diffusion jobs.\n- **Fix**: models launched from a weights path are labelled by their run\n  (`rag-gate-27b`), not `model-dir` or `bundle`.\n\n### 0.13.11\n- **Fix**: on hosts that run the STIG or CIS audit rules, tt-toplike wrote\n  4 to 6 GB of audit log per hour. The process scans opened `/proc/<pid>`\n  files that only the owning user can read, and each refused open became an\n  audit event. The scans now check ownership first and remember pids that\n  refuse access. Thanks to Eugene Valkov, who reported it and wrote the first\n  fix (issue 35).\n\n### 0.13.10\n- **Add**: Inference view (`i`) shows the port and chips each model runs on,\n  for example `:8000 \u00b7 chips 0,1`, on each roster row or in a header line for a\n  single model.\n- **Add**: `--tt-smi-reset-behavior` (`ignore`, `inform` default, `dazzle`,\n  `demo`). A `tt-smi -r` in another terminal"
   },
   "https://github.com/tenstorrent/tt-topology": {
     "stars": 16,
     "updatedAt": "2026-11-09T00:07:23Z",
+    "starsReported": 1,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-topology/main/images/mesh_layout_2x4.png?raw=true",
     "releases": [
       {
@@ -4170,6 +4213,7 @@
   "https://github.com/tenstorrent/tt-umd": {
     "stars": 51,
     "updatedAt": "2026-11-09T00:10:23Z",
+    "starsReported": 10,
     "releases": [
       {
         "tagName": "v0.9.17",
@@ -4622,6 +4666,7 @@
   "https://github.com/tenstorrent-riscv-software/wallabmc": {
     "stars": 55,
     "updatedAt": "2026-11-09T03:53:36Z",
+    "starsReported": 3,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent-riscv-software/wallabmc/main/img/web-ui-thumbnail.png"
   },
   "https://github.com/seansiddens/current": {
@@ -4639,6 +4684,7 @@
   "https://github.com/tenstorrent/sfpi": {
     "stars": 16,
     "updatedAt": "2026-11-09T00:09:08Z",
+    "starsReported": 2,
     "releases": [
       {
         "tagName": "7.96.0-test-gcc-16_2_0",
@@ -4770,6 +4816,7 @@
   "https://github.com/tenstorrent/tt-lang": {
     "stars": 68,
     "updatedAt": "2026-11-09T00:09:36Z",
+    "starsReported": 14,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-lang/main/docs/public/images/ecosystem-diagram.png",
     "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Lang will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## Version 1.1.1\n\n### Compiler\n\n- Fix for live-interval boundary computation (issue [#536](../../issues/536))\n- Fix for all-zero results in FP32 reductions (issue # [#533](../../issues/533))\n- Fix for inferred `pop` and `push` (issues [#536](../../issues/536), [#554](../../issues/554))\n- Fix for write pointer tracking on pipe sender accross iterations (issue [#578](../../issues/578))\n- Fix to report data type mismatch error\n- Fix to report DFB over allocation error (issue [#511](../../issues/511))\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active` (issue [#541](../../issues/541))\n- Support for `ttl.math.typecast`\n\n### Simulator\n\n- Support for inferred `pop`, `push` and `copy`'s transfer handle `wait`\n- Support for pipenet predicates `is_src`, `is_dst` and `is_active`\n- Support `all_gather`\n- Support `bfloat8_b`\n- Improved/actionable error messages\n- Improved performance by simulating math in FP32\n\n### Infrastructure\n\n- TT-Lang installable with `pip install tt-lang` for full installation and `pip install tt-lang-sim` for simulator only\n- [Matmul benchmarks](benchmarks/matmul/README.md)\n\n## Version 1.0.0\n\n### Compiler\n\n- Support `+=` syntax in conjunction with dot product (`@`) lowered to packer L1 accumulation\n- Support implicit temporary compute-kernel-local DFBs\n- Support `ttl.Pipenet`\n- Support implicit `ttl.Block.push` and `ttl.Block.pop`\n- Support implicit `ttl.Transfer.wait`\n- Support for `expm1`, `exp2`, `ceil`, `sign`, `gelu`, `silu`, `hardsigmoid`, `square`, `softsign`, `signbit`, `frac`, `trunc` in `ttl.math`\n\n### Simulator\n\n- Support for `ttl.GroupTransfer`\n- SPMD and mesh device simulation support\n- Support for `ttnn.all_reduce` CCLs\n- Use tracing to report statistics with `tt-lang-sim-stats`\n- Remote L1 reads/writes statistics\n\n### Examples and documentation\n- Matmul tutorial\n\n## Version 0.1.8\n\n### Compiler\n\n- Support for dot product operator (`@`) with lowering to [`ckernel::matmul_block`](https://docs.tenstorrent.com/tt-metal/v0.55.0/tt-metalium/tt_metal/apis/kernel_apis/compute/matmul_block.html)\n- Support for fusing matmul and certain elementwise operations\n- Support lowering to `pack_tile_block`\n- Support for `ttl.math.fill`, `ttl.math.reduce_sum`, `ttl.math.reduce_max`, and `ttl.math.transpose`\n- Support for arbitrary sub-blocking including dot product K-dimension to allow maximizing L1 usage and reuse\n- Support for `sin`, `cos`, `tan`, `asin`, `acos`, `atan` in `ttl.math`\n- Support for L1 sharded tensors\n- Support for tensors with BF8 data type\n- SPMD support (`ttnn.open_mesh_device`)\n\n### Simulator\n\n- Track L1 space and number of DFBs usage and warn when exceeded\n- Support for tensors with row-major layout\n- Support for L1 sharded tensors\n\n### Examples and documentat"
   },
@@ -4780,11 +4827,13 @@
   },
   "https://github.com/tenstorrent/tt-llk": {
     "stars": 56,
-    "updatedAt": "2026-11-09T00:36:34Z"
+    "updatedAt": "2026-11-09T00:36:34Z",
+    "starsReported": 12
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1747,
     "updatedAt": "2026-11-12T16:26:54Z",
+    "starsReported": 124,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
       {
@@ -5498,6 +5547,7 @@
   "https://github.com/tenstorrent/tt-polaris": {
     "stars": 48,
     "updatedAt": "2026-11-09T00:07:53Z",
+    "starsReported": 2,
     "releases": [
       {
         "tagName": "pre_perfmodel_merge",
@@ -5538,12 +5588,13 @@
   },
   "https://github.com/tenstorrent/tt-isa-documentation": {
     "stars": 136,
-    "updatedAt": "2026-11-09T06:46:13Z"
+    "updatedAt": "2026-11-09T06:46:13Z",
+    "starsReported": 15
   },
   "https://github.com/olofj/bhx": {
     "stars": 6,
     "updatedAt": "2026-09-23T15:59:57Z",
-    "changelog_excerpt": "# Changelog\n\nNotable changes per release. Format loosely follows\n[Keep a Changelog](https://keepachangelog.com/en/1.1.0/);\nthis project does not yet promise SemVer compatibility on the RPC\nwire format or library API surface (we're not 1.0).\n\n## Unreleased\n\nV2 virtio-dispatch redesign. The kick ring + completion ring + host-\nside throttle that grew up around #184 are gone; in their place is a\nper-(slot, queue) dirty bitmap in BRISC L1. The bitmap is level-\nsensitive — guest QUEUE_NOTIFY storms coalesce into a single set\nbyte, so the dispatch path can't fall behind under any burst. Wire\nincompatible with 0.9.0; `TENSIX_PROTOCOL_VERSION` bumped 4 → 5.\n\n### Added\n\n- **V2 dirty-bitmap dispatch** (`#187` / `#188` / `#189`). BRISC\n  writes 1 to `CTRL_OFF_DIRTY[slot][queue]` on every guest\n  QUEUE_NOTIFY; the daemon's `Dispatcher` clears the byte and\n  dispatches each pass. Replaces V1's 2048-entry kick ring +\n  daemon-side `consume_kick_ring_pass` consumer.\n- **V2 processed-cursor table** at `CTRL_OFF_PROCESSED`. Daemon\n  publishes `used.idx` after each successful dispatch so\n  warm-resume reads cursors directly without re-probing guest\n  DRAM.\n- **`bhx_notify_events_total`, `bhx_dispatch_passes_total`,\n  `bhx_dispatch_queues_drained`** Prometheus counters surface the\n  new dispatch path. The burst regression test (`scripts/\n  soak_virtio_burst.py`) asserts `dispatch_passes_total > 0` to\n  confirm the workload reached the new path.\n- **`scripts/soak_virtio_burst.py`** — multi-queue burst regression\n  test. Sustains 16-job direct=1 fio randwrite + a tight\n  `printf` loop to `/dev/console`, samples `/metrics` every 1 s,\n  and verifies the daemon log contains zero\n  `kick.*drop|rescue|throttle.*ENGAGE` matches.\n- **`DaemonState.chip_reset_this_session`** flag — gates\n  `maybe_opportunistic_reset_board` so 4-way parallel cold boots\n  reset the chip exactly once, not once per L2CPU. Without this\n  the second-and-later resets blip the chip while earlier-booted\n  L2CPUs hold mmap pages, SIGBUSing their workers.\n- **`Dispatcher` (was `KickPoller`)** with documented testability\n  seam (`CtrlL1Access` trait); `drain_dirty_bitmap` is unit-tested\n  against an in-memory L1 fake covering all five visit/clear\n  semantics cases plus the address-formula pins.\n\n### Changed\n\n- **`KickPoller` → `Dispatcher`**, plus `kick_poller` → `dispatcher`\n  field on `DaemonState`, `tensix-kick-poller` → `tensix-dispatcher`\n  thread name, `[kick-poller]` → `[dispatcher]` log tag,\n  `kicks_consumed` → `dispatches_total`,\n  `last_kick_slot_queue` → `last_dispatch_slot_queue`. Pure\n  rename; no behavior change. V1 vocabulary scrubbed throughout\n  the codebase (firmware, daemon, scripts, docs).\n- **`CTRL_SIZE` shrinks 36 KiB → 4 KiB**. V2 footprint is ~1.5 KiB;\n  the rest is reserved for future fields.\n- **Stats-page offsets repacked** — V1 `STATS_OFF_KICK_DROPS`,\n  `STATS_OFF_COMPL_EVENTS`, `STATS_OFF_LAST_COMPL` retired with\n  V1 (#190); deprecated PRECAP / BLINDCAP / POSTCAP slots dropp"
+    "changelog_excerpt": "# Changelog\n\nNotable changes per release. Format loosely follows\n[Keep a Changelog](https://keepachangelog.com/en/1.1.0/);\nthis project does not yet promise SemVer compatibility on the RPC\nwire format or library API surface (we're not 1.0).\n\n## Unreleased\n\nV2 virtio-dispatch redesign. The kick ring + completion ring + host-\nside throttle that grew up around #184 are gone; in their place is a\nper-(slot, queue) dirty bitmap in BRISC L1. The bitmap is level-\nsensitive \u2014 guest QUEUE_NOTIFY storms coalesce into a single set\nbyte, so the dispatch path can't fall behind under any burst. Wire\nincompatible with 0.9.0; `TENSIX_PROTOCOL_VERSION` bumped 4 \u2192 5.\n\n### Added\n\n- **V2 dirty-bitmap dispatch** (`#187` / `#188` / `#189`). BRISC\n  writes 1 to `CTRL_OFF_DIRTY[slot][queue]` on every guest\n  QUEUE_NOTIFY; the daemon's `Dispatcher` clears the byte and\n  dispatches each pass. Replaces V1's 2048-entry kick ring +\n  daemon-side `consume_kick_ring_pass` consumer.\n- **V2 processed-cursor table** at `CTRL_OFF_PROCESSED`. Daemon\n  publishes `used.idx` after each successful dispatch so\n  warm-resume reads cursors directly without re-probing guest\n  DRAM.\n- **`bhx_notify_events_total`, `bhx_dispatch_passes_total`,\n  `bhx_dispatch_queues_drained`** Prometheus counters surface the\n  new dispatch path. The burst regression test (`scripts/\n  soak_virtio_burst.py`) asserts `dispatch_passes_total > 0` to\n  confirm the workload reached the new path.\n- **`scripts/soak_virtio_burst.py`** \u2014 multi-queue burst regression\n  test. Sustains 16-job direct=1 fio randwrite + a tight\n  `printf` loop to `/dev/console`, samples `/metrics` every 1 s,\n  and verifies the daemon log contains zero\n  `kick.*drop|rescue|throttle.*ENGAGE` matches.\n- **`DaemonState.chip_reset_this_session`** flag \u2014 gates\n  `maybe_opportunistic_reset_board` so 4-way parallel cold boots\n  reset the chip exactly once, not once per L2CPU. Without this\n  the second-and-later resets blip the chip while earlier-booted\n  L2CPUs hold mmap pages, SIGBUSing their workers.\n- **`Dispatcher` (was `KickPoller`)** with documented testability\n  seam (`CtrlL1Access` trait); `drain_dirty_bitmap` is unit-tested\n  against an in-memory L1 fake covering all five visit/clear\n  semantics cases plus the address-formula pins.\n\n### Changed\n\n- **`KickPoller` \u2192 `Dispatcher`**, plus `kick_poller` \u2192 `dispatcher`\n  field on `DaemonState`, `tensix-kick-poller` \u2192 `tensix-dispatcher`\n  thread name, `[kick-poller]` \u2192 `[dispatcher]` log tag,\n  `kicks_consumed` \u2192 `dispatches_total`,\n  `last_kick_slot_queue` \u2192 `last_dispatch_slot_queue`. Pure\n  rename; no behavior change. V1 vocabulary scrubbed throughout\n  the codebase (firmware, daemon, scripts, docs).\n- **`CTRL_SIZE` shrinks 36 KiB \u2192 4 KiB**. V2 footprint is ~1.5 KiB;\n  the rest is reserved for future fields.\n- **Stats-page offsets repacked** \u2014 V1 `STATS_OFF_KICK_DROPS`,\n  `STATS_OFF_COMPL_EVENTS`, `STATS_OFF_LAST_COMPL` retired with\n  V1 (#190); deprecated PRECAP / BLINDCAP / POSTCAP slots dropp"
   },
   "https://github.com/corsix/wormhole-vector": {
     "stars": 6,
@@ -5552,6 +5603,7 @@
   "https://github.com/tenstorrent/riescue": {
     "stars": 72,
     "updatedAt": "2026-11-11T02:38:16Z",
+    "starsReported": 3,
     "releases": [
       {
         "tagName": "v1.7.0",
@@ -5593,6 +5645,7 @@
   "https://github.com/tenstorrent/riscv_arch_tests": {
     "stars": 126,
     "updatedAt": "2026-11-09T00:02:09Z",
+    "starsReported": 4,
     "releases": [
       {
         "tagName": "v0.2.0+aligned-access",
@@ -5641,18 +5694,22 @@
   "https://github.com/tenstorrent/riscv-ocelot": {
     "stars": 265,
     "updatedAt": "2026-11-11T01:51:14Z",
-    "preview_image": "https://raw.githubusercontent.com/tenstorrent/riscv-ocelot/bobtail/main/docs/figures/evolution.png",
+    "starsReported": 4,
+    "forkReported": false,
     "isFork": true,
     "forkParent": "riscv-boom/riscv-boom",
-    "forkParentUrl": "https://github.com/riscv-boom/riscv-boom"
+    "forkParentUrl": "https://github.com/riscv-boom/riscv-boom",
+    "preview_image": "https://raw.githubusercontent.com/tenstorrent/riscv-ocelot/bobtail/main/docs/figures/evolution.png"
   },
   "https://github.com/tenstorrent/tensix-isa-simulator": {
     "stars": 29,
-    "updatedAt": "2026-11-09T00:03:08Z"
+    "updatedAt": "2026-11-09T00:03:08Z",
+    "starsReported": 0
   },
   "https://github.com/tenstorrent-riscv-software/tt-bh-linux": {
     "stars": 60,
     "updatedAt": "2026-11-09T00:08:23Z",
+    "starsReported": 4,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent-riscv-software/tt-bh-linux/main/misc/P150.jpg",
     "releases": [
       {
@@ -5754,11 +5811,14 @@
   },
   "https://github.com/tenstorrent/tt-rpm": {
     "stars": 10,
-    "updatedAt": "2026-11-11T04:48:45Z"
+    "updatedAt": "2026-11-11T04:48:45Z",
+    "starsReported": 3
   },
   "https://github.com/tenstorrent/ttsim-qemu": {
     "stars": 0,
     "updatedAt": "2026-11-09T00:01:16Z",
+    "starsReported": 0,
+    "forkReported": false,
     "isFork": true,
     "forkParent": "qemu/qemu",
     "forkParentUrl": "https://github.com/qemu/qemu"
@@ -5766,6 +5826,7 @@
   "https://github.com/tenstorrent/ttsim": {
     "stars": 171,
     "updatedAt": "2026-11-11T01:53:34Z",
+    "starsReported": 29,
     "releases": [
       {
         "tagName": "v1.16.0",
@@ -5807,6 +5868,11 @@
   "https://github.com/tenstorrent/whisper": {
     "stars": 99,
     "updatedAt": "2026-11-12T15:21:08Z",
+    "starsReported": 2,
+    "forkReported": false,
+    "isFork": true,
+    "forkParent": "chipsalliance/VeeR-ISS",
+    "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS",
     "releases": [
       {
         "tagName": "r1.866",
@@ -5836,10 +5902,7 @@
         "url": "https://github.com/tenstorrent/whisper/releases/tag/1.861",
         "prerelease": false
       }
-    ],
-    "isFork": true,
-    "forkParent": "chipsalliance/VeeR-ISS",
-    "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS"
+    ]
   },
   "https://github.com/hedgehope/wolfpine": {
     "stars": 15,

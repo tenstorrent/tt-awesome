@@ -132,6 +132,18 @@ prints `WARN <repo>: HTTP 404` for repos it cannot read — private or deleted �
 and moves on. Those entries silently keep stale stars and releases forever, so
 it is worth grepping a nightly log for `WARN` occasionally.
 
+**Some star counts are held, and GitHub's own number is recorded beside them.**
+In 2026-11 the Tenstorrent-org repos were made private and then public again.
+GitHub afterwards reported about 90% fewer stars for 59 repos (tt-metal 1747 →
+124) and stopped reporting three repos as forks. The counts may recover, so
+`scripts/data/github_meta_holds.json` records the earlier values and
+`fetch_github_meta.py` tracks both: `stars` is the larger of the held and
+reported count, which is what the site shows and sorts by, and `starsReported`
+is GitHub's count on that run. A held fork keeps its `forkParent` and gets
+`forkReported: false`. Each run prints how many held repos still show a held
+value. To see whether the numbers are recovering, compare `starsReported`
+across nightly PRs. To stop holding a repo, delete it from the hold file.
+
 **Renamed and moved repos are detected and moved in the same PR.** GitHub
 answers a request for a repo's old name with a 301 that urllib follows, so the
 JSON `fetch_github_meta.py` gets back carries the repo's *current* `full_name`.

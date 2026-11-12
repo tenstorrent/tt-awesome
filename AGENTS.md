@@ -181,6 +181,13 @@ template uses them.
   that changed nothing opens no PR. To add one repo by hand, import the
   functions from `scripts/fetch_github_meta.py` and write only that record.
   Running `main()` rewrites every record and buries the change in star churn.
+* `scripts/data/github_meta_holds.json` lists repos whose star count and fork
+  parent are held at a recorded value. For those repos `stars` in
+  `github_meta.json` is the larger of the held count and GitHub's count, and
+  `starsReported` (with `forkReported` for forks) is what GitHub returned on
+  that run. It was added after the 2026-11 incident, when Tenstorrent-org
+  repos were made private and then public again and GitHub's counts fell by
+  about 90%. Remove a repo from the file to stop holding it.
 * Regenerate `README.md` and commit it with any entry change. Do not commit
   `data.json`.
 
