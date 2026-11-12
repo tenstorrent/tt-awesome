@@ -4669,6 +4669,48 @@
     "starsReported": 3,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent-riscv-software/wallabmc/main/img/web-ui-thumbnail.png"
   },
+  "https://github.com/0xalkinun/baretile": {
+    "stars": 2,
+    "updatedAt": "2026-11-07T14:10:19Z",
+    "releases": [
+      {
+        "tagName": "v0.0.6",
+        "name": "baretile 0.0.6",
+        "publishedAt": "2026-11-02T15:36:10Z",
+        "url": "https://github.com/0xalkinun/baretile/releases/tag/v0.0.6",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.0.5",
+        "name": "baretile 0.0.5",
+        "publishedAt": "2026-11-02T15:36:04Z",
+        "url": "https://github.com/0xalkinun/baretile/releases/tag/v0.0.5",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.0.4",
+        "name": "baretile 0.0.4",
+        "publishedAt": "2026-11-02T15:35:58Z",
+        "url": "https://github.com/0xalkinun/baretile/releases/tag/v0.0.4",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.0.3",
+        "name": "baretile 0.0.3",
+        "publishedAt": "2026-11-02T15:35:52Z",
+        "url": "https://github.com/0xalkinun/baretile/releases/tag/v0.0.3",
+        "prerelease": true
+      },
+      {
+        "tagName": "v0.0.7",
+        "name": "baretile 0.0.7",
+        "publishedAt": "2026-11-02T15:35:12Z",
+        "url": "https://github.com/0xalkinun/baretile/releases/tag/v0.0.7",
+        "prerelease": true
+      }
+    ],
+    "changelog_excerpt": "# Changelog\n\nbaretile is pre-alpha. Everything below is tested on Tenstorrent's ttsim\nsimulator. A P150a has run the first bring-up stages, preflight, chip and\ntransfers; nothing else is tested on a card yet.\n\n## 0.0.7\n\nThe release from a pass over the whole repository: fixes to wrong results in reductions, matmuls, slices and block\nfloats, configs and requests that are refused where they used to compute something else, and the package's links at\nthe repository's new home.\n\n### Changed\n\n- The repository moved to [github.com/0xalkinun/baretile](https://github.com/0xalkinun/baretile), and the package's\n  project links point there.\n- Two `Chip`s on one device object raise `RuntimeError`, as a second opener of the device does, since they'd hand out\n  the same TLBs and DRAM.\n- The server refuses, with HTTP 400 naming them, JSON-schema keywords it doesn't know, such as `not`, `prefixItems`\n  and `uniqueItems`, where it ignored them. It enforces `allOf`, and accepts annotations like `title`.\n- gpt-oss chats refuse a system, developer or tool message after the first, and a `reasoning_effort` other than\n  `low`, `medium` or `high`.\n- `llama.config` refuses `mlp_bias` and a Gated DeltaNet convolution of other than 4 taps, and the tokenizer a\n  normalizer other than NFC, where they loaded and computed something else.\n\n### Fixed\n\n- A reduction over a leading dimension other than the first, fused with an input of the result's batch, read the\n  wrong matrices: `x.sum(1) * y` was off, and so were softmax's and layernorm's gradients over that dimension.\n- A matmul under a reduction kept its line of B in L1 when A's row changed along the line, so later passes used the\n  wrong row: `(A @ B).softmax(-2)` was off by 0.9.\n- `y + x.sum(1)` on 4D, with the sum broadcast along rows or columns, failed to compile.\n- A unit-step slice of an inner leading dimension, like `x[:, 0:1]`, had no gradient.\n- Casting int32 to a block float gave wrong values: `[1, 2, 3, -4]` came back `[0, 0, 0, nan]`.\n- Slicing, relabelling or repeating a block-float repeat, merging a block float, and a block float with a number\n  raised; for fp32, the same copies changed -0 and NaN payloads.\n- `x / 0` raised `ZeroDivisionError`. It's inf, -inf or NaN as in NumPy, and `number / x` works.\n- `gather` and `put` used only the first row of 4D ids of two rows; they refuse them now.\n- Through tt-kmd, the chip stayed at its minimum AI clock. `Kmd` asks kmd for the busy one.\n- `python3 -m baretile.chip reset` left the card with no driver. It binds tt-kmd again and opens the card through it.\n- An ARC message through tt-kmd that timed out made every later message fail.\n- A stream whose client left before its headers were written kept its slot, a stream that got no text in 600 seconds\n  ended without an error or `[DONE]`, and response ids repeated across requests.\n- In the tinygrad adapter, `x ** inf` and `x ** nan` crashed, and so did a `cat` or `stack` of bools from comparisons\n  of different dtypes. `BARET"
+  },
   "https://github.com/seansiddens/current": {
     "stars": 5,
     "updatedAt": "2025-12-22T16:54:43Z"

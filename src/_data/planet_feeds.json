@@ -507,6 +507,34 @@
     "affiliation": "official"
   },
   {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "baretile v0.0.6",
+    "url": "https://github.com/0xalkinun/baretile/releases/tag/v0.0.6",
+    "description": "tinygrad programs now run in about the same time as the library's own code. A small GPT-2 written with tinygrad's llm.c model computes a sequence's loss in 124 launches and 0.92 s, down from 228 launches and 9.78 s, and an AdamW step takes 3.42 s, down from 25.16 s. Before, each call downloaded values for the host to compute, so a `TinyJit` ran its Python on every call. Both now replay. The times were measured on the ttsim simulator and are the simulator's own.",
+    "date": "2026-11-02",
+    "dateISO": "2026-11-02T15:36:10Z",
+    "label": "0xalkinun/baretile",
+    "projectName": "baretile",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "release",
+    "source": "github",
+    "approved": true,
+    "title": "baretile v0.0.7",
+    "url": "https://github.com/0xalkinun/baretile/releases/tag/v0.0.7",
+    "description": "The repository moved to [github.com/0xalkinun/baretile](https://github.com/0xalkinun/baretile), and the package's project links now point there. This version comes from a pass over the whole repository and fixes wrong results in reductions, matmuls, slices and block floats. `(A @ B).softmax(-2)` was off by 0.9, and casting int32 `[1, 2, 3, -4]` to a block float came back `[0, 0, 0, nan]`. Through tt-kmd the chip no longer stays at its minimum AI clock, and `python3 -m baretile.chip reset` now binds tt-kmd again where it used to leave the card with no driver. Several configs and server requests that used to load and compute something else are now refused.",
+    "date": "2026-11-02",
+    "dateISO": "2026-11-02T15:35:12Z",
+    "label": "0xalkinun/baretile",
+    "projectName": "baretile",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
     "type": "paper",
     "source": "arxiv",
     "approved": true,
