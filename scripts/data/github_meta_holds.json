@@ -1,0 +1,191 @@
+{
+  "_note": "Star counts and fork parents as last recorded on main before the 2026-11 incident, in which Tenstorrent-org repos were made private and then public again. GitHub now reports far fewer stars and has detached these forks. The numbers may recover. fetch_github_meta.py shows the larger of the held and reported star count as 'stars' and records GitHub's number as 'starsReported' ('forkReported' for forks). Remove a repo from this file to stop holding it.",
+  "repos": {
+    "https://github.com/tenstorrent-riscv-software/tt-bh-linux": {
+      "stars": 60
+    },
+    "https://github.com/tenstorrent-riscv-software/wallabmc": {
+      "stars": 55
+    },
+    "https://github.com/tenstorrent/luwen": {
+      "stars": 35
+    },
+    "https://github.com/tenstorrent/riescue": {
+      "stars": 72
+    },
+    "https://github.com/tenstorrent/riscv-ocelot": {
+      "stars": 265,
+      "forkParent": "riscv-boom/riscv-boom",
+      "forkParentUrl": "https://github.com/riscv-boom/riscv-boom"
+    },
+    "https://github.com/tenstorrent/riscv_arch_tests": {
+      "stars": 126
+    },
+    "https://github.com/tenstorrent/sfpi": {
+      "stars": 16
+    },
+    "https://github.com/tenstorrent/skills": {
+      "stars": 18
+    },
+    "https://github.com/tenstorrent/tensix-isa-simulator": {
+      "stars": 29
+    },
+    "https://github.com/tenstorrent/tt-CableGen": {
+      "stars": 4
+    },
+    "https://github.com/tenstorrent/tt-animatediff": {
+      "stars": 2
+    },
+    "https://github.com/tenstorrent/tt-blacksmith": {
+      "stars": 20
+    },
+    "https://github.com/tenstorrent/tt-buda": {
+      "stars": 314
+    },
+    "https://github.com/tenstorrent/tt-buda-demos": {
+      "stars": 63
+    },
+    "https://github.com/tenstorrent/tt-burnin": {
+      "stars": 4
+    },
+    "https://github.com/tenstorrent/tt-cli": {
+      "stars": 7
+    },
+    "https://github.com/tenstorrent/tt-emule": {
+      "stars": 5
+    },
+    "https://github.com/tenstorrent/tt-exalens": {
+      "stars": 21
+    },
+    "https://github.com/tenstorrent/tt-example-apps": {
+      "stars": 13
+    },
+    "https://github.com/tenstorrent/tt-firmware": {
+      "stars": 24
+    },
+    "https://github.com/tenstorrent/tt-flash": {
+      "stars": 14
+    },
+    "https://github.com/tenstorrent/tt-forge": {
+      "stars": 382
+    },
+    "https://github.com/tenstorrent/tt-forge-models": {
+      "stars": 14
+    },
+    "https://github.com/tenstorrent/tt-forge-onnx": {
+      "stars": 68
+    },
+    "https://github.com/tenstorrent/tt-inference-server": {
+      "stars": 79
+    },
+    "https://github.com/tenstorrent/tt-installer": {
+      "stars": 24
+    },
+    "https://github.com/tenstorrent/tt-isa-documentation": {
+      "stars": 136
+    },
+    "https://github.com/tenstorrent/tt-kmd": {
+      "stars": 75
+    },
+    "https://github.com/tenstorrent/tt-lab": {
+      "stars": 4
+    },
+    "https://github.com/tenstorrent/tt-lang": {
+      "stars": 68
+    },
+    "https://github.com/tenstorrent/tt-llk": {
+      "stars": 56
+    },
+    "https://github.com/tenstorrent/tt-local-generator": {
+      "stars": 4
+    },
+    "https://github.com/tenstorrent/tt-low-level-documentation": {
+      "stars": 6
+    },
+    "https://github.com/tenstorrent/tt-metal": {
+      "stars": 1747
+    },
+    "https://github.com/tenstorrent/tt-mlir": {
+      "stars": 320
+    },
+    "https://github.com/tenstorrent/tt-model-manager": {
+      "stars": 10
+    },
+    "https://github.com/tenstorrent/tt-npe": {
+      "stars": 19
+    },
+    "https://github.com/tenstorrent/tt-operator": {
+      "stars": 5
+    },
+    "https://github.com/tenstorrent/tt-perf-report": {
+      "stars": 11
+    },
+    "https://github.com/tenstorrent/tt-polaris": {
+      "stars": 48
+    },
+    "https://github.com/tenstorrent/tt-quietbox2-guide": {
+      "stars": 2
+    },
+    "https://github.com/tenstorrent/tt-rpm": {
+      "stars": 10
+    },
+    "https://github.com/tenstorrent/tt-smi": {
+      "stars": 68
+    },
+    "https://github.com/tenstorrent/tt-studio": {
+      "stars": 52
+    },
+    "https://github.com/tenstorrent/tt-system-firmware": {
+      "stars": 46
+    },
+    "https://github.com/tenstorrent/tt-system-tools": {
+      "stars": 5
+    },
+    "https://github.com/tenstorrent/tt-tools-common": {
+      "stars": 7
+    },
+    "https://github.com/tenstorrent/tt-toplike": {
+      "stars": 16
+    },
+    "https://github.com/tenstorrent/tt-topology": {
+      "stars": 16
+    },
+    "https://github.com/tenstorrent/tt-torch": {
+      "stars": 26
+    },
+    "https://github.com/tenstorrent/tt-transformers": {
+      "stars": 3
+    },
+    "https://github.com/tenstorrent/tt-tvm": {
+      "stars": 31
+    },
+    "https://github.com/tenstorrent/tt-umd": {
+      "stars": 51
+    },
+    "https://github.com/tenstorrent/tt-vscode-toolkit": {
+      "stars": 12
+    },
+    "https://github.com/tenstorrent/tt-xla": {
+      "stars": 77
+    },
+    "https://github.com/tenstorrent/ttnn-visualizer": {
+      "stars": 59
+    },
+    "https://github.com/tenstorrent/ttsim": {
+      "stars": 171
+    },
+    "https://github.com/tenstorrent/ttsim-qemu": {
+      "stars": 0,
+      "forkParent": "qemu/qemu",
+      "forkParentUrl": "https://github.com/qemu/qemu"
+    },
+    "https://github.com/tenstorrent/vllm-tt-plugin": {
+      "stars": 20
+    },
+    "https://github.com/tenstorrent/whisper": {
+      "stars": 99,
+      "forkParent": "chipsalliance/VeeR-ISS",
+      "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS"
+    }
+  }
+}

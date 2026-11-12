@@ -35,6 +35,9 @@ META_OUT = ROOT / "src" / "_data" / "github_meta.json"
 # Markdown the nightly workflow prepends to the PR body when this run moved an
 # entry to a renamed repo. Gitignored; absent when there was nothing to report.
 RENAMES_OUT = ROOT / "repo-renames.md"
+# Repos whose star count and fork fields are held at a recorded value while GitHub's own numbers
+# are in doubt. See load_holds() and apply_hold().
+HOLDS_IN = ROOT / "scripts" / "data" / "github_meta_holds.json"
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 REPO_RE = re.compile(r"https://github\.com/([^/?#]+/[^/?#]+?)(?:\.git)?$")
 
@@ -282,6 +285,48 @@ def apply_rename(entry_path: Path, old_repo: str, new_repo: str, new_url: str) -
     entry_path.write_text(json.dumps(entry, indent=2, ensure_ascii=False) + "\n")
 
 
+def load_holds(path: Path) -> dict:
+    """Read the hold list: {repo URL: {"stars": N, "forkParent": ..., "forkParentUrl": ...}}.
+
+    The file is {"_note": ..., "repos": {...}}. A missing file means no holds. It exists because
+    of the 2026-11 incident: Tenstorrent-org repos were made private and then public again, after
+    which GitHub reported about 90% fewer stars and no longer reported three repos as forks. The
+    counts may recover, so both numbers are tracked until someone removes a repo from the file.
+    """
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text()).get("repos", {}) or {}
+    except ValueError as e:
+        print(f"  WARN could not read {path}: {e}", file=sys.stderr)
+        return {}
+
+
+def apply_hold(result: dict, hold: dict) -> bool:
+    """Track a held repo twice: the held value for the site, and what GitHub reports now.
+
+    `stars` becomes the larger of the held count and GitHub's count, and `starsReported` records
+    GitHub's count on every run, so the file shows whether the number is recovering. When GitHub
+    no longer reports a fork the hold recorded, the fork fields are restored and `forkReported`
+    is False. Returns True while any held value is still standing in for GitHub's.
+    """
+    standing_in = False
+    reported = result.get("stars") or 0
+    result["starsReported"] = reported
+    held = hold.get("stars") or 0
+    if held > reported:
+        result["stars"] = held
+        standing_in = True
+    if hold.get("forkParent"):
+        result["forkReported"] = bool(result.get("isFork"))
+        if not result.get("isFork"):
+            result["isFork"] = True
+            result["forkParent"] = hold["forkParent"]
+            result["forkParentUrl"] = hold.get("forkParentUrl", "")
+            standing_in = True
+    return standing_in
+
+
 def format_renames_md(renames: list) -> str:
     """Markdown section for the PR body listing this run's repo renames.
 
@@ -324,6 +369,8 @@ def main(argv: list | None = None):
     entry_files = sorted(ENTRIES_DIR.rglob("*.json"))
     meta = {}
     renames = []
+    holds = load_holds(HOLDS_IN)
+    holds_standing = 0  # held repos where GitHub's numbers are still below the held ones
     for entry_path in entry_files:
         entry = json.loads(entry_path.read_text())
         repo_link = next((l for l in entry.get("links", []) if l["type"] == "repo"), None)
@@ -369,6 +416,13 @@ def main(argv: list | None = None):
                 result["isFork"] = True
                 result["forkParent"] = fork_parent_name
                 result["forkParentUrl"] = fork_parent_url
+            # Held repos carry both numbers. Looked up by the entry's URL and by the URL after
+            # a rename, so a hold survives the repo moving.
+            hold = holds.get(repo_link["url"]) or holds.get(meta_key)
+            if hold:
+                if apply_hold(result, hold):
+                    holds_standing += 1
+                print(f"  hold: stars {result['stars']} shown, {result['starsReported']} reported")
             image = fetch_readme_image(repo, default_branch)
             if image:
                 result["preview_image"] = image
@@ -399,6 +453,9 @@ def main(argv: list | None = None):
     META_OUT.parent.mkdir(parents=True, exist_ok=True)
     META_OUT.write_text(json.dumps(meta, indent=2) + "\n")
     print(f"Wrote {len(meta)} entries to {META_OUT}")
+    if holds:
+        print(f"Holds: {holds_standing} of {len(holds)} held repos still show a held value "
+              f"(GitHub's numbers are in starsReported / forkReported)")
 
     # A stale file from an earlier run would otherwise be read by the workflow
     # as this run's findings, so it is removed whenever there is nothing to say.
