@@ -8,7 +8,7 @@ whoever maintains the automation.
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `nightly.yml` | `17 6,18 * * *` UTC + dispatch | One run, one PR (`chore/nightly-refresh`): refreshes `src/_data/github_meta.json`, summarizes new releases and pulls YouTube / arXiv / Reddit / community / connpass / developer-blog items into `src/_data/planet_feeds.json`, rebuilds `src/_data/models.json` (plus the Thursday models roundup), regenerates `README.md`. Replaces the former `planet-feeds.yml` and `nightly-models.yml`. |
+| `nightly.yml` | `7 14 * * *` UTC (6:07am PST, 7:07am PDT) + dispatch | One run, one PR (`chore/nightly-refresh`): refreshes `src/_data/github_meta.json`, summarizes new releases and pulls YouTube / arXiv / Reddit / community / connpass / developer-blog items into `src/_data/planet_feeds.json`, rebuilds `src/_data/models.json` (plus the Thursday models roundup), regenerates `README.md`. Replaces the former `planet-feeds.yml` and `nightly-models.yml`. |
 | `validate.yml` | PR | `scripts/validate.py` over every entry |
 | `build-check.yml` | PR | Eleventy build |
 | `entry-from-issue.yml` | `approved` label on an issue | Converts an entry-submission issue into a PR |

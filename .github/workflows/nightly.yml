@@ -10,7 +10,9 @@ name: Nightly refresh
 # GitHub secret. The Vault `role` and secret path below are placeholders until OSPO supplies them.
 on:
   schedule:
-    - cron: "17 6,18 * * *"
+    # Once a day at 14:07 UTC: 6:07am PST, 7:07am PDT. Cron has no time zones, so the local time
+    # shifts by an hour when daylight saving changes.
+    - cron: "7 14 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
