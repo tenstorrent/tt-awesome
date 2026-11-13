@@ -111,8 +111,11 @@ jobs:
 
   # ---------------------------------------------------------------------------------------------
   # refresh: metadata, release summaries, planet feeds and the models digest, then one PR.
-  # `!cancelled()` keeps the metadata and planet feeds going when the models job fails, as they did
-  # when these were separate workflows. The run still shows red.
+  # Each part is independent, as when these were separate workflows. Every step after the Vault login
+  # runs under `!cancelled()` instead of the default `success()`, so one failed part does not stop
+  # the others or the PR. The run and the job still end red, and "Assemble the PR body" lists the
+  # failed parts at the top of the PR. Only a Vault failure is shared: it skips the parts that need
+  # the Foundry key (release summaries, planet feeds, roundup).
   # ---------------------------------------------------------------------------------------------
   refresh:
     needs: models
@@ -178,18 +181,23 @@ jobs:
             <secret-path> <key> | FOUNDRY_API_KEY
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        if: ${{ !cancelled() }}
         with: { python-version: "3.11" }
       - run: pip install pyyaml  # prompts/*.prompt.yml parsing (scripts/llm_client.py)
+        if: ${{ !cancelled() }}
 
       # Each script below writes its PR digest to its own file under pr-parts/ (PR_BODY_PATH, or --out
       # for models_diff.py). "Assemble the PR body" joins them into the one PR body.
       - run: mkdir -p pr-parts
+        if: ${{ !cancelled() }}
 
       # ---- 1. GitHub metadata and release summaries ----------------------------------------------
       # Besides stars/releases, this step detects repos GitHub now reports under a new owner or name.
       # It moves the entry's repo link, records the old name in the entry's previous_repos, and writes
       # repo-renames.md for the PR body. Name/description/id are left for the reviewer.
       - name: Fetch metadata
+        id: meta
+        if: ${{ !cancelled() }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -201,7 +209,8 @@ jobs:
         # Skipped entirely when Vault returned no Foundry credential. When one is present the script
         # exits non-zero if every summarization call fails, so a dead backend turns the run red
         # instead of quietly opening a PR that summarized nothing.
-        if: ${{ steps.vault.outputs.FOUNDRY_API_KEY != '' }}
+        id: releases
+        if: ${{ !cancelled() && steps.vault.outputs.FOUNDRY_API_KEY != '' }}
         env:
           FOUNDRY_API_KEY: ${{ steps.vault.outputs.FOUNDRY_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -212,11 +221,15 @@ jobs:
           python3 scripts/summarize_releases.py $FLAGS
 
       - name: Regenerate README
-        if: ${{ !inputs.dry_run }}
+        if: ${{ !cancelled() && !inputs.dry_run }}
         run: python3 scripts/generate_readme.py
 
       # ---- 2. Planet feeds -----------------------------------------------------------------------
       - name: Fetch planet feeds
+        id: planet
+        # Needs the Vault login to have worked, so a Vault outage does not quietly drop the English
+        # summaries from new connpass events.
+        if: ${{ !cancelled() && steps.vault.outcome == 'success' }}
         env:
           # Optional: used to render connpass event descriptions as bilingual EN + JA summaries. The
           # fetcher degrades to Japanese-only when the credential is absent.
@@ -233,7 +246,7 @@ jobs:
       # roundup that is still unmerged on Friday would silently fall out of the PR. Keep it. This does
       # not depend on the models job: the item is already in planet_feeds.json on the branch.
       - name: Carry forward an unmerged roundup
-        if: ${{ !inputs.dry_run }}
+        if: ${{ !cancelled() && !inputs.dry_run }}
         run: |
           if git fetch --quiet origin chore/nightly-refresh 2>/dev/null; then
             git show origin/chore/nightly-refresh:src/_data/planet_feeds.json > branch-feeds.json
@@ -245,7 +258,7 @@ jobs:
       # The models steps run only when the models job produced a list, and never on a dry run.
       # Into new/, not src/_data: the committed file must stay on disk as the "old" side of the diff below.
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
-        if: ${{ needs.models.result == 'success' && !inputs.dry_run }}
+        if: ${{ !cancelled() && needs.models.result == 'success' && !inputs.dry_run }}
         with:
           name: models-json
           path: new
@@ -253,7 +266,8 @@ jobs:
       # pr-parts/models.md lists what the run changed (models added, status changes, new bundles, ...).
       # It is left absent when nothing changed.
       - name: Describe the model changes
-        if: ${{ needs.models.result == 'success' && !inputs.dry_run }}
+        id: models_diff
+        if: ${{ !cancelled() && needs.models.result == 'success' && !inputs.dry_run }}
         run: python3 scripts/models_diff.py pr-body --old src/_data/models.json --new new/models.json --out pr-parts/models.md
 
       # Once a week, one Planet item: the models that arrived over the seven days ending today, across
@@ -261,7 +275,8 @@ jobs:
       # scheduled run in the same week writes nothing; a dispatch with roundup=true replaces the
       # week's item, which is how a week is regenerated after a prompt or data change.
       - name: Weekly models roundup (Thursdays)
-        if: ${{ needs.models.result == 'success' && !inputs.dry_run && steps.vault.outputs.FOUNDRY_API_KEY != '' && (inputs.roundup || github.event_name == 'schedule') }}
+        id: roundup
+        if: ${{ !cancelled() && needs.models.result == 'success' && !inputs.dry_run && steps.vault.outputs.FOUNDRY_API_KEY != '' && (inputs.roundup || github.event_name == 'schedule') }}
         env:
           FOUNDRY_API_KEY: ${{ steps.vault.outputs.FOUNDRY_API_KEY }}
           FORCE: ${{ inputs.roundup }}
@@ -282,7 +297,7 @@ jobs:
           python3 scripts/models_diff.py roundup --old old-week.json --new new/models.json --week-end "$(date -u +%F)" $REPLACE
 
       - name: Use the new models list
-        if: ${{ needs.models.result == 'success' && !inputs.dry_run }}
+        if: ${{ !cancelled() && needs.models.result == 'success' && !inputs.dry_run }}
         run: cp new/models.json src/_data/models.json
 
       # ---- One PR body -----------------------------------------------------------------------------
@@ -290,7 +305,16 @@ jobs:
       # releases, planet feeds, models), then collapsed review notes. pr-digest.md holds just the
       # sections; the comment step below posts it, because the PR body is replaced on every run.
       - name: Assemble the PR body
-        if: ${{ !inputs.dry_run }}
+        if: ${{ !cancelled() && !inputs.dry_run }}
+        env:
+          # What each part did: success, failure, skipped. Any failure is listed at the top of the PR.
+          OUTCOME_META: ${{ steps.meta.outcome }}
+          OUTCOME_RELEASES: ${{ steps.releases.outcome }}
+          OUTCOME_PLANET: ${{ steps.planet.outcome }}
+          OUTCOME_MODELS_JOB: ${{ needs.models.result }}
+          OUTCOME_MODELS_DIFF: ${{ steps.models_diff.outcome }}
+          OUTCOME_ROUNDUP: ${{ steps.roundup.outcome }}
+          OUTCOME_VAULT: ${{ steps.vault.outcome }}
         run: |
           RUN="[\`${GITHUB_RUN_ID}\`](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})"
           # Each part ends with a boilerplate block after a marker; keep only the per-run digest.
@@ -312,9 +336,26 @@ jobs:
           # The PR body and the comment are each limited to 65,536 characters.
           head -c 50000 pr-digest.md | iconv -f UTF-8 -t UTF-8 -c > pr-digest.tmp && mv pr-digest.tmp pr-digest.md
 
+          # A part that failed leaves the run red and its data out of date or missing here.
+          FAILED=""
+          fail() { [ "$1" = "failure" ] && FAILED="${FAILED}- $2\n" || true; }
+          fail "$OUTCOME_VAULT" "Vault login (release summaries, planet feeds and the roundup were skipped)"
+          fail "$OUTCOME_META" "GitHub metadata"
+          fail "$OUTCOME_RELEASES" "Release summaries"
+          fail "$OUTCOME_PLANET" "Planet feeds"
+          fail "$OUTCOME_MODELS_JOB" "Models list build (the models job)"
+          fail "$OUTCOME_MODELS_DIFF" "Models digest"
+          fail "$OUTCOME_ROUNDUP" "Weekly models roundup"
+
           {
             echo "Automated nightly refresh: GitHub metadata and release summaries, planet feeds, and the models list. Run ${RUN}."
             echo
+            if [ -n "$FAILED" ]; then
+              echo "> ⚠️ **Failed in this run.** The data for these parts is missing or unchanged here. Check the run log before merging."
+              echo ">"
+              printf '%b' "$FAILED" | sed 's/^/> /'
+              echo
+            fi
             echo "## Files changed"
             echo
             echo '```'
@@ -341,7 +382,7 @@ jobs:
 
       - name: Create pull request if changed
         id: cpr
-        if: ${{ !inputs.dry_run }}
+        if: ${{ !cancelled() && !inputs.dry_run }}
         uses: peter-evans/create-pull-request@84ae59a2cdc2258d6fa0732dd66352dddae2a412 # v7.0.9
         with:
           add-paths: |
@@ -364,7 +405,7 @@ jobs:
       # Post the digest as a comment too: a PR that accumulates several runs before merge then keeps
       # the history of what each one added.
       - name: Comment this run's digest on the PR
-        if: ${{ !inputs.dry_run && steps.cpr.outputs.pull-request-number }}
+        if: ${{ !cancelled() && !inputs.dry_run && steps.cpr.outputs.pull-request-number }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ steps.cpr.outputs.pull-request-number }}
