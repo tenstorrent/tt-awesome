@@ -5,8 +5,8 @@ name: Build check
 # template/data regression is caught on the PR instead of turning main red
 # after merge.
 #
-# The nightly and planet-feeds automations open PRs from `chore/nightly-*`
-# branches that touch src/_data/*.json (matching the paths below). We skip
+# The nightly refresh automation opens its PR from the `chore/nightly-refresh`
+# branch (any `chore/nightly-*` branch is skipped) that touch src/_data/*.json (matching the paths below). We skip
 # those deterministically with the job-level head_ref guard rather than
 # relying on commit-message skip tokens — this keeps automation PRs off the
 # gate regardless of how GitHub treats "[skip ci]" for pull_request events.
@@ -23,8 +23,8 @@ on:
       - ".github/workflows/build-check.yml"
 jobs:
   build-check:
-    # Skip the nightly/planet-feeds automation PRs (chore/nightly-github-metadata,
-    # chore/nightly-planet-feeds); they only refresh data files.
+    # Skip the nightly refresh automation PR (chore/nightly-refresh); it only
+    # refreshes data files.
     if: ${{ !startsWith(github.head_ref, 'chore/nightly-') }}
     runs-on: ubuntu-latest
     steps:
