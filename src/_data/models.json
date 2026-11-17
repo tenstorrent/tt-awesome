@@ -1807,7 +1807,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "openai",
-     "updated": "2026-09-12"
+     "updated": "2026-11-15"
     },
     {
      "arch": "blackhole",
@@ -1949,7 +1949,7 @@
    ],
    "modelType": "LLM",
    "name": "gpt-oss-120b",
-   "newest": "2026-11-04",
+   "newest": "2026-11-15",
    "params": "120B",
    "perf": {
     "chips": null,
@@ -5563,7 +5563,7 @@
      "schema": "5",
      "task": null,
      "toolParser": "hermes",
-     "updated": "2026-10-02"
+     "updated": "2026-11-15"
     },
     {
      "arch": "wormhole_b0",
@@ -5590,7 +5590,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "hermes",
-     "updated": "2026-10-02"
+     "updated": "2026-11-15"
     },
     {
      "arch": "blackhole",
@@ -5691,7 +5691,7 @@
    ],
    "modelType": "LLM",
    "name": "Qwen3-32B",
-   "newest": "2026-10-02",
+   "newest": "2026-11-15",
    "params": "32B",
    "perf": {
     "chips": null,
@@ -6659,7 +6659,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_coder",
-     "updated": "2026-10-02"
+     "updated": "2026-11-15"
     },
     {
      "arch": "blackhole",
@@ -6686,7 +6686,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_coder",
-     "updated": "2026-11-05"
+     "updated": "2026-11-15"
     },
     {
      "arch": "blackhole",
@@ -6794,7 +6794,7 @@
    ],
    "modelType": "LLM",
    "name": "Qwen3.8-27B",
-   "newest": "2026-11-05",
+   "newest": "2026-11-15",
    "params": "27B",
    "perf": {
     "chips": null,
@@ -8210,7 +8210,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": null,
-     "updated": "2026-09-20"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -8230,7 +8230,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Alpamayo2-Super",
-   "newest": "2026-09-20",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -8398,7 +8398,7 @@
      "schema": "5.1",
      "task": "object-detection",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -8420,7 +8420,7 @@
    "modalities": null,
    "modelType": null,
    "name": "bevformer-small-weights",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": "camera-only 3D detector",
@@ -8468,7 +8468,7 @@
      "schema": "5.1",
      "task": "object-detection",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -8490,7 +8490,7 @@
    "modalities": null,
    "modelType": null,
    "name": "bevfusion",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -8538,7 +8538,7 @@
      "schema": "5.1",
      "task": "object-detection",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -8560,7 +8560,7 @@
    "modalities": null,
    "modelType": null,
    "name": "camera_streampetr",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": "camera-only 3D detector with a temporal object memory",
@@ -8782,7 +8782,7 @@
      "schema": "5.1",
      "task": "depth-estimation",
      "toolParser": null,
-     "updated": "2026-11-12"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -8804,7 +8804,7 @@
    "modalities": null,
    "modelType": null,
    "name": "DA3Metric-Large",
-   "newest": "2026-11-12",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -8980,7 +8980,7 @@
      "schema": "5.1",
      "task": "robotics",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -9002,7 +9002,7 @@
    "modalities": null,
    "modelType": null,
    "name": "diffusion_planner",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": "diffusion-transformer planner",
@@ -9023,11 +9023,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "This package serves the DUSt3R ViT-L/512 DPT checkpoint (naver/DUSt3RViTLargeBaseDecoder512dpt), the network MASt3R builds on, with no MASt3R matching or descriptor head.",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "This package serves the DUSt3R ViT-L/512 DPT checkpoint (naver/DUSt3R_ViTLarge_BaseDecoder_512_dpt), the network MASt3R builds on, with no MASt3R matching or descriptor head. DUSt3R is a two-view 3D reconstruction transformer with 571M para",
      "devices": 1,
      "hardware": [
       {
@@ -9037,16 +9037,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "cc-by-nc-sa-4.0",
+      "link": null,
+      "name": null
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/mast3r-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "image-to-3d",
      "toolParser": null,
-     "updated": "2026-10-05"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -9057,16 +9061,18 @@
    "id": "dust3r-vitlarge-basedecoder-512-dpt",
    "impls": [],
    "inSpec": false,
-   "kind": "Depth and 3D geometry",
-   "kindFrom": "an inference: DUSt3R reconstructs 3D geometry from images.",
-   "kindInferred": true,
-   "licenses": [],
+   "kind": "Image to 3d",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "cc-by-nc-sa-4.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "DUSt3R_ViTLarge_BaseDecoder_512_dpt",
-   "newest": "2026-10-05",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": "code",
@@ -9078,7 +9084,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "This package serves the DUSt3R ViT-L/512 DPT checkpoint (naver/DUSt3RViTLargeBaseDecoder512dpt), the network MASt3R builds on, with no MASt3R matching or descriptor head.",
    "toolParser": null,
    "upstream": "naver/DUSt3R_ViTLarge_BaseDecoder_512_dpt",
    "weights": "naver/DUSt3R_ViTLarge_BaseDecoder_512_dpt"
@@ -9157,7 +9163,7 @@
      "schema": "5.1",
      "task": "text-generation",
      "toolParser": "llmjp_harmony",
-     "updated": "2026-11-06"
+     "updated": "2026-11-16"
     }
    ],
    "clients": [
@@ -9222,7 +9228,7 @@
    "modalities": null,
    "modelType": null,
    "name": "ELYZA-Thinking-1.0-llm-jp-4-33b",
-   "newest": "2026-11-06",
+   "newest": "2026-11-16",
    "params": null,
    "perf": {
     "board": "p300x2",
@@ -9345,7 +9351,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "hermes",
-     "updated": "2026-09-12"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [
@@ -9408,7 +9414,7 @@
    "modalities": null,
    "modelType": null,
    "name": "EXAONE-4.5-33B",
-   "newest": "2026-09-12",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -9584,7 +9590,7 @@
      "schema": "5.1",
      "task": "keypoint-detection",
      "toolParser": null,
-     "updated": "2026-11-12"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -9606,7 +9612,7 @@
    "modalities": null,
    "modelType": null,
    "name": "gaze-lle-weights",
-   "newest": "2026-11-12",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -9757,120 +9763,6 @@
      "arch": "blackhole",
      "blurb": "",
      "bundleKind": "vllm-plugin",
-     "context": "256K",
-     "decision": false,
-     "descriptionHead": "",
-     "devices": 4,
-     "hardware": [
-      {
-       "key": "P150X4",
-       "listed": true,
-       "product": "BH 4xP150",
-       "raw": "p150x4"
-      },
-      {
-       "key": "P300X2",
-       "listed": true,
-       "product": "BH QuietBox 2",
-       "raw": "p300x2"
-      }
-     ],
-     "license": null,
-     "owner": "raahemnabeel",
-     "perf": null,
-     "readable": true,
-     "reasoningParser": "glm45",
-     "repo": "raahemnabeel/glm-5.3-flash-e192-blackhole",
-     "schema": "5.1",
-     "task": null,
-     "toolParser": "glm47",
-     "updated": "2026-10-25"
-    }
-   ],
-   "clients": [
-    {
-     "checked": false,
-     "id": "opencode",
-     "note": "Tool calling: glm47",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "pi",
-     "note": "Tool calling: glm47",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "aider",
-     "note": "Tool calling: glm47",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "qwencode",
-     "note": "Tool calling: glm47",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "hermes",
-     "note": "Tool calling: glm47",
-     "type": "Terminal"
-    },
-    {
-     "checked": false,
-     "id": "openwebui",
-     "note": "Any chat model",
-     "type": "Web service"
-    },
-    {
-     "checked": false,
-     "id": "anythingllm",
-     "note": "Any chat model",
-     "type": "Web service"
-    }
-   ],
-   "family": "GLM",
-   "hardware": [
-    "BH 4xP150",
-    "BH QuietBox 2"
-   ],
-   "id": "glm-5-3-flash",
-   "impls": [],
-   "inSpec": false,
-   "kind": "LLM",
-   "kindFrom": "an inference: GLM is a language-model family; the bundle names a glm47 tool-call parser.",
-   "kindInferred": true,
-   "licenses": [],
-   "minDiskGb": null,
-   "minRamGb": null,
-   "modalities": null,
-   "modelType": null,
-   "name": "GLM-5.3-Flash",
-   "newest": "2026-10-25",
-   "params": null,
-   "perf": null,
-   "purpose": null,
-   "purposeFrom": null,
-   "reasoningParser": "glm45",
-   "rows": [],
-   "serve": "raahemnabeel/glm-5.3-flash-e192-blackhole",
-   "singleCard": false,
-   "source": "tt-model bundle",
-   "status": null,
-   "studio": null,
-   "summary": "Published as 1 tt-model bundle by raahemnabeel.",
-   "toolParser": "glm47",
-   "upstream": "zai-org/GLM-5.3-Flash",
-   "weights": "zai-org/GLM-5.3-Flash"
-  },
-  {
-   "bundles": [
-    {
-     "arch": "blackhole",
-     "blurb": "",
-     "bundleKind": "vllm-plugin",
      "context": "32K",
      "decision": false,
      "descriptionHead": "",
@@ -9892,7 +9784,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "openai",
-     "updated": "2026-09-12"
+     "updated": "2026-11-15"
     },
     {
      "arch": "blackhole",
@@ -10090,7 +9982,7 @@
    "modalities": null,
    "modelType": null,
    "name": "gpt-oss-20b",
-   "newest": "2026-10-29",
+   "newest": "2026-11-15",
    "params": null,
    "perf": {
     "board": "p150",
@@ -10106,7 +9998,7 @@
    "purposeFrom": null,
    "reasoningParser": "openai_gptoss",
    "rows": [],
-   "serve": "tt-hous/gpt-oss-20b",
+   "serve": "changh95/gpt-oss-20b-p150x8",
    "singleCard": true,
    "source": "tt-model bundle",
    "status": null,
@@ -10120,11 +10012,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "NVIDIA Isaac GR00T N1.5, a 2.7B-parameter vision-language-action policy: a SigLIP 2 vision tower and the first 12 layers of a Qwen3-1.7B language model encode a camera frame and a task instruction.",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "NVIDIA Isaac GR00T N1.5, a 2.7B-parameter vision-language-action policy: a SigLIP 2 vision tower and the first 12 layers of a Qwen3-1.7B language model encode a camera frame and a task instruction, and a flow-matching action head (a 4-block",
      "devices": 1,
      "hardware": [
       {
@@ -10134,16 +10026,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/nvidia/GR00T-N1.5-3B/blob/869830fc749c35f34771aa5209f923ac57e4564e/LICENSE",
+      "name": "NVIDIA License"
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/GR00T-N1.5-3B-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "robotics",
      "toolParser": null,
-     "updated": "2026-09-28"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -10155,15 +10051,17 @@
    "impls": [],
    "inSpec": false,
    "kind": "Robotics",
-   "kindFrom": "an inference: GR00T is NVIDIA's robot foundation model.",
-   "kindInferred": true,
-   "licenses": [],
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "NVIDIA License"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "GR00T-N1.5-3B",
-   "newest": "2026-09-28",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -10175,7 +10073,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "NVIDIA Isaac GR00T N1.5, a 2.7B-parameter vision-language-action policy: a SigLIP 2 vision tower and the first 12 layers of a Qwen3-1.7B language model encode a camera frame and a task instruction.",
    "toolParser": null,
    "upstream": "nvidia/GR00T-N1.5-3B",
    "weights": "nvidia/GR00T-N1.5-3B"
@@ -10184,11 +10082,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "NVIDIA Isaac GR00T N1.6, a 3.3B-parameter vision-language-action policy: a SigLIP2 vision tower and the first 16 layers of a Qwen3-1.7B language model encode a camera frame and a task instruction.",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "NVIDIA Isaac GR00T N1.6, a 3.3B-parameter vision-language-action policy: a SigLIP2 vision tower and the first 16 layers of a Qwen3-1.7B language model encode a camera frame and a task instruction, and a flow-matching action head with a 32-b",
      "devices": 1,
      "hardware": [
       {
@@ -10198,16 +10096,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/nvidia/GR00T-N1.6-3B/blob/d0814e7ecb19202e7c8468b46098b0b7ef3a6d61/LICENSE",
+      "name": "NVIDIA License"
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/GR00T-N1.6-3B-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "robotics",
      "toolParser": null,
-     "updated": "2026-09-28"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -10219,15 +10121,17 @@
    "impls": [],
    "inSpec": false,
    "kind": "Robotics",
-   "kindFrom": "an inference: GR00T is NVIDIA's robot foundation model.",
-   "kindInferred": true,
-   "licenses": [],
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "NVIDIA License"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "GR00T-N1.6-3B",
-   "newest": "2026-09-28",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -10239,7 +10143,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "NVIDIA Isaac GR00T N1.6, a 3.3B-parameter vision-language-action policy: a SigLIP2 vision tower and the first 16 layers of a Qwen3-1.7B language model encode a camera frame and a task instruction.",
    "toolParser": null,
    "upstream": "nvidia/GR00T-N1.6-3B",
    "weights": "nvidia/GR00T-N1.6-3B"
@@ -10248,11 +10152,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "NVIDIA Isaac GR00T N1.7, a vision-language-action policy with 3.46B parameters: the Cosmos-Reason2-2B vision-language model encodes the camera frames and a task instruction.",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "NVIDIA Isaac GR00T N1.7, a vision-language-action policy with 3.46B parameters (3.14B of them used for one embodiment): the Cosmos-Reason2-2B vision-language model (a Qwen3-VL vision tower and the first 16 layers of its language model) enco",
      "devices": 1,
      "hardware": [
       {
@@ -10262,16 +10166,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/nvidia/GR00T-N1.7-3B/blob/2fc962b973bccdd5d8ce4f67cc63b264d6886495/LICENSE",
+      "name": "NVIDIA License"
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/GR00T-N1.7-3B-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "robotics",
      "toolParser": null,
-     "updated": "2026-09-28"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -10283,15 +10191,17 @@
    "impls": [],
    "inSpec": false,
    "kind": "Robotics",
-   "kindFrom": "an inference: GR00T is NVIDIA's robot foundation model.",
-   "kindInferred": true,
-   "licenses": [],
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "NVIDIA License"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "GR00T-N1.7-3B",
-   "newest": "2026-09-28",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -10303,7 +10213,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "NVIDIA Isaac GR00T N1.7, a vision-language-action policy with 3.46B parameters: the Cosmos-Reason2-2B vision-language model encodes the camera frames and a task instruction.",
    "toolParser": null,
    "upstream": "nvidia/GR00T-N1.7-3B",
    "weights": "nvidia/GR00T-N1.7-3B"
@@ -10339,7 +10249,7 @@
      "schema": "5.1",
      "task": "keypoint-detection",
      "toolParser": null,
-     "updated": "2026-11-12"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -10361,7 +10271,7 @@
    "modalities": null,
    "modelType": null,
    "name": "hamer-weights",
-   "newest": "2026-11-12",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -10473,7 +10383,7 @@
      "schema": "5.1",
      "task": "object-detection",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -10495,7 +10405,7 @@
    "modalities": null,
    "modelType": null,
    "name": "image_projection_based_fusion",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": "camera-LiDAR 3D object detector",
@@ -11151,7 +11061,7 @@
      "schema": "5.1",
      "task": "object-detection",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -11173,7 +11083,7 @@
    "modalities": null,
    "modelType": null,
    "name": "lidar_centerpoint",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -11221,7 +11131,7 @@
      "schema": "5.1",
      "task": "image-segmentation",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -11243,7 +11153,7 @@
    "modalities": null,
    "modelType": null,
    "name": "lidar_frnet",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -11291,7 +11201,7 @@
      "schema": "5.1",
      "task": "object-detection",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -11313,7 +11223,7 @@
    "modalities": null,
    "modelType": null,
    "name": "lidar_transfusion",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -11643,11 +11553,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "LocateAnything-3B, a 3.5B-parameter vision-language model for visual grounding: a MoonViT-SO-400M vision encoder, a two-layer MLP projector and a 36-layer Qwen2.5-3B language model that writes box coordinates as tokens.",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "LocateAnything-3B, a 3.5B-parameter vision-language model for visual grounding: a MoonViT-SO-400M vision encoder (27 layers, 14-pixel patches merged 2×2), a two-layer MLP projector and a 36-layer Qwen2.5-3B language model that writes box co",
      "devices": 1,
      "hardware": [
       {
@@ -11657,16 +11567,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/nvidia/LocateAnything-3B/blob/main/LICENSE",
+      "name": "NVIDIA License"
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/locate-anything-3b-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "zero-shot-object-detection",
      "toolParser": null,
-     "updated": "2026-10-05"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -11677,16 +11591,18 @@
    "id": "locateanything-3b",
    "impls": [],
    "inSpec": false,
-   "kind": "Object detection",
-   "kindFrom": "an inference: LocateAnything finds objects in an image from a text prompt.",
-   "kindInferred": true,
-   "licenses": [],
+   "kind": "Zero shot object detection",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "NVIDIA License"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "LocateAnything-3B",
-   "newest": "2026-10-05",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -11698,7 +11614,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "LocateAnything-3B, a 3.5B-parameter vision-language model for visual grounding: a MoonViT-SO-400M vision encoder, a two-layer MLP projector and a 36-layer Qwen2.5-3B language model that writes box coordinates as tokens.",
    "toolParser": null,
    "upstream": "nvidia/LocateAnything-3B",
    "weights": "nvidia/LocateAnything-3B"
@@ -11734,7 +11650,7 @@
      "schema": "5.1",
      "task": "robotics",
      "toolParser": null,
-     "updated": "2026-10-19"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -11756,7 +11672,7 @@
    "modalities": null,
    "modelType": null,
    "name": "meteor",
-   "newest": "2026-10-19",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": "camera-only perception and planning network",
@@ -11800,7 +11716,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": null,
-     "updated": "2026-10-21"
+     "updated": "2026-11-12"
     }
    ],
    "clients": [
@@ -11833,7 +11749,7 @@
    "modalities": null,
    "modelType": null,
    "name": "MiMo-V2.6-Distill-Qwen-9B",
-   "newest": "2026-10-21",
+   "newest": "2026-11-12",
    "params": null,
    "perf": null,
    "purpose": "agent with tool calling",
@@ -12384,7 +12300,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": null,
-     "updated": "2026-10-21"
+     "updated": "2026-11-12"
     }
    ],
    "clients": [
@@ -12417,7 +12333,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Mistral-Small-4-119B-2603",
-   "newest": "2026-10-21",
+   "newest": "2026-11-12",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -12438,11 +12354,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "MoGe-2 ViT-L with the normal head, 331M parameters: a DINOv2 ViT-L/14 encoder (309M parameters), a convolutional neck and four heads (point map, surface normals, validity mask, metric scale).",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "MoGe-2 ViT-L with the normal head, 331M parameters: a DINOv2 ViT-L/14 encoder (309M parameters), a convolutional neck and four heads (point map, surface normals, validity mask, metric scale). One RGB image goes in and is placed on a fixed 1",
      "devices": 1,
      "hardware": [
       {
@@ -12452,16 +12368,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "mit",
+      "link": null,
+      "name": null
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/moge-2-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "depth-estimation",
      "toolParser": null,
-     "updated": "2026-10-05"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -12472,16 +12392,18 @@
    "id": "moge-2-vitl-normal",
    "impls": [],
    "inSpec": false,
-   "kind": "Depth and 3D geometry",
-   "kindFrom": "an inference: MoGe-2 estimates geometry (points, depth, normals) from one image.",
-   "kindInferred": true,
-   "licenses": [],
+   "kind": "Depth estimation",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "mit"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "moge-2-vitl-normal",
-   "newest": "2026-10-05",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -12493,7 +12415,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "MoGe-2 ViT-L with the normal head, 331M parameters: a DINOv2 ViT-L/14 encoder (309M parameters), a convolutional neck and four heads (point map, surface normals, validity mask, metric scale).",
    "toolParser": null,
    "upstream": "Ruicheng/moge-2-vitl-normal",
    "weights": "Ruicheng/moge-2-vitl-normal"
@@ -12525,7 +12447,7 @@
      "schema": "5",
      "task": null,
      "toolParser": "motif",
-     "updated": "2026-10-12"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -12545,7 +12467,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Motif-3",
-   "newest": "2026-10-12",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -12593,7 +12515,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_coder",
-     "updated": "2026-10-21"
+     "updated": "2026-11-12"
     }
    ],
    "clients": [
@@ -12658,7 +12580,7 @@
    "modalities": null,
    "modelType": null,
    "name": "NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
-   "newest": "2026-10-21",
+   "newest": "2026-11-12",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -13595,7 +13517,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": null,
-     "updated": "2026-10-04"
+     "updated": "2026-11-15"
     },
     {
      "arch": "blackhole",
@@ -13622,7 +13544,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": null,
-     "updated": "2026-10-13"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -13643,7 +13565,7 @@
    "modalities": null,
    "modelType": null,
    "name": "pi05_base",
-   "newest": "2026-10-13",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -13691,7 +13613,7 @@
      "schema": "5.1",
      "task": "object-detection",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -13713,7 +13635,7 @@
    "modalities": null,
    "modelType": null,
    "name": "ptv3",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -13882,11 +13804,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "Qwen-Image-2.1, a text-to-image diffusion model: a 7B-parameter single-stream DiT (32 layers), the Qwen3-VL-8B language model as text encoder and a 64-channel RGBA VAE decoder, all three running on the device.",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "Qwen-Image-2.1, a text-to-image diffusion model: a 7B-parameter single-stream DiT (32 layers), the Qwen3-VL-8B language model as text encoder and a 64-channel RGBA VAE decoder, all three running on the device. One request takes a text promp",
      "devices": 1,
      "hardware": [
       {
@@ -13896,16 +13818,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/Qwen/Qwen-Image-2.1/blob/790c92633540aa0cb11d9abf19eb46d861714758/LICENSE",
+      "name": "Qwen Research"
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/qwen-image-2.1-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "text-to-image",
      "toolParser": null,
-     "updated": "2026-10-05"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -13916,16 +13842,18 @@
    "id": "qwen-image-2-1",
    "impls": [],
    "inSpec": false,
-   "kind": "Image generation",
-   "kindFrom": "an inference: Qwen-Image is an image-generation model.",
-   "kindInferred": true,
-   "licenses": [],
+   "kind": "Text to image",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "Qwen Research"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "Qwen-Image-2.1",
-   "newest": "2026-10-05",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -13937,7 +13865,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "Qwen-Image-2.1, a text-to-image diffusion model: a 7B-parameter single-stream DiT (32 layers), the Qwen3-VL-8B language model as text encoder and a 64-channel RGBA VAE decoder, all three running on the device.",
    "toolParser": null,
    "upstream": "Qwen/Qwen-Image-2.1",
    "weights": "Qwen/Qwen-Image-2.1"
@@ -15110,6 +15038,70 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "Qwen3.6-35B-A3B served entirely from one Tenstorrent Blackhole p100a card, with an OpenAI- and Anthropic-compatible API.",
+     "bundleKind": "http-server",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Qwen3.6-35B-A3B (35B total / 3B active MoE, 256 experts, gated delta net + gated attention, MTP head) served entirely from one Tenstorrent Blackhole p100a card, with an OpenAI- and Anthropic-compatible API (chat completions, responses, mess",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": null,
+       "listed": false,
+       "product": "p100a",
+       "raw": "p100a"
+      }
+     ],
+     "license": null,
+     "owner": "sunandbean",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "sunandbean/qwen3.6-35b-a3b-p100a",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": null,
+     "updated": "2026-11-15"
+    }
+   ],
+   "clients": [],
+   "family": "Qwen",
+   "hardware": [
+    "p100a"
+   ],
+   "id": "qwen3-6-35b-a3b-tt-mixed-bfp4-bfp8-p150",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the original model's Hugging Face card",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150",
+   "newest": "2026-11-15",
+   "params": null,
+   "perf": null,
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "sunandbean/qwen3.6-35b-a3b-p100a",
+   "singleCard": false,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Qwen3.6-35B-A3B served entirely from one Tenstorrent Blackhole p100a card, with an OpenAI- and Anthropic-compatible API.",
+   "toolParser": null,
+   "upstream": "Lottolabs/Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150",
+   "weights": "Lottolabs/Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "A dense decoder-only LLM served on 4 Blackhole chips by its own OpenAI-compatible HTTP server: POST /v1/chat/completions, GET /v1/models, GET /health.",
      "bundleKind": "http-server",
      "context": "128K",
@@ -15191,7 +15183,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": null,
-     "updated": "2026-09-20"
+     "updated": "2026-11-15"
     },
     {
      "arch": "blackhole",
@@ -15333,7 +15325,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Qwen3.8-Flash-Next",
-   "newest": "2026-11-03",
+   "newest": "2026-11-15",
    "params": null,
    "perf": {
     "board": "p150x4",
@@ -15349,7 +15341,7 @@
    "purposeFrom": null,
    "reasoningParser": "qwen3",
    "rows": [],
-   "serve": "sjettTT/qwen3.8-flash-next_p150x4",
+   "serve": "changh95/qwen3.8-flash-next-p150x8",
    "singleCard": false,
    "source": "tt-model bundle",
    "status": null,
@@ -15358,6 +15350,70 @@
    "toolParser": "qwen3_xml",
    "upstream": "Qwen/Qwen3.8-Flash-Next",
    "weights": "Qwen/Qwen3.8-Flash-Next"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Qwen3.8-Flash-Next on one Tenstorrent Blackhole p100a plus the host CPU: dense layers, attention and the hottest experts on the card; routing and the remaining experts on the CPU, the experts read from the memory-mapped GGUF.",
+     "bundleKind": "http-server",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Qwen3.8-Flash-Next (GSQ-RCO GGUF by ISTA-DASLab; the Coder variant by default) on one Tenstorrent Blackhole p100a plus the host CPU: dense layers, attention and the hottest experts on the card; routing and the remaining experts on the CPU, ",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": null,
+       "listed": false,
+       "product": "p100a",
+       "raw": "p100a"
+      }
+     ],
+     "license": null,
+     "owner": "sunandbean",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "sunandbean/qwen3.8-flash-next-p100a",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": null,
+     "updated": "2026-11-15"
+    }
+   ],
+   "clients": [],
+   "family": "Qwen",
+   "hardware": [
+    "p100a"
+   ],
+   "id": "qwen3-8-flash-next-gsq-rco-coder-gguf",
+   "impls": [],
+   "inSpec": false,
+   "kind": "VLM",
+   "kindFrom": "the task tag on the original model's Hugging Face card",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF",
+   "newest": "2026-11-15",
+   "params": null,
+   "perf": null,
+   "purpose": "code",
+   "purposeFrom": "the tags on the original model's Hugging Face card",
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "sunandbean/qwen3.8-flash-next-p100a",
+   "singleCard": false,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Qwen3.8-Flash-Next on one Tenstorrent Blackhole p100a plus the host CPU: dense layers, attention and the hottest experts on the card; routing and the remaining experts on the CPU, the experts read from the memory-mapped GGUF.",
+   "toolParser": null,
+   "upstream": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF",
+   "weights": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF"
   },
   {
    "bundles": [
@@ -15454,7 +15510,7 @@
      "schema": "5.1",
      "task": "object-detection",
      "toolParser": null,
-     "updated": "2026-11-12"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -15476,7 +15532,7 @@
    "modalities": null,
    "modelType": null,
    "name": "rf-detr-base",
-   "newest": "2026-11-12",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -15497,11 +15553,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "RLWRLD RLDX-1 PT, a 6.9B-parameter vision-language-action policy pretrained on a mixture of public robot manipulation datasets: a Qwen3-VL-8B vision-language backbone, truncated to 18 language-model layers, encodes the camera frames.",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "RLWRLD RLDX-1 PT, a 6.9B-parameter vision-language-action policy pretrained on a mixture of public robot manipulation datasets: a Qwen3-VL-8B vision-language backbone, truncated to 18 language-model layers, encodes the camera frames, the ta",
      "devices": 1,
      "hardware": [
       {
@@ -15511,16 +15567,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/RLWRLD/RLDX-1-PT/blob/1592013ab955b4919facd91fb37449f33a292a70/LICENSE.md",
+      "name": "RLWRLD Model License v1.0"
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/RLDX-1-PT-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "robotics",
      "toolParser": null,
-     "updated": "2026-09-21"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -15532,15 +15592,17 @@
    "impls": [],
    "inSpec": false,
    "kind": "Robotics",
-   "kindFrom": "an inference: RLDX-1 is a robot model from RLWRLD.",
-   "kindInferred": true,
-   "licenses": [],
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "RLWRLD Model License v1.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "RLDX-1-PT",
-   "newest": "2026-09-21",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -15552,7 +15614,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "RLWRLD RLDX-1 PT, a 6.9B-parameter vision-language-action policy pretrained on a mixture of public robot manipulation datasets: a Qwen3-VL-8B vision-language backbone, truncated to 18 language-model layers, encodes the camera frames.",
    "toolParser": null,
    "upstream": "RLWRLD/RLDX-1-PT",
    "weights": "RLWRLD/RLDX-1-PT"
@@ -15561,11 +15623,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "RLWRLD RLDX-1 PT-IMG, a 6.9B-parameter vision-language-action policy pretrained on public robot manipulation datasets: a Qwen3-VL-8B vision-language backbone, truncated to 18 language-model layers, encodes the camera frames.",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "RLWRLD RLDX-1 PT-IMG, a 6.9B-parameter vision-language-action policy pretrained on public robot manipulation datasets: a Qwen3-VL-8B vision-language backbone, truncated to 18 language-model layers, encodes the camera frames, the task instru",
      "devices": 1,
      "hardware": [
       {
@@ -15575,16 +15637,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/RLWRLD/RLDX-1-PT-IMG/blob/d67fc642a7e768049ba41ff8cf0dfe0ff17f556b/LICENSE.md",
+      "name": "RLWRLD Model License v1.0"
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/RLDX-1-PT-IMG-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "robotics",
      "toolParser": null,
-     "updated": "2026-09-21"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -15596,15 +15662,17 @@
    "impls": [],
    "inSpec": false,
    "kind": "Robotics",
-   "kindFrom": "an inference: RLDX-1 is a robot model from RLWRLD.",
-   "kindInferred": true,
-   "licenses": [],
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "RLWRLD Model License v1.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "RLDX-1-PT-IMG",
-   "newest": "2026-09-21",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -15616,7 +15684,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "RLWRLD RLDX-1 PT-IMG, a 6.9B-parameter vision-language-action policy pretrained on public robot manipulation datasets: a Qwen3-VL-8B vision-language backbone, truncated to 18 language-model layers, encodes the camera frames.",
    "toolParser": null,
    "upstream": "RLWRLD/RLDX-1-PT-IMG",
    "weights": "RLWRLD/RLDX-1-PT-IMG"
@@ -15770,7 +15838,7 @@
      "schema": "5.1",
      "task": "image-segmentation",
      "toolParser": null,
-     "updated": "2026-11-12"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -15792,7 +15860,7 @@
    "modalities": null,
    "modelType": null,
    "name": "sam3",
-   "newest": "2026-11-12",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": "promptable concept segmentation",
@@ -15840,7 +15908,7 @@
      "schema": "5.1",
      "task": "image-segmentation",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -15862,7 +15930,7 @@
    "modalities": null,
    "modelType": null,
    "name": "sceneseg-p150",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": "camera segmentation network",
@@ -16079,7 +16147,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "solar_open",
-     "updated": "2026-09-11"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [
@@ -16142,7 +16210,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Solar-Open-100B",
-   "newest": "2026-09-11",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -16163,11 +16231,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "SuperPoint, a 1.3M-parameter self-supervised interest-point detector and descriptor: a fully-convolutional VGG-style encoder with a keypoint head and a 256-d descriptor head.",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "SuperPoint, a 1.3M-parameter self-supervised interest-point detector and descriptor: a fully-convolutional VGG-style encoder (eight 3x3 convolutions, three 2x2 max-pools) with a keypoint head (a 65-way softmax per 8x8 cell) and a 256-d desc",
      "devices": 1,
      "hardware": [
       {
@@ -16177,16 +16245,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/magic-leap-community/superpoint/blob/main/LICENSE",
+      "name": "Magic Leap SuperPoint licence"
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/superpoint-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "keypoint-detection",
      "toolParser": null,
-     "updated": "2026-10-05"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -16197,20 +16269,22 @@
    "id": "superpoint",
    "impls": [],
    "inSpec": false,
-   "kind": "Computer vision",
-   "kindFrom": "an inference: SuperPoint detects and describes image keypoints.",
-   "kindInferred": true,
-   "licenses": [],
+   "kind": "Keypoint detection",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "Magic Leap SuperPoint licence"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "superpoint",
-   "newest": "2026-10-05",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
-   "purpose": null,
-   "purposeFrom": null,
+   "purpose": "self-supervised interest-point detector and descriptor",
+   "purposeFrom": "the bundle card's description",
    "reasoningParser": null,
    "rows": [],
    "serve": "changh95/superpoint-p150",
@@ -16218,7 +16292,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "SuperPoint, a 1.3M-parameter self-supervised interest-point detector and descriptor: a fully-convolutional VGG-style encoder with a keypoint head and a 256-d descriptor head.",
    "toolParser": null,
    "upstream": "magic-leap-community/superpoint",
    "weights": "magic-leap-community/superpoint"
@@ -16254,7 +16328,7 @@
      "schema": "5.1",
      "task": "object-detection",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -16276,7 +16350,7 @@
    "modalities": null,
    "modelType": null,
    "name": "tensorrt_bevdet",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": "camera-only 3D detector with temporal fusion",
@@ -16324,7 +16398,7 @@
      "schema": "5.1",
      "task": "object-detection",
      "toolParser": null,
-     "updated": "2026-10-17"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -16346,7 +16420,7 @@
    "modalities": null,
    "modelType": null,
    "name": "tensorrt_yolox",
-   "newest": "2026-10-17",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": "single-stage camera detector",
@@ -16535,7 +16609,7 @@
      "schema": "5.1",
      "task": "image-to-3d",
      "toolParser": null,
-     "updated": "2026-11-12"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -16557,7 +16631,7 @@
    "modalities": null,
    "modelType": null,
    "name": "VGGT-1B",
-   "newest": "2026-11-12",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -16682,7 +16756,7 @@
      "schema": "5.1",
      "task": "automatic-speech-recognition",
      "toolParser": null,
-     "updated": "2026-10-21"
+     "updated": "2026-11-12"
     }
    ],
    "clients": [
@@ -16717,7 +16791,7 @@
    "modalities": null,
    "modelType": null,
    "name": "Voxtral-Mini-4B-Realtime-2602",
-   "newest": "2026-10-21",
+   "newest": "2026-11-12",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -16802,11 +16876,11 @@
    "bundles": [
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "X-VLA base, a 0.88B-parameter cross-embodiment vision-language-action model: a Florence-2 encoder (DaViT image encoder and BART text encoder, 0.57B) feeds a 24-block soft-prompted flow-matching transformer (0.31B).",
      "bundleKind": "tt-dit-server",
      "context": null,
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "X-VLA base, a 0.88B-parameter cross-embodiment vision-language-action model: a Florence-2 encoder (DaViT image encoder and BART text encoder, 0.57B) feeds a 24-block soft-prompted flow-matching transformer (0.31B). Three camera views, a nat",
      "devices": 1,
      "hardware": [
       {
@@ -16816,16 +16890,20 @@
        "raw": "p150"
       }
      ],
-     "license": null,
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
      "owner": "changh95",
      "perf": null,
      "readable": true,
      "reasoningParser": null,
      "repo": "changh95/xvla-base-p150",
      "schema": "5.1",
-     "task": null,
+     "task": "robotics",
      "toolParser": null,
-     "updated": "2026-09-14"
+     "updated": "2026-11-15"
     }
    ],
    "clients": [],
@@ -16837,15 +16915,17 @@
    "impls": [],
    "inSpec": false,
    "kind": "Robotics",
-   "kindFrom": "an inference: X-VLA is a robot policy, from the lerobot repo.",
-   "kindInferred": true,
-   "licenses": [],
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "xvla-base",
-   "newest": "2026-09-14",
+   "newest": "2026-11-15",
    "params": null,
    "perf": null,
    "purpose": null,
@@ -16857,7 +16937,7 @@
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Published as 1 tt-model bundle by changh95.",
+   "summary": "X-VLA base, a 0.88B-parameter cross-embodiment vision-language-action model: a Florence-2 encoder (DaViT image encoder and BART text encoder, 0.57B) feeds a 24-block soft-prompted flow-matching transformer (0.31B).",
    "toolParser": null,
    "upstream": "lerobot/xvla-base",
    "weights": "lerobot/xvla-base"
