@@ -242,6 +242,25 @@
     "updatedAt": "2026-11-16T19:50:41Z",
     "releases": [
       {
+        "tagName": "v0.37.0",
+        "name": "v0.37.0",
+        "publishedAt": "2026-11-18T02:21:29Z",
+        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.37.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "tt_bio-0.37.0-py3-none-any.whl",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.37.0/tt_bio-0.37.0-py3-none-any.whl",
+            "size": 7236457
+          },
+          {
+            "name": "tt_bio-0.37.0.tar.gz",
+            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.37.0/tt_bio-0.37.0.tar.gz",
+            "size": 8040202
+          }
+        ]
+      },
+      {
         "tagName": "v0.36.0",
         "name": "v0.36.0",
         "publishedAt": "2026-11-17T12:01:29Z",
@@ -316,28 +335,9 @@
             "size": 8026444
           }
         ]
-      },
-      {
-        "tagName": "v0.32.0",
-        "name": "v0.32.0",
-        "publishedAt": "2026-11-12T19:01:43Z",
-        "url": "https://github.com/moritztng/tt-bio/releases/tag/v0.32.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "tt_bio-0.32.0-py3-none-any.whl",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.32.0/tt_bio-0.32.0-py3-none-any.whl",
-            "size": 7226056
-          },
-          {
-            "name": "tt_bio-0.32.0.tar.gz",
-            "url": "https://github.com/moritztng/tt-bio/releases/download/v0.32.0/tt_bio-0.32.0.tar.gz",
-            "size": 8022297
-          }
-        ]
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n### Changed\n- **Protenix-v2 normal mode is about 2 % faster on Blackhole.** Triangle multiplication writes its gated output and\n  moves the pair stream in bfp8 where a fused tail reads it, as Wormhole normal already does. Paired cold folds read\n  1.7 s faster at a median of 79 s; accuracy unchanged on 44 paired folds of the 11-complex test set (same-seed\n  structure 0.07 A apart against a 0.60 A bar, docking success 35/44 on both). `--fast` and Wormhole are unchanged.\n- **RFdiffusion3 is about 2.5 % faster on Wormhole.** The diffusion transformer computes q, k and v in one projection\n  and normalises and splits them into heads in one kernel. Page design 35.98 -> 35.09 s in `--fast`; designs are\n  byte-identical. Blackhole is unchanged.\n\n## [0.36.0] - 2026-11-17\n\n### Changed\n- **OpenFold3 normal mode is about 3 % faster on Wormhole.** The diffusion transformer's attention runs its key\n  dimension in one chunk and carries the pair-bias mask in bf16. 512 residues 15.4 -> 15.0 s per fold; accuracy\n  unchanged on 12 paired folds of the three complexes most sensitive to diffusion precision. OpenBind-0, `--fast` and\n  Blackhole are unchanged.\n- **RFD4 `--fast` is about 5 % faster on Wormhole.** A padded design now carries the pair stream in bfp8, as an\n  unpadded one already did. A 336-token design reads 1.3 to 1.5 s faster (28.6 s before); designed-chain structure\n  stays well inside the fast-mode bar on 12 paired seeds at that size and 35 at 620 tokens. Normal mode and Blackhole\n  are unchanged.\n\n## [0.35.0] - 2026-11-17\n\n### Changed\n- **Boltz-2 is faster on Blackhole: `--fast` about 5 %, normal mode about 2 %.** In fast mode the pair LayerNorm runs\n  inside triangle attention's projections; in normal mode triangle multiplication's tail runs as one fused kernel, as\n  both already do on Wormhole. 512 residues: fast 0.57 s, normal 0.30 s faster per fold; accuracy unchanged on 44\n  paired folds of the 11-complex test set.\n- **Protenix-v2 `--fast` is about 3 % faster on Blackhole.** Triangle multiplication writes its gated output in bfp8\n  for the memory-bound tail. On a 512-residue complex the chip time drops 18.3 -> 17.6 s; accuracy stays inside the\n  fast-mode bar on 44 paired folds of the 11-complex test set.\n- **Boltz-2 `--fast` is about 1 % faster on Wormhole.** The pair transition's SiLU now overlaps its matmuls. Output is\n  byte-identical; 512 residues read 0.16 s faster per fold (median of 3 warm pairs), normal mode about 0.1 s.\n- **Protenix-v2 normal mode is about 3 % faster on Wormhole.** Triangle multiplication hands its tail a bfp8 input and\n  keeps its gate output in bfp8, and the diffusion transformer uses the attention set OpenDDE already runs. 512 residues\n  49.4 -> 48.1 s per warm fold; accuracy unchanged on 44 paired fol"
+    "changelog_excerpt": "# Changelog\n\nAll notable changes to TT-Bio are recorded here. Versioning is [SemVer](https://semver.org);\nreleases are cut from a commit that has passed the on-hardware test suite (see `RELEASING.md`).\n\n## [Unreleased]\n\n## [0.37.0] - 2026-11-18\n\n### Changed\n- **Protenix-v2 normal mode is about 2 % faster on Blackhole.** Triangle multiplication writes its gated output and\n  moves the pair stream in bfp8 where a fused tail reads it, as Wormhole normal already does. Paired cold folds read\n  1.7 s faster at a median of 79 s; accuracy unchanged on 44 paired folds of the 11-complex test set (same-seed\n  structure 0.07 A apart against a 0.60 A bar, docking success 35/44 on both). `--fast` and Wormhole are unchanged.\n- **RFdiffusion3 is about 2.5 % faster on Wormhole.** The diffusion transformer computes q, k and v in one projection\n  and normalises and splits them into heads in one kernel. Page design 35.98 -> 35.09 s in `--fast`; designs are\n  byte-identical. Blackhole is unchanged.\n\n## [0.36.0] - 2026-11-17\n\n### Changed\n- **OpenFold3 normal mode is about 3 % faster on Wormhole.** The diffusion transformer's attention runs its key\n  dimension in one chunk and carries the pair-bias mask in bf16. 512 residues 15.4 -> 15.0 s per fold; accuracy\n  unchanged on 12 paired folds of the three complexes most sensitive to diffusion precision. OpenBind-0, `--fast` and\n  Blackhole are unchanged.\n- **RFD4 `--fast` is about 5 % faster on Wormhole.** A padded design now carries the pair stream in bfp8, as an\n  unpadded one already did. A 336-token design reads 1.3 to 1.5 s faster (28.6 s before); designed-chain structure\n  stays well inside the fast-mode bar on 12 paired seeds at that size and 35 at 620 tokens. Normal mode and Blackhole\n  are unchanged.\n\n## [0.35.0] - 2026-11-17\n\n### Changed\n- **Boltz-2 is faster on Blackhole: `--fast` about 5 %, normal mode about 2 %.** In fast mode the pair LayerNorm runs\n  inside triangle attention's projections; in normal mode triangle multiplication's tail runs as one fused kernel, as\n  both already do on Wormhole. 512 residues: fast 0.57 s, normal 0.30 s faster per fold; accuracy unchanged on 44\n  paired folds of the 11-complex test set.\n- **Protenix-v2 `--fast` is about 3 % faster on Blackhole.** Triangle multiplication writes its gated output in bfp8\n  for the memory-bound tail. On a 512-residue complex the chip time drops 18.3 -> 17.6 s; accuracy stays inside the\n  fast-mode bar on 44 paired folds of the 11-complex test set.\n- **Boltz-2 `--fast` is about 1 % faster on Wormhole.** The pair transition's SiLU now overlaps its matmuls. Output is\n  byte-identical; 512 residues read 0.16 s faster per fold (median of 3 warm pairs), normal mode about 0.1 s.\n- **Protenix-v2 normal mode is about 3 % faster on Wormhole.** Triangle multiplication hands its tail a bfp8 input and\n  keeps its gate output in bfp8, and the diffusion transformer uses the attention set OpenDDE already runs. 512 residues\n  49.4 -> 48.1 s per warm fold; accuracy"
   },
   "https://github.com/tenstorrent/tt-blacksmith": {
     "stars": 20,
@@ -1034,12 +1034,12 @@
   },
   "https://github.com/tenstorrent/vllm-tt-plugin": {
     "stars": 20,
-    "updatedAt": "2026-11-17T04:57:11Z",
-    "starsReported": 6
+    "updatedAt": "2026-11-18T09:45:32Z",
+    "starsReported": 7
   },
   "https://github.com/dstackai/dstack": {
-    "stars": 2313,
-    "updatedAt": "2026-11-17T17:20:48Z",
+    "stars": 2316,
+    "updatedAt": "2026-11-18T17:09:13Z",
     "preview_image": "https://raw.githubusercontent.com/dstackai/dstack/master/mkdocs/assets/images/dstack-logo.svg",
     "releases": [
       {
@@ -1554,8 +1554,8 @@
   },
   "https://github.com/tenstorrent/tt-mlir": {
     "stars": 320,
-    "updatedAt": "2026-11-09T03:51:49Z",
-    "starsReported": 26,
+    "updatedAt": "2026-11-18T15:05:51Z",
+    "starsReported": 27,
     "releases": [
       {
         "tagName": "0.9.0.dev20260221",
@@ -1830,8 +1830,8 @@
     "updatedAt": "2026-07-03T16:23:34Z"
   },
   "https://github.com/Syllo/nvtop": {
-    "stars": 11155,
-    "updatedAt": "2026-11-17T21:47:15Z",
+    "stars": 11159,
+    "updatedAt": "2026-11-18T07:45:50Z",
     "preview_image": "https://raw.githubusercontent.com/Syllo/nvtop/master/screenshot/NVTOP_ex1.png",
     "releases": [
       {
@@ -2453,6 +2453,20 @@
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/ttnn-visualizer/refs/heads/main/src/assets/tt-logo.svg",
     "releases": [
       {
+        "tagName": "v0.112.0",
+        "name": "v0.112.0",
+        "publishedAt": "2026-11-18T19:47:05Z",
+        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.112.0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "ttnn_visualizer-0.112.0-py3-none-any.whl",
+            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.112.0/ttnn_visualizer-0.112.0-py3-none-any.whl",
+            "size": 3707822
+          }
+        ]
+      },
+      {
         "tagName": "v0.111.0",
         "name": "v0.111.0",
         "publishedAt": "2026-11-13T20:11:56Z",
@@ -2505,20 +2519,6 @@
             "name": "ttnn_visualizer-0.108.0-py3-none-any.whl",
             "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.108.0/ttnn_visualizer-0.108.0-py3-none-any.whl",
             "size": 3219523
-          }
-        ]
-      },
-      {
-        "tagName": "v0.107.0",
-        "name": "v0.107.0",
-        "publishedAt": "2026-10-14T18:26:02Z",
-        "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/tag/v0.107.0",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "ttnn_visualizer-0.107.0-py3-none-any.whl",
-            "url": "https://github.com/tenstorrent/ttnn-visualizer/releases/download/v0.107.0/ttnn_visualizer-0.107.0-py3-none-any.whl",
-            "size": 3156914
           }
         ]
       }
@@ -3224,6 +3224,13 @@
     "starsReported": 6,
     "releases": [
       {
+        "tagName": "v3.6.4",
+        "name": "v3.6.4",
+        "publishedAt": "2026-11-18T18:57:37Z",
+        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v3.6.4",
+        "prerelease": false
+      },
+      {
         "tagName": "v3.6.3",
         "name": "v3.6.3",
         "publishedAt": "2026-10-26T17:58:29Z",
@@ -3249,13 +3256,6 @@
         "name": "v3.6.0",
         "publishedAt": "2026-08-28T22:23:52Z",
         "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v3.6.0",
-        "prerelease": false
-      },
-      {
-        "tagName": "v3.5.5",
-        "name": "v3.5.5",
-        "publishedAt": "2026-08-24T18:05:43Z",
-        "url": "https://github.com/tenstorrent/tt-installer/releases/tag/v3.5.5",
         "prerelease": false
       }
     ]
@@ -4710,7 +4710,7 @@
         "prerelease": true
       }
     ],
-    "changelog_excerpt": "# Changelog\n\nbaretile is pre-alpha. Everything below is tested on Tenstorrent's ttsim\nsimulator. A P150a has run the first bring-up stages, preflight, chip and\ntransfers; nothing else is tested on a card yet.\n\n## 0.0.7\n\nThe release from a pass over the whole repository: fixes to wrong results in reductions, matmuls, slices and block\nfloats, configs and requests that are refused where they used to compute something else, and the package's links at\nthe repository's new home.\n\n### Changed\n\n- The repository moved to [github.com/0xalkinun/baretile](https://github.com/0xalkinun/baretile), and the package's\n  project links point there.\n- Two `Chip`s on one device object raise `RuntimeError`, as a second opener of the device does, since they'd hand out\n  the same TLBs and DRAM.\n- The server refuses, with HTTP 400 naming them, JSON-schema keywords it doesn't know, such as `not`, `prefixItems`\n  and `uniqueItems`, where it ignored them. It enforces `allOf`, and accepts annotations like `title`.\n- gpt-oss chats refuse a system, developer or tool message after the first, and a `reasoning_effort` other than\n  `low`, `medium` or `high`.\n- `llama.config` refuses `mlp_bias` and a Gated DeltaNet convolution of other than 4 taps, and the tokenizer a\n  normalizer other than NFC, where they loaded and computed something else.\n\n### Fixed\n\n- A reduction over a leading dimension other than the first, fused with an input of the result's batch, read the\n  wrong matrices: `x.sum(1) * y` was off, and so were softmax's and layernorm's gradients over that dimension.\n- A matmul under a reduction kept its line of B in L1 when A's row changed along the line, so later passes used the\n  wrong row: `(A @ B).softmax(-2)` was off by 0.9.\n- `y + x.sum(1)` on 4D, with the sum broadcast along rows or columns, failed to compile.\n- A unit-step slice of an inner leading dimension, like `x[:, 0:1]`, had no gradient.\n- Casting int32 to a block float gave wrong values: `[1, 2, 3, -4]` came back `[0, 0, 0, nan]`.\n- Slicing, relabelling or repeating a block-float repeat, merging a block float, and a block float with a number\n  raised; for fp32, the same copies changed -0 and NaN payloads.\n- `x / 0` raised `ZeroDivisionError`. It's inf, -inf or NaN as in NumPy, and `number / x` works.\n- `gather` and `put` used only the first row of 4D ids of two rows; they refuse them now.\n- Through tt-kmd, the chip stayed at its minimum AI clock. `Kmd` asks kmd for the busy one.\n- `python3 -m baretile.chip reset` left the card with no driver. It binds tt-kmd again and opens the card through it.\n- An ARC message through tt-kmd that timed out made every later message fail.\n- A stream whose client left before its headers were written kept its slot, a stream that got no text in 600 seconds\n  ended without an error or `[DONE]`, and response ids repeated across requests.\n- In the tinygrad adapter, `x ** inf` and `x ** nan` crashed, and so did a `cat` or `stack` of bools from comparisons\n  of different dtypes. `BARET"
+    "changelog_excerpt": "# Changelog\n\nbaretile is pre-alpha. [The README](README.md#status) says what runs on the simulator and on a card.\n\n## Unreleased\n\nThe release that runs on a P150a: what failed on the card is fixed, and CI's `card` job runs bring-up there, through\nthe device, kernel and model tests ([bring-up](docs/bring-up.md#running-ci-on-the-card)).\n\n### Added\n\n- `python3 -m baretile.models.bench` times a decode or verify step's launches, each against what the card could do.\n- Gated DeltaNet for tokens in an order of their own, such as a tree's: `qwen.rule` runs a piece in one kernel, which\n  can make the gates and the output norm itself; `qwen.conv` with `last`, `qwen.conv_state` and `qwen.carry` each take\n  one launch; `qwen.predict` runs a prediction layer on its own ([models](docs/models.md#experts-and-gated-deltanet)).\n- `Tensor.attend` takes a tree's places, `serve.frontier` picks a step of a draft tree on the chip, and\n  `serve.grouped_topk` takes the k largest of rows too wide for L1. `llama.rms_kernel` norms a few long rows at once,\n  and adds a block's output onto the residual stream as it does. `llama.rope_kernel` norms a Qwen3-family layer's q\n  and k heads and turns them by RoPE in one launch.\n- Training in `precision=bf16`, from several shards, saved and resumed, and `test/train_reference.py`\n  ([training](docs/training.md)). The server enforces JSON schemas' `pattern`. `test/workload.py` times the first\n  workload and runs its HTTP gate.\n\n### Changed\n\n- baretile needs tt-kmd 2.5 or later. The core's line budget is 4,650, from 4,500.\n- `Tensor.put` into a block float takes rows in its dtype and copies each run with its exponent, where it took bf16\n  and rounded on BRISC. Cast the rows first, or for bfp8 have the matmul that makes them pack it, as\n  `a.matmul(cache, \"bfp8\")` does.\n- Multicasts go on NoC 1, as linked transactions, so a token's matmul shares A's row while B streams on NoC 0.\n- `llama.layer(x, y, ...)` takes the residual stream and the last block's output, and returns the same pair: the\n  next norm adds them. Pass `None` for y to the first block, and finish with `x, h = llama.rms(x, w[\"norm\"], c, y)`.\n  `llama.rms` with y returns the sum and its norm.\n- Faster kernels: attention for a few rows reads each key and value tile once for a key head's query heads, and takes\n  p from `exp16`; the SFPU works on a matrix's live rows alone; `gather`, `put`, `topk` and a single row's upload read\n  or spread less; `assign` moves straight into a new destination; the bfp4 cast rounds a matrix's live rows alone.\n\n### Fixed\n\n- On a card: no core has more than 255 NoC requests in flight; `noc_wait` waits for the initiators first; packed\n  results stay within the packer's 256 KiB reach; one worker shares a row where multicasts into one rectangle queued\n  up; `Chip` refuses the Tensix config bank and reads back a write forwarded to host memory; a runtime zeroes a tile's\n  NoC counts before its firmware starts; tt-kmd's file stays open at exit until the r"
   },
   "https://github.com/seansiddens/current": {
     "stars": 5,
@@ -4729,6 +4729,44 @@
     "updatedAt": "2026-11-09T00:09:08Z",
     "starsReported": 2,
     "releases": [
+      {
+        "tagName": "7.96.0-flatten",
+        "name": "7.96.0-flatten",
+        "publishedAt": "2026-11-18T14:30:55Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.96.0-flatten",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.96.0-flatten_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.96.0-flatten/sfpi_7.96.0-flatten_x86_64_debian.deb",
+            "size": 135070388
+          },
+          {
+            "name": "sfpi_7.96.0-flatten_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.96.0-flatten/sfpi_7.96.0-flatten_x86_64_fedora.rpm",
+            "size": 134706593
+          }
+        ]
+      },
+      {
+        "tagName": "7.96.0-test-gcc-16_2_0",
+        "name": "7.96.0-test-gcc-16_2_0",
+        "publishedAt": "2026-11-17T22:20:20Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.96.0-test-gcc-16_2_0",
+        "prerelease": false,
+        "assets": [
+          {
+            "name": "sfpi_7.96.0-test-gcc-16_2_0_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.96.0-test-gcc-16_2_0/sfpi_7.96.0-test-gcc-16_2_0_x86_64_debian.deb",
+            "size": 148254654
+          },
+          {
+            "name": "sfpi_7.96.0-test-gcc-16_2_0_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.96.0-test-gcc-16_2_0/sfpi_7.96.0-test-gcc-16_2_0_x86_64_fedora.rpm",
+            "size": 147522285
+          }
+        ]
+      },
       {
         "tagName": "7.96.0-reference",
         "name": "7.96.0-reference",
@@ -4790,70 +4828,8 @@
             "size": 134705366
           }
         ]
-      },
-      {
-        "tagName": "7.95.0-pch-60798",
-        "name": "7.95.0-pch-60798",
-        "publishedAt": "2026-11-06T16:47:56Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.95.0-pch-60798",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.95.0-pch-60798_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0-pch-60798/sfpi_7.95.0-pch-60798_x86_64_debian.deb",
-            "size": 135053408
-          },
-          {
-            "name": "sfpi_7.95.0-pch-60798_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0-pch-60798/sfpi_7.95.0-pch-60798_x86_64_fedora.rpm",
-            "size": 134684286
-          }
-        ]
-      },
-      {
-        "tagName": "7.95.0-replay-63570",
-        "name": "7.95.0-replay-63570",
-        "publishedAt": "2026-11-04T18:30:12Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.95.0-replay-63570",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.95.0-replay-63570_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0-replay-63570/sfpi_7.95.0-replay-63570_x86_64_debian.deb",
-            "size": 135061704
-          },
-          {
-            "name": "sfpi_7.95.0-replay-63570_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0-replay-63570/sfpi_7.95.0-replay-63570_x86_64_fedora.rpm",
-            "size": 134713331
-          }
-        ]
       }
-    ],
-    "latestStableRelease": {
-      "tagName": "7.95.0",
-      "name": "Binutils update",
-      "publishedAt": "2026-11-04T14:40:49Z",
-      "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.95.0",
-      "prerelease": false,
-      "assets": [
-        {
-          "name": "sfpi_7.95.0_aarch64_debian.deb",
-          "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0/sfpi_7.95.0_aarch64_debian.deb",
-          "size": 129977040
-        },
-        {
-          "name": "sfpi_7.95.0_x86_64_debian.deb",
-          "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0/sfpi_7.95.0_x86_64_debian.deb",
-          "size": 135042936
-        },
-        {
-          "name": "sfpi_7.95.0_x86_64_fedora.rpm",
-          "url": "https://github.com/tenstorrent/sfpi/releases/download/7.95.0/sfpi_7.95.0_x86_64_fedora.rpm",
-          "size": 134670178
-        }
-      ]
-    }
+    ]
   },
   "https://github.com/tanaymihani/tensixfuse": {
     "stars": 1,
@@ -4899,10 +4875,114 @@
   },
   "https://github.com/tenstorrent/tt-metal": {
     "stars": 1747,
-    "updatedAt": "2026-11-17T20:35:01Z",
-    "starsReported": 131,
+    "updatedAt": "2026-11-18T13:27:32Z",
+    "starsReported": 132,
     "preview_image": "https://raw.githubusercontent.com/tenstorrent/tt-metal/main/docs/source/common/images/tt_refresh_metalium_w_icon.png",
     "releases": [
+      {
+        "tagName": "v0.83.0-dev20261118",
+        "name": "v0.83.0-dev20261118",
+        "publishedAt": "2026-11-18T01:45:18Z",
+        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.83.0-dev20261118",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "tt-metalium_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 29214752
+          },
+          {
+            "name": "tt-nn_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 23726458
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium.tar.gz",
+            "size": 231835728
+          },
+          {
+            "name": "tt-nn-dev_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-dev_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 289426
+          },
+          {
+            "name": "tt-metalium_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 29150934
+          },
+          {
+            "name": "tt-nn-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 289374
+          },
+          {
+            "name": "tt-nn-examples_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-examples_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-metalium-jit_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-jit_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 134869064
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-validation_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 6204392
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 6146894
+          },
+          {
+            "name": "tt-metalium-dev_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-dev_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 1250636
+          },
+          {
+            "name": "tt-metalium-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 1251532
+          },
+          {
+            "name": "tt-metalium-examples_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-examples_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 85736
+          },
+          {
+            "name": "tt-nn_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 24135700
+          },
+          {
+            "name": "tt-metalium-examples_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-examples_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 85742
+          },
+          {
+            "name": "tt-metalium-jit_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-jit_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 134867284
+          },
+          {
+            "name": "tt-nn-examples_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-examples_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-validation_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-validation_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 3880688
+          },
+          {
+            "name": "tt-nn-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 3810812
+          }
+        ]
+      },
       {
         "tagName": "v0.82.0",
         "name": "v0.82.0",
@@ -5318,110 +5398,6 @@
             "size": 3647662
           }
         ]
-      },
-      {
-        "tagName": "v0.83.0-dev20261115",
-        "name": "v0.83.0-dev20261115",
-        "publishedAt": "2026-11-15T01:39:32Z",
-        "url": "https://github.com/tenstorrent/tt-metal/releases/tag/v0.83.0-dev20261115",
-        "prerelease": true,
-        "assets": [
-          {
-            "name": "tt-metalium_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "size": 29081676
-          },
-          {
-            "name": "tt-metalium_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "size": 29165976
-          },
-          {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium.tar.gz",
-            "size": 231470917
-          },
-          {
-            "name": "tt-nn-dev_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-nn-dev_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "size": 285116
-          },
-          {
-            "name": "tt-metalium-jit_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium-jit_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "size": 134859938
-          },
-          {
-            "name": "tt-nn_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-nn_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "size": 24068514
-          },
-          {
-            "name": "tt-metalium-examples_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium-examples_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "size": 85744
-          },
-          {
-            "name": "tt-metalium-jit_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium-jit_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "size": 134860014
-          },
-          {
-            "name": "tt-nn-dev_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-nn-dev_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "size": 285010
-          },
-          {
-            "name": "tt-metalium-validation_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium-validation_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "size": 5968232
-          },
-          {
-            "name": "tt-nn-validation_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-nn-validation_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "size": 3722440
-          },
-          {
-            "name": "tt-metalium-dev_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium-dev_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "size": 1247804
-          },
-          {
-            "name": "tt-metalium-examples_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium-examples_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "size": 85764
-          },
-          {
-            "name": "tt-metalium-dev_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium-dev_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "size": 1248572
-          },
-          {
-            "name": "tt-nn-examples_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-nn-examples_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "size": 1414
-          },
-          {
-            "name": "tt-metalium-validation_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-metalium-validation_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "size": 5922454
-          },
-          {
-            "name": "tt-nn_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-nn_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "size": 23637254
-          },
-          {
-            "name": "tt-nn-examples_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-nn-examples_0.83.0.dev20261115.ubuntu24.04_amd64.deb",
-            "size": 1414
-          },
-          {
-            "name": "tt-nn-validation_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261115/tt-nn-validation_0.83.0.dev20261115.ubuntu22.04_amd64.deb",
-            "size": 3648684
-          }
-        ]
       }
     ]
   },
@@ -5788,8 +5764,8 @@
   },
   "https://github.com/tenstorrent/ttsim": {
     "stars": 171,
-    "updatedAt": "2026-11-16T23:36:46Z",
-    "starsReported": 32,
+    "updatedAt": "2026-11-18T18:21:22Z",
+    "starsReported": 33,
     "releases": [
       {
         "tagName": "v1.16.0",
