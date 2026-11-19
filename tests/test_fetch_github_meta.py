@@ -382,3 +382,78 @@ def test_pre_release_tag_catches_branch_builds():
     # Ordinary version tags, with or without a product prefix, stay stable.
     for tag in ("7.92.0", "v0.72.0", "ttkmd-2.9.0", "demo-2026-08-29", "pre_perfmodel_merge"):
         assert not PRE_RELEASE_TAG.search(tag), tag
+
+
+# ── Held star counts and fork fields (scripts/data/github_meta_holds.json) ───
+# After the 2026-11 incident (Tenstorrent repos made private, then public again) GitHub reports
+# far fewer stars and has detached three forks. Both numbers are tracked: `stars` keeps the held
+# value for the site, `starsReported` records what GitHub says on each run.
+
+def test_apply_hold_keeps_held_stars_and_records_reported():
+    result = {"stars": 124, "updatedAt": "x"}
+    assert fgm.apply_hold(result, {"stars": 1747}) is True
+    assert result["stars"] == 1747
+    assert result["starsReported"] == 124
+
+
+def test_apply_hold_uses_github_count_once_it_reaches_the_held_value():
+    result = {"stars": 1800}
+    assert fgm.apply_hold(result, {"stars": 1747}) is False
+    assert result["stars"] == 1800
+    assert result["starsReported"] == 1800  # still recorded while the repo is on the hold list
+
+
+def test_apply_hold_restores_fork_fields_and_records_what_github_reports():
+    result = {"stars": 2}
+    hold = {"stars": 99, "forkParent": "chipsalliance/VeeR-ISS",
+            "forkParentUrl": "https://github.com/chipsalliance/VeeR-ISS"}
+    assert fgm.apply_hold(result, hold) is True
+    assert result["isFork"] is True
+    assert result["forkParent"] == "chipsalliance/VeeR-ISS"
+    assert result["forkParentUrl"] == "https://github.com/chipsalliance/VeeR-ISS"
+    assert result["forkReported"] is False
+
+
+def test_apply_hold_leaves_fork_fields_github_still_reports():
+    result = {"stars": 5, "isFork": True, "forkParent": "qemu/qemu", "forkParentUrl": "u"}
+    fgm.apply_hold(result, {"stars": 3, "forkParent": "old/parent", "forkParentUrl": "old"})
+    assert result["forkParent"] == "qemu/qemu"
+    assert result["forkReported"] is True
+
+
+def test_load_holds_ignores_a_missing_file_and_note_keys(tmp_path):
+    assert fgm.load_holds(tmp_path / "absent.json") == {}
+    p = tmp_path / "holds.json"
+    p.write_text(json.dumps({"_note": "why", "repos": {"https://github.com/o/r": {"stars": 9}}}))
+    assert fgm.load_holds(p) == {"https://github.com/o/r": {"stars": 9}}
+
+
+def test_main_writes_held_and_reported_stars_for_a_repo_on_the_hold_list(tmp_path, monkeypatch):
+    """The wiring: main() must apply the hold file, not only apply_hold() in isolation."""
+    entries = tmp_path / "entries" / "tools"
+    entries.mkdir(parents=True)
+    for name in ("held", "free"):
+        (entries / f"{name}.json").write_text(json.dumps({
+            "id": name, "links": [{"type": "repo", "url": f"https://github.com/o/{name}"}]}))
+    holds = tmp_path / "holds.json"
+    holds.write_text(json.dumps({"repos": {"https://github.com/o/held": {"stars": 50}}}))
+    meta_out = tmp_path / "github_meta.json"
+    monkeypatch.setattr(fgm, "ENTRIES_DIR", tmp_path / "entries")
+    monkeypatch.setattr(fgm, "META_OUT", meta_out)
+    monkeypatch.setattr(fgm, "RENAMES_OUT", tmp_path / "repo-renames.md")
+    monkeypatch.setattr(fgm, "HOLDS_IN", holds)
+    monkeypatch.setattr(fgm, "fetch_repo", lambda repo: {
+        "stars": 4, "updatedAt": "x", "_default_branch": "main", "_is_fork": False,
+        "_fork_parent_name": "", "_fork_parent_url": "",
+        "_full_name": repo, "_html_url": f"https://github.com/{repo}"})
+    monkeypatch.setattr(fgm, "fetch_readme_image", lambda repo, b: None)
+    monkeypatch.setattr(fgm, "fetch_releases", lambda repo: [])
+    monkeypatch.setattr(fgm, "fetch_changelog", lambda repo, b: None)
+
+    fgm.main([])
+
+    meta = json.loads(meta_out.read_text())
+    assert meta["https://github.com/o/held"]["stars"] == 50
+    assert meta["https://github.com/o/held"]["starsReported"] == 4
+    assert meta["https://github.com/o/free"]["stars"] == 4
+    assert "starsReported" not in meta["https://github.com/o/free"]

@@ -217,9 +217,9 @@ Experimental & Dev-Catalog Model Loading (--dev) unlocks 16 additional experimen
   by [@geohot](https://github.com/geohot) — Minimal Python code to access and program the Tenstorrent Blackhole chip directly — George Hotz's exploration of TT hardware programmability with pointed commentary on the architecture.
   [📦 repo](https://github.com/geohot/tt-tiny)
 
-- **[baretile](https://github.com/baretile/baretile)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+- **[baretile](https://github.com/0xalkinun/baretile)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@baretile](https://github.com/baretile) — A compiler and runtime for Tenstorrent Blackhole written in about 2,700 lines of standard-library Python. You write tensor operations and it compiles them to Tensix instructions, loads its own worker firmware and drives the card over PCIe from userspace, with no dependency on tt-metal, tt-umd or LLK. Developed against the ttsim simulator; untested on a card so far.
-  [📦 repo](https://github.com/baretile/baretile) · [🌐 baretile.com](https://baretile.com)
+  [📦 repo](https://github.com/0xalkinun/baretile) · [🌐 baretile.com](https://baretile.com)
 
 - **[current](https://github.com/seansiddens/current)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@seansiddens](https://github.com/seansiddens) — High-level parallel programming framework for Tenstorrent accelerators, abstracting TT-Metal into a research-oriented programming model for parallel computation.
