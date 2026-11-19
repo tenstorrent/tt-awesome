@@ -1,5 +1,20 @@
 [
   {
+    "type": "article",
+    "source": "models-roundup",
+    "approved": true,
+    "title": "Models this week: 2 new tt-model bundles",
+    "url": "https://docs.tenstorrent.com/tt-awesome/models/#week-2026-W47",
+    "description": "Two tt-model bundles arrived this week for p100a, the LLM [Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150](https://huggingface.co/Lottolabs/Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150) and the VLM [Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF](https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF), which is tagged for code. Nothing changed on tt-inference-server. GLM-5.3-Flash was removed from the bundle list. Five existing models now carry a more specific kind, including [Qwen-Image-2.1](https://huggingface.co/Qwen/Qwen-Image-2.1) as Text to image and [superpoint](https://huggingface.co/magic-leap-community/superpoint) as Keypoint detection.\n\n**New tt-model bundles**\n\n| Model | Kind | Bundle | Hardware |\n|---|---|---|---|\n| [Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150](https://huggingface.co/Lottolabs/Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150) | LLM | [sunandbean/qwen3.6-35b-a3b-p100a](https://huggingface.co/sunandbean/qwen3.6-35b-a3b-p100a) | p100a |\n| [Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF](https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF) | VLM, code | [sunandbean/qwen3.8-flash-next-p100a](https://huggingface.co/sunandbean/qwen3.8-flash-next-p100a) | p100a |\n\n**Also this week**\n\n- GLM-5.3-Flash: removed from the list\n- [DUSt3R_ViTLarge_BaseDecoder_512_dpt](https://huggingface.co/naver/DUSt3R_ViTLarge_BaseDecoder_512_dpt): reclassified Depth and 3D geometry → Image to 3d\n- [LocateAnything-3B](https://huggingface.co/nvidia/LocateAnything-3B): reclassified Object detection → Zero shot object detection\n- [moge-2-vitl-normal](https://huggingface.co/Ruicheng/moge-2-vitl-normal): reclassified Depth and 3D geometry → Depth estimation\n- [Qwen-Image-2.1](https://huggingface.co/Qwen/Qwen-Image-2.1): reclassified Image generation → Text to image\n- [superpoint](https://huggingface.co/magic-leap-community/superpoint): reclassified Computer vision → Keypoint detection",
+    "body": "markdown",
+    "date": "2026-11-19",
+    "dateISO": "2026-11-19T14:12:50Z",
+    "label": "Models this week",
+    "projectName": "Models",
+    "projectId": null,
+    "affiliation": "official"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
