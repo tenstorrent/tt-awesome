@@ -1915,10 +1915,6 @@
     "stars": 0,
     "updatedAt": "2026-08-31T14:16:20Z"
   },
-  "https://github.com/tenstorrent/TenGEMM": {
-    "stars": 0,
-    "updatedAt": "2026-10-27T17:37:16Z"
-  },
   "https://github.com/tsingletaryTT/tensix-viz": {
     "stars": 0,
     "updatedAt": "2026-09-28T20:00:08Z",
@@ -4730,6 +4726,30 @@
     "starsReported": 2,
     "releases": [
       {
+        "tagName": "8.2.0",
+        "name": "Compiler Update",
+        "publishedAt": "2026-11-23T17:38:02Z",
+        "url": "https://github.com/tenstorrent/sfpi/releases/tag/8.2.0",
+        "prerelease": true,
+        "assets": [
+          {
+            "name": "sfpi_8.2.0_aarch64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/8.2.0/sfpi_8.2.0_aarch64_debian.deb",
+            "size": 143018918
+          },
+          {
+            "name": "sfpi_8.2.0_x86_64_debian.deb",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/8.2.0/sfpi_8.2.0_x86_64_debian.deb",
+            "size": 148205830
+          },
+          {
+            "name": "sfpi_8.2.0_x86_64_fedora.rpm",
+            "url": "https://github.com/tenstorrent/sfpi/releases/download/8.2.0/sfpi_8.2.0_x86_64_fedora.rpm",
+            "size": 147506033
+          }
+        ]
+      },
+      {
         "tagName": "8.1.0-staging",
         "name": "8.1.0-staging",
         "publishedAt": "2026-11-20T19:24:01Z",
@@ -4809,25 +4829,6 @@
             "size": 147522285
           }
         ]
-      },
-      {
-        "tagName": "7.96.0-reference",
-        "name": "7.96.0-reference",
-        "publishedAt": "2026-11-17T21:07:33Z",
-        "url": "https://github.com/tenstorrent/sfpi/releases/tag/7.96.0-reference",
-        "prerelease": false,
-        "assets": [
-          {
-            "name": "sfpi_7.96.0-reference_x86_64_debian.deb",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.96.0-reference/sfpi_7.96.0-reference_x86_64_debian.deb",
-            "size": 135067180
-          },
-          {
-            "name": "sfpi_7.96.0-reference_x86_64_fedora.rpm",
-            "url": "https://github.com/tenstorrent/sfpi/releases/download/7.96.0-reference/sfpi_7.96.0-reference_x86_64_fedora.rpm",
-            "size": 134709588
-          }
-        ]
       }
     ]
   },
@@ -4887,14 +4888,49 @@
         "prerelease": true,
         "assets": [
           {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium.tar.gz",
-            "size": 235054659
+            "name": "tt-metalium-dev_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-dev_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "size": 1254402
+          },
+          {
+            "name": "tt-metalium-dev_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-dev_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "size": 1253422
           },
           {
             "name": "tt-metalium-examples_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-examples_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
             "size": 85766
+          },
+          {
+            "name": "tt-metalium-examples_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-examples_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "size": 85750
+          },
+          {
+            "name": "tt-metalium-jit_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-jit_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "size": 134930552
+          },
+          {
+            "name": "tt-metalium-jit_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-jit_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "size": 134930014
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-validation_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "size": 6271644
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-validation_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "size": 6326618
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium.tar.gz",
+            "size": 235054659
           },
           {
             "name": "tt-metalium_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
@@ -4907,19 +4943,9 @@
             "size": 29933362
           },
           {
-            "name": "tt-nn_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-nn_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "size": 38247672
-          },
-          {
-            "name": "tt-metalium-examples_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-examples_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "size": 85750
-          },
-          {
-            "name": "tt-metalium-dev_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-dev_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "size": 1254402
+            "name": "tt-ml-validation_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-ml-validation_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "size": 4768166
           },
           {
             "name": "tt-ml-validation_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
@@ -4927,34 +4953,9 @@
             "size": 4734446
           },
           {
-            "name": "tt-metalium-validation_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-validation_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "size": 6271644
-          },
-          {
-            "name": "tt-metalium-dev_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-dev_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "size": 1253422
-          },
-          {
-            "name": "tt-metalium-validation_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-validation_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "size": 6326618
-          },
-          {
-            "name": "tt-nn_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-nn_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "size": 37835388
-          },
-          {
-            "name": "tt-ml-validation_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-ml-validation_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "size": 4768166
-          },
-          {
-            "name": "tt-metalium-jit_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-jit_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "size": 134930014
+            "name": "tt-nn-dev_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-nn-dev_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "size": 357490
           },
           {
             "name": "tt-nn-dev_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
@@ -4962,13 +4963,13 @@
             "size": 357604
           },
           {
-            "name": "tt-metalium-jit_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-metalium-jit_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "size": 134930552
-          },
-          {
             "name": "tt-nn-examples_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-nn-examples_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "size": 1412
+          },
+          {
+            "name": "tt-nn-examples_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-nn-examples_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
             "size": 1412
           },
           {
@@ -4977,19 +4978,19 @@
             "size": 4345468
           },
           {
-            "name": "tt-nn-examples_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-nn-examples_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
-            "size": 1412
-          },
-          {
-            "name": "tt-nn-dev_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-nn-dev_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
-            "size": 357490
-          },
-          {
             "name": "tt-nn-validation_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-nn-validation_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
             "size": 4421308
+          },
+          {
+            "name": "tt-nn_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-nn_0.83.0.dev20261123.ubuntu22.04_amd64.deb",
+            "size": 38247672
+          },
+          {
+            "name": "tt-nn_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261123/tt-nn_0.83.0.dev20261123.ubuntu24.04_amd64.deb",
+            "size": 37835388
           }
         ]
       },
@@ -5001,74 +5002,9 @@
         "prerelease": true,
         "assets": [
           {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium.tar.gz",
-            "size": 235049480
-          },
-          {
-            "name": "tt-nn_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-nn_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "size": 38292324
-          },
-          {
-            "name": "tt-metalium_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "size": 29943272
-          },
-          {
-            "name": "tt-metalium-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "size": 6326700
-          },
-          {
             "name": "tt-metalium-dev_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-dev_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
             "size": 1254358
-          },
-          {
-            "name": "tt-metalium-validation_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-validation_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "size": 6271496
-          },
-          {
-            "name": "tt-ml-validation_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-ml-validation_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "size": 4768200
-          },
-          {
-            "name": "tt-metalium-examples_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-examples_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "size": 85764
-          },
-          {
-            "name": "tt-ml-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-ml-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "size": 4734578
-          },
-          {
-            "name": "tt-metalium-examples_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-examples_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "size": 85754
-          },
-          {
-            "name": "tt-metalium-jit_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-jit_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "size": 134929494
-          },
-          {
-            "name": "tt-metalium-jit_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-jit_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "size": 134929646
-          },
-          {
-            "name": "tt-nn-examples_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-nn-examples_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "size": 1414
-          },
-          {
-            "name": "tt-metalium_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
-            "size": 30000268
           },
           {
             "name": "tt-metalium-dev_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
@@ -5076,9 +5012,59 @@
             "size": 1253416
           },
           {
-            "name": "tt-nn-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-nn-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "size": 4421308
+            "name": "tt-metalium-examples_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-examples_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "size": 85754
+          },
+          {
+            "name": "tt-metalium-examples_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-examples_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "size": 85764
+          },
+          {
+            "name": "tt-metalium-jit_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-jit_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "size": 134929646
+          },
+          {
+            "name": "tt-metalium-jit_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-jit_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "size": 134929494
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-validation_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "size": 6271496
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "size": 6326700
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium.tar.gz",
+            "size": 235049480
+          },
+          {
+            "name": "tt-metalium_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "size": 30000268
+          },
+          {
+            "name": "tt-metalium_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-metalium_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "size": 29943272
+          },
+          {
+            "name": "tt-ml-validation_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-ml-validation_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "size": 4768200
+          },
+          {
+            "name": "tt-ml-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-ml-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "size": 4734578
           },
           {
             "name": "tt-nn-dev_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
@@ -5086,19 +5072,34 @@
             "size": 357580
           },
           {
-            "name": "tt-nn-examples_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-nn-examples_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
-            "size": 1414
-          },
-          {
             "name": "tt-nn-dev_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-nn-dev_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
             "size": 357552
           },
           {
+            "name": "tt-nn-examples_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-nn-examples_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-examples_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-nn-examples_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "size": 1414
+          },
+          {
             "name": "tt-nn-validation_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-nn-validation_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
             "size": 4345468
+          },
+          {
+            "name": "tt-nn-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-nn-validation_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
+            "size": 4421308
+          },
+          {
+            "name": "tt-nn_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261122/tt-nn_0.83.0.dev20261122.ubuntu22.04_amd64.deb",
+            "size": 38292324
           },
           {
             "name": "tt-nn_0.83.0.dev20261122.ubuntu24.04_amd64.deb",
@@ -5115,64 +5116,9 @@
         "prerelease": true,
         "assets": [
           {
-            "name": "tt-metalium_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "size": 29952098
-          },
-          {
-            "name": "tt-nn_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "size": 38181272
-          },
-          {
-            "name": "tt-metalium-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "size": 6309840
-          },
-          {
-            "name": "tt-ml-validation_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-ml-validation_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "size": 4762746
-          },
-          {
-            "name": "tt-metalium_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "size": 29930036
-          },
-          {
-            "name": "tt-metalium-examples_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-examples_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "size": 85762
-          },
-          {
-            "name": "tt-metalium-validation_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-validation_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "size": 6250452
-          },
-          {
-            "name": "tt-metalium-jit_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-jit_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "size": 134929280
-          },
-          {
-            "name": "tt-ml-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-ml-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "size": 4730374
-          },
-          {
-            "name": "tt-metalium-jit_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-jit_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "size": 134928914
-          },
-          {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium.tar.gz",
-            "size": 234978072
-          },
-          {
-            "name": "tt-nn-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "size": 4393246
+            "name": "tt-metalium-dev_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-dev_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "size": 1250346
           },
           {
             "name": "tt-metalium-dev_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
@@ -5180,14 +5126,74 @@
             "size": 1249414
           },
           {
+            "name": "tt-metalium-examples_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-examples_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "size": 85754
+          },
+          {
+            "name": "tt-metalium-examples_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-examples_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "size": 85762
+          },
+          {
+            "name": "tt-metalium-jit_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-jit_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "size": 134928914
+          },
+          {
+            "name": "tt-metalium-jit_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-jit_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "size": 134929280
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-validation_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "size": 6250452
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "size": 6309840
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium.tar.gz",
+            "size": 234978072
+          },
+          {
+            "name": "tt-metalium_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "size": 29952098
+          },
+          {
+            "name": "tt-metalium_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "size": 29930036
+          },
+          {
+            "name": "tt-ml-validation_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-ml-validation_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "size": 4762746
+          },
+          {
+            "name": "tt-ml-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-ml-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "size": 4730374
+          },
+          {
             "name": "tt-nn-dev_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn-dev_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
             "size": 356748
           },
           {
-            "name": "tt-nn_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "size": 37728518
+            "name": "tt-nn-dev_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn-dev_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "size": 356780
+          },
+          {
+            "name": "tt-nn-examples_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn-examples_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "size": 1412
           },
           {
             "name": "tt-nn-examples_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
@@ -5200,24 +5206,19 @@
             "size": 4320748
           },
           {
-            "name": "tt-metalium-dev_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-dev_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "size": 1250346
+            "name": "tt-nn-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn-validation_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "size": 4393246
           },
           {
-            "name": "tt-nn-dev_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn-dev_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
-            "size": 356780
+            "name": "tt-nn_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
+            "size": 38181272
           },
           {
-            "name": "tt-metalium-examples_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-metalium-examples_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "size": 85754
-          },
-          {
-            "name": "tt-nn-examples_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn-examples_0.83.0.dev20261121.ubuntu22.04_amd64.deb",
-            "size": 1412
+            "name": "tt-nn_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261121/tt-nn_0.83.0.dev20261121.ubuntu24.04_amd64.deb",
+            "size": 37728518
           }
         ]
       },
@@ -5229,14 +5230,9 @@
         "prerelease": true,
         "assets": [
           {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium.tar.gz",
-            "size": 232084460
-          },
-          {
-            "name": "tt-metalium-validation_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium-validation_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
-            "size": 6307660
+            "name": "tt-metalium-dev_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium-dev_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "size": 1251272
           },
           {
             "name": "tt-metalium-dev_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
@@ -5244,14 +5240,14 @@
             "size": 1250434
           },
           {
-            "name": "tt-metalium_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "size": 29423866
-          },
-          {
             "name": "tt-metalium-examples_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium-examples_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
             "size": 85766
+          },
+          {
+            "name": "tt-metalium-examples_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium-examples_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
+            "size": 85736
           },
           {
             "name": "tt-metalium-jit_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
@@ -5264,9 +5260,24 @@
             "size": 134860404
           },
           {
-            "name": "tt-ml-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-ml-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "size": 4650792
+            "name": "tt-metalium-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "size": 6244232
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium-validation_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
+            "size": 6307660
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium.tar.gz",
+            "size": 232084460
+          },
+          {
+            "name": "tt-metalium_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "size": 29423866
           },
           {
             "name": "tt-metalium_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
@@ -5274,54 +5285,9 @@
             "size": 29367528
           },
           {
-            "name": "tt-metalium-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "size": 6244232
-          },
-          {
-            "name": "tt-metalium-dev_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium-dev_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "size": 1251272
-          },
-          {
-            "name": "tt-metalium-examples_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-metalium-examples_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
-            "size": 85736
-          },
-          {
-            "name": "tt-nn-examples_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-examples_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "size": 1414
-          },
-          {
-            "name": "tt-nn_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
-            "size": 23826112
-          },
-          {
-            "name": "tt-nn_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "size": 24268324
-          },
-          {
-            "name": "tt-nn-dev_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-dev_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
-            "size": 295880
-          },
-          {
-            "name": "tt-nn-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "size": 3924672
-          },
-          {
-            "name": "tt-nn-dev_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-dev_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
-            "size": 295902
-          },
-          {
-            "name": "tt-nn-examples_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-examples_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
-            "size": 1412
+            "name": "tt-ml-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-ml-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "size": 4650792
           },
           {
             "name": "tt-ml-validation_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
@@ -5329,9 +5295,44 @@
             "size": 4615280
           },
           {
+            "name": "tt-nn-dev_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-dev_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "size": 295902
+          },
+          {
+            "name": "tt-nn-dev_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-dev_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
+            "size": 295880
+          },
+          {
+            "name": "tt-nn-examples_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-examples_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "size": 1414
+          },
+          {
+            "name": "tt-nn-examples_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-examples_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
+            "size": 1412
+          },
+          {
+            "name": "tt-nn-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-validation_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "size": 3924672
+          },
+          {
             "name": "tt-nn-validation_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn-validation_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
             "size": 3990662
+          },
+          {
+            "name": "tt-nn_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn_0.83.0.dev20261119.ubuntu22.04_amd64.deb",
+            "size": 24268324
+          },
+          {
+            "name": "tt-nn_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261119/tt-nn_0.83.0.dev20261119.ubuntu24.04_amd64.deb",
+            "size": 23826112
           }
         ]
       },
@@ -5343,54 +5344,9 @@
         "prerelease": true,
         "assets": [
           {
-            "name": "tt-metalium_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "size": 29214752
-          },
-          {
-            "name": "tt-nn_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
-            "size": 23726458
-          },
-          {
-            "name": "tt-metalium.tar.gz",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium.tar.gz",
-            "size": 231835728
-          },
-          {
-            "name": "tt-nn-dev_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-dev_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
-            "size": 289426
-          },
-          {
-            "name": "tt-metalium_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
-            "size": 29150934
-          },
-          {
-            "name": "tt-nn-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "size": 289374
-          },
-          {
-            "name": "tt-nn-examples_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-examples_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "size": 1414
-          },
-          {
-            "name": "tt-metalium-jit_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-jit_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
-            "size": 134869064
-          },
-          {
-            "name": "tt-metalium-validation_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-validation_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
-            "size": 6204392
-          },
-          {
-            "name": "tt-metalium-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "size": 6146894
+            "name": "tt-metalium-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 1251532
           },
           {
             "name": "tt-metalium-dev_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
@@ -5398,19 +5354,9 @@
             "size": 1250636
           },
           {
-            "name": "tt-metalium-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "size": 1251532
-          },
-          {
             "name": "tt-metalium-examples_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-examples_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
             "size": 85736
-          },
-          {
-            "name": "tt-nn_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "size": 24135700
           },
           {
             "name": "tt-metalium-examples_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
@@ -5423,9 +5369,59 @@
             "size": 134867284
           },
           {
+            "name": "tt-metalium-jit_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-jit_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 134869064
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 6146894
+          },
+          {
+            "name": "tt-metalium-validation_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium-validation_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 6204392
+          },
+          {
+            "name": "tt-metalium.tar.gz",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium.tar.gz",
+            "size": 231835728
+          },
+          {
+            "name": "tt-metalium_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 29214752
+          },
+          {
+            "name": "tt-metalium_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-metalium_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 29150934
+          },
+          {
+            "name": "tt-nn-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-dev_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 289374
+          },
+          {
+            "name": "tt-nn-dev_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-dev_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 289426
+          },
+          {
+            "name": "tt-nn-examples_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-examples_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 1414
+          },
+          {
             "name": "tt-nn-examples_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
             "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-examples_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
             "size": 1414
+          },
+          {
+            "name": "tt-nn-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 3810812
           },
           {
             "name": "tt-nn-validation_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
@@ -5433,9 +5429,14 @@
             "size": 3880688
           },
           {
-            "name": "tt-nn-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn-validation_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
-            "size": 3810812
+            "name": "tt-nn_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn_0.83.0.dev20261118.ubuntu22.04_amd64.deb",
+            "size": 24135700
+          },
+          {
+            "name": "tt-nn_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "url": "https://github.com/tenstorrent/tt-metal/releases/download/v0.83.0-dev20261118/tt-nn_0.83.0.dev20261118.ubuntu24.04_amd64.deb",
+            "size": 23726458
           }
         ]
       }
@@ -5912,6 +5913,13 @@
     "starsReported": 34,
     "releases": [
       {
+        "tagName": "v1.17.0",
+        "name": "v1.17.0",
+        "publishedAt": "2026-11-23T17:04:01Z",
+        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.17.0",
+        "prerelease": false
+      },
+      {
         "tagName": "v1.16.0",
         "name": "v1.16.0",
         "publishedAt": "2026-11-05T01:28:44Z",
@@ -5937,13 +5945,6 @@
         "name": "v1.14.0",
         "publishedAt": "2026-10-24T01:59:57Z",
         "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.14.0",
-        "prerelease": false
-      },
-      {
-        "tagName": "v1.13.0",
-        "name": "v1.13.0",
-        "publishedAt": "2026-10-21T11:54:58Z",
-        "url": "https://github.com/tenstorrent/ttsim/releases/tag/v1.13.0",
         "prerelease": false
       }
     ]
