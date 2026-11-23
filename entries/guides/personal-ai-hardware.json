@@ -1,0 +1,43 @@
+{
+  "id": "personal-ai-hardware",
+  "previous_ids": [
+    "qb2-vs-spark"
+  ],
+  "name": "Best Personal AI Hardware",
+  "description": "Justin Garrison's benchmark harness and results page for open-weight models on personal AI hardware: a Tenstorrent QuietBox 2, one and two NVIDIA DGX Sparks, and any machine you add. It measures time to first token, decode speed per user, total throughput, wall power and running cost under coding-agent-shaped traffic, with quality scores from the Artificial Analysis index, and it also times text-to-image and text-to-video servers.",
+  "affiliation": "community",
+  "categories": [
+    "guides",
+    "hw-system"
+  ],
+  "tags": [
+    "benchmark",
+    "quietbox",
+    "dgx-spark",
+    "power",
+    "cost",
+    "tokens-per-joule",
+    "open-weight"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/rothgar/personal-ai-hardware"
+    },
+    {
+      "type": "website",
+      "url": "https://rothgar.github.io/personal-ai-hardware/",
+      "label": "Results"
+    }
+  ],
+  "hardware": [
+    "blackhole",
+    "quietbox"
+  ],
+  "author": "Justin Garrison",
+  "language": "HTML",
+  "added_at": "2026-10-29",
+  "previous_repos": [
+    "rothgar/qb2-vs-spark"
+  ]
+}
