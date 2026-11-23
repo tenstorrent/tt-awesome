@@ -819,9 +819,9 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by Yifan & GPU / William & Mary — Lecture 20 from William & Mary's graduate Computer Architecture course. Frames Tenstorrent in the landscape between GPUs and TPUs, draws comparisons to Cerebras and SambaNova, then dives deep into the Wormhole chip and Tensix core: the 5 RISC-V core design, SFPU, NoC, and dataflow execution model.
   [🎥 Lecture 20 — Tenstorrent Architecture (YouTube)](https://www.youtube.com/watch?v=CixEFPc8oxg)
 
-- **[QuietBox 2 vs DGX Spark](https://github.com/rothgar/qb2-vs-spark)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+- **[QuietBox 2 vs DGX Spark](https://github.com/rothgar/personal-ai-hardware)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Justin Garrison — Justin Garrison's benchmark harness and results page comparing a Tenstorrent QuietBox 2 against one and two NVIDIA DGX Sparks on open-weight models: time to first token, decode speed per user, total throughput, wall power and running cost under coding-agent-shaped traffic, with quality scores from the Artificial Analysis index.
-  [📦 repo](https://github.com/rothgar/qb2-vs-spark) · [🌐 Results](https://rothgar.github.io/qb2-vs-spark/)
+  [📦 repo](https://github.com/rothgar/personal-ai-hardware) · [🌐 Results](https://rothgar.github.io/qb2-vs-spark/)
 
 - **[Tensix Field Guide](https://github.com/OrangeTangy/tensix-field-guide)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Tanay Anand — A ten-chapter, plain-English tour of Tenstorrent's Tensix architecture written for someone who knows what a CPU and a GPU are and nothing else: the chip-level grid and NoC, the five RISC-V baby cores, the matrix engine and its LoFi/HiFi fidelity trade-off, the SFPU, L1 and circular buffers, and why everything is 32x32 tile-shaped. The goal is to get a newcomer to the point of reading tt-metal kernel code in one sitting. Self-described draft; every claim traces back to tt-metal tech reports, tt-llk docs, or METALIUM_GUIDE.

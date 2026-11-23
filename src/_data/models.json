@@ -6663,11 +6663,11 @@
     },
     {
      "arch": "blackhole",
-     "blurb": "",
+     "blurb": "Qwen/Qwen3.8-27B on a P300x2 (4 Blackhole chips) with vLLM, on the resident decode engine: one persistent program per chip per decode step.",
      "bundleKind": "vllm-plugin",
      "context": "256K",
      "decision": false,
-     "descriptionHead": "",
+     "descriptionHead": "[Qwen/Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) on a P300x2 (4 Blackhole chips) with vLLM, on the resident decode engine: one persistent program per chip per decode step. Profiles: 1 to 32 users in one decode launch with a share",
      "devices": 4,
      "hardware": [
       {
@@ -6679,14 +6679,20 @@
      ],
      "license": null,
      "owner": "changh95",
-     "perf": null,
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 142.1,
+      "measured": true,
+      "ttft": 139.0
+     },
      "readable": true,
      "reasoningParser": "qwen3",
      "repo": "changh95/qwen3.8-27b-p300x2",
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_coder",
-     "updated": "2026-11-15"
+     "updated": "2026-11-22"
     },
     {
      "arch": "blackhole",
@@ -6794,7 +6800,7 @@
    ],
    "modelType": "LLM",
    "name": "Qwen3.8-27B",
-   "newest": "2026-11-15",
+   "newest": "2026-11-22",
    "params": "27B",
    "perf": {
     "chips": null,
@@ -8182,6 +8188,70 @@
    "toolParser": null,
    "upstream": "ACE-Step/Ace-Step1.5",
    "weights": "ACE-Step/Ace-Step1.5"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "",
+     "bundleKind": "tt-dit-server",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "",
+     "devices": 4,
+     "hardware": [
+      {
+       "key": null,
+       "listed": false,
+       "product": "1x4",
+       "raw": "1x4"
+      }
+     ],
+     "license": null,
+     "owner": "episod",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "episod/aion-1.0-instruct-2.3b-blackhole",
+     "schema": "6",
+     "task": null,
+     "toolParser": null,
+     "updated": "2026-11-23"
+    }
+   ],
+   "clients": [],
+   "family": "Aion",
+   "hardware": [
+    "1x4"
+   ],
+   "id": "aion-1-0-instruct-2-3b",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the original model's Hugging Face card",
+   "kindInferred": false,
+   "licenses": [],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Aion-1.0-Instruct-2.3B",
+   "newest": "2026-11-23",
+   "params": null,
+   "perf": null,
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "episod/aion-1.0-instruct-2.3b-blackhole",
+   "singleCard": false,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Published as 1 tt-model bundle by episod.",
+   "toolParser": null,
+   "upstream": "microsoft/Aion-1.0-Instruct-2.3B",
+   "weights": "microsoft/Aion-1.0-Instruct-2.3B"
   },
   {
    "bundles": [
@@ -15483,6 +15553,76 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "RDT2-FM, a vision-language-action model for two-arm manipulation.",
+     "bundleKind": "tt-dit-server",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "RDT2-FM, a vision-language-action model for two-arm manipulation. The Qwen2.5-VL-7B backbone of RDT2-VQ reads the wrist-camera images and a language instruction; of it, the vision tower (0.68B parameters) and the language model up to layer ",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "changh95",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "changh95/rdt2-base-p150",
+     "schema": "5.1",
+     "task": "robotics",
+     "toolParser": null,
+     "updated": "2026-11-22"
+    }
+   ],
+   "clients": [],
+   "family": "RDT",
+   "hardware": [
+    "p150"
+   ],
+   "id": "rdt2-vq",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Robotics",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "RDT2-VQ",
+   "newest": "2026-11-22",
+   "params": null,
+   "perf": null,
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "changh95/rdt2-base-p150",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "RDT2-FM, a vision-language-action model for two-arm manipulation.",
+   "toolParser": null,
+   "upstream": "robotics-diffusion-transformer/RDT2-VQ",
+   "weights": "robotics-diffusion-transformer/RDT2-VQ"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "RF-DETR-base, a 29.0M-parameter real-time detection transformer trained on COCO: a DINOv2-S/14 backbone with windowed attention, a C2f projector, two-stage query selection and a 3-layer deformable-attention decoder with 300 object queries.",
      "bundleKind": "tt-dit-server",
      "context": null,
@@ -16729,6 +16869,76 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "VLA-JEPA, a 2.3B-parameter vision-language-action policy: a Qwen3-VL-2B vision encoder and its 28-layer language model encode the camera images and a task instruction.",
+     "bundleKind": "tt-dit-server",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "VLA-JEPA, a 2.3B-parameter vision-language-action policy (as used for inference): a Qwen3-VL-2B vision encoder (24 ViT blocks with DeepStack features) and its 28-layer language model encode the camera images (two by default) and a task inst",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "changh95",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "changh95/vla-jepa-base-p150",
+     "schema": "5.1",
+     "task": "robotics",
+     "toolParser": null,
+     "updated": "2026-11-23"
+    }
+   ],
+   "clients": [],
+   "family": "VLA",
+   "hardware": [
+    "p150"
+   ],
+   "id": "vla-jepa-pretrain",
+   "impls": [],
+   "inSpec": false,
+   "kind": "Robotics",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "VLA-JEPA-Pretrain",
+   "newest": "2026-11-23",
+   "params": null,
+   "perf": null,
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "changh95/vla-jepa-base-p150",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "VLA-JEPA, a 2.3B-parameter vision-language-action policy: a Qwen3-VL-2B vision encoder and its 28-layer language model encode the camera images and a task instruction.",
+   "toolParser": null,
+   "upstream": "lerobot/VLA-JEPA-Pretrain",
+   "weights": "lerobot/VLA-JEPA-Pretrain"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "Voxtral-Mini-4B-Realtime-2602, Mistral AI's realtime speech-to-text model, served on four Blackhole chips through a TTNN autoport and the Tenstorrent vLLM plugin as an OpenAI-compatible /v1/audio/transcriptions endpoint.",
      "bundleKind": "vllm-plugin",
      "context": "128K",
@@ -16944,7 +17154,7 @@
   }
  ],
  "spec": {
-  "commit": "0ad0f4be9",
+  "commit": "63b6b292b",
   "release": "0.26.1"
  },
  "unclassified": [],
