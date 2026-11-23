@@ -217,9 +217,9 @@ Experimental & Dev-Catalog Model Loading (--dev) unlocks 16 additional experimen
   by [@geohot](https://github.com/geohot) — Minimal Python code to access and program the Tenstorrent Blackhole chip directly — George Hotz's exploration of TT hardware programmability with pointed commentary on the architecture.
   [📦 repo](https://github.com/geohot/tt-tiny)
 
-- **[baretile](https://github.com/baretile/baretile)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@baretile](https://github.com/baretile) — A compiler and runtime for Tenstorrent Blackhole written in about 2,700 lines of standard-library Python. You write tensor operations and it compiles them to Tensix instructions, loads its own worker firmware and drives the card over PCIe from userspace, with no dependency on tt-metal, tt-umd or LLK. Developed against the ttsim simulator; untested on a card so far.
-  [📦 repo](https://github.com/baretile/baretile) · [🌐 baretile.com](https://baretile.com)
+- **[baretile](https://github.com/0xalkinun/baretile)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by [@0xalkinun](https://github.com/0xalkinun) — A compiler and runtime for Tenstorrent Blackhole written in about 2,700 lines of standard-library Python. You write tensor operations and it compiles them to Tensix instructions, loads its own worker firmware and drives the card over PCIe from userspace, with no dependency on tt-metal, tt-umd or LLK. Developed against the ttsim simulator; untested on a card so far.
+  [📦 repo](https://github.com/0xalkinun/baretile) · [🌐 baretile.com](https://baretile.com)
 
 - **[current](https://github.com/seansiddens/current)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@seansiddens](https://github.com/seansiddens) — High-level parallel programming framework for Tenstorrent accelerators, abstracting TT-Metal into a research-oriented programming model for parallel computation.
@@ -322,10 +322,6 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **[Annotation-Driven CUDA to Tenstorrent Migration](https://github.com/casys-utokyo/annotation-driven-cuda-to-tenstorrent)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by [@casys-utokyo](https://github.com/casys-utokyo) — Artifact for a paper on an MLIR-based compiler pipeline that migrates a statically shaped affine subset of CUDA to Tenstorrent Blackhole. Processor assignment, guard realization and buffer streaming are given as declarative annotations the compiler checks and lowers through tt-mlir. Holds the intermediate representations at every stage, the compiled programs for Gaussian elimination, a 2D Jacobi stencil and SYRK on a 10x10 core grid, and scripts that reproduce each timing and accuracy number, including the A100 comparison.
   [📦 repo](https://github.com/casys-utokyo/annotation-driven-cuda-to-tenstorrent)
-
-- **[ferrite](https://github.com/alkinun/ferrite)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by [@alkinun](https://github.com/alkinun) — A from-scratch userspace software stack for Tenstorrent Blackhole in about 1,900 lines of Python. It talks to the card over PCIe, loads firmware onto Tensix cores, compiles tensor expressions to Tensix instructions, and runs and serves GPT-2, SmolLM and Llama-family models, with tinygrad integration and training examples. It does not use the Tenstorrent kernel driver, tt-umd, tt-metal or LLK beyond the card firmware, and can run against the TTSIM simulator.
-  [📦 repo](https://github.com/alkinun/ferrite)
 
 - **[libtt](https://github.com/pcmoritz/libtt)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Philipp Moritz — A Bazel-built PJRT plugin (libtt.so) providing an XLA backend for Tenstorrent devices. Bundles the tt-xla PJRT implementation with tt-mlir and tt-metal into a single shared object so JAX code runs on Tenstorrent hardware, with patches so sglang-jax works out of the box.
@@ -819,9 +815,9 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
   by Yifan & GPU / William & Mary — Lecture 20 from William & Mary's graduate Computer Architecture course. Frames Tenstorrent in the landscape between GPUs and TPUs, draws comparisons to Cerebras and SambaNova, then dives deep into the Wormhole chip and Tensix core: the 5 RISC-V core design, SFPU, NoC, and dataflow execution model.
   [🎥 Lecture 20 — Tenstorrent Architecture (YouTube)](https://www.youtube.com/watch?v=CixEFPc8oxg)
 
-- **[QuietBox 2 vs DGX Spark](https://github.com/rothgar/qb2-vs-spark)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
-  by Justin Garrison — Justin Garrison's benchmark harness and results page comparing a Tenstorrent QuietBox 2 against one and two NVIDIA DGX Sparks on open-weight models: time to first token, decode speed per user, total throughput, wall power and running cost under coding-agent-shaped traffic, with quality scores from the Artificial Analysis index.
-  [📦 repo](https://github.com/rothgar/qb2-vs-spark) · [🌐 Results](https://rothgar.github.io/qb2-vs-spark/)
+- **[Best Personal AI Hardware](https://github.com/rothgar/personal-ai-hardware)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
+  by Justin Garrison — Justin Garrison's benchmark harness and results page for open-weight models on personal AI hardware: a Tenstorrent QuietBox 2, one and two NVIDIA DGX Sparks, and any machine you add. It measures time to first token, decode speed per user, total throughput, wall power and running cost under coding-agent-shaped traffic, with quality scores from the Artificial Analysis index, and it also times text-to-image and text-to-video servers.
+  [📦 repo](https://github.com/rothgar/personal-ai-hardware) · [🌐 Results](https://rothgar.github.io/personal-ai-hardware/)
 
 - **[Tensix Field Guide](https://github.com/OrangeTangy/tensix-field-guide)** ![community](https://img.shields.io/badge/community-27AE60?style=flat-square)
   by Tanay Anand — A ten-chapter, plain-English tour of Tenstorrent's Tensix architecture written for someone who knows what a CPU and a GPU are and nothing else: the chip-level grid and NoC, the five RISC-V baby cores, the matrix engine and its LoFi/HiFi fidelity trade-off, the SFPU, L1 and circular buffers, and why everything is 32x32 tile-shaped. The goal is to get a newcomer to the point of reading tt-metal kernel code in one sitting. Self-described draft; every claim traces back to tt-metal tech reports, tt-llk docs, or METALIUM_GUIDE.
@@ -854,10 +850,6 @@ The architecture can be mapping to any number of Tensix cores. The build is conf
 - **[Kernel Tutorials](https://github.com/mstojkovicTT/kernel-tutorials)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@mstojkovicTT](https://github.com/mstojkovicTT) — Interactive, presentation-style tutorials on tt-metal kernel programming, built as companions to the kernel_dojo exercises. The Circular Buffer Dojo steps through reserve, push, wait and pop, the DST handshake, and the classic deadlock and wrong-data bugs as live simulations of the exercise kernels; the Throughput Dojo covers multi-core scaling, the DRAM-bandwidth knee, batched NoC transactions, K-accumulation in DST, operand reuse and math fidelity. Each tutorial is one self-contained HTML file.
   [📦 repo](https://github.com/mstojkovicTT/kernel-tutorials) · [🌐 Live tutorials](https://mstojkovicTT.github.io/kernel-tutorials/)
-
-- **[tt-sim Lab](https://github.com/prag79/tt-sim-lab)** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
-  by Pragnajit Datta Roy — A university teaching lab for TT-Metalium kernel programming on a virtual Tenstorrent chip — one-click GitHub Codespace, no silicon and nothing installed locally. The primary track (labs 00-06) points tt-metal straight at libttsim via TT_METAL_SIMULATOR and walks from elementwise add through NoC multicast to multi-core and multicast matmul, backed by a source-level matmul guide. An optional advanced track (labs 10-16) boots an Ubuntu guest under ttsim-qemu, loads tt-kmd, surfaces /dev/tenstorrent/0, and runs tt-metal through the full PCIe path.
-  [📦 repo](https://github.com/prag79/tt-sim-lab) · [📖 Student handout](https://github.com/prag79/tt-sim-lab/blob/main/HANDOUT.md) · [📖 Matmul source walkthrough](https://github.com/prag79/tt-sim-lab/blob/main/labs/MATMUL_GUIDE.md)
 
 - **Custom Model Training on Tenstorrent** ![affiliated](https://img.shields.io/badge/affiliated-EC96B8?style=flat-square)
   by [@tsingletaryTT](https://github.com/tsingletaryTT) — Eight-lesson series covering the full custom training workflow on TT hardware: dataset fundamentals, configuration patterns, fine-tuning, multi-device distributed training, experiment tracking, model architecture basics, and training from scratch.
