@@ -156,6 +156,10 @@ template uses them.
   "Also this week" list. A week with no change produces no item. Dispatching
   the workflow with `roundup: true` rewrites the current week's item, which is
   how a prompt change is tried out; the scheduled Thursday run never rewrites.
+  The model's reply is cut to its first block of prose (the first forced run
+  wrote its own table after the paragraph, cut off by `maxTokens`), and its
+  em-dashes become commas. Model names in the paragraph are linked without
+  regard to case.
 
 ### Models
 
