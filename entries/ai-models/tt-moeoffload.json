@@ -1,0 +1,20 @@
+{
+  "id": "tt-moeoffload",
+  "name": "tt-moeoffload",
+  "description": "An inference engine that uses 1x p150a + host CPU and RAM to run large MoE models, in the spirit of [Strata](https://github.com/Niko1221/Strata/tree/main)-lineage projects. Currently supports limited quantizations of Qwen3.8-Flash-Next and GLM-5.3-Flash.",
+  "affiliation": "community",
+  "categories": [
+    "ai-models",
+    "kernels"
+  ],
+  "links": [
+    {
+      "type": "repo",
+      "url": "https://github.com/simbilod/tt-moeoffload"
+    }
+  ],
+  "hardware": [
+    "blackhole"
+  ],
+  "author": "simbilod"
+}
