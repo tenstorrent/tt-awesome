@@ -8,8 +8,7 @@ whoever maintains the automation.
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `nightly.yml` | `17 6,18 * * *` UTC + dispatch | Refreshes `src/_data/github_meta.json`, summarizes new releases into `src/_data/planet_feeds.json`, regenerates `README.md`, opens a PR |
-| `planet-feeds.yml` | `43 6,18 * * *` UTC + dispatch | Pulls YouTube / arXiv / Reddit / community / connpass / developer-blog items into `src/_data/planet_feeds.json`, opens a PR |
+| `nightly.yml` | `7 14 * * *` UTC (6:07am PST, 7:07am PDT) + dispatch | One run, one PR (`chore/nightly-refresh`): refreshes `src/_data/github_meta.json`, summarizes new releases and pulls YouTube / arXiv / Reddit / community / connpass / developer-blog items into `src/_data/planet_feeds.json`, rebuilds `src/_data/models.json` (plus the Thursday models roundup), regenerates `README.md`. Replaces the former `planet-feeds.yml` and `nightly-models.yml`. |
 | `validate.yml` | PR | `scripts/validate.py` over every entry |
 | `build-check.yml` | PR | Eleventy build |
 | `entry-from-issue.yml` | `approved` label on an issue | Converts an entry-submission issue into a PR |
@@ -25,14 +24,15 @@ repository **Variable** — no code change needed to switch.
 
 | `SUMMARY_PROVIDER` | Backend | Credential |
 |---|---|---|
-| unset / `foundry` | Claude on Microsoft Foundry (default) | `FOUNDRY_API_KEY` secret |
-| `anthropic` | Anthropic Messages API direct | `ANTHROPIC_API_KEY` secret |
+| unset / `foundry` | Claude on Microsoft Foundry (default) | `FOUNDRY_API_KEY`, read from OSPO Vault |
+| `anthropic` | Anthropic Messages API direct | `ANTHROPIC_API_KEY` — not passed in by the workflow, so this only works for local runs |
 | `github` | GitHub Models — **retired, does not work** | — |
 
 ### Required configuration
 
-**Secret `FOUNDRY_API_KEY`** — the API key for the Foundry resource. That is the
-only thing the default path needs.
+**`FOUNDRY_API_KEY`** — the API key for the Foundry resource. That is the only
+thing the default path needs. It is not a GitHub secret: `nightly.yml` reads it
+from OSPO Vault during the run (see the Vault steps in the `refresh` job).
 
 **Variable `FOUNDRY_ENDPOINT`** *(optional)* — overrides the deployment URL when
 the resource changes. Defaults to the URL in `scripts/llm_client.py`:
@@ -173,11 +173,17 @@ Wolfpine (2026-10) without this field.
 
 ## Bot PRs
 
-Both scheduled workflows open PRs via `peter-evans/create-pull-request` rather
-than pushing to `main`:
+The scheduled `nightly.yml` opens one PR via `peter-evans/create-pull-request`
+rather than pushing to `main`:
 
-- `chore/nightly-github-metadata` → "chore: update GitHub metadata"
-- `chore/nightly-planet-feeds` → "chore: update planet feeds"
+- `chore/nightly-refresh` → "chore: nightly refresh" (metadata, release
+  summaries, planet feeds, models list and the Thursday roundup)
+
+The branch keeps the `chore/nightly-` prefix because `build-check.yml` skips
+pull requests from branches that start with it. The old
+`chore/nightly-github-metadata`, `chore/nightly-planet-feeds` and
+`chore/nightly-models` branches are no longer written to; close any that are
+still open.
 
 Deliberately **no** `[skip ci]` in the commit message: single-commit PRs
 squash-merge with that message as the commit title, and it must not suppress
