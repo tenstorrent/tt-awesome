@@ -161,11 +161,17 @@ Wolfpine (2026-10) without this field.
 
 ## Bot PRs
 
-Both scheduled workflows open PRs via `peter-evans/create-pull-request` rather
-than pushing to `main`:
+The scheduled `nightly.yml` opens one PR via `peter-evans/create-pull-request`
+rather than pushing to `main`:
 
-- `chore/nightly-github-metadata` → "chore: update GitHub metadata"
-- `chore/nightly-planet-feeds` → "chore: update planet feeds"
+- `chore/nightly-refresh` → "chore: nightly refresh" (metadata, release
+  summaries, planet feeds, models list and the Thursday roundup)
+
+The branch keeps the `chore/nightly-` prefix because `build-check.yml` skips
+pull requests from branches that start with it. The old
+`chore/nightly-github-metadata`, `chore/nightly-planet-feeds` and
+`chore/nightly-models` branches are no longer written to; close any that are
+still open.
 
 Deliberately **no** `[skip ci]` in the commit message: single-commit PRs
 squash-merge with that message as the commit title, and it must not suppress

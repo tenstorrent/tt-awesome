@@ -293,7 +293,19 @@ jobs:
           # A forced run is how a week is regenerated after a prompt change, so it replaces.
           REPLACE=""
           if [ "$FORCE" = "true" ]; then REPLACE="--replace"; fi
-          python3 scripts/models_diff.py roundup --old old-week.json --new new/models.json --week-end "$(date -u +%F)" $REPLACE
+          python3 scripts/models_diff.py roundup --old old-week.json --new new/models.json --week-end "$(date -u +%F)" $REPLACE | tee roundup.log
+          # pr-parts/models.md compares tonight's list with the committed one, so a week whose changes
+          # all landed on earlier days leaves it absent. When the roundup wrote an item, say so in the
+          # PR body, with the week's own change count, so the PR does not claim there was no digest.
+          if grep -qE '^(added|replaced) roundup ' roundup.log; then
+            {
+              echo "### Weekly models roundup"
+              echo
+              echo "Added a Planet item for the week ending $(date -u +%F): $(grep -E '^(added|replaced) roundup ' roundup.log | sed 's/^[a-z]* roundup //; s/ in .*//')"
+              echo
+              echo "<!-- tt-awesome-digest-boilerplate -->"
+            } > pr-parts/roundup.md
+          fi
 
       - name: Use the new models list
         if: ${{ !cancelled() && needs.models.result == 'success' && !inputs.dry_run }}
@@ -332,6 +344,7 @@ jobs:
           section "GitHub metadata and release summaries" pr-parts/metadata.md
           section "Planet feeds" pr-parts/planet.md
           section "Models" pr-parts/models.md
+          section "Weekly models roundup" pr-parts/roundup.md
           # The PR body and the comment are each limited to 65,536 characters.
           head -c 50000 pr-digest.md | iconv -f UTF-8 -t UTF-8 -c > pr-digest.tmp && mv pr-digest.tmp pr-digest.md
 
