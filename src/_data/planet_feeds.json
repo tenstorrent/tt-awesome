@@ -1,5 +1,33 @@
 [
   {
+    "type": "paper",
+    "source": "arxiv",
+    "approved": true,
+    "title": "Libtt: A Compiler and Runtime for Tenstorrent Processors",
+    "url": "https://arxiv.org/abs/2611.34273v1",
+    "description": "Libtt brings the PyTorch and JAX ecosystem to Tenstorrent hardware. It implements PJRT, the interface through which XLA-based frameworks drive Google's TPUs, so JAX runs on it directly, PyTorch runs through TorchTPU, and software written for TPUs carries over with no changes except replacing custom kernels. Built on Tenstorrent's open-source compiler and runtime, libtt ships the entire stack, from the compiler to the multi-chip runtime, as a single shared library. It contains extensive fixes to the upstream Tenstorrent software to make existing PyTorch and JAX code work out of the box, and extensive new compiler optimizations to make it fast. It passes most of the JAX and TorchTPU test suites and runs SGLang, TorchTitan, and Miles, covering serving, fine-tuning, and reinforcement learning.",
+    "date": "2026-11-25",
+    "dateISO": "2026-11-25T12:34:38Z",
+    "label": "arXiv:2611.34273",
+    "projectName": "arXiv",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
+    "type": "paper",
+    "source": "arxiv",
+    "approved": true,
+    "title": "Real-Time AI Acceleration on a 2D Spatial Dataflow Architecture",
+    "url": "https://arxiv.org/abs/2611.31556v1",
+    "description": "Machine Learning (ML) is increasingly being integrated into real-time systems, which makes the timing analysis of ML accelerators necessary. However, the most popular commercial accelerator, the Graphics Processing Unit (GPU), remains difficult to analyze as several aspects of its behavior, including scheduling of threads involved in single-instruction multiple-thread computations and memory access latency, are not fully documented. Spatial dataflow accelerators present an interesting alternative to GPUs, as they inherently support compute and memory partitioning. Data movement and computation locality are explicitly controlled by the programmer. In this work, we consider the Tenstorrent Blackhole, which is based on a commodity RISC-V architecture. It consists of a 2D grid of cores…",
+    "date": "2026-11-23",
+    "dateISO": "2026-11-23T21:04:49Z",
+    "label": "arXiv:2611.31556",
+    "projectName": "arXiv",
+    "projectId": null,
+    "affiliation": "community"
+  },
+  {
     "type": "release",
     "source": "github",
     "approved": true,
