@@ -6667,7 +6667,7 @@
      "bundleKind": "vllm-plugin",
      "context": "256K",
      "decision": false,
-     "descriptionHead": "[Qwen/Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) on a P300x2 (4 Blackhole chips) with vLLM, on the resident decode engine: one persistent program per chip per decode step. Profiles: 1 to 32 users in one decode launch with a share",
+     "descriptionHead": "[Qwen/Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) on a P300x2 (4 Blackhole chips) with vLLM, on the resident decode engine: one persistent program per chip per decode step. Profiles: 1 to 32 users in one decode launch with [DFlash",
      "devices": 4,
      "hardware": [
       {
@@ -6692,7 +6692,7 @@
      "schema": "5.1",
      "task": null,
      "toolParser": "qwen3_coder",
-     "updated": "2026-11-22"
+     "updated": "2026-11-26"
     },
     {
      "arch": "blackhole",
@@ -6800,7 +6800,7 @@
    ],
    "modelType": "LLM",
    "name": "Qwen3.8-27B",
-   "newest": "2026-11-22",
+   "newest": "2026-11-26",
    "params": "27B",
    "perf": {
     "chips": null,
@@ -9703,6 +9703,134 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "Gemma 4 12B IT, a 12B-parameter dense decoder, served text-only through vLLM's OpenAI API by a custom tt-metal runtime on one P150: traced decode, 16,384-token chunked prefill, sliding-window KV kept as 18,432-token rings.",
+     "bundleKind": "vllm-plugin",
+     "context": "256K",
+     "decision": false,
+     "descriptionHead": "Gemma 4 12B IT, a 12B-parameter dense decoder (48 layers, interleaved sliding-window and full attention, native 262,144-token context), served text-only through vLLM's OpenAI API by a custom tt-metal runtime on one P150: traced decode, 16,3",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "Lottolabs",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 56.0,
+      "measured": true,
+      "ttft": 92.0
+     },
+     "readable": true,
+     "reasoningParser": "gemma4",
+     "repo": "Lottolabs/gemma-4-12B-it-TT-BFP8-P150-tt-model",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "gemma4",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: gemma4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "gemma",
+   "hardware": [
+    "p150"
+   ],
+   "id": "gemma-4-12b-it-tt-bfp8-p150",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "gemma-4-12B-it-TT-BFP8-P150",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 56.0,
+    "decodeText": "56",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": 92.0,
+    "ttftText": "92 ms"
+   },
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "gemma4",
+   "rows": [],
+   "serve": "Lottolabs/gemma-4-12B-it-TT-BFP8-P150-tt-model",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Gemma 4 12B IT, a 12B-parameter dense decoder, served text-only through vLLM's OpenAI API by a custom tt-metal runtime on one P150: traced decode, 16,384-token chunked prefill, sliding-window KV kept as 18,432-token rings.",
+   "toolParser": "gemma4",
+   "upstream": "Lottolabs/gemma-4-12B-it-TT-BFP8-P150",
+   "weights": "Lottolabs/gemma-4-12B-it-TT-BFP8-P150"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "128K",
@@ -10426,6 +10554,119 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "Hy4-flash, a 220B-parameter mixture-of-experts model with about 11.3B parameters active per token: 42 layers of sparse and sliding-window MLA attention, 512 routed experts plus a shared expert, a 63.5B-parameter Engram n-gram memory.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Hy4-flash, a 220B-parameter mixture-of-experts model with about 11.3B parameters active per token: 42 layers of sparse and sliding-window MLA attention, 512 routed experts (top-16) plus a shared expert, a 63.5B-parameter Engram n-gram memor",
+     "devices": 4,
+     "hardware": [
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/tencent/Hy4-flash/blob/main/LICENSE",
+      "name": "tencent-hy-license"
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "hy_v4",
+     "repo": "raahemnabeel/hy4-flash",
+     "schema": "5.1",
+     "task": "image-text-to-text",
+     "toolParser": "hy_v4",
+     "updated": "2026-11-25"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: hy_v4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: hy_v4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: hy_v4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: hy_v4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: hy_v4",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Hy",
+   "hardware": [
+    "BH QuietBox 2"
+   ],
+   "id": "hy4-flash",
+   "impls": [],
+   "inSpec": false,
+   "kind": "VLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "tencent-hy-license"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Hy4-flash",
+   "newest": "2026-11-25",
+   "params": null,
+   "perf": null,
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "hy_v4",
+   "rows": [],
+   "serve": "raahemnabeel/hy4-flash",
+   "singleCard": false,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Hy4-flash, a 220B-parameter mixture-of-experts model with about 11.3B parameters active per token: 42 layers of sparse and sliding-window MLA attention, 512 routed experts plus a shared expert, a 63.5B-parameter Engram n-gram memory.",
+   "toolParser": "hy_v4",
+   "upstream": "tencent/Hy4-flash",
+   "weights": "tencent/Hy4-flash"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "PointPainting, a camera-LiDAR 3D object detector: the 2-D detections of up to 8 rectified cameras are projected onto the LiDAR points as 3 additive class bits, then a PointPillars pillar encoder, a SECOND backbone.",
      "bundleKind": "tt-dit-server",
      "context": null,
@@ -10491,6 +10732,403 @@
    "toolParser": null,
    "upstream": "AutowareFoundation/image_projection_based_fusion",
    "weights": "AutowareFoundation/image_projection_based_fusion"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Inkling-2-Mini, a 26.4B-parameter looped mixture-of-experts model, with image input.",
+     "bundleKind": "vllm-plugin",
+     "context": "64K",
+     "decision": false,
+     "descriptionHead": "Inkling-2-Mini, a 26.4B-parameter looped mixture-of-experts model (3.4B parameters active per token; 24 layers of which 12 run three passes, 128 routed experts top-8, sliding-window and global attention with a relative position bias), with ",
+     "devices": 2,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      },
+      {
+       "key": null,
+       "listed": false,
+       "product": "p150x2",
+       "raw": "p150x2"
+      },
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300",
+       "listed": true,
+       "product": "BH P300",
+       "raw": "p300"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "raahemnabeel",
+     "perf": {
+      "board": "p300x2",
+      "chips": 4,
+      "decode": 123.0,
+      "measured": true,
+      "ttft": 487.0
+     },
+     "readable": true,
+     "reasoningParser": "inkling",
+     "repo": "raahemnabeel/inkling-2-mini",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": "inkling",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: inkling",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: inkling",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: inkling",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: inkling",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: inkling",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Inkling",
+   "hardware": [
+    "BH 4xP150",
+    "BH P300",
+    "BH QuietBox 2",
+    "p150",
+    "p150x2"
+   ],
+   "id": "inkling-2-mini",
+   "impls": [],
+   "inSpec": false,
+   "kind": "VLM",
+   "kindFrom": "the task tag on the original model's Hugging Face card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Inkling-2-Mini",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": {
+    "board": "p300x2",
+    "chips": 4,
+    "decode": 123.0,
+    "decodeText": "123",
+    "hardware": "BH QuietBox 2",
+    "measured": true,
+    "ttft": 487.0,
+    "ttftText": "487 ms"
+   },
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "inkling",
+   "rows": [],
+   "serve": "raahemnabeel/inkling-2-mini",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Inkling-2-Mini, a 26.4B-parameter looped mixture-of-experts model, with image input.",
+   "toolParser": "inkling",
+   "upstream": "thinkingmachines/Inkling-2-Mini",
+   "weights": "thinkingmachines/Inkling-2-Mini"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Inkling-2-Mini, a 26.4B-parameter looped MoE language model — 24 layers of which 6-17 run three times, 128-expert top-8 MoE in every layer, sliding-window + full attention without RoPE.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Inkling-2-Mini, a 26.4B-parameter (3.4B active) looped MoE language model — 24 layers of which 6-17 run three times (48 layer applications per token), 128-expert top-8 MoE in every layer, sliding-window + full attention without RoPE, native",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "Lottolabs",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 124.3,
+      "measured": true,
+      "ttft": 120.0
+     },
+     "readable": true,
+     "reasoningParser": "inkling2",
+     "repo": "Lottolabs/Inkling-2-Mini-TT-Mixed-BFP4-BFP8-P150-tt-model",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "inkling2",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: inkling2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: inkling2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: inkling2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: inkling2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: inkling2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Inkling",
+   "hardware": [
+    "p150"
+   ],
+   "id": "inkling-2-mini-tt-mixed-bfp4-bfp8-p150",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Inkling-2-Mini-TT-Mixed-BFP4-BFP8-P150",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 124.3,
+    "decodeText": "124",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": 120.0,
+    "ttftText": "120 ms"
+   },
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "inkling2",
+   "rows": [],
+   "serve": "Lottolabs/Inkling-2-Mini-TT-Mixed-BFP4-BFP8-P150-tt-model",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Inkling-2-Mini, a 26.4B-parameter looped MoE language model — 24 layers of which 6-17 run three times, 128-expert top-8 MoE in every layer, sliding-window + full attention without RoPE.",
+   "toolParser": "inkling2",
+   "upstream": "Lottolabs/Inkling-2-Mini-TT-Mixed-BFP4-BFP8-P150",
+   "weights": "Lottolabs/Inkling-2-Mini-TT-Mixed-BFP4-BFP8-P150"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Inkling-Small, a 276B-parameter mixture-of-experts model, served through a hybrid-MoE overlay: the experts do not fit in the 4 dies' DRAM, so each layer's 175 most-used experts stay on the device.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Inkling-Small, a 276B-parameter mixture-of-experts model (12B active; 42 layers, 256 routed + 2 shared experts per MoE layer, top-6; sliding-window and global attention with a learned relative bias; short convolutions), served through a hyb",
+     "devices": 4,
+     "hardware": [
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "inkling",
+     "repo": "raahemnabeel/inkling-small-hybrid-qb2",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": "inkling",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: inkling",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: inkling",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: inkling",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: inkling",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: inkling",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Inkling",
+   "hardware": [
+    "BH QuietBox 2"
+   ],
+   "id": "inkling-small",
+   "impls": [],
+   "inSpec": false,
+   "kind": "VLM",
+   "kindFrom": "the task tag on the original model's Hugging Face card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Inkling-Small",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": null,
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "inkling",
+   "rows": [],
+   "serve": "raahemnabeel/inkling-small-hybrid-qb2",
+   "singleCard": false,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Inkling-Small, a 276B-parameter mixture-of-experts model, served through a hybrid-MoE overlay: the experts do not fit in the 4 dies' DRAM, so each layer's 175 most-used experts stay on the device.",
+   "toolParser": "inkling",
+   "upstream": "thinkingmachines/Inkling-Small",
+   "weights": "thinkingmachines/Inkling-Small"
   },
   {
    "bundles": [
@@ -11099,6 +11737,262 @@
    "toolParser": "lfm2",
    "upstream": "LiquidAI/LFM2.5-24B-A2B",
    "weights": "LiquidAI/LFM2.5-24B-A2B"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "LFM2.5-24B-A2B, a 24B-parameter hybrid MoE language model — 40 layers of gated short convolutions and grouped-query attention, 64-expert top-4 MoE from layer 2.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "LFM2.5-24B-A2B, a 24B-parameter (about 2B active) hybrid MoE language model — 40 layers of gated short convolutions and grouped-query attention, 64-expert top-4 MoE from layer 2, 131,072-token context — served text-only through vLLM's OpenA",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/Lottolabs/LFM2.5-24B-A2B-TT-Mixed-BFP4-BFP8-P150/blob/58f343ec7a6543c58c82a244f0463967fd0f7317/LICENSE",
+      "name": "LFM Open License v1.0"
+     },
+     "owner": "Lottolabs",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 169.4,
+      "measured": true,
+      "ttft": 61.0
+     },
+     "readable": true,
+     "reasoningParser": "lfm2",
+     "repo": "Lottolabs/LFM2.5-24B-A2B-TT-Mixed-BFP4-BFP8-P150-tt-model",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "lfm2",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: lfm2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: lfm2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: lfm2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: lfm2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: lfm2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "LFM",
+   "hardware": [
+    "p150"
+   ],
+   "id": "lfm2-5-24b-a2b-tt-mixed-bfp4-bfp8-p150",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "LFM Open License v1.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "LFM2.5-24B-A2B-TT-Mixed-BFP4-BFP8-P150",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 169.4,
+    "decodeText": "169",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": 61.0,
+    "ttftText": "61 ms"
+   },
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "lfm2",
+   "rows": [],
+   "serve": "Lottolabs/LFM2.5-24B-A2B-TT-Mixed-BFP4-BFP8-P150-tt-model",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "LFM2.5-24B-A2B, a 24B-parameter hybrid MoE language model — 40 layers of gated short convolutions and grouped-query attention, 64-expert top-4 MoE from layer 2.",
+   "toolParser": "lfm2",
+   "upstream": "Lottolabs/LFM2.5-24B-A2B-TT-Mixed-BFP4-BFP8-P150",
+   "weights": "Lottolabs/LFM2.5-24B-A2B-TT-Mixed-BFP4-BFP8-P150"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "LFM3-1.7B, Liquid AI's 1.7B-parameter hybrid model, served text-only through vLLM's OpenAI API on one P150 by a custom tt-metal runtime: fused traced decode and prefill kernels, exact on-device sampling.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "LFM3-1.7B, Liquid AI's 1.7B-parameter hybrid model (13 gated short-convolution layers, 6 full-attention and 5 sliding-window attention layers, dense SwiGLU MLPs), served text-only through vLLM's OpenAI API on one P150 by a custom tt-metal r",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/Lottolabs/LFM3-1.7B-TT-Mixed-BFP4-BFP8-P150/blob/6219d705f2137e577959f5d27e0045a8548f5a37/LICENSE",
+      "name": "LFM Open License v1.0"
+     },
+     "owner": "Lottolabs",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 499.8,
+      "measured": true,
+      "ttft": null
+     },
+     "readable": true,
+     "reasoningParser": "lfm3",
+     "repo": "Lottolabs/LFM3-1.7B-TT-Mixed-BFP4-BFP8-P150-tt-model",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "lfm3",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: lfm3",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: lfm3",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: lfm3",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: lfm3",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: lfm3",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "LFM",
+   "hardware": [
+    "p150"
+   ],
+   "id": "lfm3-1-7b-tt-mixed-bfp4-bfp8-p150",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "LFM Open License v1.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "LFM3-1.7B-TT-Mixed-BFP4-BFP8-P150",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 499.8,
+    "decodeText": "500",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": null,
+    "ttftText": null
+   },
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "lfm3",
+   "rows": [],
+   "serve": "Lottolabs/LFM3-1.7B-TT-Mixed-BFP4-BFP8-P150-tt-model",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "LFM3-1.7B, Liquid AI's 1.7B-parameter hybrid model, served text-only through vLLM's OpenAI API on one P150 by a custom tt-metal runtime: fused traced decode and prefill kernels, exact on-device sampling.",
+   "toolParser": "lfm3",
+   "upstream": "Lottolabs/LFM3-1.7B-TT-Mixed-BFP4-BFP8-P150",
+   "weights": "Lottolabs/LFM3-1.7B-TT-Mixed-BFP4-BFP8-P150"
   },
   {
    "bundles": [
@@ -11976,6 +12870,126 @@
    "toolParser": null,
    "upstream": "MiniMaxAI/MiniMax-H3",
    "weights": "MiniMaxAI/MiniMax-H3"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "MiniMax-M2.7, a 230B-parameter mixture-of-experts model, served through a hybrid-MoE overlay: the model does not fit in the 4 dies' DRAM.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "MiniMax-M2.7, a 230B-parameter mixture-of-experts model (10B active, 62 layers x 256 experts, FP8 checkpoint), served through a hybrid-MoE overlay: the model does not fit in the 4 dies' DRAM, so each layer's most-used experts stay on the de",
+     "devices": 4,
+     "hardware": [
+      {
+       "key": "P150X4",
+       "listed": true,
+       "product": "BH 4xP150",
+       "raw": "p150x4"
+      },
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/main/LICENSE",
+      "name": "minimax-m2.7-non-commercial"
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "minimax_m2",
+     "repo": "raahemnabeel/minimax-m2.7-hybrid-qb2",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": "minimax_m2",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: minimax_m2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: minimax_m2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: minimax_m2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: minimax_m2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: minimax_m2",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "MiniMax",
+   "hardware": [
+    "BH 4xP150",
+    "BH QuietBox 2"
+   ],
+   "id": "minimax-m2-7",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the original model's Hugging Face card",
+   "kindInferred": false,
+   "licenses": [
+    "minimax-m2.7-non-commercial"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "MiniMax-M2.7",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": null,
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "minimax_m2",
+   "rows": [],
+   "serve": "raahemnabeel/minimax-m2.7-hybrid-qb2",
+   "singleCard": false,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "MiniMax-M2.7, a 230B-parameter mixture-of-experts model, served through a hybrid-MoE overlay: the model does not fit in the 4 dies' DRAM.",
+   "toolParser": "minimax_m2",
+   "upstream": "MiniMaxAI/MiniMax-M2.7",
+   "weights": "MiniMaxAI/MiniMax-M2.7"
   },
   {
    "bundles": [
@@ -13417,6 +14431,119 @@
    "toolParser": "qwen3_xml",
    "upstream": "ornith-ai/Ornith-1.5-35B-A3B",
    "weights": "ornith-ai/Ornith-1.5-35B-A3B"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Ornith-1.5-397B (Qwen3.5-MoE: 397B parameters, 60 layers x 512 experts, top-10, gated-delta-net linear attention with gated full attention every 4th layer) on one QB2.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Ornith-1.5-397B (Qwen3.5-MoE: 397B parameters, 60 layers x 512 experts, top-10, gated-delta-net linear attention with gated full attention every 4th layer) on one QB2. The model does not fit in the 4 dies' DRAM, so it runs through a hybrid-",
+     "devices": 4,
+     "hardware": [
+      {
+       "key": "P300X2",
+       "listed": true,
+       "product": "BH QuietBox 2",
+       "raw": "p300x2"
+      }
+     ],
+     "license": {
+      "id": "mit",
+      "link": null,
+      "name": null
+     },
+     "owner": "raahemnabeel",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "raahemnabeel/ornith-1.5-397b-hybrid-qb2",
+     "schema": "5.1",
+     "task": null,
+     "toolParser": "qwen3_xml",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_xml",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Ornith",
+   "hardware": [
+    "BH QuietBox 2"
+   ],
+   "id": "ornith-1-5-397b-fp8",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the original model's Hugging Face card",
+   "kindInferred": false,
+   "licenses": [
+    "mit"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Ornith-1.5-397B-FP8",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": null,
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "qwen3",
+   "rows": [],
+   "serve": "raahemnabeel/ornith-1.5-397b-hybrid-qb2",
+   "singleCard": false,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Ornith-1.5-397B (Qwen3.5-MoE: 397B parameters, 60 layers x 512 experts, top-10, gated-delta-net linear attention with gated full attention every 4th layer) on one QB2.",
+   "toolParser": "qwen3_xml",
+   "upstream": "ornith-ai/Ornith-1.5-397B-FP8",
+   "weights": "ornith-ai/Ornith-1.5-397B-FP8"
   },
   {
    "bundles": [
@@ -14946,6 +16073,262 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "Qwen3.5-9B, a 9B-parameter hybrid language model, served text-only through vLLM's OpenAI API by a custom tt-metal runtime with packed BFP4 projections, fused Gated-DeltaNet and SwiGLU kernels, sharded norms.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Qwen3.5-9B, a 9B-parameter hybrid language model (Gated DeltaNet linear attention + gated full attention, 32 layers, one-layer MTP head), served text-only through vLLM's OpenAI API by a custom tt-metal runtime with packed BFP4 projections, ",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "Lottolabs",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 71.4,
+      "measured": true,
+      "ttft": null
+     },
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "Lottolabs/Qwen3.5-9B-TT-BFP4-P150-tt-model",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "qwen3_coder",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Qwen",
+   "hardware": [
+    "p150"
+   ],
+   "id": "qwen3-5-9b",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Qwen3.5-9B",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 71.4,
+    "decodeText": "71",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": null,
+    "ttftText": null
+   },
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "qwen3",
+   "rows": [],
+   "serve": "Lottolabs/Qwen3.5-9B-TT-BFP4-P150-tt-model",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Qwen3.5-9B, a 9B-parameter hybrid language model, served text-only through vLLM's OpenAI API by a custom tt-metal runtime with packed BFP4 projections, fused Gated-DeltaNet and SwiGLU kernels, sharded norms.",
+   "toolParser": "qwen3_coder",
+   "upstream": "Qwen/Qwen3.5-9B",
+   "weights": "Qwen/Qwen3.5-9B"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Qwen3.5-9B, a 9B-parameter hybrid language model, served text-only through vLLM's OpenAI API by a custom tt-metal runtime with packed BFP4/BFP8 projections, fused Gated-DeltaNet and SwiGLU kernels.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Qwen3.5-9B, a 9B-parameter hybrid language model (Gated DeltaNet linear attention + gated full attention, 32 layers, one-layer MTP head), served text-only through vLLM's OpenAI API by a custom tt-metal runtime with packed BFP4/BFP8 projecti",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "Lottolabs",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 50.6,
+      "measured": true,
+      "ttft": null
+     },
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "Lottolabs/Qwen3.5-9B-TT-Mixed-BFP4-BFP8-P150-tt-model",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "qwen3_coder",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Qwen",
+   "hardware": [
+    "p150"
+   ],
+   "id": "qwen3-5-9b-tt-mixed-bfp4-bfp8-p150",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Qwen3.5-9B-TT-Mixed-BFP4-BFP8-P150",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 50.6,
+    "decodeText": "51",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": null,
+    "ttftText": null
+   },
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "qwen3",
+   "rows": [],
+   "serve": "Lottolabs/Qwen3.5-9B-TT-Mixed-BFP4-BFP8-P150-tt-model",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Qwen3.5-9B, a 9B-parameter hybrid language model, served text-only through vLLM's OpenAI API by a custom tt-metal runtime with packed BFP4/BFP8 projections, fused Gated-DeltaNet and SwiGLU kernels.",
+   "toolParser": "qwen3_coder",
+   "upstream": "Lottolabs/Qwen3.5-9B-TT-Mixed-BFP4-BFP8-P150",
+   "weights": "Lottolabs/Qwen3.5-9B-TT-Mixed-BFP4-BFP8-P150"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
      "blurb": "",
      "bundleKind": "vllm-plugin",
      "context": "256K",
@@ -15108,6 +16491,74 @@
    "bundles": [
     {
      "arch": "blackhole",
+     "blurb": "Qwen3.6-35B-A3B, a 35B-parameter hybrid MoE language model — 40 layers of Gated DeltaNet linear attention and gated full attention, 256-expert MoE with a shared expert.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Qwen3.6-35B-A3B, a 35B-parameter (3B active) hybrid MoE language model — 40 layers of Gated DeltaNet linear attention and gated full attention, 256-expert MoE with a shared expert, native 262,144-token context — served text-only through vLL",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "Lottolabs",
+     "perf": null,
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "Lottolabs/Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150-batched-tt-model",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "qwen3_coder",
+     "updated": "2026-11-24"
+    },
+    {
+     "arch": "blackhole",
+     "blurb": "Qwen3.6-35B-A3B, a 35B-parameter hybrid MoE language model — 40 layers of Gated DeltaNet linear attention and gated full attention, 256-expert MoE with a shared expert, native 262,144-token context.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Qwen3.6-35B-A3B, a 35B-parameter (3B active) hybrid MoE language model — 40 layers of Gated DeltaNet linear attention and gated full attention, 256-expert MoE with a shared expert, native 262,144-token context, one MTP head — served text-on",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "Lottolabs",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 138.8,
+      "measured": true,
+      "ttft": 230.0
+     },
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "Lottolabs/Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150-tt-model",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": "qwen3_coder",
+     "updated": "2026-11-24"
+    },
+    {
+     "arch": "blackhole",
      "blurb": "Qwen3.6-35B-A3B served entirely from one Tenstorrent Blackhole p100a card, with an OpenAI- and Anthropic-compatible API.",
      "bundleKind": "http-server",
      "context": null,
@@ -15134,39 +16585,222 @@
      "updated": "2026-11-15"
     }
    ],
-   "clients": [],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
    "family": "Qwen",
    "hardware": [
-    "p100a"
+    "p100a",
+    "p150"
    ],
    "id": "qwen3-6-35b-a3b-tt-mixed-bfp4-bfp8-p150",
    "impls": [],
    "inSpec": false,
    "kind": "LLM",
-   "kindFrom": "the task tag on the original model's Hugging Face card",
+   "kindFrom": "the task tag on the bundle's card",
    "kindInferred": false,
-   "licenses": [],
+   "licenses": [
+    "apache-2.0"
+   ],
    "minDiskGb": null,
    "minRamGb": null,
    "modalities": null,
    "modelType": null,
    "name": "Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150",
-   "newest": "2026-11-15",
+   "newest": "2026-11-24",
    "params": null,
-   "perf": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 138.8,
+    "decodeText": "139",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": 230.0,
+    "ttftText": "230 ms"
+   },
    "purpose": null,
    "purposeFrom": null,
-   "reasoningParser": null,
+   "reasoningParser": "qwen3",
    "rows": [],
-   "serve": "sunandbean/qwen3.6-35b-a3b-p100a",
-   "singleCard": false,
+   "serve": "Lottolabs/Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150-tt-model",
+   "singleCard": true,
    "source": "tt-model bundle",
    "status": null,
    "studio": null,
-   "summary": "Qwen3.6-35B-A3B served entirely from one Tenstorrent Blackhole p100a card, with an OpenAI- and Anthropic-compatible API.",
-   "toolParser": null,
+   "summary": "Qwen3.6-35B-A3B, a 35B-parameter hybrid MoE language model — 40 layers of Gated DeltaNet linear attention and gated full attention, 256-expert MoE with a shared expert, native 262,144-token context.",
+   "toolParser": "qwen3_coder",
    "upstream": "Lottolabs/Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150",
    "weights": "Lottolabs/Qwen3.6-35B-A3B-TT-Mixed-BFP4-BFP8-P150"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Qwen3.8-27B, a 27B-parameter hybrid Gated DeltaNet / gated-attention model with image and video input, served through vLLM's OpenAI API by a custom tt-metal runtime on one P150, at the model's native 262,144-token context by default.",
+     "bundleKind": "vllm-plugin",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Qwen3.8-27B, a 27B-parameter hybrid Gated DeltaNet / gated-attention model with image and video input, served through vLLM's OpenAI API by a custom tt-metal runtime on one P150, at the model's native 262,144-token context by default: a page",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "apache-2.0",
+      "link": null,
+      "name": null
+     },
+     "owner": "Lottolabs",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 50.1,
+      "measured": true,
+      "ttft": 200.0
+     },
+     "readable": true,
+     "reasoningParser": "qwen3",
+     "repo": "Lottolabs/Qwen3.8-27B-TT-Mixed-BFP4-BFP8-P150-tt-model",
+     "schema": "5.1",
+     "task": "image-text-to-text",
+     "toolParser": "qwen3_coder",
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [
+    {
+     "checked": false,
+     "id": "opencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "pi",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "aider",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "qwencode",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "hermes",
+     "note": "Tool calling: qwen3_coder",
+     "type": "Terminal"
+    },
+    {
+     "checked": false,
+     "id": "openwebui",
+     "note": "Any chat model",
+     "type": "Web service"
+    },
+    {
+     "checked": false,
+     "id": "anythingllm",
+     "note": "Any chat model",
+     "type": "Web service"
+    }
+   ],
+   "family": "Qwen",
+   "hardware": [
+    "p150"
+   ],
+   "id": "qwen3-8-27b-tt-mixed-bfp4-bfp8-p150",
+   "impls": [],
+   "inSpec": false,
+   "kind": "VLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "apache-2.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Qwen3.8-27B-TT-Mixed-BFP4-BFP8-P150",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 50.1,
+    "decodeText": "50",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": 200.0,
+    "ttftText": "200 ms"
+   },
+   "purpose": null,
+   "purposeFrom": null,
+   "reasoningParser": "qwen3",
+   "rows": [],
+   "serve": "Lottolabs/Qwen3.8-27B-TT-Mixed-BFP4-BFP8-P150-tt-model",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Qwen3.8-27B, a 27B-parameter hybrid Gated DeltaNet / gated-attention model with image and video input, served through vLLM's OpenAI API by a custom tt-metal runtime on one P150, at the model's native 262,144-token context by default.",
+   "toolParser": "qwen3_coder",
+   "upstream": "Lottolabs/Qwen3.8-27B-TT-Mixed-BFP4-BFP8-P150",
+   "weights": "Lottolabs/Qwen3.8-27B-TT-Mixed-BFP4-BFP8-P150"
   },
   {
    "bundles": [
@@ -15420,6 +17054,91 @@
    "toolParser": "qwen3_xml",
    "upstream": "Qwen/Qwen3.8-Flash-Next",
    "weights": "Qwen/Qwen3.8-Flash-Next"
+  },
+  {
+   "bundles": [
+    {
+     "arch": "blackhole",
+     "blurb": "Qwen3.8-Flash-Next Coder: a 256-expert MoE language model for coding at IQ1M, running on one P150 through Strata's tt backend — every dense part on the card with decode steps captured as device traces, the routed experts as GPTQ BFP4 rows.",
+     "bundleKind": "http-server",
+     "context": null,
+     "decision": false,
+     "descriptionHead": "Qwen3.8-Flash-Next Coder: a 256-expert MoE language model for coding (Gated DeltaNet + sparse QSA attention, hyper-connections, per-layer embeddings, an MTP draft layer) at IQ1_M, running on one P150 through Strata's `tt` backend — every de",
+     "devices": 1,
+     "hardware": [
+      {
+       "key": "P150",
+       "listed": true,
+       "product": "p150",
+       "raw": "p150"
+      }
+     ],
+     "license": {
+      "id": "other",
+      "link": "https://huggingface.co/Lottolabs/Qwen3.8-Flash-Next-Coder-P150/blob/69e738b2c8602ca93097ba0261a7649e4e71df04/LICENSE",
+      "name": "Qwen Community License 1.0"
+     },
+     "owner": "Lottolabs",
+     "perf": {
+      "board": null,
+      "chips": null,
+      "decode": 41.1,
+      "measured": true,
+      "ttft": null
+     },
+     "readable": true,
+     "reasoningParser": null,
+     "repo": "Lottolabs/Qwen3.8-Flash-Next-Coder-P150-tt-model",
+     "schema": "5.1",
+     "task": "text-generation",
+     "toolParser": null,
+     "updated": "2026-11-24"
+    }
+   ],
+   "clients": [],
+   "family": "Qwen",
+   "hardware": [
+    "p150"
+   ],
+   "id": "qwen3-8-flash-next-coder-p150",
+   "impls": [],
+   "inSpec": false,
+   "kind": "LLM",
+   "kindFrom": "the task tag on the bundle's card",
+   "kindInferred": false,
+   "licenses": [
+    "Qwen Community License 1.0"
+   ],
+   "minDiskGb": null,
+   "minRamGb": null,
+   "modalities": null,
+   "modelType": null,
+   "name": "Qwen3.8-Flash-Next-Coder-P150",
+   "newest": "2026-11-24",
+   "params": null,
+   "perf": {
+    "board": "p150",
+    "chips": 1,
+    "decode": 41.1,
+    "decodeText": "41",
+    "hardware": "p150",
+    "measured": true,
+    "ttft": null,
+    "ttftText": null
+   },
+   "purpose": "code",
+   "purposeFrom": "the model's name",
+   "reasoningParser": null,
+   "rows": [],
+   "serve": "Lottolabs/Qwen3.8-Flash-Next-Coder-P150-tt-model",
+   "singleCard": true,
+   "source": "tt-model bundle",
+   "status": null,
+   "studio": null,
+   "summary": "Qwen3.8-Flash-Next Coder: a 256-expert MoE language model for coding at IQ1M, running on one P150 through Strata's tt backend — every dense part on the card with decode steps captured as device traces, the routed experts as GPTQ BFP4 rows.",
+   "toolParser": null,
+   "upstream": "Lottolabs/Qwen3.8-Flash-Next-Coder-P150",
+   "weights": "Lottolabs/Qwen3.8-Flash-Next-Coder-P150"
   },
   {
    "bundles": [
@@ -17154,7 +18873,7 @@
   }
  ],
  "spec": {
-  "commit": "63b6b292b",
+  "commit": "ca6f85edb",
   "release": "0.26.1"
  },
  "unclassified": [],
